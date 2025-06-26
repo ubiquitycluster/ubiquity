@@ -1,0 +1,75 @@
+#network_interfaces:
+#  - name: bond0
+#    device: bond0
+#    slaves: 'ens2f0np0,ens2f1np1'
+#    bond_opts: 'mode=802.3ad;miimon=100'
+#    ip: 10.203.0.1
+#    hostname: true
+#    netmask: 255.255.252.0
+#    cidr: 22
+#    type: bond
+#    gateway: 10.203.3.254
+#  - name: vlan580
+#    device: bond0
+#    ip: 10.203.250.1
+#    netmask: 255.255.255.0
+#    gateway: 10.203.250.254
+#    cidr: 24
+#    type: vlan
+#    nameserver: '8.8.8.8,1.1.1.1'
+#    vlanid: 580
+#  - name: vlan140
+#    device: bond0
+#    ip: 192.168.187.251
+#    cidr: 22
+#    type: vlan
+#    netmask: 255.255.252.0
+#    vlanid: 140
+#  - name: vlan400
+#    device: bond0
+#    ip: 10.203.40.1
+#    cidr: 22
+#    type: vlan
+#    netmask: 255.255.252.0
+#    vlanid: 400
+#  - name: ibs1
+#    device: ibs1
+#    cidr: 22
+#    type: infiniband
+#    ip: 10.8.0.1
+#    netmask: 255.255.252.0
+---
+flannel_interface: eno1np0
+network_interfaces:
+  - name: eno1 # This is on vlan 103 untagged, hence no vlan103 interface
+    device: eno1
+    ip: 10.1.0.2
+    hostname: true
+    cidr: 22
+    netmask: 255.255.252.0
+    #gateway: 10.199.251.125
+  - name: vlan121
+    device: eno1np0
+    ip: 10.148.121.25
+    cidr: 24
+    netmask: 255.255.255.0
+    gateway: 10.148.121.254
+    nameserver: '10.144.1.248'
+    vlanid: 121
+  - name: vlan102
+    device: eno1np0
+    ip: 10.0.3.252
+    cidr: 22
+    netmask: 255.255.252.0
+    vlanid: 102
+  - name: vlan400
+    device: eno1np0
+    ip: 10.3.0.2
+    cidr: 22
+    netmask: 255.255.252.0
+    vlanid: 400
+  - name: ib0
+    device: ib0
+    ip: 10.8.0.2
+    cidr: 22
+    netmask: 255.255.252.0

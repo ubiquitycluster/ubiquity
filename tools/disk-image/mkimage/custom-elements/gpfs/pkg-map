@@ -1,0 +1,24 @@
+{
+    "family": {
+        "redhat": {
+            "perl": "perl",
+            "tcsh": "tcsh",
+            "tk": "tk",
+            "gcc-gfortran": "gcc-gfortran",
+            "tcl": "tcl",
+            "make": "make",
+            "createrepo": "createrepo",
+            "rpm-build": "rpm-build",
+            "gcc":"gcc",
+            "python3-dnf-plugin-versionlock":"python3-dnf-plugin-versionlock",
+            "dkms":"dkms",
+            "gtk2":"gtk2",
+            "numactl-libs":"numactl-libs",
+            "fuse-libs":"fuse-libs",
+            "atk":"atk",
+            "cairo":"cairo",
+            "pciutils":"pciutils",
+            "python-devel":"python-devel"
+        }
+    }
+}

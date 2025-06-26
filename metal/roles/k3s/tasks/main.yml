@@ -1,0 +1,113 @@
+---
+- name: Retrieve package facts
+  package_facts:
+    manager: "auto"
+  tags: always
+
+- include_tasks:
+    file: k3s_dependencies.yml
+    apply:
+      tags: always
+  tags: always
+
+- include_tasks:
+    file: k3s_binary.yml
+    apply:
+      tags: always
+  tags: always
+
+- name: Check if cluster is already bootstrapped
+  command: |
+    {{ kubectl_cmd }} get nodes
+  register: bootstrap_ran
+  failed_when: no
+  delegate_to: localhost
+  changed_when: no
+
+#- name: Check master node is up
+#  include_tasks:
+#    file: check_master.yml
+#    apply:
+#      tags: always
+#  tags: always
+
+- name: Setup control-plane
+  block:
+    # tasks file for k3s-deploy
+
+    - include_tasks:
+        file: cluster_keepalived.yml
+        apply:
+          tags: always
+      tags: server
+
+    - include_tasks:
+        file: cluster_bootstrap.yml
+        apply:
+          tags: always
+      tags: bootstrap
+
+  when: "'masters' in group_names"
+
+- name: Get k3s token from the first node
+  run_once: true
+  ansible.builtin.slurp:
+    src: "{{ k3s_token_file }}"
+  register: k3s_token_base64
+
+- name: Ensure all nodes has the same token
+  ansible.builtin.copy:
+    content: "{{ k3s_token_base64.content | b64decode }}"
+    dest: "{{ k3s_token_file }}"
+    mode: 0600
+
+- name: Get Kubernetes config file
+  run_once: true
+  ansible.builtin.slurp:
+    src: /etc/rancher/k3s/k3s.yaml
+  register: kubeconfig_base64
+
+- name: Write Kubernetes config file with the correct cluster address
+  ansible.builtin.copy:
+    content: "{{ kubeconfig_base64.content | b64decode | replace('0.0.0.0', keepalived_ip) }}"
+    dest: "{{ playbook_dir }}/kubeconfig.yaml"
+    mode: 0600
+  delegate_to: localhost
+  run_once: true
+
+- include_tasks:
+    file: cluster_agent.yml
+    apply:
+      tags: always
+  tags: agent
+  when: "'workers' in group_names"
+
+- include_tasks:
+    file: cluster_hardening.yml
+    apply:
+      tags: always
+  tags: hardening
+
+- name: label master nodes
+  ansible.builtin.command:
+    cmd: kubectl label nodes "{{ item }}.{{ cluster_domain }}" node-role.kubernetes.io/master=true ceph-rgw=enabled
+  delegate_to: localhost
+  with_items: "{{ groups ['masters'] }}"
+  ignore_errors: true
+  when: groups ['masters'] is defined
+
+- name: label worker nodes
+  ansible.builtin.command:
+    cmd: kubectl label nodes "{{ item }}.{{ cluster_domain }}" node-role.kubernetes.io/worker=true ceph-rgw=enabled
+  delegate_to: localhost
+  with_items: "{{ groups ['workers'] }}"
+  ignore_errors: true
+  when: groups ['workers'] is defined
+
+- name: label storage nodes
+  command: 
+    cmd: kubectl label nodes "{{ item }}.{{ cluster_domain }}" rook=enabled
+  delegate_to: localhost
+  with_items: "{{ groups ['storage'] }}"
+  ignore_errors: true
+  when: groups ['storage'] is defined

@@ -1,0 +1,121 @@
+#cloud-config
+users:
+  - name: ${sudoer_username}
+    groups: adm, wheel, systemd-journal
+    homedir: /${sudoer_username}
+    selinux_user: unconfined_u
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    ssh_authorized_keys:
+%{ for key in ssh_authorized_keys ~}
+      - ${key}
+%{ endfor ~}
+      - ${master_key}
+
+package_update: true
+packages:
+  - python3-pip
+  - git
+  - pciutils
+  - unzip
+
+runcmd:
+  # Verify ${sudoer_username} was created with the right homedir. If it wasn't
+  # the user with the corresponding username is entirely removed, cloud-init is
+  # cleaned and the system is rebooted. This happens when configuring from images
+  # that were customised.
+  - test ! -d /${sudoer_username} && userdel -f -r ${sudoer_username} && cloud-init clean -r
+  - restorecon -R /${sudoer_username}
+  - sed -i '/HostKey \/etc\/ssh\/ssh_host_ecdsa_key/ s/^#*/#/' /etc/ssh/sshd_config
+  - chmod 644 /etc/ssh/ssh_host_*_key.pub
+  - chgrp ssh_keys /etc/ssh/ssh_host_*_key.pub
+  - systemctl restart sshd
+  # Enable fastest mirror for distribution using dnf package manager
+  - test -f /etc/dnf/dnf.conf && (grep -qxF "fastestmirror=True" /etc/dnf/dnf.conf || echo "fastestmirror=True" >> /etc/dnf/dnf.conf)
+  # Install package and configure kernel only if building from a "vanilla" linux image
+  - |
+    if ! test -f /etc/ubiquity-release; then
+      if test -f /etc/redhat-release; then
+        # Install required packages in runcmd instead of packages to speedup configuration
+        # of the admin user. This reduces the risk of Terraform timing out when trying to
+        # upload the terraform_data.yaml
+        yum remove -y firewalld --exclude=iptables
+        # Upgrade all packages except ansible if already installed
+        yum -y upgrade -x ansible*
+        # kernel configuration
+        systemctl disable kdump
+        sed -i 's/crashkernel=auto/crashkernel=no/' /etc/default/grub
+        sed -i 's/GRUB_CMDLINE_LINUX="[^"]*/& nouveau.modeset=0 rd.driver.blacklist=nouveau/' /etc/default/grub
+        grub2-mkconfig -o /boot/grub2/grub.cfg
+      elif test -f /etc/debian_version; then
+        # Install required packages in runcmd instead of packages to speedup configuration
+        # of the admin user. This reduces the risk of Terraform timing out when trying to
+        # upload the terraform_data.yaml
+        apt-get remove -y --purge unattended-upgrades
+        apt-get update
+        apt-get -y upgrade
+        # kernel configuration
+        sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="[^"]*/& nouveau.modeset=0/' /etc/default/grub
+        update-grub
+      fi
+    fi
+%{ if contains(tags, "ansible") }
+  # Install ansible
+  - python3 -m pip install --upgrade pip
+  - python3 -m pip install ansible
+  # Install ansible requirements
+  #- pip3 install -r /etc/ansible/requirements.txt
+  # Bootstrap services that are essential to the ansible repo
+  #- git clone htttps://github.com/logicalisuki/ubiq-playbooks.git /etc/ansible 
+%{ endif }
+# Remove all ifcfg configuration files that have no corresponding network interface in ip link show.
+  - for i in /etc/sysconfig/network-scripts/ifcfg-*; do if ! ip link show | grep -q "$${i##*-}:"; then rm -f $i; fi; done
+# AWS EFA driver installation
+%{ if contains(tags, "efa") }
+  - curl -O https://efa-installer.amazonaws.com/aws-efa-installer-latest.tar.gz
+  - "(tar xf aws-efa-installer-latest.tar.gz && cd aws-efa-installer && ./efa_installer.sh --yes --minimal)"
+  - rm -fr aws-efa-installer aws-efa-installer-latest.tar.gz
+%{ endif }
+  # If the current image has already been configured with Ubiquity ansible environment,
+  # we can start services and skip reboot, reducing the delay for bringing the node up.
+  - test -f /etc/ubiquity-release && systemctl start ssh
+  - touch /etc/ubiquity-release
+
+write_files:
+  - content: |
+%{ if contains(tags, "ansible") }
+      127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4 ansible
+%{ else }
+      127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+%{ for ip in ansibleserver_ip ~}
+      ${ip} ansible
+%{ endfor ~}
+%{ endif }
+    path: /etc/hosts
+    permissions: "0644"
+%{ if contains(tags, "ansible") }
+  - content: |
+      ---
+      custom_attributes:
+        1.2.840.113549.1.9.7: "${ansibleserver_password}"
+    path: /etc/ansible/certs/csr_attributes.yaml
+    permissions: "0640"
+%{ endif }
+  - content: |
+
+ssh_keys:
+%{ for key, values in hostkeys ~}
+  ${key}_public: |
+    ${indent(4, values["public"])}
+  ${key}_private: |
+    ${indent(4, values["private"])}
+%{ endfor ~}
+
+disable_ec2_metadata: false
+timezone: "UTC"
+fqdn: "${node_name}"
+manage_etc_hosts: false
+output: { all: "| tee -a /var/log/cloud-init-output.log" }
+power_state:
+  delay: now
+  mode: reboot
+  condition: test ! -f /etc/ubiquity-release

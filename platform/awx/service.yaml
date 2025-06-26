@@ -1,0 +1,17 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: lb
+  namespace: awx
+  annotations:
+    metallb.universe.tf/address-pool: internal
+    metallb.universe.tf/loadBalancerIPs: 10.1.3.240
+spec:
+  type: LoadBalancer
+  selector:
+    app.kubernetes.io/name: awx-ubiquity 
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: web

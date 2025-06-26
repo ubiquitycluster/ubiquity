@@ -1,0 +1,11 @@
+dn: ou=Group,dc=ubiquity,dc=cluster
+ou: Group
+objectClass: top
+objectClass: organizationalUnit
+
+dn: cn=ubiqsupport,ou=Group,dc=ubiquity,dc=cluster
+objectClass: posixGroup
+objectClass: top
+cn: ubiqsupport
+gidNumber: 1000
+

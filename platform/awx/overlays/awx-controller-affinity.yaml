@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    control-plane: controller-manager
+  name: awx-operator-controller-manager
+  namespace: awx
+spec:
+  template:
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/default-container: awx-manager
+      labels:
+        control-plane: controller-manager
+    spec:
+      nodeSelector:
+        node-role.kubernetes.io/master: "true"

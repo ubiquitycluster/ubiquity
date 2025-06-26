@@ -1,0 +1,71 @@
+# Create PersistentVolume and PersistentVolumeClaim for CVMFS automounts.
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  # PV name contains namespace name of its target PVC so that we can distiguish it easier.
+  name: cvmfs-eessi-io
+spec:
+  csi:
+    driver: cvmfs.csi.cern.ch
+    volumeHandle: cvmfs-eessi-io
+
+    volumeAttributes:
+      repository: eessi.io
+      sharedMountID: eessi-io
+      clientConfig: |
+        CVMFS_SERVER_URL="http://aws-eu-central-s1.eessi.science/cvmfs/@fqrn@;http://azure-us-east-s1.eessi.science/cvmfs/@fqrn@"
+        CVMFS_KEYS_DIR=/etc/cvmfs/keys/eessi.io
+        CVMFS_HTTP_PROXY=DIRECT
+
+  accessModes:
+  - ReadOnlyMany
+  capacity:
+    # Volume size value has no effect and is ignored
+    # by the driver, but must be non-zero.
+    storage: 1
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: cvmfs-eessi-io
+  namespace: hpc-ubiq
+spec:
+  accessModes:
+  - ReadOnlyMany
+  resources:
+    requests:
+      storage: 1
+  # volumeName must match the name we have set in the PersistentVolume defined above.
+  volumeName: cvmfs-eessi-io
+  # Storage class name must be set to an empty string "".
+  storageClassName: ""
+
+
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: cvmfs-eessi-io
+  namespace: hpc-ubiq
+
+provisioner: cvmfs.csi.cern.ch
+parameters:
+  # Repository address goes here.
+  repository: atlas-nightlies.cern.ch
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: cvmfs-eessi-io
+  namespace: hpc-ubiq
+
+spec:
+  accessModes:
+  - ReadOnlyMany
+  resources:
+    requests:
+      # Volume size value has no effect and is ignored
+      # by the driver, but must be non-zero.
+      storage: 1
+  storageClassName: cvmfs-eessi-io

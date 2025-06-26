@@ -1,0 +1,141 @@
+# Copyright 2023 Logicalis UKI. All Rights Reserved.
+#
+# Licensed under the Functional Source License, Version 1.0, Apache 2.0 Change License (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://github.com/logicalisuki/ubiquity/blob/main/LICENSE.md
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# It also allows for the transition of this software to an Apache 2.0 Licence
+# on the second anniversary of the date we make the software available.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+
+# Cilium Install tasks
+- name: "Cilium | Create namespace"
+  kubernetes.core.k8s:
+    name: "{{ cilium_namespace }}"
+    api_version: v1
+    kind: Namespace
+    state: present
+  delegate_to: "{{ cilium_delegate_to }}"
+  run_once: true
+
+- name: "Cilium | Include Helm repository tasks"
+  ansible.builtin.include_tasks:
+    file: helm_repository.yml
+
+- name: "Cilium | BPFFS handling for Ubuntu 18.04"
+  when:
+    - ansible_lsb.release is defined
+    - ansible_lsb.release is version('20.04', '<')
+  block:
+    - name: "Cilium | Install systemd unit file for mounting BPFFS"
+      ansible.builtin.copy:
+        src: "files/etc/systemd/system/sys-fs-bpf.mount"
+        dest: "/etc/systemd/system/sys-fs-bpf.mount"
+        mode: 0644
+        owner: root
+        group: root
+      notify:
+        - Reload systemd
+
+    - name: "Cilium | Enable and mount BPFFSS"
+      ansible.builtin.service:
+        name: sys-fs-bpf.mount
+        enabled: true
+        state: started
+
+# See https://github.com/cilium/cilium/issues/10645
+- name: Set net.ipv4.conf.*.rp_filter to 0 for systemd 245 workaround
+  when: ansible_facts.packages.systemd[0].version is version('245', '>=')
+  sysctl:
+    name: "{{ item }}"
+    value: "0"
+    sysctl_file: /etc/sysctl.d/99-z-rp_filter.conf
+    reload: true
+  with_items:
+    - net.ipv4.conf.all.rp_filter
+    - net.ipv4.conf.default.rp_filter
+
+- name: "Cilium | Install Cilium etcd secrets in k8s"
+  when:
+    - cilium_etcd_enabled is defined
+    - cilium_etcd_enabled == "true"
+    - cilium_etcd_secrets_name is defined
+  kubernetes.core.k8s:
+    state: present
+    definition: "{{ lookup('template', 'etcd-secrets.yml.j2') }}"
+    namespace: "{{ cilium_namespace }}"
+  delegate_to: "{{ cilium_delegate_to }}"
+  run_once: true
+
+- name: "Cilium | Install Cilium via Helm"
+  block:
+    - name: "Cilium | Create temporary file for Helm values"
+      ansible.builtin.tempfile:
+        state: file
+        suffix: cilium_values
+      delegate_to: "{{ cilium_delegate_to }}"
+      run_once: true
+      register: cilium__values_tmp_file
+
+    - name: "Cilium | Select values file for Helm template"
+      ansible.builtin.template:
+        src: "{{ lookup('first_found', params) }}"
+        dest: "{{ cilium__values_tmp_file.path }}"
+        mode: 0600
+      delegate_to: "{{ cilium_delegate_to }}"
+      run_once: true
+      vars:
+        params:
+          files:
+            - cilium_values_user.yml.j2
+            - cilium_values_default.yml.j2
+          paths:
+            - templates
+
+    - name: "Cilium | Install chart"
+      kubernetes.core.helm:
+        name: "{{ cilium_release_name }}"
+        chart_ref: "{{ cilium_chart_name }}"
+        chart_version: "{{ cilium_chart_version }}"
+        release_namespace: "{{ cilium_namespace }}"
+        create_namespace: false
+        update_repo_cache: true
+        values_files:
+          - "{{ cilium__values_tmp_file.path }}"
+      run_once: true
+      delegate_to: "{{ cilium_delegate_to }}"
+      register: cilium__helm_install_chart
+
+    - name: Install chart (helm command executed)
+      when:
+        - cilium__helm_install_chart is defined
+        - cilium__helm_install_chart.command is defined
+        - cilium_helm_show_commands
+      ansible.builtin.debug:
+        var: cilium__helm_install_chart.command
+      delegate_to: "{{ cilium_delegate_to }}"
+      run_once: true
+
+    - name: Delete temporary file for Helm values
+      when: cilium__values_tmp_file.path is defined
+      ansible.builtin.file:
+        path: "{{ cilium__values_tmp_file.path }}"
+        state: absent
+      run_once: true
+      delegate_to: "{{ cilium_delegate_to }}"
+
+  rescue:
+    - name: Delete temporary file for Helm values
+      when: cilium__values_tmp_file.path is defined
+      ansible.builtin.file:
+        path: "{{ cilium__values_tmp_file.path }}"
+        state: absent
+      run_once: true
+      delegate_to: "{{ cilium_delegate_to }}"

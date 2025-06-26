@@ -1,0 +1,162 @@
+# Copyright 2023 Logicalis UKI. All Rights Reserved.
+#
+# Licensed under the Functional Source License, Version 1.0, Apache 2.0 Change License (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://github.com/logicalisuki/ubiquity/blob/main/LICENSE.md
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# It also allows for the transition of this software to an Apache 2.0 Licence
+# on the second anniversary of the date we make the software available.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+- name: Disable k3s services
+  ansible.builtin.systemd:
+    name: "{{ item }}"
+    state: stopped
+    enabled: no
+  failed_when: false
+  with_items:
+    - k3s-server
+    - k3s-agent
+
+- name: Wait for 5 seconds for k3s services to stop
+  ansible.builtin.wait_for:
+    timeout: 5
+  delegate_to: localhost
+
+- name: Disable k3s services - double-check
+  ansible.builtin.systemd:
+    name: "{{ item }}"
+    state: stopped
+    enabled: no
+  failed_when: false
+  with_items:
+    - k3s-server
+    - k3s-agent
+
+- name: pkill -9 -f "k3s/data/[^/]+/bin/containerd-shim-runc"
+  register: pkill_containerd_shim_runc
+  command: pkill -9 -f "k3s/data/[^/]+/bin/containerd-shim-runc"
+  changed_when: "pkill_containerd_shim_runc.rc == 0"
+  failed_when: false
+
+- name: Get directory listing
+  find:
+    path: "{{ item }}" 
+    file_type: any
+    hidden: yes
+  register: directory_content_result
+  with_items:
+    - /run/k3s
+    - /var/lib/kubelet
+    - /run/netns
+    - /var/lib/rancher/k3s
+    - /usr/local/bin/k3s
+    - /etc/rancher
+    - /var/lib/kubelet
+    - /var/lib/rancher
+    - /var/lib/cni
+    - /run/k3s
+    - /opt/cni
+    - /etc/cni
+
+- name: Remove directory content
+  file:
+    path: "{{ item.path }}" 
+    state: absent
+  with_items: "{{ directory_content_result.files }}" 
+  loop_control:
+    label: "{{ item.path }}" 
+  ignore_errors: true
+
+- name: Umount k3s filesystems
+  include_tasks: umount_with_children.yml
+  with_items:
+    - /run/k3s
+    - /var/lib/kubelet
+    - /run/netns
+    - /var/lib/rancher/k3s
+  loop_control:
+    loop_var: mounted_fs
+
+- name: Remove service files, binaries and data
+  file:
+    name: "{{ item }}"
+    state: absent
+  with_items:
+    - /usr/local/bin/k3s
+    - "{{ systemd_dir }}/k3s-server.service"
+    - "{{ systemd_dir }}/k3s-agent.service"
+    - /etc/rancher
+    - /var/lib/kubelet
+    - /var/lib/rancher
+    - /run/k3s
+    - /var/lib/cni
+    - /opt/cni
+    - /etc/cni
+  ignore_errors: true
+
+- name: daemon_reload
+  ansible.builtin.systemd:
+    daemon_reload: yes
+
+- name: Delete flannel.1 interface
+  command: ip link delete flannel.1
+  ignore_errors: True
+
+- name: Delete cni0 interface
+  command: ip link delete cni0
+  ignore_errors: True
+
+- name: Find network interfaces for Kubernetes
+  shell: "ip addr | grep {{ item }}"
+  with_items:
+    - "docker0"
+    - "flannel.1"
+    - "cni0"
+    - "tunl0"
+  register: find_eths
+  ignore_errors: True
+
+- name: Delete network interfaces for Kubernetes
+  when: item.stdout != ''
+  shell: "ip link delete {{ item.item }}"
+  with_items: "{{ find_eths['results'] }}"
+  ignore_errors: True
+
+- name: Cleanup interfaces - veth
+  shell: |
+    " for veth in $(ip a | grep veth | cut -d' ' -f 2 | rev | cut -c2- | rev | cut -d '@' -f 1 ); do ip link delete $veth; done "
+  failed_when: false
+
+- name: Cleanup interfaces - cni
+  shell: |
+    " for cni in $(ip a | grep cni | cut -d' ' -f 2 | rev | cut -c2- | rev | cut -d '@' -f 1 ); do ip link delete $cni; done "
+  failed_when: false
+
+- name: Cleanup interfaces - flannel
+  shell: |
+    " for flannel in $(ip a | grep flannel | cut -d' ' -f 2 | rev | cut -c2- | rev | cut -d '@' -f 1 ); do ip link delete $flannel; done "
+  failed_when: false
+
+- name: Remove service files, binaries and data
+  file:
+    name: "{{ item }}"
+    state: absent
+  with_items:
+    - /usr/local/bin/k3s
+    - "{{ systemd_dir }}/k3s-server.service"
+    - "{{ systemd_dir }}/k3s-agent.service"
+    - /etc/rancher
+    - /var/lib/kubelet
+    - /var/lib/rancher
+    - /run/k3s
+    - /var/lib/cni
+    - /opt/cni
+    - /etc/cni
+  ignore_errors: true

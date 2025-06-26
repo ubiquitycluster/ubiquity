@@ -1,0 +1,33 @@
+---
+- name: Download k3s binary
+  ansible.builtin.get_url:
+    url: https://github.com/k3s-io/k3s/releases/download/{{ k3s_version }}/k3s
+    checksum: sha256:https://github.com/k3s-io/k3s/releases/download/{{ k3s_version }}/sha256sum-amd64.txt
+    dest: "{{ role_path }}/files/bin/k3s"
+    mode: 0644
+  delegate_to: localhost
+  run_once: true
+  delay: 3
+  retries: 3
+  register: k3s_download
+  until: k3s_download is not failed
+
+- name: Copy k3s binary to nodes
+  ansible.builtin.copy:
+    src: bin/k3s
+    dest: /usr/local/bin/k3s
+    owner: root
+    group: root
+    mode: 0500
+
+# Workaround to the RPM/YUM hardening
+# being the GPG key enforced at rpm level, we cannot use
+# the dnf or yum module of ansible
+- name: Install SELINUX Policies # noqa command-instead-of-module
+  ansible.builtin.command: |
+    rpm --define '_pkgverify_level digest' -i {{ k3s_selinux_rpm }}
+  register: rpm_install
+  changed_when: "rpm_install.rc == 0"
+  failed_when: "'already installed' not in rpm_install.stderr and rpm_install.rc != 0"
+  when:
+    - "'libselinux' in ansible_facts.packages"

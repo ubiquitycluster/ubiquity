@@ -1,0 +1,38 @@
+---
+- name: Add worker nodes to K3s cluster
+  hosts: workers
+  become: yes
+  vars:
+    # Define your K3S token and URL of the control plane here
+    k3s_token: "K10ec0f161d1e9b57067486d7b4d0e7806295163bf986df2a90e648b1952aedaabc::server:cd74dad4de7ed1107346574128ba45c2"  # Replace with your actual token
+    k3s_url: "https://192.168.100.10:6443"  # Replace with your actual K3s control plane URL
+    kubeconfig_path: "/home/mmistry/ubiquity_dev/ucl-ubiquity-fork/metal/kubeconfig.yaml"
+
+
+  tasks:
+
+    - name: Check if K3s agent is already installed
+      stat:
+        path: /etc/systemd/system/k3s-agent.service
+      register: k3s_agent_installed
+
+    - name: Install K3s agent on worker node (if not installed)
+      shell: |
+        curl -sfL https://get.k3s.io | K3S_TOKEN="{{ k3s_token }}" K3S_URL="{{ k3s_url }}" sh -s - agent
+      when: not k3s_agent_installed.stat.exists
+
+    - name: Wait for node to be ready in the cluster
+      shell: |
+        /usr/local/bin/kubectl --kubeconfig={{ kubeconfig_path }} get nodes | grep $(hostname) | grep -v NotReady
+      register: node_ready
+      retries: 10
+      delay: 3
+      environment:
+        KUBECONFIG: "{{ kubeconfig_path }}"
+      until: node_ready.rc == 0
+
+    - name: Ensure kubelet service is running
+      systemd:
+        name: k3s-agent
+        state: started
+        enabled: yes

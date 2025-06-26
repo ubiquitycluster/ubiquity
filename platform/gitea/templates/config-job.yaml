@@ -1,0 +1,65 @@
+---
+# Copyright 2023 Logicalis UKI. All Rights Reserved.
+#
+# Licensed under the Functional Source License, Version 1.0, Apache 2.0 Change License (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://github.com/logicalisuki/ubiquity/blob/main/LICENSE.md
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# It also allows for the transition of this software to an Apache 2.0 Licence
+# on the second anniversary of the date we make the software available.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: gitea-config
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  schedule: '*/5 * * * *'
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      backoffLimit: 3
+      template:
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: apply
+              image: golang:1.17-alpine
+              env:
+                - name: GITEA_HOST
+                  value: http://gitea-http:3000
+                - name: GITEA_USER
+                  valueFrom:
+                    secretKeyRef:
+                      name: gitea-admin-secret
+                      key: username
+                - name: GITEA_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: gitea-admin-secret
+                      key: password
+              workingDir: /go/src/gitea-config
+              command:
+                - sh
+                - -c
+              args:
+                - |
+                  sleep 60
+                  go get .
+                  go run .
+              volumeMounts:
+                - name: source
+                  mountPath: /go/src/gitea-config
+          volumes:
+            - name: source
+              configMap:
+                name: gitea-config-source

@@ -1,0 +1,10 @@
+[Unit]
+Description=Turn off checksum offload on cni0
+After=sys-devices-virtual-net-cni0.device
+
+[Install]
+WantedBy=sys-devices-virtual-net-cni0.device
+
+[Service]
+Type=oneshot
+ExecStart=/sbin/ethtool -K cni0 tx-checksum-ip-generic off

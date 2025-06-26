@@ -1,0 +1,36 @@
+vrrp_script chk_k3s_server {
+    script "/usr/sbin/pidof k3s-server"
+    interval 5
+    fall 2
+    timeout 10
+}
+
+# keepalived uses VRRP over multicast by default, but Azure doesn't support multicast
+# (http://feedback.azure.com/forums/217313-azure-networking/suggestions/547215-multicast-support)
+# keepalived needs to be configured with unicast. Support for unicast was introduced only in version 1.2.8.
+
+vrrp_instance VI_1 {
+        state BACKUP
+        interface {{ keepalived_interface }}
+        virtual_router_id {{ keepalived_routerid | default('50') }}
+        priority {{ keepalived_priority | default('50') }}
+        advert_int 5
+        authentication {
+              auth_type PASS
+              auth_pass {{ keepalived_auth_pass | default('keepalived_pass' | hash('sha1')) }}
+        }
+        unicast_src_ip {{ ansible_host }}
+        unicast_peer {
+            {% for host in groups['masters'] %}
+            {% if host != inventory_hostname %}
+            {{ hostvars[host]['ansible_host'] }}
+            {% endif %}
+            {% endfor %}
+        }
+        virtual_ipaddress {
+              {{ keepalived_ip }}{{ keepalived_addr_cidr }}
+        }
+        track_script {
+              chk_k3s_server
+        }
+}

@@ -1,0 +1,123 @@
+---
+# Copyright 2023 Logicalis UKI. All Rights Reserved.
+#
+# Licensed under the Functional Source License, Version 1.0, Apache 2.0 Change License (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://github.com/logicalisuki/ubiquity/blob/main/LICENSE.md
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# It also allows for the transition of this software to an Apache 2.0 Licence
+# on the second anniversary of the date we make the software available.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+cloudcmd:
+  # IMPORTANT NOTE
+  #
+  # This chart inherits from the k8s@home library chart. You can check the default values/options here:
+  # https://github.com/k8s-at-home/library-charts/tree/main/charts/stable/common/values.yaml
+  #
+  nodeSelector:
+    node-role.kubernetes.io/master: "true"
+  image:
+    # -- image repository
+    repository: coderaiser/cloudcmd
+
+    # @default -- chart.appVersion
+    tag:
+    # -- image pull policy
+    pullPolicy: IfNotPresent
+
+  # -- Set image pull secrets
+  imagePullSecrets:
+    - name: regcred
+
+  resources:
+    requests:
+      cpu: '1'
+      memory: 100Mi
+    limits:
+      cpu: '4'
+      memory: 1024Mi
+  # -- environment variables. See [image docs](https://docs.k8s-at-home.com/our-container-images/configuration/) for more details.
+  # See https://cloudcmd.io/#environment-variables-1 for a list of supported environment variables.
+  # @default -- See values.yaml
+  env:
+     CLOUDCMD_CONFIG_AUTH: "true"
+     CLOUDCMD_CONFIG_DIALOG: "true"
+     CLOUDCMD_AUTH: "true"
+     CLOUDCMD_USERNAME: "admin"
+     CLOUDCMD_TERMINAL: "true"
+     CLOUDCMD_TERMINAL_COMMAND: "/bin/bash"
+     CLOUDCMD_PASSWORD: "admin"
+             #       valueFrom:
+             #         secretKeyRef:
+             #           name: cloudcmd-name
+             #           key: key-name
+             #CLOUDCMD_ROOT: "/data"
+
+  # Any number of volumes can be mounted below, see http://docs.k8s-at-home.com/our-helm-charts/common-library-storage for syntax
+  # @default -- See values.yaml
+  persistence:
+    data:
+      enabled: false
+      type: pvc
+
+  # Runs as root by default. Set these to whatever user/group you prefer, or leave it as root.
+  podSecurityContext: {}
+    # runAsUser: 568
+    # runAsGroup: 568
+    # fsGroup: 568
+    # runAsNonRoot: true
+
+  securityContext: {}
+    # allowPrivilegeEscalation: false
+    # runAsUser: 568
+    # runAsGroup: 568
+
+  # -- Configures service settings for the chart.
+  # @default -- See values.yaml
+  service:
+    main:
+      ports:
+        http:
+          port: 8000
+
+    # -- Enable and configure ingress settings for the chart under this key.
+    # @default -- See values.yaml
+  ingress:
+    main:
+      enabled: true
+      ingressClassName: nginx
+      annotations:
+        # See ../docs/reference/ingress.md for more information
+        nginx.ingress.kubernetes.io/affinity: cookie
+        nginx.ingress.kubernetes.io/session-cookie-name: route
+        nginx.ingress.kubernetes.io/session-cookie-expires: '172800'
+        nginx.ingress.kubernetes.io/session-cookie-max-age: '172800'
+        #cert-manager.io/cluster-issuer: 
+        # - letsencrypt-prod
+        # - letsencrypt-staging
+        # - pebble-issuer
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+        # type of authentication
+        nginx.ingress.kubernetes.io/auth-type: basic
+        # name of the secret that contains the user/password definitions
+        nginx.ingress.kubernetes.io/auth-secret: cloudcmd-auth
+        # message to display with an appropriate context why the authentication is required
+        nginx.ingress.kubernetes.io/auth-realm: 'Authentication Required - Please insert cloudcmd credentials'
+
+        hajimari.io/enable: 'true'
+      hosts:
+        - host: &host cloudcmd.ubiquitycluster.uk
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+        - secretName: cloudcmd-tls-certificate
+          hosts:
+            - *host

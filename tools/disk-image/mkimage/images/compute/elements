@@ -1,0 +1,16 @@
+# specify one element per line
+# lintes starting with # will be skipped
+baremetal
+rocky-container
+block-device-efi
+mofed
+enable-serial-console
+openssh-server
+package-installs
+rpm-distro
+yum
+cloud-init-install
+#lustre
+gpfs
+cloud-init-growpart
+motd

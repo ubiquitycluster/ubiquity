@@ -1,0 +1,52 @@
+---
+systemd_dir: /etc/systemd/system
+
+ansible_user: root
+ansible_ssh_private_key_file: ~/.ssh/id_ed25519
+ssh_public_key: "{{ lookup('file', '~/.ssh/id_ed25519.pub') }}"
+dns_server: 8.8.8.8
+ntp_server: 8.8.8.8
+base_os: Rocky
+base_os_version: '9.4'
+cluster_name: ubiquity
+cluster_domain: cluster.ubiquitycluster.uk
+
+
+ofed: 'true'
+mlnx_version: 24.01-0.3.3.1
+
+internal_ipv4:
+  address: 10.0.3.253
+  network: 10.0.0.0/22
+  broadcast: 10.0.3.255
+  netmask: 255.255.252.0
+  gateway: 10.0.3.254
+  provisioner: 10.0.3.253
+
+external_ipv4:
+  address: 10.0.7.253
+  network: 10.0.4.0/22
+  broadcast: 10.0.7.255
+  netmask: 255.255.252.0
+  gateway: 10.0.7.254
+
+timezone: Europe/London
+
+dockerhub_user: changeme
+dockerhub_pass: changeme
+logicalis_user: changeme
+logicalis_pass: changeme
+
+registry_overrides:
+- name: "docker.io"
+  endpoint: "https://ubiquity.azurecr.io"
+  username: "{{ logicalis_user }}"
+  password: "{{ logicalis_pass }}"
+#- name: "quay.io"
+#  endpoint: "https://ubiquity.azurecr.io"
+#  username: "{{ logicalis_user }}"
+#  password: "{{ logicalis_pass }}"
+- name: "ubiquity.azurecr.io"
+  endpoint: "https://ubiquity.azurecr.io"
+  username: "{{ logicalis_user }}"
+  password: "{{ logicalis_pass }}"

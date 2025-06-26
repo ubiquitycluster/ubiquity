@@ -1,0 +1,59 @@
+---
+
+images:
+  Fedora:
+    '36':
+      url: "https://download.fedoraproject.org/pub/fedora/linux/releases/36/Server/x86_64/iso/Fedora-Server-dvd-x86_64-36-1.5.iso"
+      checksum: sha256:5edaf708a52687b09f9810c2b6d2a3432edac1b18f4d8c908c0da6bde0379148
+    '37':
+      url: "https://download.fedoraproject.org/pub/fedora/linux/releases/test/37_Beta/Server/x86_64/iso/Fedora-Server-dvd-x86_64-37_Beta-1.5.iso"
+      checksum: sha256:aae9fc8b5c14a1f503b70b8fbc1117ddb84df99ef0ca89a0cda8acec9ecdb3c0
+  Rocky:
+    '8.8':
+      url: "https://download.rockylinux.org/vault/rocky/8.8/isos/x86_64/Rocky-8.8-x86_64-dvd1.iso"
+      checksum: sha256:7b8bdfe189cf24ae5c2d6a88f7a0b5f3012d23f9332c47943d538b4bc03a3704
+    '8.9':
+      url: "https://download.rockylinux.org/vault/rocky/8.9/isos/x86_64/Rocky-x86_64-dvd1.iso"
+      checksum: sha256:1abe38fd11279879e3e7658ef748c1ef06ee763351a53bb424020ec053c50d0b
+    '9.3':
+      url: "https://download.rockylinux.org/vault/rocky/9.3/isos/x86_64/Rocky-9.3-x86_64-dvd.iso"
+      checksum: sha256:82441c7c9630b313d4183106231b08e192382bb6c7827e62acd467a749f030b9
+    '9.4':
+      url: "https://download.rockylinux.org/vault/rocky/9.4/isos/x86_64/Rocky-9.4-x86_64-dvd.iso"
+      checksum: sha256:e20445907daefbfcdb05ba034e9fc4cf91e0e8dc164ebd7266ffb8fdd8ea99e7
+  RHEL:
+    '8.8':
+      url: "https://developers.redhat.com/content-gateway/file/rhel/8.8.0/rhel-8.8-x86_64-dvd.iso"
+      checksum: sha256:nope
+
+ofed:
+  version: 23.10-3.2.2.0-LTS
+  enabled: 'false'
+  mlnx_version:
+    '5.8-5.1.1.2':
+      version: '5.8-5.1.1.2'
+      os:
+        Rocky:
+          '8.8':
+            checksum: sha256:7150c43e121d46a19f7bb2227100e87a30d59617e58019c689794bc6c7e871be
+          '8.9':
+            checksum: sha256:bc7ca215e54836b9607db25bd222e3eacefd6a2b18762ad894f700d14fe81890
+          '9.3':
+            checksum: sha256:3d9670032c979e3190c869c4d0c2ae72de34bbad5294def3ac84264fdef80f20
+          '9.4':
+            checksum: sha256:3d9670032c979e3190c869c4d0c2ae72de34bbad5294def3ac84264fdef80f20
+    '23.10-3.2.2.0-LTS':
+      version: '23.10-3.2.2.0'
+      os:
+        Rocky:
+          '8.8':
+            checksum: sha256:9c767166d81decb31161bca18aa2289ea2dc2ee1afb65642e82d9ea2f6fc4411
+          '8.9':
+            checksum: sha256:c74596bb0a196ff0721ae2ef109602d8b2a0083250fda78a6332ae3c5ddb1ba3
+          '9.3':
+            checksum: sha256:4d63608ef59582b94127f35be2cf1535e39886be8d72dcef7688ab8960c8cde1
+          '9.4':
+            checksum: sha256:6c4f9cc43c431750d9ce41fae104459a95148801008e387b4e30c37113f5003a
+
+timezone: Europe/London
+dhcp_proxy: false

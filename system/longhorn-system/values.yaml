@@ -1,0 +1,90 @@
+---
+# Copyright 2023 Logicalis UKI. All Rights Reserved.
+#
+# Licensed under the Functional Source License, Version 1.0, Apache 2.0 Change License (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://github.com/logicalisuki/ubiquity/blob/main/LICENSE.md
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# It also allows for the transition of this software to an Apache 2.0 Licence
+# on the second anniversary of the date we make the software available.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+longhorn:
+#  global:
+#    nodeSelector:
+#      node-role.kubernetes.io/master: "true"
+  annotations:
+    prometheus.io/scrape: 'true'
+  defaultSettings:
+    defaultReplicaCount: 3
+    disableSchedulingOnCordonedNode: true
+    nodeDownPodDeletionPolicy: delete-both-statefulset-and-deployment-pod
+    replicaAutoBalance: best-effort
+    replicaSoftAntiAffinity: false
+    storageMinimalAvailablePercentage: 10
+    taintToleration: StorageNode=true:PreferNoSchedule
+  ingress:
+    annotations:
+      cert-manager.io/cluster-issuer: pebble-issuer
+      hajimari.io/appName: Longhorn
+      hajimari.io/icon: harddisk
+    enabled: true
+    host: longhorn.ubiquitycluster.uk
+    ingressClassName: nginx
+    path: /
+    secureBackends: true
+    tls: true
+    tlsSecret: longhorn-local-tls
+#  csi:
+#    attacher:
+#      nodeSelector:
+#        node-role.kubernetes.io/master: "true"
+  longhornRecoveryBackend:
+    replicas: 1
+#    nodeSelector: 
+#      node-role.kubernetes.io/master: "true"
+  longhornAdmissionWebhook:
+    replicas: 3
+#    nodeSelector:
+#      node-role.kubernetes.io/master: "true"
+  longhornConversionWebhook:
+    replicas: 3
+#    nodeSelector:
+#      node-role.kubernetes.io/master: "true"
+  longhornDriver:
+#    nodeSelector:
+#      node-role.kubernetes.io/master: "true"
+    tolerations:
+    - effect: PreferNoSchedule
+      key: StorageNode
+      operator: Equal
+      value: 'true'
+  longhornManager:
+#    nodeSelector:
+#      node-role.kubernetes.io/master: "true"
+    tolerations:
+    - effect: PreferNoSchedule
+      key: StorageNode
+      operator: Equal
+      value: 'true'
+  longhornUI:
+    nodeSelector:
+      node-role.kubernetes.io/master: "true"
+    tolerations:
+    - effect: PreferNoSchedule
+      key: StorageNode
+      operator: Equal
+      value: 'true'
+  persistence:
+    defaultClass: true
+    defaultClassReplicaCount: 3
+    defaultFsType: ext4
+    defaultMkfsParams: ''
+    defaultReplicaAutoBalance: best-effort
+    replicaSoftAntiAffinity: false

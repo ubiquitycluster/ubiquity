@@ -1,0 +1,27 @@
+#!/bin/bash
+
+if [ ${DIB_DEBUG_TRACE:-0} -gt 0 ]; then
+    set -x
+fi
+set -eu
+set -o pipefail
+
+DIB_DISTRIBUTION_MIRROR=${DIB_DISTRIBUTION_MIRROR:-}
+
+[ -n "$DIB_DISTRIBUTION_MIRROR" ] || exit 0
+
+if [[ ${DIB_RELEASE} == '8' ]]; then
+sed -e 's|^mirrorlist=|#mirrorlist=|g' \
+         -e 's|^#baseurl=http://dl.rockylinux.org/|baseurl=https://$DIB_DISTRIBUTION_MIRROR/|g' \
+         -i.bak \
+         /etc/yum.repos.d/Rocky-AppStream.repo \
+         /etc/yum.repos.d/Rocky-BaseOS.repo \
+         /etc/yum.repos.d/Rocky-Extras.repo \
+         /etc/yum.repos.d/Rocky-PowerTools.repo
+elif [[ ${DIB_RELEASE} == '9' ]]; then
+sed -e 's|^mirrorlist=|#mirrorlist=|g' \
+         -e 's|^#baseurl=http://dl.rockylinux.org/|baseurl=https://$DIB_DISTRIBUTION_MIRROR/|g' \
+         -i.bak \
+         /etc/yum.repos.d/rocky-extras.repo \
+         /etc/yum.repos.d/rocky.repo
+fi

@@ -1,0 +1,10 @@
+{{- range $key, $value := .Values.extraConfigMaps }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ $key }}
+  annotations:
+    "helm.sh/hook": pre-install
+data: "woo"
+{{- end }}

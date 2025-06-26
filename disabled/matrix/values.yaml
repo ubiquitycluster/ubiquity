@@ -1,0 +1,111 @@
+---
+# Copyright 2023 Logicalis UKI. All Rights Reserved.
+#
+# Licensed under the Functional Source License, Version 1.0, Apache 2.0 Change License (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://github.com/logicalisuki/ubiquity/blob/main/LICENSE.md
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# It also allows for the transition of this software to an Apache 2.0 Licence
+# on the second anniversary of the date we make the software available.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+elementweb:
+  ingress:
+    enabled: true
+    className: nginx
+    annotations:
+      cert-manager.io/cluster-issuer: pebble-issuer
+      #cert-manager.io/cluster-issuer: letsencrypt-prod
+      #external-dns.alpha.kubernetes.io/target: "ubiquity-tunnel.10-212-87-201.nip.io"
+      #external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
+      hajimari.io/appName: Chat
+      hajimari.io/icon: chat
+    hosts:
+      - host: &frontend_host chat.10-212-87-201.nip.io
+        paths:
+          - path: /
+            pathType: Prefix
+    tls:
+      - secretName: element-tls-certificate
+        hosts:
+          - *frontend_host
+  config:
+    default:
+      base_url: https://matrix.10-212-87-201.nip.io
+      server_name: matrix.10-212-87-201.nip.io
+
+dendrite:
+  polylith: true
+  image:
+          #name: "matrixdotorg/dendrite-polylith:v0.6.2"
+    name: "matrixdotorg/dendrite-monolith:v0.12.0"
+    # name: "locmai/dendrite-monolith:010922"  # TODO switch to official image
+    pullPolicy: IfNotPresent
+  configuration:
+    version: 2
+    servername: &backend_host matrix.10-212-87-201.nip.io
+    database:
+      host: matrix-postgresql:5432
+      user: dendrite
+      password: dendrite
+      max_open_conns: 100
+      max_idle_conns: 2
+      conn_max_lifetime: -1
+    # -- Disable federation. Dendrite will not be able to make any outbound HTTP requests
+    # to other servers and the federation API will not be exposed.
+    disable_federation: true
+    metrics:
+      enabled: true
+    jetstream:
+      in_memory: false
+      addresses:
+        - nats://matrix-nats:4222 ### Removed to go in process
+  persistence:
+    storageClass: longhorn
+    logs:
+      capacity: 1Gi
+    media:
+      capacity: 10Gi
+  nats:
+    enabled: true
+    nats:
+      jetstream:
+        enabled: true
+  postgresql:
+    enabled: true
+    global:
+      postgresql:
+        postgresqlDatabase: dendrite
+        postgresqlUsername: dendrite
+        postgresqlPassword: dendrite
+    persistence:
+      enabled: true
+      storageClass: longhorn
+      accessModes:
+        - ReadWriteOnce
+      size: 10Gi
+  ingress:
+    enabled: true
+    className: nginx
+    annotations:
+      cert-manager.io/cluster-issuer: pebble-issuer
+      #cert-manager.io/cluster-issuer: letsencrypt-prod
+      #external-dns.alpha.kubernetes.io/target: "ubiquity-tunnel.10-212-87-201.nip.io"
+      #external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
+      nginx.ingress.kubernetes.io/proxy-body-size: 32m
+      hajimari.io/enable: 'false'
+    hosts:
+      - host: *backend_host
+        paths:
+          - path: /
+            pathType: Prefix
+    tls:
+      - secretName: dendrite-tls-certificate
+        hosts:
+          - *backend_host

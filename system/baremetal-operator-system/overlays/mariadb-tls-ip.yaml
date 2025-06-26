@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: mariadb-cert
+spec:
+  commonName: mariadb-cert
+  ipAddresses:
+  - ::1
+  - 127.0.0.1
+  issuerRef:
+    kind: Issuer
+    name: ca-issuer
+  secretName: mariadb-cert

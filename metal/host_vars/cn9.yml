@@ -1,0 +1,24 @@
+---
+flannel_interface: eno1np0
+network_interfaces:
+  - name: eno1np0
+    device: eno1np0
+    ip: 10.1.0.19
+    hostname: true
+    cidr: 22
+    netmask: 255.255.252.0
+    gateway: 10.1.3.250
+    nameserver: '10.144.1.248,10.157.1.248'
+  - name: ib0
+    device: ib0
+    ip: 10.8.0.19
+    cidr: 22
+    netmask: 255.255.252.0
+  - name: vlan121
+    device: eno1np0
+    ip: 10.148.121.38
+    cidr: 24
+    netmask: 255.255.255.0
+    gateway: 10.148.121.254
+    nameserver: '10.144.1.248'
+    vlanid: 121

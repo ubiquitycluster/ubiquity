@@ -1,0 +1,74 @@
+---
+all:
+  hosts:
+%{ for key, values in nodes ~}
+    ${key}:
+      ansible_host: ${values[0].ip}
+      disk: /dev/sda
+      network_interface: eth0
+      ansible_user: ${sudoer_username}
+      ansible_ssh_private_key_file: ~/.ssh/private_key.pem
+      ansible_ssh_common_args: "-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
+      ansible_python_interpreter: /usr/bin/python3
+%{ endfor ~}
+  children:
+    masters:
+      hosts:
+%{ for key, values in master_nodes ~}
+        ${key}:
+%{ endfor ~}
+    workers:
+      hosts:
+%{ for key, values in worker_nodes ~}
+        ${key}:
+%{ endfor ~}
+    metal:
+      hosts:
+%{ for key, values in nodes ~}
+        ${key}:
+%{ endfor ~}
+    cesgpfs:
+      hosts:
+%{ for key, values in gpfs_nodes ~}
+        ${key}:
+%{ endfor ~}
+    compute:
+      hosts:
+%{ for key, values in compute_nodes ~}
+        ${key}:
+%{ endfor ~}
+    gpu:
+      hosts:
+%{ for key, values in gpu_nodes ~}
+        ${key}:
+%{ endfor ~}
+    k8s:
+      hosts:
+%{ for key, values in k8s_nodes ~}
+        ${key}:
+%{ endfor ~}
+    login:
+      hosts:
+%{ for key, values in login_nodes ~}
+        ${key}:
+%{ endfor ~}
+    slurm_master:
+      hosts:
+%{ for key, values in mgmt_nodes ~}
+        ${key}:
+%{ endfor ~}
+    slurm_compute:
+      hosts:
+%{ for key, values in compute_nodes ~}
+        ${key}:
+%{ endfor ~}
+    storage_nfs:
+      hosts:
+%{ for key, values in nfs_nodes ~}
+        ${key}:
+%{ endfor ~}
+    vis:
+      hosts:
+%{ for key, values in vis_nodes ~}
+        ${key}:
+%{ endfor ~}

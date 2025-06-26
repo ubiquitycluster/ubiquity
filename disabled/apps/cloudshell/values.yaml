@@ -1,0 +1,186 @@
+---
+# Copyright 2023 Logicalis UKI. All Rights Reserved.
+#
+# Licensed under the Functional Source License, Version 1.0, Apache 2.0 Change License (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://github.com/logicalisuki/ubiquity/blob/main/LICENSE.md
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# It also allows for the transition of this software to an Apache 2.0 Licence
+# on the second anniversary of the date we make the software available.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+service:
+  image:
+    repository: inseefrlab/shelly
+    pullPolicy: Always
+    # Overrides the image tag whose default is the chart appVersion.
+    #tag: "cloudshell"
+
+security:
+  networkPolicy:
+    enabled: false
+    from: []
+  allowlist:
+    enabled: true
+    ip: 0.0.0.0/0
+
+init:
+  standardInit: 
+    https://git.lab.sspcloud.fr/innovation/plateforme-onyxia/services-ressources/-/raw/master/onyxia-init.sh
+  filename: onyxia-init.sh
+  personalInit: ''
+  personalInitArgs: ''
+
+s3:
+  # Specifies whether a config map should be created
+  enabled: false
+  # The name of the configmap to use.
+  # If not set and create is true, a name is generated using the fullname template
+  configMapName: ''
+  accessKeyId: ''
+  endpoint: ''
+  defaultRegion: ''
+  secretAccessKey: ''
+  sessionToken: ''
+
+vault:
+  # Specifies whether a config map should be created
+  enabled: false
+  # The name of the configmap to use.
+  # If not set and create is true, a name is generated using the fullname template
+  configMapName: ''
+  token: ''
+  url: ''
+  mount: ''
+  secret: ''
+  directory: ''
+
+git:
+  # Specifies whether a config map should be created
+  enabled: false
+  # The name of the configmap to use.
+  # If not set and create is true, a name is generated using the fullname template
+  configMapName: ''
+  name: ''
+  email: ''
+  cache: ''
+
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+replicaCount: 1
+
+nameOverride: ''
+fullnameOverride: cloudshell
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ''
+  imagePullSecrets:
+  - name: regcred
+
+kubernetes:
+  enable: true
+  role: view
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+networking:
+  type: ClusterIP
+  cloudshell:
+    port: 80
+
+ingress:
+  enabled: true
+  #  tls: true
+  ingressClassName: nginx
+  annotations:
+    # See ../docs/reference/ingress.md for more information
+    nginx.ingress.kubernetes.io/affinity: cookie
+    nginx.ingress.kubernetes.io/session-cookie-name: route
+    nginx.ingress.kubernetes.io/session-cookie-expires: '172800'
+    nginx.ingress.kubernetes.io/session-cookie-max-age: '172800'
+    # type of authentication
+    nginx.ingress.kubernetes.io/auth-type: basic
+    # name of the secret that contains the user/password definitions
+    nginx.ingress.kubernetes.io/auth-secret: basic-auth
+    # message to display with an appropriate context why the authentication is required
+    #nginx.ingress.kubernetes.io/auth-realm: 'Authentication Required - foo'
+    #cert-manager.io/cluster-issuer: 
+    # - letsencrypt-prod
+    # - letsencrypt-staging
+    # - pebble-issuer
+    cert-manager.io/cluster-issuer: pebble-issuer
+    hajimari.io/enable: 'true'
+  hostname: clustershell.ubiquitycluster.uk
+  tls:
+  - hosts:
+    - clustershell.ubiquitycluster.uk
+    secretName: cloudshell-tls
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+persistence:
+  enabled: true
+  ## database data Persistent Volume Storage Class
+  ## If defined, storageClassName: <storageClass>
+  ## If set to "-", storageClassName: "", which disables dynamic provisioning
+  ## If undefined (the default) or set to null, no storageClassName spec is
+  ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
+  ##   GKE, AWS & OpenStack)
+  ##
+  storageClass: longhorn
+  accessModes:
+  - ReadWriteOnce
+  size: 10Gi
+  mountPath: /root/work
+  # existingClaim: ""
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+nodeSelector:
+  node-role.kubernetes.io/master: 'true'
+
+tolerations: []
+
+affinity: {}
+
+deleteJob:
+  enabled: false
+  schedule: 0 4 * * 0

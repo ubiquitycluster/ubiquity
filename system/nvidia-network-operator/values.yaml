@@ -1,0 +1,43 @@
+network-operator:
+  nfd:
+    enabled: true
+  sriovNetworkOperator:
+    enabled: false
+  # NicClusterPolicy CR values:
+  deployCR: true
+  ofedDriver:
+    deploy: false
+    #image: doca-driver
+    #repository: docker.io/cjcshadowsan
+    #env:
+    #  - name: RESTORE_DRIVER_ON_POD_TERMINATION
+    #    value: "true"
+    #  - name: UNLOAD_STORAGE_MODULES
+    #    value: "true"
+  rdmaSharedDevicePlugin:
+    deploy: true
+    resources:
+      - name: rdma_shared_device_a
+        ifNames: [ib0]
+
+  secondaryNetwork:
+    deploy: true
+    multus:
+      deploy: false # We deploy this via k3s
+    ipoib:
+      deploy: true
+    ipamPlugin:
+      deploy: false # We deploy whereabouts vis k3s
+
+rke2-multus:
+  config:
+    cni_conf:
+      confDir: /var/lib/rancher/k3s/agent/etc/cni/net.d
+      binDir: /var/lib/rancher/k3s/data/current/bin
+      kubeconfig: /var/lib/rancher/k3s/agent/etc/cni/net.d/multus.d/multus.kubeconfig
+  rke2-whereabouts:
+    fullnameOverride: whereabouts
+    enabled: true
+    cniConf:
+      confDir: /var/lib/rancher/k3s/agent/etc/cni/net.d
+      binDir: /var/lib/rancher/k3s/data/current/bin

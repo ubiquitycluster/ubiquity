@@ -1,0 +1,89 @@
+[Unit]
+Description=Lightweight Kubernetes
+Documentation=https://k3s.io
+After=network-online.target
+Wants=network-online.target
+
+###########
+# CIS - 1.2.1 to 1.2.32, 1.2.35
+# CIS - 1.3.1 to 1.3.7
+# CIS - 1.4.1, 1.4.2
+# CIS - 3.2.1
+# CIS - 4.1.1 to 4.1.10
+# CIS - 4.2.1 to 4.2.13
+# TLS - allow only strong ciphers
+###########
+
+[Service]
+Nice=-5
+IOSchedulingClass=best-effort
+IOSchedulingPriority=0
+ExecStartPre=-/sbin/modprobe br_netfilter
+ExecStartPre=-/sbin/modprobe overlay
+{% if 'masters' in group_names %}
+ExecStart=/usr/local/bin/k3s server \
+    --prefer-bundled-bin \
+{% if metallb_enabled %}
+    --disable servicelb \
+{% endif %}
+{% if groups['workersNO'] is defined and groups['workersNO'] | length > 0%}
+    --node-taint CriticalAddonsOnly=true:NoExecute \
+{% endif %}
+{% if cilium_enabled %}
+    --flannel-backend=none --disable-network-policy \
+{% else %}
+    --flannel-iface {{ flannel_interface }} \
+{% endif %}
+{% if falco_security_enabled %}
+    --kube-apiserver-arg=audit-policy-file=/var/lib/rancher/audit/audit-policy.yaml \
+    --kube-apiserver-arg=audit-webhook-config-file=/var/lib/rancher/audit/webhook-config.yaml \
+{% endif %}
+{%if 'libselinux' in ansible_facts.packages %}
+    --selinux \
+{% endif %}
+{% if 'masters' in group_names %}
+    --kube-controller-manager-arg 'bind-address=0.0.0.0' \
+    --kube-proxy-arg 'metrics-bind-address=0.0.0.0' \
+    --kube-scheduler-arg 'bind-address=0.0.0.0' \
+    --etcd-expose-metrics=true \
+{% endif %}
+    --advertise-address {{ ansible_host }} \
+    --tls-san {{ cluster_external_ip }} \
+    --bind-address 0.0.0.0 \
+    --node-ip {{ ansible_host }} \
+    --cluster-cidr={{ cluster_cidr }} \
+    --service-cidr={{ service_cidr }} 
+{% else %}
+ExecStart=/usr/local/bin/k3s agent --server https://{{ keepalived_ip }}:6443 \
+    --prefer-bundled-bin \
+{%if 'libselinux' in ansible_facts.packages %}
+    --selinux \
+{% endif %}
+{% if cilium_enabled %}
+    --flannel-backend=none \
+{% else %}
+    --flannel-iface {{ flannel_interface }} \
+{% endif %}
+    --token-file {{ k3s_token_file }} \
+    --node-ip {{ ansible_host }}
+{% endif %}
+KillMode=process
+Delegate=yes
+# Having non-zero Limit*s causes performance problems due to accounting overhead
+# in the kernel. We recommend using cgroups to do container-local accounting.
+LimitNOFILE=1048576
+LimitNPROC=infinity
+LimitCORE=infinity
+TasksMax=infinity
+TimeoutStartSec=0
+Restart=always
+RestartSec=5s
+Type=notify
+
+# Sandboxing features
+LockPersonality=yes
+PrivateTmp=yes
+ReadWriteDirectories=/var/lib/ /var/run /run /var/log/ /lib/modules /etc/rancher/
+
+[Install]
+WantedBy=multi-user.target

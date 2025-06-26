@@ -1,0 +1,20 @@
+mirrors:
+{% for registry in registry_overrides %}
+  {{ registry.name }}:
+    endpoint:
+      - {{ registry.endpoint }}
+{% endfor %}
+
+configs:
+{% for registry in registry_overrides %}
+  {{ registry.name }}:
+    auth:
+      username: {{ registry.username }}
+      password: {{ registry.password }}
+{% if registry.tls is defined %}
+    tls:
+      cert_file: {{ registry.cert_file }}
+      key_file: {{ registry.key_file }}
+      ca_file: {{ registry.ca_file }}
+{% endif %}
+{% endfor %}

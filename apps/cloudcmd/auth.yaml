@@ -1,0 +1,8 @@
+apiVersion: v1
+data:
+  auth: admin:$2a$12$8OJjbBeVZqy3syi6hBPiZ.rE5RKCnOV5txzBG4J.QoeYe9MfN4jmy
+kind: Secret
+metadata:
+  name: cloudcmd-auth
+  namespace: cloudcmd
+type: Opaque

@@ -1,0 +1,21 @@
+FROM docker.io/rockylinux/rockylinux:9
+
+RUN set -eu && \
+    set -o pipefail && \
+   
+    sed -e 's|^mirrorlist=|#mirrorlist=|g' \
+        -e 's|^#baseurl=http://dl.rockylinux.org/|baseurl=https://dl.rockylinux.org/|g' \
+        -i.bak \
+        /etc/yum.repos.d/rocky-extras.repo \
+        /etc/yum.repos.d/rocky.repo
+
+RUN dnf install -y findutils util-linux sudo python3 NetworkManager NetworkManager-config-server
+
+RUN systemctl unmask console-getty.service dev-hugepages.mount \
+    getty.target sys-fs-fuse-connections.mount systemd-logind.service \
+    systemd-remount-fs.service
+
+# /etc/machine-id needs to be populated for /bin/kernel-install to
+# correctly copy kernels into /boot.  We will clear this out in the
+# final image.
+RUN systemd-machine-id-setup

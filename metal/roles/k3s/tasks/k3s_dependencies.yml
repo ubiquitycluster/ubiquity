@@ -1,0 +1,393 @@
+---
+# tasks file for k3s-dependencies
+#
+
+# Enable EPEL because of DKMS for Falco (and others)
+- name: Enable EPEL Repository on CentOS 8
+  ansible.builtin.package:
+    name: epel-release
+    state: latest
+  when: ansible_os_family == "RedHat"
+
+- name: Install k3s dependencies
+  ansible.builtin.package:
+    state: present
+    name: "{{ k3s_dependencies }}"
+    allowerasing: true
+
+- name: Setup NFD directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: 0755
+  with_items:
+    - /etc/kubernetes/node-feature-discovery
+    - /etc/kubernetes/node-feature-discovery/features.d
+    - /etc/kubernetes/node-feature-discovery/source.d
+
+- name: Ensure config directories exist
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: 0700
+  loop:
+    - /etc/rancher/k3s
+    - /etc/rancher/node
+    - /etc/cni
+    - /opt/cni
+
+- name: Deploy k3s custom registry
+  template:
+    src: registries.yaml.j2
+    dest: /etc/rancher/k3s/registries.yaml
+    mode: 0600
+    owner: root
+    group: root
+  when: registry_overrides is defined
+
+- name: Ensure cni directories exist
+  ansible.builtin.file:
+    path: /var/lib/rancher/k3s/agent/etc/cni/net.d
+    state: directory
+
+- name: Ensure cni bin dir exists
+  ansible.builtin.file:
+    path: /var/lib/rancher/k3s/data/current/bin
+    state: directory
+
+- name: Ensure rancher cni is symlinked to /etc/cni/net.d
+  ansible.builtin.file:
+    src: /var/lib/rancher/k3s/agent/etc/cni/net.d
+    dest: /etc/cni/net.d
+    state: link
+  check_mode: no
+
+- name: Ensure rancher cni bin is symlinked to /opt/cni/bin
+  ansible.builtin.file:
+    src: /var/lib/rancher/k3s/data/current/bin
+    dest: /opt/cni/bin
+    state: link
+  check_mode: no
+
+- name: place flannel config in-place
+  ansible.builtin.template:
+    src: 10-flannel.conflist.j2
+    dest: /etc/cni/net.d/10-flannel.conflist
+  check_mode: no
+
+- name: Setup chrony config
+  ansible.builtin.template:
+    src: el.chrony.conf.j2
+    dest: /etc/chrony.conf
+    mode: 0400
+    owner: root
+    group: root
+  when: ansible_os_family == "RedHat"
+  notify: Restart chronyd
+
+- name: Setup chrony config
+  ansible.builtin.template:
+    src: deb.chrony.conf.j2
+    dest: /etc/chrony.d/chrony.conf
+    mode: 0400
+    owner: root
+    group: root
+  when: ansible_os_family == "Debian"
+  notify: Restart chronyd  
+
+- name: Enable fstrim.timer
+  ansible.builtin.systemd:
+    name: fstrim.timer
+    state: started
+    enabled: true
+
+- name: Check selinux installed
+  ansible.builtin.package:
+    name: container-selinux
+    state: present
+  when: ansible_os_family == "RedHat"
+
+- name: Ensure selinux python bindings are present
+  ansible.builtin.package:
+    name: python3-libselinux
+    state: present
+  when: ansible_os_family == "RedHat"
+
+- name: Update the /etc/hosts file with node name
+  lineinfile:
+    path: /etc/hosts
+    regexp: "{{ hostvars[item]['ansible_host'] }}  {{ hostvars[item]['ansible_hostname'] }}  {{ item }}"
+    line: "{{ hostvars[item]['ansible_host'] }}  {{ hostvars[item]['ansible_hostname'] }}  {{ item }}"
+    state: present
+    backup: yes
+  with_items: "{{ groups['metal'] }}"
+
+- name: Add the br_netfilter module
+  modprobe:
+    name: br_netfilter
+    state: present
+
+- name: Add the nf_conntrack
+  modprobe:
+    name: nf_conntrack
+    state: present
+
+- name: Persist br_netfilter module
+  blockinfile:
+    create: yes
+    path: /etc/modules-load.d/nf_conntrack.conf
+    block: |
+      nf_conntrack
+    mode: 0600
+
+- name: Persist br_netfilter module
+  blockinfile:
+    create: yes
+    path: /etc/modules-load.d/br_netfilter.conf
+    block: |
+      br_netfilter
+    mode: 0600
+
+- name: Add the overlay module
+  modprobe:
+    name: overlay
+    state: present
+
+- name: Persist overlay module
+  blockinfile:
+    create: yes
+    path: /etc/modules-load.d/overlay.conf
+    block: |
+      overlay
+    mode: 0600
+
+- name: Add the ipoib and ib_umad modules
+  ansible.builtin.command: modprobe {{item}}
+  with_list:
+    - ib_umad
+    - ib_ipoib
+  when: ofed|default(false)|bool == true
+
+- name: Persist ipoib and ib_umad modules
+  blockinfile:
+    create: yes
+    path: /etc/modules-load.d/mlnx.conf
+    block: |
+      ib_umad
+      ib_ipoib
+    mode: 0600
+  when: ofed|default(false)|bool == true
+
+- block:
+    - name: Prepare cluster - flannel tx checksum off service - RHEL bug
+      template:
+        src: k3s-flannel-tx-off.service.j2
+        dest: /etc/systemd/system/k3s-flannel-tx-off.service
+        mode: 0400
+        owner: root
+        group: root
+
+    - name: Start flannel tx checksum off service
+      ansible.builtin.service:
+        name: k3s-flannel-tx-off
+        enabled: true
+      register: flannel_tx_service
+      until: flannel_tx_service is succeeded
+      retries: 5
+
+    - name: Prepare cluster - flannel tx checksum off service - RHEL bug
+      template:
+        src: k3s-cni0-tx-off.service.j2
+        dest: /etc/systemd/system/k3s-cni0-tx-off.service
+        mode: 0400
+        owner: root
+        group: root
+
+    - name: Start flannel tx checksum off service
+      ansible.builtin.service:
+        name: k3s-cni0-tx-off
+        enabled: true
+      register: cni0_tx_service
+      until: cni0_tx_service is succeeded
+      retries: 5
+
+  when:
+    - ansible_os_family == "RedHat"
+    - not ansible_check_mode	
+
+- name: Start iscsid
+  ansible.builtin.service:
+    name: iscsid
+    state: started
+  register: iscsid_service
+  until: iscsid_service is succeeded
+  retries: 5
+
+- name: Setup Firewalld
+  block:
+    #
+    ## Start block
+    - name: Stop firewalld
+      ansible.builtin.service:
+        name: firewalld
+        state: stopped
+      register: firewalld_service
+      until: firewalld_service is succeeded
+      retries: 5
+
+    - name: Wait for 5 seconds for firewalld rules
+      ansible.builtin.wait_for:
+        timeout: 5
+      delegate_to: localhost
+
+    - name: Confirm firewalld is actually stopped
+      ansible.builtin.wait_for:
+        path: /var/run/firewalld.pid
+        state: absent
+  #
+  #    - name: Check where firewalld config is
+  #      ansible.builtin.stat:
+  #        path: /etc/firewalld/firewalld.conf
+  #      register: firewalld_conf
+  #
+  #    - name: Set firewalld backend to iptables
+  #      replace:
+  #        path: "/etc/firewalld/{{ firewalld_conf.stat.lnk_target }}"
+  #        regexp: FirewallBackend=nftables$
+  #        replace: FirewallBackend=iptables
+  #        backup: yes
+  #      register: firewalld_backend
+  #      when: firewalld_conf.stat.islnk
+
+  #    - name: Set firewalld backend to iptables
+  #      replace:
+  #        path: /etc/firewalld/firewalld.conf
+  #        regexp: FirewallBackend=nftables$
+  #        replace: FirewallBackend=iptables
+  #        backup: yes
+  #      register: firewalld_backend
+  #      when: firewalld_conf.stat.isreg
+
+  #    - name: Start firewalld
+  #      ansible.builtin.service:
+  #        name: firewalld
+  #        state: started
+  #        enabled: true
+  #      register: firewalld_service
+  #      until: firewalld_service is succeeded
+  #      retries: 5
+
+  #    - name: Reload firewalld settings
+  #      ansible.builtin.command: firewall-cmd --reload
+  #
+  #    - block:
+  #
+  #        - name: Set cluster zone
+  #          set_fact:
+  #            cluster_zone: internal
+  #
+  #        - name: Get internal zone interface   # noqa command-instead-of-module
+  #          command: "firewall-cmd --list-interface --zone=internal"
+  #          register: internal_zone
+  #          changed_when: no
+  #
+  #        # Using command to workaround bug https://github.com/ansible-collections/ansible.posix/issues/75
+  #        - name: Set internal interface to internal zone   # noqa command-instead-of-module
+  #          command: "{{ item }}"
+  #          with_items:
+  #            - "firewall-cmd --zone=internal --change-interface={{ internal_interface }} --permanent"
+  #            - "firewall-cmd --reload"
+  #          when: internal_interface not in ''.join(internal_zone.stdout_lines)
+  #
+  #        - name: Open external ports
+  #          ansible.posix.firewalld:
+  #            state: enabled
+  #            immediate: yes
+  #            permanent: yes
+  #            port: '{{ item }}'
+  #            zone: public
+  #          with_items:
+  #            - 80/tcp
+  #            - 443/tcp
+  #            - 6443/tcp
+  #
+  #        - name: Close external ports
+  #          ansible.posix.firewalld:
+  #            state: disabled
+  #            immediate: yes
+  #            permanent: yes
+  #            service: '{{ item }}'
+  #            zone: public
+  #          with_items:
+  #         #   - ssh
+  #            - cockpit
+  #
+  #      when: external_interface != internal_interface
+  #
+  #    - name: Add firewalld masquerading
+  #      ansible.posix.firewalld:
+  #        masquerade: yes
+  #        state: enabled
+  #        permanent: yes
+  #        immediate: yes
+  #        zone: "{{ item }}"
+  #      with_items:
+  #        - internal
+  #        - public
+  #
+  #    - name: Add firewalld rich rules /flannel
+  #      ansible.posix.firewalld:
+  #        rich_rule: rule family=ipv4 source address={{ item.1 }} accept
+  #        permanent: yes
+  #        immediate: yes
+  #        state: enabled
+  #        zone: "{{ item.0 }}"
+  #      with_nested:
+  #        - ["{{ cluster_zone | default('public') }}"]
+  #        - ["{{ cluster_cidr }}","{{ service_cidr }}","{{ test_cidr }}"]
+  #
+  #    - name: Open ports /master
+  #      ansible.posix.firewalld:
+  #        state: enabled
+  #        permanent: yes
+  #        immediate: yes
+  #        port: '{{ item }}'
+  #        zone: "{{ cluster_zone | default('public') }}"
+  #      with_items:
+  #        - 2379/tcp    # etcd client requests
+  #        - 2380/tcp    # etcd peer communication
+  #        - 6443/tcp    # k8s api
+  #      when: "'masters' in group_names"
+  #
+  #    - name: Open ports /all
+  #      ansible.posix.firewalld:
+  #        state: enabled
+  #        immediate: yes
+  #        permanent: yes
+  #        port: '{{ item }}'
+  #        zone: "{{ cluster_zone | default('public') }}"
+  #      with_items:
+  #        - 53/tcp
+  #        - 53/udp
+  #        - 80/tcp
+  #        - 6443/tcp
+  #        - 443/tcp
+  #        - 6817-6819/tcp     # Slurmd,slurmctld,slurmdbd port
+  #        - 6817-6819/udp     # Slurmdetc
+  #        - 3306/tcp          # MySQL port
+  #        - 60000-65000/tcp   # Slurm MPI port(s)
+  #        - 60000-65000/udp   # Slurm MPI ports
+  #        - 7321/tcp          # Munge
+  #        - 7321/udp          # Munge
+  #        - 7946/udp          # MetalLB speaker port
+  #        - 7946/tcp          # MetalLB speaker port
+  #        - 8472/udp          # Canal/Flannel VXLAN overlay networking
+  #        - 9099/tcp          # Canal/Flannel livenessProbe/readinessProbe
+  #        - 10250-10255/tcp   # kubelet API + Ingress controller livenessProbe/readinessProbe
+  #        - 30000-32767/tcp   # NodePort port range
+  #        - 30000-32767/udp   # NodePort port range
+
+  ## End block
+  when:
+    - "'firewalld' in ansible_facts.packages"
+  tags: firewall

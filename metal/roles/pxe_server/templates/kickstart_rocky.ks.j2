@@ -1,0 +1,179 @@
+# Copyright 2023 Logicalis UKI. All Rights Reserved.
+#
+# Licensed under the Functional Source License, Version 1.0, Apache 2.0 Change License (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://github.com/logicalisuki/ubiquity/blob/main/LICENSE.md
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# It also allows for the transition of this software to an Apache 2.0 Licence
+# on the second anniversary of the date we make the software available.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#version=RHEL8
+
+# Do not use graphical install
+text
+
+# Keyboard layouts
+keyboard --xlayouts='gb'
+# System language
+lang en_GB.UTF-8
+
+# Partition checking and clearing information
+
+# Disk partitioning information
+%include "/tmp/part-include"
+
+# Network information
+
+{% if hostvars[item]['network_interfaces'] is defined %}
+{% for interface in hostvars[item]['network_interfaces'] %}
+{% if interface.name.startswith('bond') %}
+network --bootproto=static --device={{ interface.device }} --bondslaves={{ interface.slaves }} --bondopts={{ interface.bond_opts }} --ip={{ interface.ip }} {%- if interface.hostname is defined %} --hostname={{ hostvars[item]['inventory_hostname'] }} {%- endif %} {%- if interface.gateway is defined %} --gateway={{ interface.gateway }} {%- else %} --nodefroute {%- endif %} {%- if interface.nameserver is defined %} --nameserver={{ interface.nameserver }} {%- endif %} --netmask={{ interface.netmask }} --activate --onboot=yes
+{% for slave in (interface.slaves|split(',')) %}
+network --device={{ slave }} --onboot=no
+{% endfor %}
+{% endif %}
+{% if interface.name.startswith('vlan') %}
+network --bootproto=static --device={{ interface.device }} --interfacename={{ interface.name }} --vlanid={{ interface.vlanid }} --ip={{ interface.ip }} {%- if interface.nameserver is defined %} --nameserver={{ interface.nameserver }} {%- endif %} {%- if interface.gateway is defined %} --gateway={{ interface.gateway }} {%- else %} --nodefroute {%- endif %} --netmask={{ interface.netmask }} --activate --onboot=yes
+{% endif %}
+{% if interface.name.startswith('en') %}
+network --bootproto=static --device={{ interface.device }} --ip={{ interface.ip }} {%- if interface.nameserver is defined %} --nameserver={{ interface.nameserver }} {%- endif %} {%- if interface.hostname is defined %} --hostname={{ hostvars[item]['inventory_hostname'] }} {%- endif %} {%- if interface.gateway is defined %} --nameserver={{ interface.gateway }} {%- else %} --nodefroute {%- endif %} --netmask={{ interface.netmask }} --activate --onboot=yes
+{% endif %}
+{% endfor %}
+{% endif %}
+
+# Use network installation
+repo --name="AppStream" --baseurl=http://{{ internal_ipv4.address }}/os/AppStream
+repo --name="BaseOS" --baseurl=http://{{ internal_ipv4.address }}/os/BaseOS
+url --url="http://{{ internal_ipv4.address }}/os/"
+
+{% if ofed.enabled == 'true' %}
+{% if ofed.version.split('.') | map('int') | list >= [5, 0] %}
+# OFED Repo
+repo --name="OFED-{{ ofed.mlnx_version[ofed.version].version }}" --baseurl=http://{{ internal_ipv4.address }}/misc/ofed-{{ ofed.mlnx_version[ofed.version].version }}/RPMS --noverifyssl
+{% endif %}
+# OFED Repo
+{% if ofed.version.split('.') | map('int') | list < [5, 0] %}
+repo --name="OFED-{{ ofed.mlnx_version[ofed.version].version }}" --baseurl=http://{{ internal_ipv4.address }}/misc/ofed-{{ ofed.mlnx_version[ofed.version].version }}/RPMS/MLNX_LIBS --noverifyssl
+{% endif %}
+{% endif %}
+
+# Disable Setup Agent on first boot
+firstboot --disable
+# Do not configure the X Window System
+skipx
+# Enable NTP
+services --enabled="chronyd"
+# System timezone
+timezone {{ timezone }} --utc
+
+# Create user (locked by default)
+user --groups=wheel --name=admin
+# Add SSH key
+sshkey --username=root "{{ ssh_public_key }}"
+
+# Disable root password login
+#rootpw --lock
+
+# Root Password
+
+# Disable SELinux
+selinux --disabled
+
+# Disable firewall
+firewall --disabled
+
+{% if ofed == 'true' %}
+%packages
+@^custom-environment
+openssh-server
+iscsi-initiator-utils
+python3
+util-linux
+yum-utils
+mlnx-ofed-hpc
+%end
+{% else %}
+%packages
+@^custom-environment
+openssh-server
+iscsi-initiator-utils
+python3
+util-linux
+yum-utils
+%end
+{% endif %}
+
+# Enable iSCSI for Kubernetes storage
+services --enable=iscsid
+
+%post --log=/var/log/kickstart_post.log
+
+cat <<'!' > /etc/infiniband/openib.conf
+# DO NOT run Firmware update utlity upon system boot in order to update Firmware for newly installed devices
+RUN_FW_UPDATER_ONBOOT=no
+!
+
+%end
+
+reboot
+
+%pre  
+#!/bin/sh  
+hds="" 
+for drive in $(cat /proc/partitions | grep -v loop | grep -v '[0-9]$' | tail -n +3 | sort -k 3n | awk '{print $NF}'); do       
+	hds="$hds $drive"
+done
+set $hds
+numhd=`echo $#` 
+drive1=`echo $hds | cut -d' ' -f1` 
+drive2=`echo $hds | cut -d' ' -f2`
+drive3=`echo $hds | cut -d' ' -f3`
+
+#Write out partition scheme based on whether there are 1 or 2 hard drives. Smallest drive is always System.
+if [ $numhd -gt 1 ] ; then
+	#2 (or more) drives - Only address 3 drives max  
+	echo "# Partitioning scheme generated in %pre for 3 drives only" > /tmp/part-include   
+    echo "ignoredisk --only-use=$drive1,$drive2,$drive3" >> /tmp/part-include
+    echo "clearpart --all --initlabel --drives=$drive1,$drive2,$drive3" >> /tmp/part-include
+    echo "part /boot/efi --fstype=vfat --size=512 --ondisk=$drive1" >> /tmp/part-include
+    echo "part /boot --fstype=ext4 --size=2048 --ondisk=$drive1" >> /tmp/part-include
+    echo "part pv.system --size=100 --grow --ondisk=$drive1" >> /tmp/part-include
+    echo "volgroup System --pesize=65536 pv.system" >> /tmp/part-include
+    echo "part pv.data --size=100 --grow --ondisk=$drive2" >> /tmp/part-include
+    echo "volgroup Data --pesize=65536 pv.data" >> /tmp/part-include
+    echo "logvol / --fstype=ext4 --name=root --percent=20 --vgname=System --fsoptions=noatime,barrier=1,commit=30" >> /tmp/part-include
+    echo "logvol swap --fstype=ext4 --name=swap --percent=5 --vgname=System --fsoptions=noatime,barrier=1,commit=30" >> /tmp/part-include
+    echo "logvol /tmp --fstype=ext4 --name=tmp --percent=5 --vgname=System --fsoptions=noatime,barrier=1,commit=30" >> /tmp/part-include
+    echo "logvol /var/log --fstype=ext4 --name=varlog --percent=2 --vgname=System --fsoptions=noatime,barrier=1,commit=30" >> /tmp/part-include
+    echo "logvol /var/crash --fstype=ext4 --name=crash --percent=10 --vgname=System --fsoptions=noatime,barrier=1,commit=30" >> /tmp/part-include
+    echo "logvol /var/lib/rancher --fstype=ext4 --name=rancher --percent=10 --vgname=System --fsoptions=noatime,barrier=1,commit=30" >> /tmp/part-include
+    echo "logvol /var/lib/kubelet --fstype=ext4 --name=kubelet --percent=1 --vgname=Data --fsoptions=noatime,barrier=1,commit=30" >> /tmp/part-include
+    echo "logvol /var/lib/longhorn --fstype=ext4 --name=longhorn --percent=60 --vgname=Data --fsoptions=noatime,barrier=1,commit=30" >> /tmp/part-include
+    echo "logvol /home --fstype=ext4 --name=home --percent=29 --vgname=Data --fsoptions=noatime,barrier=1,commit=30" >> /tmp/part-include  
+else
+	#1 drive 
+	echo "# Partitioning scheme generated in %pre for 1 drive" > /tmp/part-include   
+    echo "ignoredisk --only-use=$drive1" >> /tmp/part-include
+    echo "clearpart --all --initlabel --drives=$drive1" >> /tmp/part-include
+    echo "part /boot --fstype=ext4 --size=2048 --ondisk=$drive1" >> /tmp/part-include
+    echo "part /boot/efi --fstype=vfat --size=512 --ondisk=$drive1" >> /tmp/part-include
+    echo "part pv.system --size=100 --grow --ondisk=$drive1" >> /tmp/part-include
+    echo "volgroup System --pesize=65536 pv.system" >> /tmp/part-include
+    echo "logvol / --fstype=ext4 --name=root --percent=20 --vgname=System --fsoptions=noatime,barrier=1,commit=30" >> /tmp/part-include
+    echo "logvol swap --fstype=ext4 --name=swap --percent=5 --vgname=System --fsoptions=noatime,barrier=1,commit=30" >> /tmp/part-include
+    echo "logvol /tmp --fstype=ext4 --name=tmp --percent=5 --vgname=System --fsoptions=noatime,barrier=1,commit=30" >> /tmp/part-include
+    echo "logvol /var/log --fstype=ext4 --name=varlog --percent=2 --vgname=System --fsoptions=noatime,barrier=1,commit=30" >> /tmp/part-include
+    echo "logvol /var/crash --fstype=ext4 --name=crash --percent=10 --vgname=System --fsoptions=noatime,barrier=1,commit=30" >> /tmp/part-include
+    echo "logvol /var/lib/rancher --fstype=ext4 --name=rancher --percent=10 --vgname=System --fsoptions=noatime,barrier=1,commit=30" >> /tmp/part-include
+    echo "logvol /var/lib/kubelet --fstype=ext4 --name=kubelet --percent=1 --vgname=System --fsoptions=noatime,barrier=1,commit=30" >> /tmp/part-include
+    echo "logvol /var/lib/longhorn --fstype=ext4 --name=longhorn --percent=40 --vgname=System --fsoptions=noatime,barrier=1,commit=30" >> /tmp/part-include
+    echo "logvol /home --fstype=ext4 --name=home --groe --vgname=System --fsoptions=noatime,barrier=1,commit=30" >> /tmp/part-include 
+fi
+%end

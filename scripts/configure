@@ -1,0 +1,772 @@
+#!/usr/bin/env python3.9
+# Copyright 2023 Logicalis UKI. All Rights Reserved.
+#
+# Licensed under the Functional Source License, Version 1.0, Apache 2.0 Change License (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://github.com/logicalisuki/ubiquity/blob/main/LICENSE.md
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# It also allows for the transition of this software to an Apache 2.0 Licence
+# on the second anniversary of the date we make the software available.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# WIP
+# TODO clean this up
+
+"""
+Basic configure script for new users
+"""
+import docker
+import fileinput
+import subprocess
+import sys
+import ipaddress
+import random
+import os
+import re
+import base64
+import string
+import bcrypt
+from tempfile import mkstemp,mkdtemp
+from pprint import pprint
+from ruamel.yaml import YAML
+from ruamel.yaml.scalarstring import SingleQuotedScalarString, DoubleQuotedScalarString
+from shutil import rmtree, copy2, move
+from rich.prompt import Confirm, Prompt
+from dotenv import load_dotenv
+
+tmpdir = mkdtemp()
+print("Using temporary directory for installing Ubiquity at: " + tmpdir)
+
+def cleanup():
+    print("Cleaning up temporary directory: " + tmpdir)
+    rmtree(tmpdir)
+
+def generate_htpasswd(username, password):
+    bcrypted = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt(rounds=12, prefix=b"2a")).decode("utf-8")
+    return f"{username}:{bcrypted}"
+
+def already_installed():
+    print("Checking for existing Ubiquity install")
+    return os.path.exists("./.ubiquity/")
+
+def generate_password_string():
+    random_pw_chars = ([random.choice(ascii_lowercase) for _ in range(20)] +
+                        [random.choice(ascii_uppercase) for _ in range(20)] +
+                        [random.choice(digits) for _ in range(10)])
+    random.shuffle(random_pw_chars)
+    return ''.join(random_pw_chars)
+
+def prompt_with_help(text, help_text, default=None):
+    user_input = None
+    while not user_input:
+        user_input = Prompt.ask(text, default=default)
+        if user_input == "?":
+            print(help_text)
+            user_input = None
+    return user_input
+
+# Reads a .env config file. If it doesn't exist, create it. If it does exist, read it and prompt for any missing values.
+# If the user wants to change a value, then change it. If they don't, then don't.
+def read_or_create_env_file():
+    if os.path.exists(".env"):
+        # Read the .env file
+        with open(".env", "r") as env_file:
+            env_file_contents = env_file.read()
+            if Confirm.ask(f"Previous configuration exists at .env! Are you sure you want to proceed and change these values??"):
+                print(f"Continuing...")
+    else:
+        # Create the .env file
+        with open(".env", "w") as env_file:
+            env_file.write("# Ubiquity cluster configuration file\n")
+            env_file.write("# This file is used to store configuration information for the cluster.\n")
+            env_file.write("# Please note that this file is not encrypted, so do not store sensitive information here!\n")
+            env_file.write("# For more information, please see the documentation in ../docs/README.md\n")
+            env_file.write("# This file was created by the configure.py script.\n")
+            env_file.write("# If you want to change any values, please edit this file directly.\n")
+            env_file.write("# If you want to reset the values, please delete this file and run the configure.py script again.\n")
+            env_file.write("\n")
+            env_file.write("# General\n")
+            env_file.write("EDITOR=vi\n")
+            env_file.write("\n")
+            env_file.write("# Domains and Repos\n")
+            env_file.write("DOMAIN=ubiquitycluster.uk\n")
+            env_file.write("SEED_REPO=https://github.com/logicalisuki/ubiquity.git\n")
+            env_file.write("SEED_REPO_USERNAME=myawesomeusername\n")
+            env_file.write("SEED_REPO_PASSWORD=myawesomepassword\n")
+            env_file.write("SEED_REPO_SSH_KEY=changethissshprivkeylater\n")
+            env_file.write("\n")
+            env_file.write("# Timezone\n")
+            env_file.write("TIMEZONE=Europe/London\n")
+            env_file.write("\n")
+            env_file.write("# Terraform\n")
+            env_file.write("TERRAFORM_WORKSPACE=ubiquity\n")
+            env_file.write("\n")
+            env_file.write("# Networking\n")
+            env_file.write("INTERNAL_IPV4_INTERFACE=ens4f0\n")
+            env_file.write("INTERNAL_IPV4_ADDRESS=10.0.3.253\n")
+            env_file.write("INTERNAL_IPV4_NETWORK=10.0.0.0/22\n")
+            env_file.write("INTERNAL_IPV4_BROADCAST=10.0.3.255\n")
+            env_file.write("INTERNAL_IPV4_NETMASK=255.255.252.0\n")
+            env_file.write("INTERNAL_IPV4_GATEWAY=10.0.3.254\n")
+            env_file.write("INTERNAL_IPV4_PROVISIONER=10.0.3.253\n")
+            env_file.write("EXTERNAL_IPV4_INTERFACE=ens4f0\n")
+            env_file.write("EXTERNAL_IPV4_ADDRESS=10.0.7.253\n")
+            env_file.write("EXTERNAL_IPV4_NETWORK=10.0.4.0/22\n")
+            env_file.write("EXTERNAL_IPV4_BROADCAST=10.0.7.255\n")
+            env_file.write("EXTERNAL_IPV4_NETMASK=255.255.252.0\n")
+            env_file.write("EXTERNAL_IPV4_GATEWAY=10.0.7.254\n")
+            env_file.write("\n")
+            env_file.write("# Keepalived\n")
+            env_file.write("KEEPALIVED_IPV4_INTERFACE=ens4f0\n")
+            env_file.write("KEEPALIVED_CIDR=/22\n")
+            env_file.write("KEEPALIVED_IPV4_VIP=10.0.3.250\n")
+            env_file.write("\n")
+            env_file.write("# DNS\n")
+            env_file.write("DNS_SERVER=8.8.8.8\n")
+            env_file.write("DNS_SEARCH=ubiquitycluster.uk\n")
+            env_file.write("\n")
+            env_file.write("# NTP\n")
+            env_file.write("NTP_SERVER=8.8.8.8\n")
+            env_file.write("\n")
+            env_file.write("# DHCP\n")
+            env_file.write("DHCP_RANGE_START=10.0.0.10\n")
+            env_file.write("DHCP_RANGE_END=10.0.3.10\n")
+            env_file.write("DHCP_LEASE_TIME=12h\n")
+            env_file.write("\n")
+            env_file.write("# Kubernetes\n")
+            env_file.write("KUBERNETES_VERSION=v1.23.17+k3s1\n")
+            env_file.write("KUBERNETES_CLUSTER_NAME=ubiquity\n")
+            env_file.write("KUBERNETES_CLUSTER_DOMAIN=cluster.ubiquitycluster.uk\n")
+            env_file.write("KUBERNETES_CLUSTER_CIDR=10.46.0.0/22\n")
+            env_file.write("KUBERNETES_SERVICE_CIDR=10.48.0.0/22\n")
+            env_file.write("KUBERNETES_DNS_SERVICE_IP=10.0.3.250\n")
+            env_file.write("\n")
+            env_file.write("# MetalLB\n")
+            env_file.write("METALLB_VERSION=0.12.1\n")
+            env_file.write("METALLB_EXTERNAL_IP_RANGE=10.0.3.220-10.0.3.220\n")
+            env_file.write("METALLB_INTERNAL_IP_RANGE=10.0.3.220-10.0.3.220\n")
+            env_file.write("\n")
+            env_file.write("# Cert Manager\n")
+            env_file.write("CERT_MANAGER_VERSION=v1.10.0\n")
+            env_file.write("CERT_PROVIDER=pebble-issuer\n")
+            env_file.write("\n")
+            env_file.write("# External DNS\n")
+            env_file.write("EXTERNAL_DNS_VERSION=\n")
+            env_file.write("EXTERNAL_DNS_PROVIDER=\n")
+            env_file.write("EXTERNAL_DNS_CLOUDFLARE_API_TOKEN=\n")
+            env_file.write("EXTERNAL_DNS_CLOUDFLARE_API_EMAIL=\n")
+            env_file.write("EXTERNAL_DNS_CLOUDFLARE_API_KEY=\n")
+            env_file.write("EXTERNAL_DNS_CLOUDFLARE_ZONE_ID=\n")
+            env_file.write("EXTERNAL_DNS_CLOUDFLARE_PROXIED=\n")
+            env_file.write("EXTERNAL_DNS_DUCKDNS_TOKEN=\n")
+            env_file.write("EXTERNAL_DNS_DUCKDNS_DOMAIN=\n")
+            env_file.write("\n")
+            env_file.write("# Ingress\n")
+            env_file.write("INGRESS_VERSION=\n")
+            env_file.write("INGRESS_PROVIDER=nginx\n")
+            env_file.write("\n")
+            env_file.write("# Cloudcmd\n")
+            env_file.write("CLOUDCMD_PASSWORD=changeme\n")
+            env_file.write("\n")
+            env_file.write("# Kube Prometheus Stack\n")
+            env_file.write("KUBE_PROMETHEUS_STACK_VERSION=\n")
+            env_file.write("\n")
+            env_file.write("# Loki\n")
+            env_file.write("LOKI_VERSION=\n")
+            env_file.write("\n")
+            env_file.write("# Fluentd\n")
+            env_file.write("FLUENTD_VERSION=\n")
+            env_file.write("\n")
+            env_file.write("# Fluent Bit\n")
+            env_file.write("FLUENT_BIT_VERSION=\n")
+            env_file.write("\n")
+            env_file.write("# Cilium\n")
+            env_file.write("CILIUM_VERSION=\n")
+            env_file.write("\n")
+            env_file.write("# Falco\n")
+            env_file.write("FALCO_VERSION=\n")
+            env_file.write("\n")
+            env_file.write("# Falco Sidekick\n")
+            env_file.write("FALCO_SIDEKICK_VERSION=\n")
+            env_file.write("\n")
+            env_file.write("# Falco Exporter\n")
+            env_file.write("FALCO_EXPORTER_VERSION=\n")
+            env_file.write("\n")
+            env_file.write("# Operating System\n")
+            env_file.write("OS=Rocky\n")
+            env_file.write("OS_IMAGE_VERSION=9.4\n")
+            env_file.write("\n")
+            env_file.write("# OFED\n")
+            env_file.write("USE_OFED=false\n")
+            env_file.write("OFED_VERSION=23.10-3.2.2.0-LTS\n")
+            env_file.write("\n")
+            env_file.write("# Container Registry Credentials\n")
+            env_file.write("LOGICALIS_REG_USER=dave\n")
+            env_file.write("LOGICALIS_REG_TOKEN=token\n")
+            env_file.write("DOCKERHUB_REG_USER=dave\n")
+            env_file.write("DOCKERHUB_REG_TOKEN=token\n")
+            env_file.write("\n")
+
+# We still generate an encryption secret automagically.
+default_k3s_encrypt_secret = ''.join(random.choice(string.ascii_lowercase + string.digits) for _ in range(32))
+
+def check_python_version(required_version: str) -> None:
+    if sys.version_info < tuple(map(int, required_version.split('.'))):
+        raise Exception(f"Must be using Python >= {required_version}")
+
+# A function to find and replace text in files from a list of paths , using git grep
+# This is used to replace the default values in these files with the values you specify in the config file.
+# This is a bit of a hack, but it works well enough for now.
+
+def find_and_replace(pattern: str, replacement: str, paths: list[str]) -> None:
+    files_with_matches = subprocess.run(
+        ["git", "grep", "--files-with-matches", pattern, "--"] + paths,
+        capture_output=True,
+        text=True
+    ).stdout.splitlines()
+
+    for match in files_with_matches:
+        with fileinput.FileInput(match, inplace=True) as file:
+            for line in file:
+                print(line.replace(pattern, replacement), end='')
+
+def env_replace(pattern: str, replacement: str, paths: list[str]) -> None:
+    with fileinput.FileInput(paths, inplace=True) as file:
+        for line in file:
+            print(line.replace(pattern, replacement), end='')
+
+def delete_config_yaml(filename: str, key_path: str) -> None:
+    yaml=YAML()
+    yaml.preserve_quotes=True
+    yaml.explicit_start=True
+    yaml.default_flow_style = False
+    yaml.sort_keys = False
+
+    with open(file_path, 'r') as file:
+        yaml_data = yaml.load(file)
+
+    yaml_data.pop(key_path, None)
+
+    with open(file_path, 'w') as file:
+        yaml.dump(yaml_data, file)
+
+# Example usage:
+# update_config_yaml("config.yaml", "argo-cd.configs.credentialTemplates.https-creds", "https://my.awesome.resssso")
+
+def update_config_yaml(filename: str, key_path: str, new_value: str, prefix: str = None, suffix: str = None) -> None:
+    # Split the key path into a list of keys
+    keys = key_path.split('.')
+    last_key = keys[-1]
+
+    # Convert the key path into a Python expression
+    parts = key_path.split(':')
+    data = f'yaml_data[\'{parts[0]}\']'
+    for part in parts[1:]:
+        if part.isdigit():
+            data += f'[{part}]'
+        else:
+            data += f'[\'{part}\']'
+    converted_invocation = data
+
+    # Update the value based on the key path type
+    if prefix is not None:
+        if suffix is not None:
+            final_value = prefix + new_value + suffix
+        else:
+            final_value = prefix + new_value
+    else:
+        if suffix is not None:
+            final_value = new_value + suffix
+        else:
+            final_value = new_value
+
+    # Update the value in the YAML file
+    modify_yaml_file(converted_invocation, filename, final_value)
+
+def modify_yaml_file(invocation, file_path, new_value):
+    yaml=YAML()
+    yaml.preserve_quotes=True
+    yaml.explicit_start=True
+    yaml.default_flow_style = False
+    yaml.sort_keys = False
+    with open(file_path, 'r') as file:
+        yaml_data = yaml.load(file)
+    execute = invocation +' = '+ '"'+new_value+'"'
+    print(execute)
+    exec(execute,)
+    with open(file_path, 'w') as file:
+        yaml.dump(yaml_data, file)
+
+def main() -> None:
+    read_or_create_env_file() #As it says on the tin. If the file is there, read it and confirm the settings are correct. If not? Then create it and prompt normally.
+    load_dotenv() #Load this .env file if the file exists
+
+    check_python_version(
+        required_version='3.9.0'
+    )
+
+    i = random.randrange(9) + 1
+    website="https://raw.githubusercontent.com/CJCShadowsan/ASCII-Art-Splash-Screen/master/art/"+ str(i) + ".txt"
+    os.system("curl " +  website)
+
+    # Display splash screen with help key
+    print("Ubiquity configuration tool\n")
+    print("This tool configures common settings prior to provisioning an HPC environment.")
+    print("Press '?' for help at any prompt.\n")
+
+
+    # General
+    default_editor = os.getenv('EDITOR')
+    editor = prompt_with_help("Select text editor", "Define the text editor to inspect configurations at the end of the configure process.", default=default_editor)
+    env_replace(pattern='EDITOR='+default_editor, replacement='EDITOR='+editor, paths=[".env"])
+
+# Files that get changed:
+# apps/hajimari/values.yaml
+# baremetal-operator/config/default/ironic.env
+# baremetal-operator/Makefile
+# baremetal-operator/ironic-deployment/components/keepalived/ironic_bmo_configmap.env
+# baremetal-operator/ironic-deployment/overlays/temp/ironic_bmo_configmap.env
+# baremetal-operator/ironic-deployment/default/ironic_bmo_configmap.env
+# bootstrap/argocd/defaults.yaml
+# bootstrap/argocd/values-seed.yaml
+# bootstrap/argocd/values.yaml
+# bootstrap/root/values-seed.yaml
+# bootstrap/root/values.yaml
+# netal/inventories/prod.yml
+# metal/group_vars/all.yml
+# metal/group_vars/metal.yml
+# platform/argo-workflows/values.yaml - ingress, tls, cert-issuer
+# platform/awx/awx-platform.yaml - ingress, tls, cert-issuer
+# platform/dex/values.yaml - ingress, issuer, auth, cert-issuer
+# platform/gitea/values.yaml - ingress
+# platform/harbor/values.yml - ingress for notary and harbor, and external_url
+# platform/keycloak/values.yaml - ingress
+# platform/onyxia/values.yaml - ingress
+# platform/renovate/values.yaml - renovate git url
+# platform/trow/values.yaml - ingress, enable hajimari and input - TODO: Confirm dockerhub proxy caches?
+# system/longhorn-system/values.yaml - ingress
+# system/monitoring-system/values.yaml - ingress etc
+# system/vault/templates/cr.yaml - ingress
+
+    # Domains and Repos
+    default_domain = os.getenv('DOMAIN')
+    domain = prompt_with_help("What is the domain name of your Ubiquity deployment?", "Define the domain name you want for your cluster. You can define this as a DNS address hosted with a provider that supports API requests for external-dns such as cloudflare or duckdns, or nip.io. If you choose nip.io, you must choose pebble-issuer as your cert_provider.", default=default_domain)
+    env_replace(pattern='DOMAIN='+default_domain, replacement='DOMAIN='+domain, paths=[".env"])
+
+    # ArgoCD
+    update_config_yaml("bootstrap/argocd/defaults.yaml", "argo-cd:server:ingressGrpc:tls:0:hosts:0", domain, "grpc.")
+    update_config_yaml("bootstrap/argocd/defaults.yaml", "argo-cd:server:ingressGrpc:hosts:0", domain, "grpc.")
+    update_config_yaml("bootstrap/argocd/defaults.yaml", "argo-cd:server:ingress:tls:0:hosts:0", domain, "argocd.")
+    update_config_yaml("bootstrap/argocd/defaults.yaml", "argo-cd:server:ingress:hosts:0", domain, "argocd.")
+    # Longhorn
+    update_config_yaml("system/longhorn-system/values.yaml", "longhorn:ingress:host", domain, "longhorn.")
+    # Kube-Prometheus-Stack
+    update_config_yaml("monitoring/monitoring-system/values.yaml", "kube-prometheus-stack:grafana:ingress:hosts:0", domain, "grafana.")
+    update_config_yaml("monitoring/monitoring-system/values.yaml", "kube-prometheus-stack:grafana:ingress:tls:0:hosts:0", domain, "grafana.")
+    update_config_yaml("monitoring/monitoring-system/values.yaml", "kube-prometheus-stack:grafana:grafana.ini:server:domain", domain, "grafana.")
+    update_config_yaml("monitoring/monitoring-system/values.yaml", "kube-prometheus-stack:grafana:grafana.ini:server:root_url", domain, "https://grafana.")
+    update_config_yaml("monitoring/monitoring-system/values.yaml", "kube-prometheus-stack:grafana:grafana.ini:auth.generic_oauth:auth_url", domain, "https://dex.", "/auth")
+    update_config_yaml("monitoring/monitoring-system/values.yaml", "kube-prometheus-stack:grafana:grafana.ini:auth.generic_oauth:token_url", domain, "https://dex.", "/token")
+    update_config_yaml("monitoring/monitoring-system/values.yaml", "kube-prometheus-stack:grafana:grafana.ini:auth.generic_oauth:api_url", domain, "https://dex.", "/userinfo")
+    #update_config_yaml("monitoring/monitoring-system/templates/ingress.yaml", "spec:rules:0:host", domain, "grafana.")
+    #update_config_yaml("monitoring/monitoring-system/templates/ingress.yaml", "spec:tls:0:hosts:0", domain, "grafana.")
+    # Vault
+    update_config_yaml("system/vault/templates/cr.yaml", "spec:ingress:spec:rules:0:host", domain, "vault.")
+    update_config_yaml("system/vault/templates/cr.yaml", "spec:ingress:spec:tls:0:hosts:0", domain, "vault.")
+    # Argo-Workflows
+    update_config_yaml("platform/argo-workflows/values.yaml", "argo-workflows:server:ingress:hosts:0", domain, "workflows.")
+    update_config_yaml("platform/argo-workflows/values.yaml", "argo-workflows:server:ingress:tls:0:hosts:0", domain, "workflows.")
+    # AWX
+    update_config_yaml("platform/awx/awx-platform.yaml", "spec:hostname", domain, "awx.")
+    # Dex
+    update_config_yaml("platform/dex/values.yaml", "dex:config:connectors:0:config:redirectURI", domain, "https://dex.", "/callback")
+    update_config_yaml("platform/dex/values.yaml", "dex:config:connectors:0:config:baseURL", domain, "https://git.")
+    update_config_yaml("platform/dex/values.yaml", "dex:config:staticClients:0:redirectURIs:0", domain, "https://grafana.", "/login/generic_oauth")
+    update_config_yaml("platform/dex/values.yaml", "dex:ingress:hosts:0:host", domain, "dex.")
+    update_config_yaml("platform/dex/values.yaml", "dex:ingress:tls:0:hosts:0", domain, "dex.")
+    # Gitea
+    update_config_yaml("platform/gitea/values.yaml", "gitea:ingress:hosts:0:host", domain, "git.")
+    update_config_yaml("platform/gitea/values.yaml", "gitea:ingress:tls:0:hosts:0", domain, "git.")
+    update_config_yaml("platform/gitea/values.yaml", "gitea:gitea:config:server:ROOT_URL", domain, "https://git.")
+    # Harbor
+    update_config_yaml("platform/harbor/values.yaml", "harbor:harbor:ingress:core:hostname", domain, "harbor.")
+    update_config_yaml("platform/harbor/values.yaml", "harbor:harbor:ingress:notary:hostname", domain, "harbor.")
+    update_config_yaml("platform/harbor/values.yaml", "harbor:harbor:externalURL", domain, "https://harbor.")
+    find_and_replace(pattern=default_domain, replacement=domain, paths=["platform/harbor/templates/harbor-config-overwrite-secret.yaml"])
+    # Keycloak
+    update_config_yaml("platform/keycloak/values.yaml", "keycloak:ingress:rules:0:host", domain, "keycloak.")
+    update_config_yaml("platform/keycloak/values.yaml", "keycloak:ingress:tls:0:hosts:0", domain, "keycloak.")
+    # Onyxia
+    update_config_yaml("platform/onyxia/values.yaml", "onyxia:ingress:hosts:0:host", domain, "datalab.")
+    update_config_yaml("platform/onyxia/values.yaml", "onyxia:ingress:tls:0:hosts:0", domain, "datalab.")
+    update_config_yaml("platform/onyxia/values.yaml", "onyxia:ui:env:ONYXIA_API_URL", domain, "https://datalab.", "/api")
+    update_config_yaml("platform/onyxia/values.yaml", "onyxia:ui:env:KEYCLOAK_URL", domain, "https://keycloak.", "/auth")
+    update_config_yaml("platform/onyxia/values.yaml", "onyxia:ui:env:VAULT_URL", domain, "https://vault.")
+    update_config_yaml("platform/onyxia/values.yaml", "onyxia:api:env:keycloak.auth-server-url", domain, "https://keycloak.", "/auth")
+    update_config_yaml("platform/onyxia/values.yaml", "onyxia:api:regions:0:services:expose:domain", domain, "datalab.")
+    update_config_yaml("platform/onyxia/values.yaml", "onyxia:api:env:VAULT_URL", domain, "https://vault.")
+    update_config_yaml("platform/onyxia/values.yaml", "onyxia:ingress:annotations:hajimari.io/url", domain, "https://datalab.")
+
+    # Renovate
+    update_config_yaml("platform/renovate/values.yaml", "renovate:renovate:config", domain, "https://git.", "/api/v1")
+    # Trow
+    update_config_yaml("platform/trow/values.yaml", "trow:trow:domain", domain, "registry.")
+    update_config_yaml("platform/trow/values.yaml", "trow:ingress:hosts:0:host", domain, "registry.")
+    update_config_yaml("platform/trow/values.yaml", "trow:ingress:tls:0:hosts:0", domain, "registry.")
+    # Hajimari
+    update_config_yaml("apps/hajimari/values.yaml", "hajimari:ingress:main:hosts:0:host", domain, "hajimari.")
+    update_config_yaml("apps/hajimari/values.yaml", "hajimari:ingress:main:tls:0:hosts:0", domain, "hajimari.")
+    # Dex
+    update_config_yaml("platform/dex/values.yaml", "dex:config:issuer", domain, "https://dex.")
+
+    # Bootstrap apply.sh
+    #update_config_yaml("bootstrap/apply.sh", "domain", domain)
+
+    # ArgoCD - Seed Repo & Credentials
+    default_seed_repo = os.getenv('SEED_REPO')
+    if Confirm.ask("Are you using SSH keys for git access?"):
+      seed_repo = prompt_with_help("Enter seed repo", "Define where the original git repository that the cluster is defined at. Please make sure that if you choose to store sensitive information that this repository is private!", default=default_seed_repo)
+      env_replace(pattern='SEED_REPO='+default_seed_repo, replacement='SEED_REPO='+seed_repo, paths=[".env"])
+
+      update_config_yaml("bootstrap/argocd/values-seed.yaml", "argo-cd:configs:credentialTemplates:ssh-creds:url", seed_repo)
+      update_config_yaml("bootstrap/argocd/values-seed.yaml", "argo-cd:configs:repositories:private-git-ops-services:url", seed_repo)
+      update_config_yaml("bootstrap/root/values-seed.yaml", "gitops:repo", seed_repo)
+
+      default_seed_repo_ssh = os.getenv('SEED_REPO_SSH_KEY')
+      if Confirm.ask("Current SSH Private Key is: "+default_seed_repo_ssh+". Would you like to change this?"):
+        subprocess.run(
+            [editor, 'bootstrap/argocd/values-seed.yaml']
+        )
+    else:
+      seed_repo = prompt_with_help("Enter seed repo", "Define where the original git repository that the cluster is defined at. Please make sure that if you choose to store sensitive information that this repository is private!", default=default_seed_repo)
+      env_replace(pattern='SEED_REPO='+default_seed_repo, replacement='SEED_REPO='+seed_repo, paths=[".env"])
+
+      update_config_yaml("bootstrap/argocd/values-seed.yaml", "argo-cd:configs:credentialTemplates:https-creds:url", seed_repo)
+      update_config_yaml("bootstrap/argocd/values-seed.yaml", "argo-cd:configs:repositories:private-git-ops-services:url", seed_repo)
+      update_config_yaml("bootstrap/root/values-seed.yaml", "gitops:repo", seed_repo)   
+
+      default_seed_repo_username = os.getenv('SEED_REPO_USERNAME')
+      seed_repo_username = prompt_with_help("Enter seed repo username", "Define the username that has permission to access the original git repository that the cluster is defined at. Please make sure that if you choose to store sensitive information that this repository is private!", default=default_seed_repo_username)
+      env_replace(pattern='SEED_REPO_USERNAME='+default_seed_repo_username, replacement='SEED_REPO_USERNAME='+seed_repo_username, paths=[".env"])
+
+      default_seed_repo_password = os.getenv('SEED_REPO_PASSWORD')
+      seed_repo_password = prompt_with_help("Enter seed repo password", "Define the password that has permission to access the original git repository that the cluster is defined at. Please make sure that if you choose to store sensitive information that this repository is private!", default=default_seed_repo_password)
+      env_replace(pattern='SEED_REPO_PASSWORD='+default_seed_repo_password, replacement='SEED_REPO_PASSWORD='+seed_repo_password, paths=[".env"])
+      update_config_yaml("bootstrap/argocd/values-seed.yaml", "argo-cd:configs:credentialTemplates:https-creds:username", seed_repo_username)
+      update_config_yaml("bootstrap/argocd/values-seed.yaml", "argo-cd:configs:credentialTemplates:https-creds:password", seed_repo_password)
+
+      if Confirm.ask("Is your git repository self-hosted? If so, please specify the TLS certificate"):
+        subprocess.run(
+            [editor, 'bootstrap/argocd/argocd-repo-tls-cert.yaml']
+        )
+    # Server configs and OS
+    default_dns_server = os.getenv('DNS_SERVER')
+    dns_server = prompt_with_help("Enter DNS server", "Define a DNS server for DNS records the original git repository that the cluster is defined at. Please make sure that this server is reachable!", default=default_dns_server)
+    env_replace(pattern='DNS_SERVER='+default_dns_server, replacement='DNS_SERVER='+dns_server, paths=[".env"])
+    update_config_yaml("metal/group_vars/all.yml", "dns_server", dns_server)
+
+    default_ntp_server = os.getenv('NTP_SERVER')
+    ntp_server = prompt_with_help("Enter NTP server", "Define an NTP server for network-time. Please make sure that this server is reachable!", default=default_ntp_server)
+    env_replace(pattern='NTP_SERVER='+default_ntp_server, replacement='NTP_SERVER='+ntp_server, paths=[".env"])
+    update_config_yaml("metal/group_vars/all.yml", "ntp_server", ntp_server)
+
+    default_base_os = os.getenv('OS')
+    base_os = prompt_with_help("Please define OS (Rocky or Ubuntu)", "Define an OS flavour. Currently Rocky (8.7/8.8) or Ubuntu (22.04). Define version next!", default=default_base_os)
+    env_replace(pattern='OS='+default_base_os, replacement='OS='+base_os, paths=[".env"])
+    update_config_yaml("metal/group_vars/all.yml", "base_os", base_os)
+
+    default_base_os_version = os.getenv('OS_IMAGE_VERSION')
+    base_os_version = prompt_with_help("Please define OS version for Rocky or Ubuntu:", "Define an OS version. Supported versions are 8.7/8.8/8.9/9.1 for Rocky and 22.04/23.04 for Ubuntu.", default=default_base_os_version)
+    env_replace(pattern='OS_IMAGE_VERSION='+default_base_os_version, replacement='OS_IMAGE_VERSION='+base_os_version, paths=[".env"])
+    update_config_yaml("metal/group_vars/all.yml", "base_os_version", base_os_version)
+
+    default_timezone = os.getenv('TIMEZONE')
+    timezone = prompt_with_help("Enter time zone", "Please select the timezone for your cluster", default=default_timezone)
+    env_replace(pattern='TIMEZONE='+default_timezone, replacement='TIMEZONE='+timezone, paths=[".env"])
+    update_config_yaml("metal/group_vars/all.yml", "timezone", timezone)
+    update_config_yaml("metal/roles/pxe_server/defaults/main.yml", "timezone", timezone)
+    update_config_yaml("system/kured/values.yaml", "kured:configuration:timeZone", timezone)
+    update_config_yaml("apps/hajimari/values.yaml", "hajimari:env:TZ", timezone)
+
+    # Cluster
+    default_cluster_name = os.getenv('KUBERNETES_CLUSTER_NAME')
+    cluster_name = prompt_with_help("Enter cluster name", "Please select a name for your cluster", default=default_cluster_name)
+    env_replace(pattern='KUBERNETES_CLUSTER_NAME='+default_cluster_name, replacement='KUBERNETES_CLUSTER_NAME='+cluster_name, paths=[".env"])
+    update_config_yaml("metal/group_vars/all.yml", "cluster_name", cluster_name)
+
+    default_cluster_domain = os.getenv('KUBERNETES_CLUSTER_DOMAIN')
+    cluster_domain = prompt_with_help("Enter cluster domain", "Please select a domain for your cluster", default=default_cluster_domain)
+    env_replace(pattern='KUBERNETES_CLUSTER_DOMAIN='+default_cluster_domain, replacement='KUBERNETES_CLUSTER_DOMAIN='+cluster_domain, paths=[".env"])
+    update_config_yaml("metal/group_vars/all.yml", "cluster_domain", cluster_domain)
+
+    default_cluster_network_cidr = os.getenv('KUBERNETES_CLUSTER_CIDR')
+    cluster_network_cidr = prompt_with_help("Enter cluster network CIDR", "Please select a network CIDR for your Kubernetes cluster. This is the address range that all of your pods use. If unsure, then the defaults are sane and you should leave them as-is.", default=default_cluster_network_cidr)
+    env_replace(pattern='KUBERNETES_CLUSTER_CIDR='+default_cluster_network_cidr, replacement='KUBERNETES_CLUSTER_CIDR='+cluster_network_cidr, paths=[".env"])
+    update_config_yaml("metal/group_vars/metal.yml", "cluster_cidr", cluster_network_cidr)
+
+    default_cluster_service_cidr = os.getenv('KUBERNETES_SERVICE_CIDR')
+    cluster_service_cidr = prompt_with_help("Enter cluster service CIDR", "Please select a network CIDR for the services you want to run on your cluster. This is the address range that services provision themselves on. Services aren't often presented directly to the user and normally go through an Ingress, so if unsure then again the defaults are sane and you should leave them as-is.", default=default_cluster_service_cidr)
+    env_replace(pattern='KUBERNETES_SERVICE_CIDR='+default_cluster_service_cidr, replacement='KUBERNETES_SERVICE_CIDR='+cluster_service_cidr, paths=[".env"])
+    update_config_yaml("metal/group_vars/metal.yml", "service_cidr", cluster_service_cidr)
+
+    default_ofed = os.getenv('USE_OFED')
+    ofed = prompt_with_help("Enable OFED", "Please select if you want to enable OFED on your cluster", default=default_ofed)
+    env_replace(pattern='USE_OFED='+default_ofed, replacement='USE_OFED='+ofed, paths=[".env"])
+    update_config_yaml("metal/roles/pxe_server/defaults/main.yml", "ofed:enabled", ofed)
+
+    default_ofed_version = os.getenv('OFED_VERSION')
+    ofed_version = prompt_with_help("Enter OFED version", "Please select the OFED version you want to install on your cluster", default=default_ofed_version)
+    env_replace(pattern='OFED_VERSION='+default_ofed_version, replacement='OFED_VERSION='+ofed_version, paths=[".env"])
+    update_config_yaml("metal/roles/pxe_server/defaults/main.yml", "ofed:version", ofed_version)
+
+    # Metal
+    default_external_interface = os.getenv('EXTERNAL_IPV4_INTERFACE')
+    external_interface = prompt_with_help("Enter external interface", "Please select the externally-facing interface for your HA cluster control plane. This can be an interface, or a VLAN interface and just has to be the same for all control-planes.", default=default_external_interface)
+    env_replace(pattern='EXTERNAL_IPV4_INTERFACE='+default_external_interface, replacement='EXTERNAL_IPV4_INTERFACE='+external_interface, paths=[".env"])
+    update_config_yaml("metal/group_vars/metal.yml", "external_interface", external_interface)
+
+    default_internal_interface = os.getenv('INTERNAL_IPV4_INTERFACE')
+    internal_interface = prompt_with_help("Enter internal interface", "Please select the internally-facing interface for your HA cluster control plane. This can be an interface, or a VLAN interface and just has to be the same for all control-planes.", default=default_internal_interface)
+    env_replace(pattern='INTERNAL_IPV4_INTERFACE='+default_internal_interface, replacement='INTERNAL_IPV4_INTERFACE='+internal_interface, paths=[".env"])
+    update_config_yaml("metal/group_vars/metal.yml", "internal_interface", internal_interface)
+
+    default_keepalived_interface = os.getenv('KEEPALIVED_IPV4_INTERFACE')
+    keepalived_interface = prompt_with_help("Enter keepalived interface", "Please select the keepalived interface for your HA cluster control plane. This is the physical interface that will be used to provision a highly-available keepalived virtual IP on that floats between all 3 control plane masters.", default=default_keepalived_interface)
+    env_replace(pattern='KEEPALIVED_IPV4_INTERFACE='+default_keepalived_interface, replacement='KEEPALIVED_IPV4_INTERFACE='+keepalived_interface, paths=[".env"])
+    update_config_yaml("metal/group_vars/metal.yml", "keepalived_interface", keepalived_interface)
+
+    default_keepalived_addr_cidr = os.getenv('KEEPALIVED_CIDR')
+    keepalived_addr_cidr = prompt_with_help("Enter keepalived CIDR", "Please select the keepalived CIDR notation the keepalived address exists on. This is to define an address space and mask that the keepalived virtual IP will float on.", default=default_keepalived_addr_cidr)
+    env_replace(pattern='KEEPALIVED_CIDR='+default_keepalived_addr_cidr, replacement='KEEPALIVED_CIDR='+keepalived_addr_cidr, paths=[".env"])
+    update_config_yaml("metal/group_vars/metal.yml", "keepalived_addr_cidr", keepalived_addr_cidr)
+
+    default_keepalived_vip = os.getenv('KEEPALIVED_IPV4_VIP')
+    keepalived_vip = prompt_with_help("Enter keepalived VIP", "Please select the keepalived virtual IP address for your HA cluster control plane. This address will be the address you will talk to your Kubernetes API on, and floats between the 3 control-plane nodes.", default=default_keepalived_vip)
+    env_replace(pattern='KEEPALIVED_IPV4_VIP='+default_keepalived_vip, replacement='KEEPALIVED_IPV4_VIP='+keepalived_vip, paths=[".env"])
+    update_config_yaml("metal/group_vars/metal.yml", "keepalived_ip", keepalived_vip)
+
+    # MetalLB
+    print ("Would you like to define a custom MetalLB configuration for your cluster? If you do not, the default configuration will be used. NOTE: CURRENTLY THE CONCEPT OF EXTERNAL/INTERNAL ADDRESSES IS NOT FUNCITONAL. THE EXTERNAL RANGE IS JUST THE RANGE.")
+    default_metallb_external_ip_range = os.getenv('METALLB_EXTERNAL_IP_RANGE')
+    metallb_external_ip_range = prompt_with_help("Enter MetalLB external IP range", "Please select the MetalLB external IP range for your cluster", default=default_metallb_external_ip_range)
+    env_replace(pattern='METALLB_EXTERNAL_IP_RANGE='+default_metallb_external_ip_range, replacement='METALLB_EXTERNAL_IP_RANGE='+metallb_external_ip_range, paths=[".env"])
+    update_config_yaml("metal/group_vars/metal.yml", "metallb_external_ip_range", metallb_external_ip_range)
+    update_config_yaml("metal/roles/metallb_config/defaults/main.yml", "metallb_external_ip_range", metallb_external_ip_range)
+    #update_config_yaml("metal/roles/metallb_config/defaults/main.yml", "metallb_addresses", metallb_external_ip_range)
+
+    default_metallb_internal_ip_range = os.getenv('METALLB_INTERNAL_IP_RANGE')
+    metallb_internal_ip_range = prompt_with_help("Enter MetalLB internal IP range", "Please select the MetalLB internal IP range for your cluster. Future services will be able to assign from a pool of internal addresses only. Currently this feature is disabled.", default=default_metallb_internal_ip_range)
+    env_replace(pattern='METALLB_INTERNAL_IP_RANGE='+default_metallb_internal_ip_range, replacement='METALLB_INTERNAL_IP_RANGE='+metallb_internal_ip_range, paths=[".env"])
+    update_config_yaml("metal/group_vars/metal.yml", "metallb_internal_ip_range", metallb_internal_ip_range)
+    update_config_yaml("metal/roles/metallb_config/defaults/main.yml", "metallb_internal_ip_range", metallb_internal_ip_range)
+
+    # Kubernetes
+    print ("Would you like to define a custom k3s version for your cluster? If you do not, the latest stable version will be used.")
+    default_k3s_version = os.getenv('KUBERNETES_VERSION')
+    k3s_version = prompt_with_help("Enter k3s version", "Please select the k3s version for your cluster", default=default_k3s_version)
+    env_replace(pattern='KUBERNETES_VERSION='+default_k3s_version, replacement='KUBERNETES_VERSION='+k3s_version, paths=[".env"])
+    update_config_yaml("metal/group_vars/metal.yml", "k3s_version", k3s_version)
+
+    # generate a random string for the encryption secret and base64 encode it
+    k3s_encryption_secret = prompt_with_help("Enter k3s encryption secret", "Please select the k3s encryption secret for your cluster. This is auto-generated but you can get it now here.", default=default_k3s_encrypt_secret)
+    k3s_encrypted_secret = base64.b64encode(k3s_encryption_secret.encode('ascii')).decode('ascii')
+    update_config_yaml("metal/group_vars/metal.yml", "k3s_encryption_secret", k3s_encrypted_secret)
+    print ("This is the k3s encryption secret for your cluster. Please copy this and write it down somewhere safe. You will need this in a disaster recovery scenario! This is NOT stored in the .env file for security reasons.")
+    print (k3s_encryption_secret)
+
+    default_cert_provider = os.getenv('CERT_PROVIDER')
+    cert_provider = prompt_with_help("Enter cert provider", "Please specify the certificate provider for the cluster. This can be pebble-issuer which is an internal-only provider, or letsencrypt-prod for production environments. letsencrypt-prod is a production tool - not for rapid development! It rate-limits. Please be aware.", default=default_cert_provider)
+    env_replace(pattern='CERT_PROVIDER='+default_cert_provider, replacement='CERT_PROVIDER='+cert_provider, paths=[".env"])
+    # ArgoCD
+    update_config_yaml("bootstrap/argocd/defaults.yaml", "argo-cd:server:ingressGrpc:annotations:cert-manager.io/cluster-issuer", cert_provider)
+    update_config_yaml("bootstrap/argocd/defaults.yaml", "argo-cd:server:ingress:annotations:cert-manager.io/cluster-issuer", cert_provider)
+    # Longhorn
+    update_config_yaml("system/longhorn-system/values.yaml", "longhorn:ingress:annotations:cert-manager.io/cluster-issuer", cert_provider)
+    # Kube-Prometheus-Stack
+    update_config_yaml("monitoring/monitoring-system/values.yaml", "kube-prometheus-stack:grafana:ingress:annotations:cert-manager.io/cluster-issuer", cert_provider)
+    #update_config_yaml("monitoring/monitoring-system/templates/ingress.yaml", "metadata:annotations:cert-manager.io/cluster-issuer", cert_provider)
+    # Vault
+    update_config_yaml("system/vault/templates/cr.yaml", "spec:ingress:annotations:cert-manager.io/cluster-issuer", cert_provider)
+    # Argo-Workflows
+    update_config_yaml("platform/argo-workflows/values.yaml", "argo-workflows:server:ingress:annotations:cert-manager.io/cluster-issuer", cert_provider)
+    # AWX
+    find_and_replace(pattern=default_cert_provider, replacement=cert_provider, paths=["platform/awx/awx-platform.yaml"])
+    # Dex
+    update_config_yaml("platform/dex/values.yaml", "dex:ingress:annotations:cert-manager.io/cluster-issuer", cert_provider)
+    # Gitea
+    update_config_yaml("platform/gitea/values.yaml", "gitea:ingress:annotations:cert-manager.io/cluster-issuer", cert_provider)
+    # Harbor
+    update_config_yaml("platform/harbor/values.yaml", "harbor:harbor:ingress:core:annotations:cert-manager.io/cluster-issuer", cert_provider)
+    update_config_yaml("platform/harbor/values.yaml", "harbor:harbor:ingress:notary:annotations:cert-manager.io/cluster-issuer", cert_provider)
+    # Keycloak
+    update_config_yaml("platform/keycloak/values.yaml", "keycloak:ingress:annotations:cert-manager.io/cluster-issuer", cert_provider)
+    # Onyxia
+    update_config_yaml("platform/onyxia/values.yaml", "onyxia:ingress:annotations:cert-manager.io/cluster-issuer", cert_provider)
+    # Trow
+    update_config_yaml("platform/trow/values.yaml", "trow:ingress:annotations:cert-manager.io/cluster-issuer", cert_provider)
+    # Hajimari
+    update_config_yaml("apps/hajimari/values.yaml", "hajimari:ingress:main:annotations:cert-manager.io/cluster-issuer", cert_provider)
+
+    # Internal IPV4 address and IPV4 Provisoner are the same - This probably needs simplifying instead of having 2 variables doing effectively the same thing. TODO!
+    default_internal_ipv4_address = os.getenv('INTERNAL_IPV4_ADDRESS')
+    internal_ipv4_address = prompt_with_help("Enter internal ipv4 address of bootstrapper", "Select the internal address of the bootstrap node. This is the address that sits on a bootstrap node and provisions on-premise environments.", default=default_internal_ipv4_address)
+    env_replace(pattern='INTERNAL_IPV4_ADDRESS='+default_internal_ipv4_address, replacement='INTERNAL_IPV4_ADDRESS='+internal_ipv4_address, paths=[".env"])
+    env_replace(pattern='INTERNAL_IPV4_PROVISIONER='+default_internal_ipv4_address, replacement='INTERNAL_IPV4_PROVISIONER='+internal_ipv4_address, paths=[".env"])
+    update_config_yaml("metal/group_vars/all.yml", "internal_ipv4:address", internal_ipv4_address)
+    update_config_yaml("metal/group_vars/all.yml", "internal_ipv4:provisioner", internal_ipv4_address)
+
+    default_internal_ipv4_network = os.getenv('INTERNAL_IPV4_NETWORK')
+    internal_ipv4_network = prompt_with_help("Enter internal ipv4 network address space", "Please select the internal address space, in the format AAA.BBB.CCC.DDD/CIDR - This address space should have enough room for all your compute hosts.", default=default_internal_ipv4_network)
+    env_replace(pattern='INTERNAL_IPV4_NETWORK='+default_internal_ipv4_network, replacement='INTERNAL_IPV4_NETWORK='+internal_ipv4_network, paths=[".env"])
+    update_config_yaml("metal/group_vars/all.yml", "internal_ipv4:network", internal_ipv4_network)
+    tmp_int_network = ipaddress.IPv4Network(f"{internal_ipv4_network}")
+
+    default_internal_ipv4_broadcast = os.getenv('INTERNAL_IPV4_BROADCAST')
+    internal_ipv4_broadcast = str(tmp_int_network.broadcast_address)
+    env_replace(pattern='INTERNAL_IPV4_BROADCAST='+default_internal_ipv4_broadcast, replacement='INTERNAL_IPV4_BROADCAST='+internal_ipv4_broadcast, paths=[".env"])
+    update_config_yaml("metal/group_vars/all.yml", "internal_ipv4:broadcast", internal_ipv4_broadcast)
+
+    default_internal_ipv4_netmask = os.getenv('INTERNAL_IPV4_NETMASK')
+    internal_ipv4_netmask = str(tmp_int_network.netmask)
+    env_replace(pattern='INTERNAL_IPV4_NETMASK='+default_internal_ipv4_netmask, replacement='INTERNAL_IPV4_NETMASK='+internal_ipv4_netmask, paths=[".env"])
+    update_config_yaml("metal/group_vars/all.yml", "internal_ipv4:netmask", internal_ipv4_netmask)
+
+    default_internal_ipv4_gateway = os.getenv('INTERNAL_IPV4_GATEWAY')
+    internal_ipv4_gateway = prompt_with_help("Enter internal ipv4 network gateway", "Please select the internal network gateway address. This is the address that is defined as the default gateway for the cluster.", default=default_internal_ipv4_gateway)
+    env_replace(pattern='INTERNAL_IPV4_GATEWAY='+default_internal_ipv4_gateway, replacement='INTERNAL_IPV4_GATEWAY='+internal_ipv4_gateway, paths=[".env"])
+    update_config_yaml("metal/group_vars/all.yml", "internal_ipv4:gateway", internal_ipv4_gateway)
+
+    default_external_ipv4_address = os.getenv('EXTERNAL_IPV4_ADDRESS')
+    external_ipv4_address = prompt_with_help("Enter external ipv4 address of bootstrapper", "Select the external address of the bootstrap node. This is the address that sits on a bootstrap node and in some cases delivers NAT to the remaining nodes", default=default_external_ipv4_address)
+    env_replace(pattern='EXTERNAL_IPV4_ADDRESS='+external_ipv4_address, replacement='EXTERNAL_IPV4_ADDRESS='+external_ipv4_address, paths=[".env"])
+    update_config_yaml("metal/group_vars/all.yml", "external_ipv4:address", external_ipv4_address)
+
+    default_external_ipv4_network = os.getenv('EXTERNAL_IPV4_NETWORK')
+    external_ipv4_network = prompt_with_help("Enter external ipv4 network address space", "Please select the external address space, in the format AAA.BBB.CCC.DDD/CIDR - This address space should have enough room for all your compute hosts.", default=default_external_ipv4_network)
+    env_replace(pattern='EXTERNAL_IPV4_NETWORK='+default_external_ipv4_network, replacement='EXTERNAL_IPV4_NETWORK='+external_ipv4_network, paths=[".env"])
+    update_config_yaml("metal/group_vars/all.yml", "external_ipv4:network", external_ipv4_network)
+
+    tmp_ext_network = ipaddress.IPv4Network(f"{external_ipv4_network}")
+
+    default_external_ipv4_broadcast = os.getenv('EXTERNAL_IPV4_BROADCAST')
+    external_ipv4_broadcast = str(tmp_ext_network.broadcast_address)
+    env_replace(pattern='EXTERNAL_IPV4_BROADCAST='+default_external_ipv4_broadcast, replacement='EXTERNAL_IPV4_BROADCAST='+external_ipv4_broadcast, paths=[".env"])
+    update_config_yaml("metal/group_vars/all.yml", "external_ipv4:broadcast", external_ipv4_broadcast)
+
+    default_external_ipv4_netmask = os.getenv('EXTERNAL_IPV4_NETMASK')
+    external_ipv4_netmask = str(tmp_ext_network.netmask)
+    env_replace(pattern='EXTERNAL_IPV4_NETMASK='+default_external_ipv4_netmask, replacement='EXTERNAL_IPV4_NETMASK='+external_ipv4_netmask, paths=[".env"])
+    update_config_yaml("metal/group_vars/all.yml", "external_ipv4:netmask", external_ipv4_netmask)
+
+    default_external_ipv4_gateway = os.getenv('EXTERNAL_IPV4_GATEWAY')
+    external_ipv4_gateway = prompt_with_help("Enter external ipv4 network gateway", "Please select the external network gateway address. This is the address that sits on a bootstrap node and provisions on-premise environments.", default=default_external_ipv4_gateway)
+    env_replace(pattern='EXTERNAL_IPV4_GATEWAY='+default_external_ipv4_gateway, replacement='EXTERNAL_IPV4_GATEWAY='+external_ipv4_gateway, paths=[".env"])
+    update_config_yaml("metal/group_vars/all.yml", "external_ipv4:gateway", external_ipv4_gateway)
+
+
+    if Confirm.ask("Do you have a Logicalis Container Registry account?"):
+        default_logicalis_reg_user = os.getenv('LOGICALIS_REG_USER')
+        logicalis_reg_user = prompt_with_help("Enter your username given to you by Logicalis:", "This is the username given to you by Logicalis - Please discuss with your account manager if you don't have this!", default=default_logicalis_reg_user)
+        default_logicalis_reg_token = os.getenv('LOGICALIS_REG_TOKEN')
+        logicalis_reg_token = prompt_with_help("Enter your registration key:", "This is the special token given to you by Logicalis to allow you to log onto our container registry. Without this, you can't logon - And if you forget it, we cannot retrieve the original - We have to re-generate it. Don't lose this!", default=default_logicalis_reg_token)
+        client = docker.from_env()
+        login = client.login(username=logicalis_reg_user, password=logicalis_reg_token,
+                               registry='https://ubiquity.azurecr.io')
+        try:
+            value = login['Status']
+            if value == "Login Succeeded":
+                env_replace(pattern='LOGICALIS_REG_USER='+default_logicalis_reg_user, replacement='LOGICALIS_REG_USER='+logicalis_reg_user, paths=[".env"])
+                env_replace(pattern='LOGICALIS_REG_TOKEN='+default_logicalis_reg_token, replacement='LOGICALIS_REG_TOKEN='+logicalis_reg_token, paths=[".env"])
+                update_config_yaml("metal/group_vars/all.yml", "logicalis_user", logicalis_reg_user)
+                update_config_yaml("metal/group_vars/all.yml", "logicalis_pass", logicalis_reg_token)
+                print("Login Succeeded")
+            else:
+                print(login)
+                sys.exit("Login Failed. Credentials incorrect.")
+        except KeyError:
+            print ("Error with login")
+        if Confirm.ask("Do you have a Dockerhub account?"):
+            default_dockerhub_reg_user = os.getenv('DOCKERHUB_REG_USER')
+            dockerhub_reg_user = prompt_with_help("Enter your dockerhub username:", "This is your dockerhub username", default=default_dockerhub_reg_user)
+            default_dockerhub_reg_token = os.getenv('DOCKERHUB_REG_TOKEN')
+            dockerhub_reg_token = prompt_with_help("Enter your password:", "This is your dockerhub password", default=default_dockerhub_reg_token)
+            client = docker.from_env()
+            login = client.login(username=dockerhub_reg_user, password=dockerhub_reg_token,
+                                   registry='https://index.docker.io/v1/')
+            try:
+                value = login['Status']
+                if value == "Login Succeeded":
+                    env_replace(pattern='DOCKERHUB_REG_USER='+default_dockerhub_reg_user, replacement='DOCKERHUB_REG_USER='+dockerhub_reg_user, paths=[".env"])
+                    env_replace(pattern='DOCKERHUB_REG_TOKEN='+default_dockerhub_reg_token, replacement='DOCKERHUB_REG_TOKEN='+dockerhub_reg_token, paths=[".env"])
+                    update_config_yaml("metal/group_vars/all.yaml", "dockerhub_user", dockerhub_reg_user)
+                    update_config_yaml("metal/group_vars/all.yaml", "dockerhub_pass", dockerhub_reg_token)
+                    print("Login Succeeded")
+                else:
+                    print(login)
+                    sys.exit("Login Failed. Credentials incorrect.")
+            except KeyError:
+                print ("Error with login")
+    else:
+        print("Proceeding without a Logicalis Container Registry account. If you have dockerhub credentials it is recommended you put these in to cover for multiple container pulls - Ensure you don't hit ratelimits!")
+        if Confirm.ask("Do you have a Dockerhub account?"):
+            default_dockerhub_reg_user = os.getenv('DOCKERHUB_REG_USER')
+            dockerhub_reg_user = prompt_with_help("Enter your dockerhub username:", "This is your dockerhub username", default=default_dockerhub_reg_user)
+            default_dockerhub_reg_token = os.getenv('DOCKERHUB_REG_TOKEN')
+            dockerhub_reg_token = prompt_with_help("Enter your password:", "This is your dockerhub password", default=default_dockerhub_reg_token)
+            client = docker.from_env()
+            login = client.login(username=dockerhub_reg_user, password=dockerhub_reg_token,
+                                   registry='https://index.docker.io/v1/')
+            try:
+                value = login['Status']
+                if value == "Login Succeeded":
+                    env_replace(pattern='DOCKERHUB_REG_USER='+default_dockerhub_reg_user, replacement='DOCKERHUB_REG_USER='+dockerhub_reg_user, paths=[".env"])
+                    env_replace(pattern='DOCKERHUB_REG_TOKEN='+default_dockerhub_reg_token, replacement='DOCKERHUB_REG_TOKEN='+dockerhub_reg_token, paths=[".env"])
+                    update_config_yaml("metal/group_vars/all.yaml", "dockerhub_user", dockerhub_reg_user)
+                    update_config_yaml("metal/group_vars/all.yaml", "dockerhub_pass", dockerhub_reg_token)
+                    print("Login Succeeded")
+                else:
+                    print(login)
+                    sys.exit("Login Failed. Credentials incorrect.")
+            except KeyError:
+                print ("Error with login")
+
+    if Confirm.ask("Do you want to use managed services?"):
+        terraform_workspace = Prompt.ask("Enter Terraform Workspace", default=default_terraform_workspace)
+
+        find_and_replace(
+            pattern=default_terraform_workspace,
+            replacement=terraform_workspace,
+            paths=[
+                "external/versions.tf"
+            ]
+        )
+
+    subprocess.run(
+        [editor, 'metal/inventories/prod.yml']
+    )
+
+    subprocess.run(
+        [editor, 'metal/group_vars/metal.yml']
+    )
+
+    subprocess.run(
+        [editor, 'metal/group_vars/all.yml']
+    )
+    if Confirm.ask("Do you wish to configure the control plane nodes network interfaces? (recommended)"):
+      for i in range(1, 4):
+        subprocess.run(
+            [editor, f'metal/host_vars/cp{i}.yml']
+        )
+
+    subprocess.run(
+        [editor, 'bootstrap/argocd/values-seed.yaml']
+    )
+
+if __name__ == '__main__':
+    main()

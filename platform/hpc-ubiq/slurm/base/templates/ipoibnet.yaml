@@ -1,0 +1,22 @@
+apiVersion: mellanox.com/v1alpha1
+kind: IPoIBNetwork
+metadata:
+  name: ubiquity-ipoibnetwork
+spec:
+  networkNamespace: "hpc-ubiq"
+  master: "ib0"
+  ipam: |
+    {
+      "type": "whereabouts",
+      "datastore": "kubernetes",
+      "kubernetes": {
+        "kubeconfig": "/var/lib/rancher/k3s/agent/etc/cni/net.d/whereabouts.d/whereabouts.kubeconfig"
+      },
+      "range": "10.8.0.0/22",
+      "exclude": [
+       "10.8.0.0/24"
+      ],
+      "log_file" : "/var/log/whereabouts.log",
+      "log_level" : "info",
+      "gateway": "10.8.0.1"
+    }

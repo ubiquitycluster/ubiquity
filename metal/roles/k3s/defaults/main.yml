@@ -1,0 +1,149 @@
+# Copyright 2023 Logicalis UKI. All Rights Reserved.
+#
+# Licensed under the Functional Source License, Version 1.0, Apache 2.0 Change License (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://github.com/logicalisuki/ubiquity/blob/main/LICENSE.md
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# It also allows for the transition of this software to an Apache 2.0 Licence
+# on the second anniversary of the date we make the software available.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+# Cluster Definitions
+
+test_cidr: 10.42.0.0/16
+cluster_cidr: 10.43.0.0/16
+service_cidr: 10.44.0.0/16
+cluster_external_ip: "{{ keepalived_ip }}"
+
+external_interface: eno2
+internal_interface: eno1
+
+keepalived_interface: eno1
+keepalived_addr_cidr: 192.168.1.150/24
+keepalived_ip: 192.168.1.150 # Change this to a real IP
+
+cilium_enabled: false
+
+metallb_enabled: true
+metallb_external_ip_range: 192.168.2.200-192.168.2.240
+metallb_internal_ip_range: 192.168.1.200-192.168.1.240
+
+kubeless_enabled: no
+kubeless_version: v1.0.8
+
+chrony_smearing: true
+chrony_rtcsync: true
+
+falco_security_enabled: no
+falco_sidekick_slack: ""
+falco_sidekick_slack_priority: "warning"
+falco_sidekick_kubeless_function: "{% if kubeless_enabled %}falco-pod-delete{% else %}''{% endif %}"
+falco_sidekick_kubeless_namespace: "{% if kubeless_enabled %}kubeless{% else %}''{% endif %}"
+falco_sidekick_kubeless_priority: "notice"
+### Possible customizations
+# falco_sidekick_alertmanager
+# falco_sidekick_alertmanager_priority
+# falco_sidekick_discord
+# falco_sidekick_discord_priority
+# falco_sidekick_googlechat
+# falco_sidekick_googlechat_priority
+# falco_sidekick_kubeless_function
+# falco_sidekick_kubeless_namespace
+# falco_sidekick_kubeless_priority
+# falco_sidekick_mattermost
+# falco_sidekick_mattermost_priority
+# falco_sidekick_rocketchat
+# falco_sidekick_rocketchat_priority
+# falco_sidekick_slack
+# falco_sidekick_slack_priority
+# falco_sidekick_teams
+# falco_sidekick_teams_priority
+#####
+
+kubectl_cmd: kubectl
+######### K3s Variables ##########
+k3s_dependencies:
+  - conntrack-tools
+  - curl
+  - ebtables
+  - ethtool
+  - gawk
+  - grep
+  - ipvsadm
+  - iscsi-initiator-utils
+  - libseccomp
+  - socat
+  - util-linux
+  - chrony
+  - dkms
+
+k3s_selinux_rpm: "https://github.com/k3s-io/k3s-selinux/releases/download/v1.2.stable.2/k3s-selinux-1.2-2.el8.noarch.rpm"
+
+k3s_encryption_secret: "qh5+jYTGNBfcimR1C09yqnE6H6218M48WBjnCGiDCn0=" # This is a secret and should be Vaulted! Generated using head -c 32 /dev/urandom | base64 - TODO: Automate key rotation via ansible. Look at: https://www.serverlab.ca/tutorials/containers/kubernetes/kubernetes-secrets-and-encrypting-at-rest/
+k3s_version: v1.23.17+k3s1
+k3s_config_file: /etc/rancher/k3s/config.yaml
+k3s_token_file: /etc/rancher/node/password
+k3s_service_file: /etc/systemd/system/k3s.service
+k3s_encryption_file: /etc/k3s-encryption.yaml
+
+k3s_server_config:
+  kube-apiserver-arg:
+    - "encryption-provider-config=/etc/k3s-encryption.yaml"
+    - "request-timeout=300s"
+    - "enable-admission-plugins=AlwaysPullImages,DefaultStorageClass,DefaultTolerationSeconds,LimitRanger,MutatingAdmissionWebhook,NamespaceLifecycle,NodeRestriction,PersistentVolumeClaimResize,Priority,ResourceQuota,ServiceAccount,TaintNodesByCondition,ValidatingAdmissionWebhook"
+    - "service-account-lookup=true"
+    - "anonymous-auth=false"
+    - "audit-log-maxage=30"
+    - "audit-log-maxbackup=30"
+    - "audit-log-maxsize=30"
+    - "audit-log-path=/var/lib/rancher/audit/audit.log"
+    - "tls-cipher-suites=TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_128_GCM_SHA256,TLS_RSA_WITH_AES_256_GCM_SHA384"
+    - "tls-min-version=VersionTLS12"
+  kube-controller-manager-arg:
+    - "terminated-pod-gc-threshold=10"
+    - "use-service-account-credentials=true"
+  disable:
+    - local-storage
+    - servicelb
+    - traefik
+  kubelet-arg:
+    - "max_pods=150"
+    - "system-reserved=cpu=300m,memory=5Mi,ephemeral-storage=1Gi"
+    - "kube-reserved=cpu=200m,memory=5Mi,ephemeral-storage=1Gi"
+    - "eviction_hard=memory.available<500Mi,nodefs.available<10%"
+    - "anonymous-auth=false"
+    - "streaming-connection-idle-timeout=5m"
+    - "tls-cipher-suites=TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_128_GCM_SHA256,TLS_RSA_WITH_AES_256_GCM_SHA384"
+  disable-cloud-controller: "true"
+  secrets-encryption: "true"
+  protect-kernel-defaults: "true"
+  write-kubeconfig-mode: "0600"
+  flannel-cni-conf: "/etc/cni/net.d/10-flannel.conflist"
+
+k3s_worker_config:
+  kubelet-arg:
+    - "cpu-manager-policy=static"
+    - "reserved-cpus=0,127"
+    - "max_pods=150"
+    - "system-reserved=cpu=300m,memory=5Mi,ephemeral-storage=1Gi"
+    - "kube-reserved=cpu=200m,memory=5Mi,ephemeral-storage=1Gi"
+    - "eviction_hard=memory.available<500Mi,nodefs.available<10%"
+    - "anonymous-auth=false"
+    - "streaming-connection-idle-timeout=5m"
+    - "tls-cipher-suites=TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_128_GCM_SHA256,TLS_RSA_WITH_AES_256_GCM_SHA384"
+  flannel-cni-conf: "/etc/cni/net.d/10-flannel.conflist"
+protected_files:
+  - /etc/falco/token
+  - /etc/k3s-encryption.yaml
+  - /etc/systemd/system/k3s-agent.service
+  - /etc/systemd/system/k3s-server.service
+  - /usr/lib/systemd/system/falco.service
+  - /usr/lib/systemd/system/rescue.service
+  - /var/lib/rancher/audit/audit-policy.yaml
+  - /var/lib/rancher/audit/webhook-config.yaml

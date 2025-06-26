@@ -1,0 +1,12 @@
+--- ../../../baremetal-operator/ironic-deployment/base/ironic.yaml      2024-04-07 18:24:36.834718951 +0000
++++ ironic.yaml 2024-04-07 18:23:33.304868882 +0000
+@@ -200,7 +200,8 @@
+           runAsGroup: 994 # ironic
+       volumes:
+       - name: ironic-data-volume
+-        emptyDir: {}
++        persistentVolumeClaim:
++          claimName: pvc-lh-ironic
+       securityContext:
+         runAsNonRoot: true
+         seccompProfile:

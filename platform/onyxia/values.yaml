@@ -1,0 +1,198 @@
+---
+# Copyright 2023 Logicalis UKI. All Rights Reserved.
+#
+# Licensed under the Functional Source License, Version 1.0, Apache 2.0 Change License (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://github.com/logicalisuki/ubiquity/blob/main/LICENSE.md
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# It also allows for the transition of this software to an Apache 2.0 Licence
+# on the second anniversary of the date we make the software available.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+onyxia:
+  serviceAccount:
+    clusterAdmin: true
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    annotations:
+      # See ../docs/reference/ingress.md for more information
+      nginx.ingress.kubernetes.io/affinity: cookie
+      nginx.ingress.kubernetes.io/session-cookie-name: route
+      nginx.ingress.kubernetes.io/session-cookie-expires: '172800'
+      nginx.ingress.kubernetes.io/session-cookie-max-age: '172800'
+      nginx.ingress.kubernetes.uo/ssl-redirect: 'false'
+      nginx.ingress.kubernetes.io/enable-cors: 'true'
+      #cert-manager.io/cluster-issuer:
+      # enables cert-manager to issue a certificate for this ingress.
+      # if you want to use a self-signed certificate, comment out the line below
+      # and uncomment the line below that.
+      cert-manager.io/cluster-issuer: pebble-issuer
+      #cert-manager.io/cluster-issuer: letsencrypt-prod
+      hajimari.io/appName: Onyxia
+      hajimari.io/icon: test-tube
+      hajimari.io/url: https://datalab.ubiquitycluster.uk
+    hosts:
+    - host: datalab.ubiquitycluster.uk
+    tls:
+    - secretName: onyxia-tls-certificate
+      hosts:
+      - datalab.ubiquitycluster.uk
+  ui:
+    image:
+      name: inseefrlab/onyxia-web
+      version: 2.13.53
+      pullPolicy: IfNotPresent
+    extraVolumes:
+    - name: logo
+      configMap:
+        name: onyxia-logo
+    extraVolumeMounts:
+    - name: logo
+      mountPath: /usr/share/nginx/html/static/media/Dragoon.e293e5eb8284421988bfbef26548a1b5.svg
+      subPath: ubiq-logo-purple.svg
+    nodeSelector:
+      node-role.kubernetes.io/master: "true"
+    tolerations: []
+    affinity: {}
+    env:
+      KEYCLOAK_REALM: ubiquity
+      KEYCLOAK_CLIENT_ID: ubiquity-client
+      KEYCLOAK_URL: https://keycloak.ubiquitycluster.uk/auth
+      #      MINIO_URL: https://minio.ubiquitycluster.uk
+      HEADER_ORGANIZATION: Ubiquity
+      HEADER_USECASE_DESCRIPTION: HPCLab
+      HEADER_HIDE_ONYXIA: 'true'
+      DESCRIPTION: Platform for performing self-service HPC
+      THEME_ID: ultraviolet
+      HEADER_LINKS: |
+        [
+          {
+            "label": { "en": "Training", "fr": "Formations", "zh-CN":"教程" },
+            "iconId": "training",
+            "url": "https://www.sspcloud.fr/formation"
+          },
+          {
+            "label": { "en": "Documentation", "zh-CN":"文档" },
+            "iconId": "language",
+            "url": "https://docs.sspcloud.fr"
+          }
+        ]              
+      ONYXIA_API_URL: https://datalab.ubiquitycluster.uk/api
+      VAULT_URL: https://vault.ubiquitycluster.uk
+  api:
+    name: api
+    replicaCount: 1
+    image:
+      name: inseefrlab/onyxia-api
+      version: v0.27
+      pullPolicy: IfNotPresent
+    contextPath: /api
+    podLabels: {}
+    podSecurityContext: {}
+      # fsGroup: 2000
+    securityContext: {}
+    nodeSelector:
+      node-role.kubernetes.io/master: "true"
+    env:
+      #      authentication.mode: "none"
+      keycloak.realm: ubiquity
+      keycloak.auth-server-url: https://keycloak.ubiquitycluster.uk/auth
+      authentication.mode: openidconnect
+      keycloak.disable-trust-manager: 'true'
+      springdoc.swagger-ui.oauth.clientId: ubiquity-client
+      security.cors.allowed_origins: http://localhost:3000
+      #keycloak.ssl-required: all
+      #keycloak.enable-basic-auth: "true"
+      VAULT_URL: https://vault.ubiquitycluster.uk
+    regions:
+    - id: ubiquity
+      name: Ubiquity
+      description: This is a demo region, feel free to try Onyxia
+      auth:
+        type: openidconnect
+      services:
+        type: KUBERNETES
+        singleNamespace: false
+        namespacePrefix: user-
+        usernamePrefix: oidc-
+        groupNamespacePrefix: project-
+        groupPrefix: oidc-
+        authenticationMode: admin
+        expose:
+          domain: datalab.ubiquitycluster.uk
+          #        monitoring:
+          #          URLPattern: "todo"
+        cloudshell:
+          catalogId: inseefrlab-helm-charts-datascience
+          packageName: cloudshell
+          #        quotas:
+          #          enabled: true
+          #          allowUserModification: false
+          #          default:
+          #            requests.storage: 1Gi
+          #            count/pods: "10"
+        defaultConfiguration:
+          ipprotection: false
+          networkPolicy: false
+        initScript: https://inseefrlab.github.io/onyxia/onyxia-init.sh
+        #      data:
+      #        S3:
+      #          type: minio
+      #          URL: "todo"
+      #          region: us-east-1
+      #          bucketPrefix: ""
+      #          groupBucketPrefix: "group-"
+      #          bucketClaim: preferred_username
+      #          defaultDurationSeconds: 86400
+          # keycloakParams:
+          #   URL: .../auth
+          #   realm: ...
+          #   clientId:
+          #          monitoring:
+          #            URLPattern: "todo"
+          #      auth:
+          #        type: openidconnect
+          #      location:
+          #        lat: 48.8164
+          #        long: 2.3174
+          #        name: "Montrouge (France)"
+    catalogs:
+    - id: logicalis-helm-charts-datascience
+      name: Logicalis datascience
+      description: Services for datascientists. https://github.com/CJCShadowsan/helm-charts-datascience
+      maintainer: chris.coates@uk.logicalis.com
+      location: https://cjcshadowsan.github.io/helm-charts-datascience
+      status: PROD
+      type: helm
+    - id: inseefrlab-helm-charts-datascience
+      name: Inseefrlab datascience
+      description: Services for datascientists. https://github.com/InseeFrLab/helm-charts-datascience
+      maintainer: innovation@insee.fr
+      #      {% if offline_enabled %}
+      #      location: "https://{{ gitlab_fqdn }}/api/v4/projects/external-packages%2Fhelm-charts-datascience/packages/helm/stable/"
+      #      {% else %}
+      location: https://inseefrlab.github.io/helm-charts-datascience
+      #      {% endif %}
+      status: PROD
+      type: helm
+    - id: inseefrlab-helm-charts-interactive
+      name: Inseefrlab interactive
+      description: Helm interactive charts for datascientists.
+      maintainer: innovation@insee.fr
+      location: https://inseefrlab.github.io/helm-charts-interactive-services
+      status: PROD
+      type: helm
+      #    - id: inseefrlab-helm-charts
+      #      name: Inseefrlab helm charts
+      #      description: Helm charts for datascientists.
+      #      maintainer: innovation@insee.fr
+      #      location: https://inseefrlab.github.io/helm-charts
+      #      status: PROD
+      #      type: helm

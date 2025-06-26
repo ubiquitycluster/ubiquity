@@ -1,0 +1,4 @@
+#!/bin/sh
+if [ "$1" = "eno1" ] && [ "$2" = "pre-up" ]; then
+ ethtool -s "$1" speed 1000 duplex full
+fi

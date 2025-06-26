@@ -1,0 +1,154 @@
+# Copyright 2023 Logicalis UKI. All Rights Reserved.
+#
+# Licensed under the Functional Source License, Version 1.0, Apache 2.0 Change License (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://github.com/logicalisuki/ubiquity/blob/main/LICENSE.md
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# It also allows for the transition of this software to an Apache 2.0 Licence
+# on the second anniversary of the date we make the software available.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: ci-workflow
+  annotations:
+    workflows.argoproj.io/description: >-
+      A basic CI leveraging Argo Workflows to build software.
+
+      The Workflow...
+
+      * pulls a repo from git. Specifically pulling a branch based on a pull request;
+      * merges the target branch into it;
+      * identifies compilers defined in the repo, along with libraries and software
+      * modifies the html that will be copied into the container to inject the unique name of the running workflow;
+      * builds a container from a Dockerfile and pushes to a registry;
+      * deploys an Argo CD application that uses the newly-built container to deploy a static website.
+
+    workflows.argoproj.io/maintainer: 'Logicalis UKI'
+    workflows.argoproj.io/maintainer_url: 'https://github.com/logicalisuki/ubiquity'
+    workflows.argoproj.io/version: '>= 3.4.2'
+spec:
+# This is entirely optional. It allows us to use Prometheus to scrape the metrics from the argo Workflow Controller, and to measure the success of our CI.
+  metrics:
+    prometheus:
+      # Writes a prometheus metric stating the length of time it took the workflow to complete. Grouped by workflow status and 'type'.
+      - name: exec_duration_gauge
+        labels:
+          - key: name
+            value: "ci-workflow"
+          - key: type
+            value: "pull-request"
+          - key: status
+            value: "{{status}}"
+        help: "Duration gauge by name"
+        gauge:
+          value: "{{workflow.duration}}"
+          realtime: false
+      # If the workflow fails, we increase the Prometheus failure counter by 1.
+      - name: result_counter
+        help: "Count of step execution by result status"
+        labels:
+          - key: status
+            value: Failed
+          - key: name
+            value: "ci-workflow"
+          - key: type
+            value: "pull-request"
+        when: "{{status}} == Failed"
+        counter:
+          value: "1"
+      # If the workflow succeeds, we increase the Prometheus succeeded counter by 1.
+      - name: result_counter
+        help: "Count of step execution by result status"
+        labels:
+          - key: status
+            value: Succeeded
+          - key: name
+            value: "ci-workflow"
+          - key: type
+            value: "pull-request"
+        when: "{{status}} == Succeeded"
+        counter:
+          value: "1"
+  entrypoint: main
+  # We request an NFS share (called 'workdir') so that we can pull the code, and manipulate it across multiple nodes.
+  # By the nature of the share, we would be able to access it from multiple nodes at the same time, allowing for parallel nodes.
+  # We use longhorn for this, which uses longhorn to provision the share. The PVCs are cleaned up when the workflow finishes.
+  volumeClaimTemplates:
+  - metadata:
+      name: workdir
+    spec:
+      accessModes: [ "ReadWriteMany" ]
+      storageClassName: longhorn
+      resources:
+        requests:
+          storage: 1Gi
+  # The container build step copies the code from the NFS share to this ephemeral volume, and then runs the build.
+  # We do this a) because NFS shares are slow and b) to allow us to run another workflow step alongside the build if we wish.
+  volumes:
+  - name: container-build
+    emptyDir: {}
+# You can set default parameters here if you prefer. If you simply don't inject them when calling this template, the defaults will come through.
+# We default 'container_tag' to 'stable' here.
+  arguments:
+    parameters:
+    - name: app_repo
+      value: ""
+    - name: git_branch
+      value: ""
+    - name: target_branch
+      value: ""
+    - name: container_tag
+      value: "stable"
+    - name: container_image
+      value: ""
+    - name: dockerfile
+      value: ""
+    - name: path
+      value: ""
+ # All the steps in this DAG are referencing external templates.
+ # This allows us to re-use those templates in other workflows, and also makes this CI workflow quite tidy.
+ # For reference we have also included a 'local' template (delete-application) to show that it's possible to mix-and-match local and external templates. 
+  templates:
+    - name: main
+      dag:
+        tasks:
+          - name: git-checkout-pr
+            templateRef:
+              name: git-checkout-pr
+              template: main
+          - name: html-modifier
+            templateRef:
+              name: html-modifier
+              template: main
+            depends: git-checkout-pr
+          - name: container-build
+            templateRef:
+              name: container-build
+              template: main
+            depends: html-modifier
+          - name: deploy-application
+            templateRef:
+              name: deploy-application
+              template: main
+            depends: container-build
+          - name: delete-application
+            template: delete-application
+            depends: (deploy-application.Failed)
+    # This only runs if deploy-application fails. This allows us to ensure that we have a tidy environment for the next Workflow run.
+    - name: delete-application
+      resource:
+        action: delete
+        manifest: |
+          apiVersion: argoproj.io/v1alpha1
+          kind: Application
+          metadata:
+            name: final-application
+            namespace: argocd

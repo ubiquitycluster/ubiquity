@@ -1,0 +1,45 @@
+---
+# Copyright 2023 Logicalis UKI. All Rights Reserved.
+#
+# Licensed under the Functional Source License, Version 1.0, Apache 2.0 Change License (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://github.com/logicalisuki/ubiquity/blob/main/LICENSE.md
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# It also allows for the transition of this software to an Apache 2.0 Licence
+# on the second anniversary of the date we make the software available.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+annotations:
+  category: MachineLearning
+apiVersion: v2
+appVersion: 3.0.0
+dependencies:
+  - name: jupyterhub
+    version: 2.0.0
+    repository: https://charts.bitnami.com/bitnami
+  - name: common
+    repository: https://charts.bitnami.com/bitnami
+    tags:
+      - bitnami-common
+    version: 2.x.x
+description: JupyterHub brings the power of notebooks to groups of users. It gives users access to computational environments and resources without burdening the users with installation and maintenance tasks.
+engine: gotpl
+home: https://jupyter.org/hub
+icon: https://bitnami.com/assets/stacks/jupyterhub/img/jupyterhub-stack-220x234.png
+keywords:
+  - python
+  - scientific
+maintainers:
+  - name: Bitnami
+    url: https://github.com/bitnami/charts
+name: jupyterhub
+sources:
+  - https://github.com/bitnami/containers/tree/main/bitnami/jupyterhub
+  - https://github.com/jupyterhub/jupyterhub
+version: 2.0.0

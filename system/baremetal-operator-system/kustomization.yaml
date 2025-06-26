@@ -1,0 +1,108 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: baremetal-operator-system
+resources:
+- https://github.com/metal3-io/baremetal-operator/config/namespace?ref=v0.6.0
+- https://github.com/metal3-io/baremetal-operator/config/base?ref=v0.6.0
+- ./storage
+- https://github.com/metal3-io/baremetal-operator/ironic-deployment/base?ref=v0.6.0
+
+components:
+- https://github.com/metal3-io/baremetal-operator/config/components/basic-auth?ref=v0.6.0
+- https://github.com/metal3-io/baremetal-operator/config/components/tls?ref=v0.6.0
+- https://github.com/metal3-io/baremetal-operator/ironic-deployment/components/basic-auth?ref=v0.6.0
+- https://github.com/metal3-io/baremetal-operator/ironic-deployment/components/tls?ref=v0.6.0
+- ./components/keepalived
+- https://github.com/metal3-io/baremetal-operator/ironic-deployment/components/mariadb?ref=v0.6.0
+
+configMapGenerator:
+- behavior: create
+  envs:
+  - ./overlays/ironic_bmo_configmap.env
+  name: ironic-bmo-configmap
+
+- behavior: create
+  envs:
+  - ./overlays/ironic_bmo_configmap.env
+  name: ironic
+ 
+patches:
+- path: ./overlays/ironic-pvc-delete.yaml
+- path: ./overlays/ironic-pvc-create.yaml
+- path: ./overlays/mariadb-tls-ip.yaml
+- path: ./overlays/basic-auth-affinity.yaml
+- path: ./overlays/ironic-affinity.yaml
+
+images:
+- name: quay.io/metal3-io/ironic
+  newTag: release-24.1
+- name: quay.io/metal3-io/baremetal-operator
+  newTag: release-0.6
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+# NOTE: These credentials are generated automatically in hack/ci-e2e.sh
+secretGenerator:
+- behavior: create
+  envs:
+  - ./overlays/ironic_inspector_htpasswd.env
+  name: ironic-inspector-htpasswd
+- files:
+  - auth-config=./overlays/ironic_auth_config.env
+  name: ironic-auth-config
+- files:
+  - auth-config=./overlays/ironic_inspector_auth_config.env
+  name: ironic-inspector-auth-config
+- behavior: create
+  envs:
+  - ./overlays/ironic_htpasswd.env
+  name: ironic-htpasswd
+- behavior: create
+  files:
+  - username=./overlays/ironic_username.env
+  - password=./overlays/ironic_password.env
+  name: ironic-credentials
+- behavior: create
+  files:
+  - username=./overlays/ironic_inspector_username.env
+  - password=./overlays/ironic_inspector_password.env
+  name: ironic-inspector-credentials
+  # Replace IRONIC_HOST_IP in certificates with the PROVISIONING_IP from the configmap
+replacements:
+- source:
+    fieldPath: .data.PROVISIONING_IP
+    kind: ConfigMap
+    name: ironic-bmo-configmap
+  targets:
+  - fieldPaths:
+    - .spec.ipAddresses.0
+    select:
+      group: cert-manager.io
+      kind: Certificate
+      version: v1
+      name: mariadb-cert
+- source:
+    fieldPath: .data.PROVISIONING_IP
+    kind: ConfigMap
+    name: ironic-bmo-configmap
+  targets:
+  - fieldPaths:
+    - .spec.ipAddresses.0
+    select:
+      group: cert-manager.io
+      kind: Certificate
+      version: v1
+      name: ironic-cert
+- source:
+    fieldPath: .data.PROVISIONING_IP
+    kind: ConfigMap
+    name: ironic-bmo-configmap
+  targets:
+  - fieldPaths:
+    - .spec.ipAddresses.0
+    select:
+      group: cert-manager.io
+      kind: Certificate
+      version: v1
+      name: ironic-cacert

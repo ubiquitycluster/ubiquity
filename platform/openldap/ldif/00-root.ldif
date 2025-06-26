@@ -1,0 +1,6 @@
+# Root creation
+dn: dc=ubiquity,dc=cluster
+objectClass: top
+objectClass: dcObject
+objectClass: organization
+o: Ubiquity Cluster

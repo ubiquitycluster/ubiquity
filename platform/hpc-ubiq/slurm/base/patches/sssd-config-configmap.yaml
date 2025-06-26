@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sssd-config-configmap
+  annotations:
+    "helm.sh/hook": pre-install
+data:
+  sssd.conf: |
+    [sssd]
+    domains = ubiquitycluster.local
+    config_file_version = 2
+    services = nss, pam
+
+    [domain/ubiquitycluster.local]
+
+    ad_server = ubiquitycluster.local
+    ad_backup_server = ubiquitycluster.local
+    ad_domain = ubiquitycluster.local
+    ad_enabled_domains = ubiquitycluster.local
+    subdomains_provider = ad
+    krb5_realm = ubiquitycluster.local
+    realmd_tags = manages-system joined-with-samba
+    cache_credentials = True
+    id_provider = ad
+    krb5_store_password_if_offline = True
+    default_shell = /bin/bash
+    override_shell = /bin/bash
+    ldap_id_mapping = False
+    dyndns_auth = False
+    ignore_group_members = False
+    use_fully_qualified_names = False
+    override_homedir = /home/%u
+    access_provider = ad
+    enumerate = True
+    case_sensitive = True
+    auth_provider = ad
+    chpass_provider = krb5
+    auto_private_groups = false
+    ad_gpo_ignore_unreadable = True
+
+    [pam]

@@ -1,0 +1,61 @@
+{
+    "realm": "ubiquity",
+    "enabled": true,
+    "users": [
+        {
+            "username": "ubiquser",
+	    "email":"ubiq@ubiquitycluster.uk",
+            "enabled": true,
+            "credentials": [
+                {
+                    "type": "password",
+                    "value": "ubiqpass"
+                }
+            ],
+            "realmRoles": [
+                "user"
+            ]
+        }
+    ],
+    "roles": {
+        "realm": [
+            {
+                "name": "user",
+                "description": "User privileges"
+            },
+            {
+                "name": "admin",
+                "description": "Administrator privileges"
+            }
+        ]
+    },
+    "defaultRoles": [
+        "user"
+    ],
+    "clients": [
+        {
+            "clientId": "app",
+            "enabled": true,
+            "publicClient": true,
+            "redirectUris": [
+                "*"
+            ],
+            "webOrigins": [
+                "*"
+            ]
+        },
+        {
+            "clientId": "ubiquity-client",
+            "enabled": true,
+            "publicClient": true,
+            "redirectUris": [
+                "*"
+            ],
+            "webOrigins": [
+                "*"
+            ],
+            "attributes": {
+            }
+        }
+    ]
+}

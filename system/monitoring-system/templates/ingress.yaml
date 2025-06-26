@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: prom-grafana-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: pebble-issuer
+    hajimari.io/appName: Grafana
+    hajimari.io/icon: chart-bar
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: grafana.127-0-0-1.nip.io
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: prom-grafana
+            port:
+              number: 3000
+  tls:
+  - hosts:
+    - grafana.127-0-0-1.nip.io
+    secretName: grafana-general-tls

@@ -1,0 +1,15 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ironic
+spec:
+  selector:
+    matchLabels:
+      name: ironic
+  template:
+    metadata:
+      labels:
+        name: ironic
+    spec:
+      nodeSelector:
+        node-role.kubernetes.io/master: "true"

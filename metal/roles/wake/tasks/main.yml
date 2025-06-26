@@ -1,0 +1,86 @@
+---
+# Copyright 2023 Logicalis UKI. All Rights Reserved.
+#
+# Licensed under the Functional Source License, Version 1.0, Apache 2.0 Change License (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://github.com/logicalisuki/ubiquity/blob/main/LICENSE.md
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# It also allows for the transition of this software to an Apache 2.0 Licence
+# on the second anniversary of the date we make the software available.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Wake Nodes to Bootstrap
+
+- name: "Wake | Send Wake-on-LAN magic packets"
+  community.general.wakeonlan:
+    mac: "{{ hostvars[inventory_hostname]['mac'] }}"
+    broadcast: "{{ internal_ipv4.broadcast }}"
+  delegate_to: localhost
+  when: "hostvars[inventory_hostname]['wol'] == true"
+  ignore_errors: true
+  register: wol_result
+
+- name: "Wake | Handle errors"
+  debug:
+    msg: "Error sending WoL magic packet to {{ inventory_hostname }}: {{ wol_result.msg }}"
+  when: 
+    - hostvars[inventory_hostname]['wol'] == true
+    - wol_result.exists
+    - wol_result.failed
+
+- name: "Wake | Set IPMI next-boot to network"
+  command: ipmitool -I lanplus -H "{{ hostvars[inventory_hostname]['ipmi_addr'] }}" -U "{{ hostvars[inventory_hostname]['ipmi_user'] }}" -P "{{ hostvars[inventory_hostname]['ipmi_pass'] }}" chassis bootdev pxe options=efiboot
+  delegate_to: localhost
+  when: "hostvars[inventory_hostname]['wol']  == false"
+
+- name: "Wake | Check power status via IPMI"
+  command: ipmitool -I lanplus -H "{{ hostvars[inventory_hostname]['ipmi_addr'] }}" -U "{{ hostvars[inventory_hostname]['ipmi_user'] }}" -P "{{ hostvars[inventory_hostname]['ipmi_pass'] }}" chassis power status
+  register: ipmi_status
+  delegate_to: localhost
+  when: "hostvars[inventory_hostname]['wol'] == false"
+
+- name: "Wake | Power on/cycle node via IPMI"
+  command: ipmitool -I lanplus -H "{{ hostvars[inventory_hostname]['ipmi_addr'] }}" -U "{{ hostvars[inventory_hostname]['ipmi_user'] }}" -P "{{ hostvars[inventory_hostname]['ipmi_pass'] }}" chassis power reset
+  delegate_to: localhost
+  when: 
+    - "hostvars[inventory_hostname]['wol'] == false"
+    - "ipmi_status.stdout != 'Chassis Power is off'"
+
+- name: "Wake | Power on/cycle node via IPMI"
+  command: ipmitool -I lanplus -H "{{ hostvars[inventory_hostname]['ipmi_addr'] }}" -U "{{ hostvars[inventory_hostname]['ipmi_user'] }}" -P "{{ hostvars[inventory_hostname]['ipmi_pass'] }}" chassis power on
+  delegate_to: localhost
+  when: 
+    - "hostvars[inventory_hostname]['wol'] == false"
+    - "ipmi_status.stdout == 'Chassis Power is off'"
+
+- name: "Wake | Wait for the machines to come online"
+  ansible.builtin.wait_for_connection:
+    timeout: 2000
+    delay: 300
+
+- name: "Wake | Generate/update hosts files"
+  lineinfile:
+    dest: /etc/hosts
+    regexp: '.*{{ item }}$'
+    state: present
+    line: "{{ hostvars[item]['ansible_host'] }} {{ hostvars[item]['inventory_hostname'] }}"
+  when: hostvars[item].ansible_host is defined
+  with_items: "{{ groups['metal'] }}"
+
+- name: "Wake | Clear out old SSH keys (if necessary)"
+  shell: "ssh-keygen -R {{ hostvars[inventory_hostname]['ansible_host'] }}"
+  args:
+    warn: false
+  delegate_to: localhost
+  register: results
+  until: "results is not failed"
+  retries: 10
+  delay: 1
+  failed_when: false
+  changed_when: false

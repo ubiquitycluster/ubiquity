@@ -1,0 +1,14 @@
+---
+
+gitops:
+  repo: https://github.com/logicalisuki/ubiquity.git
+  revision: main
+stacks:
+  - name: bootstrap
+    namespace: argocd  # Override default value
+    #  - name: storage
+    #  - name: system-upgrades
+  - name: system
+  - name: monitoring
+  - name: platform
+  - name: apps

@@ -1,0 +1,363 @@
+slurmImage: cjcshadowsan/k8s-slurm-cluster:el8-23.11
+
+motd:
+  message: "Welcome to Ubiquity!"
+
+network:
+  rdma: "true"
+  ipoibnetworks:
+  - ubiquity-ipoibnetwork
+
+mungeKey: aXzSEJ6PF08S2o5/c/J6yhraZpSUAFel5IEDGDtWi3y2L4s44mKkJvc2ouDVrN1A6XKw9lcni1q8w1QNPMr8fmisw2zzafueB606ZKCXBCFiED2Es6kF0fR5zTLoinFc4wFZBEtvL5135zeyppAlRvnKo3FQ7tAKR5T2kyADLbKJMF3blpXUiB5XogEFdbXJAK1Jjb4/gMf/X6j0MekqFqQrqDE+tlgTakwm9NCRPhCfed262EQ53B/bjIbH1QOGR0ijcVg1/Pfqapra102axR92LkInHulZpvXh9fqm8bhopU6krFlPfXGOr2HKmCSXZUh/IpIL7xCiRkx2zX61hXbOS+qUd9lwb+3QRURXdXHtElGzv8FqAFNPn9V4YMNMJl0LDNpjL4JCQSxhmNpjggYZIE5by868sipz56lcVGmfXB/o+Hv2nu8SLiceHEJRa9+LR1jkIuFMbN9HV9z8VK5SvcZ0GHtghLwsrIOJeB/H+xs746BwBK7VmWunxyyaORi+jIy+MxYM2MUZ5jC8bjl1yd7iLrzHvGXnqS34bXfGEs0urfULThihK/aCjJSMxpXLEiGdcJHx3ZH6naFEle7GDUZgivsb/4S1+E59GeqPOOb4XWIpdyxHLMUELJT2UNz/NeR8c/dLcFc/KU/e8Hga1/XBUAiba3Kpf+9gtOf29HPKNMnrFqsbsxjIpARIyNOl97crSU2eaEaaoip6LRuFGv5BrWA7EaGaNiK3qOHW2pV1BBCF3Bc4j3u1BeDHfVt07E3VthoKkrHtvzesVz4RPpFTgCnHLtpGKhQqmPwZVQ2I3mFLs47xC2m/hunZ5il/io/OBAzVnkONUSygp3NNhPdn9zYphm/0UrreUOwwqTNiK1JvKSZvfCWMtFvYvobhT+mkxE2wU05tc16k7q7yziCbBbOEI4lSOEfWfxxV4RWbnjx+P/5TJIxpFbNGnTi0S7+Q2JOEgF6ZYPDq6BVq1fYIiMF8bwxpx/bpFZvFCqITadhip3m/qWW4vOTJxeF0VtdJj4PJUPNDQjCDnCKiSwptgdIDuIGPsGuLU8L/Z8W+JdwJjtBfRJ6xe64Y/9R+TummTfAMQ3Pbb1H7EelKa7L7n2vPw4d1OrqIw8GUNXUmApmqxhsJcJv3qE4GBaY93zNdJ3RQI6L6wVZ9x752Dqzt8sQeFIgF/3tKbIfRPdT/WWnpDnbnwTXykF0Xi4wC18HZaJNDyWLR92A0u5zO/sZgZNs/CdjfmVh8EMz8u9uTBbWTAsvmP1yxtnhM0BxgRQ
+
+dbPass: JdwJjtBfRJ6xe64Y9RT
+
+
+auth:
+  ssh:
+    PubkeyAuthentication: "yes"
+    AuthorizedKeysCommand: /usr/bin/sss_ssh_authorizedkeys
+    AuthorizedKeysCommandUser: nobody
+    PasswordAuthentication: "yes"
+    UsePAM: "yes"
+    PrintMotd: "no"
+    PrintLastLog: "no"
+    UsePrivilegeSeparation: "sandbox"
+    Subsystem: "sftp    /usr/lib64/misc/sftp-server"
+    ChallengeResponseAuthentication: "yes"
+    ClientAliveInterval: 300
+    GSSAPIAuthentication: "yes"
+    GSSAPICleanupCredentials: "no"
+    HostbasedAuthentication: "yes"
+    IgnoreUserKnownHosts: "yes"
+    SyslogFacility: AUTHPRIV
+    UseDNS: "no"
+    X11Forwarding: "yes"
+    LoginGraceTime: 0 # RegreSSHion (CVE-2024-6387) mitigation
+  krb5:
+    enabled: "false"
+  image:
+    repository: cjcshadowsan/k8s-slurm-cluster
+    tag: el8-23.11
+    pullPolicy: IfNotPresent
+  sssd:
+    config_file_version: 2
+    debug_level: 0x1310
+    domains: ubiquitycluster.local
+    reconnection_retries: 3
+    sbus_timeout: 30
+    services: nss, pam
+  nss:
+    debug_level: 0x1310
+    filter_groups: pulse,cvmfs,sshd,apache,rpc,root
+    filter_users: pulse,cvmfs,sshd,apache,rpc,root
+    reconnection_retries: 3
+    entry_cache_timeout: 300
+    entry_cache_nowait_percentage: 75
+  pam:
+    debug_level: 0x1310
+    pam_id_timeout: 600
+    reconnection_retries: 3
+    offline_credentials_expiration: 2
+    offline_failed_login_attempts: 3
+    offline_failed_login_delat: 5
+  domains:
+    UBIQUITYCLUSTER.LOCAL:
+      access_provider: simple
+      enumerate: True
+      case_sensitive: True
+      ldap_search_base: dc=ubiquity,dc=cluster
+      auth_provider: ldap
+      ldap_uri: ldap://openldap.ubiquitycluster.local:389
+      ldap_id_use_start_tls: False
+      ldap_tls_cacertdir: /etc/openldap/cacerts
+      override_homedir: /home/%u
+      cache_credentials: True
+      chpass_provider: ldap
+      debug_level: 0x1310
+      id_provider: ldap
+      ignore_group_members: true
+      default_shell: /bin/bash
+      override_shell: /bin/bash
+
+login:
+  # Deployment resource name
+  name: login
+  replicas: 1
+  volumes:
+  - name: nfs
+    persistentVolumeClaim:
+      claimName: pvc-nfs
+  - name: cvmfs # Remove me if you don't need EESSI
+    persistentVolumeClaim:
+      claimName: cvmfs
+  - name: dshm
+    emptyDir:
+      medium: Memory # Defaults to 50% of host memory as max
+  nodeSelector:
+    node-role.kubernetes.io/master: "true"
+  resources:
+    requests:
+      cpu: '16'
+      memory: '64Gi'
+    limits:
+      cpu: '16'
+      memory: '64Gi'
+  volumeMounts:
+  - name: nfs
+    mountPath: /home
+    subPath: home
+  - name: nfs
+    mountPath: /cm/shared
+    subPath: shared
+  - name: cvmfs # Remove me if you don't need EESSI
+    mountPath: /cvmfs
+    mountPropagation: HostToContainer
+  - mountPath: /dev/shm # Needed for MPI applications that use /dev/shm extensively
+    name: dshm
+  config:
+    sshd:
+      UsePAM: "yes"
+      ChallengeResponseAuthentication: "no"
+      PasswordAuthentication: "yes"
+      HostbasedAuthentication: "yes"
+      SyslogFacility: AUTHPRIV
+      AuthorizedKeysFile: .ssh/authorized_keys
+      IgnoreUserKnownHosts: "yes"
+      GSSAPIAuthentication: "yes"
+      GSSAPICleanupCredentials: "no"
+      X11Forwarding: "yes"
+      ClientAliveInterval: 300
+      UseDNS: "no"
+      LoginGraceTime: 0 # RegreSSHion (CVE-2024-6387) mitigation
+slurmd:
+  # StatefulSet resource name
+  name: slurmd # NB this must match NodeName= in k8s-slurm-chart/files/slurm.conf
+  replicas: 19
+  image: cjcshadowsan/k8s-slurm:rocky-8.9-23.11-slurmd
+  imagePullPolicy: 'Always'
+  labels:
+    role: compute-node
+  tolerations: []
+  resources:
+    requests:
+      memory: '500Gi'
+    limits:
+      memory: '500Gi'
+  nodeSelector:
+    node-role.kubernetes.io/worker: "true"
+  nodeAffinity:
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+          - key: role
+            operator: In
+            values:
+            - compute-node
+        topologyKey: "kubernetes.io/hostname"
+  volumes:
+  - name: nfs
+    persistentVolumeClaim:
+      claimName: pvc-nfs
+  - name: dshm
+    emptyDir:
+      medium: Memory # Defaults to 50% of host memory as max
+  - name: cvmfs # Remove me if you don't need EESSI
+    persistentVolumeClaim:
+      claimName: cvmfs
+  volumeMounts:
+  - name: nfs
+    mountPath: /home
+    subPath: home
+  - name: nfs
+    mountPath: /cm/shared
+    subPath: shared
+  - name: cvmfs # Remove me if you don't need EESSI
+    mountPath: /cvmfs
+    mountPropagation: HostToContainer
+  - mountPath: /dev/shm # Needed for MPI applications that use /dev/shm extensively
+    name: dshm
+
+slurmctld:
+  # StatefulSet resource name
+  name: slurmctld
+   # annotations:
+   #   metallb.universe.tf/address-pool: slurm-ch-basel-1-pool
+  image: cjcshadowsan/k8s-slurm:rocky-8.9-23.11-slurmctld
+  imagePullPolicy: 'Always'
+  # Extra volume mounts
+  volumeMounts: []
+  # Resources allocated
+  resources:
+    requests:
+      cpu: '250m'
+      memory: '256Mi'
+    limits:
+      cpu: '1'
+      memory: '8Gi'
+  nodeAffinity: {}
+  nodeSelector:
+    node-role.kubernetes.io/master: "true"
+  tolerations: []
+  # Extra volumes
+  volumes: []
+  # NOTE: We don't include a replicas field here because
+  # replicas > 1 for slurmctld needs extra Slurm config
+  config:
+    slurm:
+      main:
+        ClusterName: ubiquitycluster.local
+        SlurmctldHost: slurmctld-0
+      general:
+        SlurmUser: slurm
+        SlurmctldPort: 6817
+        SlurmdPort: 6818
+        StateSaveLocation: /var/spool/slurmctld
+        SlurmdSpoolDir: /var/spool/slurmd
+        SlurmctldPidFile: /var/run/slurmd/slurmctld.pid
+        SlurmdPidFile: /var/run/slurmd/slurmd.pid
+      ports:
+        SrunPortRange: "60000-62999"
+        MpiParams: "ports=63000-64999"
+      timers:
+        SlurmctldTimeout: 300
+        SlurmdTimeout: 30
+        InactiveLimit: 0
+        MinJobAge: 300
+        KillWait: 30
+        Waittime: 0
+      scheduling:
+        SchedulerType: sched/backfill
+        SelectType: select/cons_tres
+        SelectTypeParameters: CR_CPU_Memory
+        SchedulerTimeSlice: 60
+        UnkillableStepTimeout: 300
+      priorities:
+        PriorityType: priority/multifactor
+        # The larger the job, the greater its job size priority.
+        PriorityFavorSmall: "NO"
+        # The job's age factor reaches 1.0 after waiting in the
+        # queue for 2 weeks.
+        PriorityMaxAge: 14-0
+        # This next group determines the weighting of each of the
+        # components of the Multi-factor Job Priority Plugin.
+        # The default value for each of the following is 1.
+        PriorityWeightAge: 0
+        PriorityWeightFairshare: 0
+        PriorityWeightJobSize: 0
+        PriorityWeightPartition: 0
+        PriorityWeightQOS: 100
+        PriorityDecayHalfLife: 0
+        PriorityUsageResetPeriod: MONTHLY
+      logging:
+        SlurmctldDebug: 3
+        SlurmctldLogFile: /var/log/slurm/slurmctld.log
+        SlurmdDebug: 3
+        SlurmdLogFile: /var/log/slurm/slurmd.log
+        JobCompType: jobcomp/filetxt
+        JobCompLoc: /var/log/slurm/jobcomp.log
+      accounting:
+        JobAcctGatherType: jobacct_gather/linux
+        JobAcctGatherFrequency: 30
+        AccountingStorageType: accounting_storage/slurmdbd
+        AccountingStorageHost: slurmdbd
+        AccountingStorageTRES: gres/gpu
+        AccountingStoreFlags: job_comment,job_env,job_script
+        AccountingStoragePort: 6819
+      defResourceAllocation:
+        DefCPUPerGPU: 4
+        DefMemPerCPU: 4000
+      tasks:
+        TaskPlugin: task/cgroup
+      gres:
+        #NodeName: "cn[0-99] File=/dev/nvidia[0-3] AutoDetect=nvml"
+      nodes:
+        MaxNodeCount: 100
+        NodeName: "slurmd-[0-99] State=FUTURE CPUs=64 Sockets=2 CoresPerSocket=32 RealMemory=256556"
+      auth:
+        AuthType: "auth/munge"
+        AuthAltTypes: "auth/jwt"
+        AuthAltParameters: "jwt_key=/var/spool/slurm/jwt_hs256.key"
+        AuthInfo: "cred_expire=300"
+      partitions:
+        all: "Default=yes Nodes=ALL OverSubscribe=no"
+      extra:
+        LaunchParameters: enable_nss_slurm
+        TcpTimeout: 5
+        DebugFlags: Script,Gang,SelectType
+        # MPI stacks running over Infiniband or OmniPath require the ability to allocate more
+        # locked memory than the default limit. Unfortunately, user processes on login nodes
+        # may have a small memory limit (check it by ulimit -a) which by default are propagated
+        # into Slurm jobs and hence cause fabric errors for MPI.
+        PropagateResourceLimitsExcept: MEMLOCK
+        ProctrackType: proctrack/linuxproc
+        SwitchType: switch/none
+        MpiDefault: pmi2
+        ReturnToService: 2
+        GresTypes: gpu
+        PreemptType: preempt/qos
+        PreemptMode: REQUEUE
+        PreemptExemptTime: -1
+        Prolog: /etc/slurm/prolog.d/*
+        Epilog: /etc/slurm/epilog.d/*
+        RebootProgram: "/usr/sbin/reboot"
+        # Federation
+        FederationParameters: fed_display
+      MailProg: 
+        location: /usr/bin/mailprog.sh
+        executable: /bin/true
+    
+    cgroups:
+      CgroupPlugin: cgroup/v1
+      #CgroupMountpoint: /sys/fs/cgroup
+      ConstrainCores: "no" #Cannot constrain an already constrained POD!
+      ConstrainDevices: "no" #Cannot constrain an already constrained POD! 
+      ConstrainRAMSpace: "no" #Cannot constrain an already constrained POD!
+
+storage:
+  mountPath: /lh
+  # The name of a Read-Write-Many StorageClass to use for
+  # the persistent volume which is shared across Slurm nodes
+  # Note: If using the default value then you must set
+  # rooknfs.enabled = true below to ensure that Rook NFS is 
+  # installed on the cluster as a dependency of this Slurm
+  # chart. If you are using a separate RWM StorageClass, then
+  storageClassName: longhorn
+  # Name for the R-W-M volume to provision
+  claimName: slurm-shared-storage
+  # Capacite of the R-W-M volume
+  capacity: &capacity 10Gi   # NB yaml anchor used so this value is also set for `rooknfs.storageCapacity` if necessary.
+
+# Values for Slurm's database container
+database:
+  #Storage requested by the var-lib-mysql volume backing the database
+  storage: 10Gi
+
+# Configmap resource names
+configmaps:
+  slurmMailProg: slurm-mailprog-script
+  slurmEpilog: slurm-epilog-scripts
+  slurmProlog: slurm-prolog-scripts
+  slurmConf: slurm-conf-configmap
+  slurmdbdConf: slurmdbd-conf-configmap
+  sshdConfig: sshd-config-configmap
+  sssdConfig: sssd-config-configmap
+  slurmCgroupConf: slurm-cgroup-configmap
+  slurmGresConf: slurm-gres-configmap
+  krb5Config: krb5-config-configmap
+
+extraConfigMaps:
+  - sssd-config-configmap:
+      soas.conf: |
+        sheis
+        sows
+
+# Public key used for ssh access to the login node
+# If let undefined, assumes you have run the provided publish-keys.sh script to publish your public key prior to deployment
+sshPublicKey:
+- ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN81EL/+8DdxZvRiOCefE67hWvoxpq373JBCpBq1O8MK root@boots
+
+# Secret resource names
+secrets:
+  mungeKey: munge-key-secret

@@ -1,0 +1,12 @@
+{% if inventory_hostname == groups['masters'][0] %}
+cluster-init: true
+{% else %}
+server: https://{{ keepalived_ip }}:6443
+{% endif %}
+token-file: {{ k3s_token_file }}
+{% if 'masters' in group_names %}
+{{ k3s_server_config | to_nice_yaml }}
+{% endif %}
+{% if 'workers' in group_names %}
+{{ k3s_worker_config | to_nice_yaml }}
+{% endif %}

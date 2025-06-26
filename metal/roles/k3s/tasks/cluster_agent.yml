@@ -1,0 +1,74 @@
+---
+
+- name: Copy k3s config files - simplify service files
+  ansible.builtin.template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: 0600
+  loop:
+    - src: config.yaml.j2
+      dest: "{{ k3s_config_file }}"
+
+- name: Deploy k3s worker service
+  template:
+    src: k3s.service.j2
+    dest: /etc/systemd/system/k3s-agent.service
+    mode: 0400
+    owner: root
+    group: root
+  register: service_deploy
+
+- name: Stop K3s service
+  systemd:
+    name: k3s-agent
+    state: stopped
+  failed_when: no
+  check_mode: yes
+  when: service_deploy.changed or (k3s_binary is defined and k3s_binary.changed)
+
+- name: Enable and check K3s service
+  systemd:
+    name: k3s-agent
+    daemon_reload: yes
+    enabled: yes
+    state: restarted
+  check_mode: yes
+  when: service_deploy.changed or (k3s_binary is defined and k3s_binary.changed)
+
+- name: Wait for workers
+  shell: |
+    set -o pipefail
+    {{ kubectl_cmd }}  get nodes  | awk '{print $2}' | grep ^Ready
+  register: workers
+  until:
+    - workers.rc == 0
+    - (workers.stdout_lines | length ) >= (groups['workers'] | length)
+  retries: 30
+  delay: 5
+  run_once: yes
+  check_mode: yes
+  changed_when: no
+  delegate_to: localhost
+
+- name: Get removed workers
+  shell: |
+    set -o pipefail
+    {{ kubectl_cmd }} get nodes  | grep -Ev '{% for host in groups['metal'] %}{{ host }}|{% endfor %}AGE'|cut -d' ' -f1
+  register: removed_workers
+  run_once: yes
+  check_mode: yes
+  failed_when: no
+  changed_when: no
+  delegate_to: localhost
+
+- name: Garbage Collect removed workers
+  command: "{{ item.0 }} {{ item.1 }}"
+  run_once: yes
+  check_mode: yes
+  with_nested:
+    - ["{{ kubectl_cmd }} drain", "{{ kubectl_cmd }} delete node"]
+    - "{{ removed_workers.stdout_lines }}"
+  when:
+    - removed_workers is defined
+    - removed_workers | length > 0
+  delegate_to: localhost

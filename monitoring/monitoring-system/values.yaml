@@ -1,0 +1,183 @@
+---
+# Copyright 2023 Logicalis UKI. All Rights Reserved.
+#
+# Licensed under the Functional Source License, Version 1.0, Apache 2.0 Change License (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://github.com/logicalisuki/ubiquity/blob/main/LICENSE.md
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# It also allows for the transition of this software to an Apache 2.0 Licence
+# on the second anniversary of the date we make the software available.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+kube-prometheus-stack:
+  grafana:
+    forceDeployDatasources: true
+    forceDeployDashboards: false
+    adminPassword: prom-operator
+    nodeSelector:
+      node-role.kubernetes.io/master: "true"
+    ingress:
+      enabled: true
+      ingressClassName: nginx
+      annotations:
+        cert-manager.io/cluster-issuer: pebble-issuer
+        #        cert-manager.io/cluster-issuer: letsencrypt-prod
+        hajimari.io/appName: Grafana
+        hajimari.io/icon: chart-bar
+      hosts:
+      - grafana.ubiquitycluster.uk
+      path: /
+      tls:
+      - secretName: grafana-general-tls
+        hosts:
+        - grafana.ubiquitycluster.uk
+    additionalDataSources:
+    - name: Loki
+      type: loki
+      url: http://loki.loki:3100
+    envFromSecret: grafana-secrets
+    grafana.ini:
+      smtp:
+        enabled: true
+        # SMTP config follows here as per
+        # https://grafana.com/docs/grafana/latest/administrat
+        host: "10.144.200.12:25"
+        fromAddress: "ubiquity@kwhpc"
+        fromName: "Keyworth HPC Ubiquity"
+         #startTLS: "NoStartTLS"
+         #passwordKey: '"""password"""'  # I use tripple quote
+         #userKey: "hpcteam@ubiquitycluster"
+      security:
+        cookie_secure: false
+      server:
+        domain: grafana.ubiquitycluster.uk
+        protocol: http
+        root_url: https://grafana.ubiquitycluster.uk
+      auth.generic_oauth:
+        enabled: true
+        allow_sign_up: true
+        name: Dex
+        client_id: grafana-sso
+        client_secret: $__env{GRAFANA_SSO_CLIENT_SECRET}
+        scopes: openid profile email groups
+        auth_url: https://dex.ubiquitycluster.uk/auth
+        token_url: https://dex.ubiquitycluster.uk/token
+        api_url: https://dex.ubiquitycluster.uk/userinfo
+  kubeApiServer:
+    enabled: true
+  kubeControllerManager:
+    enabled: true
+    service:
+      enabled: true
+      port: 10257
+      targetPort: 10257
+    serviceMonitor:
+      enabled: true
+      https: true
+      insecureSkipVerify: true
+  kubeScheduler:
+    enabled: true
+    service:
+      enabled: true
+      port: 10259
+      targetPort: 10259
+    serviceMonitor:
+      enabled: true
+      https: true
+      insecureSkipVerify: true
+  coreDns:
+    enabled: true
+    service:
+      enabled: true
+      port: 9153
+      targetPort: 9153
+    serviceMonitor:
+      enabled: true
+  kubeEtcd:
+    enabled: true
+    service:
+      enabled: true
+      port: 2381
+      targetPort: 2381
+  nodeExporter:
+    enabled: true
+    operatingSystems:
+      linux:
+        enabled: true
+      darwin:
+        enabled: false
+    resources:
+      limits:
+        cpu: 100m
+        memory: 512Mi
+      requests:
+        cpu: 100m
+        memory: 256Mi
+  thanosRuler:
+    enabled: true
+  alertmanager:
+    enabled: true
+    persistentVolume:
+      size: 2Gi
+    nodeSelector:
+      node-role.kubernetes.io/master: "true"
+    resources:
+      limits:
+        cpu: 100m
+        memory: 512Mi
+      requests:
+        cpu: 50m
+        memory: 300Mi
+  prometheus:
+    retention: 30d
+    persistentVolume:
+      size: 8Gi
+    nodeSelector:
+      node-role.kubernetes.io/master: "true"
+    resources:
+      limits:
+        cpu: 100m
+        memory: 3Gi
+      requests:
+        cpu: 100m
+        memory: 2Gi
+    #additionalScrapeConfigs:
+      #- job_name: blackbox
+        #metrics_path: /probe
+        #params:
+          #module: [http_2xx]
+        #static_configs:
+          # Add URLs as target parameter
+          #- targets:
+            #- https://example.com
+            #- https://www.google.com
+            #- https://stackoverflow.com
+            #- https://scala-lang.org
+            #- https://helm.sh
+        #relabel_configs:
+        #- source_labels: [__address__]
+          #target_label: __param_target
+        #- source_labels: [__param_target]
+          # Important!     
+          #target_label: target
+          # Ensure blackbox-exporter is reachable from Prometheus
+        #- target_label: __address__ 
+          #replacement: prometheus-blackbox-exporter.monitoring:9115
+
+    thanosService:
+      enabled: true
+      annotations: {}
+      labels: {}
+    thanosServiceMonitor:
+      enabled: true
+    prometheusSpec:
+      ruleSelectorNilUsesHelmValues: false
+      serviceMonitorSelectorNilUsesHelmValues: false
+      podMonitorSelectorNilUsesHelmValues: false
+      probeSelectorNilUsesHelmValues: false

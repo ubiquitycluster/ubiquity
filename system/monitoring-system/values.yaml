@@ -1,0 +1,149 @@
+kube-prometheus-stack:
+  grafana:
+    forceDeployDatasources: true
+    forceDeployDashboards: true
+    adminPassword: woopwoop
+    ingress:
+      enabled: true
+      ingressClassName: nginx
+      annotations:
+        cert-manager.io/cluster-issuer: pebble-issuer
+        #        cert-manager.io/cluster-issuer: letsencrypt-prod
+        hajimari.io/appName: Grafana
+        hajimari.io/icon: chart-bar
+      hosts:
+      - grafana.127-0-0-1.nip.io
+      path: /
+      tls:
+      - secretName: grafana-general-tls
+        hosts:
+        - grafana.127-0-0-1.nip.io
+    additionalDataSources:
+    - name: Loki
+      type: loki
+      url: http://loki.loki:3100
+    envFromSecret: grafana-secrets
+    grafana.ini:
+      security:
+        cookie_secure: false
+      server:
+        domain: grafana.127-0-0-1.nip.io
+        protocol: http
+        root_url: https://grafana.127-0-0-1.nip.io
+      auth.generic_oauth:
+        enabled: true
+        allow_sign_up: true
+        name: Dex
+        client_id: grafana-sso
+        client_secret: $__env{GRAFANA_SSO_CLIENT_SECRET}
+        scopes: openid profile email groups
+        auth_url: https://dex.127-0-0-1.nip.io/auth
+        token_url: https://dex.127-0-0-1.nip.io/token
+        api_url: https://dex.127-0-0-1.nip.io/userinfo
+  kubeApiServer:
+    enabled: true
+  kubeControllerManager:
+    enabled: true
+    endpoints:
+    - 10.212.84.1
+    - 10.212.84.2
+    - 10.212.84.3
+    service:
+      enabled: true
+      port: 10257
+      targetPort: 10257
+    serviceMonitor:
+      enabled: true
+      https: true
+      insecureSkipVerify: true
+  kubeScheduler:
+    enabled: true
+    endpoints:
+    - 10.212.84.1
+    - 10.212.84.2
+    - 10.212.84.3
+    service:
+      enabled: true
+      port: 10259
+      targetPort: 10259
+    serviceMonitor:
+      enabled: true
+      https: true
+      insecureSkipVerify: true
+  kubeEtcd:
+    enabled: true
+    endpoints:
+    - 10.212.84.1 # Kube master 1
+    - 10.212.84.2 # Kube master 2
+    - 10.212.84.3 # Kube master 3
+    service:
+      enabled: true
+      port: 2381
+      targetPort: 2381
+  nodeExporter:
+    enabled: true
+    resources:
+      limits:
+        cpu: 100m
+        memory: 512Mi
+      requests:
+        cpu: 100m
+        memory: 256Mi
+  thanosRuler:
+    enabled: true
+  alertmanager:
+    enabled: true
+    persistentVolume:
+      size: 2Gi
+    resources:
+      limits:
+        cpu: 100m
+        memory: 512Mi
+      requests:
+        cpu: 50m
+        memory: 300Mi
+  prometheus:
+    retention: 15d
+    persistentVolume:
+      size: 8Gi
+    resources:
+      limits:
+        cpu: 100m
+        memory: 3Gi
+      requests:
+        cpu: 100m
+        memory: 2Gi
+    #additionalScrapeConfigs:
+      #- job_name: blackbox
+        #metrics_path: /probe
+        #params:
+          #module: [http_2xx]
+        #static_configs:
+          # Add URLs as target parameter
+          #- targets:
+            #- https://example.com
+            #- https://www.google.com
+            #- https://stackoverflow.com
+            #- https://scala-lang.org
+            #- https://helm.sh
+        #relabel_configs:
+        #- source_labels: [__address__]
+          #target_label: __param_target
+        #- source_labels: [__param_target]
+          # Important!     
+          #target_label: target
+          # Ensure blackbox-exporter is reachable from Prometheus
+        #- target_label: __address__ 
+          #replacement: prometheus-blackbox-exporter.monitoring:9115
+
+    thanosService:
+      enabled: true
+      annotations: {}
+      labels: {}
+    thanosServiceMonitor:
+      enabled: true
+    prometheusSpec:
+      ruleSelectorNilUsesHelmValues: false
+      serviceMonitorSelectorNilUsesHelmValues: false
+      podMonitorSelectorNilUsesHelmValues: false
+      probeSelectorNilUsesHelmValues: false

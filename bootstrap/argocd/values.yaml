@@ -1,0 +1,209 @@
+---
+# Copyright 2023 Logicalis UKI. All Rights Reserved.
+#
+# Licensed under the Functional Source License, Version 1.0, Apache 2.0 Change License (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://github.com/logicalisuki/ubiquity/blob/main/LICENSE.md
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# It also allows for the transition of this software to an Apache 2.0 Licence
+# on the second anniversary of the date we make the software available.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Copyright 2023 Logicalis UKI. All Rights Reserved.
+#
+# Licensed under the Functional Source License, Version 1.0, Apache 2.0 Change License (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://github.com/logicalisuki/ubiquity/blob/main/LICENSE.md
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# It also allows for the transition of this software to an Apache 2.0 Licence
+# on the second anniversary of the date we make the software available.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+argo-cd:
+  configs:
+    credentialTemplates:
+      https-creds:
+        url: https://github.com/logicalisuki/ubiquity.git
+        username: yourawesomeusername
+        password: yourawesomepassword
+      ssh-creds:
+        url: https://github.com/logicalisuki/ubiquity.git
+        sshPrivateKey: changethissshprivkey
+    repositories:
+      private-git-ops-services:
+        name: argocd-live-ops-services
+        type: git
+        url: https://github.com/logicalisuki/ubiquity.git
+  controller:
+    extraArgs:
+      - --kubectl-parallelism-limit
+      - '10'
+    metrics: &id001
+      enabled: true
+      serviceMonitor:
+        enabled: true
+    nodeSelector:
+      node-role.kubernetes.io/master: 'true'
+    replicas: 1
+    resources:
+      limits:
+        cpu: '4'
+        memory: 6Gi
+      requests:
+        cpu: '2'
+        memory: 4Gi
+  dex:
+    enabled: false
+  global:
+    domain: argocd.ubiquitycluster.local
+    revisionHistoryLimit: 3
+  params:
+    controller.operation.processors: 10
+    controller.repo.server.timeout.seconds: '500'
+    controller.status.processors: 20
+    server.insecure: 'true'
+  redis-ha:
+    enabled: true
+    exporter:
+      enabled: true
+    metrics: *id001
+    nodeSelector:
+      node-role.kubernetes.io/master: 'true'
+    resources:
+      limits:
+        cpu: 100m
+        memory: 256Mi
+      requests:
+        cpu: 50m
+        memory: 100Mi
+  repoServer:
+    env:
+      - name: ARGOCD_EXEC_TIMEOUT
+        value: 5m
+    metrics: *id001
+    replicas: 1
+    nodeSelector:
+      node-role.kubernetes.io/master: 'true'
+    resources:
+      limits:
+        cpu: '3'
+        memory: 4Gi
+      requests:
+        cpu: '1'
+        memory: 1.5Gi
+  applicationSet:
+    enabled: true
+    replicas: 1
+    metrics: *id001
+    nodeSelector:
+      node-role.kubernetes.io/master: 'true'
+    resources:
+      limits:
+        cpu: 500m
+        memory: 256Mi
+      requests:
+        cpu: 500m
+        memory: 256Mi
+  server:
+    config:
+      kustomize.buildOptions: --load-restrictor LoadRestrictionsNone --enable-helm
+      resource.customizations.health.argoproj.io_Application: |
+        hs = {}
+        hs.status = "Progressing"
+        hs.message = ""
+        if obj.status ~= nil then
+          if obj.status.health ~= nil then
+            hs.status = obj.status.health.status
+            if obj.status.health.message ~= nil then
+              hs.message = obj.status.health.message
+            end
+          end
+        end
+        return hs
+      statusbadge.enabled: 'true'
+    nodeSelector:
+      node-role.kubernetes.io/master: 'true'
+    ingress:
+      annotations:
+        # See ../docs/reference/ingress.md for more information
+        nginx.ingress.kubernetes.io/affinity: cookie
+        nginx.ingress.kubernetes.io/session-cookie-name: route
+        nginx.ingress.kubernetes.io/session-cookie-expires: '172800'
+        nginx.ingress.kubernetes.io/session-cookie-max-age: '172800'
+        #cert-manager.io/cluster-issuer: 
+        # - letsencrypt-prod
+        # - letsencrypt-staging
+        # - pebble-issuer
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+        hajimari.io/appName: ArgoCD
+        hajimari.io/icon: robot
+        kubernetes.io/tls-acme: 'true'
+        nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+        nginx.ingress.kubernetes.io/force-ssl-redirect: 'true'
+      enabled: true
+      extraPaths:
+        - backend:
+            service:
+              name: argocd-server
+              port:
+                name: http
+          path: /
+          pathType: Prefix
+      hosts:
+        - argocd.ubiquitycluster.local
+      ingressClassName: nginx
+      paths:
+        - /
+      tls:
+        - hosts:
+            - argocd.ubiquityclusterlocal
+          secretName: argocd-tls-certificate
+    ingressGrpc:
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+        hajimari.io/enable: 'false'
+        kubernetes.io/tls-acme: 'true'
+        nginx.ingress.kubernetes.io/backend-protocol: GRPC
+      enabled: true
+      extraPaths:
+        - backend:
+            service:
+              name: argocd-server
+              port:
+                name: https
+          path: /
+          pathType: Prefix
+      hosts:
+        - grpc.ubiquitycluster.local
+      https: true
+      ingressClassName: nginx
+      paths:
+        - /
+      tls:
+        - hosts:
+            - grpc.ubiquitycluster.local
+          secretName: argocd-grpc-certificate
+    insecure: 'true'
+    metrics: *id001
+    resources:
+      limits:
+        cpu: 500m
+        memory: 300Mi
+      requests:
+        cpu: 100m
+        memory: 150Mi
+  notifications:
+    enabled: true
+    nodeSelector:
+      node-role.kubernetes.io/master: 'true'

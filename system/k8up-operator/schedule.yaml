@@ -1,0 +1,49 @@
+---
+# Copyright 2023 Logicalis UKI. All Rights Reserved.
+#
+# Licensed under the Functional Source License, Version 1.0, Apache 2.0 Change License (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://github.com/logicalisuki/ubiquity/blob/main/LICENSE.md
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# It also allows for the transition of this software to an Apache 2.0 Licence
+# on the second anniversary of the date we make the software available.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+apiVersion: k8up.io/v1
+kind: Schedule
+metadata:
+  name: schedule-test
+spec:
+  backend:
+    s3:
+      endpoint: s3.us-west-002.backblazeb2.com
+      bucket: ubiquity-backup
+      accessKeyIDSecretRef:
+        name: ubiq-backup-credentials
+        key: application-key-id
+      secretAccessKeySecretRef:
+        name: ubiq-backup-credentials
+        key: application-key
+    repoPasswordSecretRef:
+      name: ubiq-backup-credentials
+      key: repo-password
+  backup:
+    schedule: '0 8 * * *'
+    failedJobsHistoryLimit: 2
+    successfulJobsHistoryLimit: 2
+    # TODO
+    #promURL: https://prometheus:8443
+  check:
+    schedule: '0 1 * * 1'
+    #promURL: https://prometheus:8443
+  prune:
+    schedule: '0 1 * * 0'
+    retention:
+      keepLast: 5
+      keepDaily: 14

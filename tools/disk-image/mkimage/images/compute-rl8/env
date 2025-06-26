@@ -1,0 +1,6 @@
+export DIB_MOFED_FILE="MLNX_OFED_LINUX-24.01-0.3.3.1-rhel8.9-x86_64.iso"
+export DIB_CONTAINERFILE_RUNTIME=docker
+export DIB_RELEASE=8
+export DIB_DISTRIBUTION_MIRROR=dl.rockylinux.org
+export DIB_MOTD_MESSAGE="Welcome to KWHPC! This node image was built on: $(date)"
+export DIB_CLOUD_INIT_GROWPART_DEVICES="/dev/sda3"

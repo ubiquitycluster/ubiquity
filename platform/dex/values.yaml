@@ -1,0 +1,80 @@
+---
+# Copyright 2023 Logicalis UKI. All Rights Reserved.
+#
+# Licensed under the Functional Source License, Version 1.0, Apache 2.0 Change License (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://github.com/logicalisuki/ubiquity/blob/main/LICENSE.md
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# It also allows for the transition of this software to an Apache 2.0 Licence
+# on the second anniversary of the date we make the software available.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+dex:
+  nodeSelector:
+    node-role.kubernetes.io/master: 'true'
+  config:
+    issuer: https://dex.ubiquitycluster.uk
+    storage:
+      type: kubernetes
+      config:
+        inCluster: true
+    oauth2:
+      skipApprovalScreen: true
+    connectors:
+    - type: gitea
+      id: gitea
+      name: Gitea
+      config:
+        clientID: $GITEA_CLIENT_ID
+        clientSecret: $GITEA_CLIENT_SECRET
+        redirectURI: https://dex.ubiquitycluster.uk/callback
+        baseURL: https://git.ubiquitycluster.uk
+          #      - type: google
+          #        id: google
+          #        name: Google
+          #
+          #config:
+          #          clientID: $GOOGLE_CLIENT_ID
+          #          clientSecret: $GOOGLE_CLIENT_SECRET
+          #          redirectURI: https://dex.ubiquitycluster.uk/callback
+
+    staticClients:
+    - id: grafana-sso
+      name: Grafana
+      redirectURIs:
+      - https://grafana.ubiquitycluster.uk/login/generic_oauth
+      secretEnv: GRAFANA_SSO_CLIENT_SECRET
+  envFrom:
+  - secretRef:
+      name: dex-secrets
+  ingress:
+    enabled: true
+    className: nginx
+    annotations:
+      # See ../docs/reference/ingress.md for more information
+      nginx.ingress.kubernetes.io/affinity: cookie
+      nginx.ingress.kubernetes.io/session-cookie-name: route
+      nginx.ingress.kubernetes.io/session-cookie-expires: '172800'
+      nginx.ingress.kubernetes.io/session-cookie-max-age: '172800'
+      #cert-manager.io/cluster-issuer:
+      # enables cert-manager to issue a certificate for this ingress.
+      # if you want to use a self-signed certificate, comment out the line below
+      # and uncomment the line below that.
+      cert-manager.io/cluster-issuer: pebble-issuer
+      #cert-manager.io/cluster-issuer: letsencrypt-prod
+      hajimari.io/enable: 'false'
+    hosts:
+    - host: dex.ubiquitycluster.uk
+      paths:
+      - path: /
+        pathType: ImplementationSpecific
+    tls:
+    - secretName: dex-tls-certificate
+      hosts:
+      - dex.ubiquitycluster.uk

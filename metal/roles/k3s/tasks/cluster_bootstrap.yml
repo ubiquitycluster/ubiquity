@@ -1,0 +1,148 @@
+---
+# file" cluster_bootstrap.yml
+#
+#
+# CIS - 1.2.33, 1.2.34
+- name: Deploy encryption provider config
+  template:
+    src: k3s-encryption.yaml.j2
+    dest: "{{ k3s_encryption_file }}"
+    mode: 0000
+    owner: root
+    group: root
+
+- name: Check number of master nodes
+  shell: "{{ kubectl_cmd }} get nodes -o wide --no-headers | awk '{print $1}' | wc -l"
+  register: master_node_count
+  run_once: true
+  delegate_facts: true
+  ignore_errors: true
+
+- name: Ensure config directories exist
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: 0700
+    owner: root
+    group: root
+  loop:
+    - /etc/rancher/k3s
+    - /etc/rancher/node
+
+- name: Check if k3s token file exists on the first node
+  run_once: true
+  ansible.builtin.stat:
+    path: "{{ k3s_token_file }}"
+  register: k3s_token_file_stat
+
+- name: Generate k3s token file on the first node if not exist yet
+  run_once: true
+  when: not k3s_token_file_stat.stat.exists
+  ansible.builtin.copy:
+    content: "{{ lookup('community.general.random_string', length=32) }}"
+    dest: "{{ k3s_token_file }}"
+    mode: 0600
+
+- name: Get k3s token from the first node
+  run_once: true
+  ansible.builtin.slurp:
+    src: "{{ k3s_token_file }}"
+  register: k3s_token_base64
+
+- name: Ensure all nodes has the same token
+  ansible.builtin.copy:
+    content: "{{ k3s_token_base64.content | b64decode }}"
+    dest: "{{ k3s_token_file }}"
+    mode: 0600
+
+- name: Prepare HA Cluster if master nodes are > 1
+  block:
+    - name: Copy k3s config files - simplify service files
+      ansible.builtin.template:
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+        mode: 0600
+      loop:
+        - src: config.yaml.j2
+          dest: "{{ k3s_config_file }}"
+
+    - name: Prepare cluster - master 0 service
+      template:
+        src: k3s.service.j2
+        dest: /etc/systemd/system/k3s-server.service
+        mode: 0400
+        owner: root
+        group: root
+      when: ansible_hostname == groups['masters'][0]
+
+    - name: Prepare cluster - other masters service
+      template:
+        src: k3s.service.j2
+        dest: /etc/systemd/system/k3s-server.service
+        mode: 0400
+        owner: root
+        group: root
+      when: ansible_hostname != groups['masters'][0]
+
+    - name: Start K3s service bootstrap /1
+      systemd:
+        name: k3s-server
+        daemon_reload: yes
+        enabled: yes
+        state: started
+      delay: 3
+      register: result
+      retries: 3
+      until: result is not failed
+      when: ansible_hostname == groups['masters'][0]
+
+    - name: Wait for service to start
+      pause:
+        seconds: 5
+      run_once: yes
+
+    - name: Wait for HA ip to come up
+      command: |
+        ping -c 1 -w 1 {{ keepalived_ip }}
+      register: ping
+      until:
+        - ping.rc == 0
+      retries: 30
+      delay: 5
+      run_once: true
+      changed_when: no
+
+    - name: Start K3s service bootstrap /2
+      systemd:
+        name: k3s-server
+        daemon_reload: yes
+        enabled: yes
+        state: started
+      delay: 3
+      register: result
+      retries: 3
+      until: result is not failed
+      when: ansible_hostname != groups['masters'][0]
+
+    - name: Wait for cluster to form
+      shell: |
+        set -o pipefail
+        k3s {{ kubectl_cmd }} get nodes | grep "master" | awk '{print $2}' | grep ^Ready
+      register: masters
+      until:
+        - masters.rc == 0
+        - (masters.stdout_lines | length ) == (groups['masters'] | length)
+      retries: 30
+      delay: 5
+      run_once: yes
+      changed_when: no
+
+    - name: Cluster formed
+      debug:
+        msg: Cluster formed, stop bootstrap and carry on normal setup
+      run_once: yes
+
+  when:
+    - groups['masters'] | length > 1
+    #- groups['masters'] | length < (master_node_count.stdout_lines | length )
+    #- bootstrap_ran.rc != 0

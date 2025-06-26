@@ -1,0 +1,11 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ironic
+spec:
+  template:
+   spec:
+      volumes:
+      - name: ironic-data-volume
+        persistentVolumeClaim:
+          claimName: pvc-lh-ironic

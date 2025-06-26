@@ -1,0 +1,70 @@
+# Copyright 2023 Logicalis UKI. All Rights Reserved.
+#
+# Licensed under the Functional Source License, Version 1.0, Apache 2.0 Change License (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://github.com/logicalisuki/ubiquity/blob/main/LICENSE.md
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# It also allows for the transition of this software to an Apache 2.0 Licence
+# on the second anniversary of the date we make the software available.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: git-checkout-pr
+  annotations:
+    workflows.argoproj.io/description: >-
+      Clones a git repository and then performs a git checkout of a branch defined
+      in the workflow workflow.parameters. Then merges in a defined target branch.
+    workflows.argoproj.io/maintainer: 'Pipekit Inc'
+    workflows.argoproj.io/maintainer_url: 'https://github.com/logicalisuki/ubiquity'
+    workflows.argoproj.io/version: '>= 3.4.2'
+spec:
+  entrypoint: main
+  templates:
+  - name: main
+    dag:
+      tasks:
+        - name: git-checkout-pr
+          template: git-checkout-pr
+
+  - name: git-checkout-pr
+    container:
+      image: alpine:latest
+      command:
+        - sh
+        - -c
+        - |
+          apk --update add git
+
+          cd /workdir
+          echo "Start Clone of source branch"
+          git clone https://github.com/pipekit/{{workflow.parameters.app_repo}}.git
+          cd {{workflow.parameters.app_repo}}
+
+          ## These lines are a hack just for the example.
+          git config --global --add safe.directory /workdir/{{workflow.parameters.app_repo}}
+          git config --global user.email "hpc@uk.logicalis.com"
+          git config --global user.name "Chris Coates"
+
+          git checkout {{workflow.parameters.git_branch}}
+
+          echo "Merge in target branch"
+          git merge origin/{{workflow.parameters.target_branch}}
+
+          echo "Complete."
+      volumeMounts:
+      - name: "workdir"
+        mountPath: /workdir
+      resources:
+        requests:
+          memory: 250Mi
+          cpu: 4m
+    #20 minutes
+    activeDeadlineSeconds: 1200

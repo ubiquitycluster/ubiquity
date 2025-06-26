@@ -1,0 +1,41 @@
+#
+# See https://github.com/cilium/cilium/blob/master/install/kubernetes/cilium/values.yaml
+# for all possible values.
+#
+# All possible Jinja2 features/filters can be used but keep in mind that the
+# result needs to be a valid YAML file.
+
+# The Helm option keepDeprecatedProbes=true will keep the exec probe in
+# the new DaemonSet.
+keepDeprecatedProbes: true
+
+# To minimize datapath disruption during the upgrade, the upgradeCompatibility
+# option should be set to the INITIAL Cilium version which was installed in this
+# cluster.
+#
+# This is flag is not required for new installations!
+#
+# Valid options are:
+# 1.7 -> if the initial install was Cilium 1.7.x or earlier.
+# 1.8 -> if the initial install was Cilium 1.8.x.
+# 1.9 -> if the initial install was Cilium 1.9.x.
+# 1.10 -> if the initial install was Cilium 1.10.x.
+upgradeCompatibility: "1.7"
+
+# The eBPF-based masquerading implementation is the most efficient implementation.
+# It requires Linux kernel >= 4.19.
+# See: https://docs.cilium.io/en/stable/concepts/networking/masquerading/
+bpf:
+  masquerade: true
+
+cni:
+  chainingMode: portmap
+{% if cilium_etcd_enabled is defined and cilium_etcd_enabled == "true" -%}
+etcd:
+  enabled: true
+  endpoints:
+  {% for host in groups[cilium_etcd_nodes_group] -%}
+  - {% if cilium_etcd_secrets_name is defined %}https{% else %}http{% endif -%}://{{ hostvars[host]['ansible_' + cilium_etcd_interface].ipv4.address }}:{{ cilium_etcd_client_port }}
+  {% endfor -%}
+  ssl: {% if cilium_etcd_secrets_name is defined %}true{% else %}false{% endif -%}
+{% endif %}

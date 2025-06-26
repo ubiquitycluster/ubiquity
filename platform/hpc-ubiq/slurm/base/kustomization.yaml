@@ -1,0 +1,21 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: hpc-ubiq
+
+resources:
+- ./templates/ipoibnet.yaml
+
+patches:
+- path: ./patches/mysql-config.yaml
+
+helmCharts:
+- name: k8s-slurm-cluster
+  includeCRDs: false
+  version: 1.0.6
+  repo: https://cjcshadowsan.github.io/k8s-slurm-cluster
+  valuesFile: values.yaml
+#- name: mysql-innodbcluster
+#  includeCRDs: false
+#  version: 2.1.3
+#  repo: https://mysql.github.io/mysql-operator
+#  valuesFile: mysql-values.yaml

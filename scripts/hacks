@@ -1,0 +1,144 @@
+#!/usr/bin/env python3.9
+# Copyright 2023 Logicalis UKI. All Rights Reserved.
+#
+# Licensed under the Functional Source License, Version 1.0, Apache 2.0 Change License (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://github.com/logicalisuki/ubiquity/blob/main/LICENSE.md
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# It also allows for the transition of this software to an Apache 2.0 Licence
+# on the second anniversary of the date we make the software available.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+"""
+Quick and dirty script for things that I can't/don't have time to do properly yet
+TODO: retire this script
+"""
+
+import base64
+import json
+import requests
+from urllib3.exceptions import InsecureRequestWarning
+import sys
+
+from rich.console import Console
+from kubernetes import client, config
+
+# https://git.ubiquitycluster.uk/user/settings/applications
+# Doing this properly inside the cluster requires:
+# - Kubernetes service account
+# - Vault Kubernetes auth
+config.load_kube_config(config_file='./metal/kubeconfig.yaml')
+
+gitea_host = client.NetworkingV1Api().read_namespaced_ingress('gitea', 'gitea').spec.rules[0].host
+gitea_user = base64.b64decode(client.CoreV1Api().read_namespaced_secret('gitea-admin-secret', 'gitea').data['username']).decode("utf-8")
+gitea_pass = base64.b64decode(client.CoreV1Api().read_namespaced_secret('gitea-admin-secret', 'gitea').data['password']).decode("utf-8")
+gitea_url = f"http://{gitea_host}"
+
+vault_host = client.NetworkingV1Api().read_namespaced_ingress('vault', 'vault').spec.rules[0].host
+vault_token = base64.b64decode(client.CoreV1Api().read_namespaced_secret('vault-unseal-keys', 'vault').data['vault-root']).decode("utf-8")
+vault_url = f"https://{vault_host}"
+
+
+def create_vault_secret(path: str, data) -> None:
+    requests.post(
+        url=f"{vault_url}/v1/secret/data/{path}",
+        headers={
+            'X-Vault-Token': vault_token
+        },
+        data=json.dumps({
+            'data': data
+        })
+    , verify=False)
+
+
+def setup_gitea_access_token(name: str) -> None:
+    session = requests.Session()
+    session.auth = (gitea_user, gitea_pass)
+    current_tokens = session.get(
+        url=f"{gitea_url}/api/v1/users/{gitea_user}/tokens",
+    verify=False).json()
+    if not any(isinstance(token, dict) and token.get('name') == name for token in current_tokens):
+    # if not any(token['name'] == name for token in current_tokens):
+        resp = session.post(
+            url=f"{gitea_url}/api/v1/users/{gitea_user}/tokens",
+            headers={
+                'Content-Type': 'application/json'
+            },
+            data=json.dumps({
+                'name': name
+            })
+        , verify=False)
+
+        if resp.status_code == 201:
+            create_vault_secret(
+                f"gitea/{name}",
+                {
+                    'token': resp.json()['sha1']
+                }
+            )
+        else:
+            print(f"Error creating access token {name} ({resp.status_code})")
+            print(resp.content)
+            sys.exit(1)
+
+
+def setup_gitea_oauth_app(name: str, redirect_uri: str) -> None:
+    session = requests.Session()
+    session.auth = (gitea_user, gitea_pass)
+    current_apps = session.get(
+        url=f"{gitea_url}/api/v1/user/applications/oauth2",
+    verify=False).json()
+
+    if not any(app['name'] == name for app in current_apps):
+        resp = session.post(
+            url=f"{gitea_url}/api/v1/user/applications/oauth2",
+            headers={
+                'Content-Type': 'application/json'
+            },
+            data=json.dumps({
+                'name': name,
+                'redirect_uris': [redirect_uri]
+            })
+        , verify=False)
+
+        if resp.status_code == 201:
+            create_vault_secret(
+                f"gitea/{name}",
+                {
+                    'client_id': resp.json()['client_id'],
+                    'client_secret': resp.json()['client_secret']
+                }
+            )
+        else:
+            print(f"Error creating OAuth application {name} ({resp.status_code})")
+            print(resp.content)
+            sys.exit(1)
+
+
+def main() -> None:
+    requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
+    with Console().status("Completing the remaining sorcery"):
+        gitea_access_tokens = [
+            'renovate'
+        ]
+
+        gitea_oauth_apps = [
+            {'name': 'dex', 'redirect_uri': f"https://{client.NetworkingV1Api().read_namespaced_ingress('dex', 'dex').spec.rules[0].host}/callback"},
+            {'name': 'keycloak', 'redirect_uri': f"https://{client.NetworkingV1Api().read_namespaced_ingress('keycloak', 'keycloak').spec.rules[0].host}/auth"}
+        ]
+
+        for token_name in gitea_access_tokens:
+            setup_gitea_access_token(token_name)
+
+        for app in gitea_oauth_apps:
+            setup_gitea_oauth_app(app['name'], app['redirect_uri'])
+
+
+if __name__ == '__main__':
+    main()

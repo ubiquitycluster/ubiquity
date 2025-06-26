@@ -1,0 +1,3 @@
+#nodetype,name,address,ipmiuser,ipmipass,pxedev,user,password,mac,dns1,dns2,net1,ip1,netmask1,netname1,gateway1,net2,ip2,netmask2,netname2,gateway2
+xcc,cn1,10.199.250.11,USERID,changeme,21:00:00,rocky,woo,cn1-mac,10.199.98.211,10.199.98.212,ens6f0,10.199.251.13,255.255.255.128,mgmtnet,10.199.251.254,ibs1,10.172.210.13,255.255.255.0,hfinet,0.0.0.0
+idrac,cn2,10.199.250.12,USERID,changeme,NIC.Embedded.1-1-1,rocky,woo,cn2-mac,10.199.98.211,10.199.98.212,eno1np0,10.199.251.16,255.255.255.128,mgmtnet,10.199.251.254,ibs1,10.172.210.16,255.255.255.0,hfinet,0.0.0.0

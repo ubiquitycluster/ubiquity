@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ubiquity-ldif-cm
+  annotations:
+    "helm.sh/hook": pre-install
+data:
+{{- $files := .Files }}
+{{- range $path, $_ := .Files.Glob "ldif/*.ldif" }}
+{{- $name := base $path }}
+{{- $content := $files.Get $path }}
+  {{ $name }}: |-
+{{ $content | indent 4}}
+  {{- end }}
