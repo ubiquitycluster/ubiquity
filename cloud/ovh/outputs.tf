@@ -58,3 +58,37 @@ output "ssh_private_key" {
   value     = module.instance_config.ssh_key.private
   sensitive = true
 }
+
+# Standard k3s cluster outputs
+output "cluster_info" {
+  description = "Information about the deployed cluster"
+  value = {
+    cluster_name     = var.cluster_name
+    cloud_provider   = local.cloud_provider
+    cloud_region     = local.cloud_region
+    cluster_type     = module.design.cluster_type
+    master_count     = module.design.master_count
+    worker_count     = length([for k, v in module.design.instances : k if contains(v.tags, "worker")])
+    ansible_server   = local.ansibleserver_ip
+    software_stack   = lookup(var.ansible_vars, "software_stack", "unknown")
+  }
+}
+
+output "kubeconfig_command" {
+  description = "Command to retrieve kubeconfig for k3s cluster"
+  value = lookup(var.ansible_vars, "software_stack", "null") == "k3s" ? (
+    "scp ${var.sudoer_username}@${local.ansibleserver_ip}:/etc/rancher/k3s/k3s.yaml ./kubeconfig && sed -i 's/127.0.0.1/${local.ansibleserver_ip}/g' ./kubeconfig"
+  ) : "Not applicable - cluster is not running k3s"
+}
+
+output "cluster_endpoints" {
+  description = "Important cluster endpoints"
+  value = lookup(var.ansible_vars, "software_stack", "null") == "k3s" ? {
+    kubernetes_api = [
+      for k, v in module.design.instances : 
+      "${contains(v.tags, "public") ? openstack_compute_instance_v2.instances[k].network[1].fixed_ip_v4 : openstack_networking_port_v2.nic[k].all_fixed_ips[0]}:6443"
+      if contains(v.tags, "master")
+    ]
+    ansible_server = "${local.ansibleserver_ip}:22"
+  } : {}
+}

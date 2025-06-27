@@ -57,6 +57,23 @@ module "cluster_config" {
   master_key      = module.instance_config.master_key 
 }
 
+# Standard validation for k3s cluster deployment
+resource "null_resource" "k3s_cluster_validation" {
+  count = module.design.cluster_type == "k3s" ? 1 : 0
+  
+  lifecycle {
+    precondition {
+      condition     = module.design.master_count == 3
+      error_message = "k3s clusters require exactly 3 control plane nodes for high availability."
+    }
+  }
+  
+  triggers = {
+    cluster_type = module.design.cluster_type
+    master_count = module.design.master_count
+  }
+}
+
 data "aws_availability_zones" "available" {
   state = "available"
 }
@@ -67,6 +84,9 @@ resource "random_shuffle" "random_az" {
 }
 
 locals {
+  cloud_provider = "aws"
+  cloud_region   = var.region
+  
   availability_zone = (
     ( var.availability_zone != "" &&
       contains(data.aws_availability_zones.available.names,
@@ -75,6 +95,12 @@ locals {
       var.availability_zone : random_shuffle.random_az.result[0]
     )
   )
+  
+  # Standard ansible server IP detection
+  ansibleserver_ip = [
+    for x, values in module.design.instances : aws_network_interface.nic[x].private_ip
+    if contains(values.tags, "ansible")
+  ]
 }
 
 resource "aws_placement_group" "efa_group" {

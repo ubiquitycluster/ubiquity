@@ -16,9 +16,22 @@
 locals {
   domain_name = "${lower(var.cluster_name)}.${lower(var.domain)}"
   
+  # Enhanced instance generation with k3s cluster standards
+  # Automatically ensure 3 control plane nodes if any instance has master tag
+  has_master_nodes = length([for prefix, attrs in var.instances : prefix if contains(attrs.tags, "master")]) > 0
+  
+  # Standard k3s cluster configuration with enforced 3 control plane nodes
+  standard_instances = local.has_master_nodes ? merge(var.instances, {
+    ctrl = {
+      type = lookup([for prefix, attrs in var.instances : attrs if contains(attrs.tags, "master")][0], "type", "t3.medium")
+      tags = ["master", "k8s"]
+      count = 3
+    }
+  }) : var.instances
+  
   instances = merge(
     flatten([
-      for prefix, attrs in var.instances : [
+      for prefix, attrs in local.standard_instances : [
         for i in range(lookup(attrs, "count", 1)) : {
           (format("%s%d", prefix, i + 1)) = merge(
             { for attr, value in attrs : attr => value if attr != "count" },
@@ -29,6 +42,9 @@ locals {
     ])...
   )
 
+  # Add validation for k3s cluster requirements
+  master_count = length([for key, values in local.instances : key if contains(values.tags, "master")])
+  
   instance_per_volume = merge([
     for ki, vi in var.volumes : {
       for kj, vj in vi :

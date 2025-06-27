@@ -14,6 +14,51 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Standard k3s firewall rules for cluster communication
+locals {
+  # Standard k3s cluster communication ports
+  k3s_firewall_rules = [
+    {
+      name        = "k3s-api-server"
+      from_port   = 6443
+      to_port     = 6443
+      ip_protocol = "tcp"
+      cidr        = "10.0.0.0/16"
+    },
+    {
+      name        = "k3s-flannel-vxlan"
+      from_port   = 8472
+      to_port     = 8472
+      ip_protocol = "udp"
+      cidr        = "10.0.0.0/16"
+    },
+    {
+      name        = "k3s-kubelet-metrics"
+      from_port   = 10250
+      to_port     = 10250
+      ip_protocol = "tcp"
+      cidr        = "10.0.0.0/16"
+    },
+    {
+      name        = "k3s-flannel-wireguard"
+      from_port   = 51820
+      to_port     = 51821
+      ip_protocol = "udp"
+      cidr        = "10.0.0.0/16"
+    },
+    {
+      name        = "k3s-etcd-client"
+      from_port   = 2379
+      to_port     = 2380
+      ip_protocol = "tcp"
+      cidr        = "10.0.0.0/16"
+    }
+  ]
+  
+  # Combine k3s rules with user-defined rules
+  all_firewall_rules = concat(local.k3s_firewall_rules, var.firewall_rules)
+}
+
 # Create virtual network
 resource "azurerm_virtual_network" "network" {
   name                = "${var.cluster_name}_vnet"
@@ -46,7 +91,7 @@ resource "azurerm_network_security_group" "public" {
   resource_group_name = local.resource_group_name
 
   dynamic "security_rule" {
-    for_each = var.firewall_rules
+    for_each = local.all_firewall_rules
     iterator = rule
     content {
       name                       = rule.value.name

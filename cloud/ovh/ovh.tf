@@ -14,6 +14,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 locals {
-  cloud_provider = "openstack"
+  cloud_provider = "ovh"
   cloud_region   = "ovh"
+  ansibleserver_ip = [
+    for x, values in module.design.instances : openstack_networking_port_v2.nic[x].all_fixed_ips[0]
+    if contains(values.tags, "ansible")
+  ][0]
 }

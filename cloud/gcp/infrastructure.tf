@@ -18,6 +18,23 @@ provider "google" {
   region  = var.region
 }
 
+# Standard locals for k3s cluster deployment
+locals {
+  cloud_provider = "gcp"
+  cloud_region   = var.region
+  
+  # Standard ansible server IP detection
+  ansibleserver_ip = [
+    for x, values in module.design.instances : google_compute_address.nic[x].address
+    if contains(values.tags, "ansible")
+  ]
+}
+
+variable "master_key" {
+  description = "Master key for cluster configuration"
+  type        = string
+}
+
 module "design" {
   source       = "../common/design"
   cluster_name = var.cluster_name
@@ -47,12 +64,30 @@ module "cluster_config" {
   cloud_region    = local.cloud_region
   sudoer_username = var.sudoer_username
   public_keys     = var.public_keys
+  master_key      = var.master_key
   guest_passwd    = var.guest_passwd
   domain_name     = module.design.domain_name
   cluster_name    = var.cluster_name
   volume_devices  = local.volume_devices
   filesystems     = local.all_filesystems
   tf_ssh_key      = module.instance_config.ssh_key
+}
+
+# Standard validation for k3s cluster deployment
+resource "null_resource" "k3s_cluster_validation" {
+  count = module.design.cluster_type == "k3s" ? 1 : 0
+  
+  lifecycle {
+    precondition {
+      condition     = module.design.master_count == 3
+      error_message = "k3s clusters require exactly 3 control plane nodes for high availability."
+    }
+  }
+  
+  triggers = {
+    cluster_type = module.design.cluster_type
+    master_count = module.design.master_count
+  }
 }
 
 data "google_compute_zones" "available" {

@@ -25,6 +25,18 @@ provider "azurerm" {
   tenant_id         = var.azure_tenant_id
 }
 
+# Standard locals for k3s cluster deployment
+locals {
+  cloud_provider = "azure"
+  cloud_region   = var.location
+  
+  # Standard ansible server IP detection
+  ansibleserver_ip = [
+    for x, values in module.design.instances : azurerm_network_interface.nic[x].private_ip_address
+    if contains(values.tags, "ansible")
+  ]
+}
+
 module "design" {
   source       = "../common/design"
   cluster_name = var.cluster_name
@@ -61,6 +73,23 @@ module "cluster_config" {
   filesystems     = local.all_filesystems
   tf_ssh_key      = module.instance_config.ssh_key
   master_key      = module.instance_config.master_key
+}
+
+# Standard validation for k3s cluster deployment
+resource "null_resource" "k3s_cluster_validation" {
+  count = module.design.cluster_type == "k3s" ? 1 : 0
+  
+  lifecycle {
+    precondition {
+      condition     = module.design.master_count == 3
+      error_message = "k3s clusters require exactly 3 control plane nodes for high availability."
+    }
+  }
+  
+  triggers = {
+    cluster_type = module.design.cluster_type
+    master_count = module.design.master_count
+  }
 }
 
 # Check if user provided resource group is valid
