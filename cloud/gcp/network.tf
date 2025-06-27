@@ -13,6 +13,51 @@
 # as of June 2025.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+# Standard k3s firewall rules for cluster communication
+locals {
+  # Standard k3s cluster communication ports
+  k3s_firewall_rules = [
+    {
+      name        = "k3s-api-server"
+      from_port   = 6443
+      to_port     = 6443
+      ip_protocol = "tcp"
+      cidr        = "10.0.0.0/24"
+    },
+    {
+      name        = "k3s-flannel-vxlan"
+      from_port   = 8472
+      to_port     = 8472
+      ip_protocol = "udp"
+      cidr        = "10.0.0.0/24"
+    },
+    {
+      name        = "k3s-kubelet-metrics"
+      from_port   = 10250
+      to_port     = 10250
+      ip_protocol = "tcp"
+      cidr        = "10.0.0.0/24"
+    },
+    {
+      name        = "k3s-flannel-wireguard"
+      from_port   = 51820
+      to_port     = 51821
+      ip_protocol = "udp"
+      cidr        = "10.0.0.0/24"
+    },
+    {
+      name        = "k3s-etcd-client"
+      from_port   = 2379
+      to_port     = 2380
+      ip_protocol = "tcp"
+      cidr        = "10.0.0.0/24"
+    }
+  ]
+  
+  # Combine k3s rules with user-defined rules
+  all_firewall_rules = concat(local.k3s_firewall_rules, var.firewall_rules)
+}
+
 resource "google_compute_network" "network" {
   name = "${var.cluster_name}-network"
 }
@@ -62,17 +107,17 @@ resource "google_compute_firewall" "allow_all_internal" {
 }
 
 resource "google_compute_firewall" "default" {
-  count   = length(var.firewall_rules)
-  name    = format("%s-%s", var.cluster_name, lower(var.firewall_rules[count.index].name))
+  count   = length(local.all_firewall_rules)
+  name    = format("%s-%s", var.cluster_name, lower(local.all_firewall_rules[count.index].name))
   network = google_compute_network.network.self_link
 
-  source_ranges = [var.firewall_rules[count.index].cidr]
+  source_ranges = [local.all_firewall_rules[count.index].cidr]
 
   allow {
-    protocol = var.firewall_rules[count.index].ip_protocol
-    ports = [var.firewall_rules[count.index].from_port != var.firewall_rules[count.index].to_port ?
-      "${var.firewall_rules[count.index].from_port}-${var.firewall_rules[count.index].to_port}" :
-      var.firewall_rules[count.index].from_port
+    protocol = local.all_firewall_rules[count.index].ip_protocol
+    ports = [local.all_firewall_rules[count.index].from_port != local.all_firewall_rules[count.index].to_port ?
+      "${local.all_firewall_rules[count.index].from_port}-${local.all_firewall_rules[count.index].to_port}" :
+      tostring(local.all_firewall_rules[count.index].from_port)
     ]
   }
 
@@ -90,11 +135,4 @@ resource "google_compute_address" "nic" {
 resource "google_compute_address" "public_ip" {
   for_each = { for x, values in module.design.instances : x => true if contains(values.tags, "public") }
   name     = format("%s-%s-public-ipv4", var.cluster_name, each.key)
-}
-
-locals {
-  ansibleserver_ip = [
-      for x, values in module.design.instances : google_compute_address.nic[x].address
-      if contains(values.tags, "ansible")
-  ]
 }

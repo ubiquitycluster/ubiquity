@@ -14,6 +14,48 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Standard k3s firewall rules for cluster communication
+locals {
+  # Standard k3s cluster communication ports
+  k3s_firewall_rules = [
+    {
+      name        = "k3s-api-server"
+      from_port   = 6443
+      to_port     = 6443
+      ip_protocol = "tcp"
+      cidr        = "10.0.0.0/16"
+    },
+    {
+      name        = "k3s-flannel-vxlan"
+      from_port   = 8472
+      to_port     = 8472
+      ip_protocol = "udp"
+      cidr        = "10.0.0.0/16"
+    },
+    {
+      name        = "k3s-kubelet-metrics"
+      from_port   = 10250
+      to_port     = 10250
+      ip_protocol = "tcp"
+      cidr        = "10.0.0.0/16"
+    },
+    {
+      name        = "k3s-flannel-wireguard"
+      from_port   = 51820
+      to_port     = 51821
+      ip_protocol = "udp"
+      cidr        = "10.0.0.0/16"
+    },
+    {
+      name        = "k3s-etcd-client"
+      from_port   = 2379
+      to_port     = 2380
+      ip_protocol = "tcp"
+      cidr        = "10.0.0.0/16"
+    }
+  ]
+}
+
 resource "aws_vpc" "network" {
   cidr_block = "10.0.0.0/16"
 
@@ -69,6 +111,19 @@ resource "aws_security_group" "allow_in_services" {
   description = "Allows services traffic into login nodes"
   vpc_id      = aws_vpc.network.id
 
+  # Standard k3s cluster communication rules
+  dynamic "ingress" {
+    for_each = local.k3s_firewall_rules
+    iterator = rule
+    content {
+      from_port   = rule.value.from_port
+      to_port     = rule.value.to_port
+      protocol    = rule.value.ip_protocol
+      cidr_blocks = [rule.value.cidr]
+    }
+  }
+
+  # User-defined firewall rules
   dynamic "ingress" {
     for_each = var.firewall_rules
     iterator = rule
@@ -133,7 +188,7 @@ resource "aws_eip" "public_ip" {
   for_each = {
     for x, values in module.design.instances : x => true if contains(values.tags, "public")
   }
-  vpc        = true
+  domain     = "vpc"
   instance   = aws_instance.instances[each.key].id
   depends_on = [aws_internet_gateway.gw]
   tags = {

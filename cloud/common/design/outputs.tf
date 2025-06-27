@@ -28,3 +28,12 @@ output "volume_per_instance" {
 output "domain_name" {
   value = local.domain_name
 }
+
+# Additional outputs for k3s cluster validation
+output "master_count" {
+  value = local.master_count
+}
+
+output "cluster_type" {
+  value = local.has_master_nodes ? "k3s" : "standard"
+}

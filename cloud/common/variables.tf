@@ -42,6 +42,16 @@ variable "instances" {
     condition = sum([for key, values in var.instances: contains(values["tags"], "login") ? 1 : 0]) < 2
     error_message = "At most one type of instances in var.instances can have the _login_ tag"
   }
+  # Validation for k3s clusters: if master nodes are defined, enforce proper k3s architecture
+  validation {
+    condition = length([for key, values in var.instances : key if contains(values["tags"], "master")]) == 0 || length([for key, values in var.instances : key if contains(values["tags"], "master")]) >= 1
+    error_message = "For k3s clusters, at least one instance type must be tagged as 'master' for control plane nodes."
+  }
+  # Ensure ansible server is defined for k3s clusters
+  validation {
+    condition = length([for key, values in var.instances : key if contains(values["tags"], "master")]) == 0 || length([for key, values in var.instances : key if contains(values["tags"], "ansible")]) >= 1
+    error_message = "For k3s clusters, at least one instance must be tagged as 'ansible' to serve as the configuration server."
+  }
 }
 
 variable "image" {

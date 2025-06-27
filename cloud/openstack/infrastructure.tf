@@ -13,6 +13,21 @@
 # as of June 2025.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
+# Standard locals for k3s cluster deployment - extending existing locals
+# Note: cloud_provider and cloud_region are already defined in openstack.tf
+locals {
+  # Standard cloud provider identification
+  cloud_provider = "openstack"
+  cloud_region   = "openstack"
+  
+  # Standard ansible server IP detection
+  ansibleserver_ip = [
+    for x, values in module.design.instances : openstack_networking_port_v2.nic[x].all_fixed_ips[0]
+    if contains(values.tags, "ansible")
+  ]
+}
+
 module "design" {
   source       = "../common/design"
   cluster_name = var.cluster_name
@@ -48,6 +63,23 @@ module "cluster_config" {
   volume_devices  = local.volume_devices
   filesystems     = local.all_filesystems
   tf_ssh_key      = module.instance_config.ssh_key
+}
+
+# Standard validation for k3s cluster deployment
+resource "null_resource" "k3s_cluster_validation" {
+  count = module.design.cluster_type == "k3s" ? 1 : 0
+  
+  lifecycle {
+    precondition {
+      condition     = module.design.master_count == 3
+      error_message = "k3s clusters require exactly 3 control plane nodes for high availability."
+    }
+  }
+  
+  triggers = {
+    cluster_type = module.design.cluster_type
+    master_count = module.design.master_count
+  }
 }
 
 data "openstack_images_image_v2" "image" {

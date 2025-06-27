@@ -21,6 +21,48 @@ module "design" {
   volumes      = var.volumes
 }
 
+# Validate k3s cluster configuration
+locals {
+  # Standard cloud provider and region definitions
+  cloud_provider = "ovh"
+  cloud_region   = "ovh"
+  
+  # Extract ansible server IP for cluster configuration
+  ansibleserver_ip = [
+    for x, values in module.design.instances : openstack_networking_port_v2.nic[x].all_fixed_ips[0]
+    if contains(values.tags, "ansible")
+  ][0]
+
+  # Validate k3s cluster requirements
+  is_k3s_cluster = lookup(var.ansible_vars, "software_stack", "null") == "k3s"
+  master_instances = {
+    for k, v in module.design.instances : k => v
+    if contains(v.tags, "master")
+  }
+  master_count = length(local.master_instances)
+  has_ansible_server = length([
+    for k, v in module.design.instances : k
+    if contains(v.tags, "ansible")
+  ]) > 0
+}
+
+# Validate k3s cluster configuration
+resource "null_resource" "k3s_cluster_validation" {
+  count = local.is_k3s_cluster ? 1 : 0
+  
+  lifecycle {
+    precondition {
+      condition     = local.master_count == 3
+      error_message = "k3s clusters require exactly 3 master nodes for high availability. Current master count: ${local.master_count}"
+    }
+    
+    precondition {
+      condition     = local.has_ansible_server
+      error_message = "k3s clusters require at least one instance with 'ansible' tag for configuration management."
+    }
+  }
+}
+
 module "instance_config" {
   source           = "../common/instance_config"
   instances        = module.design.instances

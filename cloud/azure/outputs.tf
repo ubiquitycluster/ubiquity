@@ -58,3 +58,30 @@ output "ssh_private_key" {
   value     = module.instance_config.ssh_key.private
   sensitive = true
 }
+
+# Standard cluster information output
+output "cluster_info" {
+  value = {
+    cluster_name   = var.cluster_name
+    cluster_type   = module.design.cluster_type
+    master_count   = module.design.master_count
+    domain_name    = module.design.domain_name
+    cloud_provider = local.cloud_provider
+    cloud_region   = local.cloud_region
+  }
+  description = "Standard cluster information across all providers"
+}
+
+# k3s specific outputs
+output "kubeconfig_command" {
+  value = length([for key, values in module.cluster_config.public_instances : key if contains(values.tags, "ansible")]) > 0 ? "ssh -i ~/.ssh/id_rsa ${var.sudoer_username}@${[for key, values in module.cluster_config.public_instances : values.public_ip if contains(values.tags, "ansible")][0]} 'sudo cat /etc/rancher/k3s/k3s.yaml'" : "No ansible server found"
+  description = "Command to retrieve kubeconfig from the k3s cluster"
+}
+
+output "cluster_endpoints" {
+  value = length([for key, values in module.cluster_config.public_instances : key if contains(values.tags, "ansible")]) > 0 ? {
+    api_server = "https://${[for key, values in module.cluster_config.public_instances : values.public_ip if contains(values.tags, "ansible")][0]}:6443"
+    dashboard  = "https://${[for key, values in module.cluster_config.public_instances : values.public_ip if contains(values.tags, "ansible")][0]}"
+  } : {}
+  description = "k3s cluster API endpoints"
+}
