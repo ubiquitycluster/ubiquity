@@ -1,560 +1,781 @@
-# HowTo Create OpenStack Cloud Image with NVIDIA GPU and Network Drivers
+# Operating System Images for Ubiquity
 
 ## On This Page
 
-Scope
-Abbreviations and Acronyms
-References
-Introduction
-Image Build Procedure For Guest OS Images
-Preparing the Build Host
-Creating Custom Elements
-NVIDIA MLNX_OFED Installation Element 
-Cloud-init Configuration Element 
-CUDA Driver Installation Element 
-GPUDirect Benchmark Installation Element 
-Setting DIB Pre-Build Environment Variables 
-Running an Image Build Command with Custom Elements 
-Uploading the Image to the OpenStack Cloud and Spawning an Instance 
-Image Build Procedure For OpenStack BareMetal Cloud Service (Ironic) with MLNX_OFED
-Appendix
-Basic DIB Image Build Troubleshooting 
-Additional Elements
-Performance Tools Installation Element
-DHClient IPoIB Configuration Element for CentOS 7
-RDMA-Core Element for IPoIB support on CentOS 8
-Cloud-init with Network-Configuration-Disabled Element for CentOS 8
-Ubuntu OS Elements
+- [Overview](#overview)
+- [Scope](#scope)
+- [Prerequisites](#prerequisites)
+- [Ubiquity Image Building](#ubiquity-image-building)
+- [Custom Image Creation](#custom-image-creation)
+- [Bare Metal Deployment](#bare-metal-deployment)
+- [Cloud Deployment](#cloud-deployment)
+- [Advanced Configurations](#advanced-configurations)
+- [Troubleshooting](#troubleshooting)
+
+## Overview
+
+This guide provides comprehensive instructions for creating, customizing, and deploying operating system images within the Ubiquity platform. Ubiquity supports multiple deployment scenarios including bare metal provisioning, cloud deployments, and hybrid environments, each with specific image requirements and customization options.
 
 ## Scope
-This guide provides instructions on how to create an OpenStack cloud image, including NVIDIA GPU driver, NVIDIA MLNX_OFED network drivers and additional performance benchmark tools, by using Diskimage-builder (DIB) elements.
 
-## Abbreviations and Acronyms
-CUDA	Compute Unified Device Architecture
-DIB	Disk Image Builder
-GPU	Graphics Processing Unit
-MLNX_OFED	NVIDIA Mellanox OpenFabrics Enterprise Distribution for Linux (network driver)
-OS	Operating System
+This guide covers:
+- **Base OS Images**: Rocky Linux, Ubuntu, and Fedora support for Ubiquity clusters
+- **Bare Metal Images**: PXE-bootable images for automated provisioning
+- **Cloud Images**: Custom images for cloud providers (AWS, Azure, GCP, OpenStack)
+- **Container Images**: Base images for HPC workloads and applications
+- **Specialized Images**: HPC-optimized images with NVIDIA drivers, InfiniBand support, and performance tools
 
-## References
-Diskimage-builder - OpenStack
-Diskimage-builder - GitHub
-Developing DIB Elements
-Building images for BareMetal Ironic Service
-Cloud-init
+## Prerequisites
 
+### Hardware Requirements
+- **Build Host**: System capable of running diskimage-builder (minimum 4GB RAM, 20GB storage)
+- **Target Platform**: Bare metal servers or cloud instances for deployment
 
-## Introduction
-When working in a cloud environment such as OpenStack, a cloud image with specific pre-installed drivers may be occasionally required to support newly introduced features. In other cases, it can be very useful to prepare a cloud image with a custom software stack for ease of use.
+### Software Requirements
+- **Operating System**: Rocky Linux 8/9, Ubuntu 20.04/22.04, or Fedora Server
+- **Tools**: diskimage-builder, qemu-utils, ansible (for bare metal)
+- **Access**: Administrative privileges on build host
 
-Diskimage-builder (DIB) is a tool for automatic building of customised images for use in clouds and other environments.
+### Abbreviations and Acronyms
+- **BMO**: Bare Metal Operator
+- **DIB**: Disk Image Builder  
+- **HPC**: High Performance Computing
+- **IPA**: Ironic Python Agent
+- **MLNX_OFED**: NVIDIA Mellanox OpenFabrics Enterprise Distribution
+- **PXE**: Preboot Execution Environment
 
-The following howto covers the steps required when using DIB elements to create guest and deployment images with pre-installed NVIDIA MLNX_OFED, CUDA drivers, GPUDirect testing tools and several additional guest OS tweaks.
+## Ubiquity Image Building
 
-The DIB supports multiple OS distributions for the "build host" (the server used for building the guest image) and for the "guest target" (the image used for cloud instances). In the article below, RockyLinux 8 is used for both the build host and guest target as a reference.
+### Built-in Image Builder
 
-Image Build Procedure For Guest OS Images
-Preparing the Build Host
-Install the OS on the server that will be used as a build host. The OS used for build host in this article is the latest CentOS 8.5 release.
-Install the DIB and its prerequisites.
+Ubiquity includes a comprehensive image building system located in `tools/disk-image/mkimage/` that provides:
 
+- **Automated Building**: Script-based image creation with minimal configuration
+- **Multiple Formats**: Support for qcow2, raw, and other disk formats
+- **Custom Elements**: Pre-built elements for Ubiquity-specific configurations
+- **Multi-Architecture**: Support for x86_64 and ARM64 architectures
+
+### Supported Operating Systems
+
+**Rocky Linux (Recommended)**
+- Rocky Linux 8.x and 9.x
+- Default choice for Ubiquity deployments
+- Optimized kickstart configurations for bare metal
+- Full HPC stack support
+
+**Ubuntu Server**
+- Ubuntu 20.04 LTS and 22.04 LTS
+- Cloud-optimized images
+- Extensive package ecosystem
+
+**Fedora Server**
+- Latest stable releases
+- Cutting-edge kernel features
+- Development and testing environments
+
+### Quick Start
+
+```bash
+# Navigate to image builder
+cd tools/disk-image/mkimage
+
+# Prepare build environment
+./prep.sh
+
+# Build all images
+./build-images.sh
+
+# Build specific images
+image_filter="rocky" ./build-images.sh
+
+# Specify output format
+output_type="qcow2,raw" ./build-images.sh
 ```
-# dnf install qemu-img epel-release python3-pip
-# pip3 install diskimage-builder
+
+### Available Custom Elements
+
+**Ubiquity Element** (`custom-elements/ubiquity/`)
+- Core Ubiquity platform integration
+- Kubernetes node preparation
+- Longhorn storage optimization
+
+**MOFED Element** (`custom-elements/mofed/`)
+- NVIDIA MLNX_OFED network drivers
+- InfiniBand support for HPC workloads
+- High-speed interconnect optimization
+
+**Cloud-init Element** (`custom-elements/cloud-init-install/`)
+- Cloud environment compatibility
+- Automated system configuration
+- User and SSH key management
+
+**Custom Base Element** (`custom-elements/custom-base/`)
+- Common configurations across all images
+- Package installations and system tuning
+- Security hardening
+
+## Custom Image Creation
+
+### Setting Up Build Environment
+
+**Rocky Linux Build Host:**
+```bash
+# Install dependencies
+sudo dnf install -y qemu-img python3-pip git
+sudo pip3 install diskimage-builder
+
+# Clone Ubiquity repository
+git clone https://github.com/logicalisuki/ubiquity-open.git
+cd ubiquity-open/tools/disk-image/mkimage
+
+# Initialize build environment
+./prep.sh
 ```
 
-## Note
+**Ubuntu Build Host:**
+```bash
+# Install dependencies
+sudo apt update
+sudo apt install -y qemu-utils python3-pip git
+sudo pip3 install diskimage-builder
 
-In addition to the installation mentioned above, it is also recommended to install qemu-kvm on the build host for testing the generated image on a local VM before moving it to the cloud.
-
-Create a main elements directory in which the custom elements will be created as sub-directories.
-
-```
-# mkdir -p /home/diskimage-builder/elements
-# cd /home/diskimage-builder/elements
-```
-
-Create a sub directory for every custom element. For the custom elements described in this article, the following directories were created:
-
-```
-# mkdir mofed
-# mkdir cloud-init-config
-# mkdir cuda
-# mkdir gpudirect-bench
+# Setup Ubiquity build environment
+git clone https://github.com/logicalisuki/ubiquity-open.git
+cd ubiquity-open/tools/disk-image/mkimage
+./prep.sh
 ```
 
-Creating Custom Elements
-NVIDIA MLNX_OFED Installation Element 
-Note
+### Creating Ubiquity-Optimized Images
 
-This element requires:
+**Basic Ubiquity Node Image:**
+```bash
+export ELEMENTS_PATH="custom-elements:elements"
+export DIB_RELEASE="9"  # Rocky 9
 
-MLNX_OFED ISO file on the build host
-
-The "mofed" element is used for building a guest image with an installed NVIDIA network drivers set, also known as MLNX_OFED, and it is adjusted for RHEL8.7 OS. 
-
-Download the relevant MLNX_OFED ISO file from the NVIDIA Networking Linux Drivers Site. The below is an example of how to download the RHEL 8.7 variant, as Rocky 8.7 is the OS being used in this guide. 
-
+disk-image-create \
+  vm \
+  dhcp-all-interfaces \
+  cloud-init-datasources \
+  dracut-regenerate \
+  growroot \
+  rocky-container \
+  ubiquity \
+  cloud-init-install \
+  -o ubiquity-node-rocky9
 ```
-# cd /tmp/
-# wget https://content.mellanox.com/ofed/MLNX_OFED-5.5-1.0.3.2/MLNX_OFED_LINUX-5.5-1.0.3.2-rhel8.7-x86_64.iso
+
+**HPC-Optimized Image with InfiniBand:**
+```bash
+export ELEMENTS_PATH="custom-elements:elements"
+export DIB_RELEASE="9"
+export DIB_MOFED_FILE="/tmp/MLNX_OFED_LINUX-5.8-1.0.1.1-rhel8.7-x86_64.iso"
+
+disk-image-create \
+  vm \
+  dhcp-all-interfaces \
+  cloud-init-datasources \
+  dracut-regenerate \
+  growroot \
+  rocky-container \
+  ubiquity \
+  mofed \
+  cloud-init-install \
+  -o ubiquity-hpc-rocky9
 ```
 
-Download the mofed element file - openstack-dib-elements-main-mofed.zip, and extract it on the build host. The attachment includes the following files:
+**GPU-Enabled Compute Image:**
+```bash
+export ELEMENTS_PATH="custom-elements:elements"
+export DIB_RELEASE="9"
+export DIB_CUDA_URL="https://developer.download.nvidia.com/compute/cuda/12.2.0/local_installers/cuda_12.2.0_535.54.03_linux.run"
 
-README.rst	Element description and goal.
-element-deps	
-Element dependencies.
+disk-image-create \
+  vm \
+  dhcp-all-interfaces \
+  cloud-init-datasources \
+  dracut-regenerate \
+  growroot \
+  rocky-container \
+  ubiquity \
+  nvidia-cuda \
+  cloud-init-install \
+  -o ubiquity-gpu-rocky9
+```
 
-There is no dependency on other elements in this case.
+## Bare Metal Deployment
 
-package-installs.yaml	A list of packages required for element installation.
-pkg-map	Mapping of the package list to RedHat OS distribution packages.
-extra-data.d/70-copy-ofed-file	A script for copying the MLNX_OFED ISO image into a DIB environment during the build process. Requires a DIB_OFED_FILE environment variable for pointing the location of the MLNX_OFED ISO file in the build host OS.
-install.d/70-ofed-install	A script for installing MLNX_OFED in a DIB environment during the build process with support in guest image kernel release.
+### Kickstart-Based Provisioning
+
+Ubiquity's bare metal deployment uses automated kickstart installations optimized for HPC environments:
+
+**Key Features:**
+- **Automated Partitioning**: Intelligent disk layout based on available storage
+- **LVM Configuration**: Optimized for Kubernetes and Longhorn storage
+- **Network Configuration**: Support for bonding, VLANs, and complex topologies
+- **Security**: Automated SSH key deployment and system hardening
+
+**Partition Layout (Rocky Linux):**
+```bash
+# System Volume Group (Smallest disk)
+/boot/efi     512MB   vfat
+/boot         2GB     ext4
+/             20%     ext4  (System VG)
+/tmp          5%      ext4  (System VG)
+/var/log      2%      ext4  (System VG)
+/var/crash    10%     ext4  (System VG)
+/var/lib/rancher 10%  ext4  (System VG)
+/home         53%     ext4  (System VG)
+
+# Data Volume Group (Larger disks)
+/var/lib/kubelet    1%   ext4  (Data VG)
+/var/lib/longhorn   60%  ext4  (Data VG)
+/home              39%   ext4  (Data VG)
+```
+
+**Network Configuration Examples:**
+
+*Single Interface:*
+```yaml
+network_interfaces:
+  - name: eno1
+    device: eno1
+    ip: 192.168.1.100
+    netmask: 255.255.255.0
+    gateway: 192.168.1.1
+    nameserver: 192.168.1.1
+```
+
+*Bonded Interface:*
+```yaml
+network_interfaces:
+  - name: bond0
+    device: bond0
+    slaves: eno1,eno2
+    bond_opts: "mode=802.3ad miimon=100"
+    ip: 192.168.1.100
+    netmask: 255.255.255.0
+    gateway: 192.168.1.1
+```
+
+*VLAN Configuration:*
+```yaml
+network_interfaces:
+  - name: vlan100
+    device: eno1
+    vlanid: 100
+    ip: 10.0.100.100
+    netmask: 255.255.255.0
+```
+
+### PXE Boot Process
+
+Ubiquity implements a comprehensive PXE boot system for bare metal provisioning:
+
+```mermaid
+flowchart TD
+    A[Bare Metal Node] --> B[PXE Boot Request]
+    B --> C[DHCP Server Response]
+    C --> D[TFTP Bootloader Download]
+    D --> E[HTTP Kickstart Download]
+    E --> F[OS Installation]
+    F --> G[Automated Configuration]
+    G --> H[Kubernetes Join]
+```
+
+**DHCP Configuration:**
+```bash
+# Node receives IP, boot server, and bootloader info
+subnet 192.168.1.0 netmask 255.255.255.0 {
+    range 192.168.1.100 192.168.1.200;
+    option domain-name-servers 192.168.1.1;
+    option domain-name "ubiquitycluster.local";
+    option routers 192.168.1.1;
+    filename "pxelinux.0";
+    next-server 192.168.1.10;
+}
+```
+
+**Boot Configuration:**
+```bash
+# PXE menu entry for Rocky Linux installation
+LABEL rocky9-install
+    MENU LABEL Install Rocky Linux 9 (Ubiquity)
+    KERNEL vmlinuz-rocky9
+    APPEND initrd=initrd-rocky9.img ks=http://192.168.1.10/kickstart/node01.ks
+```
+
+## Cloud Deployment
+
+### Cloud Provider Images
+
+**AWS AMI Creation:**
+```bash
+# Create AMI-compatible image
+export AWS_DEFAULT_REGION="us-west-2"
+export DIB_RELEASE="9"
+
+disk-image-create \
+  vm \
+  cloud-init-datasources \
+  growroot \
+  install-static \
+  rocky-container \
+  ubiquity \
+  -t ami \
+  -o ubiquity-aws-rocky9
+```
+
+**Azure VHD Creation:**
+```bash
+# Create Azure-compatible VHD
+export DIB_RELEASE="9"
+
+disk-image-create \
+  vm \
+  azure \
+  cloud-init-datasources \
+  growroot \
+  rocky-container \
+  ubiquity \
+  -t vhd \
+  -o ubiquity-azure-rocky9
+```
+
+**GCP Image Creation:**
+```bash
+# Create GCP-compatible image
+export DIB_RELEASE="9"
+
+disk-image-create \
+  vm \
+  google \
+  cloud-init-datasources \
+  growroot \
+  rocky-container \
+  ubiquity \
+  -o ubiquity-gcp-rocky9
+```
+
+**OpenStack Image Creation:**
+```bash
+# Create OpenStack-compatible qcow2 image
+export DIB_RELEASE="9"
+
+disk-image-create \
+  vm \
+  dhcp-all-interfaces \
+  cloud-init-datasources \
+  growroot \
+  rocky-container \
+  ubiquity \
+  -o ubiquity-openstack-rocky9
+
+# Upload to OpenStack
+openstack image create \
+  --public \
+  --disk-format qcow2 \
+  --container-format bare \
+  --file ubiquity-openstack-rocky9.qcow2 \
+  "Ubiquity Rocky 9"
+```
+
+### Cloud-init Configuration
+
+Ubiquity images include comprehensive cloud-init support:
+
+**User Configuration:**
+```yaml
+#cloud-config
+users:
+  - name: admin
+    groups: wheel
+    shell: /bin/bash
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    ssh-authorized-keys:
+      - ssh-rsa AAAAB3NzaC1yc2E... admin@ubiquity
+```
+
+**Package Installation:**
+```yaml
+packages:
+  - kubectl
+  - docker
+  - git
+  - htop
+  - iotop
+  - nfs-utils
+```
+
+**Service Configuration:**
+```yaml
+runcmd:
+  - systemctl enable --now docker
+  - systemctl enable --now kubelet
+  -  /opt/ubiquity/setup-node.sh
+```
+
+## Advanced Configurations
+
+### HPC-Optimized Images
+
+**InfiniBand and RDMA Support:**
+```bash
+# Enable RDMA networking for HPC workloads
+export DIB_RELEASE="9"
+export DIB_MOFED_FILE="/path/to/MLNX_OFED_LINUX-5.8-1.0.1.1-rhel9.0-x86_64.iso"
+
+disk-image-create \
+  vm \
+  dhcp-all-interfaces \
+  cloud-init-datasources \
+  dracut-regenerate \
+  growroot \
+  rocky-container \
+  ubiquity \
+  mofed \
+  cloud-init-install \
+  -o ubiquity-hpc-ib-rocky9
+```
+
+**Multi-GPU Configurations:**
+```bash
+# Support for multiple GPU configurations
+export DIB_RELEASE="9"
+export DIB_CUDA_URL="https://developer.download.nvidia.com/compute/cuda/12.2.0/local_installers/cuda_12.2.0_535.54.03_linux.run"
+export DIB_GPU_DRIVER_VERSION="535.54.03"
+
+disk-image-create \
+  vm \
+  dhcp-all-interfaces \
+  cloud-init-datasources \
+  dracut-regenerate \
+  growroot \
+  rocky-container \
+  ubiquity \
+  nvidia-cuda \
+  nvidia-fabric-manager \
+  cloud-init-install \
+  -o ubiquity-multi-gpu-rocky9
+```
+
+**Container Runtime Integration:**
+```bash
+# Docker and containerd optimizations for HPC
+export DIB_RELEASE="9"
+export DIB_CONTAINER_RUNTIME="containerd"
+export DIB_DOCKER_STORAGE_DRIVER="overlay2"
+
+disk-image-create \
+  vm \
+  dhcp-all-interfaces \
+  cloud-init-datasources \
+  dracut-regenerate \
+  growroot \
+  rocky-container \
+  ubiquity \
+  container-runtime \
+  nvidia-container-toolkit \
+  cloud-init-install \
+  -o ubiquity-container-rocky9
+```
+
+### Storage Optimizations
+
+**Longhorn Storage Preparation:**
+```bash
+# Optimized for Longhorn distributed storage
+export DIB_RELEASE="9"
+export DIB_LONGHORN_VERSION="1.5.1"
+
+disk-image-create \
+  vm \
+  dhcp-all-interfaces \
+  cloud-init-datasources \
+  dracut-regenerate \
+  growroot \
+  rocky-container \
+  ubiquity \
+  longhorn-prep \
+  cloud-init-install \
+  -o ubiquity-storage-rocky9
    
 
-Place the files under the /home/diskimage-builder/elements directory and make sure the scripts have executable permissions.
+```
+
+**NFS and Distributed Storage:**
+```bash
+# Support for NFS and distributed filesystems
+export DIB_RELEASE="9"
+
+disk-image-create \
+  vm \
+  dhcp-all-interfaces \
+  cloud-init-datasources \
+  dracut-regenerate \
+  growroot \
+  rocky-container \
+  ubiquity \
+  nfs-client \
+  cvmfs-client \
+  cloud-init-install \
+  -o ubiquity-nfs-rocky9
+```
+
+### Networking Configurations
+
+**SR-IOV and Hardware Acceleration:**
+```bash
+# Support for SR-IOV and hardware offloading
+export DIB_RELEASE="9"
+export DIB_SRIOV_DRIVERS="i40e,ixgbe,mlx5_core"
+
+disk-image-create \
+  vm \
+  dhcp-all-interfaces \
+  cloud-init-datasources \
+  dracut-regenerate \
+  growroot \
+  rocky-container \
+  ubiquity \
+  sriov-support \
+  dpdk-support \
+  cloud-init-install \
+  -o ubiquity-sriov-rocky9
+```
+
+**Advanced Security Features:**
+```bash
+# Security hardening and compliance
+export DIB_RELEASE="9"
+export DIB_SECURITY_PROFILE="hardened"
+
+disk-image-create \
+  vm \
+  dhcp-all-interfaces \
+  cloud-init-datasources \
+  dracut-regenerate \
+  growroot \
+  rocky-container \
+  ubiquity \
+  security-hardening \
+  audit-logging \
+  cloud-init-install \
+  -o ubiquity-secure-rocky9
+```
+
+### Performance Tuning
+
+**Kernel and System Optimizations:**
+```yaml
+# Custom kernel parameters for HPC workloads
+kernel_parameters:
+  - "intel_iommu=on"
+  - "iommu=pt"
+  - "hugepagesz=1G"
+  - "hugepages=32"
+  - "default_hugepagesz=1G"
+  - "isolcpus=1-15,17-31"
+  - "rcu_nocbs=1-15,17-31"
+  - "nohz_full=1-15,17-31"
+```
+
+**CPU Tuning:**
+```bash
+# CPU governor and frequency scaling
+echo "performance" > /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
+
+# CPU isolation for real-time workloads
+echo "1-15,17-31" > /sys/devices/system/cpu/isolated
+```
+
+**Memory Optimizations:**
+```bash
+# Huge page configuration
+echo 1024 > /proc/sys/vm/nr_hugepages
+echo "vm.nr_hugepages = 1024" >> /etc/sysctl.conf
+
+# NUMA policy optimization
+echo "interleave" > /proc/sys/kernel/numa_balancing
+```
+
+## Troubleshooting
+
+### Build Issues
 
-# chmod 755 /home/diskimage-builder/elements/mofed/extra-data.d/70-copy-ofed-file
-# chmod 755 /home/diskimage-builder/elements/mofed/install.d/70-mofed-install
-Set the environment variables with the MLNX_OFED ISO file location on the build host.
+**Common Build Failures:**
 
-# export DIB_MOFED_FILE="/tmp/MLNX_OFED_LINUX-5.0-2.1.8.0-rhel7.8-x86_64.iso"
-Cloud-init Configuration Element 
-Note
+*Insufficient Disk Space:*
+```bash
+# Check available space
+df -h /tmp
 
-Cloud-init is a method for cross-platform cloud instance initialization. For more information on cloud-init, please refer to Cloud-init Documentation.
+# Clean up previous builds
+rm -rf /tmp/image.* ~/.cache/diskimage-builder/
 
-The "cloud-init-config" element is used for building a guest image with customized cloud-init parameters to be used during instance initialization. In this case, we will use it to make sure a system user is created with desired remote access methods during instance initialization. 
+# Use alternative temp directory
+export TMP_DIR="/var/tmp"
+export DIB_IMAGE_CACHE="/var/cache/diskimage-builder"
+```
 
-As cloud-init is already included in the base CentOS image generated by the DIB, there are no dependencies or pkg installation requirement. However, a modification of the cloud-init default configuration file is required.
+*Network Connectivity Issues:*
+```bash
+# Verify repository access
+curl -I http://mirror.centos.org/centos/
 
-Download the cloud-init-config element file - openstack-dib-elements-main-cloud-init-config.zip, and extract it on the build host. The attachment includes the following files:
-
-README.rst	Element description and goal.
-post-install.d/50-cloud-init-config	A script for modifying the cloud-init default configuration to allow creation of an admin user named "stack", with password-based SSH access to an instance created with this guest image.
-Note
+# Configure proxy if needed
+export HTTP_PROXY="http://proxy.example.com:8080"
+export HTTPS_PROXY="https://proxy.example.com:8080"
+```
 
-Creating a user with password-based SSH access to the instance is a potential security risk, and is provided for convenience only. In a production environment, it is highly recommended to use SSH keys for users authentication.
+*Element Dependencies:*
+```bash
+# Verify custom elements path
+ls -la custom-elements/
 
-Generate a new "salted" hash for the desired password using the following command and populate the "passwd" value in the 50-cloud-init-config file to include the new password hash.
-
-Note
-
-Remember to escape the special characters when you edit the file.
-The example element files contain the hash for the password secret: "stack".
-# perl -e 'print crypt("<your secret>","\$6\$<your salt>\$") . "\n"'
-Place the files under the /home/diskimage-builder/elements directory, and make sure the script has executable permissions.
-
-# chmod 755 /home/diskimage-builder/elements/cloud-init-config/post-install.d/50-cloud-init-config
-CUDA Driver Installation Element 
-Note
-
-This element requires:
-
-The target guest kernel release to be identical to the build host kernel release (the installation would otherwise fail). 
-CUDA-Enabled NVIDIA GPU device on the build host (the installation would otherwise fail). For the Cuda-Enabled product list, please see here.
-CUDA repository installed on the build host.
-For GPUDirect use case, NVIDIA MLNX_OFED network driver should be installed on the target image. Make sure to always use this element with mofed element in the build command in case you plan to use GPUDirect.
-nvidia-peermem kernel module which is required for GPUDirect is installed as part of the CUDA installation.
-The "cuda" element is used for CUDA libraries, drivers and toolkit. 
-
-Download the cuda element file - openstack-dib-elements-main-cuda.zip, and extract it on the build host. The attachment includes the following files:
-
-README.rst	Element description and goal.
-element-deps	Element dependencies.
-package-installs.yaml	A list of packages required for element installation.
-pkg-map	Mapping of the package list to RedHat OS distribution packages.
-post-install.d/05-cuda-install	A script for downloading CUDA run installer file and installing CUDA drivers and toolkit.
-Place the files under /home/diskimage-builder/elements directory, and make sure the scripts have executable permissions.
-
-# chmod 755 /home/diskimage-builder/elements/cuda/post-install.d/05-cuda-install
-Install the RHEL8 CUDA repository on the build host.
-
-#  dnf config-manager --add-repo https://developer.download.nvidia.com/compute/cuda/repos/rhel8/x86_64/cuda-rhel8.repo
-Set the environment variables with the CUDA repository location on the build host and the URL for downloading the required CUDA run file installer.
+# Check element permissions
+find custom-elements/ -name "*.sh" -exec chmod +x {} \;
+
+# Debug element execution
+export DIB_DEBUG_TRACE=1
+```
+
+### Deployment Issues
 
-# export DIB_YUM_REPO_CONF="/etc/yum.repos.d/Cent* /etc/yum.repos.d/cuda-rhel8.repo"
-# export DIB_CUDA_URL=https://developer.download.nvidia.com/compute/cuda/11.6.0/local_installers/cuda_11.6.0_510.39.01_linux.run
-GPUDirect Benchmark Installation Element 
-Note
-
-This element requires:
-
-The target guest kernel release to be identical to the build host kernel release (installation would otherwise fail).
-CUDA driver installed on the target image. Make sure to always use this element with cuda element.
-Usage of DIB_CUDA_PATH environment variable as instructed below.
-The "gpudirect-bench" element is required for the installation of GPUDirect testing tools and frameworks such as cuda-enabled perftest tools suite.
-
-Download the gpudirect-bench element file - openstack-dib-elements-main-gpudirect-bench.zip, and extract it on the build host. The attachment includes the following files: 
-
-README.rst	Element description and goal.
-element-deps	Element dependencies.
-package-installs.yaml	A list of packages required for element installation.
-pkg-map	Mapping of the package list to RedHat OS distribution packages.
-post-install.d/06-gdr-bench-install	A script for installing perftest with CUDA/GPUDirect support.
-Place the files under the /home/diskimage-builder/elements directory, and make sure the scripts have executable permissions.
+**PXE Boot Problems:**
+
+*DHCP Configuration:*
+```bash
+# Check DHCP server status
+systemctl status dhcpd
 
-# chmod 755 /home/diskimage-builder/elements/gpudirect-bench/post-install.d/06-gdr-bench-install
-Set the environment variable with the CUDA files location on the target build image. The CUDA version should match the one installed by the "cuda" element in previous steps.
+# Verify lease file
+tail -f /var/lib/dhcpd/dhcpd.leases
 
-# export DIB_CUDA_PATH=/usr/local/cuda-11.6
-Setting DIB Pre-Build Environment Variables 
-Set the following environment variables before applying the DIB image creation command. 
-
-ELEMENTS_PATH	Location of the custom elements used in the build command.
-DIB_MOFED_FILE	Location of the MLNX_OFED ISO file, required for the mofed element.
-DIB_YUM_REPO_CONF	
-Location of a custom repository on the build host to be used during the build process.
-
-CUDA repository is required for the cuda element.
-
-DIB_CUDA_URL	CUDA installer run file download path, required for the cuda element.
-DIB_CUDA_PATH	The location of CUDA binaries on the target image, required for GPUDirect Benchmark element.
-DIB_MODPROBE_BLACKLIST	Kernel modules to add to the blacklist during the build process.
-DIB_CLOUD_INIT_DATASOURCES	Cloud-init datasource type for cloud-init-datasources element used in the build command.
-DIB_DHCP_TIMEOUT	DHCP timeout value, for dhcp-all-interfaces element used in the build command.
-# export ELEMENTS_PATH=/home/diskimage-builder/elements
-# export DIB_MOFED_FILE="/tmp/MLNX_OFED_LINUX-5.5-1.0.3.2-rhel8.5-x86_64.iso"
-# export DIB_YUM_REPO_CONF="/etc/yum.repos.d/Cent* /etc/yum.repos.d/cuda-rhel8.repo"
-# export DIB_CUDA_URL=https://developer.download.nvidia.com/compute/cuda/11.6.0/local_installers/cuda_11.6.0_510.39.01_linux.run
-# export DIB_CUDA_PATH=/usr/local/cuda-11.6
-# export DIB_MODPROBE_BLACKLIST=”nouveau”
-# export DIB_CLOUD_INIT_DATASOURCES="OpenStack"
-# export DIB_DHCP_TIMEOUT=30
-Running an Image Build Command with Custom Elements 
-Note
-
-It is possible to build a target image only with a mofed element or a cloud-Init-config element, without cuda or gpudirect-bench elements.
-The mofed element is a prerequisite for the cuda element.
-The cuda element is a prerequisite for the gpudirect-bench element, and requires a CUDA-Enabled GPU device on the Build Host.
-The cuda and gpudirect-bench elements require identical target guest kernel release and the build host kernel release.
-Generally, the image creation command includes mandatory and optional DIB native elements in addition to user custom elements, and are selected per required use case or build purpose.
-
-For the specific use case described in this article, the elements below are included in the build command.
-
-DIB Elements:
-vm
-dhcp-all-interfaces
-cloud-init-datasources
-dracut-regenerate
-growroot
-epel
-centos
-block-device-efi
-For further details and a full DIB elements list, refer to the following link.
-
-Custom Elements:
-mofed: the NVIDIA Network Driver Installation Element described above.
-cloud-init-config: the Cloud-init Configuration Element described above.
-cuda: the CUDA Driver Installation Element described above.
-gpudirect-bench: the GPUDirect Benchmark Installation Element described above.
-Run the build command:
-
-# disk-image-create vm dhcp-all-interfaces cloud-init-datasources cloud-init-config dracut-regenerate growroot epel centos block-device-efi mofed cuda gpudirect-bench -o /home/diskimage-builder/centos8-nvidia
-Upon a successful completion of the build process, the centos8-nvidia.qcow2 image file will be generated in the /home/diskimage-builder/ directory.
-
-Uploading the Image to the OpenStack Cloud and Spawning an Instance 
-Copy the centos8-nvidia.qcow2 image file into the Undecloud node, and issue the following command to upload it into the Overcloud image store:
-
-# source overcloudrc
-# openstack image create centos8-nvidia --public --disk-format qcow2 --container-format bare --file centos8-nvidia.qcow2
-Create a cloud instance using the guest image that was built.
-
-# openstack server create --image centos8-nvidia --flavor <my_flavor> --network <my_network>  my_instance1
-As the custom cloud-init element was used to create a user and allow password-based SSH, you can now log into the new instance using the "stack" user and the password configured in the cloud-init element.
-
-# ssh stack@my_instance1
-Note
-
-This article does not cover the methods used for configuring the instance network connectivity.
-
-Once logged into the instance, verify that the custom components are installed.
-
-my_instance1# ofed_info -s
-MLNX_OFED_LINUX-5.5-1.0.3.2:
- 
-my_instance1# cat /proc/driver/nvidia/version
-NVRM version: NVIDIA UNIX x86_64 Kernel Module  510.39.01  Fri Dec 31 11:03:22 UTC 2021
-GCC version:  gcc version 8.5.0 20210514 (Red Hat 8.5.0-7) (GCC)
- 
-my_instance1# ib_write_bw --help | grep cuda
-      --use_cuda=<cuda device id> Use CUDA specific device for GPUDirect RDMA testing
-      --use_cuda_bus_id=<cuda full BUS id> Use CUDA specific device, based on its full PCIe address, for GPUDirect RDMA testing
-Image Build Procedure For OpenStack BareMetal Cloud Service (Ironic) with MLNX_OFED
-Note
-
-This section describes the creation of custom cloud deploy images with the NVIDIA MLNX_OFED element only.
-
-BareMetal provisioning requires "deploy images", which are used by the BareMetal Ironic service to prepare the BareMetal server for guest OS image deployment, as described here.
-
-In some cases, it is required to build a custom Ironic deploy image in order to support a new feature.
-
-Follow the instructions below to build custom Ironic deploy images with NVIDIA MLNX_OFED network drivers.
-
-In addition to the DIB packages described in the previous sections, install the DIB ironic-python-agent-builder on the build host.
-
-# pip3 install --user diskimage-builder ironic-python-agent-builder
-Set the custom elements directory to the one that includes the ironic-related elements.
-
-# export ELEMENTS_PATH=$HOME/.local/share/ironic-python-agent-builder/dib
-Place the custom NVIDIA Network Driver installation element files - openstack-dib-elements-main-mofed.zip under the new element directory, and change the installation scripts permissions.
-
-# cd $ELEMENTS_PATH
-# cd mofed
-# chmod 755 extra-data.d/70-copy-ofed-file
-# chmod 755 install.d/70-ofed-install
-As described previously, download the relevant MLNX_OFED ISO file, and export the variable to its location on the build host.
-
-# export DIB_MOFED_FILE="/tmp/MLNX_OFED_LINUX-5.5-1.0.3.2-rhel8.5-x86_64.iso"
-Run the build command with the ironic-python-agent-ramdisk and mofed elements.
-
-# disk-image-create ironic-python-agent-ramdisk centos mofed -o ironic-deploy-mofed
-Upon a successful completion of the build process, two deploy image files will be generated: ironic-deploy-mofed.kernel and ironic-deploy-mofed.initramfs.
-
-Copy the deploy images into an OpenStack Undercloud node, and upload it to the image store for BareMetal Ironic service usage.
-
-# source overcloudrc
-# openstack image create oc-bm-deploy-kernel-mofed --public --disk-format aki --container-format aki --file ironic-deploy-mofed.kernel
-# openstack image create oc-bm-deploy-ram-mofed --public --disk-format ari --container-format ari --file ironic-deploy-mofed.initramfs
-Note
-
-This article does not cover the full procedure for creating BareMetal Cloud instances.
-
-Appendix
-Basic DIB Image Build Troubleshooting 
-It is possible to drop to a shell during the image build process either before or after known hook points for debugging and troubleshooting. This is done by setting the "break" environment with the required breakpoint before running the build command.
-
-To break after a build error, run:
-
-# export break=after-error
-To break before a build pre-install phase, run:
-
-# export break=before-pre-install
-In order to debug custom elements that use bash scripts as demonstrated in this article:
-
-Include the following code section in your script:
-
-#!/bin/bash
- 
-if [ ${DIB_DEBUG_TRACE:-0} -gt 0 ]; then
-    set -x
-fi
-set -o errexit
-set -o nounset
-set -o pipefail
-Enable script bash prints during the build process by setting the DIB_DEBUG_TRACE environment variable before running the build command.
-
-# export DIB_DEBUG_TRACE=1
-Additional Elements
-Performance Tools Installation Element
-The "perf-tools" element contains a set of libraries and tools to be used for IP/DPDK/RDMA performance testing .
-
-Note
-
-This element was adjusted to CentOS 8.2 OS
-
-Download the perf-tools element file - openstack-dib-elements-main-perf-tools.zip. The attachment includes the following files:
-
-README.rst	Element description and goal.
-element-deps	Element dependencies.
-package-installs.yaml	A list of packages required for element installation.
-pkg-map	Mapping of the package list to RedHat OS distribution packages.
-post-install.d/09-perf-tools-install	
-A script for installing Trex traffic generator, DPDK 20.11, perftest tools, iperf3. In addition, the script will set the hugepage required for the DPDK.
-
-Place the files under the /home/diskimage-builder/elements directory, and make sure the scripts have executable permissions.
-
-# chmod 755 /home/diskimage-builder/elements/perf-tools/post-install.d/09-perf-tools-install
-Execute the image build command:
-
-# disk-image-create vm dhcp-all-interfaces cloud-init-datasources cloud-init-config dracut-regenerate growroot epel centos perf-tools -o /home/diskimage-builder/centos8-2-perf
-DHClient IPoIB Configuration Element for CentOS 7
-The "dhclient-hw" element is required for adjusting the dhclient.conf file on the CentOS 7 OS images to support IPoIB OpenStack deployments.
-
-Note
-
-This element was adjusted to CentOS 7.9 OS.
-There is no need of this element for CentOS 8 guest image IPoIB OpenStack deployments.
-This element is required for both guest and ironic deploy images.
-NVIDIA MLNX_OFED network driver should be installed on the target image as well to support IPoIB OpenStack deployments of CentOS 7 images.
-Download the relevant MLNX_OFED for CentOS 7, and use the DIB_MOFED_FILE env to point to this file before running the build command.
-Download the dhclient-hw element file - openstack-dib-elements-main-dhclient-hw.zip . The attachment includes the following files:
-
-README.rst	Element description and goal.
-post-install.d/60-dhclient-config	
-A script for setting dhclient.conf on CentOS 7 OS images to support IPoIB OpenStack deployments.
-
-Place the files under the /home/diskimage-builder/elements directory, and make sure the scripts have executable permissions.
-
-# chmod 755 /home/diskimage-builder/elements/dhclient-hw/post-install.d/60-dhclient-config
-Execute the image build commands on CentOS 7 build host to generate guest and deploy images:
-
-# disk-image-create vm dhcp-all-interfaces cloud-init-datasources cloud-init-config dracut-regenerate growroot epel centos mofed dhclient-hw -o centos7-ipoib
- 
-# disk-image-create ironic-python-agent-ramdisk centos mofed dhclient-hw -o centos7-ipoib-ironic-deploy-mofed
-RDMA-Core Element for IPoIB support on CentOS 8
-The rdma-service which was setting ipoib support was deprecated on recent CentOS releases and replaced by rdma-core package.
-
-The "rdma-core" element is a basic element for installing rdma-core pkg allowing native ipoib OS support required for IPoIB OpenStack deployments.
-
-Note
-
-This element is not required when building an image with NVIDIA MLNX_OFED network drivers.
-Download the rdma-core element file - openstack-dib-elements-main-rdma-core.zip  . The attachment includes the following files:
-
-README.rst	Element description and goal.
-element-deps	Element dependencies.
-package-installs.yaml	A list of packages required for element installation.
-pkg-map	Mapping of the package list to RedHat and Ubuntu OS distribution packages.
-Place the files under the /home/diskimage-builder/elements directory
-
-
-
-Execute the image build command:
-
-# disk-image-create vm dhcp-all-interfaces cloud-init-datasources cloud-init-config dracut-regenerate growroot epel centos rdma-core -o centos8-rdma
-Cloud-init with Network-Configuration-Disabled Element for CentOS 8
-Note
-
-Cloud-init is a method for cross-platform cloud instance initialization. For more information on cloud-init, please refer to Cloud-init Documentation.
-
-The "cloud-init-net-conf-disabled" element is used for building a guest image with customized cloud-init parameters to be used during instance initialization. In this case, we will use it to make sure network configuration by cloud init is disabled on the image we create. This might be required in systems where Network Manager which is capable of automatic interface configuration is used as the default networking service.
-
-Note
-
-This element is required to support CentOS 8 Openstack IPoIB deployments in order to allow Network Manager to properly configure and bring up IPoIB interfaces.
-
-
-
-Download the cloud-init-net-conf-disabled element file - openstack-dib-elements-main-cloud-init-net-conf-disabled.zip and extract it on the build host. The attachment includes the following files:
-
-README.rst	Element description and goal.
-post-install.d/51-cloud-init-no-net	A script for modifying the cloud-init default configuration to disable network configuration by cloud-init and leave it for NetworkManager in systems where it is used
-Place the files under the /home/diskimage-builder/elements directory, and make sure the script has executable permissions.
-
-# chmod 755 /home/diskimage-builder/elements/cloud-init-net-conf-disabled/post-install.d/51-cloud-init-no-net
-Execute the image build command:
-
-# disk-image-create vm dhcp-all-interfaces cloud-init-datasources cloud-init-config cloud-init-net-conf-disabled dracut-regenerate growroot epel centos rdma-core -o centos8-rdma-networkmanager
-Ubuntu OS Elements
-The elements listed below are adjusted for Ubuntu-based VM images, and should be used on Ubuntu-based build host with python3-diskimage-builder package installed.
-
-NVIDIA MLNX_OFED Element for Ubuntu
-Note
-
-This element requires:
-
-MLNX_OFED ISO file on the build host
-The "mofed-ubuntu" element is used for building a guest image with an installed NVIDIA network drivers set, also known as MLNX_OFED, and it is adjusted for Ubuntu 22.04 OS. 
-
-Download the relevant MLNX_OFED ISO file from the NVIDIA Networking Linux Drivers Site. The below is an example of how to download the Debian variant for Ubuntu OS. 
-
-# cd /tmp/
-# wget https://content.mellanox.com/ofed/MLNX_OFED-5.7-1.0.2.0/MLNX_OFED_LINUX-5.7-1.0.2.0-ubuntu22.04-x86_64.iso
-
-
-Download the mofed element file - openstack-dib-elements-main-mofed-ubuntu.zip, and extract it on the build host. The attachment includes the following files:
-
-README.rst	Element description and goal.
-extra-data.d/70-copy-mofed-file	A script for copying the MLNX_OFED ISO image into a DIB environment during the build process. Requires a DIB_OFED_FILE environment variable for pointing the location of the MLNX_OFED ISO file in the build host OS.
-install.d/70-ofed-install	A script for installing MLNX_OFED in a DIB environment during the build process with support in guest image kernel release.
-   
-
-Place the files under the /home/diskimage-builder/elements directory and make sure the scripts have executable permissions.
-
-# chmod 755 /home/diskimage-builder/elements/mofed-ubuntu/extra-data.d/70-copy-mofed-file
-# chmod 755 /home/diskimage-builder/elements/mofed-ubuntu/install.d/70-mofed-install
-Set the environment variables with the MLNX_OFED ISO file location on the build host.
-
-# export DIB_MOFED_FILE="/tmp/MLNX_OFED_LINUX-5.7-1.0.2.0-ubuntu22.04-x86_64.iso"
-CUDA Driver Element for Ubuntu
-Note
-
-This element requires:
-
-The target guest kernel release to be identical to the build host kernel release (the installation would otherwise fail). 
-CUDA-Enabled NVIDIA GPU device on the build host (the installation would otherwise fail). For the Cuda-Enabled product list, please see here.
-For GPUDirect use case, NVIDIA MLNX_OFED network driver should be installed on the target image. Make sure to always use this element with mofed element in the build command in case you plan to use GPUDirect.
-The "cuda-ubuntu" element is used for CUDA libraries, drivers and toolkit. 
-
-Download the cuda element file - openstack-dib-elements-main-cuda-ubuntu.zip, and extract it on the build host. The attachment includes the following files:
-
-README.rst	Element description and goal.
-post-install.d/05-cuda-install	A script for downloading CUDA run installer file and installing CUDA drivers and toolkit.
-Place the files under /home/diskimage-builder/elements directory, and make sure the scripts have executable permissions.
-
-# chmod 755 /home/diskimage-builder/elements/cuda-ubuntu/post-install.d/05-cuda-install
-Set the environment variables with the URL for downloading the required CUDA keyring deb package.
-
-# export DIB_CUDA_URL=https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.0-1_all.deb
-GPUDirect Benchmark Element for Ubuntu
-Note
-
-This element requires:
-
-The target guest kernel release to be identical to the build host kernel release (installation would otherwise fail).
-CUDA driver installed on the target image. Make sure to always use this element with cuda element.
-Usage of DIB_CUDA_PATH environment variable as instructed below.
-The "gpudirect-bench" element is required for the installation of GPUDirect testing tools and frameworks such as cuda-enabled perftest tools suite.
-
-Download the gpudirect-bench element file - openstack-dib-elements-main-gpudirect-bench-ubuntu.zip, and extract it on the build host. The attachment includes the following files: 
-
-README.rst	Element description and goal.
-element-deps	Element dependencies.
-package-installs.yaml	A list of packages required for element installation.
-pkg-map	Mapping of the package list to RedHat OS distribution packages.
-post-install.d/06-gdr-bench-install	A script for installing perftest with CUDA/GPUDirect support.
-Place the files under the /home/diskimage-builder/elements directory, and make sure the scripts have executable permissions.
-
-# chmod 755 /home/diskimage-builder/elements/gpudirect-bench-ubuntu/post-install.d/06-gdr-bench-install
-Set the environment variable with the CUDA files location on the target build image. The CUDA version should match the one installed by the "cuda" element in previous steps.
-
-# export DIB_CUDA_PATH=/usr/local/cuda-11.7
-Performance Tools Element for Ubuntu
-Note
-
-This element requires:
-
-MLNX_OFED Element for Ubuntu
-
-Usage of DIB_DPDK_VER and DIB_TREX_VER environment variables as instructed below.
-The "perf-tools" element contains a set of libraries and tools to be used for IP/DPDK performance testing.
-
-Download the perf-tools element file - openstack-dib-elements-main-perf-tools-ubuntu.zip. The attachment includes the following files:
-
-README.rst	Element description and goal.
-package-installs.yaml	A list of packages required for element installation.
-post-install.d/09-perf-tools-install	
-A script for installing Trex traffic generator, DPDK and DPDK apps such as testpmd, iperf3. In addition, the script will set the hugepage required for the DPDK.
-
-Place the files under the /home/diskimage-builder/elements directory, and make sure the scripts have executable permissions.
-
-# chmod 755 /home/diskimage-builder/elements/perf-tools-ubuntu/post-install.d/09-perf-tools-install
-Set the environment variables with the required DPDK and TREX versions.
-
-# export DIB_DPDK_VER=dpdk-21.11
-# export DIB_TREX_VER=v2.99
-Running an Image Build Command with Ubuntu Elements 
-Note
-
-It is possible to build a target image only with a mofed-ubuntu element
-The mofed-ubuntu and cuda-ubuntu elements are a prerequisite for the gpudirect-bench-ubuntu element.
-The cuda element requires a CUDA-Enabled GPU device on the Build Host.
-The procedure below describe the creation of 22.04 Ubuntu-based VM image with the following elements:
-
-mofed-ubuntu
-cuda-ubuntu
-gpudirect-bench-ubuntu
-Set the following environment variables before applying the DIB image creation command. 
-
-# export ELEMENTS_PATH=/home/diskimage-builder/elements export DIB_RELEASE=jammy
-# export ELEMENTS_PATH=/home/ubuntu/openstack-dib-elements
-# export DIB_MOFED_FILE="/tmp/MLNX_OFED_LINUX-5.7-1.0.2.0-ubuntu22.04-x86_64.iso"
-# export DIB_CUDA_URL=https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.0-1_all.deb
-# export DIB_CUDA_PATH=/usr/local/cuda-11.7
-Run the build command:
-
-# disk-image-create --no-tmpfs vm dhcp-all-interfaces cloud-init-datasources mofed-ubuntu cuda-ubuntu gpudirect-bench-ubuntu ubuntu -o ubuntu-gdr
-Upon a successful completion of the build process, the ubuntu-gdr.qcow2 image file will be generated in the /home/diskimage-builder/ directory.
+# Test DHCP response
+dhcping -s 192.168.1.10 -c 192.168.1.100
+```
+
+*TFTP Issues:*
+```bash
+# Verify TFTP service
+systemctl status tftp
+
+# Test TFTP connectivity
+tftp 192.168.1.10 -c get pxelinux.0
+
+# Check file permissions
+ls -la /var/lib/tftpboot/
+```
+
+*Kickstart Problems:*
+```bash
+# Validate kickstart syntax
+ksvalidator /var/www/html/kickstart/node01.ks
+
+# Check HTTP access
+curl -I http://192.168.1.10/kickstart/node01.ks
+
+# Monitor installation logs
+tail -f /var/log/httpd/access_log
+```
+
+### Performance Issues
+
+**Image Size Optimization:**
+```bash
+# Remove unnecessary packages
+export DIB_MINIMAL_IMAGE=1
+
+# Clean package cache
+export DIB_APT_CLEAN=1
+export DIB_YUM_CLEAN=1
+
+# Compress images
+qemu-img convert -c -O qcow2 input.qcow2 output-compressed.qcow2
+```
+
+**Boot Time Optimization:**
+```bash
+# Reduce systemd timeout
+sed -i 's/#DefaultTimeoutStartSec=90s/DefaultTimeoutStartSec=30s/' /etc/systemd/system.conf
+
+# Disable unnecessary services
+systemctl disable NetworkManager-wait-online
+systemctl disable plymouth-start
+```
+
+### Monitoring and Logging
+
+**Build Process Monitoring:**
+```bash
+# Monitor build progress
+tail -f /tmp/dib-build-*.log
+
+# Check system resources during build
+watch -n 5 'df -h && free -h && ps aux | grep disk-image'
+```
+
+**Runtime Diagnostics:**
+```bash
+# Check node health
+kubectl get nodes -o wide
+
+# Monitor system metrics
+top
+iostat -x 1
+sar -u 1 5
+
+# Network diagnostics
+ss -tuln
+netstat -i
+```
+
+**Log Analysis:**
+```bash
+# System logs
+journalctl -f -u kubelet
+journalctl -f -u docker
+
+# Kubernetes logs
+kubectl logs -n kube-system -l k8s-app=kubelet
+
+# Storage logs
+kubectl logs -n longhorn-system -l app=longhorn-manager
+```
+
+### Recovery Procedures
+
+**Failed Deployments:**
+```bash
+# Reset failed node
+ansible-playbook -i inventories/production clean.yml --limit failed_node
+
+# Reinstall from PXE
+ipmitool -I lanplus -H <bmc_ip> -U admin -P password chassis bootdev pxe
+ipmitool -I lanplus -H <bmc_ip> -U admin -P password power reset
+```
+
+**Image Corruption:**
+```bash
+# Verify image integrity
+qemu-img check ubiquity-node-rocky9.qcow2
+
+# Repair corrupted image
+qemu-img convert -f qcow2 -O qcow2 corrupted.qcow2 repaired.qcow2
+
+# Rebuild if necessary
+rm -f corrupted.qcow2
+./build-images.sh
+```
+
+**Configuration Recovery:**
+```bash
+# Backup configurations
+cp -r custom-elements/ custom-elements.backup.$(date +%Y%m%d)
+
+# Restore from version control
+git checkout -- custom-elements/
+
+# Reset to working configuration
+git reset --hard <working_commit_hash>
+```
