@@ -1,7 +1,7 @@
 ---
 
 gitops:
-  repo: https://github.com/logicalisuki/ubiquity.git
+  repo: https://github.com/logicalisuki/ubiquity-open.git
   revision: main
 stacks:
   - name: bootstrap

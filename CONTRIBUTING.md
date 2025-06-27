@@ -1,6 +1,6 @@
 # How to Contribute
 
-Ubiquity project components are [FSL-1.0-Apache-2.0 licensed](LICENSE.md) and accept contributions via
+Ubiquity project components are [Apache-2.0 licensed](LICENSE) (previously FSL-1.0-Apache-2.0) and accept contributions via
 GitHub pull requests.
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
@@ -33,8 +33,8 @@ and improve the project, with a clear and transparent process for contributing.
 Because the project is licensed under Apache 2.0, you must ensure that you have the right
 to contribute any code that you submit to the project. Doing so affirms that:
 
-- The contribution was created in whole or in part by you and you have the right to submit it under the open source license indicated in the [LICENSE](LICENSE.md) file; or
-- The contribution is based upon previous work that, to the best of your knowledge, is covered under an appropriate open source license and you have the right under that license to submit that work with modifications, whether created in whole or in part by you, under the same open source license (unless you are permitted to submit under a different license), as indicated in the [LICENSE](LICENSE.md) file; or
+- The contribution was created in whole or in part by you and you have the right to submit it under the open source license indicated in the [LICENSE](LICENSE) file; or
+- The contribution is based upon previous work that, to the best of your knowledge, is covered under an appropriate open source license and you have the right under that license to submit that work with modifications, whether created in whole or in part by you, under the same open source license (unless you are permitted to submit under a different license), as indicated in the [LICENSE](LICENSE) file; or
 - The contribution was provided directly to you by some other person who certified (a), (b) or (c) and you have not modified it.
 
 ## Certificate of Origin
@@ -49,7 +49,7 @@ contribution. See the [DCO](DCO) file for details.
 If you're new to the project and want to help, but don't know where to start, we
 have a semi-curated list of issues that
 should not need deep knowledge of the system. [Have a look and see if anything
-sounds interesting](https://github.com/logicalisuki/ubiquity/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22).
+sounds interesting](https://github.com/logicalisuki/ubiquity-open/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22).
 Alternatively, read some of the docs and try to write your own application helm chart,
 file and fix any/all issues that come up, including gaps in documentation!
 

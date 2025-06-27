@@ -284,7 +284,7 @@ Alibaba cloud has an answer for each resource, so we will use this provider in t
 
 3. **Initialize the provider folder**. In a terminal:
   ```bash
-  git clone https://github.com/logicalisuki/ubiquity.git
+  git clone https://github.com/logicalisuki/ubiquity-open.git
   cd cloud
   mkdir alicloud
   cd aliclcoud
@@ -426,7 +426,7 @@ to spawn a Ubiquity cluster with that provider.
   ```hcl
   module "alicloud" {
     source         = "./alicloud"
-    config_git_url = "https://github.com/logicalisuki/ubiquity.git"
+    config_git_url = "https://github.com/logicalisuki/ubiquity-open.git"
     config_version = "main"
 
     cluster_name = "new"

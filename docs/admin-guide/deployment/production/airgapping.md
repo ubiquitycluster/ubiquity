@@ -21,7 +21,7 @@ This topology is most resource efficient and simplifies the deployment as much a
 
 Note that in this topology only the "Bastion Node" + "Install Node" environment must be able to access the container registry as well as the Kubernetes API; it does not need to be able to access the Kubernetes workers directly.  This node will be used to pull, tag, and push containers from upstream (Internet) to the secure container registry, and deploy+update Ubiquity using the Kubernetes and Helm clients.
 
-In addition to mirroring containers to the secure registry, the Bastion node in this configuration must be able to initially mirror the [Ubiquity repository in GitHub](https://github.com/logicalisuki/ubiquity) over to itself and then commit back to the local repository. This local repository could clearly be the bastion node in this diagram.
+In addition to mirroring containers to the secure registry, the Bastion node in this configuration must be able to initially mirror the [Ubiquity repository in GitHub](https://github.com/logicalisuki/ubiquity-open) over to itself and then commit back to the local repository. This local repository could clearly be the bastion node in this diagram.
 
 Note the bastion node could quite easily separate its functions into two separate nodes, one for mirroring containers and one for deploying/updating Ubiquity, but this is not recommended as it will require additional configuration to transfer the container images from the mirroring node to the deployment node.
 

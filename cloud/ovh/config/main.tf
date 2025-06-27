@@ -8,7 +8,7 @@ variable "pool" {
 }
 
 module "ovh" {
-  source         = "git::https://github.com/logicalisuki/ubiquity.git/cloud/ovh"
+  source         = "git::https://github.com/logicalisuki/ubiquity-open.git/cloud/ovh"
   config_git_url = "https://github.com/logicalisuki/ubiq-playbooks.git"
   config_version = "main"
 
