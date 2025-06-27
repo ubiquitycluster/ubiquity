@@ -6,7 +6,7 @@
 
 [![tag](https://img.shields.io/github/v/tag/logicalisuki/ubiquity?style=flat-square&logo=semver&logoColor=white)](https://github.com/logicalisuki/ubiquity/tags)
 [![document](https://img.shields.io/website?label=document&logo=gitbook&logoColor=white&style=flat-square&url=https%3A%2F%2Fuki.logicalis.com%2Fdata-HPC-ubiquity)](https://uki.logicalis.com/data-HPC-ubiquity)
-[![license](https://img.shields.io/github/license/logicalisuki/ubiquity?style=flat-square&logo=apache&logoColor=white)](LICENSE.md) Licensed under the [FSL](https://fsl.software)
+[![license](https://img.shields.io/github/license/logicalisuki/ubiquity?style=flat-square&logo=apache&logoColor=white)](LICENSE) Licensed under the Apache-2.0 Licence, post [FSL](https://fsl.software)
 [![stars](https://img.shields.io/github/stars/logicalisuki/ubiquity?logo=github&logoColor=white&color=gold&style=flat-square)](https://github.com/logicalisuki/ubiquity)
 
 This project utilises [Infrastructure as Code](https://en.wikipedia.org/wiki/Infrastructure_as_code) and [GitOps](https://www.weave.works/technologies/gitops) to automate provisioning, operating, and updating self-hosted services in this environment.
@@ -257,8 +257,8 @@ Please see [contributing guide](CONTRIBUTING.md) for more information.
 
 Copyright &copy; 2023 - Logicalis UKI
 
-Distributed under the Functional Source License, Version 1.0, Apache 2.0 Change (FSL-1.0-Apache-2.0) License.
-See [license page](LICENSE.md) for more information.
+Distributed under the Apache-2.0 License, post being released under the Functional Source License, Version 1.0, Apache 2.0 Change (FSL-1.0-Apache-2.0) License.
+See [license page](LICENSE) for more information.
 
 ## Acknowledgements
 
