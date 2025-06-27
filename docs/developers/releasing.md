@@ -34,7 +34,7 @@ Ubiquity uses [semantic versioning](https://semver.org).
 ### Repository setup
 
 Clone the repository:
-`git clone git@github.com:logicalisuki/ubiquity`
+`git clone git@github.com:logicalisuki/ubiquity-open`
 
 or if using existing repository, verify your intended remote is set to
 `ubiquity`: `git remote -v`. For this document, we assume it is `origin`.

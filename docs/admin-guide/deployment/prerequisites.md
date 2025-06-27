@@ -14,7 +14,7 @@ By using this project you agree to [the license](/license).
 
      - This project is free to use for any purpose, but it comes with no warranty
      - If used for commercial purposes, you must gain an agreement from Q Associates
-     - You must use the same [Apache v2.0 license](https://www.apache.org/licenses/LICENSE-2.0.txt)  in `LICENSE.md`
+     - You must use the same [Apache v2.0 license](https://www.apache.org/licenses/LICENSE-2.0.txt)  in `LICENSE`
      - You must keep the copy right notice and/or include an acknowledgement
      - Your project must remain open-source and be published publicly
 

@@ -23,7 +23,7 @@
 
 ## 4.1 Main File
 
-1. Go to https://github.com/logicalisuki/ubiquity/releases.
+1. Go to https://github.com/logicalisuki/ubiquity-open/releases.
 2. Download the latest release of Ubiquity.
 3. Open a Terminal.
 4. Uncompress the release: `tar xvf ubiquity*.tar.gz`

@@ -20,7 +20,7 @@ This guide describes how to deploy Ubiquity on-premises in a production environm
 
 ```bash
 # clone repo
-git clone https://github.com/logicalisuki/ubiquity.git
+git clone https://github.com/logicalisuki/ubiquity-open.git
 cd ubiquity
 git submodule update --init --recursive
 ```

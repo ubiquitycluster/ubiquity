@@ -413,4 +413,4 @@ refer to [generate_ssh_key](admin-guide/deployment/cloud/index.md/#415-generate_
 
 ## 10. License
 
-[License](../LICENSE.md)
+[License](../LICENSE)

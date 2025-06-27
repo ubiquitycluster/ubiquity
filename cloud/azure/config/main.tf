@@ -100,7 +100,7 @@ output "public_ip" {
 
 ## Uncomment to register your domain name with Google Cloud
 # module "dns" {
-#   source           = "git::https://github.com/logicalisuki/ubiquity.git/cloud/dns/gcloud"
+#   source           = "git::https://github.com/logicalisuki/ubiquity-open.git/cloud/dns/gcloud"
 #   email            = "you@example.com"
 #   project          = "your-project-id"
 #   zone_name        = "you-zone-name"
