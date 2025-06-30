@@ -1,0 +1,102 @@
+ARG VERSION
+
+# --------------------------------------------------------------------------------------------------
+# Builder Image
+# --------------------------------------------------------------------------------------------------
+# See ./builder for this image
+FROM localhost/opus-builder AS builder
+ARG VERSION
+
+# Binaries (copied to final image)
+RUN set -eux \
+	&& YQ="$( curl -L -sS -o /dev/null -w %{url_effective} https://github.com/mikefarah/yq/releases/latest | sed 's/^.*\///g' )" \
+	&& curl -L -sS "https://github.com/mikefarah/yq/releases/download/${YQ}/yq_linux_amd64" > /usr/bin/yq \
+	&& chmod +x /usr/bin/yq \
+	&& yq --version
+
+
+# --------------------------------------------------------------------------------------------------
+# Final Image
+# --------------------------------------------------------------------------------------------------
+FROM localhost/opus:${VERSION} AS production
+ARG VERSION
+# https://github.com/opencontainers/image-spec/blob/master/annotations.md
+#LABEL "org.opencontainers.image.created"=""
+#LABEL "org.opencontainers.image.version"=""
+#LABEL "org.opencontainers.image.revision"=""
+LABEL "maintainer"="cjcshadowsan <christopher.james.coates@gmail.com>"
+LABEL "org.opencontainers.image.authors"="cjcshadowsan <christopher.james.coates@gmail.com>"
+LABEL "org.opencontainers.image.vendor"="cjcshadowsan"
+LABEL "org.opencontainers.image.licenses"="MIT"
+LABEL "org.opencontainers.image.url"="https://github.com/cjcshadowsan/opus-seed"
+LABEL "org.opencontainers.image.documentation"="https://github.com/cjcshadowsan/opus-seed"
+LABEL "org.opencontainers.image.source"="https://github.com/cjcshadowsan/opus-seed"
+LABEL "org.opencontainers.image.ref.name"="Ansible ${VERSION} tools"
+LABEL "org.opencontainers.image.title"="Ansible ${VERSION} tools"
+LABEL "org.opencontainers.image.description"="Ansible ${VERSION} tools"
+
+# Define uid/gid and user/group names
+ENV \
+	MY_USER=ansible \
+	MY_GROUP=ansible \
+	MY_UID=1000 \
+	MY_GID=1000
+
+# Python packages (copied to final image)
+RUN set -eux \
+	&& if [ "${VERSION}" = "2.5" ]; then \
+		pip3.9 install --no-cache-dir --no-compile dnspython mitogen==0.2.10; \
+	elif [ "${VERSION}" = "2.6" ]; then \
+		pip3.9 install --no-cache-dir --no-compile dnspython mitogen==0.2.10; \
+	elif [ "${VERSION}" = "2.7" ]; then \
+		pip3.9 install --no-cache-dir --no-compile dnspython mitogen==0.2.10; \
+	elif [ "${VERSION}" = "2.8" ]; then \
+		pip3.9 install --no-cache-dir --no-compile dnspython mitogen==0.2.10; \
+	elif [ "${VERSION}" = "2.9" ]; then \
+		pip3.9 install --no-cache-dir --no-compile dnspython mitogen==0.2.10; \
+	else \
+		pip3.9 install --no-cache-dir --no-compile dnspython mitogen; \
+	fi
+
+# Add user and group
+RUN set -eux \
+	&& groupadd -g ${MY_GID} ${MY_GROUP} \
+	&& adduser -m -d /home/ansible -s /bin/bash -g ${MY_GROUP} -u ${MY_UID} ${MY_USER} \
+	\
+	&& mkdir /home/ansible/.gnupg \
+	&& chown ansible:ansible /home/ansible/.gnupg \
+	&& chmod 0700 /home/ansible/.gnupg \
+	\
+	&& mkdir /home/ansible/.ssh \
+	&& chown ansible:ansible /home/ansible/.ssh \
+	&& chmod 0700 /home/ansible/.ssh
+
+# Additional binaries
+RUN set -eux \
+	&& dnf -y install \
+		bash \
+		git \
+		gnupg \
+		jq \
+		make \
+		firewalld \
+		wget \
+		unzip \
+		libisoburn \
+		xorriso \
+		openssh-clients
+
+COPY --from=builder /usr/bin/yq /usr/bin/yq
+COPY ./data/docker-entrypoint.sh /docker-entrypoint.sh
+
+# Fix mitogen compat issues with 3.x - See https://github.com/mitogen-hq/mitogen/issues/659 - Still not fixed since 2019! Terrible.
+RUN set -eux \
+    && rm -rf /usr/local/lib64/python3/site-packages/ansible_mitogen/compat/simplejson 
+
+RUN set -eux \
+    && python -m compileall /usr/local/lib64/python3/site-packages/ansible_mitogen \
+	&& python -m compileall /usr/local/lib64/python3/site-packages/dns
+
+WORKDIR /data
+ENTRYPOINT ["/docker-entrypoint.sh"]
+CMD ["/bin/bash"]

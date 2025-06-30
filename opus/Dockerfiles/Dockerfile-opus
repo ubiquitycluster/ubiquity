@@ -1,0 +1,154 @@
+ARG VERSION
+
+# --------------------------------------------------------------------------------------------------
+# Builder Image
+# --------------------------------------------------------------------------------------------------
+# See ./builder for this image
+FROM localhost/opus-builder AS builder
+
+# Install Helm by major and minor version
+ARG HELM
+ARG TARGETPLATFORM
+ARG TARGETARCH
+ARG TARGETOS
+
+RUN set -eux \
+	&& dnf -y install git
+
+RUN set -eux \
+	&& pip3 install --no-cache-dir --no-compile \
+		azure-applicationinsights \
+		azure-batch \
+		azure-cognitiveservices-personalizer \
+		azure-common \
+		azure-cosmos \
+		azure-eventgrid \
+		azure-eventhub \
+		azure-graphrbac \
+		azure-keyvault \
+		azure-loganalytics \
+		azure-mgmt-advisor \
+		azure-mgmt-automation \
+		azure-mgmt-billing \
+		azure-mgmt-commerce \
+		azure-mgmt-consumption \
+		azure-mgmt-hanaonazure \
+		azure-mgmt-maps \
+		azure-mgmt-monitor \
+		azure-mgmt-relay \
+		azure-mgmt-reservations \
+		azure-mgmt-serialconsole \
+		azure-search \
+		azure-servicebus \
+		azure-servicefabric \
+		azure-storage-queue \
+		azure-synapse \
+		ruamel.yaml \
+	&& find /usr/lib/ -name '__pycache__' -print0 | xargs -0 -n1 rm -rf \
+	&& find /usr/lib/ -name '*.pyc' -print0 | xargs -0 -n1 rm -rf \
+	&& find /usr/local/lib/ -name '__pycache__' -print0 | xargs -0 -n1 rm -rf \
+	&& find /usr/local/lib/ -name '*.pyc' -print0 | xargs -0 -n1 rm -rf \
+	&& find /usr/local/lib64/ -name '__pycache__' -print0 | xargs -0 -n1 rm -rf \
+	&& find /usr/local/lib64/ -name '*.pyc' -print0 | xargs -0 -n1 rm -rf \
+	&& find /local/lib/ -name '__pycache__' -print0 | xargs -0 -n1 rm -rf \
+	&& find /local/lib/ -name '*.pyc' -print0 | xargs -0 -n1 rm -rf	\
+	&& find /local/lib64/ -name '__pycache__' -print0 | xargs -0 -n1 rm -rf \
+	&& find /local/lib64/ -name '*.pyc' -print0 | xargs -0 -n1 rm -rf \
+	&& rpm --import https://packages.microsoft.com/keys/microsoft.asc \
+	&& dnf install -y https://packages.microsoft.com/config/rhel/9/packages-microsoft-prod.rpm \
+    && dnf -y install azure-cli
+
+RUN set -eux \
+	&& git clone https://github.com/helm/helm \
+	&& cd helm \
+	# Sort by unique minor versions (without patch) \
+	&& version="$(git tag | grep -E "^v${HELM}\.[0-9]{1,2}$" | sort -u | sort -t . -k 2 -n | tail -1)" \
+	&& echo "${version}" \
+	&& curl -sS -L -O https://get.helm.sh/helm-${version}-${TARGETOS}-${TARGETARCH}.tar.gz \
+	&& tar xvfz helm-${version}-${TARGETOS}-${TARGETARCH}.tar.gz \
+	&& mv ${TARGETOS}-${TARGETARCH}/helm /usr/bin/helm \
+	&& chmod +x /usr/bin/helm \
+	&& /usr/bin/helm version | grep -E "${HELM}" | grep -E "${version}"
+
+RUN set -eux \
+    && curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"  | bash \
+	&& mv kustomize /usr/bin/kustomize \
+	&& chmod +x /usr/bin/kustomize
+
+RUN set -eux \
+    && curl -s "https://releases.hashicorp.com/terraform/1.3.3/terraform_1.3.3_${TARGETOS}_${TARGETARCH}.zip" -o terraform_1.3.3_${TARGETOS}_${TARGETARCH}.zip \
+	&& unzip ./terraform_1.3.3_${TARGETOS}_${TARGETARCH}.zip \
+	&& chmod +x ./terraform \
+	&& mv ./terraform /usr/local/bin/terraform
+
+RUN set -eux \
+    && dnf -y copr enable luminoso/k9s \
+	&& dnf -y install k9s
+
+RUN set -eux \
+	&& dnf -y copr enable barsnick/fed-newer \
+	&& dnf -y install proxychains-ng \
+	&& sed -i 's/^socks4.*/socks5 127.0.0.1 1080/g' /etc/proxychains.conf
+
+RUN set -eux \
+    && curl -sLO https://github.com/argoproj/argo-workflows/releases/download/v3.4.9/argo-${TARGETOS}-${TARGETARCH}.gz \
+    && gunzip argo-${TARGETOS}-${TARGETARCH}.gz \
+    && chmod +x argo-${TARGETOS}-${TARGETARCH} \
+    && mv ./argo-${TARGETOS}-${TARGETARCH} /usr/local/bin/argo
+
+RUN set -eux \
+	&& curl -sLO https://github.com/argoproj/argo-cd/releases/download/v2.8.4/argocd-${TARGETOS}-${TARGETARCH} \
+	&& chmod +x argocd-${TARGETOS}-${TARGETARCH} \
+    && mv ./argocd-${TARGETOS}-${TARGETARCH} /usr/local/bin/argocd	
+# --------------------------------------------------------------------------------------------------
+# Final Image
+# --------------------------------------------------------------------------------------------------
+FROM localhost/opus:${VERSION}-awsk8s AS production
+ARG VERSION
+# https://github.com/opencontainers/image-spec/blob/master/annotations.md
+#LABEL "org.opencontainers.image.created"=""
+#LABEL "org.opencontainers.image.version"=""
+#LABEL "org.opencontainers.image.revision"=""
+LABEL "maintainer"="cjcshadowsan <christopher.james.coates@gmail.com>"
+LABEL "org.opencontainers.image.authors"="cjcshadowsan <christopher.james.coates@gmail.com>"
+LABEL "org.opencontainers.image.vendor"="cjcshadowsan"
+LABEL "org.opencontainers.image.licenses"="MIT"
+LABEL "org.opencontainers.image.url"="https://github.com/cjcshadowsan/opus-seed"
+LABEL "org.opencontainers.image.documentation"="https://github.com/cjcshadowsan/opus-seed"
+LABEL "org.opencontainers.image.source"="https://github.com/cjcshadowsan/opus-seed"
+LABEL "org.opencontainers.image.ref.name"="Ansible ${VERSION} opus"
+LABEL "org.opencontainers.image.title"="Ansible ${VERSION} opus"
+LABEL "org.opencontainers.image.description"="Ansible ${VERSION} opus"
+
+RUN set -eux \
+    && dnf -y install golang sshpass ipmitool
+
+RUN set -eux \
+    && dnf -y --enablerepo=extras install epel-release \
+    && dnf -y install clustershell
+
+RUN set -eux \
+	&& curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
+
+COPY --from=builder /usr/bin/helm /usr/bin/helm
+COPY --from=builder /usr/bin/kustomize /usr/bin/kustomize
+COPY --from=builder /usr/bin/k9s /usr/bin/k9s
+COPY --from=builder /usr/share/man/man1/. /usr/share/man/man1/
+COPY --from=builder /usr/share/man/man5/. /usr/share/man/man5/
+COPY --from=builder /usr/share/vim/vimfiles/. /usr/share/vim/vimfiles/
+COPY --from=builder /usr/local/bin/terraform /usr/local/bin/terraform
+COPY --from=builder /usr/local/bin/argo /usr/local/bin/argo
+COPY --from=builder /usr/local/bin/argocd /usr/local/bin/argocd
+COPY --from=builder /usr/bin/proxychains /usr/bin/proxychains
+COPY --from=builder /usr/bin/proxychains4 /usr/bin/proxychains4
+COPY --from=builder /usr/bin/proxychains4-daemon /usr/bin/proxychains4-daemon
+COPY --from=builder /usr/lib64/proxychains-ng /usr/lib64/proxychains-ng/
+COPY --from=builder /etc/proxychains.conf /etc/proxychains.conf
+COPY --from=builder /usr/lib64/az/ /usr/lib64/az/
+COPY --from=builder /usr/bin/az /usr/bin/az
+COPY --from=builder /etc/bash_completion.d/azure-cli /etc/bash_completion.d/azure-cli
+COPY --from=builder /usr/local/lib/python3.12/ /usr/local/lib/python3.12/
+
+WORKDIR /data
+ENTRYPOINT ["/docker-entrypoint.sh"]
+CMD ["/bin/bash"]

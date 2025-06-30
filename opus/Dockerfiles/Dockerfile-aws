@@ -1,0 +1,41 @@
+ARG VERSION
+
+# --------------------------------------------------------------------------------------------------
+# Final Image
+# --------------------------------------------------------------------------------------------------
+FROM localhost/opus:${VERSION}-tools AS production
+ARG VERSION
+# https://github.com/opencontainers/image-spec/blob/master/annotations.md
+#LABEL "org.opencontainers.image.created"=""
+#LABEL "org.opencontainers.image.version"=""
+#LABEL "org.opencontainers.image.revision"=""
+LABEL "maintainer"="cjcshadowsan <christopher.james.coates@gmail.com>"
+LABEL "org.opencontainers.image.authors"="cjcshadowsan <christopher.james.coates@gmail.com>"
+LABEL "org.opencontainers.image.vendor"="cjcshadowsan"
+LABEL "org.opencontainers.image.licenses"="MIT"
+LABEL "org.opencontainers.image.url"="https://github.com/cjcshadowsan/opus-seed"
+LABEL "org.opencontainers.image.documentation"="https://github.com/cjcshadowsan/opus-seed"
+LABEL "org.opencontainers.image.source"="https://github.com/cjcshadowsan/opus-seed"
+LABEL "org.opencontainers.image.ref.name"="Ansible ${VERSION} aws"
+LABEL "org.opencontainers.image.title"="Ansible ${VERSION} aws"
+LABEL "org.opencontainers.image.description"="Ansible ${VERSION} aws"
+
+
+# Python packages (copied to final image)
+RUN set -eux \
+	&& pip3 install --no-cache-dir --no-compile \
+		awscli \
+		botocore \
+		boto \
+		boto3
+
+# Pre-compile Python for better performance
+RUN set -eux \
+	&& python3 -m compileall /usr/local/lib/python3/site-packages/awscli \
+	&& python3 -m compileall /usr/local/lib/python3/site-packages/botocore \
+	&& python3 -m compileall /usr/local/lib/python3/site-packages/boto \
+	&& python3 -m compileall /usr/local/lib/python3/site-packages/boto3
+	
+WORKDIR /data
+ENTRYPOINT ["/docker-entrypoint.sh"]
+CMD ["/bin/bash"]

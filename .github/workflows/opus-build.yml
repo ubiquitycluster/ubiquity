@@ -1,0 +1,153 @@
+name: Build and Push Opus Images
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+    paths:
+      - 'opus/**'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'opus/**'
+  workflow_dispatch:
+    inputs:
+      ansible_version:
+        description: 'Ansible version to build'
+        required: false
+        default: 'latest'
+        type: string
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: opus
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    
+    strategy:
+      matrix:
+        flavour:
+          - { name: "base", suffix: "latest", helm: "" }
+          - { name: "tools", suffix: "latest-tools", helm: "" }
+          - { name: "aws", suffix: "latest-aws", helm: "" }
+          - { name: "awsk8s", suffix: "latest-awsk8s", helm: "" }
+          - { name: "awshelm", suffix: "latest-awshelm3.10", helm: "3.10" }
+          - { name: "opus", suffix: "latest-opus-all-helm3.10", helm: "3.10" }
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      
+      - name: Log in to Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=sha,prefix={{branch}}-
+            type=raw,value=${{ matrix.flavour.suffix }}
+            type=raw,value=${{ matrix.flavour.suffix }}-{{sha}}
+      
+      - name: Build base image first (if not base flavour)
+        if: matrix.flavour.name != 'base'
+        working-directory: ./opus
+        run: |
+          make build ANSIBLE=${{ inputs.ansible_version || 'latest' }}
+      
+      - name: Build and push Docker image
+        working-directory: ./opus
+        env:
+          ANSIBLE_VERSION: ${{ inputs.ansible_version || 'latest' }}
+        run: |
+          # Determine build command based on flavour
+          if [ "${{ matrix.flavour.name }}" = "base" ]; then
+            make build ANSIBLE="${ANSIBLE_VERSION}"
+            LOCAL_TAG="localhost/opus:${ANSIBLE_VERSION}"
+          elif [ -n "${{ matrix.flavour.helm }}" ]; then
+            make build FLAVOUR="${{ matrix.flavour.name }}" HELM="${{ matrix.flavour.helm }}" ANSIBLE="${ANSIBLE_VERSION}"
+            LOCAL_TAG="localhost/opus:${ANSIBLE_VERSION}-${{ matrix.flavour.name }}-all-helm${{ matrix.flavour.helm }}"
+          else
+            make build FLAVOUR="${{ matrix.flavour.name }}" ANSIBLE="${ANSIBLE_VERSION}"
+            LOCAL_TAG="localhost/opus:${ANSIBLE_VERSION}-${{ matrix.flavour.name }}"
+          fi
+          
+          # Tag for registry
+          REMOTE_TAG="${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ matrix.flavour.suffix }}"
+          docker tag "${LOCAL_TAG}" "${REMOTE_TAG}"
+          
+          # Push to registry
+          docker push "${REMOTE_TAG}"
+          
+          # Also tag and push with commit SHA
+          if [ "${{ github.event_name }}" = "push" ] && [ "${{ github.ref }}" = "refs/heads/main" ]; then
+            COMMIT_TAG="${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ matrix.flavour.suffix }}-${{ github.sha }}"
+            docker tag "${LOCAL_TAG}" "${COMMIT_TAG}"
+            docker push "${COMMIT_TAG}"
+          fi
+
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.event_name == 'pull_request'
+    
+    strategy:
+      matrix:
+        flavour:
+          - { name: "base", suffix: "latest" }
+          - { name: "tools", suffix: "latest-tools" }
+          - { name: "aws", suffix: "latest-aws" }
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Log in to Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Test Docker image
+        run: |
+          IMAGE="${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ matrix.flavour.suffix }}"
+          docker run --rm "${IMAGE}" ansible --version
+          docker run --rm "${IMAGE}" python3 --version
+
+  security-scan:
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    
+    steps:
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: '${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:latest'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+      
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: 'trivy-results.sarif'
