@@ -1,0 +1,47 @@
+ARG VERSION
+
+# --------------------------------------------------------------------------------------------------
+# Builder Image
+# --------------------------------------------------------------------------------------------------
+# See ./builder for this image
+FROM localhost/opus-builder AS builder
+
+# Install Helm by major and minor version
+ARG HELM
+RUN set -eux \
+	&& git clone https://github.com/helm/helm \
+	&& cd helm \
+	# Sort by unique minor versions (without patch) \
+	&& version="$(git tag | grep -E "^v${HELM}\.[0-9]{1,2}$" | sort -u | sort -t . -k 2 -n | tail -1)" \
+	&& echo "${version}" \
+	&& curl -sS -L -O https://get.helm.sh/helm-${version}-linux-amd64.tar.gz \
+	&& tar xvfz helm-${version}-linux-amd64.tar.gz \
+	&& mv linux-amd64/helm /usr/bin/helm \
+	&& chmod +x /usr/bin/helm \
+	&& /usr/bin/helm version | grep -E "${HELM}" | grep -E "${version}"
+
+# --------------------------------------------------------------------------------------------------
+# Final Image
+# --------------------------------------------------------------------------------------------------
+FROM localhost/opus:${VERSION}-awsk8s AS production
+ARG VERSION
+# https://github.com/opencontainers/image-spec/blob/master/annotations.md
+#LABEL "org.opencontainers.image.created"=""
+#LABEL "org.opencontainers.image.version"=""
+#LABEL "org.opencontainers.image.revision"=""
+LABEL "maintainer"="cjcshadowsan <christopher.james.coates@gmail.com>"
+LABEL "org.opencontainers.image.authors"="cjcshadowsan <christopher.james.coates@gmail.com>"
+LABEL "org.opencontainers.image.vendor"="cjcshadowsan"
+LABEL "org.opencontainers.image.licenses"="MIT"
+LABEL "org.opencontainers.image.url"="https://github.com/cjcshadowsan/opus-seed"
+LABEL "org.opencontainers.image.documentation"="https://github.com/cjcshadowsan/opus-seed"
+LABEL "org.opencontainers.image.source"="https://github.com/cjcshadowsan/opus-seed"
+LABEL "org.opencontainers.image.ref.name"="Ansible ${VERSION} awshelm"
+LABEL "org.opencontainers.image.title"="Ansible ${VERSION} awshelm"
+LABEL "org.opencontainers.image.description"="Ansible ${VERSION} awshelm"
+
+COPY --from=builder /usr/bin/helm /usr/bin/helm
+
+WORKDIR /data
+ENTRYPOINT ["/docker-entrypoint.sh"]
+CMD ["/bin/bash"]

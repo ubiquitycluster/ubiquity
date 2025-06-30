@@ -1,0 +1,86 @@
+ARG VERSION
+
+# --------------------------------------------------------------------------------------------------
+# Builder Image
+# --------------------------------------------------------------------------------------------------
+# See ./builder for this image
+FROM localhost/opus-builder AS builder
+
+# Python packages (copied to final image)
+# pip3 search results in exception
+#RUN set -eux \
+#	&& pip3 install --no-cache-dir --no-compile \
+#		$(pip3 search azure \
+#			| grep -E '^azure' \
+#			| grep 'Microsoft Azure' \
+#			| grep Client \
+#			| awk '{print $1}' \
+#			| grep -v '^azure$' \
+#			| grep -v '^azure-mgmt$' \
+#			| xargs \
+#		)
+RUN set -eux \
+	&& pip3 install --no-cache-dir --no-compile \
+		azure-applicationinsights \
+		azure-batch \
+		azure-cognitiveservices-personalizer \
+		azure-common \
+		azure-cosmos \
+		azure-eventgrid \
+		azure-eventhub \
+		azure-graphrbac \
+		azure-keyvault \
+		azure-loganalytics \
+		azure-mgmt-advisor \
+		azure-mgmt-automation \
+		azure-mgmt-billing \
+		azure-mgmt-commerce \
+		azure-mgmt-consumption \
+		azure-mgmt-hanaonazure \
+		azure-mgmt-maps \
+		azure-mgmt-monitor \
+		azure-mgmt-relay \
+		azure-mgmt-reservations \
+		azure-mgmt-serialconsole \
+		azure-search \
+		azure-servicebus \
+		azure-servicefabric \
+		azure-storage-queue \
+		azure-synapse \
+	&& find /usr/lib/ -name '__pycache__' -print0 | xargs -0 -n1 rm -rf \
+	&& find /usr/lib/ -name '*.pyc' -print0 | xargs -0 -n1 rm -rf \
+	&& find /usr/local/lib/ -name '__pycache__' -print0 | xargs -0 -n1 rm -rf \
+	&& find /usr/local/lib/ -name '*.pyc' -print0 | xargs -0 -n1 rm -rf \
+	&& find /usr/local/lib64/ -name '__pycache__' -print0 | xargs -0 -n1 rm -rf \
+	&& find /usr/local/lib64/ -name '*.pyc' -print0 | xargs -0 -n1 rm -rf \
+	&& find /local/lib/ -name '__pycache__' -print0 | xargs -0 -n1 rm -rf \
+	&& find /local/lib/ -name '*.pyc' -print0 | xargs -0 -n1 rm -rf	\
+	&& find /local/lib64/ -name '__pycache__' -print0 | xargs -0 -n1 rm -rf \
+	&& find /local/lib64/ -name '*.pyc' -print0 | xargs -0 -n1 rm -rf
+
+
+# --------------------------------------------------------------------------------------------------
+# Final Image
+# --------------------------------------------------------------------------------------------------
+FROM localhost/opus:${VERSION}-tools AS production
+ARG VERSION
+# https://github.com/opencontainers/image-spec/blob/master/annotations.md
+#LABEL "org.opencontainers.image.created"=""
+#LABEL "org.opencontainers.image.version"=""
+#LABEL "org.opencontainers.image.revision"=""
+LABEL "maintainer"="cjcshadowsan <christopher.james.coates@gmail.com>"
+LABEL "org.opencontainers.image.authors"="cjcshadowsan <christopher.james.coates@gmail.com>"
+LABEL "org.opencontainers.image.vendor"="cjcshadowsan"
+LABEL "org.opencontainers.image.licenses"="MIT"
+LABEL "org.opencontainers.image.url"="https://github.com/cjcshadowsan/opus-seed"
+LABEL "org.opencontainers.image.documentation"="https://github.com/cjcshadowsan/opus-seed"
+LABEL "org.opencontainers.image.source"="https://github.com/cjcshadowsan/opus-seed"
+LABEL "org.opencontainers.image.ref.name"="Ansible ${VERSION} azure"
+LABEL "org.opencontainers.image.title"="Ansible ${VERSION} azure"
+LABEL "org.opencontainers.image.description"="Ansible ${VERSION} azure"
+
+COPY --from=builder /usr/local/lib/python3.12/ /usr/local/lib/python3.12/
+
+WORKDIR /data
+ENTRYPOINT ["/docker-entrypoint.sh"]
+CMD ["/bin/bash"]

@@ -1,0 +1,86 @@
+#
+# This is the "builder" Dockerfile used by all images to build from.
+# The "builder" image is automatically built by the Makefile before
+# any of the "real" images are build.
+#
+# Image name: localhost/opus-builder
+# How to build: docker build -t localhost/opus-builder -f builder .
+#
+
+
+FROM rockylinux/rockylinux:9 AS builder
+
+ARG TARGETPLATFORM
+ARG TARGETARCH
+ARG TARGETOS
+
+# Install basic tools and development dependencies first
+RUN set -eux \
+	&& dnf update -y \
+	&& dnf install -y dnf-plugins-core \
+	&& dnf config-manager --set-enabled crb \
+	&& dnf groupinstall -y "Development Tools" \
+	&& dnf install -y \
+		bc \
+		cargo \
+		cmake \
+		make \
+		curl-minimal \
+		wget \
+		gcc-c++ \
+		gcc \
+		libgcc \
+		libffi-devel \
+		libxml2-devel \
+		libxslt-devel \
+		openssl-devel \
+		zlib-devel \
+		bzip2-devel \
+		readline-devel \
+		sqlite-devel \
+		tk-devel \
+		gdbm-devel \
+		libuuid-devel \
+		ncurses-devel \
+		xz-devel \
+		libyaml-devel \
+		rust
+
+# Download and install yq
+RUN OS=$TARGETOS ARCH=$TARGETARCH set -eux \
+    &&  wget https://github.com/mikefarah/yq/releases/download/v4.35.2/yq_${TARGETOS}_${TARGETARCH} -O /usr/local/bin/yq \
+	&&  chmod 755 /usr/local/bin/yq
+
+# Install Python 3.12 from source
+RUN set -eux \
+	&& cd /tmp \
+	&& wget https://www.python.org/ftp/python/3.12.7/Python-3.12.7.tgz \
+	&& tar xzf Python-3.12.7.tgz \
+	&& cd Python-3.12.7 \
+	&& ./configure --enable-optimizations --with-ensurepip=install \
+	&& make -j$(nproc) \
+	&& make altinstall \
+	&& ln -sf /usr/local/bin/python3.12 /usr/local/bin/python3 \
+	&& ln -sf /usr/local/bin/python3.12 /usr/local/bin/python \
+	&& ln -sf /usr/local/bin/pip3.12 /usr/local/bin/pip3 \
+	&& ln -sf /usr/local/bin/pip3.12 /usr/local/bin/pip \
+	&& cd / \
+	&& rm -rf /tmp/Python-3.12.7* \
+	&& python3 -c 'import sys; print("Python version:", sys.version)'
+
+# Fix: ansible --version: libyaml = True
+# https://www.jeffgeerling.com/blog/2021/ansible-might-be-running-slow-if-libyaml-not-available
+# Install PyYAML to ensure YAML support is available
+RUN set -eux \
+	&& pip3 install --no-cache-dir PyYAML \
+	&& python3 -c 'import yaml; print("PyYAML version:", yaml.__version__)'
+
+# Pip required tools for all flavour's "builder" stage
+RUN set -eux \
+	&& pip3 install --no-cache-dir --no-compile \
+		setuptools_rust \
+	&& pip3 install --no-cache-dir --no-compile \
+		Jinja2 \
+		MarkupSafe \
+		PyNaCl \
+	    bcrypt

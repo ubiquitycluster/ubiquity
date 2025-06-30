@@ -1,0 +1,71 @@
+ARG VERSION
+
+# --------------------------------------------------------------------------------------------------
+# Builder Image
+# --------------------------------------------------------------------------------------------------
+# See ./builder for this image
+FROM localhost/opus-builder AS builder
+
+ARG TARGETPLATFORM
+ARG TARGETARCH
+ARG TARGETOS
+
+# kubectl (copied to final image)
+RUN set -eux \
+	&& curl -sS -L -o /usr/bin/kubectl \
+		https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/${TARGETOS}/${TARGETARCH}/kubectl \
+	&& chmod +x /usr/bin/kubectl 
+
+# openshift client (copied to final image)
+RUN set -eux \
+	&& curl -sS -L -o /tmp/openshift-client-${TARGETOS}.tar.gz https://mirror.openshift.com/pub/openshift-v4/clients/ocp/stable/openshift-client-${TARGETOS}.tar.gz \
+	&& mkdir /tmp/openshift-client-${TARGETOS}/ \
+	&& tar -xzf /tmp/openshift-client-${TARGETOS}.tar.gz -C /tmp/openshift-client-${TARGETOS}/ \
+	&& mv /tmp/openshift-client-${TARGETOS}/oc /usr/bin/oc \
+	&& chmod +x /usr/bin/oc 
+
+RUN set -eux \
+    && curl -Lo aws-iam-authenticator https://github.com/kubernetes-sigs/aws-iam-authenticator/releases/download/v0.5.9/aws-iam-authenticator_0.5.9_linux_arm64 \
+	&& chmod +x ./aws-iam-authenticator \
+	&& mv aws-iam-authenticator /usr/bin/aws-iam-authenticator
+
+# --------------------------------------------------------------------------------------------------
+# Final Image
+# --------------------------------------------------------------------------------------------------
+FROM localhost/opus:${VERSION}-aws AS production
+ARG VERSION
+# https://github.com/opencontainers/image-spec/blob/master/annotations.md
+#LABEL "org.opencontainers.image.created"=""
+#LABEL "org.opencontainers.image.version"=""
+#LABEL "org.opencontainers.image.revision"=""
+LABEL "maintainer"="cjcshadowsan <christopher.james.coates@gmail.com>"
+LABEL "org.opencontainers.image.authors"="cjcshadowsan <christopher.james.coates@gmail.com>"
+LABEL "org.opencontainers.image.vendor"="cjcshadowsan"
+LABEL "org.opencontainers.image.licenses"="MIT"
+LABEL "org.opencontainers.image.url"="https://github.com/cjcshadowsan/opus-seed"
+LABEL "org.opencontainers.image.documentation"="https://github.com/cjcshadowsan/opus-seed"
+LABEL "org.opencontainers.image.source"="https://github.com/cjcshadowsan/opus-seed"
+LABEL "org.opencontainers.image.ref.name"="Ansible ${VERSION} awsk8s"
+LABEL "org.opencontainers.image.title"="Ansible ${VERSION} awsk8s"
+LABEL "org.opencontainers.image.description"="Ansible ${VERSION} awsk8s"
+
+# Python packages (copied to final image)
+RUN set -eux \
+	&& pip3 install --no-cache-dir --no-compile \
+		openshift \
+		kubernetes \
+		python-string-utils
+
+COPY --from=builder /usr/bin/kubectl /usr/bin/kubectl
+COPY --from=builder /usr/bin/oc /usr/bin/oc
+COPY --from=builder /usr/bin/aws-iam-authenticator /usr/bin/aws-iam-authenticator
+
+# Pre-compile Python for better performance
+RUN set -eux \
+	&& python3 -m compileall /usr/lib/python3/site-packages/openshift \
+	&& python3 -m compileall /usr/local/lib/python3/site-packages/kubernetes \
+	&& python3 -m compileall /usr/local/lib/python3/site-packages/string_utils
+
+WORKDIR /data
+ENTRYPOINT ["/docker-entrypoint.sh"]
+CMD ["/bin/bash"]
