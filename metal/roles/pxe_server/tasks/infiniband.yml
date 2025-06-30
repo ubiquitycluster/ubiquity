@@ -51,7 +51,8 @@
           command: >
             xorriso -osirrox on -indev {{ mlnxiso.dest }}
             -extract / {{ role_path }}/files/data/misc/ofed-{{ ofed.mlnx_version[mlnx_ver].version }}
-          creates: "{{ role_path }}/files/data/misc/ofed-{{ ofed.mlnx_version[mlnx_ver].version }}/RPMS/repodata/repomd.xml"
+          args:
+            creates: "{{ role_path }}/files/data/misc/ofed-{{ ofed.mlnx_version[ofed.version].version }}/RPMS/repodata/repomd.xml"
 
     # DOCA OFED BLOCK
     - name: Download and extract DOCA OFED ISO
@@ -75,5 +76,6 @@
           command: >
             xorriso -osirrox on -indev {{ docaiso.dest }}
             -extract / {{ role_path }}/files/data/misc/ofed-doca-{{ doca_ver }}
-          creates: "{{ role_path }}/files/data/misc/ofed-doca-{{ doca_ver }}/RPMS/repodata/repomd.xml"
+          args:
+            creates: "{{ role_path }}/files/data/misc/ofed-doca-{{ doca_ver }}/RPMS/repodata/repomd.xml"
 
