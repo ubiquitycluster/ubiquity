@@ -75,9 +75,9 @@ Note: If you use `nip.io` you are expected to be running non-production workload
 
 - `Enter external ipv4 network gateway` - this is the external network gateway address. This is the address that sits on a bootstrap node and provisions on-premise environments.
 
-- `Enter your username given to you by Logicalis:` - this is the username given to you by Logicalis - Please discuss with your account manager if you don't have this!
+- `Enter your username for the container registry:` - this is your username for accessing container images - Please refer to the documentation or GitHub repository for access credentials!
 
-- `Enter your registration key:` - this is the special token given to you by Logicalis to allow you to log onto our container registry. Without this you will not be able to pull the images required to run Ubiquity.
+- `Enter your registration key:` - this is the special token to allow you to log onto the container registry. Without this you will not be able to pull the images required to run Ubiquity.
 
 - `Enter your dockerhub username:` - this is your dockerhub username. This is used to prevent rate-limiting on dockerhub.
 

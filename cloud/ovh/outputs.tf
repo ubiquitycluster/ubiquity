@@ -1,10 +1,10 @@
-# Copyright 2023 Logicalis UKI. All Rights Reserved.
+# Copyright The Ubiquity Authors.
 #
 # Licensed under the Apache License, Version 2.0. Previously licensed under the Functional Source License (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#     https://github.com/logicalisuki/ubiquity-open-open/blob/main/LICENSE
+#     https://github.com/ubiquitycluster/ubiquity-open/blob/main/LICENSE
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -39,7 +39,7 @@ output "accounts" {
       usernames =   var.nb_users != 0 ? (
         "user[${format(format("%%0%dd", length(tostring(var.nb_users))), 1)}-${var.nb_users}]"
       ) : (
-        "You have chosen to create user accounts yourself (`nb_users = 0`), please read the documentation on how to manage this at https://github.com/logicalisuki/ubiquity-open/blob/main/docs/README.md#103-add-a-user-account"
+        "You have chosen to create user accounts yourself (`nb_users = 0`), please read the documentation on how to manage this at https://github.com/ubiquitycluster/ubiquity/blob/main/docs/README.md#103-add-a-user-account"
       ),
       password = module.cluster_config.guest_passwd
     }

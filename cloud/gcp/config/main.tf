@@ -8,8 +8,8 @@ variable "pool" {
 }
 
 module "gcp" {
-  source         = "git::https://github.com/logicalisuki/ubiquity-open.git/cloud/gcp"
-  config_git_url = "https://github.com/logicalisuki/ubiq-playbooks.git"
+  source         = "git::https://github.com/ubiquitycluster/ubiquity.git/cloud/gcp"
+  config_git_url = "https://github.com/ubiquitycluster/ubiq-playbooks.git"
   config_version = "main"
 
   cluster_name = "ubiquity"

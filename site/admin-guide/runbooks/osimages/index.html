@@ -1,0 +1,3770 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://ubiquitycluster.github.io/ubiquity/admin-guide/runbooks/osimages/">
+      
+      
+        <link rel="prev" href="../onyxia/">
+      
+      
+        <link rel="next" href="../ofed/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>OS Images - Ubiquity</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.342714a4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#operating-system-images-for-ubiquity" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Ubiquity" class="md-header__button md-logo" aria-label="Ubiquity" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Ubiquity
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              OS Images
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ubiquitycluster/ubiquity" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ubiquitycluster/ubiquity
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Ubiquity" class="md-nav__button md-logo" aria-label="Ubiquity" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Ubiquity
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ubiquitycluster/ubiquity" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ubiquitycluster/ubiquity
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Admin Guide
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Admin Guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Deployment
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Deployment
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/prerequisites/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Prerequisites
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/configure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Configure
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/sandbox/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Sandbox
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/on-prem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    On-Premises
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/external-resources/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    External Resources
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/post-installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Post Installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_2_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2_7" id="__nav_3_2_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Production
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_2_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2_7">
+            <span class="md-nav__icon md-icon"></span>
+            Production
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/production/prerequisites/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Prerequisites
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/production/external-resources/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    External Resources
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/production/configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/production/deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Deployment
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/production/post-installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Post Installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/production/airgapping/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Air Gapping
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/production/awx-postinstall/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    AWX Post Install
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/production/hfi-infiniband/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    InfiniBand
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_2_8" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../deployment/cloud/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Cloud
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_2_8" id="__nav_3_2_8_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_2_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2_8">
+            <span class="md-nav__icon md-icon"></span>
+            Cloud
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/cloud/terraform_cloud/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Terraform Cloud
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Administration
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Administration
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3_1" id="__nav_3_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Tutorials
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Tutorials
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../administration/tutorials/add-or-remove-nodes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Add/Remove Nodes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../administration/tutorials/backup-cluster/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Backup Cluster
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../administration/tutorials/expose-services-to-the-internet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Expose Services
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../administration/tutorials/manual-dns-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Manual DNS Setup
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../administration/tutorials/run-commands-on-multiple-nodes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Multi-Node Commands
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../administration/tutorials/single-node-cluster-adjustments/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Single Node Adjustments
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../administration/tutorials/user-accounts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    User Accounts
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../administration/tutorials/use-both-github-and-gitea/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    GitHub and Gitea
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../administration/tutorials/updating-documentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Update Documentation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../administration/tutorials/kube-prometheus-stack/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Monitoring Stack
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../administration/tutorials/loki-promtail/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Logging Stack
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../administration/tutorials/ssl-cert-change-git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SSL Certificates
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../administration/tutorials/install-pre-commit-hooks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Pre-commit Hooks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../administration/tutorials/shutdown/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Shutdown Procedures
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Concepts
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            Concepts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/certificate-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Certificate Management
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/opus-container/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Opus Container
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/pxe-boot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    PXE Boot
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Runbooks
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            Runbooks
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../argocd/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ArgoCD
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cert-manager/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cert Manager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dnsmasq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    DNSmasq
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../documentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Documentation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gitea/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Gitea
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../longhorn/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Longhorn
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vault/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Vault
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../onyxia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Onyxia
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    OS Images
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    OS Images
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#on-this-page" class="md-nav__link">
+    <span class="md-ellipsis">
+      On This Page
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      Scope
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Prerequisites">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hardware-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hardware Requirements
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#software-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Software Requirements
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#abbreviations-and-acronyms" class="md-nav__link">
+    <span class="md-ellipsis">
+      Abbreviations and Acronyms
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ubiquity-image-building" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ubiquity Image Building
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ubiquity Image Building">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#built-in-image-builder" class="md-nav__link">
+    <span class="md-ellipsis">
+      Built-in Image Builder
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supported-operating-systems" class="md-nav__link">
+    <span class="md-ellipsis">
+      Supported Operating Systems
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick Start
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#available-custom-elements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Available Custom Elements
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#custom-image-creation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Custom Image Creation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Custom Image Creation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setting-up-build-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Setting Up Build Environment
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-ubiquity-optimized-images" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating Ubiquity-Optimized Images
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bare-metal-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bare Metal Deployment
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bare Metal Deployment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kickstart-based-provisioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      Kickstart-Based Provisioning
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pxe-boot-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      PXE Boot Process
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cloud-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cloud Deployment
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cloud Deployment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cloud-provider-images" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cloud Provider Images
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cloud-init-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cloud-init Configuration
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-configurations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Configurations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Advanced Configurations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hpc-optimized-images" class="md-nav__link">
+    <span class="md-ellipsis">
+      HPC-Optimized Images
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#storage-optimizations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Storage Optimizations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#networking-configurations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Networking Configurations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-tuning" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Tuning
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#build-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Build Issues
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deployment-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deployment Issues
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Issues
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#monitoring-and-logging" class="md-nav__link">
+    <span class="md-ellipsis">
+      Monitoring and Logging
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recovery-procedures" class="md-nav__link">
+    <span class="md-ellipsis">
+      Recovery Procedures
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ofed/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    OFED
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../matrix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Matrix
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../etcd-alerts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    etcd Alerts
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_5_13" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../awx/backup/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    AWX
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_5_13" id="__nav_3_5_13_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_5_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5_13">
+            <span class="md-nav__icon md-icon"></span>
+            AWX
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../awx/restore/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Restore
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../awx/git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Git Integration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../awx/runner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Runner
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../awx/tips/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tips
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            Troubleshooting
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting/bmh-provisioning-error/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    BMH Provisioning
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../user-guide/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    User Guide
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            User Guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/onboarding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Onboarding
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/EasyBuild/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    EasyBuild
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    About
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            About
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../about/support/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Support
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../about/screenshots/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Screenshots
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../changelog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Changelog
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#on-this-page" class="md-nav__link">
+    <span class="md-ellipsis">
+      On This Page
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      Scope
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Prerequisites">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hardware-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hardware Requirements
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#software-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Software Requirements
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#abbreviations-and-acronyms" class="md-nav__link">
+    <span class="md-ellipsis">
+      Abbreviations and Acronyms
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ubiquity-image-building" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ubiquity Image Building
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ubiquity Image Building">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#built-in-image-builder" class="md-nav__link">
+    <span class="md-ellipsis">
+      Built-in Image Builder
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supported-operating-systems" class="md-nav__link">
+    <span class="md-ellipsis">
+      Supported Operating Systems
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick Start
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#available-custom-elements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Available Custom Elements
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#custom-image-creation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Custom Image Creation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Custom Image Creation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setting-up-build-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Setting Up Build Environment
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-ubiquity-optimized-images" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating Ubiquity-Optimized Images
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bare-metal-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bare Metal Deployment
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bare Metal Deployment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kickstart-based-provisioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      Kickstart-Based Provisioning
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pxe-boot-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      PXE Boot Process
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cloud-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cloud Deployment
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cloud Deployment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cloud-provider-images" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cloud Provider Images
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cloud-init-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cloud-init Configuration
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-configurations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Configurations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Advanced Configurations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hpc-optimized-images" class="md-nav__link">
+    <span class="md-ellipsis">
+      HPC-Optimized Images
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#storage-optimizations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Storage Optimizations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#networking-configurations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Networking Configurations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-tuning" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Tuning
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#build-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Build Issues
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deployment-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deployment Issues
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Issues
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#monitoring-and-logging" class="md-nav__link">
+    <span class="md-ellipsis">
+      Monitoring and Logging
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recovery-procedures" class="md-nav__link">
+    <span class="md-ellipsis">
+      Recovery Procedures
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="operating-system-images-for-ubiquity">Operating System Images for Ubiquity</h1>
+<h2 id="on-this-page">On This Page</h2>
+<ul>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#scope">Scope</a></li>
+<li><a href="#prerequisites">Prerequisites</a></li>
+<li><a href="#ubiquity-image-building">Ubiquity Image Building</a></li>
+<li><a href="#custom-image-creation">Custom Image Creation</a></li>
+<li><a href="#bare-metal-deployment">Bare Metal Deployment</a></li>
+<li><a href="#cloud-deployment">Cloud Deployment</a></li>
+<li><a href="#advanced-configurations">Advanced Configurations</a></li>
+<li><a href="#troubleshooting">Troubleshooting</a></li>
+</ul>
+<h2 id="overview">Overview</h2>
+<p>This guide provides comprehensive instructions for creating, customizing, and deploying operating system images within the Ubiquity platform. Ubiquity supports multiple deployment scenarios including bare metal provisioning, cloud deployments, and hybrid environments, each with specific image requirements and customization options.</p>
+<h2 id="scope">Scope</h2>
+<p>This guide covers:
+- <strong>Base OS Images</strong>: Rocky Linux, Ubuntu, and Fedora support for Ubiquity clusters
+- <strong>Bare Metal Images</strong>: PXE-bootable images for automated provisioning
+- <strong>Cloud Images</strong>: Custom images for cloud providers (AWS, Azure, GCP, OpenStack)
+- <strong>Container Images</strong>: Base images for HPC workloads and applications
+- <strong>Specialized Images</strong>: HPC-optimized images with NVIDIA drivers, InfiniBand support, and performance tools</p>
+<h2 id="prerequisites">Prerequisites</h2>
+<h3 id="hardware-requirements">Hardware Requirements</h3>
+<ul>
+<li><strong>Build Host</strong>: System capable of running diskimage-builder (minimum 4GB RAM, 20GB storage)</li>
+<li><strong>Target Platform</strong>: Bare metal servers or cloud instances for deployment</li>
+</ul>
+<h3 id="software-requirements">Software Requirements</h3>
+<ul>
+<li><strong>Operating System</strong>: Rocky Linux 8/9, Ubuntu 20.04/22.04, or Fedora Server</li>
+<li><strong>Tools</strong>: diskimage-builder, qemu-utils, ansible (for bare metal)</li>
+<li><strong>Access</strong>: Administrative privileges on build host</li>
+</ul>
+<h3 id="abbreviations-and-acronyms">Abbreviations and Acronyms</h3>
+<ul>
+<li><strong>BMO</strong>: Bare Metal Operator</li>
+<li><strong>DIB</strong>: Disk Image Builder  </li>
+<li><strong>HPC</strong>: High Performance Computing</li>
+<li><strong>IPA</strong>: Ironic Python Agent</li>
+<li><strong>MLNX_OFED</strong>: NVIDIA Mellanox OpenFabrics Enterprise Distribution</li>
+<li><strong>PXE</strong>: Preboot Execution Environment</li>
+</ul>
+<h2 id="ubiquity-image-building">Ubiquity Image Building</h2>
+<h3 id="built-in-image-builder">Built-in Image Builder</h3>
+<p>Ubiquity includes a comprehensive image building system located in <code>tools/disk-image/mkimage/</code> that provides:</p>
+<ul>
+<li><strong>Automated Building</strong>: Script-based image creation with minimal configuration</li>
+<li><strong>Multiple Formats</strong>: Support for qcow2, raw, and other disk formats</li>
+<li><strong>Custom Elements</strong>: Pre-built elements for Ubiquity-specific configurations</li>
+<li><strong>Multi-Architecture</strong>: Support for x86_64 and ARM64 architectures</li>
+</ul>
+<h3 id="supported-operating-systems">Supported Operating Systems</h3>
+<p><strong>Rocky Linux (Recommended)</strong>
+- Rocky Linux 8.x and 9.x
+- Default choice for Ubiquity deployments
+- Optimized kickstart configurations for bare metal
+- Full HPC stack support</p>
+<p><strong>Ubuntu Server</strong>
+- Ubuntu 20.04 LTS and 22.04 LTS
+- Cloud-optimized images
+- Extensive package ecosystem</p>
+<p><strong>Fedora Server</strong>
+- Latest stable releases
+- Cutting-edge kernel features
+- Development and testing environments</p>
+<h3 id="quick-start">Quick Start</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Navigate to image builder</span>
+<span class="nb">cd</span><span class="w"> </span>tools/disk-image/mkimage
+
+<span class="c1"># Prepare build environment</span>
+./prep.sh
+
+<span class="c1"># Build all images</span>
+./build-images.sh
+
+<span class="c1"># Build specific images</span>
+<span class="nv">image_filter</span><span class="o">=</span><span class="s2">&quot;rocky&quot;</span><span class="w"> </span>./build-images.sh
+
+<span class="c1"># Specify output format</span>
+<span class="nv">output_type</span><span class="o">=</span><span class="s2">&quot;qcow2,raw&quot;</span><span class="w"> </span>./build-images.sh
+</code></pre></div>
+<h3 id="available-custom-elements">Available Custom Elements</h3>
+<p><strong>Ubiquity Element</strong> (<code>custom-elements/ubiquity/</code>)
+- Core Ubiquity platform integration
+- Kubernetes node preparation
+- Longhorn storage optimization</p>
+<p><strong>MOFED Element</strong> (<code>custom-elements/mofed/</code>)
+- NVIDIA MLNX_OFED network drivers
+- InfiniBand support for HPC workloads
+- High-speed interconnect optimization</p>
+<p><strong>Cloud-init Element</strong> (<code>custom-elements/cloud-init-install/</code>)
+- Cloud environment compatibility
+- Automated system configuration
+- User and SSH key management</p>
+<p><strong>Custom Base Element</strong> (<code>custom-elements/custom-base/</code>)
+- Common configurations across all images
+- Package installations and system tuning
+- Security hardening</p>
+<h2 id="custom-image-creation">Custom Image Creation</h2>
+<h3 id="setting-up-build-environment">Setting Up Build Environment</h3>
+<p><strong>Rocky Linux Build Host:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Install dependencies</span>
+sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>qemu-img<span class="w"> </span>python3-pip<span class="w"> </span>git
+sudo<span class="w"> </span>pip3<span class="w"> </span>install<span class="w"> </span>diskimage-builder
+
+<span class="c1"># Clone Ubiquity repository</span>
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/ubiquitycluster/ubiquity.git
+<span class="nb">cd</span><span class="w"> </span>ubiquity-open/tools/disk-image/mkimage
+
+<span class="c1"># Initialize build environment</span>
+./prep.sh
+</code></pre></div></p>
+<p><strong>Ubuntu Build Host:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Install dependencies</span>
+sudo<span class="w"> </span>apt<span class="w"> </span>update
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>qemu-utils<span class="w"> </span>python3-pip<span class="w"> </span>git
+sudo<span class="w"> </span>pip3<span class="w"> </span>install<span class="w"> </span>diskimage-builder
+
+<span class="c1"># Setup Ubiquity build environment</span>
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/ubiquitycluster/ubiquity.git
+<span class="nb">cd</span><span class="w"> </span>ubiquity-open/tools/disk-image/mkimage
+./prep.sh
+</code></pre></div></p>
+<h3 id="creating-ubiquity-optimized-images">Creating Ubiquity-Optimized Images</h3>
+<p><strong>Basic Ubiquity Node Image:</strong>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">ELEMENTS_PATH</span><span class="o">=</span><span class="s2">&quot;custom-elements:elements&quot;</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">DIB_RELEASE</span><span class="o">=</span><span class="s2">&quot;9&quot;</span><span class="w">  </span><span class="c1"># Rocky 9</span>
+
+disk-image-create<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>vm<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>dhcp-all-interfaces<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>cloud-init-datasources<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>dracut-regenerate<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>growroot<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>rocky-container<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>ubiquity<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>cloud-init-install<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-o<span class="w"> </span>ubiquity-node-rocky9
+</code></pre></div></p>
+<p><strong>HPC-Optimized Image with InfiniBand:</strong>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">ELEMENTS_PATH</span><span class="o">=</span><span class="s2">&quot;custom-elements:elements&quot;</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">DIB_RELEASE</span><span class="o">=</span><span class="s2">&quot;9&quot;</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">DIB_MOFED_FILE</span><span class="o">=</span><span class="s2">&quot;/tmp/MLNX_OFED_LINUX-5.8-1.0.1.1-rhel8.7-x86_64.iso&quot;</span>
+
+disk-image-create<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>vm<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>dhcp-all-interfaces<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>cloud-init-datasources<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>dracut-regenerate<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>growroot<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>rocky-container<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>ubiquity<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>mofed<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>cloud-init-install<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-o<span class="w"> </span>ubiquity-hpc-rocky9
+</code></pre></div></p>
+<p><strong>GPU-Enabled Compute Image:</strong>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">ELEMENTS_PATH</span><span class="o">=</span><span class="s2">&quot;custom-elements:elements&quot;</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">DIB_RELEASE</span><span class="o">=</span><span class="s2">&quot;9&quot;</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">DIB_CUDA_URL</span><span class="o">=</span><span class="s2">&quot;https://developer.download.nvidia.com/compute/cuda/12.2.0/local_installers/cuda_12.2.0_535.54.03_linux.run&quot;</span>
+
+disk-image-create<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>vm<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>dhcp-all-interfaces<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>cloud-init-datasources<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>dracut-regenerate<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>growroot<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>rocky-container<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>ubiquity<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>nvidia-cuda<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>cloud-init-install<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-o<span class="w"> </span>ubiquity-gpu-rocky9
+</code></pre></div></p>
+<h2 id="bare-metal-deployment">Bare Metal Deployment</h2>
+<h3 id="kickstart-based-provisioning">Kickstart-Based Provisioning</h3>
+<p>Ubiquity's bare metal deployment uses automated kickstart installations optimized for HPC environments:</p>
+<p><strong>Key Features:</strong>
+- <strong>Automated Partitioning</strong>: Intelligent disk layout based on available storage
+- <strong>LVM Configuration</strong>: Optimized for Kubernetes and Longhorn storage
+- <strong>Network Configuration</strong>: Support for bonding, VLANs, and complex topologies
+- <strong>Security</strong>: Automated SSH key deployment and system hardening</p>
+<p><strong>Partition Layout (Rocky Linux):</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># System Volume Group (Smallest disk)</span>
+/boot/efi<span class="w">     </span>512MB<span class="w">   </span>vfat
+/boot<span class="w">         </span>2GB<span class="w">     </span>ext4
+/<span class="w">             </span><span class="m">20</span>%<span class="w">     </span>ext4<span class="w">  </span><span class="o">(</span>System<span class="w"> </span>VG<span class="o">)</span>
+/tmp<span class="w">          </span><span class="m">5</span>%<span class="w">      </span>ext4<span class="w">  </span><span class="o">(</span>System<span class="w"> </span>VG<span class="o">)</span>
+/var/log<span class="w">      </span><span class="m">2</span>%<span class="w">      </span>ext4<span class="w">  </span><span class="o">(</span>System<span class="w"> </span>VG<span class="o">)</span>
+/var/crash<span class="w">    </span><span class="m">10</span>%<span class="w">     </span>ext4<span class="w">  </span><span class="o">(</span>System<span class="w"> </span>VG<span class="o">)</span>
+/var/lib/rancher<span class="w"> </span><span class="m">10</span>%<span class="w">  </span>ext4<span class="w">  </span><span class="o">(</span>System<span class="w"> </span>VG<span class="o">)</span>
+/home<span class="w">         </span><span class="m">53</span>%<span class="w">     </span>ext4<span class="w">  </span><span class="o">(</span>System<span class="w"> </span>VG<span class="o">)</span>
+
+<span class="c1"># Data Volume Group (Larger disks)</span>
+/var/lib/kubelet<span class="w">    </span><span class="m">1</span>%<span class="w">   </span>ext4<span class="w">  </span><span class="o">(</span>Data<span class="w"> </span>VG<span class="o">)</span>
+/var/lib/longhorn<span class="w">   </span><span class="m">60</span>%<span class="w">  </span>ext4<span class="w">  </span><span class="o">(</span>Data<span class="w"> </span>VG<span class="o">)</span>
+/home<span class="w">              </span><span class="m">39</span>%<span class="w">   </span>ext4<span class="w">  </span><span class="o">(</span>Data<span class="w"> </span>VG<span class="o">)</span>
+</code></pre></div></p>
+<p><strong>Network Configuration Examples:</strong></p>
+<p><em>Single Interface:</em>
+<div class="highlight"><pre><span></span><code><span class="nt">network_interfaces</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">eno1</span>
+<span class="w">    </span><span class="nt">device</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">eno1</span>
+<span class="w">    </span><span class="nt">ip</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">192.168.1.100</span>
+<span class="w">    </span><span class="nt">netmask</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">255.255.255.0</span>
+<span class="w">    </span><span class="nt">gateway</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">192.168.1.1</span>
+<span class="w">    </span><span class="nt">nameserver</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">192.168.1.1</span>
+</code></pre></div></p>
+<p><em>Bonded Interface:</em>
+<div class="highlight"><pre><span></span><code><span class="nt">network_interfaces</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bond0</span>
+<span class="w">    </span><span class="nt">device</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bond0</span>
+<span class="w">    </span><span class="nt">slaves</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">eno1,eno2</span>
+<span class="w">    </span><span class="nt">bond_opts</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;mode=802.3ad</span><span class="nv"> </span><span class="s">miimon=100&quot;</span>
+<span class="w">    </span><span class="nt">ip</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">192.168.1.100</span>
+<span class="w">    </span><span class="nt">netmask</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">255.255.255.0</span>
+<span class="w">    </span><span class="nt">gateway</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">192.168.1.1</span>
+</code></pre></div></p>
+<p><em>VLAN Configuration:</em>
+<div class="highlight"><pre><span></span><code><span class="nt">network_interfaces</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vlan100</span>
+<span class="w">    </span><span class="nt">device</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">eno1</span>
+<span class="w">    </span><span class="nt">vlanid</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+<span class="w">    </span><span class="nt">ip</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.0.100.100</span>
+<span class="w">    </span><span class="nt">netmask</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">255.255.255.0</span>
+</code></pre></div></p>
+<h3 id="pxe-boot-process">PXE Boot Process</h3>
+<p>Ubiquity implements a comprehensive PXE boot system for bare metal provisioning:</p>
+<pre class="mermaid"><code>flowchart TD
+    A[Bare Metal Node] --&gt; B[PXE Boot Request]
+    B --&gt; C[DHCP Server Response]
+    C --&gt; D[TFTP Bootloader Download]
+    D --&gt; E[HTTP Kickstart Download]
+    E --&gt; F[OS Installation]
+    F --&gt; G[Automated Configuration]
+    G --&gt; H[Kubernetes Join]</code></pre>
+<p><strong>DHCP Configuration:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Node receives IP, boot server, and bootloader info</span>
+subnet<span class="w"> </span><span class="m">192</span>.168.1.0<span class="w"> </span>netmask<span class="w"> </span><span class="m">255</span>.255.255.0<span class="w"> </span><span class="o">{</span>
+<span class="w">    </span>range<span class="w"> </span><span class="m">192</span>.168.1.100<span class="w"> </span><span class="m">192</span>.168.1.200<span class="p">;</span>
+<span class="w">    </span>option<span class="w"> </span>domain-name-servers<span class="w"> </span><span class="m">192</span>.168.1.1<span class="p">;</span>
+<span class="w">    </span>option<span class="w"> </span>domain-name<span class="w"> </span><span class="s2">&quot;ubiquitycluster.local&quot;</span><span class="p">;</span>
+<span class="w">    </span>option<span class="w"> </span>routers<span class="w"> </span><span class="m">192</span>.168.1.1<span class="p">;</span>
+<span class="w">    </span>filename<span class="w"> </span><span class="s2">&quot;pxelinux.0&quot;</span><span class="p">;</span>
+<span class="w">    </span>next-server<span class="w"> </span><span class="m">192</span>.168.1.10<span class="p">;</span>
+<span class="o">}</span>
+</code></pre></div></p>
+<p><strong>Boot Configuration:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># PXE menu entry for Rocky Linux installation</span>
+LABEL<span class="w"> </span>rocky9-install
+<span class="w">    </span>MENU<span class="w"> </span>LABEL<span class="w"> </span>Install<span class="w"> </span>Rocky<span class="w"> </span>Linux<span class="w"> </span><span class="m">9</span><span class="w"> </span><span class="o">(</span>Ubiquity<span class="o">)</span>
+<span class="w">    </span>KERNEL<span class="w"> </span>vmlinuz-rocky9
+<span class="w">    </span>APPEND<span class="w"> </span><span class="nv">initrd</span><span class="o">=</span>initrd-rocky9.img<span class="w"> </span><span class="nv">ks</span><span class="o">=</span>http://192.168.1.10/kickstart/node01.ks
+</code></pre></div></p>
+<h2 id="cloud-deployment">Cloud Deployment</h2>
+<h3 id="cloud-provider-images">Cloud Provider Images</h3>
+<p><strong>AWS AMI Creation:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create AMI-compatible image</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">AWS_DEFAULT_REGION</span><span class="o">=</span><span class="s2">&quot;us-west-2&quot;</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">DIB_RELEASE</span><span class="o">=</span><span class="s2">&quot;9&quot;</span>
+
+disk-image-create<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>vm<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>cloud-init-datasources<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>growroot<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>install-static<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>rocky-container<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>ubiquity<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-t<span class="w"> </span>ami<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-o<span class="w"> </span>ubiquity-aws-rocky9
+</code></pre></div></p>
+<p><strong>Azure VHD Creation:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create Azure-compatible VHD</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">DIB_RELEASE</span><span class="o">=</span><span class="s2">&quot;9&quot;</span>
+
+disk-image-create<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>vm<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>azure<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>cloud-init-datasources<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>growroot<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>rocky-container<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>ubiquity<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-t<span class="w"> </span>vhd<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-o<span class="w"> </span>ubiquity-azure-rocky9
+</code></pre></div></p>
+<p><strong>GCP Image Creation:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create GCP-compatible image</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">DIB_RELEASE</span><span class="o">=</span><span class="s2">&quot;9&quot;</span>
+
+disk-image-create<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>vm<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>google<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>cloud-init-datasources<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>growroot<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>rocky-container<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>ubiquity<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-o<span class="w"> </span>ubiquity-gcp-rocky9
+</code></pre></div></p>
+<p><strong>OpenStack Image Creation:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create OpenStack-compatible qcow2 image</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">DIB_RELEASE</span><span class="o">=</span><span class="s2">&quot;9&quot;</span>
+
+disk-image-create<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>vm<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>dhcp-all-interfaces<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>cloud-init-datasources<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>growroot<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>rocky-container<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>ubiquity<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-o<span class="w"> </span>ubiquity-openstack-rocky9
+
+<span class="c1"># Upload to OpenStack</span>
+openstack<span class="w"> </span>image<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--public<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--disk-format<span class="w"> </span>qcow2<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--container-format<span class="w"> </span>bare<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--file<span class="w"> </span>ubiquity-openstack-rocky9.qcow2<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s2">&quot;Ubiquity Rocky 9&quot;</span>
+</code></pre></div></p>
+<h3 id="cloud-init-configuration">Cloud-init Configuration</h3>
+<p>Ubiquity images include comprehensive cloud-init support:</p>
+<p><strong>User Configuration:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1">#cloud-config</span>
+<span class="nt">users</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admin</span>
+<span class="w">    </span><span class="nt">groups</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">wheel</span>
+<span class="w">    </span><span class="nt">shell</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/bin/bash</span>
+<span class="w">    </span><span class="nt">sudo</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;ALL=(ALL)</span><span class="nv"> </span><span class="s">NOPASSWD:ALL&#39;</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">ssh-authorized-keys</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ssh-rsa AAAAB3NzaC1yc2E... admin@ubiquity</span>
+</code></pre></div></p>
+<p><strong>Package Installation:</strong>
+<div class="highlight"><pre><span></span><code><span class="nt">packages</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kubectl</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">git</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">htop</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">iotop</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nfs-utils</span>
+</code></pre></div></p>
+<p><strong>Service Configuration:</strong>
+<div class="highlight"><pre><span></span><code><span class="nt">runcmd</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">systemctl enable --now docker</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">systemctl enable --now kubelet</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">/opt/ubiquity/setup-node.sh</span>
+</code></pre></div></p>
+<h2 id="advanced-configurations">Advanced Configurations</h2>
+<h3 id="hpc-optimized-images">HPC-Optimized Images</h3>
+<p><strong>InfiniBand and RDMA Support:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Enable RDMA networking for HPC workloads</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">DIB_RELEASE</span><span class="o">=</span><span class="s2">&quot;9&quot;</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">DIB_MOFED_FILE</span><span class="o">=</span><span class="s2">&quot;/path/to/MLNX_OFED_LINUX-5.8-1.0.1.1-rhel9.0-x86_64.iso&quot;</span>
+
+disk-image-create<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>vm<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>dhcp-all-interfaces<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>cloud-init-datasources<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>dracut-regenerate<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>growroot<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>rocky-container<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>ubiquity<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>mofed<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>cloud-init-install<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-o<span class="w"> </span>ubiquity-hpc-ib-rocky9
+</code></pre></div></p>
+<p><strong>Multi-GPU Configurations:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Support for multiple GPU configurations</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">DIB_RELEASE</span><span class="o">=</span><span class="s2">&quot;9&quot;</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">DIB_CUDA_URL</span><span class="o">=</span><span class="s2">&quot;https://developer.download.nvidia.com/compute/cuda/12.2.0/local_installers/cuda_12.2.0_535.54.03_linux.run&quot;</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">DIB_GPU_DRIVER_VERSION</span><span class="o">=</span><span class="s2">&quot;535.54.03&quot;</span>
+
+disk-image-create<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>vm<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>dhcp-all-interfaces<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>cloud-init-datasources<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>dracut-regenerate<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>growroot<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>rocky-container<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>ubiquity<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>nvidia-cuda<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>nvidia-fabric-manager<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>cloud-init-install<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-o<span class="w"> </span>ubiquity-multi-gpu-rocky9
+</code></pre></div></p>
+<p><strong>Container Runtime Integration:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Docker and containerd optimizations for HPC</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">DIB_RELEASE</span><span class="o">=</span><span class="s2">&quot;9&quot;</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">DIB_CONTAINER_RUNTIME</span><span class="o">=</span><span class="s2">&quot;containerd&quot;</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">DIB_DOCKER_STORAGE_DRIVER</span><span class="o">=</span><span class="s2">&quot;overlay2&quot;</span>
+
+disk-image-create<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>vm<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>dhcp-all-interfaces<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>cloud-init-datasources<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>dracut-regenerate<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>growroot<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>rocky-container<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>ubiquity<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>container-runtime<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>nvidia-container-toolkit<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>cloud-init-install<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-o<span class="w"> </span>ubiquity-container-rocky9
+</code></pre></div></p>
+<h3 id="storage-optimizations">Storage Optimizations</h3>
+<p><strong>Longhorn Storage Preparation:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Optimized for Longhorn distributed storage</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">DIB_RELEASE</span><span class="o">=</span><span class="s2">&quot;9&quot;</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">DIB_LONGHORN_VERSION</span><span class="o">=</span><span class="s2">&quot;1.5.1&quot;</span>
+
+disk-image-create<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>vm<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>dhcp-all-interfaces<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>cloud-init-datasources<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>dracut-regenerate<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>growroot<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>rocky-container<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>ubiquity<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>longhorn-prep<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>cloud-init-install<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-o<span class="w"> </span>ubiquity-storage-rocky9
+</code></pre></div></p>
+<p><strong>NFS and Distributed Storage:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Support for NFS and distributed filesystems</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">DIB_RELEASE</span><span class="o">=</span><span class="s2">&quot;9&quot;</span>
+
+disk-image-create<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>vm<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>dhcp-all-interfaces<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>cloud-init-datasources<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>dracut-regenerate<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>growroot<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>rocky-container<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>ubiquity<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>nfs-client<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>cvmfs-client<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>cloud-init-install<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-o<span class="w"> </span>ubiquity-nfs-rocky9
+</code></pre></div></p>
+<h3 id="networking-configurations">Networking Configurations</h3>
+<p><strong>SR-IOV and Hardware Acceleration:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Support for SR-IOV and hardware offloading</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">DIB_RELEASE</span><span class="o">=</span><span class="s2">&quot;9&quot;</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">DIB_SRIOV_DRIVERS</span><span class="o">=</span><span class="s2">&quot;i40e,ixgbe,mlx5_core&quot;</span>
+
+disk-image-create<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>vm<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>dhcp-all-interfaces<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>cloud-init-datasources<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>dracut-regenerate<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>growroot<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>rocky-container<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>ubiquity<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>sriov-support<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>dpdk-support<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>cloud-init-install<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-o<span class="w"> </span>ubiquity-sriov-rocky9
+</code></pre></div></p>
+<p><strong>Advanced Security Features:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Security hardening and compliance</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">DIB_RELEASE</span><span class="o">=</span><span class="s2">&quot;9&quot;</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">DIB_SECURITY_PROFILE</span><span class="o">=</span><span class="s2">&quot;hardened&quot;</span>
+
+disk-image-create<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>vm<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>dhcp-all-interfaces<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>cloud-init-datasources<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>dracut-regenerate<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>growroot<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>rocky-container<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>ubiquity<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>security-hardening<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>audit-logging<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>cloud-init-install<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-o<span class="w"> </span>ubiquity-secure-rocky9
+</code></pre></div></p>
+<h3 id="performance-tuning">Performance Tuning</h3>
+<p><strong>Kernel and System Optimizations:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Custom kernel parameters for HPC workloads</span>
+<span class="nt">kernel_parameters</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;intel_iommu=on&quot;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;iommu=pt&quot;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;hugepagesz=1G&quot;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;hugepages=32&quot;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;default_hugepagesz=1G&quot;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;isolcpus=1-15,17-31&quot;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;rcu_nocbs=1-15,17-31&quot;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;nohz_full=1-15,17-31&quot;</span>
+</code></pre></div></p>
+<p><strong>CPU Tuning:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># CPU governor and frequency scaling</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;performance&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>/sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
+
+<span class="c1"># CPU isolation for real-time workloads</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;1-15,17-31&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>/sys/devices/system/cpu/isolated
+</code></pre></div></p>
+<p><strong>Memory Optimizations:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Huge page configuration</span>
+<span class="nb">echo</span><span class="w"> </span><span class="m">1024</span><span class="w"> </span>&gt;<span class="w"> </span>/proc/sys/vm/nr_hugepages
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;vm.nr_hugepages = 1024&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>/etc/sysctl.conf
+
+<span class="c1"># NUMA policy optimization</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;interleave&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>/proc/sys/kernel/numa_balancing
+</code></pre></div></p>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="build-issues">Build Issues</h3>
+<p><strong>Common Build Failures:</strong></p>
+<p><em>Insufficient Disk Space:</em>
+<div class="highlight"><pre><span></span><code><span class="c1"># Check available space</span>
+df<span class="w"> </span>-h<span class="w"> </span>/tmp
+
+<span class="c1"># Clean up previous builds</span>
+rm<span class="w"> </span>-rf<span class="w"> </span>/tmp/image.*<span class="w"> </span>~/.cache/diskimage-builder/
+
+<span class="c1"># Use alternative temp directory</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">TMP_DIR</span><span class="o">=</span><span class="s2">&quot;/var/tmp&quot;</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">DIB_IMAGE_CACHE</span><span class="o">=</span><span class="s2">&quot;/var/cache/diskimage-builder&quot;</span>
+</code></pre></div></p>
+<p><em>Network Connectivity Issues:</em>
+<div class="highlight"><pre><span></span><code><span class="c1"># Verify repository access</span>
+curl<span class="w"> </span>-I<span class="w"> </span>http://mirror.centos.org/centos/
+
+<span class="c1"># Configure proxy if needed</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">HTTP_PROXY</span><span class="o">=</span><span class="s2">&quot;http://proxy.example.com:8080&quot;</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">HTTPS_PROXY</span><span class="o">=</span><span class="s2">&quot;https://proxy.example.com:8080&quot;</span>
+</code></pre></div></p>
+<p><em>Element Dependencies:</em>
+<div class="highlight"><pre><span></span><code><span class="c1"># Verify custom elements path</span>
+ls<span class="w"> </span>-la<span class="w"> </span>custom-elements/
+
+<span class="c1"># Check element permissions</span>
+find<span class="w"> </span>custom-elements/<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*.sh&quot;</span><span class="w"> </span>-exec<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span><span class="o">{}</span><span class="w"> </span><span class="se">\;</span>
+
+<span class="c1"># Debug element execution</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">DIB_DEBUG_TRACE</span><span class="o">=</span><span class="m">1</span>
+</code></pre></div></p>
+<h3 id="deployment-issues">Deployment Issues</h3>
+<p><strong>PXE Boot Problems:</strong></p>
+<p><em>DHCP Configuration:</em>
+<div class="highlight"><pre><span></span><code><span class="c1"># Check DHCP server status</span>
+systemctl<span class="w"> </span>status<span class="w"> </span>dhcpd
+
+<span class="c1"># Verify lease file</span>
+tail<span class="w"> </span>-f<span class="w"> </span>/var/lib/dhcpd/dhcpd.leases
+
+<span class="c1"># Test DHCP response</span>
+dhcping<span class="w"> </span>-s<span class="w"> </span><span class="m">192</span>.168.1.10<span class="w"> </span>-c<span class="w"> </span><span class="m">192</span>.168.1.100
+</code></pre></div></p>
+<p><em>TFTP Issues:</em>
+<div class="highlight"><pre><span></span><code><span class="c1"># Verify TFTP service</span>
+systemctl<span class="w"> </span>status<span class="w"> </span>tftp
+
+<span class="c1"># Test TFTP connectivity</span>
+tftp<span class="w"> </span><span class="m">192</span>.168.1.10<span class="w"> </span>-c<span class="w"> </span>get<span class="w"> </span>pxelinux.0
+
+<span class="c1"># Check file permissions</span>
+ls<span class="w"> </span>-la<span class="w"> </span>/var/lib/tftpboot/
+</code></pre></div></p>
+<p><em>Kickstart Problems:</em>
+<div class="highlight"><pre><span></span><code><span class="c1"># Validate kickstart syntax</span>
+ksvalidator<span class="w"> </span>/var/www/html/kickstart/node01.ks
+
+<span class="c1"># Check HTTP access</span>
+curl<span class="w"> </span>-I<span class="w"> </span>http://192.168.1.10/kickstart/node01.ks
+
+<span class="c1"># Monitor installation logs</span>
+tail<span class="w"> </span>-f<span class="w"> </span>/var/log/httpd/access_log
+</code></pre></div></p>
+<h3 id="performance-issues">Performance Issues</h3>
+<p><strong>Image Size Optimization:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Remove unnecessary packages</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">DIB_MINIMAL_IMAGE</span><span class="o">=</span><span class="m">1</span>
+
+<span class="c1"># Clean package cache</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">DIB_APT_CLEAN</span><span class="o">=</span><span class="m">1</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">DIB_YUM_CLEAN</span><span class="o">=</span><span class="m">1</span>
+
+<span class="c1"># Compress images</span>
+qemu-img<span class="w"> </span>convert<span class="w"> </span>-c<span class="w"> </span>-O<span class="w"> </span>qcow2<span class="w"> </span>input.qcow2<span class="w"> </span>output-compressed.qcow2
+</code></pre></div></p>
+<p><strong>Boot Time Optimization:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Reduce systemd timeout</span>
+sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;s/#DefaultTimeoutStartSec=90s/DefaultTimeoutStartSec=30s/&#39;</span><span class="w"> </span>/etc/systemd/system.conf
+
+<span class="c1"># Disable unnecessary services</span>
+systemctl<span class="w"> </span>disable<span class="w"> </span>NetworkManager-wait-online
+systemctl<span class="w"> </span>disable<span class="w"> </span>plymouth-start
+</code></pre></div></p>
+<h3 id="monitoring-and-logging">Monitoring and Logging</h3>
+<p><strong>Build Process Monitoring:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Monitor build progress</span>
+tail<span class="w"> </span>-f<span class="w"> </span>/tmp/dib-build-*.log
+
+<span class="c1"># Check system resources during build</span>
+watch<span class="w"> </span>-n<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="s1">&#39;df -h &amp;&amp; free -h &amp;&amp; ps aux | grep disk-image&#39;</span>
+</code></pre></div></p>
+<p><strong>Runtime Diagnostics:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Check node health</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>nodes<span class="w"> </span>-o<span class="w"> </span>wide
+
+<span class="c1"># Monitor system metrics</span>
+top
+iostat<span class="w"> </span>-x<span class="w"> </span><span class="m">1</span>
+sar<span class="w"> </span>-u<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">5</span>
+
+<span class="c1"># Network diagnostics</span>
+ss<span class="w"> </span>-tuln
+netstat<span class="w"> </span>-i
+</code></pre></div></p>
+<p><strong>Log Analysis:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># System logs</span>
+journalctl<span class="w"> </span>-f<span class="w"> </span>-u<span class="w"> </span>kubelet
+journalctl<span class="w"> </span>-f<span class="w"> </span>-u<span class="w"> </span>docker
+
+<span class="c1"># Kubernetes logs</span>
+kubectl<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>kube-system<span class="w"> </span>-l<span class="w"> </span>k8s-app<span class="o">=</span>kubelet
+
+<span class="c1"># Storage logs</span>
+kubectl<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>longhorn-system<span class="w"> </span>-l<span class="w"> </span><span class="nv">app</span><span class="o">=</span>longhorn-manager
+</code></pre></div></p>
+<h3 id="recovery-procedures">Recovery Procedures</h3>
+<p><strong>Failed Deployments:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Reset failed node</span>
+ansible-playbook<span class="w"> </span>-i<span class="w"> </span>inventories/production<span class="w"> </span>clean.yml<span class="w"> </span>--limit<span class="w"> </span>failed_node
+
+<span class="c1"># Reinstall from PXE</span>
+ipmitool<span class="w"> </span>-I<span class="w"> </span>lanplus<span class="w"> </span>-H<span class="w"> </span>&lt;bmc_ip&gt;<span class="w"> </span>-U<span class="w"> </span>admin<span class="w"> </span>-P<span class="w"> </span>password<span class="w"> </span>chassis<span class="w"> </span>bootdev<span class="w"> </span>pxe
+ipmitool<span class="w"> </span>-I<span class="w"> </span>lanplus<span class="w"> </span>-H<span class="w"> </span>&lt;bmc_ip&gt;<span class="w"> </span>-U<span class="w"> </span>admin<span class="w"> </span>-P<span class="w"> </span>password<span class="w"> </span>power<span class="w"> </span>reset
+</code></pre></div></p>
+<p><strong>Image Corruption:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Verify image integrity</span>
+qemu-img<span class="w"> </span>check<span class="w"> </span>ubiquity-node-rocky9.qcow2
+
+<span class="c1"># Repair corrupted image</span>
+qemu-img<span class="w"> </span>convert<span class="w"> </span>-f<span class="w"> </span>qcow2<span class="w"> </span>-O<span class="w"> </span>qcow2<span class="w"> </span>corrupted.qcow2<span class="w"> </span>repaired.qcow2
+
+<span class="c1"># Rebuild if necessary</span>
+rm<span class="w"> </span>-f<span class="w"> </span>corrupted.qcow2
+./build-images.sh
+</code></pre></div></p>
+<p><strong>Configuration Recovery:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Backup configurations</span>
+cp<span class="w"> </span>-r<span class="w"> </span>custom-elements/<span class="w"> </span>custom-elements.backup.<span class="k">$(</span>date<span class="w"> </span>+%Y%m%d<span class="k">)</span>
+
+<span class="c1"># Restore from version control</span>
+git<span class="w"> </span>checkout<span class="w"> </span>--<span class="w"> </span>custom-elements/
+
+<span class="c1"># Reset to working configuration</span>
+git<span class="w"> </span>reset<span class="w"> </span>--hard<span class="w"> </span>&lt;working_commit_hash&gt;
+</code></pre></div></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; The Ubiquity Authors
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.indexes", "navigation.expand", "search.highlight", "search.share", "navigation.top", "navigation.tracking", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -4,7 +4,7 @@ terraform {
 
 module "aws" {
   source         = "./aws"
-  config_git_url = "https://github.com/logicalisuki/ubiq-playbooks.git"
+  config_git_url = "https://github.com/ubiquitycluster/ubiq-playbooks.git"
   config_version = "11.1"
 
   cluster_name = "phoenix"

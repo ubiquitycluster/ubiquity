@@ -1,0 +1,3856 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://ubiquitycluster.github.io/ubiquity/reference/metal3/api/">
+      
+      
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>API and Resource Definitions - Ubiquity</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.342714a4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#api-and-resource-definitions" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Ubiquity" class="md-header__button md-logo" aria-label="Ubiquity" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Ubiquity
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              API and Resource Definitions
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ubiquitycluster/ubiquity" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ubiquitycluster/ubiquity
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Ubiquity" class="md-nav__button md-logo" aria-label="Ubiquity" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Ubiquity
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ubiquitycluster/ubiquity" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ubiquitycluster/ubiquity
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../admin-guide/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Admin Guide
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Admin Guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Deployment
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Deployment
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../admin-guide/deployment/prerequisites/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Prerequisites
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../admin-guide/deployment/configure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Configure
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../admin-guide/deployment/sandbox/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Sandbox
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../admin-guide/deployment/on-prem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    On-Premises
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../admin-guide/deployment/external-resources/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    External Resources
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../admin-guide/deployment/post-installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Post Installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_2_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2_7" id="__nav_3_2_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Production
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_2_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2_7">
+            <span class="md-nav__icon md-icon"></span>
+            Production
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../admin-guide/deployment/production/prerequisites/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Prerequisites
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../admin-guide/deployment/production/external-resources/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    External Resources
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../admin-guide/deployment/production/configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../admin-guide/deployment/production/deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Deployment
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../admin-guide/deployment/production/post-installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Post Installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../admin-guide/deployment/production/airgapping/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Air Gapping
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../admin-guide/deployment/production/awx-postinstall/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    AWX Post Install
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../admin-guide/deployment/production/hfi-infiniband/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    InfiniBand
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_2_8" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../admin-guide/deployment/cloud/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Cloud
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_2_8" id="__nav_3_2_8_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_2_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2_8">
+            <span class="md-nav__icon md-icon"></span>
+            Cloud
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../admin-guide/deployment/cloud/terraform_cloud/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Terraform Cloud
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Administration
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Administration
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3_1" id="__nav_3_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Tutorials
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Tutorials
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../admin-guide/administration/tutorials/add-or-remove-nodes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Add/Remove Nodes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../admin-guide/administration/tutorials/backup-cluster/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Backup Cluster
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../admin-guide/administration/tutorials/expose-services-to-the-internet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Expose Services
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../admin-guide/administration/tutorials/manual-dns-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Manual DNS Setup
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../admin-guide/administration/tutorials/run-commands-on-multiple-nodes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Multi-Node Commands
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../admin-guide/administration/tutorials/single-node-cluster-adjustments/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Single Node Adjustments
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../admin-guide/administration/tutorials/user-accounts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    User Accounts
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../admin-guide/administration/tutorials/use-both-github-and-gitea/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    GitHub and Gitea
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../admin-guide/administration/tutorials/updating-documentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Update Documentation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../admin-guide/administration/tutorials/kube-prometheus-stack/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Monitoring Stack
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../admin-guide/administration/tutorials/loki-promtail/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Logging Stack
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../admin-guide/administration/tutorials/ssl-cert-change-git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SSL Certificates
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../admin-guide/administration/tutorials/install-pre-commit-hooks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Pre-commit Hooks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../admin-guide/administration/tutorials/shutdown/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Shutdown Procedures
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Concepts
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            Concepts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../admin-guide/concepts/certificate-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Certificate Management
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../admin-guide/concepts/opus-container/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Opus Container
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../admin-guide/concepts/pxe-boot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    PXE Boot
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Runbooks
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            Runbooks
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../admin-guide/runbooks/argocd/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ArgoCD
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../admin-guide/runbooks/cert-manager/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cert Manager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../admin-guide/runbooks/dnsmasq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    DNSmasq
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../admin-guide/runbooks/documentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Documentation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../admin-guide/runbooks/gitea/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Gitea
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../admin-guide/runbooks/longhorn/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Longhorn
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../admin-guide/runbooks/vault/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Vault
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../admin-guide/runbooks/onyxia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Onyxia
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../admin-guide/runbooks/osimages/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    OS Images
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../admin-guide/runbooks/ofed/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    OFED
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../admin-guide/runbooks/matrix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Matrix
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../admin-guide/runbooks/etcd-alerts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    etcd Alerts
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_5_13" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../admin-guide/runbooks/awx/backup/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    AWX
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_5_13" id="__nav_3_5_13_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_5_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5_13">
+            <span class="md-nav__icon md-icon"></span>
+            AWX
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../admin-guide/runbooks/awx/restore/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Restore
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../admin-guide/runbooks/awx/git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Git Integration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../admin-guide/runbooks/awx/runner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Runner
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../admin-guide/runbooks/awx/tips/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tips
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            Troubleshooting
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../admin-guide/troubleshooting/bmh-provisioning-error/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    BMH Provisioning
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../user-guide/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    User Guide
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            User Guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/onboarding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Onboarding
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/EasyBuild/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    EasyBuild
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    About
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            About
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../about/support/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Support
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../about/screenshots/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Screenshots
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../changelog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Changelog
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#baremetalhost" class="md-nav__link">
+    <span class="md-ellipsis">
+      BareMetalHost
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="BareMetalHost">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#baremetalhost-spec" class="md-nav__link">
+    <span class="md-ellipsis">
+      BareMetalHost spec
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="BareMetalHost spec">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bmc" class="md-nav__link">
+    <span class="md-ellipsis">
+      bmc
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#online" class="md-nav__link">
+    <span class="md-ellipsis">
+      online
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bootmacaddress" class="md-nav__link">
+    <span class="md-ellipsis">
+      bootMACAddress
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bootmode" class="md-nav__link">
+    <span class="md-ellipsis">
+      bootMode
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#consumerref" class="md-nav__link">
+    <span class="md-ellipsis">
+      consumerRef
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#externallyprovisioned" class="md-nav__link">
+    <span class="md-ellipsis">
+      externallyProvisioned
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#image" class="md-nav__link">
+    <span class="md-ellipsis">
+      image
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#userdata" class="md-nav__link">
+    <span class="md-ellipsis">
+      userData
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#networkdata" class="md-nav__link">
+    <span class="md-ellipsis">
+      networkData
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    <span class="md-ellipsis">
+      description
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hardwareprofile" class="md-nav__link">
+    <span class="md-ellipsis">
+      hardwareProfile
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#raid" class="md-nav__link">
+    <span class="md-ellipsis">
+      raid
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#firmware" class="md-nav__link">
+    <span class="md-ellipsis">
+      firmware
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rootdevicehints" class="md-nav__link">
+    <span class="md-ellipsis">
+      rootDeviceHints
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#automatedcleaningmode" class="md-nav__link">
+    <span class="md-ellipsis">
+      automatedCleaningMode
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#customdeploy" class="md-nav__link">
+    <span class="md-ellipsis">
+      customDeploy
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#baremetalhost-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      BareMetalHost status
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="BareMetalHost status">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#goodcredentials" class="md-nav__link">
+    <span class="md-ellipsis">
+      goodCredentials
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#triedcredentials" class="md-nav__link">
+    <span class="md-ellipsis">
+      triedCredentials
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lastupdated" class="md-nav__link">
+    <span class="md-ellipsis">
+      lastUpdated
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operationalstatus" class="md-nav__link">
+    <span class="md-ellipsis">
+      operationalStatus
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#errormessage" class="md-nav__link">
+    <span class="md-ellipsis">
+      errorMessage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hardware" class="md-nav__link">
+    <span class="md-ellipsis">
+      hardware
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hardwareprofile-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      hardwareProfile (status)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poweredon" class="md-nav__link">
+    <span class="md-ellipsis">
+      poweredOn
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#provisioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      provisioning
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#baremetalhost-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      BareMetalHost Example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#triggering-provisioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      Triggering Provisioning
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unmanaged-hosts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Unmanaged Hosts
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pausing-reconciliation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pausing reconciliation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#detaching-hosts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Detaching hosts
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hostfirmwaresettings" class="md-nav__link">
+    <span class="md-ellipsis">
+      HostFirmwareSettings
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="HostFirmwareSettings">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hostfirmwaresettings-spec" class="md-nav__link">
+    <span class="md-ellipsis">
+      HostFirmwareSettings spec
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="HostFirmwareSettings spec">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#spec-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      spec settings
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hostfirmwaresettings-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      HostFirmwareSettings status
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="HostFirmwareSettings status">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#status-schema" class="md-nav__link">
+    <span class="md-ellipsis">
+      status schema
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#status-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      status settings
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#status-conditions" class="md-nav__link">
+    <span class="md-ellipsis">
+      status conditions
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hostfirmwaresettings-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      HostFirmwareSettings Example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#firmwareschema" class="md-nav__link">
+    <span class="md-ellipsis">
+      FirmwareSchema
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="FirmwareSchema">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#firmwareschema-spec" class="md-nav__link">
+    <span class="md-ellipsis">
+      FirmwareSchema spec
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="FirmwareSchema spec">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#spec-schema" class="md-nav__link">
+    <span class="md-ellipsis">
+      spec schema
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hardwarevendor" class="md-nav__link">
+    <span class="md-ellipsis">
+      hardwareVendor
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hardwaremodel" class="md-nav__link">
+    <span class="md-ellipsis">
+      hardwareModel
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#firmwareschema-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      FirmwareSchema Example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hardwaredata" class="md-nav__link">
+    <span class="md-ellipsis">
+      HardwareData
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="HardwareData">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hardwaredata-spec" class="md-nav__link">
+    <span class="md-ellipsis">
+      HardwareData spec
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preprovisioningimage" class="md-nav__link">
+    <span class="md-ellipsis">
+      PreprovisioningImage
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="PreprovisioningImage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preprovisioningimage-spec" class="md-nav__link">
+    <span class="md-ellipsis">
+      PreprovisioningImage spec
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preprovisioningimage-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      PreprovisioningImage status
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="api-and-resource-definitions">API and Resource Definitions</h1>
+<h2 id="baremetalhost">BareMetalHost</h2>
+<p><strong>Metal³</strong> introduces the concept of <strong>BareMetalHost</strong> resource, which
+defines a physical host and its properties. The <strong>BareMetalHost</strong> embeds
+two well differentiated sections, the bare metal host specification
+and its current status.</p>
+<h3 id="baremetalhost-spec">BareMetalHost spec</h3>
+<p>The <em>BareMetalHost's</em> <em>spec</em> defines the desire state of the host. It contains
+mainly, but not only, provisioning details.</p>
+<h4 id="bmc">bmc</h4>
+<p>The <code>bmc</code> fields contain the connection information for the BMC
+(Baseboard Management Controller) on the host.</p>
+<p>The sub-fields are</p>
+<ul>
+<li><em>address</em> -- The URL for communicating with the BMC controller, based
+  on the provider being used. See below for more details.</li>
+<li><em>credentialsName</em> -- A reference to a <em>secret</em> containing the
+  username and password for the BMC.</li>
+<li><em>disableCertificateVerification</em> -- A boolean to skip certificate
+    validation when true.</li>
+</ul>
+<p>BMC URLs vary based on the type of BMC and the protocol used to
+communicate with them.</p>
+<table>
+<thead>
+<tr>
+<th>Technology</th>
+<th>Protocol</th>
+<th>Boot method</th>
+<th>Format</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Generic IPMI</td>
+<td>IPMI</td>
+<td>iPXE</td>
+<td><code>ipmi://&lt;host&gt;:&lt;port&gt;</code> or just <code>&lt;host&gt;:&lt;port&gt;</code></td>
+<td>Port is optional, defaults to 623</td>
+</tr>
+<tr>
+<td>Generic Redfish</td>
+<td>Redfish</td>
+<td>iPXE</td>
+<td><code>redfish://&lt;host&gt;:&lt;port&gt;/&lt;systemID&gt;</code></td>
+<td>System ID is a path like <code>/redfish/v1/Systems/System.Embedded.1</code></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Virtual media</td>
+<td><code>redfish-virtualmedia://&lt;host&gt;:&lt;port&gt;/&lt;systemID&gt;</code></td>
+<td>Virtual media support is vendor-dependent. Should not be used for Dell.</td>
+</tr>
+<tr>
+<td>Dell iDRAC</td>
+<td>WSMAN</td>
+<td>iPXE</td>
+<td><code>idrac://&lt;host&gt;:&lt;port&gt;</code></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Redfish</td>
+<td>iPXE</td>
+<td><code>idrac-redfish://&lt;host&gt;:&lt;port&gt;/&lt;systemID&gt;</code></td>
+<td>See above about system ID.</td>
+</tr>
+<tr>
+<td></td>
+<td>Redfish</td>
+<td>Virtual media</td>
+<td><code>idrac-virtualmedia://&lt;host&gt;:&lt;port&gt;/&lt;systemID&gt;</code></td>
+<td>See above about system ID.</td>
+</tr>
+<tr>
+<td>Fujitsu iRMC</td>
+<td>iRMC</td>
+<td>iPXE</td>
+<td><code>irmc://&lt;host&gt;:&lt;port&gt;</code></td>
+<td>Port is optional, the default is 443.</td>
+</tr>
+<tr>
+<td>HUAWEI ibmc</td>
+<td>ibmc</td>
+<td>iPXE</td>
+<td><code>ibmc://&lt;host&gt;:&lt;port&gt;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>HPE iLO 4</td>
+<td>iLO</td>
+<td>iPXE</td>
+<td><code>ilo4://&lt;host&gt;:&lt;port&gt;</code></td>
+<td>Port is optional, the default is 443.</td>
+</tr>
+<tr>
+<td></td>
+<td>iLO</td>
+<td>Virtual media</td>
+<td><code>ilo4-virtualmedia://&lt;host&gt;:&lt;port&gt;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>HPE iLO 5</td>
+<td>iLO</td>
+<td>iPXE</td>
+<td><code>ilo5://&lt;host&gt;:&lt;port&gt;</code></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Redfish</td>
+<td>iPXE</td>
+<td><code>ilo5-redfish://&lt;host&gt;:&lt;port&gt;/&lt;systemID&gt;</code></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Redfish</td>
+<td>Virtual media</td>
+<td><code>ilo5-virtualmedia://&lt;host&gt;:&lt;port&gt;/&lt;systemID&gt;</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>All protocols based on HTTPS (i.e. not IPMI) with an exception of iRMC allow
+optionally specifying the carrier protocol in the form of <code>+http</code> or <code>+https</code>,
+for example: <code>redfish+http://...</code> or <code>idrac-virtualmedia+https</code>. iLO (both
+versions) only support HTTPS. When not specified, HTTPS is used by default.</p>
+<h4 id="online">online</h4>
+<p>A boolean indicating whether the host should be powered on (true) or
+off (false). Changing this value will trigger a change in power state
+on the physical host.</p>
+<h4 id="bootmacaddress">bootMACAddress</h4>
+<p>The MAC address of the NIC used for provisioning the host.</p>
+<h4 id="bootmode">bootMode</h4>
+<p>The boot mode of the host, defaults to <code>UEFI</code>, can also be set
+to <code>legacy</code> for BIOS boot, or <code>UEFISecureBoot</code>.</p>
+<h4 id="consumerref">consumerRef</h4>
+<p>A reference to another resource that is using the host, it could be
+empty if the host is not being currently used.  For example, a
+<em>Machine</em> resource when the host is being used by the
+<a href="https://github.com/kubernetes-sigs/cluster-api"><em>machine-api</em></a>.</p>
+<h4 id="externallyprovisioned">externallyProvisioned</h4>
+<p>A boolean indicating whether the host provisioning and deprovisioning
+are managed externally. When set:</p>
+<ul>
+<li>Power status can still be managed using the <code>online</code> field.</li>
+<li>Hardware inventory will be monitored, but no provisioning or deprovisioning
+  operations are performed on the host.</li>
+</ul>
+<h4 id="image">image</h4>
+<p>Holds details for the image to be deployed on a given host.</p>
+<p>The sub-fields are</p>
+<ul>
+<li><em>url</em> -- The URL of an image to deploy to the host.</li>
+<li><em>checksum</em> -- The actual checksum or a URL to a file containing
+  the checksum for the image at <em>image.url</em>.</li>
+<li><em>checksumType</em> -- Checksum algorithms can be specified. Currently
+  only <code>md5</code>, <code>sha256</code>, <code>sha512</code> are recognized. If nothing is specified
+  <code>md5</code> is assumed.</li>
+<li><em>format</em> -- This is the disk format of the image. It can be one of <code>raw</code>,
+  <code>qcow2</code>, <code>vdi</code>, <code>vmdk</code>, <code>live-iso</code> or be left unset.
+  Setting it to raw enables raw image streaming in Ironic agent for that image.
+  Setting it to live-iso enables iso images to live boot without deploying
+  to disk, in this case the checksum fields are ignored.</li>
+</ul>
+<p>Even though the image sub-fields are required by Ironic,
+when the host provisioning is managed externally via <code>externallyProvisioned: true</code>,
+and power control isn't needed, the fields can be left empty.</p>
+<h4 id="userdata">userData</h4>
+<p>A reference to the Secret containing the cloudinit user data and its
+namespace, so it can be attached to the host before it boots for
+configuring different aspects of the OS (like networking, storage,
+...).</p>
+<h4 id="networkdata">networkData</h4>
+<p>A reference to the Secret containing the network configuration data
+(e.g. network_data.json) and its namespace, so it can be attached to
+the host before it boots to set network up</p>
+<h4 id="description">description</h4>
+<p>A human-provided string to help identify the host.</p>
+<h4 id="hardwareprofile">hardwareProfile</h4>
+<p><strong>This field is deprecated. See rootDeviceHints instead.</strong></p>
+<p>The name of the hardware profile to use. The following are the current
+supported <code>hardwareProfile</code> settings and their corresponding root
+devices.</p>
+<table>
+<thead>
+<tr>
+<th><strong>hardwareProfile</strong></th>
+<th><strong>Root Device</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>unknown</code></td>
+<td>/dev/sda</td>
+</tr>
+<tr>
+<td><code>libvirt</code></td>
+<td>/dev/vda</td>
+</tr>
+<tr>
+<td><code>dell</code></td>
+<td>HCTL: 0:0:0:0</td>
+</tr>
+<tr>
+<td><code>dell-raid</code></td>
+<td>HCTL: 0:2:0:0</td>
+</tr>
+<tr>
+<td><code>openstack</code></td>
+<td>/dev/vdb</td>
+</tr>
+</tbody>
+</table>
+<p><strong>NOTE:</strong> These are subject to change.</p>
+<h4 id="raid">raid</h4>
+<p>This field contains the information about the RAID configuration for bare
+metal servers.</p>
+<p>The sub-fields are:</p>
+<ul>
+<li><em>hardwareRAIDVolumes</em> -- It contains the list of logical disks for hardware
+   RAID. If rootDeviceHints isn't used, the first volume is the root volume.
+   Furthermore, it defines the desired configuration of volume in hardware RAID.</li>
+<li><em>level</em> -- RAID level for the logical disk. The following levels are
+     supported: <code>0</code>,<code>1</code>,<code>2</code>,<code>5</code>,<code>6</code>,<code>1+0</code>,<code>5+0</code>,<code>6+0</code>.</li>
+<li><em>name</em> -- Name of the volume. Should be unique within the server. If not
+     specified, volume name will be auto-generated.</li>
+<li><em>numberOfPhysicalDisks</em> -- Integer, number of physical disks to use for the
+     logical disk. Defaults to minimum number of disks required for the
+     particular RAID level.</li>
+<li><em>physicalDisks</em> -- List of names of physical disks (Strings). This is an
+     optional field. If specified, the <code>controller</code> field must be specified too.</li>
+<li><em>controller</em> -- String, Name of the RAID controller to be used in the
+      hardware RAID volume. Optional field.</li>
+<li><em>rotational</em> -- If true, select only rotational disks, if false - only
+     solid-state and NVMe. Any disk types are used by default.</li>
+<li><em>sizeGibibytes</em> -- Size (Integer) of the logical disk to be created in GiB.
+     If unspecified or set to 0, the maximum capacity of disk will be used for
+     logical disk.</li>
+<li><em>softwareRAIDVolumes</em> -- It contains the list of logical disks for software
+   RAID. If rootDeviceHints isn't used, the first volume is the root volume. If
+   HardwareRAIDVolumes is set this item will be invalid. The number of created
+   Software RAID devices must be 1 or 2. If there is only one Software RAID
+   device, it has to be a RAID-1. If there are two, the first one has to be a
+   RAID-1, while the RAID level for the second one can be 0, 1, or 1+0. As the
+   first RAID device will be the deployment device, enforcing a RAID-1 reduces
+   the risk of ending up with a non-booting node in case of a disk failure.
+   Furthermore, SoftwareRAIDVolume defines the desired configuration of volume
+   in software RAID.</li>
+<li><em>level</em> -- RAID level for the logical disk. The following levels are
+     supported: <code>0</code>,<code>1</code>,<code>1+0</code>.</li>
+<li><em>physicalDisks</em> -- A list of device hints, the number of items should be
+     greater than or equal to 2.</li>
+<li><em>sizeGibibytes</em> -- Size (Integer) of the logical disk to be created in
+     GiB. If unspecified or set to 0, the maximum capacity of disk will be
+     used for logical disk.</li>
+</ul>
+<p>If you do not set the RAID field, we will keep the current RAID configuration.</p>
+<p>You can set the <code>hardwareRAIDVolume</code> as an empty slice to clear the hardware
+RAID configuration, for example:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">spec</span><span class="p">:</span>
+<span class="w">   </span><span class="nt">raid</span><span class="p">:</span>
+<span class="w">     </span><span class="nt">hardwareRAIDVolume</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
+</code></pre></div>
+<p><strong>NOTE:</strong> Currently the 'raid' field is only supported by ilo5/idrac/irmc.</p>
+<p><strong>NOTE:</strong> Do not try to simultaneously delete hardware RAID volumes and add
+software RAID volumes. Delete hardware RAID first, wait for the host to settle
+down, add software volumes afterwards.</p>
+<p><strong>NOTE:</strong> If you got following error message:</p>
+<ol>
+<li>raid settings are defined, but the node's driver %s does not support RAID.</li>
+<li>node's driver %s does not support hardware RAID.</li>
+</ol>
+<p>You can solve it by:</p>
+<ol>
+<li>Keep raid field is nil.</li>
+<li>Keep hardwareRAIDVolumes field is nil.</li>
+</ol>
+<p>If the error message you get isn't included the above, you may need to check
+whether the BM has a RAID controller and keep the raid field blank.</p>
+<h4 id="firmware">firmware</h4>
+<p>This field contains the information about the BIOS configuration for bare
+metal servers.</p>
+<p>The sub-fields are:</p>
+<ul>
+<li><em>simultaneousMultithreadingEnabled</em> -- Allows a single physical processor
+  core to appear as several logical processors. This supports following
+  options: true, false.</li>
+<li><em>sriovEnabled</em> -- SR-IOV support enables a hypervisor to create virtual
+  instances of a PCI-express device, potentially increasing performance.
+  This supports following options: true, false.</li>
+<li><em>virtualizationEnabled</em> -- Supports the virtualization of platform
+  hardware. This supports following options: true, false.</li>
+</ul>
+<p><strong>NOTE:</strong> Currently the <code>firmware</code> field is only supported by ilo4/ilo5/irmc
+/idrac.</p>
+<h4 id="rootdevicehints">rootDeviceHints</h4>
+<p>Guidance for how to choose the device to receive the image being
+provisioned. The storage devices are examined in the order they are
+discovered during inspection and the hint values are compared to the
+inspected values. The first discovered device that matches is
+used. Hints can be combined, and if multiple hints are provided then a
+device must match all hints in order to be selected.</p>
+<p>The sub-fields are</p>
+<ul>
+<li><em>deviceName</em> -- A string containing a Linux device name like
+  <code>/dev/vda</code>. The hint must match the actual value exactly.</li>
+<li><em>hctl</em> -- A string containing a SCSI bus address like
+  <code>0:0:0:0</code>. The hint must match the actual value exactly.</li>
+<li><em>model</em> -- A string containing a vendor-specific device
+  identifier. The hint can be a substring of the actual value.</li>
+<li><em>vendor</em> -- A string containing the name of the vendor or
+  manufacturer of the device. The hint can be a substring of the
+  actual value.</li>
+<li><em>serialNumber</em> -- A string contianing the device serial
+  number. The hint must match the actual value exactly.</li>
+<li><em>minSizeGigabytes</em> -- An integer representing the minimum size of the
+  device in Gigabytes.</li>
+<li><em>wwn</em> -- A string containing the unique storage identifier. The
+  hint must match the actual value exactly.</li>
+<li><em>wwnWithExtension</em> -- A string containing the unique storage
+  identifier with the vendor extension appended. The hint must match
+  the actual value exactly.</li>
+<li><em>wwnVendorExtension</em> -- A string containing the unique vendor
+  storage indentifier. The hint must match the actual value exactly.</li>
+<li><em>rotational</em> -- A boolean indicating whether the device should be
+  a rotating disk (<code>true</code>) or not (<code>false</code>).</li>
+</ul>
+<h4 id="automatedcleaningmode">automatedCleaningMode</h4>
+<p>An interface to enable/disable automated cleaning during provisioning
+and deprovisioning. When set to <code>disabled</code>, automated cleaning will be
+skipped, where <code>metadata</code>(default value) enables it.</p>
+<h4 id="customdeploy">customDeploy</h4>
+<p>An advanced alternative to using <a href="#image">image</a>. Set the subfield <code>method</code>
+to the name of a custom deploy step that is provided by your deployment
+ramdisk. Most users will want to use <a href="#image">image</a> instead.</p>
+<p>NOTE: setting either <code>customDeploy.method</code> or <code>image.url</code> triggers provisioning
+of the host.</p>
+<h3 id="baremetalhost-status">BareMetalHost status</h3>
+<p>Moving onto the next block, the <em>BareMetalHost's</em> <em>status</em> which represents
+the host's current state. Including tested credentials, current hardware
+details, etc.</p>
+<h4 id="goodcredentials">goodCredentials</h4>
+<p>A reference to the secret and its namespace holding the last set of
+BMC credentials the system was able to validate as working.</p>
+<h4 id="triedcredentials">triedCredentials</h4>
+<p>A reference to the secret and its namespace holding the last set of
+BMC credentials that were sent to the provisioning backend.</p>
+<h4 id="lastupdated">lastUpdated</h4>
+<p>The timestamp of the last time the status of the host was updated.</p>
+<h4 id="operationalstatus">operationalStatus</h4>
+<p>The status of the server. Value is one of the following:</p>
+<ul>
+<li><em>OK</em> -- Indicates all the details for the host are known and working,
+  meaning the host is correctly configured and manageable.</li>
+<li><em>discovered</em> -- Implies some of the host's details are either
+  not working correctly or missing. For example, the BMC address is known
+  but the login credentials are not.</li>
+<li><em>error</em> -- Indicates the system found some sort of irrecuperable error.
+  Refer to the <em>errorMessage</em> field in the status section for more details.</li>
+</ul>
+<h4 id="errormessage">errorMessage</h4>
+<p>Details of the last error reported by the provisioning backend, if
+any.</p>
+<h4 id="hardware">hardware</h4>
+<p>The details for hardware capabilities discovered on the host. These
+are filled in by the provisioning agent when the host is registered.</p>
+<p>The sub-fields are</p>
+<ul>
+<li><em>nics</em> -- List of network interfaces for the host.</li>
+<li><em>name</em> -- A string identifying the network device,
+     e.g. <em>nic-1</em>.</li>
+<li><em>mac</em> -- The MAC address of the NIC.</li>
+<li><em>ip</em> -- The IP address of the NIC, if one was assigned
+     when the discovery agent ran.</li>
+<li><em>speedGbps</em> -- The speed of the device in Gbps.</li>
+<li><em>vlans</em> -- A list holding all the VLANs available for this NIC.</li>
+<li><em>vlanId</em> -- The untagged VLAN ID.</li>
+<li><em>pxe</em> -- Whether the NIC is able to boot using PXE.</li>
+<li><em>storage</em> -- List of storage (disk, SSD, etc.) available to the host.</li>
+<li><em>name</em> -- A string identifying the storage device,
+     e.g. <em>disk 1 (boot)</em>.</li>
+<li><em>rotational</em> -- Either true or false, indicates whether the disk
+     is rotational.</li>
+<li><em>sizeBytes</em> -- Size of the storage device.</li>
+<li><em>serialNumber</em> -- The device's serial number.</li>
+<li><em>cpu</em> -- Details of the CPU(s) in the system.</li>
+<li><em>arch</em> -- The architecture of the CPU.</li>
+<li><em>model</em> -- The model string.</li>
+<li><em>clockMegahertz</em> -- The speed in MHz of the CPU.</li>
+<li><em>flags</em> -- List of CPU flags, e.g. 'mmx','sse','sse2','vmx', ...</li>
+<li><em>count</em> -- Amount of these CPUs available in the system.</li>
+<li><em>firmware</em> -- Contains BIOS information like for instance its <em>vendor</em>
+  and <em>version</em>.</li>
+<li><em>systemVendor</em> -- Contains information about the host's <em>manufacturer</em>,
+  the <em>productName</em> and <em>serialNumber</em>.</li>
+<li><em>ramMebibytes</em> -- The host's amount of memory in Mebibytes.</li>
+</ul>
+<h4 id="hardwareprofile-status">hardwareProfile (status)</h4>
+<p><strong>This field is deprecated. See rootDeviceHints instead.</strong></p>
+<p>The name of the hardware profile that matches the hardware discovered
+on the host based on the details saved to the <em>Hardware</em> section. If
+the hardware does not match any known profile, the value <code>unknown</code>
+will be set on this field and is used by default. In practice, this
+only affects which device the OS image will be written to. The
+following are the current supported <code>hardwareProfile</code> settings and
+their corresponding root devices.</p>
+<table>
+<thead>
+<tr>
+<th><strong>hardwareProfile</strong></th>
+<th><strong>Root Device</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>unknown</code></td>
+<td>/dev/sda</td>
+</tr>
+<tr>
+<td><code>libvirt</code></td>
+<td>/dev/vda</td>
+</tr>
+<tr>
+<td><code>dell</code></td>
+<td>HCTL: 0:0:0:0</td>
+</tr>
+<tr>
+<td><code>dell-raid</code></td>
+<td>HCTL: 0:2:0:0</td>
+</tr>
+<tr>
+<td><code>openstack</code></td>
+<td>/dev/vdb</td>
+</tr>
+</tbody>
+</table>
+<p><strong>NOTE:</strong> These are subject to change.</p>
+<h4 id="poweredon">poweredOn</h4>
+<p>Boolean indicating whether the host is powered on.</p>
+<p>See <em>online</em> on the <em>BareMetalHost's</em> <em>Spec</em>.</p>
+<h4 id="provisioning">provisioning</h4>
+<p>Settings related to deploying an image to the host.</p>
+<ul>
+<li><em>state</em> -- The current state of any ongoing provisioning operation.
+   The following are the currently supported ones:</li>
+<li><em>\&lt;empty string&gt;</em> -- There is no provisioning happening, at the moment.</li>
+<li><em>unmanaged</em> -- There is an insufficient information available to register
+     the host.</li>
+<li><em>registering</em> -- The host's BMC details are being checked.</li>
+<li><em>match profile</em> -- The discovered hardware details on the host
+     are being compared against known profiles.</li>
+<li><em>available</em> -- The host is available to be consumed. (This state was
+     previously known as <em>ready</em>.)</li>
+<li><em>preparing</em> -- The existing configuration will be removed, and the new
+     configuration will be set on the host.</li>
+<li><em>provisioning</em> -- An image is being written to the host's disk(s).</li>
+<li><em>provisioned</em> -- An image has been completely written to the host's
+     disk(s).</li>
+<li><em>externally provisioned</em> -- Metal³ does not manage the image on the host.</li>
+<li><em>deprovisioning</em> -- The image is being wiped from the host's disk(s).</li>
+<li><em>inspecting</em> -- The hardware details for the host are being collected
+     by an agent.</li>
+<li><em>deleting</em> -- The host is being deleted from the cluster.</li>
+<li><em>id</em> -- The unique identifier for the service in the underlying
+  provisioning tool.</li>
+<li><em>image</em> -- The image most recently provisioned to the host.</li>
+<li><em>raid</em> -- The list of hardware or software RAID volumes recently set.</li>
+<li><em>firmware</em> -- The BIOS configuration for bare metal server.</li>
+<li><em>rootDeviceHints</em> -- The root device selection instructions used
+  for the most recent provisioning operation.</li>
+</ul>
+<h3 id="baremetalhost-example">BareMetalHost Example</h3>
+<p>The following is a complete example from a running cluster of a <em>BareMetalHost</em>
+resource (in YAML), it includes its specification and status sections:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">metal3.io/v1alpha1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">BareMetalHost</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">creationTimestamp</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2019-09-20T06:33:35Z&quot;</span>
+<span class="w">  </span><span class="nt">finalizers</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">baremetalhost.metal3.io</span>
+<span class="w">  </span><span class="nt">generation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bmo-controlplane-0</span>
+<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bmo-project</span>
+<span class="w">  </span><span class="nt">resourceVersion</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;22642&quot;</span>
+<span class="w">  </span><span class="nt">selfLink</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/apis/metal3.io/v1alpha1/namespaces/bmo-project/baremetalhosts/bmo-controlplane-0</span>
+<span class="w">  </span><span class="nt">uid</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">92b2f77a-db70-11e9-9db1-525400764849</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">bmc</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ipmi://10.10.57.19</span>
+<span class="w">    </span><span class="nt">credentialsName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bmo-controlplane-0-bmc-secret</span>
+<span class="w">  </span><span class="nt">bootMACAddress</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">98:03:9b:61:80:48</span>
+<span class="w">  </span><span class="nt">consumerRef</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">machine.openshift.io/v1beta1</span>
+<span class="w">    </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Machine</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bmo-controlplane-0</span>
+<span class="w">    </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bmo-project</span>
+<span class="w">  </span><span class="nt">externallyProvisioned</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">hardwareProfile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span>
+<span class="w">  </span><span class="nt">image</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">checksum</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://172.16.1.100/images/myOSv1/myOS.qcow2.md5sum</span>
+<span class="w">    </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://172.16.1.100/images/myOSv1/myOS.qcow2</span>
+<span class="w">  </span><span class="nt">online</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">raid</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">hardwareRAIDVolumes</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">level</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span>
+<span class="w">      </span><span class="nt">sizeGibibytes</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">200</span>
+<span class="w">      </span><span class="nt">rotational</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">firmware</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">virtualizationEnabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">userData</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bmo-controlplane-user-data</span>
+<span class="w">    </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bmo-project</span>
+<span class="w">  </span><span class="nt">networkData</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bmo-controlplane-network-data</span>
+<span class="w">    </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bmo-project</span>
+<span class="w">  </span><span class="nt">metaData</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bmo-controlplane-meta-data</span>
+<span class="w">    </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bmo-project</span>
+<span class="nt">status</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">errorMessage</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<span class="w">  </span><span class="nt">goodCredentials</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">credentials</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bmo-controlplane-0-bmc-secret</span>
+<span class="w">      </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bmo-project</span>
+<span class="w">    </span><span class="nt">credentialsVersion</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;5562&quot;</span>
+<span class="w">  </span><span class="nt">hardware</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">cpu</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">arch</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">x86_64</span>
+<span class="w">      </span><span class="nt">clockMegahertz</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2000</span>
+<span class="w">      </span><span class="nt">count</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">40</span>
+<span class="w">      </span><span class="nt">flags</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
+<span class="w">      </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Intel(R) Xeon(R) Gold 6138 CPU @ 2.00GHz</span>
+<span class="w">    </span><span class="nt">firmware</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">bios</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">date</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">12/17/2018</span>
+<span class="w">        </span><span class="nt">vendor</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Dell Inc.</span>
+<span class="w">        </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.6.13</span>
+<span class="w">    </span><span class="nt">hostname</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bmo-controlplane-0.localdomain</span>
+<span class="w">    </span><span class="nt">nics</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ip</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">172.22.135.105</span>
+<span class="w">      </span><span class="nt">mac</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;00:00:00:00:00:00&quot;</span>
+<span class="w">      </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">unknown</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">eno1</span>
+<span class="w">      </span><span class="nt">pxe</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">speedGbps</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">25</span>
+<span class="w">      </span><span class="nt">vlanId</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">    </span><span class="nt">ramMebibytes</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">    </span><span class="nt">storage</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
+<span class="w">    </span><span class="nt">systemVendor</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">manufacturer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Dell Inc.</span>
+<span class="w">      </span><span class="nt">productName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PowerEdge r460</span>
+<span class="w">      </span><span class="nt">serialNumber</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<span class="w">  </span><span class="nt">hardwareProfile</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<span class="w">  </span><span class="nt">lastUpdated</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2019-09-20T07:03:23Z&quot;</span>
+<span class="w">  </span><span class="nt">operationalStatus</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OK</span>
+<span class="w">  </span><span class="nt">poweredOn</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">provisioning</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">ID</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">a4438010-3fc6-4c5c-b570-900bbe85da57</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">checksum</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<span class="w">      </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<span class="w">    </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">externally provisioned</span>
+<span class="w">  </span><span class="nt">triedCredentials</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">credentials</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bmo-controlplane-0-bmc-secret</span>
+<span class="w">      </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bmo-project</span>
+<span class="w">    </span><span class="nt">credentialsVersion</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;5562&quot;</span>
+</code></pre></div>
+<p>And here is the secret <code>bmo-controlplane-0-bmc-secret</code> holding the host's
+BMC credentials, base64 encoded:</p>
+<div class="highlight"><pre><span></span><code><span class="gp">$</span><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="s1">&#39;admin&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64
+
+<span class="go">YWRtaW4=</span>
+
+<span class="gp">$</span><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="s1">&#39;password&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64
+
+<span class="go">cGFzc3dvcmQ=</span>
+</code></pre></div>
+<p>Copy the above base64 encoded username and password pair and
+paste it into the yaml as mentioned below.</p>
+<div class="highlight"><pre><span></span><code><span class="nn">---</span>
+<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Secret</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bmo-controlplane-0-bmc-secret</span>
+<span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Opaque</span>
+<span class="nt">data</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">YWRtaW4=</span>
+<span class="w">  </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cGFzc3dvcmQ=</span>
+</code></pre></div>
+<p>NOTE: After decoding the secret content, whitespace is stripped from
+the beginning and end before the username and password values are
+used.</p>
+<h2 id="triggering-provisioning">Triggering Provisioning</h2>
+<p>Several conditions must be met in order to initiate provisioning.</p>
+<ol>
+<li>The host <code>spec.image.url</code> field must contain a URL for a valid
+   image file that is visible from within the cluster and from the
+   host receiving the image.</li>
+<li>The host must have <code>online</code> set to <code>true</code> so that the operator will
+   keep the host powered on.</li>
+<li>The host must have all of the BMC details.</li>
+</ol>
+<p>To initiate deprovisioning, clear the image URL from the host spec.</p>
+<h2 id="unmanaged-hosts">Unmanaged Hosts</h2>
+<p>Hosts created without BMC details will be left in the <code>unmanaged</code>
+state until the details are provided. Unmanaged hosts cannot be
+provisioned and their power state is undefined.</p>
+<h2 id="pausing-reconciliation">Pausing reconciliation</h2>
+<p>It is possible to pause the reconciliation of a BareMetalHost object by adding
+an annotation <code>baremetalhost.metal3.io/paused</code>. <strong>Metal³</strong>  provider sets the
+value of this annotation as <code>metal3.io/capm3</code> when the cluster to which the
+<strong>BareMetalHost</strong> belongs, is paused and removes it when the cluster is
+not paused. If you want to pause the reconciliation of <strong>BareMetalHost</strong> you can
+put any value on this annotation <strong>other than <code>metal3.io/capm3</code></strong>. Please make
+sure that you remove the annotation  <strong>only if the value of the annotation is
+not <code>metal3.io/capm3</code>, but another value that you have provided</strong>. Removing the
+annotation will enable the reconciliation again.</p>
+<h2 id="detaching-hosts">Detaching hosts</h2>
+<p>It is possible to prevent management of a BareMetalHost object by adding
+an annotation <code>baremetalhost.metal3.io/detached</code>. This removes the host from
+the provisioner, which prevents any management of the physical host (e.g
+changing power state, or deprovisioning), but still allows the BMH status
+to be updated unlike the <code>paused</code> annotation. While in this state the
+OperationalStatus field will be <code>detached</code> but the provisioning state will
+be unmodified.  This API only has any effect for BareMetalHost resources
+that are in either <code>Provisioned</code>, <code>ExternallyProvisioned</code> or <code>Ready</code>/<code>Available</code>
+state.</p>
+<p>Please note only the existence of the annotation is important to treat the BMH
+as detached and the value of the annotation is always ignored.</p>
+<h2 id="hostfirmwaresettings">HostFirmwareSettings</h2>
+<p>A <strong>HostFirmwareSettings</strong> resource is used to manage BIOS settings for a host,
+there is a one-to-one mapping with <strong>BareMetalHosts</strong>.  A
+<strong>HostFirmwareSettings</strong> resource is created when BIOS settings are read from
+Ironic as the host moves to the Ready state.  These settings are the complete
+actual BIOS configuration names returned from the BMC, typically 100-200
+settings per host, as compared to the three vendor-independent fields stored in
+the <strong>BareMetalHosts</strong> <code>firmware</code> field.</p>
+<h3 id="hostfirmwaresettings-spec">HostFirmwareSettings spec</h3>
+<p>The <em>HostFirmwareSettings's</em> <em>spec</em> defines the desired BIOS settings. These
+settings will be sent to Ironic as part of clean-steps for update to the BMC
+when the host goes through cleaning, i.e. when the <strong>BareMetalHosts</strong> go
+through the Preparing state.</p>
+<h4 id="spec-settings">spec settings</h4>
+<p>The <code>settings</code> are an array of name/value pairs for the BIOS settings.
+The names must match the names read from Ironic and stored in the <code>status</code>
+field. The values must be within the limits as defined in the <em>FirmwareSchema</em>.
+Only settings which are not defined as <code>ReadOnly</code> or <code>Unique</code> (such as
+SerialNumbers) will be accepted.</p>
+<h3 id="hostfirmwaresettings-status">HostFirmwareSettings status</h3>
+<p>The <em>HostFirmwareSettings's</em> <em>status</em> defines the actual BIOS settings read
+from Ironic.</p>
+<h4 id="status-schema">status schema</h4>
+<p><code>Schema</code> is a reference to a <em>FirmwareSchema</em> resource that describes each
+BIOS setting by type and configurable limits for the type.</p>
+<h4 id="status-settings">status settings</h4>
+<p>The <code>settings</code> are an array of name/value pairs listing the complete set
+of BIOS settings retrieved from Ironic.</p>
+<h4 id="status-conditions">status conditions</h4>
+<p><code>conditions</code> reflects the status of the fields in the <em>spec</em>. Possible
+conditions are:</p>
+<ul>
+<li><em>Valid</em> -- When set to <em>True</em> indicates that all <em>settings</em> in the <em>spec</em> are
+  correct for names and values. This is also set to <em>True</em> when nothing is set
+  in the <em>spec</em>. When set to <em>False</em> indicates that one or more names or values
+  in the <em>spec</em> are incorrect, the actual error will be shown in the <em>Events</em>
+  field.</li>
+<li><em>ChangeDetected</em> -- Indicates whether or not settings in the <em>spec</em> are
+  different than settings in the <em>status</em>. When set to <em>True</em> the settings that
+  are different will be included in the clean-steps that are written to Ironic
+  as part of cleaning.</li>
+</ul>
+<h3 id="hostfirmwaresettings-example">HostFirmwareSettings Example</h3>
+<p>The following is a complete example from a running cluster of a
+<em>HostFirmwareSettings</em> resource (in YAML), it includes its spec and status
+sections:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">metal3.io/v1alpha1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">HostFirmwareSettings</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">creationTimestamp</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2021-11-03T21:21:02Z&quot;</span>
+<span class="w">  </span><span class="nt">generation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ostest-worker-0</span>
+<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openshift-machine-api</span>
+<span class="w">  </span><span class="nt">ownerReferences</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">metal3.io/v1alpha1</span>
+<span class="w">    </span><span class="nt">blockOwnerDeletion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">controller</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">BareMetalHost</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ostest-worker-0</span>
+<span class="w">    </span><span class="nt">uid</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">87b08d19-b94c-4a29-901a-67890d9eb843</span>
+<span class="w">  </span><span class="nt">resourceVersion</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;24688&quot;</span>
+<span class="w">  </span><span class="nt">uid</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">293a351b-1743-437d-abed-da53d41d8804</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">settings</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
+<span class="nt">status</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">conditions</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">lastTransitionTime</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2021-11-03T21:21:54Z&quot;</span>
+<span class="w">    </span><span class="nt">message</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<span class="w">    </span><span class="nt">observedGeneration</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">reason</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Success</span>
+<span class="w">    </span><span class="nt">status</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;False&quot;</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ChangeDetected</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">lastTransitionTime</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2021-11-03T21:21:54Z&quot;</span>
+<span class="w">    </span><span class="nt">message</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<span class="w">    </span><span class="nt">observedGeneration</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">reason</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Success</span>
+<span class="w">    </span><span class="nt">status</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;True&quot;</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Valid</span>
+<span class="w">  </span><span class="nt">schema</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">schema-dc98d7c8</span>
+<span class="w">    </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openshift-machine-api</span>
+<span class="w">  </span><span class="nt">settings</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">BootMode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Uefi</span>
+<span class="w">    </span><span class="nt">EmbeddedSata</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Raid</span>
+<span class="w">    </span><span class="nt">L2Cache</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10x256 KB</span>
+<span class="w">    </span><span class="nt">NicBoot1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NetworkBoot</span>
+<span class="w">    </span><span class="nt">NumCores</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10&quot;</span>
+<span class="w">    </span><span class="nt">ProcTurboMode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Enabled</span>
+<span class="w">    </span><span class="nt">QuietBoot</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
+<span class="w">    </span><span class="nt">SecureBootStatus</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Enabled</span>
+<span class="w">    </span><span class="nt">SerialNumber</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">QPX12345</span>
+</code></pre></div>
+<h2 id="firmwareschema">FirmwareSchema</h2>
+<p>A <strong>FirmwareSchema</strong> resource contains the limits each setting, specific to
+each host.  This data comes directly from the BMC via Ironic. It can be used
+to prevent misconfiguration of the <strong>HostFirmwareSettings</strong> <em>spec</em> field so
+that invalid values are not sent to the host. The <strong>FirmwareSchema</strong> has a
+unique identifier derived from its settings and limits. Multiple hosts may therefore
+have the same <strong>FirmwareSchema</strong> identifier so its likely that more than one
+<strong>HostFirmwareSettings</strong> reference the same <strong>FirmwareSchema</strong> when
+hardware of the same vendor and model are used.</p>
+<h3 id="firmwareschema-spec">FirmwareSchema spec</h3>
+<h4 id="spec-schema">spec schema</h4>
+<p>A map of settings names and limits. The values returned in the limits depend
+on the type of the setting. The following fields are included:</p>
+<ul>
+<li><em>attribute_type</em> -- The type of setting - <code>Enumeration</code>, <code>Integer</code>, <code>String</code>,
+  <code>Boolean</code>, or <code>Password</code></li>
+<li><em>allowable_values</em> -- A list of allowable values when the <code>attribute_type</code> is <code>Enumeration</code></li>
+<li><em>lower_bound</em> -- The lowest allowed value when attribute_type is <code>Integer</code></li>
+<li><em>upper_bound</em> -- The highest allowed value when attribute_type is <code>Integer</code></li>
+<li><em>min_length</em> -- The shortest string length that the value can have when
+  attribute_type is <code>String</code></li>
+<li><em>max_length</em> -- The longest string length that the value can have when
+  attribute_type is <code>String</code></li>
+<li><em>read_only</em> -- The setting is ready only and cannot be modified</li>
+<li><em>unique</em> -- The setting is specific to this host</li>
+</ul>
+<h4 id="hardwarevendor">hardwareVendor</h4>
+<p>The name of the vendor that this schema corresponds to.</p>
+<h4 id="hardwaremodel">hardwareModel</h4>
+<p>The hardware model that this schema corresponds to.</p>
+<h3 id="firmwareschema-example">FirmwareSchema Example</h3>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">metal3.io/v1alpha1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">FirmwareSchema</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">creationTimestamp</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2021-11-03T21:21:54Z&quot;</span>
+<span class="w">  </span><span class="nt">generation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">schema-dc98d7c8</span>
+<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openshift-machine-api</span>
+<span class="w">  </span><span class="nt">ownerReferences</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">metal3.io/v1alpha1</span>
+<span class="w">    </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">HostFirmwareSettings</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ostest-controlplane-1</span>
+<span class="w">    </span><span class="nt">uid</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">a991875d-9897-49f1-9d86-16ea9ed6c84f</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">metal3.io/v1alpha1</span>
+<span class="w">    </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">HostFirmwareSettings</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ostest-worker-0</span>
+<span class="w">    </span><span class="nt">uid</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">650c291c-3da7-4902-be6e-61979daea254</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">metal3.io/v1alpha1</span>
+<span class="w">    </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">HostFirmwareSettings</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ostest-controlplane-0</span>
+<span class="w">    </span><span class="nt">uid</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">afc8f76c-0200-431c-ace0-9a6195d16fcd</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">metal3.io/v1alpha1</span>
+<span class="w">    </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">HostFirmwareSettings</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ostest-controlplane-2</span>
+<span class="w">    </span><span class="nt">uid</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">f0c49fec-d493-40ac-9a86-56504cd47a74</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">metal3.io/v1alpha1</span>
+<span class="w">    </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">HostFirmwareSettings</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ostest-worker-1</span>
+<span class="w">    </span><span class="nt">uid</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5fe2c773-5499-4a37-a26d-6f17dc02382f</span>
+<span class="w">  </span><span class="nt">resourceVersion</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;19141&quot;</span>
+<span class="w">  </span><span class="nt">uid</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">b442e01f-3724-4f14-a578-f0b99d296c95</span>
+<span class="w">  </span><span class="nt">spec</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">hardwareModel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">KVM (8.2.0)</span>
+<span class="w">    </span><span class="nt">hardwareVendor</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Red Hat</span>
+<span class="w">    </span><span class="nt">schema</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">BootMode</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">allowable_values</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Bios</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Uefi</span>
+<span class="w">        </span><span class="nt">attribute_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Enumeration</span>
+<span class="w">        </span><span class="nt">read_only</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">      </span><span class="nt">EmbeddedSata</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">allowable_values</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Ata</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Ahci</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Raid</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;Off&quot;</span>
+<span class="w">        </span><span class="nt">attribute_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Enumeration</span>
+<span class="w">        </span><span class="nt">read_only</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="w w-Error"> </span><span class="nt">L2Cache</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">attribute_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">String</span>
+<span class="w">        </span><span class="nt">max_length</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">16</span>
+<span class="w">        </span><span class="nt">min_length</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">        </span><span class="nt">read_only</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">        </span><span class="nt">unique</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">     </span><span class="w w-Error"> </span><span class="nt">NicBoot1</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">allowable_values</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NetworkBoot</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Disabled</span>
+<span class="w">        </span><span class="nt">attribute_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Enumeration</span>
+<span class="w">        </span><span class="nt">read_only</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">      </span><span class="nt">NumCores</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">attribute_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Integer</span>
+<span class="w">        </span><span class="nt">lower_bound</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+<span class="w">        </span><span class="nt">read_only</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">        </span><span class="nt">unique</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">        </span><span class="nt">upper_bound</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20</span>
+<span class="w">      </span><span class="nt">ProcTurboMode</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">allowable_values</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Enabled</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Disabled</span>
+<span class="w">        </span><span class="nt">attribute_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Enumeration</span>
+<span class="w">        </span><span class="nt">read_only</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">      </span><span class="nt">QuietBoot</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">attribute_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Boolean</span>
+<span class="w">        </span><span class="nt">read_only</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">        </span><span class="nt">unique</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">      </span><span class="nt">SecureBootStatus</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">allowable_values</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Enabled</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Disabled</span>
+<span class="w">        </span><span class="nt">attribute_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Enumeration</span>
+<span class="w">        </span><span class="nt">read_only</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">SerialNumber</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">attribute_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">String</span>
+<span class="w">        </span><span class="nt">max_length</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">16</span>
+<span class="w">        </span><span class="nt">min_length</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">        </span><span class="nt">read_only</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">        </span><span class="nt">unique</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div>
+<h2 id="hardwaredata">HardwareData</h2>
+<p>A <strong>HardwareData</strong> resource contains hardware specifications data of a specific host
+and it is tightly coupled to its owner resource BareMetalHost. The data in the HardwareData
+comes from Ironic after a successful inspection phase. As such, operator will create HardwareData
+resource for a specific BareMetalHost during transitioning phase from inspecting into available
+state of the BareMetalHost. HardwareData gets deleted automatically by the operator whenever its
+BareMetalHost is deleted. Deprovisioning of the BareMetalHost should not trigger the deletion of
+HardwareData, but during next provisioning it can be re-created (with the same name and namespace)
+with the latest inspection data retrieved from Ironic. HardwareData holds the same name and namespace
+as its corresponding BareMetalHost resource. Currently, HardwareData doesn't have <em>Status</em> subresource
+but only the <em>Spec</em>, which we cover next.</p>
+<h3 id="hardwaredata-spec">HardwareData spec</h3>
+<p>As you probably already noticed, the <em>Spec</em> of HardwareData is the same as <a href="#hardware">.Status.hardware</a>
+of the BareMetalHost. However, this behaviour is temporary and eventually we will drop
+<a href="#hardware">.Status.hardware</a> from BareMetalHost and only rely on HardwareData <em>Spec</em>. The reason
+for having duplication of inspection data at the  moment is to avoid breaking the existing deployments.</p>
+<h2 id="preprovisioningimage">PreprovisioningImage</h2>
+<p>A <strong>PreprovisioningImage</strong> resource is automatically created by baremetal-operator for each BareMetalHost
+to ensure creation of a <em>preprovisioning image</em> for it. In this context, a preprovisioning image
+is an ISO or initramfs file that contains the <a href="https://docs.openstack.org/ironic-python-agent/">Ironic agent</a>.
+The relevant parts of BareMetalHost are copied to the PreprovisioningImage <em>Spec</em>,
+the resulting image is expected to appear in the <em>Status</em>.</p>
+<p>The baremetal-operator project contains a simple controller for PreprovisioningImages
+that uses images provided in the environment variables <code>DEPLOY_ISO_URL</code> and <code>DEPLOY_RAMDISK_URL</code>.
+More sophisticated controllers may be written downstream (for example, the OpenShift
+<a href="https://github.com/openshift/image-customization-controller">image-customization-controller</a>).</p>
+<h3 id="preprovisioningimage-spec">PreprovisioningImage spec</h3>
+<p>The PreprovisioningImage's spec provides input for the image building process.</p>
+<ul>
+<li>
+<p><code>acceptFormats</code>: a list of accepted image formats: <code>iso</code> or <code>initrd</code>.</p>
+</li>
+<li>
+<p><code>architecture</code>: the CPU architecture to build the image for, e.g. <code>x86_64</code>.
+  The default PreprovisioningImage controller does not use this field.</p>
+</li>
+<li>
+<p><code>networkData</code>: the name of a <em>Secret</em> with the network configuration for the image.
+  The default PreprovisioningImage controller does not use this field.</p>
+</li>
+</ul>
+<h3 id="preprovisioningimage-status">PreprovisioningImage status</h3>
+<p>The PreprovisioningImage's status provides information about the resulting image.</p>
+<ul>
+<li>
+<p><code>architecture</code>: the CPU architecture of the image, e.g. <code>x86_64</code>.</p>
+</li>
+<li>
+<p><code>extraKernelParams</code>: additional kernel parameters that baremetal-operator will add to the node
+  when PXE booting the initramfs image. Has no meaning for ISO images.</p>
+</li>
+<li>
+<p><code>format</code>: format of the image: <code>iso</code> or <code>initrd</code>. Must be one of the formats provided in <code>acceptFormats</code>.</p>
+</li>
+<li>
+<p><code>imageUrl</code>: the URL of the resulting image.</p>
+</li>
+<li>
+<p><code>kernelUrl</code>: the URL of the kernel to use together with the initramfs image. If not provided,
+  baremetal-operator uses the default kernel image from the environment variables.
+  Has no meaning for ISO images.</p>
+</li>
+<li>
+<p><code>networkData</code>: the name of a <em>Secret</em> with the network configuration of the image.</p>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; The Ubiquity Authors
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.indexes", "navigation.expand", "search.highlight", "search.share", "navigation.top", "navigation.tracking", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+    
+  </body>
+</html>

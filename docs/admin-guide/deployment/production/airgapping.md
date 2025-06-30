@@ -21,7 +21,7 @@ This topology is most resource efficient and simplifies the deployment as much a
 
 Note that in this topology only the "Bastion Node" + "Install Node" environment must be able to access the container registry as well as the Kubernetes API; it does not need to be able to access the Kubernetes workers directly.  This node will be used to pull, tag, and push containers from upstream (Internet) to the secure container registry, and deploy+update Ubiquity using the Kubernetes and Helm clients.
 
-In addition to mirroring containers to the secure registry, the Bastion node in this configuration must be able to initially mirror the [Ubiquity repository in GitHub](https://github.com/logicalisuki/ubiquity-open) over to itself and then commit back to the local repository. This local repository could clearly be the bastion node in this diagram.
+In addition to mirroring containers to the secure registry, the Bastion node in this configuration must be able to initially mirror the [Ubiquity repository in GitHub](https://github.com/ubiquitycluster/ubiquity) over to itself and then commit back to the local repository. This local repository could clearly be the bastion node in this diagram.
 
 Note the bastion node could quite easily separate its functions into two separate nodes, one for mirroring containers and one for deploying/updating Ubiquity, but this is not recommended as it will require additional configuration to transfer the container images from the mirroring node to the deployment node.
 
@@ -43,17 +43,17 @@ The example output will show what containers need to be mirrored, tagged, and pu
 
 ```
 $ grep "image:" values.yaml|awk {'print $2'} && grep  '_IMAGE:' values.yaml|awk '{print $3}'
-Logicalis/Ubiquity-cache-pull:latest
-Logicalis/lxcfs:3.0.3-3
+ubiquitycluster/ubiquity-cache-pull:latest
+ubiquitycluster/lxcfs:3.0.3-3
 nvidia/k8s-device-plugin:1.11
 xilinxatg/xilinx_k8s_fpga_plugin:latest
 Ubiquity/k8s-rdma-device:1.0.1
 mysql:5.6.41
-Logicalis/postfix:3.11_3.4.9-r0
-Logicalis/idmapper
+ubiquitycluster/postfix:3.11_3.4.9-r0
+ubiquitycluster/idmapper
 memcached:1.5
 registry:2
-Logicalis/unfs3
+ubiquitycluster/unfs3
 alpine:3.8
 ```
 
@@ -61,7 +61,7 @@ Once mirrored, edit the entries in the `override.yaml` file to the new tags, by 
 
 ### Application Containers
 
-Appsync cannot be used in an air gapped configuration, so application containers must be mirrored individually.  A matching application target must be created manually in the Ubiquity system (can be performed as the `root` user), and then those applications can be marked public in the *Administration->Apps* view of the portal.  Note that the desired list of application containers must be obtained from Logicalis.  Each application target should also be explicitly pulled after being created to download the in-container metadata (e.g. AppDef).
+Appsync cannot be used in an air gapped configuration, so application containers must be mirrored individually.  A matching application target must be created manually in the Ubiquity system (can be performed as the `root` user), and then those applications can be marked public in the *Administration->Apps* view of the portal.  Note that the desired list of application containers must be obtained from the Ubiquity community.  Each application target should also be explicitly pulled after being created to download the in-container metadata (e.g. AppDef).
 
 ## Additional Configuration
 

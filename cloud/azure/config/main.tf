@@ -21,7 +21,7 @@ variable "pool" {
 
 module "azure" {
   source                = "../../azure"
-  config_git_url        = "https://github.com/logicalisuki/ubiq-playbooks.git"
+  config_git_url        = "https://github.com/ubiquitycluster/ubiq-playbooks.git"
   config_version        = "main"
   azure_subscription_id = "21b068cd-884d-4a7c-bc01-2558c717712d"
   azure_tenant_id       = "782e3213-b567-477d-8d64-77a942024aff"
@@ -100,7 +100,7 @@ output "public_ip" {
 
 ## Uncomment to register your domain name with Google Cloud
 # module "dns" {
-#   source           = "git::https://github.com/logicalisuki/ubiquity-open.git/cloud/dns/gcloud"
+#   source           = "git::https://github.com/ubiquitycluster/ubiquity.git/cloud/dns/gcloud"
 #   email            = "you@example.com"
 #   project          = "your-project-id"
 #   zone_name        = "you-zone-name"

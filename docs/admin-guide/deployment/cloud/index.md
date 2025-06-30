@@ -23,7 +23,7 @@
 
 ## 4.1 Main File
 
-1. Go to https://github.com/logicalisuki/ubiquity-open/releases.
+1. Go to https://github.com/ubiquitycluster/ubiquity/releases.
 2. Download the latest release of Ubiquity.
 3. Open a Terminal.
 4. Uncompress the release: `tar xvf ubiquity*.tar.gz`
@@ -110,13 +110,13 @@ describe by the new module is different.
 Ubiquity configuration management is handled by
 [Ansible](https://en.wikipedia.org/wiki/Ansible_(software)). The Ansible
 configuration files are stored in a git repository. This is
-typically [LogicalisUKI/ubiq-playbooks](https://www.github.com/logicalisuki/ubiq-playbooks) repository on GitHub.
+typically [ubiquitycluster/ubiq-playbooks](https://www.github.com/ubiquitycluster/ubiq-playbooks) repository on GitHub.
 It is included in the project as a git submodule.
 
 Leave these variables to their current values to deploy a vanilla Ubiquity cluster.
 
 If you wish to customise the instances' role assignment, add services, or
-develop new features for Ubiquity, fork the [LogicalisUKI/ubiq-playbooks](https://www.github.com/logicalisuki/ubiq-playbooks) and point this variable to
+develop new features for Ubiquity, fork the [ubiquitycluster/ubiq-playbooks](https://www.github.com/ubiquitycluster/ubiq-playbooks) and point this variable to
 your fork's URL. For more information on Ubiquity Ansible configuration
 customisation, refer to [developer documentation](developers.md).
 
@@ -296,7 +296,7 @@ Terraform tags:
 - `efa`: attach an Elastic Fabric Adapter network interface to the instance. This tag is supported in AWS.
 - `ssl`: identify instances that will receive a copy of the SSL wildcard certificate for the domain
 
-Ansible tags expected by the [ubiq-playbooks](https://www.github.com/logicalisuki/ubiq-playbooks) environment.
+Ansible tags expected by the [ubiq-playbooks](https://www.github.com/ubiquitycluster/ubiq-playbooks) environment.
 - `login`: identify a login instance (minimum: 1 CPUs, 2GB RAM)
 - `mgmt`: identify a management instance i.e: FreeIPA server, Slurm controller, Slurm DB (minimum: 2 CPUs, 6GB RAM)
 - `nfs`: identify the instance that will act as an NFS server.
@@ -485,7 +485,7 @@ ssh authorized keys are configured with the SSH public keys with
 
 **Post build modification effect**: none. To change sudoer username,
 destroy the cluster or redefine the value of
-[`sudoer_username`](https://github.com/logicalisuki/ubiq-playbooks#profilelogin `vars/main.yml`.
+[`sudoer_username`](https://github.com/ubiquitycluster/ubiq-playbooks#profilelogin `vars/main.yml`.
 
 ### 4.13 vars (optional)
 
@@ -510,7 +510,7 @@ following line to the string:
     ```
 
 Refer to the following Ansible modules' documentation to know more about the key-values that can be defined:
-- [ubiq-playbooks](https://github.com/logicalisuki/ubiq-playbooks/blob/main/README.md#AnsibleAnsible-jupyterhub](https://github.com/logicalisuki/Ansible-jupyterhub/blob/main/README.md#hieradata-configuration)
+- [ubiq-playbooks](https://github.com/ubiquitycluster/ubiq-playbooks/blob/main/README.md#AnsibleAnsible-jupyterhub](https://github.com/ubiquitycluster/Ansible-jupyterhub/blob/main/README.md#hieradata-configuration)
 
 
 The file created from this string can be found on `Ansible` as
@@ -593,9 +593,9 @@ Ansible agent run.
 
 ### 4.16 software_stack (optional)
 
-**default_value**: `logicalisuki`
+**default_value**: `ubiquity`
 
-Defines the research computing software stack to be provided. The default value `logicalisuki`
+Defines the research computing software stack to be provided. The default value `ubiquity`
 provides the Compute Canada software stack, but Ubiquity also
 supports the [EESSI](https://eessi.github.io/docs/) software stack (as an alternative) by setting this
 value to `eessi`.
@@ -855,7 +855,7 @@ The reverse proxy configuration expects the following files to exist:
 - `/etc/letsencrypt/live/${domain_name}/privkey.pem`
 - `/etc/letsencrypt/live/${domain_name}/chain.pem`
 
-Refer to the [reverse proxy configuration](https://github.com/logicalisuki/ubiq-playbooks/blob/main/site/profile/manifests/reverse_proxy.ppAnsiblemore details.
+Refer to the [reverse proxy configuration](https://github.com/ubiquitycluster/ubiq-playbooks/blob/main/site/profile/manifests/reverse_proxy.ppAnsiblemore details.
 
 ### 6.4 ACME Account Private Key
 
@@ -1004,7 +1004,7 @@ the following:
 Error: Your query returned no results. Please change your search criteria and try again.
 ```
 This type of error happens when for example the specified [image](#46-image)
-no longer exists (see [issue #40](https://github.com/logicalisuki/magic_castle/issues/40)).
+no longer exists (see [issue #40](https://github.com/ubiquitycluster/magic_castle/issues/40)).
 
 As for `apply`, Terraform will output a plan that you will have to confirm
 by entering `yes`.
@@ -1087,14 +1087,14 @@ name, and will gain access to the corresponding project folder under `/project`.
 
 **Note**: The regular expression represents how Compute Canada names its resources
 allocation. The regular expression can be redefined, see
-[`profile::accounts:::project_regex`](https://github.com/logicalisuki/ubiq-playbookAnsiblefileaccounts)
+[`profile::accounts:::project_regex`](https://github.com/ubiquitycluster/ubiq-playbooks/blob/main/site/profile/files/accounts)
 
 #### 10.3.1 hieradata
 
 Using the [hieradata variable](#413-hieradata-optional) in the `main.tf`, it is possible to define LDAP users.
 
 Examples of LDAP user definition with hieradata are provided in
-[ubiq-playbooks documentation](https://github.com/logicalisuki/ubiq-playbooks#profAnsiblersldapusers).
+[ubiq-playbooks documentation](https://github.com/ubiquitycluster/ubiq-playbooks#profAnsiblersldapusers).
 
 #### 10.3.2 Command-Line
 
@@ -1326,9 +1326,9 @@ that the configuration will be entirely compatible with a different deployment.
 
 #### 10.12.1 Prepare the volume for cloning
 
-The environment [ubiq-playbooks](https://github.com/logicalisuki/ubiq-playbooks/)
+The environment [ubiq-playbooks](https://github.com/ubiquitycluster/ubiq-playbooks/)
 installs a Ansible that prepares the voluAnsible cloning named
-[`prepare4image.sh`](https://github.com/logicalisuki/ubiq-playbooks/blob/main/site/profile/files/baseAnsiblere4image.sh).
+[`prepare4image.sh`](https://github.com/ubiquitycluster/ubiq-playbooks/blob/main/site/profile/files/baseAnsiblere4image.sh).
 
 
 To make sure a node is ready for cloning, open its Ansible agent log and validate the
@@ -1456,7 +1456,7 @@ To backup the encryption keys from an existing Ansible server:
 ### 10.14 Read and edit secret values generated at boot
 
 During the cloud-init initialisation phase,
-[`bootstrap.sh`](https://github.com/logicalisuki/ubiq-playbooks/blob/main/bootstrap.sh)
+[`bootstrap.sh`](https://github.com/ubiquitycluster/ubiq-playbooks/blob/main/bootstrap.sh)
 script is executed. This script generates a Ansible encrypted secret values that are required
 by the Ubiquity Ansible environment:
 - `profile::consul::acl_api_token`

@@ -97,9 +97,9 @@ https://datalab.ubiquitycluster.uk
 
 ### Available Catalogs
 
-**Logicalis Datascience Catalog:**
+**Ubiquity Data Science Catalog:**
 - **Repository**: `https://cjcshadowsan.github.io/helm-charts-datascience`
-- **Maintainer**: chris.coates@uk.logicalis.com
+- **Maintainer**: maintainers@ubiquitycluster.org
 - **Status**: Production
 - **Content**: Custom data science tools and HPC applications
 

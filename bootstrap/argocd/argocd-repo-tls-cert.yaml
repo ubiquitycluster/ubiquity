@@ -1,11 +1,11 @@
 ---
-# Copyright 2023 Logicalis UKI. All Rights Reserved.
+# Copyright The Ubiquity Authors.
 #
 # Licensed under the Apache License, Version 2.0. Previously licensed under the Functional Source License (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#     https://github.com/logicalisuki/ubiquity-open-open/blob/main/LICENSE
+#     https://github.com/ubiquitycluster/ubiquity-open/blob/main/LICENSE
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -24,7 +24,7 @@ metadata:
     app.kubernetes.io/name: argocd-cm
     app.kubernetes.io/part-of: argocd
 data:
-  https://github.com/logicalisuki/ubiquity-open.git: |
+  https://github.com/ubiquitycluster/ubiquity.git: |
     -----BEGIN CERTIFICATE-----
     MIIIVDCCBjygAwIBAgIQd/VexvOAKOgK/6q9GFmiaTANBgkqhkiG9w0BAQwFADBE
     MQswCQYDVQQGEwJOTDEZMBcGA1UEChMQR0VBTlQgVmVyZW5pZ2luZzEaMBgGA1UE

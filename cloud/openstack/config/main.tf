@@ -8,8 +8,8 @@ variable "pool" {
 }
 
 module "ovh" {
-  source         = "git::https://github.com/logicalisuki/ubiquity-open.git/cloud/ovh"
-  config_git_url = "https://github.com/logicalisuki/ubiq-playbooks.git"
+  source         = "git::https://github.com/ubiquitycluster/ubiquity.git/cloud/ovh"
+  config_git_url = "https://github.com/ubiquitycluster/ubiq-playbooks.git"
   config_version = "main"
 
   cluster_name = "ubiquity"
@@ -54,7 +54,7 @@ output "public_ip" {
 
 ## Uncomment to register your domain name with CloudFlare
 # module "dns" {
-#   source           = "git::https://github.com/logicalisuki/ubiquity-open.git/cloud/dns/cloudflare"
+#   source           = "git::https://github.com/ubiquitycluster/ubiquity.git/cloud/dns/cloudflare"
 #   email            = "you@example.com"
 #   name             = module.ovh.cluster_name
 #   domain           = module.ovh.domain
@@ -65,7 +65,7 @@ output "public_ip" {
 
 ## Uncomment to register your domain name with Google Cloud
 # module "dns" {
-#   source           = "git::https://github.com/logicalisuki/ubiquity-open.git/cloud/dns/gcloud"
+#   source           = "git::https://github.com/ubiquitycluster/ubiquity.git/cloud/dns/gcloud"
 #   email            = "you@example.com"
 #   project          = "your-project-id"
 #   zone_name        = "you-zone-name"

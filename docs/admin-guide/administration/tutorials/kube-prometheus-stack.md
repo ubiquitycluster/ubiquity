@@ -159,7 +159,7 @@ grafana:
 ## Monitoring
 The building blocks (in this case kube-prometheus-stack itself) come with a set of predefined alert rules and Grafana dashboards. Alert rules and dashboards are synchronized by kubernetes-mixin.
 This includes basic monitoring of the local Kubernetes cluster itself (e.g. resource limits/requirements, pod crash loops, API errors, ...).
-Logicalis may add additional alertrules and dashboards to each component.
+The Ubiquity community may add additional alertrules and dashboards to each component.
 
 ## Additional alertrules
 As an example, alert rules have been created in the directory kube-prometheus-stack-extension/templates/alerts.

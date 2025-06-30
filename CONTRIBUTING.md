@@ -49,7 +49,7 @@ contribution. See the [DCO](DCO) file for details.
 If you're new to the project and want to help, but don't know where to start, we
 have a semi-curated list of issues that
 should not need deep knowledge of the system. [Have a look and see if anything
-sounds interesting](https://github.com/logicalisuki/ubiquity-open/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22).
+sounds interesting](https://github.com/ubiquitycluster/ubiquity/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22).
 Alternatively, read some of the docs and try to write your own application helm chart,
 file and fix any/all issues that come up, including gaps in documentation!
 

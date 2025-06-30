@@ -2,7 +2,7 @@
 # This file provides a standard template for networking across all cloud providers
 # to ensure consistency for k3s cluster deployment
 
-# Copyright 2025 Logicalis UKI. All Rights Reserved.
+# Copyright The Ubiquity Authors.
 #
 # Licensed under the Apache License, Version 2.0 
 # See the License for the specific language governing permissions and

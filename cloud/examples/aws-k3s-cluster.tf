@@ -10,7 +10,7 @@ module "k3s_cluster" {
   source = "../aws"
   
   # Standard k3s cluster configuration
-  config_git_url = "https://github.com/logicalisuki/ubiquity-open.git"
+  config_git_url = "https://github.com/ubiquitycluster/ubiquity.git"
   config_version = "main"
 
   cluster_name = "ubiquity-k3s"

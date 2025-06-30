@@ -1,12 +1,12 @@
 #!/bin/bash
 
-# Copyright 2023 Logicalis UKI. All Rights Reserved.
+# Copyright The Ubiquity Authors.
 #
 # Licensed under the Apache License, Version 2.0. Previously licensed under the Functional Source License.
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#     https://github.com/logicalisuki/ubiquity/blob/main/LICENSE
+#     https://github.com/ubiquitycluster/ubiquity/blob/main/LICENSE
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -26,7 +26,7 @@ update_file() {
     
     # Replace the license text and URL in the file
     sed -e 's/Licensed under the Functional Source License, Version 1\.0, Apache 2\.0 Change License/Licensed under the Apache License, Version 2.0. Previously licensed under the Functional Source License/g' \
-        -e 's/https:\/\/github\.com\/logicalisuki\/ubiquity\/blob\/main\/LICENSE\.md/https:\/\/github.com\/logicalisuki\/ubiquity\/blob\/main\/LICENSE/g' \
+        -e 's/https:\/\/github\.com\/logicalisuki\/ubiquity\/blob\/main\/LICENSE\.md/https:\/\/github.com\/ubiquitycluster\/ubiquity\/blob\/main\/LICENSE/g' \
         -e 's/It also allows for the transition of this software to an Apache 2\.0 Licence/This software was previously licensed under the Functional Source License but has now transitioned to an Apache 2.0 License/g' \
         -e 's/on the second anniversary of the date we make the software available\./as of June 2025./g' \
         "$file" > "$temp_file"

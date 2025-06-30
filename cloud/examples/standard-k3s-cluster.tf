@@ -2,7 +2,7 @@
 # This example demonstrates the standard pattern for deploying
 # a k3s cluster across any supported cloud provider
 
-# Copyright 2025 Logicalis UKI. All Rights Reserved.
+# Copyright The Ubiquity Authors.
 
 terraform {
   required_version = ">= 0.14.2"
@@ -12,7 +12,7 @@ module "k3s_cluster" {
   source = "./PROVIDER_FOLDER" # Replace with actual provider folder (aws, gcp, azure, etc.)
   
   # Standard k3s cluster configuration
-  config_git_url = "https://github.com/logicalisuki/ubiquity-open.git"
+  config_git_url = "https://github.com/ubiquitycluster/ubiquity.git"
   config_version = "main"
 
   cluster_name = "ubiquity-k3s"

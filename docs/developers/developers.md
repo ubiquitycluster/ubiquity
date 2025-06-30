@@ -60,8 +60,8 @@ ubiq-playbooks
 
 An example of a bare-bone Ubiquity environment is available on GitHub:
 [Ubiquity/ubiq-playbooks](https://github.com/CJCShadowsan/ubiq-playbooks), while the
-Ubiquity AWX environment that replicates a Logicalis HPC cluster is named
-[Logicalis/ubiq-playbooks](https://github.com/logicalisuki/ubiq-playbooks).
+Ubiquity AWX environment that replicates a Ubiquity HPC cluster is named
+[ubiquitycluster/ubiq-playbooks](https://github.com/ubiquitycluster/ubiq-playbooks).
 
 ### terraform_data.yaml: a bridge between Terraform and AWX
 

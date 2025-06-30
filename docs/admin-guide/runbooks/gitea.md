@@ -95,9 +95,9 @@ git clone git@git.ubiquitycluster.uk:ops/ubiquity.git
 Gitea automatically migrates repositories during cluster initialization:
 
 **From GitHub to Gitea:**
-- `logicalisuki/ubiquity-open` → `ops/ubiquity`
-- `logicalisuki/blog` → `ubiquity/blog` (mirror)
-- `logicalisuki/backstage` → `ubiquity/backstage` (mirror)
+- `ubiquitycluster/ubiquity` → `ops/ubiquity`
+- `ubiquitycluster/blog` → `ubiquity/blog` (mirror)
+- `ubiquitycluster/backstage` → `ubiquity/backstage` (mirror)
 
 ### Organization Setup
 

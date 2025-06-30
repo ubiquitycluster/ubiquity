@@ -1,0 +1,3267 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://ubiquitycluster.github.io/ubiquity/user-guide/EasyBuild/">
+      
+      
+        <link rel="prev" href="../onboarding/">
+      
+      
+        <link rel="next" href="../../about/support/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>EasyBuild - Ubiquity</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.342714a4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#easybuild-via-eessi" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Ubiquity" class="md-header__button md-logo" aria-label="Ubiquity" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Ubiquity
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              EasyBuild
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ubiquitycluster/ubiquity" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ubiquitycluster/ubiquity
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Ubiquity" class="md-nav__button md-logo" aria-label="Ubiquity" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Ubiquity
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ubiquitycluster/ubiquity" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ubiquitycluster/ubiquity
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../admin-guide/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Admin Guide
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Admin Guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Deployment
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Deployment
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin-guide/deployment/prerequisites/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Prerequisites
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin-guide/deployment/configure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Configure
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin-guide/deployment/sandbox/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Sandbox
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin-guide/deployment/on-prem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    On-Premises
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin-guide/deployment/external-resources/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    External Resources
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin-guide/deployment/post-installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Post Installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_2_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2_7" id="__nav_3_2_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Production
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_2_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2_7">
+            <span class="md-nav__icon md-icon"></span>
+            Production
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin-guide/deployment/production/prerequisites/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Prerequisites
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin-guide/deployment/production/external-resources/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    External Resources
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin-guide/deployment/production/configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin-guide/deployment/production/deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Deployment
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin-guide/deployment/production/post-installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Post Installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin-guide/deployment/production/airgapping/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Air Gapping
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin-guide/deployment/production/awx-postinstall/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    AWX Post Install
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin-guide/deployment/production/hfi-infiniband/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    InfiniBand
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_2_8" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../admin-guide/deployment/cloud/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Cloud
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_2_8" id="__nav_3_2_8_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_2_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2_8">
+            <span class="md-nav__icon md-icon"></span>
+            Cloud
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin-guide/deployment/cloud/terraform_cloud/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Terraform Cloud
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Administration
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Administration
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3_1" id="__nav_3_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Tutorials
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Tutorials
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin-guide/administration/tutorials/add-or-remove-nodes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Add/Remove Nodes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin-guide/administration/tutorials/backup-cluster/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Backup Cluster
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin-guide/administration/tutorials/expose-services-to-the-internet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Expose Services
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin-guide/administration/tutorials/manual-dns-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Manual DNS Setup
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin-guide/administration/tutorials/run-commands-on-multiple-nodes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Multi-Node Commands
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin-guide/administration/tutorials/single-node-cluster-adjustments/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Single Node Adjustments
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin-guide/administration/tutorials/user-accounts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    User Accounts
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin-guide/administration/tutorials/use-both-github-and-gitea/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    GitHub and Gitea
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin-guide/administration/tutorials/updating-documentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Update Documentation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin-guide/administration/tutorials/kube-prometheus-stack/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Monitoring Stack
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin-guide/administration/tutorials/loki-promtail/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Logging Stack
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin-guide/administration/tutorials/ssl-cert-change-git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SSL Certificates
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin-guide/administration/tutorials/install-pre-commit-hooks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Pre-commit Hooks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin-guide/administration/tutorials/shutdown/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Shutdown Procedures
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Concepts
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            Concepts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin-guide/concepts/certificate-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Certificate Management
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin-guide/concepts/opus-container/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Opus Container
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin-guide/concepts/pxe-boot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    PXE Boot
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Runbooks
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            Runbooks
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin-guide/runbooks/argocd/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ArgoCD
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin-guide/runbooks/cert-manager/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cert Manager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin-guide/runbooks/dnsmasq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    DNSmasq
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin-guide/runbooks/documentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Documentation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin-guide/runbooks/gitea/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Gitea
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin-guide/runbooks/longhorn/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Longhorn
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin-guide/runbooks/vault/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Vault
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin-guide/runbooks/onyxia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Onyxia
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin-guide/runbooks/osimages/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    OS Images
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin-guide/runbooks/ofed/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    OFED
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin-guide/runbooks/matrix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Matrix
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin-guide/runbooks/etcd-alerts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    etcd Alerts
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_5_13" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../admin-guide/runbooks/awx/backup/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    AWX
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_5_13" id="__nav_3_5_13_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_5_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5_13">
+            <span class="md-nav__icon md-icon"></span>
+            AWX
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin-guide/runbooks/awx/restore/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Restore
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin-guide/runbooks/awx/git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Git Integration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin-guide/runbooks/awx/runner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Runner
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin-guide/runbooks/awx/tips/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tips
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            Troubleshooting
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin-guide/troubleshooting/bmh-provisioning-error/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    BMH Provisioning
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    User Guide
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            User Guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../onboarding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Onboarding
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    EasyBuild
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    EasyBuild
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#general-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      General usage
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compiling-local-modules-from-eessi" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compiling Local Modules from EESSI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generating-an-easybuild-template-configuration-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Generating an EasyBuild template configuration file
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#environment-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Environment variables
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#command-line-arguments" class="md-nav__link">
+    <span class="md-ellipsis">
+      Command line arguments
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Command line arguments">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#examples-more-below" class="md-nav__link">
+    <span class="md-ellipsis">
+      Examples (more below):
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#overview-of-current-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview of current configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example output
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#available-configuration-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Available configuration settings
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mandatory-configuration-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mandatory configuration settings
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mandatory configuration settings">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#source-path-sourcepath" class="md-nav__link">
+    <span class="md-ellipsis">
+      Source path (--sourcepath)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#build-path-buildpath" class="md-nav__link">
+    <span class="md-ellipsis">
+      Build path (--buildpath)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#software-and-modules-install-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      Software and modules install path
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Software and modules install path">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#direct-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      DIRECT OPTIONS
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DIRECT OPTIONS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parent-install-path-installpath" class="md-nav__link">
+    <span class="md-ellipsis">
+      PARENT INSTALL PATH: --INSTALLPATH
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#full-install-path-for-software-and-module-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      FULL INSTALL PATH FOR SOFTWARE AND MODULE FILE
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#updating-modulepath" class="md-nav__link">
+    <span class="md-ellipsis">
+      UPDATING $MODULEPATH¶
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#easyconfigs-repository-repository-repositorypath" class="md-nav__link">
+    <span class="md-ellipsis">
+      Easyconfigs repository (--repository, --repositorypath)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logfile-format-logfile-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logfile format (--logfile-format)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optional-configuration-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Optional configuration settings
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Optional configuration settings">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#overall-prefix-path-prefix" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overall prefix path (--prefix)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#software-and-modules-install-path-subdirectories" class="md-nav__link">
+    <span class="md-ellipsis">
+      Software and modules install path subdirectories
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modules-tool-modules-tool" class="md-nav__link">
+    <span class="md-ellipsis">
+      Modules tool (--modules-tool)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#active-module-naming-scheme-module-naming-scheme" class="md-nav__link">
+    <span class="md-ellipsis">
+      Active module naming scheme (--module-naming-scheme)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#module-files-syntax-module-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      Module files syntax (--module-syntax)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    About
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            About
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/support/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Support
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/screenshots/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Screenshots
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Changelog
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#general-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      General usage
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compiling-local-modules-from-eessi" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compiling Local Modules from EESSI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generating-an-easybuild-template-configuration-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Generating an EasyBuild template configuration file
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#environment-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Environment variables
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#command-line-arguments" class="md-nav__link">
+    <span class="md-ellipsis">
+      Command line arguments
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Command line arguments">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#examples-more-below" class="md-nav__link">
+    <span class="md-ellipsis">
+      Examples (more below):
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#overview-of-current-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview of current configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example output
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#available-configuration-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Available configuration settings
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mandatory-configuration-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mandatory configuration settings
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mandatory configuration settings">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#source-path-sourcepath" class="md-nav__link">
+    <span class="md-ellipsis">
+      Source path (--sourcepath)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#build-path-buildpath" class="md-nav__link">
+    <span class="md-ellipsis">
+      Build path (--buildpath)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#software-and-modules-install-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      Software and modules install path
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Software and modules install path">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#direct-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      DIRECT OPTIONS
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DIRECT OPTIONS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parent-install-path-installpath" class="md-nav__link">
+    <span class="md-ellipsis">
+      PARENT INSTALL PATH: --INSTALLPATH
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#full-install-path-for-software-and-module-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      FULL INSTALL PATH FOR SOFTWARE AND MODULE FILE
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#updating-modulepath" class="md-nav__link">
+    <span class="md-ellipsis">
+      UPDATING $MODULEPATH¶
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#easyconfigs-repository-repository-repositorypath" class="md-nav__link">
+    <span class="md-ellipsis">
+      Easyconfigs repository (--repository, --repositorypath)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logfile-format-logfile-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logfile format (--logfile-format)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optional-configuration-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Optional configuration settings
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Optional configuration settings">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#overall-prefix-path-prefix" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overall prefix path (--prefix)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#software-and-modules-install-path-subdirectories" class="md-nav__link">
+    <span class="md-ellipsis">
+      Software and modules install path subdirectories
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modules-tool-modules-tool" class="md-nav__link">
+    <span class="md-ellipsis">
+      Modules tool (--modules-tool)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#active-module-naming-scheme-module-naming-scheme" class="md-nav__link">
+    <span class="md-ellipsis">
+      Active module naming scheme (--module-naming-scheme)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#module-files-syntax-module-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      Module files syntax (--module-syntax)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="easybuild-via-eessi">EasyBuild (via EESSI)</h1>
+<p>As part of our installations, we include EasyBuild via EESSI. We do this by utilising CVMFS (the Cern VM FileSystem) within our environments to fuse-mount EESSI pre-built modulefiles (including EasyBuild) optimised for your architecture.</p>
+<h2 id="general-usage">General usage</h2>
+<p>On a login system, to use the EESSI software firstly you have to source the environment:</p>
+<div class="highlight"><pre><span></span><code>source /cvmfs/software.eessi.io/versions/2023.06/init/bash
+</code></pre></div>
+<p>Then you'll be presented with the ability to use lmod to either use the pre-compiled modules (that match against your architecture using archdetect) using <code>module avail</code>, <code>module load &lt;module&gt;</code> <code>module list</code>, and so on, or recompile yourself for your environment.
+<div class="highlight"><pre><span></span><code>[ubiqsupport@login ~]$ source /cvmfs/software.eessi.io/versions/2023.06/init/bash
+Found EESSI repo @ /cvmfs/software.eessi.io/versions/2023.06!
+archdetect says x86_64/intel/skylake_avx512
+Using x86_64/intel/skylake_avx512 as software subdirectory.
+Found Lmod configuration file at /cvmfs/software.eessi.io/versions/2023.06/software/linux/x86_64/intel/skylake_avx512/.lmod/lmodrc.lua
+Found Lmod SitePackage.lua file at /cvmfs/software.eessi.io/versions/2023.06/software/linux/x86_64/intel/skylake_avx512/.lmod/SitePackage.lua
+Using /cvmfs/software.eessi.io/versions/2023.06/software/linux/x86_64/intel/skylake_avx512/modules/all as the directory to be added to MODULEPATH.
+Using /cvmfs/software.eessi.io/host_injections/2023.06/software/linux/x86_64/intel/skylake_avx512/modules/all as the site extension directory to be added to MODULEPATH.
+Found libcurl CAs file at RHEL location, setting CURL_CA_BUNDLE
+Initializing Lmod...
+Prepending /cvmfs/software.eessi.io/versions/2023.06/software/linux/x86_64/intel/skylake_avx512/modules/all to $MODULEPATH...
+Prepending site path /cvmfs/software.eessi.io/host_injections/2023.06/software/linux/x86_64/intel/skylake_avx512/modules/all to $MODULEPATH...
+Environment set up to use EESSI (2023.06), have fun!
+{EESSI 2023.06} [ubiqsupport@login ~]$ module av
+
+--------------------------------------------------------------- /cvmfs/software.eessi.io/versions/2023.06/software/linux/x86_64/intel/skylake_avx512/modules/all ----------------------------------------------------------------
+   Abseil/20230125.2-GCCcore-12.2.0                 gfbf/2023a                                            libunwind/1.6.2-GCCcore-12.3.0                          PROJ/9.3.1-GCCcore-13.2.0                     (D)
+   Abseil/20230125.3-GCCcore-12.3.0          (D)    gfbf/2023b                                  (D)       libunwind/1.6.2-GCCcore-13.2.0                   (D)    protobuf-python/4.24.0-GCCcore-12.3.0
+   ALL/0.9.2-foss-2023a                             Ghostscript/10.0.0-GCCcore-12.2.0                     libvorbis/1.3.7-GCCcore-12.2.0                          protobuf/23.0-GCCcore-12.2.0
+   AOFlagger/3.4.0-foss-2023b                       Ghostscript/10.01.2-GCCcore-12.3.0          (D)       libvorbis/1.3.7-GCCcore-12.3.0                   (D)    protobuf/24.0-GCCcore-12.3.0                  (D)
+   archspec/0.2.1-GCCcore-12.3.0                    giflib/5.2.1-GCCcore-12.2.0                           libwebp/1.3.1-GCCcore-12.3.0                            PuLP/2.8.0-foss-2023a
+   Armadillo/11.4.3-foss-2022b                      giflib/5.2.1-GCCcore-12.3.0                           libwebp/1.3.2-GCCcore-13.2.0                     (D)    pybind11/2.10.3-GCCcore-12.2.0
+   Armadillo/12.6.2-foss-2023a                      giflib/5.2.1-GCCcore-13.2.0                 (D)       libxc/6.1.0-GCC-12.2.0                                  pybind11/2.11.1-GCCcore-12.3.0
+   Armadillo/12.8.0-foss-2023b               (D)    git/2.38.1-GCCcore-12.2.0-nodocs                      libxc/6.2.2-GCC-12.3.0                           (D)    pybind11/2.11.1-GCCcore-13.2.0                (D)
+   arpack-ng/3.8.0-foss-2022b                       git/2.41.0-GCCcore-12.3.0-nodocs                      libxml2/2.10.3-GCCcore-12.2.0                           pyfaidx/0.8.1.1-GCCcore-12.3.0
+   arpack-ng/3.9.0-foss-2023a                       git/2.42.0-GCCcore-13.2.0                   (D)       libxml2/2.11.4-GCCcore-12.3.0                           PyOpenGL/3.1.7-GCCcore-12.3.0
+   arpack-ng/3.9.0-foss-2023b                (D)    GitPython/3.1.40-GCCcore-12.3.0                       libxml2/2.11.5-GCCcore-13.2.0                    (D)    PyQt-builder/1.15.4-GCCcore-12.3.0
+   arrow-R/11.0.0.3-foss-2022b-R-4.2.2              GLib/2.75.0-GCCcore-12.2.0                            libxslt/1.1.37-GCCcore-12.2.0                           PyQt5/5.15.10-GCCcore-12.3.0
+   arrow-R/14.0.1-foss-2023a-R-4.3.2         (D)    GLib/2.77.1-GCCcore-12.3.0                            libxslt/1.1.38-GCCcore-12.3.0                           Pysam/0.22.0-GCC-12.3.0
+   Arrow/11.0.0-gfbf-2022b                          GLib/2.78.1-GCCcore-13.2.0                  (D)       libxslt/1.1.38-GCCcore-13.2.0                    (D)    pystencils/1.3.4-gfbf-2023b
+   Arrow/14.0.1-gfbf-2023a                   (D)    GLPK/5.0-GCCcore-12.2.0                               libyaml/0.2.5-GCCcore-12.3.0                            pytest-flakefinder/1.1.0-GCCcore-12.3.0
+   ASE/3.22.1-gfbf-2022b                            GLPK/5.0-GCCcore-12.3.0                     (D)       libyaml/0.2.5-GCCcore-13.2.0                     (D)    pytest-rerunfailures/12.0-GCCcore-12.3.0
+   at-spi2-atk/2.38.0-GCCcore-12.2.0                GMP/6.2.1-GCCcore-12.2.0                              LittleCMS/2.14-GCCcore-12.2.0                           pytest-shard/0.1.2-GCCcore-12.3.0
+   at-spi2-atk/2.38.0-GCCcore-12.3.0         (D)    GMP/6.2.1-GCCcore-12.3.0                              LittleCMS/2.15-GCCcore-12.3.0                           Python-bundle-PyPI/2023.06-GCCcore-12.3.0
+   at-spi2-core/2.46.0-GCCcore-12.2.0               GMP/6.3.0-GCCcore-13.2.0                    (D)       LittleCMS/2.15-GCCcore-13.2.0                    (D)    Python-bundle-PyPI/2023.10-GCCcore-13.2.0     (D)
+   at-spi2-core/2.49.91-GCCcore-12.3.0       (D)    gmpy2/2.1.5-GCC-12.3.0                                LLVM/15.0.5-GCCcore-12.2.0                              python-casacore/3.5.2-foss-2023b
+   ATK/2.38.0-GCCcore-12.2.0                        gmpy2/2.1.5-GCC-13.2.0                      (D)       LLVM/16.0.6-GCCcore-12.3.0                              python-isal/1.1.0-GCCcore-12.3.0
+   ATK/2.38.0-GCCcore-12.3.0                 (D)    gnuplot/5.4.8-GCCcore-12.3.0                          LLVM/16.0.6-GCCcore-13.2.0                       (D)    Python/2.7.18-GCCcore-12.2.0-bare
+</code></pre></div></p>
+<h2 id="compiling-local-modules-from-eessi">Compiling Local Modules from EESSI</h2>
+<p>Sometimes you will need to compile modules and software locally - Maybe your operating system is different, your GLIBC libraries are different and so on.</p>
+<p>To do this, you can invoke EasyBuild from within EESSI, and build to a local directory.</p>
+<p>You do this by creating an EasyBuild template configuration file, and pointing that configuration file to a shared directory and building versions of the software locally using EasyBuild Commands, issued below.</p>
+<h2 id="generating-an-easybuild-template-configuration-file">Generating an EasyBuild template configuration file</h2>
+<p>Since EasyBuild v1.10, a command line option --confighelp is available that prints out the help text as an annotated configuration file. This can be used as an empty template configuration file:</p>
+<div class="highlight"><pre><span></span><code>mkdir -p $HOME/.config/easybuild
+eb --confighelp &gt; $HOME/.config/easybuild/config.cfg
+$ head $HOME/.easybuild/config.cfg
+[MAIN]
+# Enable debug log mode (def False)
+#debug=
+# Enable info log mode (def False)
+#info=
+# Enable info quiet/warning mode (def False)
+#quiet=
+
+[basic]
+# Print build overview incl. dependencies (full paths) (def False)
+</code></pre></div>
+<h2 id="environment-variables">Environment variables</h2>
+<p>All configuration settings listed as long options in <code>eb --help</code> can also be specified via <code>EASYBUILD_</code>-prefixed environment variables.</p>
+<p>Configuration settings specified this way always override the corresponding setting specified in a configuration file.</p>
+<p>For example, to enable debug logging using an environment variable:
+<div class="highlight"><pre><span></span><code>export EASYBUILD_DEBUG=1
+</code></pre></div>
+More examples of using environment variables to configure EasyBuild are shown in the sections below.</p>
+<p><strong>Tip</strong></p>
+<p>Any configuration option of EasyBuild which can be tuned by command line or via the configuration file, can also be tuned via a corresponding environment variable.</p>
+<p><strong>Note</strong></p>
+<p>If any <code>$EASYBUILD_</code>-prefixed environment variables are defined that do not correspond to a known configuration option, EasyBuild will report an error message and exit.</p>
+<h2 id="command-line-arguments">Command line arguments</h2>
+<p>The configuration type with the highest precedence are the eb command line arguments, which override settings specified through environment variables or in configuration files.</p>
+<p>For some configuration options, both short and long command line arguments are available (see <code>eb --help</code>); the long options indicate how the configuration setting should be specified in a configuration file or via an environment variable (<code>$EASYBUILD_&lt;LONGOPTION&gt;</code>).</p>
+<p>For boolean configuration settings, both the <code>--&lt;option&gt;</code> and <code>--disable-&lt;option&gt;</code> variants are always available.</p>
+<h3 id="examples-more-below">Examples (more below):</h3>
+<p>enable debug logging (long option) and logging to stdout (short option)
+<div class="highlight"><pre><span></span><code>eb --debug -l ...
+</code></pre></div>
+use /dev/shm as build path, install to temporary install path, disable debug logging
+<div class="highlight"><pre><span></span><code>eb --buildpath=/dev/shm --installpath=/tmp/$USER --disable-debug ...
+</code></pre></div></p>
+<h3 id="overview-of-current-configuration">Overview of current configuration</h3>
+<p>(<code>--show-config</code>, <code>--show-full-config</code>)</p>
+<p>To get an overview of the current EasyBuild configuration across all configuration types, you can use <code>eb --show-config</code>.</p>
+<p>The output will specify:</p>
+<ul>
+<li>any configuration setting for which the current value is different from the default value</li>
+<li>a couple of selected important configuration settings (even if they are still set to the default value), i.e.:</li>
+<li>build path</li>
+<li>install path</li>
+<li>path to easyconfigs repository</li>
+<li>the robot search path</li>
+<li>source path</li>
+<li>through which configuration type each setting was defined</li>
+<li>i.e., default value, configuration file, environment variable or command line argument</li>
+</ul>
+<h3 id="example-output">Example output</h3>
+<p><div class="highlight"><pre><span></span><code>$ cat $HOME/.config/easybuild/config.cfg
+[config]
+buildpath = /tmp/eb-build
+
+$ export EASYBUILD_MODULES_TOOL=Lmod
+$ export EASYBUILD_OPTARCH=&#39;&#39;
+
+$ eb --show-config --installpath=$HOME/apps --job-cores=4
+#
+# Current EasyBuild configuration
+# (C: command line argument, D: default value, E: environment variable, F: configuration file)
+#
+buildpath      (F) = /tmp/eb-build
+installpath    (C) = /Users/example/apps
+job-cores      (C) = 4
+modules-tool   (E) = Lmod
+optarch        (E) = &#39;&#39;
+repositorypath (D) = /Users/example/.local/easybuild/ebfiles_repo
+robot-paths    (D) = /Users/example/easybuild-easyconfigs/easybuild/easyconfigs
+sourcepath     (D) = /Users/example/.local/easybuild/sources
+</code></pre></div>
+For a full overview of the current configuration, including all configuration settings, see <code>eb --show-full-config</code>.</p>
+<h3 id="available-configuration-settings">Available configuration settings</h3>
+<p>To obtain a full and up-to-date list of available configuration settings, see <code>eb --help</code>. We refrain from listing all available configuration settings here, to avoid outdated documentation.</p>
+<p>A couple of selected configuration settings are discussed below, in particular the mandatory settings.</p>
+<h3 id="mandatory-configuration-settings">Mandatory configuration settings</h3>
+<p>A handful of configuration settings are mandatory, and should be provided using one of the supported configuration types.</p>
+<p>The following configuration settings are currently mandatory (more details in the sections below):</p>
+<ul>
+<li>Source path (<code>--sourcepath</code>)</li>
+<li>Build path (<code>--buildpath</code>)</li>
+<li>Software and modules install path (<code>--installpath</code>, <code>--installpath-software</code>, <code>--installpath-modules</code>)</li>
+<li>Easyconfigs repository (<code>--repository</code>, <code>--repositorypath</code>)</li>
+<li>Logfile format (<code>--logfile-format</code>)</li>
+</ul>
+<p>If any of these configuration settings is not provided in one way or another, EasyBuild will complain and exit.</p>
+<p>In practice, all of these have reasonable defaults (see <code>eb --help</code> for the default settings).</p>
+<p><strong>Note</strong></p>
+<p>The mandatory path-related options can be tweaked collectively via --prefix, see Overall prefix path (--prefix) for more information.</p>
+<h4 id="source-path-sourcepath">Source path (--sourcepath)</h4>
+<p>default: $HOME/.local/easybuild/sources/ (determined via Overall prefix path (--prefix))</p>
+<p>The sourcepath configuration setting specifies the parent path of the directory in which EasyBuild looks for software source and install files.</p>
+<p>Looking for the files specified via the sources parameter in the .eb easyconfig file is done in the following order of preference:</p>
+<p><sourcepath>/<name>: a subdirectory determined by the name of the software package
+<sourcepath>/<letter>/<name>: in the style of the easyblocks/easyconfigs directories: in a subdirectory determined by the first letter (in lower case) of the software package and by its full name
+<sourcepath>: directly in the source path
+Note that these locations are also used when EasyBuild looks for patch files in addition to the various easybuild/easyconfigs directories that are listed in the $PYTHONPATH.</p>
+<p>You can specify multiple paths, separated with :, in which EasyBuild will look for sources, but only the first one will be used for downloading, so one needs to make sure at least the first path is writable by the user invoking eb.</p>
+<h4 id="build-path-buildpath">Build path (<code>--buildpath</code>)</h4>
+<p>default: <code>$HOME/.local/easybuild/build/</code> (determined via Overall prefix path (<code>--prefix</code>))</p>
+<p>The buildpath configuration setting specifies the parent path of the (temporary) directories in which EasyBuild builds its software packages.</p>
+<p>Each software package is (by default) built in a subdirectory of the specified buildpath under <name>/<version>/<toolchain><versionsuffix>.</p>
+<p>Note that the build directories are emptied and removed by EasyBuild when the installation is completed (by default).</p>
+<p><strong>Tip</strong></p>
+<p>Using /dev/shm as build path can significantly speed up builds, if it is available and provides a sufficient amount of space. Setting up the variable EASYBUILD_BUILDPATH in your shell startup files makes this default. However be aware that, fi., two parallel GCC builds may fill up /dev/shm !</p>
+<h4 id="software-and-modules-install-path">Software and modules install path</h4>
+<p>(<code>--installpath</code>, <code>--installpath-software</code>, <code>--installpath-modules</code>)</p>
+<p>defaults:</p>
+<ul>
+<li>software install path: <code>$HOME/.local/easybuild/software</code> (determined via Overall prefix path (<code>--prefix</code>) and <code>--subdir-software</code>)</li>
+<li>modules install path: <code>$HOME/.local/easybuild/modules/all</code> (determined via Overall prefix path (<code>--prefix</code>), <code>--subdir-modules</code> and <code>--suffix-modules-path</code>)</li>
+</ul>
+<p>There are several ways in which the software and modules install path used by EasyBuild can be configured:</p>
+<p>using the direct configuration options <code>--installpath-software</code> and <code>--installpath-modules</code> (see below)
+via the parent install path configuration option <code>--installpath</code> (see below)
+via the overall prefix path configuration option <code>--prefix</code> (see Overall prefix path (<code>--prefix</code>))</p>
+<h5 id="direct-options">DIRECT OPTIONS</h5>
+<p>(<code>--installpath-software</code> and <code>--installpath-modules</code>)</p>
+<p>default: (no default specified)</p>
+<p>The <code>--installpath-software</code> and <code>--installpath-modules</code> configuration options (available since EasyBuild v2.1.0) allow to directly specify the software and modules install paths, respectively.</p>
+<p>These configuration options have precedence over all of the other configuration options that relate to specifying the install path for software and/or modules (see below).</p>
+<h6 id="parent-install-path-installpath">PARENT INSTALL PATH: <code>--INSTALLPATH</code></h6>
+<p>default: (no default specified)</p>
+<p>The <code>--installpath</code> configuration option specifies the parent path of the directories in which EasyBuild should install software packages and the corresponding module files.</p>
+<p>The install path for software and modules specifically is determined by combining <code>--installpath</code> with <code>--subdir-software</code>, and combining <code>--installpath</code> with <code>--subdir-modules</code> and <code>--suffix-modules-path</code>, respectively.</p>
+<p>For more information on these companion configuration options, see Software and modules install path subdirectories (<code>--subdir-software</code>, <code>--subdir-modules</code>, <code>--suffix-modules-path</code>).</p>
+<h6 id="full-install-path-for-software-and-module-file">FULL INSTALL PATH FOR SOFTWARE AND MODULE FILE</h6>
+<p>The full software and module install paths for a particular software package are determined by the active module naming scheme along with the general software and modules install paths specified by the EasyBuild configuration.</p>
+<p>Both the software itself and the corresponding module file will be installed in a subdirectory of the corresponding install path named according to the active module naming scheme (default format: <name>/<version>-<toolchain><versionsuffix>). Additionally, symlinks to the actual module file are installed in a subdirectory of the modules install path named according to the value of the moduleclass easyconfig parameter.</p>
+<p>For more information on the module naming scheme used by EasyBuild, see Active module naming scheme (<code>--module-naming-scheme</code>).</p>
+<h6 id="updating-modulepath">UPDATING $MODULEPATH¶</h6>
+<p>To make the modules generated by EasyBuild available, the <code>$MODULEPATH</code> environment variable must be updated to include the modules install path.</p>
+<p>The recommended way to do this is to use the module use command. For example:
+<div class="highlight"><pre><span></span><code>eb --installpath=$HOME/easybuild
+module use $HOME/easybuild/modules/all
+</code></pre></div>
+It is probably a good idea to add this to your (favourite) shell .rc file, e.g., <code>~/.bashrc</code>, and/or the <code>~/.profile</code> login scripts, so you do not need to adjust <code>$MODULEPATH</code> every time you start a new session.</p>
+<p><strong>Note</strong></p>
+<p>Updating <code>$MODULEPATH</code> is not required for EasyBuild itself, since eb updates <code>$MODULEPATH</code> itself at runtime according to the modules install path it is configured with.</p>
+<h4 id="easyconfigs-repository-repository-repositorypath">Easyconfigs repository (<code>--repository</code>, <code>--repositorypath</code>)</h4>
+<p>default: FileRepository at $HOME/.local/easybuild/ebfiles_repo (determined via Overall prefix path (--prefix))</p>
+<p>EasyBuild has support for archiving (tested) .eb easyconfig files. After successfully installing a software package using EasyBuild, the corresponding .eb file is uploaded to a repository defined by the repository and repositorypath configuration settings.</p>
+<p>Currently, EasyBuild supports the following repository types (see also eb --avail-repositories):</p>
+<ul>
+<li>FileRepository('path', 'subdir'): a plain flat file repository; path is the path where files will be stored, subdir is an optional subdirectory of that path where the files should be stored</li>
+<li>GitRepository('path', 'subdir/in/repo': a non-empty bare git repository (created with <code>git init --bare</code> or <code>git clone --bare</code>); path is the path to the git repository (can also be a URL); subdir/in/repo is optional, and specifies a subdirectory of the repository where files should be stored in</li>
+<li>SvnRepository('path', 'subdir/in/repo'): an SVN repository; path contains the subversion repository location (directory or URL), the optional second value specifies a subdirectory in the repository
+You need to set the repository setting inside a configuration file like this:
+<div class="highlight"><pre><span></span><code>[config]
+repository = FileRepository
+repositorypath = &lt;path&gt;
+</code></pre></div>
+Or, optionally an extra argument representing a subdirectory can be specified, e.g.:
+<div class="highlight"><pre><span></span><code>export EASYBUILD_REPOSITORY=GitRepository
+export EASYBUILD_REPOSITORYPATH=&lt;path&gt;,&lt;subdir&gt;
+</code></pre></div>
+You do not have to worry about importing these classes, EasyBuild will make them available to the configuration file.</li>
+</ul>
+<p>Using git requires the GitPython Python modules, using svn requires the pysvn Python module (see Dependencies).</p>
+<p>If access to the easyconfigs repository fails for some reason (e.g., no network or a missing required Python module), EasyBuild will issue a warning. The software package will still be installed, but the (successful) easyconfig will not be automatically added to the archive (i.e., it is not considered a fatal error).</p>
+<h4 id="logfile-format-logfile-format">Logfile format (<code>--logfile-format</code>)</h4>
+<p>default: easybuild, easybuild-%(name)s-%(version)s-%(date)s.%(time)s.log</p>
+<p>The logfile format configuration setting contains a tuple specifying a log directory name and a template log file name. In both of these values, using the following string templates is supported:</p>
+<ul>
+<li>%(name)s: the name of the software package to install</li>
+<li>%(version)s: the version of the software package to install</li>
+<li>%(date)s: the date on which the installation was performed (in YYYYMMDD format, e.g. 20120324)</li>
+<li>%(time)s: the time at which the installation was started (in HHMMSS format, e.g. 214359)</li>
+</ul>
+<p><strong>Note</strong></p>
+<p>Because templating is supported in configuration files themselves (see Templates and constants supported in configuration files), the '%' character in these template values must be escaped when used in a configuration file (and only then), e.g., '%%(name)s'. Without escaping, an error like InterpolationMissingOptionError: Bad value substitution will be thrown by ConfigParser.</p>
+<p>For example, configuring EasyBuild to generate a log file mentioning only the software name in a directory named easybuild can be done via the --logfile-format command line option:
+<div class="highlight"><pre><span></span><code>eb --logfile-format=&quot;easybuild,easybuild-%(name)s.log&quot; ...
+</code></pre></div>
+or the <code>$EASYBUILD_LOGFILE_FORMAT</code> environment variable:</p>
+<p><div class="highlight"><pre><span></span><code>export EASYBUILD_LOGFILE_FORMAT=&quot;easybuild,easybuild-%(name)s.log&quot;
+</code></pre></div>
+or by including the following in an EasyBuild configuration file (note the use of '%%' to escape the name template value here):
+<div class="highlight"><pre><span></span><code>logfile-format = easybuild,easybuild-%%(name)s.log
+</code></pre></div></p>
+<h4 id="optional-configuration-settings">Optional configuration settings</h4>
+<p>The subsections below discuss a couple of commonly used optional configuration settings.</p>
+<h5 id="overall-prefix-path-prefix">Overall prefix path (<code>--prefix</code>)</h5>
+<p>default: $HOME/.local/easybuild</p>
+<p>The overall prefix path used by EasyBuild can be specified using the --prefix configuration option.</p>
+<p>This affects the default value of several configuration options:</p>
+<ul>
+<li>source path</li>
+<li>build path</li>
+<li>software and modules install path</li>
+<li>easyconfigs repository path</li>
+<li>package path</li>
+<li>container path</li>
+</ul>
+<h5 id="software-and-modules-install-path-subdirectories">Software and modules install path subdirectories</h5>
+<p>(<code>--subdir-software</code>, <code>--subdir-modules</code>, <code>--suffix-modules-path</code>)</p>
+<p>defaults:</p>
+<ul>
+<li>software install path subdirectory (<code>--subdir-software</code>): software</li>
+<li>modules install path subdirectory (<code>--subdir-modules</code>): modules</li>
+<li>modules install path suffix (<code>--suffix-modules-path</code>): all</li>
+</ul>
+<p>The subdirectories for the software and modules install paths (relative to --installpath, see install path) can be specified using the corresponding dedicated configuration options (available since EasyBuild v1.14.0).</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code>export EASYBUILD_SUBDIR_SOFTWARE=installs
+eb --installpath=$HOME/easybuild --subdir-modules=module_files ...
+</code></pre></div>
+<h5 id="modules-tool-modules-tool">Modules tool (<code>--modules-tool</code>)</h5>
+<p>default: Lmod</p>
+<p>Specifying the modules tool that should be used by EasyBuild can be done using the modules-tool configuration setting. A list of supported modules tools can be obtained using eb --avail-modules-tools.</p>
+<p>Currently, the following modules tools are supported:</p>
+<ul>
+<li>Lmod (default): Lmod, an modern alternative to environment modules, written in Lua (lmod)</li>
+<li>EnvironmentModules: modern Tcl-only version of environment modules (4.x) (modulecmd.tcl)</li>
+<li>EnvironmentModulesC: Tcl/C version of environment modules, usually version 3.2.10 (modulecmd)</li>
+<li>EnvironmentModulesTcl: (ancient) Tcl-only version of environment modules (modulecmd.tcl)</li>
+</ul>
+<p>You can determine which modules tool you are using by checking the output of type -f module (in a bash shell), or alias module (in a tcsh shell).</p>
+<p>The actual module command (i.e., modulecmd, modulecmd.tcl, lmod, ...) must be available via $PATH (which is not standard), except when using Lmod (in that case the lmod binary can also be located via $LMOD_CMD) or when using Environment Modules (in that case the modulecmd.tcl binary can also be located via $MODULES_CMD).</p>
+<p>For example, to indicate that EasyBuild should be using Lmod as modules tool:
+<div class="highlight"><pre><span></span><code>eb --modules-tool=Lmod ...
+</code></pre></div></p>
+<h5 id="active-module-naming-scheme-module-naming-scheme">Active module naming scheme (<code>--module-naming-scheme</code>)</h5>
+<p>default: EasyBuildModuleNamingScheme</p>
+<p>The module naming scheme that should be used by EasyBuild can be specified using the module-naming-scheme configuration setting.
+<div class="highlight"><pre><span></span><code>eb --module-naming-scheme=HierarchicalMNS ...
+</code></pre></div>
+For more details, see the dedicated page on using a custom module naming scheme.</p>
+<h5 id="module-files-syntax-module-syntax">Module files syntax (<code>--module-syntax</code>)</h5>
+<p>default: Lua</p>
+<p>supported since: EasyBuild v2.1</p>
+<p>The syntax to use for generated module files can be specified using the --module-syntax configuration setting.</p>
+<p>Possible values are:</p>
+<ul>
+<li>Lua: generate module files in Lua syntax: this requires the use of Lmod as a modules tool to consume the module files (see modules tool)
+module file names will have the .lua extension</li>
+<li>Tcl: generate module files in Tcl syntax: Tcl module files can be consumed by all supported modules tools. Module files will contain a header string #%Module indicating that they are composed in Tcl syntax</li>
+</ul>
+<p><strong>Note</strong></p>
+<p>Lmod is able to deal with having module files in place in both Tcl and Lua syntax. When a module file in Lua syntax (i.e., with a .lua file name extension) is available, a Tcl module file with the same name will be ignored. The Tcl-based environment modules tool will simply ignore module files in Lua syntax, since they do not contain the header string that is included in Tcl module files.</p>
+<p><strong>Note</strong></p>
+<p>Using module files in Lua syntax has the advantage that Lmod does not need to translate from Lua to Tcl internally when processing the module files, which benefits responsiveness of Lmod when used interactively by users. In terms of Lmod-specific aspects of module files, the syntax of the module file does not matter; Lmod-specific statements supported by EasyBuild can be included in Tcl module files as well, by guarding them by a condition that only evaluates positively when Lmod is consuming the module file, i.e. 'if { [ string match "*tcl2lua.tcl" $env(_) ] } { ... }'. Only conditional load statements like 'load(atleast("gcc","4.8"))' can only be used in Lua module files.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; The Ubiquity Authors
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.indexes", "navigation.expand", "search.highlight", "search.share", "navigation.top", "navigation.tracking", "content.code.copy"], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -10,11 +10,18 @@ def update_license_in_file(file_path):
         with open(file_path, 'r', encoding='utf-8') as f:
             content = f.read()
         
-        # Skip if file doesn't contain the old license
-        if "Licensed under the Functional Source License" not in content:
+        # Skip if file doesn't contain copyright header
+        if "Copyright" not in content:
             return False
         
         print(f"Updating {file_path}")
+        
+        # Update copyright holder from old organization to The Ubiquity Authors
+        content = re.sub(
+            r'Copyright \d+ Logicalis UKI\. All Rights Reserved\.',
+            'Copyright The Ubiquity Authors.',
+            content
+        )
         
         # Update the license line
         content = re.sub(
@@ -25,8 +32,8 @@ def update_license_in_file(file_path):
         
         # Update the URL
         content = re.sub(
-            r'https://github\.com/logicalisuki/ubiquity/blob/main/LICENSE\.md',
-            'https://github.com/logicalisuki/ubiquity/blob/main/LICENSE',
+            r'https://github\.com/ubiquitycluster/ubiquity/blob/main/LICENSE\.md',
+            'https://github.com/ubiquitycluster/ubiquity/blob/main/LICENSE',
             content
         )
         

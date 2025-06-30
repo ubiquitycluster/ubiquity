@@ -2,12 +2,12 @@
 
 ![Ubiquity Logo \| height=30px](Ubiquity_Logo_Purple.svg)
 
-**[Features](#features) • [Get Started](#get-started) • [Documentation](https://www.uki.logicalis.com/data-HPC-Ubiquity)**
+**[Features](#features) • [Get Started](#get-started) • [Documentation](https://ubiquitycluster.github.io/ubiquity)**
 
-[![tag](https://img.shields.io/github/v/tag/logicalisuki/ubiquity-open?style=flat-square&logo=semver&logoColor=white)](https://github.com/logicalisuki/ubiquity-open/tags)
-[![document](https://img.shields.io/website?label=document&logo=gitbook&logoColor=white&style=flat-square&url=https%3A%2F%2Fuki.logicalis.com%2Fdata-HPC-ubiquity)](https://uki.logicalis.com/data-HPC-ubiquity)
-[![license](https://img.shields.io/github/license/logicalisuki/ubiquity-open?style=flat-square&logo=apache&logoColor=white)](LICENSE) Licensed under the Apache-2.0 Licence, post [FSL](https://fsl.software)
-[![stars](https://img.shields.io/github/stars/logicalisuki/ubiquity-open?logo=github&logoColor=white&color=gold&style=flat-square)](https://github.com/logicalisuki/ubiquity-open)
+[![tag](https://img.shields.io/github/v/tag/ubiquitycluster/ubiquity?style=flat-square&logo=semver&logoColor=white)](https://github.com/ubiquitycluster/ubiquity/tags)
+[![document](https://img.shields.io/website?label=document&logo=gitbook&logoColor=white&style=flat-square&url=https%3A%2F%2Fubiquitycluster.github.io%2Fubiquity)](https://ubiquitycluster.github.io/ubiquity)
+[![license](https://img.shields.io/github/license/ubiquitycluster/ubiquity?style=flat-square&logo=apache&logoColor=white)](LICENSE) Licensed under the Apache-2.0 Licence, post [FSL](https://fsl.software)
+[![stars](https://img.shields.io/github/stars/ubiquitycluster/ubiquity?logo=github&logoColor=white&color=gold&style=flat-square)](https://github.com/ubiquitycluster/ubiquity)
 
 This project utilises [Infrastructure as Code](https://en.wikipedia.org/wiki/Infrastructure_as_code) and [GitOps](https://www.weave.works/technologies/gitops) to automate provisioning, operating, and updating self-hosted services in this environment.
 
@@ -101,7 +101,7 @@ They can't capture all the project's features, but they are sufficient to get a 
 | [![][screenshot-11]][screenshot-11]                                                         | [![][screenshot-12]][screenshot-12]                                 |
 | Bare metal management using the [Bare Metal Operator](https://metal3.io/)                                          | Secrets management with [Vault](https://www.vaultproject.io/)       |
 | [![][screenshot-13]][screenshot-13]                                                         | [![][screenshot-14]][screenshot-14]                                 |
-| Dynamically scalable [Slurm](https://slurm.schedmd.com/) environment controlled by Kubernetes       | Remote cluster administration tooling via [Opus](https://github.com/logicalisuki/ubiq_opus)       |
+| Dynamically scalable [Slurm](https://slurm.schedmd.com/) environment controlled by Kubernetes       | Remote cluster administration tooling via [Opus](https://github.com/ubiquitycluster/ubiq_opus)       |
 
 [screenshot-01]: docs/assets/screenshot-01.jpg
 [screenshot-02]: docs/assets/screenshot-02.jpg
@@ -245,7 +245,7 @@ They can't capture all the project's features, but they are sufficient to get a 
 
 ## Roadmap
 
-See [roadmap](docs/reference/roadmap.md) and [open issues](https://github.com/logicalisuki/ubiquity-open/issues) for a list of proposed features and known issues.
+See [roadmap](docs/reference/roadmap.md) and [open issues](https://github.com/ubiquitycluster/ubiquity/issues) for a list of proposed features and known issues.
 
 ## Contributing
 
@@ -255,7 +255,7 @@ Please see [contributing guide](CONTRIBUTING.md) for more information.
 
 ## License
 
-Copyright &copy; 2023 - Logicalis UKI
+Copyright &copy; The Ubiquity Authors
 
 Distributed under the Apache-2.0 License. Previously released under the Functional Source License, Version 1.0, Apache 2.0 Change (FSL-1.0-Apache-2.0) License.
 See [license page](LICENSE) for more information.

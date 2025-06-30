@@ -1,5 +1,5 @@
  /*   
- * Chris Coates, Logicalis, 2023
+ * The Ubiquity Authors, 2023
  * 
  *  pi.c
  *

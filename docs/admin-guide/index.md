@@ -172,8 +172,8 @@ You can test/dev changes to kubernetes environments via using the "sandbox" mode
 
 ## MAINTENANCE PROCEDURES
 
-### Contacting Logicalis
-Log a helpdesk call on [ServiceNow](http://)
+### Getting Support
+For community support, please visit our [GitHub repository](https://github.com/ubiquitycluster/ubiquity) and open an issue.
 
 ### General Maintenance Procedures
 #### Power Up Procedures

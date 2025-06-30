@@ -1,5 +1,5 @@
 # OpenStack Network Configuration for k3s Clusters
-# Copyright 2025 Logicalis UKI. All Rights Reserved.
+# Copyright The Ubiquity Authors.
 #
 # Licensed under the Apache License, Version 2.0 
 # See the License for the specific language governing permissions and

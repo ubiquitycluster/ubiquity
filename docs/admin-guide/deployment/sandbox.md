@@ -13,7 +13,7 @@ It is recommended to use [cloud](cloud/index.md) or [on-premises](on-prem.md) de
 
 ```bash
 # clone repo
-git clone https://github.com/logicalisuki/ubiquity-open.git
+git clone https://github.com/ubiquitycluster/ubiquity.git
 cd ubiquity
 git submodule update --init --recursive
 ```

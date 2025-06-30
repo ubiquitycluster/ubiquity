@@ -34,7 +34,7 @@
 
 - **`./tools`** - Tools container with all utilities needed to manage the cluster and troubleshoot issues, including disk image building
 - **`./docs`** - All documentation that generates a searchable web UI
-- **`./ubiq-playbooks`** - Bootstrapping Ansible playbooks for Ansible AWX (separate sub-repository at `https://github.com/logicalisuki/ubiq-playbooks`)
+- **`./ubiq-playbooks`** - Bootstrapping Ansible playbooks for Ansible AWX (separate sub-repository at `https://github.com/ubiquitycluster/ubiq-playbooks`)
 - **`./scripts`** - Scripts to automate common tasks such as configuring cluster deployment, retrieving passwords, etc.
 
 ## Provisioning Flow

@@ -1,0 +1,3407 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://ubiquitycluster.github.io/ubiquity/admin-guide/">
+      
+      
+        <link rel="prev" href="../getting-started/">
+      
+      
+        <link rel="next" href="deployment/prerequisites/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>Overview - Ubiquity</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.342714a4.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#admin-guide" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Ubiquity" class="md-header__button md-logo" aria-label="Ubiquity" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Ubiquity
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Overview
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ubiquitycluster/ubiquity" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ubiquitycluster/ubiquity
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Ubiquity" class="md-nav__button md-logo" aria-label="Ubiquity" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Ubiquity
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ubiquitycluster/ubiquity" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ubiquitycluster/ubiquity
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="./" class="md-nav__link md-nav__link--active">
+              
+  
+  
+  <span class="md-ellipsis">
+    Admin Guide
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link md-nav__link--active" for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Admin Guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Deployment
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Deployment
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="deployment/prerequisites/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Prerequisites
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="deployment/configure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Configure
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="deployment/sandbox/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Sandbox
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="deployment/on-prem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    On-Premises
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="deployment/external-resources/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    External Resources
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="deployment/post-installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Post Installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_2_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2_7" id="__nav_3_2_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Production
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_2_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2_7">
+            <span class="md-nav__icon md-icon"></span>
+            Production
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="deployment/production/prerequisites/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Prerequisites
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="deployment/production/external-resources/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    External Resources
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="deployment/production/configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="deployment/production/deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Deployment
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="deployment/production/post-installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Post Installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="deployment/production/airgapping/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Air Gapping
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="deployment/production/awx-postinstall/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    AWX Post Install
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="deployment/production/hfi-infiniband/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    InfiniBand
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_2_8" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="deployment/cloud/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Cloud
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_2_8" id="__nav_3_2_8_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_2_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2_8">
+            <span class="md-nav__icon md-icon"></span>
+            Cloud
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="deployment/cloud/terraform_cloud/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Terraform Cloud
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Administration
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Administration
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3_1" id="__nav_3_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Tutorials
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Tutorials
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="administration/tutorials/add-or-remove-nodes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Add/Remove Nodes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="administration/tutorials/backup-cluster/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Backup Cluster
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="administration/tutorials/expose-services-to-the-internet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Expose Services
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="administration/tutorials/manual-dns-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Manual DNS Setup
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="administration/tutorials/run-commands-on-multiple-nodes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Multi-Node Commands
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="administration/tutorials/single-node-cluster-adjustments/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Single Node Adjustments
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="administration/tutorials/user-accounts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    User Accounts
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="administration/tutorials/use-both-github-and-gitea/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    GitHub and Gitea
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="administration/tutorials/updating-documentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Update Documentation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="administration/tutorials/kube-prometheus-stack/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Monitoring Stack
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="administration/tutorials/loki-promtail/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Logging Stack
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="administration/tutorials/ssl-cert-change-git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SSL Certificates
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="administration/tutorials/install-pre-commit-hooks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Pre-commit Hooks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="administration/tutorials/shutdown/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Shutdown Procedures
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Concepts
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            Concepts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="concepts/certificate-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Certificate Management
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="concepts/opus-container/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Opus Container
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="concepts/pxe-boot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    PXE Boot
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Runbooks
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            Runbooks
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="runbooks/argocd/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ArgoCD
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="runbooks/cert-manager/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cert Manager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="runbooks/dnsmasq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    DNSmasq
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="runbooks/documentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Documentation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="runbooks/gitea/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Gitea
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="runbooks/longhorn/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Longhorn
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="runbooks/vault/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Vault
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="runbooks/onyxia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Onyxia
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="runbooks/osimages/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    OS Images
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="runbooks/ofed/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    OFED
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="runbooks/matrix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Matrix
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="runbooks/etcd-alerts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    etcd Alerts
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_5_13" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="runbooks/awx/backup/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    AWX
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_5_13" id="__nav_3_5_13_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_5_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5_13">
+            <span class="md-nav__icon md-icon"></span>
+            AWX
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="runbooks/awx/restore/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Restore
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="runbooks/awx/git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Git Integration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="runbooks/awx/runner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Runner
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="runbooks/awx/tips/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tips
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            Troubleshooting
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="troubleshooting/bmh-provisioning-error/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    BMH Provisioning
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../user-guide/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    User Guide
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            User Guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/onboarding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Onboarding
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/EasyBuild/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    EasyBuild
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    About
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            About
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../about/support/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Support
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../about/screenshots/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Screenshots
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../changelog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Changelog
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#acronyms" class="md-nav__link">
+    <span class="md-ellipsis">
+      Acronyms
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#document-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      Document Format
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#system-introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      System Introduction
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#administrator-users" class="md-nav__link">
+    <span class="md-ellipsis">
+      Administrator users
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Administrator users">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-nfs-storage-subsystem" class="md-nav__link">
+    <span class="md-ellipsis">
+      The NFS Storage Subsystem
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-lustre-storage-subsystem" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Lustre Storage Subsystem
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-storage-scale-storage-subsystem" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Storage Scale Storage Subsystem
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ip-numbering-scheme" class="md-nav__link">
+    <span class="md-ellipsis">
+      IP Numbering Scheme
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="IP Numbering Scheme">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#variable-subnet-definitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Variable Subnet Definitions:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ip-address-assignment" class="md-nav__link">
+    <span class="md-ellipsis">
+      IP Address Assignment
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethernet-port-allocation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ethernet port Allocation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ethernet port Allocation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ethernet-port-connections-on-physical-nodes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ethernet Port connections on physical nodes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initial-system-build" class="md-nav__link">
+    <span class="md-ellipsis">
+      Initial System Build
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Initial System Build">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hardware-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hardware state
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hardware state">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bios-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      BIOS Settings
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="BIOS Settings">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#retrieve-bios-settings-from-asu" class="md-nav__link">
+    <span class="md-ellipsis">
+      Retrieve BIOS Settings from ASU
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clone-bios-settings-from-one-node-to-another-post-install-addition-to-smg" class="md-nav__link">
+    <span class="md-ellipsis">
+      Clone BIOS Settings from One Node to Another (post-install addition to SMG)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hardware-raid-card-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hardware RAID Card configuration
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#build-sequence-for-hawk-systems-from-management-node" class="md-nav__link">
+    <span class="md-ellipsis">
+      Build sequence for HAWK systems from management node.
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Build sequence for HAWK systems from management node.">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#install-basic-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      Install basic image
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#system-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      System management
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="System management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#access-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      Access methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testdev" class="md-nav__link">
+    <span class="md-ellipsis">
+      Test/Dev
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#maintenance-procedures" class="md-nav__link">
+    <span class="md-ellipsis">
+      MAINTENANCE PROCEDURES
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="MAINTENANCE PROCEDURES">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#getting-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      Getting Support
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#general-maintenance-procedures" class="md-nav__link">
+    <span class="md-ellipsis">
+      General Maintenance Procedures
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="General Maintenance Procedures">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#power-up-procedures" class="md-nav__link">
+    <span class="md-ellipsis">
+      Power Up Procedures
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#power-down-procedures" class="md-nav__link">
+    <span class="md-ellipsis">
+      Power Down Procedures
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Power Down Procedures">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#control-plane" class="md-nav__link">
+    <span class="md-ellipsis">
+      Control plane:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cordon-workers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cordon workers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-bmh_host" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get bmh_host
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poweroff" class="md-nav__link">
+    <span class="md-ellipsis">
+      poweroff
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reboot" class="md-nav__link">
+    <span class="md-ellipsis">
+      reboot
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remove-poweroff-flag-add-a-dash-at-the-end-of-the-annotation-for-poweroff" class="md-nav__link">
+    <span class="md-ellipsis">
+      Remove Poweroff flag: Add a dash at the end of the annotation for poweroff
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#powering-on-a-compute-node" class="md-nav__link">
+    <span class="md-ellipsis">
+      Powering on a Compute Node
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#marking-a-compute-node-down-for-maintenance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Marking a Compute Node Down for maintenance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resuming-a-compute-node" class="md-nav__link">
+    <span class="md-ellipsis">
+      Resuming a Compute Node
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#viewing-downed-nodes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Viewing Downed Nodes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#replacing-a-compute-node-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      Replacing a Compute Node System
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#business-as-usual-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Business as Usual Management
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Business as Usual Management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#unbanning-login-node-ips-fail2ban" class="md-nav__link">
+    <span class="md-ellipsis">
+      Unbanning login node IPs (fail2ban)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#editing-slurmconf" class="md-nav__link">
+    <span class="md-ellipsis">
+      Editing slurm.conf
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#work-load-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Work Load Management
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Work Load Management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#slurm-accounting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slurm Accounting
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      Monitoring
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#customising-monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      Customising Monitoring
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#monitoring-users" class="md-nav__link">
+    <span class="md-ellipsis">
+      Monitoring users
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nfslustre-storage-administration" class="md-nav__link">
+    <span class="md-ellipsis">
+      NFS/Lustre Storage Administration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="NFS/Lustre Storage Administration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nfs-quota" class="md-nav__link">
+    <span class="md-ellipsis">
+      NFS Quota
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfs-faults" class="md-nav__link">
+    <span class="md-ellipsis">
+      NFS Faults
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lustre-quota" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lustre Quota
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lustre-faults" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lustre Faults
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lustre-performance-tracking" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lustre Performance Tracking
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#disk-failure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Disk Failure
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pacemakercorosync-troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pacemaker/Corosync troubleshooting
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#log-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Log files
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cluster-shell" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cluster Shell
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#serial-console" class="md-nav__link">
+    <span class="md-ellipsis">
+      Serial Console
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compiling-software-adding-modules" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compiling Software, Adding Modules
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#load-balancing-users-across-the-login-nodes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Load balancing users across the login nodes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#updating-infiniband-hca-firmware" class="md-nav__link">
+    <span class="md-ellipsis">
+      Updating InfiniBand HCA firmware
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Updating InfiniBand HCA firmware">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-mlxfw" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using mlxfw
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#infiniband-troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      InfiniBand Troubleshooting
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ldap-openldap-based" class="md-nav__link">
+    <span class="md-ellipsis">
+      LDAP (openLDAP-based)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compute-node-frequency-control-turbo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compute Node Frequency Control &amp; Turbo
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#additional-package-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Additional Package Installation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#firewalld-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Firewalld configuration
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#temperature-monitor" class="md-nav__link">
+    <span class="md-ellipsis">
+      Temperature monitor
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#backups-and-dr" class="md-nav__link">
+    <span class="md-ellipsis">
+      Backups and DR
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="admin-guide">Admin Guide</h1>
+<h2 id="acronyms">Acronyms</h2>
+<ul>
+<li><strong>HPC</strong> - High-Performance Computing</li>
+<li><strong>MPI</strong> - Message Passing Interface</li>
+<li><strong>GPU</strong> - Graphics Processing Unit</li>
+<li><strong>CPU</strong> - Central Processing Unit</li>
+<li><strong>FPGA</strong> - Field-Programmable Gate Array</li>
+<li><strong>TPU</strong> - Tensor Processing Unit</li>
+<li><strong>CUDA</strong> - Compute Unified Device Architecture</li>
+<li><strong>OpenCL</strong> - Open Computing Language</li>
+<li><strong>GPGPU</strong> - General-Purpose Computing on Graphics Processing Units</li>
+<li><strong>FFT</strong> - Fast Fourier Transform</li>
+<li><strong>LINPACK</strong> - Linear Algebra Package</li>
+<li><strong>PDE</strong> - Partial Differential Equation</li>
+<li><strong>CFD</strong> - Computational Fluid Dynamics</li>
+<li><strong>IO</strong> - Input/Output</li>
+<li><strong>RAM</strong> - Random Access Memory</li>
+<li><strong>ROM</strong> - Read-Only Memory</li>
+<li><strong>SSD</strong> - Solid-State Drive</li>
+<li><strong>HDFS</strong> - Hadoop Distributed File System</li>
+<li><strong>NFS</strong> - Network File System</li>
+<li><strong>HDF5</strong> - Hierarchical Data Format version 5</li>
+<li><strong>SSH</strong> - Secure Shell</li>
+<li><strong>LAN</strong> - Local Area Network</li>
+<li><strong>WAN</strong> - Wide Area Network</li>
+<li><strong>SAN</strong> - Storage Area Network</li>
+<li><strong>NUMA</strong> - Non-Uniform Memory Access</li>
+<li><strong>SMP</strong> - Symmetric Multiprocessing</li>
+<li><strong>HT</strong> - Hyper-Threading</li>
+<li><strong>OS</strong> - Operating System</li>
+<li><strong>BIOS</strong> - Basic Input/Output System</li>
+<li><strong>UEFI</strong> - Unified Extensible Firmware Interface</li>
+<li><strong>PBS</strong> - Portable Batch System</li>
+<li><strong>SLURM</strong> - Simple Linux Utility for Resource Management</li>
+<li><strong>TORQUE</strong> - Terascale Open-source Resource and QUEue manager</li>
+<li><strong>PBS</strong> - Portable Batch System</li>
+<li><strong>DRAM</strong> - Dynamic Random Access Memory</li>
+<li><strong>ECC</strong> - Error-Correcting Code</li>
+<li><strong>RAID</strong> - Redundant Array of Independent Disks</li>
+<li><strong>SSD</strong> - Solid State Drive</li>
+<li><strong>NVMe</strong> - Non-Volatile Memory Express</li>
+<li><strong>IB</strong> - InfiniBand</li>
+<li><strong>NIC</strong> - Network Interface Card</li>
+<li><strong>FP64</strong> - Double Precision Floating Point</li>
+<li><strong>FP32</strong> - Single Precision Floating Point</li>
+<li><strong>FP16</strong> - Half Precision Floating Point</li>
+<li><strong>FP8/FP4</strong> - AI Floating point</li>
+<li><strong>AI</strong> - Artificial Intelligence</li>
+<li><strong>ML</strong> - Machine Learning</li>
+<li><strong>DL</strong> - Deep Learning</li>
+<li><strong>VLSI</strong> - Very-Large-Scale Integration</li>
+<li><strong>ASIC</strong> - Application-Specific Integrated Circuit</li>
+<li><strong>CSI</strong> - Container Storage Interface</li>
+<li><strong>ASU</strong> - Lenovo Advanced Systems Utility</li>
+<li><strong>XCC</strong> - XClarity Controller</li>
+<li><strong>BMO</strong> - Bare Metal Operator</li>
+</ul>
+<h2 id="introduction">Introduction</h2>
+<h3 id="document-format">Document Format</h3>
+<p>The documentation for Ubiquity is in markdown format - Embedded within the git repository and as such can be served as github pages or equivalent.</p>
+<h2 id="system-introduction">System Introduction</h2>
+<p>Ubiquity is deployed as a high-availability control plane, using keepalived for a floating IP address.</p>
+<p>The kubernetes service underpinning it then manages all other services as Kubernetes PODS. This includes:
+- <strong>DNS</strong>
+- <strong>Ansible via AWX</strong>
+- <strong>KeyCloak</strong>
+- <strong>Monitoring</strong>
+- <strong>Workload Managers (where necessary)</strong>
+- <strong>Vault</strong>
+- <strong>Onyxia (self-serve Kubernetes provisioning layer)</strong>
+- <strong>ArgoCD</strong>
+- <strong>BareMetalOperator</strong>
+- ..and so on.</p>
+<p>All services are broken down into functions, the functions of which are within subdirectories:
+- <strong>Bootstrap</strong> - For installing ArgoCD and its <a href="https://argo-cd.readthedocs.io/en/stable/operator-manual/cluster-bootstrapping/">app-of-apps</a> functionality
+- <strong>System</strong> - For system-underpinning services core to the cluster
+- <strong>Platform</strong> - For user-accessible platforms
+- <strong>Apps</strong> - For end-user applications</p>
+<h2 id="administrator-users">Administrator users</h2>
+<p>All access to Ubiquity platforms is provided via a toolbox container called OPUS (also the tool used to deploy the cluster) - No administrative tooling is generally installed on the system unless site-specfics dictate that it's required. Therefore there are no specific users to mention other than the user who is entitled to spin up OPUS which is controlled by an AzureCR key.</p>
+<p>Access directly to nodes can be achieved using SSH-key only - The root passwords on every node are locked. The key is created on installation and is an ED25519 key.</p>
+<h3 id="the-nfs-storage-subsystem">The NFS Storage Subsystem</h3>
+<p>NFS is available within Ubiquity - It can be provided using an exisitng NFS share and provisioned out using the NFS CSI - There are also playbooks to provision an NFS server as a 3-way installation using Pacemaker (if you do not have an NFS share).</p>
+<h3 id="the-lustre-storage-subsystem">The Lustre Storage Subsystem</h3>
+<p>Lustre is available within Ubiquity - It can be provided using an existing Lustre filesystem and provisioned out using the Lustre CSI or passing through the node as a directory.</p>
+<h3 id="the-storage-scale-storage-subsystem">The Storage Scale Storage Subsystem</h3>
+<p>TBC</p>
+<h2 id="ip-numbering-scheme">IP Numbering Scheme</h2>
+<p>Generally a default install of a cluster follows the following convention, using an RFC1918-compliant 10.0.0.0/8 network.</p>
+<p>Networking within Kubernetes uses the Kubernetes flannel network as a software-defined networking scheme, with IP addresses that are auto-allocated and can continually change - These never route out of the network and generate lots of firewall rules, operating via NFTables (as it's faster than IPTables).</p>
+<p>Site-specific configurations will be in the site-specific folder.</p>
+<h3 id="variable-subnet-definitions">Variable Subnet Definitions:</h3>
+<ul>
+<li>10.0.0.x/22 - Vlan102 - OOB/IPMI</li>
+<li>10.46.0.0/16 - Kubernetes flannel network</li>
+<li>10.48.0.0/16 - Kubernetes service network</li>
+<li>10.1.0.x/22 - Vlan103 - MGMT</li>
+<li>10.8.0.x/22 - N/A - InfiniBand IPoIB</li>
+</ul>
+<h3 id="ip-address-assignment">IP Address Assignment</h3>
+<p>The general configuration is as follows:
+- <OOB>.1-3 - OOB for control plane nodes 1-3
+- <OOB>.<last subnet in OOB range>.251-253 - OOB interface on control plane nodes to control OOB devices
+- <MGMT>.1-3 - Control plane nodes 1-3
+- <IB>.1-3 - IB for control plane nodes 1-3
+- <OOB>.11-?? - OOB for compute nodes
+- <MGMT>.11-?? - MGMT for compute nodes
+- <IB>.11-?? - IB for compute nodes</p>
+<p>Site-specfic configurations will be in the site-specfic folder</p>
+<h3 id="ethernet-port-allocation">Ethernet port Allocation</h3>
+<p>Good practice would be to label all ports and shut all unused ports for physical security - This means that the port label on switch configs matches your running cluster and is merely a case of good housekeeping to keep on top of.</p>
+<h4 id="ethernet-port-connections-on-physical-nodes">Ethernet Port connections on physical nodes</h4>
+<p>This should be addressed via port labelling on switches which should say nodename.portnum</p>
+<h2 id="initial-system-build">Initial System Build</h2>
+<h3 id="hardware-state">Hardware state</h3>
+<h4 id="bios-settings">BIOS Settings</h4>
+<p>BIOS settings can be retrieved using the ASU tool within the XCC. You can SSH to the XCC address and use credentials from the BareMetalHost definition for the node to gain access.</p>
+<h5 id="retrieve-bios-settings-from-asu">Retrieve BIOS Settings from ASU</h5>
+<p>To retrieve BIOS Settings from ASU, you can use SSH to SSH to the OOB address for the XCC which then presents you with a <code>system&gt;</code> prompt.</p>
+<p>At this prompt a question mark at any point followed by enter will show you context and syntax help for any command.</p>
+<p>From there, run the <code>asu show</code> command, this dumps out all current configuration for the node.</p>
+<h5 id="clone-bios-settings-from-one-node-to-another-post-install-addition-to-smg">Clone BIOS Settings from One Node to Another (post-install addition to SMG)</h5>
+<p>Using the same process for XCC, use ASU to dump out all the configuration, then:</p>
+<ul>
+<li>Sed replace the '=' with a space</li>
+<li>Sed insert the first words on each line of output with a 'asu set '</li>
+<li>In the XCC terminal, paste.</li>
+</ul>
+<p>This could be automated using a very simple container.</p>
+<h5 id="hardware-raid-card-configuration">Hardware RAID Card configuration</h5>
+<p>RAID configuration can be set or shown via the XCC using ASU, or via the web interface for the node in question on the same IP address.</p>
+<h3 id="build-sequence-for-hawk-systems-from-management-node">Build sequence for HAWK systems from management node.</h3>
+<h4 id="install-basic-image">Install basic image</h4>
+<p>Images are created and deployed via the Bare Metal Operator. The BMO uses openstack ironic to deploy bare metal images, pre-built in qcow2 format.</p>
+<p>These images are created using the diskimage-creator tool (please see training slides on usage, however these will be copied into the administration folder under disk image build, then uploaded/copied into the ironic HTTP server (in the <code>/shared/html/images</code> folder), and then referenced in the BareMetalHost definition/manifest.</p>
+<h2 id="system-management">System management</h2>
+<h3 id="access-methods">Access methods</h3>
+<p>The general access method for administrators is via OPUS, however if you have access to the ED25519 key and the kubeconfig.yaml then you can access from anywhere that has SSH access and network access to the in-band/out-of-band addresses, such as a bastion node. This simplifies access, and a bastion node can have all the required tooling necessary to run OPUS as a container to continue to avoid installing specific tools on a node (which becomes a security risk).</p>
+<p>You can do this via SSH-tunnelling accordingly and defining inside your kubeconfig the <code>proxy:</code> setting to allow your kubernetes client to talk to the main cluster control plane.</p>
+<h3 id="testdev">Test/Dev</h3>
+<p>You can test/dev changes to kubernetes environments via using the "sandbox" mode that is defined inside the deployment folder . This means that you can deploy thea copy of your environment settings as a k3d (or kubernetes in docker) image which duplicates your kubernetes environment inside a docker container that you can tear down once wfinished.</p>
+<h2 id="maintenance-procedures">MAINTENANCE PROCEDURES</h2>
+<h3 id="getting-support">Getting Support</h3>
+<p>For community support, please visit our <a href="https://github.com/ubiquitycluster/ubiquity">GitHub repository</a> and open an issue.</p>
+<h3 id="general-maintenance-procedures">General Maintenance Procedures</h3>
+<h4 id="power-up-procedures">Power Up Procedures</h4>
+<p>To power up a Ubiquity cluster, the following steps should be taken:
+- <strong>Power Up switches</strong>
+- <strong>Power Up Storage shelves and wait to settle</strong>
+- <strong>Power Up Control Planes</strong> - Once this comes online, all functions will be attempted to be restored to previous known state, including power status.
+- <strong>Power Up Storage Nodes (if not controlled by BareMetalHost)</strong> - This <em>may</em> occur irrespective of manual intervention in the event of an unscheduled power outage.
+- <strong>Power Up Compute Nodes</strong> - Again, controlled by BareMetalHost
+- <strong>Confirm Service Restoration</strong> - Again, Kubernetes will endeavour to restore service if they are Kubernetes Pods - Else manual steps to restore services such as Workload Managers etc.</p>
+<h4 id="power-down-procedures">Power Down Procedures</h4>
+<ul>
+<li>
+<p><strong>Start with workers</strong>:</p>
+</li>
+<li>
+<p>list worker nodes in kubetctl or k9s  - <code>kubectl get nodes</code></p>
+</li>
+<li>cordon (drain+unschedule) worker nodes - <code>kubectl cordon &lt;node&gt;</code></li>
+<li>wait for worker nodes to be clean</li>
+<li>BareMetalHost definition online to false (See below) &lt;&lt; only use ipmitool if absolutely necessary (from opus)</li>
+</ul>
+<h5 id="control-plane">Control plane:</h5>
+<p>Make sure no workers are running</p>
+<p>ssh to each control plane node and issue init 0</p>
+<p>To check status of workers</p>
+<div class="highlight"><pre><span></span><code>kubectl get nodes | egrep -v &#39;(control-plane|etcd|master|^NAME)&#39;| awk -F &#39;.&#39; &#39;{ print $1}&#39; | while read line; doecho $line; kubectl -n metal-nodes get bmh $line -o custom-columns=ONLINE:.spec.online;echo &quot;&quot;; done
+</code></pre></div>
+<h5 id="cordon-workers">Cordon workers</h5>
+<div class="highlight"><pre><span></span><code>kubectl get nodes | egrep -v &#39;(control-plane|etcd|master|^NAME)&#39;| awk &#39;{ print $1 }&#39; | while read line; dokubectl cordon $line; done
+</code></pre></div>
+<p>Get bmh_host kubectl get bmh -n metal-nodes...</p>
+<h5 id="get-bmh_host">Get bmh_host</h5>
+<div class="highlight"><pre><span></span><code>kubectl get bmh -n metal-nodes
+</code></pre></div>
+<h5 id="poweroff">poweroff</h5>
+<div class="highlight"><pre><span></span><code>kubectl -n metal-nodes annotate bmh &lt;bmh_host&gt; --overwrite reboot.metal3.io/poweroff=&quot;&quot;
+</code></pre></div>
+<h5 id="reboot">reboot</h5>
+<div class="highlight"><pre><span></span><code>kubectl -n metal-nodes annotate bmh &lt;bmh_host&gt; --overwrite reboot.metal3.io=&#39;true&#39;
+</code></pre></div>
+<h5 id="remove-poweroff-flag-add-a-dash-at-the-end-of-the-annotation-for-poweroff">Remove Poweroff flag: Add a dash at the end of the annotation for poweroff</h5>
+<div class="highlight"><pre><span></span><code>kubectl -n metal-nodes annotate bmh &lt;bmh_host&gt; --overwrite reboot.metal3.io/poweroff-
+</code></pre></div>
+<h5 id="powering-on-a-compute-node">Powering on a Compute Node</h5>
+<p>A node defined inside the BareMetalHost definition as long as the online: true state is defined will automatically be powered on. This is the "default state" for a BareMetalHost.</p>
+<h5 id="marking-a-compute-node-down-for-maintenance">Marking a Compute Node Down for maintenance</h5>
+<p>See [##### poweroff] for details</p>
+<h5 id="resuming-a-compute-node">Resuming a Compute Node</h5>
+<p>See [##### Remove Poweroff flag: Add a dash at the end of the annotation for poweroff] for details</p>
+<h5 id="viewing-downed-nodes">Viewing Downed Nodes</h5>
+<p>Using OPUS, you can see node status by:</p>
+<p><div class="highlight"><pre><span></span><code>kubectl get nodes
+</code></pre></div>
+Or by running k9s and going to the <code>:nodes</code> view.</p>
+<h5 id="replacing-a-compute-node-system">Replacing a Compute Node System</h5>
+<p>To replace a compute node, simply change the MAC address inside the BareMetalHost definition, and configure the BMC with the same address (and password). If necessary, clone the BIOS settings as per [##### Clone BIOS Settings from One Node to Another (post-install addition to SMG)]</p>
+<h2 id="business-as-usual-management">Business as Usual Management</h2>
+<h3 id="unbanning-login-node-ips-fail2ban">Unbanning login node IPs (fail2ban)</h3>
+<p>Dependent on system configuration specifics, however if fail2ban is installed please follow these steps to unban an IP:
+<fail2ban remove commands></p>
+<h3 id="editing-slurmconf">Editing slurm.conf</h3>
+<p>There are 3 modes of operation for Ubiquity that can be chosen:
+- Baremetal - Effectively has monitoring and general services on Kubernetes, but all workload manager functions and compute functions are baremetal.
+- Hybrid - Workload manager control daemons are inside Kubernetes and can communicate with baremetal workers.
+- Native - Workload manager control daemons are inside Kubernetes and worker nodes are PODS within Kubernetes.</p>
+<p>To edit in baremetal mode:
+Edit the ansible playbook in ubiq-playbooks and edit the vars for it, located in <code>ubiq-playbooks/workload-managers/&lt;workload manager&gt;/vars/main.yml</code> - Then call the workload-managers role within AWX on the nodes required.</p>
+<p>To edit in Hybrid or Native mode:
+Edit the values.yaml inside platform/hpc-ubiq/slurm/base/values.yaml - Add required configs and git commit, git push.</p>
+<p>Wait for undrain-nodes-hook to complete.</p>
+<h3 id="work-load-management">Work Load Management</h3>
+<h4 id="slurm-accounting">Slurm Accounting</h4>
+<p>To inspect slurm accounting, login to a slurm node that has slurm control rights and run sacctmgr. 
+In addition, a slurm-exporter is included in all installation modes and can be access by adding a slurm dashboard for monitoring purposes.</p>
+<h3 id="monitoring">Monitoring</h3>
+<p>Monitoring for Ubiquity is provided by Prometheus, and visualised with Grafana. There are alerts that can be configured using AlertManager.
+To login to grafana, using a web browser go to [grafana][https://grafana.<dns-naming-convention>]
+You can also log into the prometheus instance, however all configuration for prometheus is inside git and we don't provision an ingress for prometheus for this reason.
+For more detail on prometheus and grafana, please see <a href="administration/tutorials/kube-prometheus-stack/">administration/tutorials/kube-prometheus-stack.md</a></p>
+<p>For logging purposes, Loki is used - which aggregates logging information to Grafana to be able to be searched interactively. For more details please see <a href="administration/tutorials/loki-promtail/">administration/tutorials/loki-promtail.md</a></p>
+<h3 id="customising-monitoring">Customising Monitoring</h3>
+<p>All configuration for monitoring is inside git and controlled by values.yaml for monitoring-system. Edit the values.yaml for the monitoring platform, git commit, git push and wait for ArgoCD to implement monitoring changes.</p>
+<h3 id="monitoring-users">Monitoring users</h3>
+<p>Monitoring within Ubiquity defines a default admin user, of which you can get the admin user password from a secret within Kubernetes. There is also a helpful convenience script called <code>grafana-admin-password.sh</code> which when ran from OPUS gives you the admin password.</p>
+<p>This can be changed inside the values.yaml - As explained in [### Customising Monitoring].</p>
+<p>You can add extra users either inside values.yaml or you can attach external authentication methods such as KeyCloak.</p>
+<h2 id="nfslustre-storage-administration">NFS/Lustre Storage Administration</h2>
+<h3 id="nfs-quota">NFS Quota</h3>
+<h3 id="nfs-faults">NFS Faults</h3>
+<h3 id="lustre-quota">Lustre Quota</h3>
+<h3 id="lustre-faults">Lustre Faults</h3>
+<h3 id="lustre-performance-tracking">Lustre Performance Tracking</h3>
+<h3 id="disk-failure">Disk Failure</h3>
+<h3 id="pacemakercorosync-troubleshooting">Pacemaker/Corosync troubleshooting</h3>
+<p>pcs status etc</p>
+<h2 id="log-files">Log files</h2>
+<h2 id="cluster-shell">Cluster Shell</h2>
+<p>To run commands om multiple nodes, please see <a href="administration/tutorials/run-commands-on-multiple-nodes/">run-commands-on-multiple-nodes</a></p>
+<h2 id="serial-console">Serial Console</h2>
+<p>Attach via XCC or IPMITool</p>
+<h2 id="compiling-software-adding-modules">Compiling Software, Adding Modules</h2>
+<p>Adding a new Environment Module</p>
+<h2 id="load-balancing-users-across-the-login-nodes">Load balancing users across the login nodes</h2>
+<p>DNS round robin?</p>
+<h2 id="updating-infiniband-hca-firmware">Updating InfiniBand HCA firmware</h2>
+<h3 id="using-mlxfw">Using mlxfw</h3>
+<h2 id="infiniband-troubleshooting">InfiniBand Troubleshooting</h2>
+<h2 id="ldap-openldap-based">LDAP (openLDAP-based)</h2>
+<p>Ubiquity can run a 3-way openLDAP instance that can import LDIFs and manage appropriately.</p>
+<h2 id="compute-node-frequency-control-turbo">Compute Node Frequency Control &amp; Turbo</h2>
+<p>This can be controlled via scripts that are present inside the ubiq-playbooks directory inside the HPCTuning role.</p>
+<h2 id="additional-package-installation">Additional Package Installation</h2>
+<h2 id="firewalld-configuration">Firewalld configuration</h2>
+<h2 id="temperature-monitor">Temperature monitor</h2>
+<p>Ubiquity can shutdown on thermal events using the IPMI exporter within Grafana</p>
+<h2 id="backups-and-dr">Backups and DR</h2>
+<p>For more information, please see <a href="administration/tutorials/backup-cluster/">administration/tutorials/backup-cluster.md</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; The Ubiquity Authors
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.indexes", "navigation.expand", "search.highlight", "search.share", "navigation.top", "navigation.tracking", "content.code.copy"], "search": "../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+    
+  </body>
+</html>

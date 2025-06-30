@@ -22,7 +22,7 @@ subcategories listed below and apply the process to each issue.
 ### New Issue Triage
 
 [GitHub Search
-Query](https://github.com/logicalisuki/ubiquity-open/issues?utf8=%E2%9C%93&q=archived%3Afalse+no%3Alabel+is%3Aissue+sort%3Acreated-asc+is%3Aopen):
+Query](https://github.com/ubiquitycluster/ubiquity/issues?utf8=%E2%9C%93&q=archived%3Afalse+no%3Alabel+is%3Aissue+sort%3Acreated-asc+is%3Aopen):
 `archived:false no:label is:issue sort:created-asc
 is:open`
 
@@ -38,7 +38,7 @@ is:open`
 ### Awaiting Evidence
 
 [GitHub Search
-Query](https://github.com/logicalisuki/ubiquity-open/issues?utf8=%E2%9C%93&q=archived%3Afalse+is%3Aissue+sort%3Acreated-asc+is%3Aopen+label%3Apriority%2Fawaiting-more-evidence):`archived:false
+Query](https://github.com/ubiquitycluster/ubiquity/issues?utf8=%E2%9C%93&q=archived%3Afalse+is%3Aissue+sort%3Acreated-asc+is%3Aopen+label%3Apriority%2Fawaiting-more-evidence):`archived:false
  is:issue sort:created-asc is:open
 label:priority/awaiting-more-evidence`
 
@@ -48,6 +48,6 @@ label:priority/awaiting-more-evidence`
 ### Stale Issues
 
 [GitHub Search
-Query](https://github.com/logicalisuki/ubiquity-open/issues?q=archived%3Afalse+is%3Aissue+sort%3Acreated-asc+is%3Aopen+label%3Alifecycle%2Fstale):
+Query](https://github.com/ubiquitycluster/ubiquity/issues?q=archived%3Afalse+is%3Aissue+sort%3Acreated-asc+is%3Aopen+label%3Alifecycle%2Fstale):
 `archived:false is:issue sort:created-asc is:open
 label:lifecycle/stale`

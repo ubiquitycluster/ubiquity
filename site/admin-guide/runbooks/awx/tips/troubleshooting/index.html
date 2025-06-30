@@ -1,0 +1,2901 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://ubiquitycluster.github.io/ubiquity/admin-guide/runbooks/awx/tips/troubleshooting/">
+      
+      
+      
+      
+      <link rel="icon" href="../../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>Troubleshooting - Ubiquity</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.342714a4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#troubleshooting-guide" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../../.." title="Ubiquity" class="md-header__button md-logo" aria-label="Ubiquity" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Ubiquity
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Troubleshooting
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ubiquitycluster/ubiquity" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ubiquitycluster/ubiquity
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../.." title="Ubiquity" class="md-nav__button md-logo" aria-label="Ubiquity" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Ubiquity
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ubiquitycluster/ubiquity" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ubiquitycluster/ubiquity
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Admin Guide
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Admin Guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Deployment
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Deployment
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../deployment/prerequisites/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Prerequisites
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../deployment/configure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Configure
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../deployment/sandbox/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Sandbox
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../deployment/on-prem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    On-Premises
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../deployment/external-resources/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    External Resources
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../deployment/post-installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Post Installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_2_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2_7" id="__nav_3_2_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Production
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_2_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2_7">
+            <span class="md-nav__icon md-icon"></span>
+            Production
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../deployment/production/prerequisites/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Prerequisites
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../deployment/production/external-resources/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    External Resources
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../deployment/production/configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../deployment/production/deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Deployment
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../deployment/production/post-installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Post Installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../deployment/production/airgapping/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Air Gapping
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../deployment/production/awx-postinstall/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    AWX Post Install
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../deployment/production/hfi-infiniband/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    InfiniBand
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_2_8" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../deployment/cloud/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Cloud
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_2_8" id="__nav_3_2_8_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_2_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2_8">
+            <span class="md-nav__icon md-icon"></span>
+            Cloud
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../deployment/cloud/terraform_cloud/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Terraform Cloud
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Administration
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Administration
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3_1" id="__nav_3_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Tutorials
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Tutorials
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../administration/tutorials/add-or-remove-nodes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Add/Remove Nodes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../administration/tutorials/backup-cluster/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Backup Cluster
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../administration/tutorials/expose-services-to-the-internet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Expose Services
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../administration/tutorials/manual-dns-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Manual DNS Setup
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../administration/tutorials/run-commands-on-multiple-nodes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Multi-Node Commands
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../administration/tutorials/single-node-cluster-adjustments/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Single Node Adjustments
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../administration/tutorials/user-accounts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    User Accounts
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../administration/tutorials/use-both-github-and-gitea/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    GitHub and Gitea
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../administration/tutorials/updating-documentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Update Documentation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../administration/tutorials/kube-prometheus-stack/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Monitoring Stack
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../administration/tutorials/loki-promtail/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Logging Stack
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../administration/tutorials/ssl-cert-change-git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SSL Certificates
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../administration/tutorials/install-pre-commit-hooks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Pre-commit Hooks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../administration/tutorials/shutdown/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Shutdown Procedures
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Concepts
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            Concepts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../concepts/certificate-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Certificate Management
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../concepts/opus-container/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Opus Container
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../concepts/pxe-boot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    PXE Boot
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Runbooks
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            Runbooks
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../argocd/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ArgoCD
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cert-manager/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cert Manager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dnsmasq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    DNSmasq
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../documentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Documentation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../gitea/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Gitea
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../longhorn/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Longhorn
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../vault/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Vault
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../onyxia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Onyxia
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../osimages/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    OS Images
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ofed/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    OFED
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../matrix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Matrix
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../etcd-alerts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    etcd Alerts
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_5_13" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../backup/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    AWX
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_5_13" id="__nav_3_5_13_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_5_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5_13">
+            <span class="md-nav__icon md-icon"></span>
+            AWX
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../restore/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Restore
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Git Integration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../runner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Runner
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tips
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            Troubleshooting
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../troubleshooting/bmh-provisioning-error/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    BMH Provisioning
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../../user-guide/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    User Guide
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            User Guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../user-guide/onboarding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Onboarding
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../user-guide/EasyBuild/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    EasyBuild
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    About
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            About
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../about/support/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Support
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../about/screenshots/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Screenshots
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../changelog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Changelog
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      Table of Contents
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubles-during-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubles during Deployment
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubles during Deployment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#first-step-investigate-your-situation" class="md-nav__link">
+    <span class="md-ellipsis">
+      First Step: Investigate your Situation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="First Step: Investigate your Situation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#investigate-status-and-events-of-the-pods" class="md-nav__link">
+    <span class="md-ellipsis">
+      Investigate Status and Events of the Pods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#investigate-logs-of-the-containers-inside-the-pods" class="md-nav__link">
+    <span class="md-ellipsis">
+      Investigate Logs of the Containers inside the Pods
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reveal-censored-output-in-the-awx-operators-log" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reveal "censored" output in the AWX Operator's log
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-pod-is-errimagepull-with-429-too-many-requests" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Pod is ErrImagePull with "429 Too Many Requests"
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-pod-is-pending-with-1-insufficient-cpu-1-insufficient-memory-event" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Pod is Pending with "1 Insufficient cpu, 1 Insufficient memory." event
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-pod-is-pending-with-1-pod-has-unbound-immediate-persistentvolumeclaims-event" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Pod is Pending with "1 pod has unbound immediate PersistentVolumeClaims." event
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-pod-is-running-but-stucked-with-wait-for-migrations-message" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Pod is Running but stucked with "wait-for-migrations" message
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-pod-for-postgresql-is-in-crashloopbackoff-state-and-shows-permission-denied-log" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Pod for PostgreSQL is in CrashLoopBackOff state and shows "Permission denied" log
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubles-during-daily-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubles during Daily Use
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubles during Daily Use">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#job-failed-with-no-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      Job failed with no output
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#provisioning-callback-does-not-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      Provisioning Callback does not work
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-job-failed-and-i-got-error-couldnt-resolve-moduleaction-or-failed-to-import-the-required-python-library-message" class="md-nav__link">
+    <span class="md-ellipsis">
+      The job failed and I got "ERROR! couldn't resolve module/action" or "Failed to import the required Python library" message
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<!-- omit in toc -->
+<h1 id="troubleshooting-guide">Troubleshooting Guide</h1>
+<p>Some hints and guides for if you get stuck during the daily use of AWX.</p>
+<!-- omit in toc -->
+<h2 id="table-of-contents">Table of Contents</h2>
+<ul>
+<li><a href="#troubles-during-deployment">Troubles during Deployment</a></li>
+<li><a href="#first-step-investigate-your-situation">First Step: Investigate your Situation</a><ul>
+<li><a href="#investigate-status-and-events-of-the-pods">Investigate Status and Events of the Pods</a></li>
+<li><a href="#investigate-logs-of-the-containers-inside-the-pods">Investigate Logs of the Containers inside the Pods</a></li>
+</ul>
+</li>
+<li><a href="#reveal-censored-output-in-the-awx-operators-log">Reveal "censored" output in the AWX Operator's log</a></li>
+<li><a href="#the-pod-is-errimagepull-with-429-too-many-requests">The Pod is <code>ErrImagePull</code> with "429 Too Many Requests"</a></li>
+<li><a href="#the-pod-is-pending-with-1-insufficient-cpu-1-insufficient-memory-event">The Pod is <code>Pending</code> with "1 Insufficient cpu, 1 Insufficient memory." event</a></li>
+<li><a href="#the-pod-is-pending-with-1-pod-has-unbound-immediate-persistentvolumeclaims-event">The Pod is <code>Pending</code> with "1 pod has unbound immediate PersistentVolumeClaims." event</a></li>
+<li><a href="#the-pod-is-running-but-stucked-with-wait-for-migrations-message">The Pod is <code>Running</code> but stucked with "wait-for-migrations" message</a></li>
+<li><a href="#the-pod-for-postgresql-is-in-crashloopbackoff-state-and-shows-permission-denied-log">The Pod for PostgreSQL is in <code>CrashLoopBackOff</code> state and shows "Permission denied" log</a></li>
+<li><a href="#troubles-during-daily-use">Troubles during Daily Use</a></li>
+<li><a href="#job-failed-with-no-output">Job failed with no output</a></li>
+<li><a href="#provisioning-callback-does-not-work">Provisioning Callback does not work</a></li>
+<li><a href="#the-job-failed-and-i-got-error-couldnt-resolve-moduleaction-or-failed-to-import-the-required-python-library-message">The job failed and I got "ERROR! couldn't resolve module/action" or "Failed to import the required Python library" message</a></li>
+</ul>
+<h2 id="troubles-during-deployment">Troubles during Deployment</h2>
+<h3 id="first-step-investigate-your-situation">First Step: Investigate your Situation</h3>
+<p>You can start investigating troubles during deployment with following two things.</p>
+<ul>
+<li><strong>Status</strong> and <strong>Events</strong> of the Pods</li>
+<li><strong>Logs</strong> of the Containers inside the Pods</li>
+</ul>
+<h4 id="investigate-status-and-events-of-the-pods">Investigate Status and Events of the Pods</h4>
+<p>First, check the <code>STATUS</code> for the Pods by this command.</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>-n<span class="w"> </span>awx<span class="w"> </span>get<span class="w"> </span>pod
+</code></pre></div>
+<p>If the Pods are working properly, its <code>STATUS</code> are <code>Running</code>. If your Pods are not in <code>Running</code> state e.g. <code>Pending</code>, <code>ImagePullBackOff</code> or <code>CrashLoopBackOff</code> etc., the Pods might have some problems. In the following example, the Pod <code>awx-84d5c45999-h7xm4</code> is in <code>Pending</code> state.</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>kubectl<span class="w"> </span>-n<span class="w"> </span>awx<span class="w"> </span>get<span class="w"> </span>pod
+NAME<span class="w">                                               </span>READY<span class="w">   </span>STATUS<span class="w">    </span>RESTARTS<span class="w">   </span>AGE
+awx-operator-controller-manager-68d787cfbd-j6k7z<span class="w">   </span><span class="m">2</span>/2<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>7m43s
+awx-postgres-13-0<span class="w">                                  </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>4m6s
+awx-84d5c45999-h7xm4<span class="w">                               </span><span class="m">0</span>/4<span class="w">     </span>Pending<span class="w">   </span><span class="m">0</span><span class="w">          </span>3m59s
+</code></pre></div>
+<p>If you have the Pods which has the unexpected state instead of <code>Running</code>, the next step is checking <code>Events</code> for the Pod. The command to get <code>Events</code> for the pod is:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>-n<span class="w"> </span>awx<span class="w"> </span>describe<span class="w"> </span>pod<span class="w"> </span>&lt;Pod<span class="w"> </span>Name&gt;
+</code></pre></div>
+<p>By this command, you can get the <code>Events</code> for the Pod you specified at the end of the output.</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>kubectl<span class="w"> </span>-n<span class="w"> </span>awx<span class="w"> </span>describe<span class="w"> </span>pod<span class="w"> </span>awx-84d5c45999-h7xm4
+...
+Events:
+<span class="w">  </span>Type<span class="w">     </span>Reason<span class="w">            </span>Age<span class="w">   </span>From<span class="w">               </span>Message
+<span class="w">  </span>----<span class="w">     </span>------<span class="w">            </span>----<span class="w">  </span>----<span class="w">               </span>-------
+<span class="w">  </span>Warning<span class="w">  </span>FailedScheduling<span class="w">  </span>106s<span class="w">  </span>default-scheduler<span class="w">  </span><span class="m">0</span>/1<span class="w"> </span>nodes<span class="w"> </span>are<span class="w"> </span>available:<span class="w"> </span><span class="m">1</span><span class="w"> </span>Insufficient<span class="w"> </span>cpu,<span class="w"> </span><span class="m">1</span><span class="w"> </span>Insufficient<span class="w"> </span>memory.<span class="w">     </span>👈👈👈
+<span class="w">  </span>Warning<span class="w">  </span>FailedScheduling<span class="w">  </span>105s<span class="w">  </span>default-scheduler<span class="w">  </span><span class="m">0</span>/1<span class="w"> </span>nodes<span class="w"> </span>are<span class="w"> </span>available:<span class="w"> </span><span class="m">1</span><span class="w"> </span>Insufficient<span class="w"> </span>cpu,<span class="w"> </span><span class="m">1</span><span class="w"> </span>Insufficient<span class="w"> </span>memory.<span class="w">     </span>👈👈👈
+</code></pre></div>
+<p>In most cases, you can find the reason why the Pod is not <code>Running</code> from <code>Events</code>. In the example above, I can see that it is due to lack of CPU or memory.</p>
+<h4 id="investigate-logs-of-the-containers-inside-the-pods">Investigate Logs of the Containers inside the Pods</h4>
+<p>The logs also helpful to get the reason why something went wrong. In particular, if the status of the Pod is <code>Running</code> but the Pod does not works as expected, you should check the logs.</p>
+<p>The commands to get the logs are following. <code>-f</code> is optional, useful to watch the logs as well as get the logs.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Get the logs of specific Pod.</span>
+<span class="c1"># If the Pod includes multiple containers, container name has to be specified.</span>
+kubectl<span class="w"> </span>-n<span class="w"> </span>awx<span class="w"> </span>logs<span class="w"> </span>-f<span class="w"> </span>&lt;Pod<span class="w"> </span>Name&gt;
+kubectl<span class="w"> </span>-n<span class="w"> </span>awx<span class="w"> </span>logs<span class="w"> </span>-f<span class="w"> </span>&lt;Pod<span class="w"> </span>Name&gt;<span class="w"> </span>-c<span class="w"> </span>&lt;Container<span class="w"> </span>Name&gt;
+
+<span class="c1"># Get the logs of specific Pod which is handled by Deployment resource.</span>
+<span class="c1"># If the Pod includes multiple containers, container name has to be specified.</span>
+kubectl<span class="w"> </span>-n<span class="w"> </span>awx<span class="w"> </span>logs<span class="w"> </span>-f<span class="w"> </span>deployment/&lt;Deployment<span class="w"> </span>Name&gt;
+kubectl<span class="w"> </span>-n<span class="w"> </span>awx<span class="w"> </span>logs<span class="w"> </span>-f<span class="w"> </span>deployment/&lt;Deployment<span class="w"> </span>Name&gt;<span class="w"> </span>-c<span class="w"> </span>&lt;Container<span class="w"> </span>Name&gt;
+
+<span class="c1"># Get the logs of specific Pod which is handled by StatefulSet resource</span>
+<span class="c1"># If the Pod includes multiple containers, container name has to be specified.</span>
+kubectl<span class="w"> </span>-n<span class="w"> </span>awx<span class="w"> </span>logs<span class="w"> </span>-f<span class="w"> </span>statefulset/&lt;Deployment<span class="w"> </span>Name&gt;
+kubectl<span class="w"> </span>-n<span class="w"> </span>awx<span class="w"> </span>logs<span class="w"> </span>-f<span class="w"> </span>statefulset/&lt;Deployment<span class="w"> </span>Name&gt;<span class="w"> </span>-c<span class="w"> </span>&lt;Container<span class="w"> </span>Name&gt;
+</code></pre></div>
+<p>For AWX Operator and AWX, specifically, the following commands are helpful.</p>
+<ul>
+<li>Logs of AWX Operator</li>
+<li><code>kubectl -n awx logs -f deployment/awx-operator-controller-manager</code></li>
+<li>Logs of AWX related init containers</li>
+<li><code>kubectl -n awx logs -f deployment/awx -c init</code></li>
+<li><code>kubectl -n awx logs -f deployment/awx -c init-projects</code></li>
+<li>Logs of AWX related containers</li>
+<li><code>kubectl -n awx logs -f deployment/awx -c awx-web</code></li>
+<li><code>kubectl -n awx logs -f deployment/awx -c awx-task</code></li>
+<li><code>kubectl -n awx logs -f deployment/awx -c awx-ee</code></li>
+<li><code>kubectl -n awx logs -f deployment/awx -c redis</code></li>
+<li>Logs of PostgreSQL</li>
+<li><code>kubectl -n awx logs -f statefulset/awx-postgres-13</code></li>
+</ul>
+<h3 id="reveal-censored-output-in-the-awx-operators-log">Reveal "censored" output in the AWX Operator's log</h3>
+<p>If you've found the <code>FAILED</code> tasks while investigating AWX Operator's log, sadly sometimes it's marked as <code>censored</code> and you can't get actual log.</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>kubectl<span class="w"> </span>-n<span class="w"> </span>awx<span class="w"> </span>logs<span class="w"> </span>-f<span class="w"> </span>deployments/awx-operator-controller-manager
+...
+TASK<span class="w"> </span><span class="o">[</span>Restore<span class="w"> </span>database<span class="w"> </span>dump<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>new<span class="w"> </span>postgresql<span class="w"> </span>container<span class="o">]</span><span class="w"> </span>********************************
+fatal:<span class="w"> </span><span class="o">[</span>localhost<span class="o">]</span>:<span class="w"> </span>FAILED!<span class="w"> </span><span class="o">=</span>&gt;<span class="w"> </span><span class="o">{</span><span class="s2">&quot;censored&quot;</span>:<span class="w"> </span><span class="s2">&quot;the output has been hidden due to the fact that &#39;no_log: true&#39; was specified for this result&quot;</span>,<span class="w"> </span><span class="s2">&quot;changed&quot;</span>:<span class="w"> </span>true<span class="o">}</span>
+...
+</code></pre></div>
+<p>AWX Operator 0.23.0 or later supports making this revealed.</p>
+<p>To achieve this, you can uncomment <code>no_log: false</code> manually under <code>spec</code> for your <code>awx.yaml</code>, <code>awxbackup.yaml</code>, or <code>awxrestore.yaml</code>, and then re-run your deployment, backup, or restoration.</p>
+<div class="highlight"><pre><span></span><code><span class="nn">...</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain"># Uncomment to reveal &quot;censored&quot; logs</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">no_log</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false     👈👈👈</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+</code></pre></div>
+<h3 id="the-pod-is-errimagepull-with-429-too-many-requests">The Pod is <code>ErrImagePull</code> with "429 Too Many Requests"</h3>
+<p>If your Pod for PostgreSQL is in <code>ErrImagePull</code> and its <code>Events</code> shows following events, this is due to <a href="https://docs.docker.com/docker-hub/download-rate-limit/">the rate limit on Docker Hub</a>.</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>kubectl<span class="w"> </span>-n<span class="w"> </span>awx<span class="w"> </span>describe<span class="w"> </span>pod<span class="w"> </span>awx-postgres-13-0
+...
+Events:
+<span class="w">  </span>Type<span class="w">     </span>Reason<span class="w">            </span>Age<span class="w">   </span>From<span class="w">               </span>Message
+<span class="w">  </span>----<span class="w">     </span>------<span class="w">            </span>----<span class="w">  </span>----<span class="w">               </span>-------
+<span class="w">  </span>Normal<span class="w">   </span>Pulling<span class="w">           </span>9s<span class="w">    </span>kubelet<span class="w">            </span>Pulling<span class="w"> </span>image<span class="w"> </span><span class="s2">&quot;postgres:13&quot;</span>
+<span class="w">  </span>Warning<span class="w">  </span>Failed<span class="w">            </span>2s<span class="w">    </span>kubelet<span class="w">            </span>Failed<span class="w"> </span>to<span class="w"> </span>pull<span class="w"> </span>image<span class="w"> </span><span class="s2">&quot;postgres:13&quot;</span>:<span class="w"> </span>rpc<span class="w"> </span>error:<span class="w"> </span><span class="nv">code</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>Unknown<span class="w"> </span><span class="nv">desc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>failed<span class="w"> </span>to<span class="w"> </span>pull<span class="w"> </span>and<span class="w"> </span>unpack<span class="w"> </span>image<span class="w"> </span><span class="s2">&quot;docker.io/library/postgres:13&quot;</span>:<span class="w"> </span>failed<span class="w"> </span>to<span class="w"> </span>copy:<span class="w"> </span>httpReadSeeker:<span class="w"> </span>failed<span class="w"> </span>open:<span class="w"> </span>unexpected<span class="w"> </span>status<span class="w"> </span>code<span class="w"> </span>https://registry-1.docker.io/v2/library/postgres/manifests/sha256:...:<span class="w"> </span><span class="m">429</span><span class="w"> </span>Too<span class="w"> </span>Many<span class="w"> </span>Requests<span class="w"> </span>-<span class="w"> </span>Server<span class="w"> </span>message:<span class="w"> </span>toomanyrequests:<span class="w"> </span>You<span class="w"> </span>have<span class="w"> </span>reached<span class="w"> </span>your<span class="w"> </span>pull<span class="w"> </span>rate<span class="w"> </span>limit.<span class="w"> </span>You<span class="w"> </span>may<span class="w"> </span>increase<span class="w"> </span>the<span class="w"> </span>limit<span class="w"> </span>by<span class="w"> </span>authenticating<span class="w"> </span>and<span class="w"> </span>upgrading:<span class="w"> </span>https://www.docker.com/increase-rate-limit
+<span class="w">  </span>Warning<span class="w">  </span>Failed<span class="w">            </span>2s<span class="w">    </span>kubelet<span class="w">            </span>Error:<span class="w"> </span>ErrImagePull
+<span class="w">  </span>Normal<span class="w">   </span>BackOff<span class="w">           </span>1s<span class="w">    </span>kubelet<span class="w">            </span>Back-off<span class="w"> </span>pulling<span class="w"> </span>image<span class="w"> </span><span class="s2">&quot;postgres:13&quot;</span>
+<span class="w">  </span>Warning<span class="w">  </span>Failed<span class="w">            </span>1s<span class="w">    </span>kubelet<span class="w">            </span>Error:<span class="w"> </span>ImagePullBackOff
+</code></pre></div>
+<p>If you follow the steps in this repository to deploy you AWX, your pull request to Docker Hub will be identified as a free, anonymous account. Therefore, you will be limited to 200 requests in 6 hours. The message "429 Too Many Requests" indicates that it has been exceeded.</p>
+<p>To solve this, you can simply wait until the limit is freed up, or <a href="../dockerhub-rate-limit/">consider giving your Docker Hub credentials to K3s by following the guide on this page</a>.</p>
+<h3 id="the-pod-is-pending-with-1-insufficient-cpu-1-insufficient-memory-event">The Pod is <code>Pending</code> with "1 Insufficient cpu, 1 Insufficient memory." event</h3>
+<p>If your Pod is in <code>Pending</code> state and its <code>Events</code> shows following events, the reason is that the node does not have enough CPU and memory to start the Pod. By default AWX requires at least 2 CPUs and 4 GB RAM. In addition more resources are required to run K3s and the OS itself.</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>kubectl<span class="w"> </span>-n<span class="w"> </span>awx<span class="w"> </span>describe<span class="w"> </span>pod<span class="w"> </span>awx-84d5c45999-h7xm4
+...
+Events:
+<span class="w">  </span>Type<span class="w">     </span>Reason<span class="w">            </span>Age<span class="w">   </span>From<span class="w">               </span>Message
+<span class="w">  </span>----<span class="w">     </span>------<span class="w">            </span>----<span class="w">  </span>----<span class="w">               </span>-------
+<span class="w">  </span>Warning<span class="w">  </span>FailedScheduling<span class="w">  </span>106s<span class="w">  </span>default-scheduler<span class="w">  </span><span class="m">0</span>/1<span class="w"> </span>nodes<span class="w"> </span>are<span class="w"> </span>available:<span class="w"> </span><span class="m">1</span><span class="w"> </span>Insufficient<span class="w"> </span>cpu,<span class="w"> </span><span class="m">1</span><span class="w"> </span>Insufficient<span class="w"> </span>memory.<span class="w">     </span>👈👈👈
+<span class="w">  </span>Warning<span class="w">  </span>FailedScheduling<span class="w">  </span>105s<span class="w">  </span>default-scheduler<span class="w">  </span><span class="m">0</span>/1<span class="w"> </span>nodes<span class="w"> </span>are<span class="w"> </span>available:<span class="w"> </span><span class="m">1</span><span class="w"> </span>Insufficient<span class="w"> </span>cpu,<span class="w"> </span><span class="m">1</span><span class="w"> </span>Insufficient<span class="w"> </span>memory.<span class="w">     </span>👈👈👈
+</code></pre></div>
+<p>Typical solutions are one of the following:</p>
+<ul>
+<li><strong>Add more CPUs or memory to your K3s node.</strong></li>
+<li>If you have at least 3 CPUs and 5 GB RAM, AWX may work.</li>
+<li><strong>Reduce resource requests for the containers.</strong></li>
+<li>
+<p>The minimum resource requirements can be ignored by adding three lines in <code>base/awx.yml</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="nn">...</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">web_resource_requirements</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="p p-Indicator">{}</span><span class="w">     </span><span class="l l-Scalar l-Scalar-Plain">👈👈👈</span>
+<span class="w">  </span><span class="nt">task_resource_requirements</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span><span class="w">     </span><span class="l l-Scalar l-Scalar-Plain">👈👈👈</span>
+<span class="w">  </span><span class="nt">ee_resource_requirements</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span><span class="w">     </span><span class="l l-Scalar l-Scalar-Plain">👈👈👈</span>
+</code></pre></div>
+</li>
+<li>
+<p>You can specify more specific value for each containers. Refer <a href="https://github.com/ansible/awx-operator/blob/1.3.0/README.md#containers-resource-requirements">official documentation</a> for details.</p>
+</li>
+<li>In this way you can run AWX with fewer resources, but you may encounter performance issues.</li>
+</ul>
+<h3 id="the-pod-is-pending-with-1-pod-has-unbound-immediate-persistentvolumeclaims-event">The Pod is <code>Pending</code> with "1 pod has unbound immediate PersistentVolumeClaims." event</h3>
+<p>If your Pod is in <code>Pending</code> state and its <code>Events</code> shows following events, the reason is that no usable Persistent Volumes are available.</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>kubectl<span class="w"> </span>-n<span class="w"> </span>awx<span class="w"> </span>describe<span class="w"> </span>pod<span class="w"> </span>awx-84d5c45999-h7xm4
+...
+Events:
+<span class="w">  </span>Type<span class="w">     </span>Reason<span class="w">            </span>Age<span class="w">   </span>From<span class="w">               </span>Message
+<span class="w">  </span>----<span class="w">     </span>------<span class="w">            </span>----<span class="w">  </span>----<span class="w">               </span>-------
+<span class="w">  </span>Warning<span class="w">  </span>FailedScheduling<span class="w">  </span>24s<span class="w">   </span>default-scheduler<span class="w">  </span><span class="m">0</span>/1<span class="w"> </span>nodes<span class="w"> </span>are<span class="w"> </span>available:<span class="w"> </span><span class="m">1</span><span class="w"> </span>pod<span class="w"> </span>has<span class="w"> </span>unbound<span class="w"> </span>immediate<span class="w"> </span>PersistentVolumeClaims.<span class="w">     </span>👈👈👈
+</code></pre></div>
+<p>Check the <code>STATUS</code> of your PVs and ensure your PVs doesn't have <code>Available</code> or <code>Bound</code> state.</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>kubectl<span class="w"> </span>get<span class="w"> </span>pv
+NAME<span class="w">                     </span>CAPACITY<span class="w">   </span>ACCESS<span class="w"> </span>MODES<span class="w">   </span>RECLAIM<span class="w"> </span>POLICY<span class="w">   </span>STATUS<span class="w">     </span>CLAIM<span class="w">                               </span>STORAGECLASS<span class="w">             </span>REASON<span class="w">   </span>AGE
+awx-projects-volume<span class="w">      </span>2Gi<span class="w">        </span>RWO<span class="w">            </span>Retain<span class="w">           </span>Released<span class="w">   </span>awx/awx-projects-claim<span class="w">              </span>awx-projects-volume<span class="w">               </span>17h
+awx-postgres-13-volume<span class="w">   </span>8Gi<span class="w">        </span>RWO<span class="w">            </span>Retain<span class="w">           </span>Released<span class="w">   </span>awx/postgres-13-awx-postgres-13-0<span class="w">   </span>awx-postgres-volume<span class="w">               </span>17h
+</code></pre></div>
+<p>Probably this is the second (or more) time to deploy AWX for you. These PVs which have <code>Released</code> state are tied to your old (and probably no longer exists now) PVCs you created in the past.</p>
+<p>There are a few things you should to know about the PVs in Kubernetes.</p>
+<ul>
+<li>Once a PV is bound from a PVC, it keeps the PVC name in its <code>claimRef</code> entry. This will be shown in the <code>CLAIM</code> column in the result of the command <code>kubectl get pv</code>.</li>
+<li>The <code>Released</code> state of the PV means that the PV was bound by PVC in the <code>claimRef</code> entry in the past but now the PVC does not exist. <strong>The PV in this state cannot be bound by any PVC other than the one recorded in <code>claimRef</code>.</strong></li>
+<li>To allow the PV to bind from a PVC other than the one recorded in <code>claimRef</code>, the <code>claimRef</code> entry must be empty and the PV must has <code>Available</code> state.</li>
+</ul>
+<p>To solve this, typical solutions are one of the following:</p>
+<ul>
+<li><strong>Patch the PV to empty <code>claimRef</code> entry for the PV.</strong></li>
+<li>
+<p>Invoke following commands:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>patch<span class="w"> </span>pv<span class="w"> </span>&lt;PV<span class="w"> </span>Name&gt;<span class="w"> </span>-p<span class="w"> </span><span class="s1">&#39;{&quot;spec&quot;:{&quot;claimRef&quot;: null}}&#39;</span>
+</code></pre></div>
+</li>
+<li>
+<p><strong>Delete the PV and recreate it.</strong></p>
+</li>
+<li>
+<p>Invoke following commands:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Delete the PV</span>
+kubectl<span class="w"> </span>delete<span class="w"> </span>pv<span class="w"> </span>&lt;PV<span class="w"> </span>Name&gt;
+
+<span class="c1"># Recreate the PV</span>
+kubectl<span class="w"> </span>apply<span class="w"> </span>-k<span class="w"> </span>base
+</code></pre></div>
+</li>
+</ul>
+<h3 id="the-pod-is-running-but-stucked-with-wait-for-migrations-message">The Pod is <code>Running</code> but stucked with "wait-for-migrations" message</h3>
+<p>Sometimes your AWX pod is <code>Running</code> state correctly but not functional at all, and its log shows following message repeatedly.</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>-n<span class="w"> </span>awx<span class="w"> </span>logs<span class="w"> </span>-f<span class="w"> </span>deployment/awx<span class="w"> </span>-c<span class="w"> </span>awx-web
+<span class="o">[</span>wait-for-migrations<span class="o">]</span><span class="w"> </span>Waiting<span class="w"> </span><span class="k">for</span><span class="w"> </span>database<span class="w"> </span>migrations...
+<span class="o">[</span>wait-for-migrations<span class="o">]</span><span class="w"> </span>Attempt<span class="w"> </span><span class="m">1</span><span class="w"> </span>of<span class="w"> </span><span class="m">30</span>
+<span class="o">[</span>wait-for-migrations<span class="o">]</span><span class="w"> </span>Waiting<span class="w"> </span><span class="m">0</span>.5<span class="w"> </span>seconds<span class="w"> </span>before<span class="w"> </span>next<span class="w"> </span>attempt
+<span class="o">[</span>wait-for-migrations<span class="o">]</span><span class="w"> </span>Attempt<span class="w"> </span><span class="m">2</span><span class="w"> </span>of<span class="w"> </span><span class="m">30</span>
+<span class="o">[</span>wait-for-migrations<span class="o">]</span><span class="w"> </span>Waiting<span class="w"> </span><span class="m">1</span><span class="w"> </span>seconds<span class="w"> </span>before<span class="w"> </span>next<span class="w"> </span>attempt
+<span class="o">[</span>wait-for-migrations<span class="o">]</span><span class="w"> </span>Attempt<span class="w"> </span><span class="m">3</span><span class="w"> </span>of<span class="w"> </span><span class="m">30</span>
+<span class="o">[</span>wait-for-migrations<span class="o">]</span><span class="w"> </span>Waiting<span class="w"> </span><span class="m">2</span><span class="w"> </span>seconds<span class="w"> </span>before<span class="w"> </span>next<span class="w"> </span>attempt
+<span class="o">[</span>wait-for-migrations<span class="o">]</span><span class="w"> </span>Attempt<span class="w"> </span><span class="m">4</span><span class="w"> </span>of<span class="w"> </span><span class="m">30</span>
+<span class="o">[</span>wait-for-migrations<span class="o">]</span><span class="w"> </span>Waiting<span class="w"> </span><span class="m">4</span><span class="w"> </span>seconds<span class="w"> </span>before<span class="w"> </span>next<span class="w"> </span>attempt
+...
+<span class="o">[</span>wait-for-migrations<span class="o">]</span><span class="w"> </span>Attempt<span class="w"> </span><span class="m">28</span><span class="w"> </span>of<span class="w"> </span><span class="m">30</span>
+<span class="o">[</span>wait-for-migrations<span class="o">]</span><span class="w"> </span>Waiting<span class="w"> </span><span class="m">30</span><span class="w"> </span>seconds<span class="w"> </span>before<span class="w"> </span>next<span class="w"> </span>attempt
+<span class="o">[</span>wait-for-migrations<span class="o">]</span><span class="w"> </span>Attempt<span class="w"> </span><span class="m">29</span><span class="w"> </span>of<span class="w"> </span><span class="m">30</span>
+<span class="o">[</span>wait-for-migrations<span class="o">]</span><span class="w"> </span>Waiting<span class="w"> </span><span class="m">30</span><span class="w"> </span>seconds<span class="w"> </span>before<span class="w"> </span>next<span class="w"> </span>attempt
+...
+</code></pre></div>
+<p>This problem occurs when the AWX pod and the PostgreSQL pod cannot communicate properly. In most cases, the cause of this is the network on your K3s.</p>
+<p>To solve this, check or try the following:</p>
+<ul>
+<li>Ensure your PostgreSQL (typically the Pod named <code>awx-postgres-0</code> or <code>awx-postgres-13-0</code>) is in <code>Running</code> state.</li>
+<li>Ensure <code>host</code> under <code>awx-postgres-configuration</code> in <code>base/kustomization.yaml</code> has correct value.</li>
+<li>Specify <code>awx-postgres</code> for AWX Operator 0.25.0 or earlier, <code>awx-postgres-13</code> for <code>0.26.0</code> or later.</li>
+<li>Ensure your <code>firewalld</code>, <code>ufw</code> or any kind of firewall has been disabled on your K3s host.</li>
+<li>Ensure your <code>nm-cloud-setup</code> service on your K3s host is disabled if exists.</li>
+<li>Ensure your <code>awx-postgres-configuration</code> has correct values, especially if you're using external PostgreSQL.</li>
+<li>Uninstall K3s and install it again.</li>
+</ul>
+<h3 id="the-pod-for-postgresql-is-in-crashloopbackoff-state-and-shows-permission-denied-log">The Pod for PostgreSQL is in <code>CrashLoopBackOff</code> state and shows "Permission denied" log</h3>
+<p>In this situation, your Pod for PostgreSQL is in <code>CrashLoopBackOff</code> state and its log shows following error message.</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>kubectl<span class="w"> </span>-n<span class="w"> </span>awx<span class="w"> </span>get<span class="w"> </span>pod
+NAME<span class="w">                                               </span>READY<span class="w">   </span>STATUS<span class="w">             </span>RESTARTS<span class="w">   </span>AGE
+awx-operator-controller-manager-68d787cfbd-j6k7z<span class="w">   </span><span class="m">2</span>/2<span class="w">     </span>Running<span class="w">            </span><span class="m">0</span><span class="w">          </span>7m43s
+awx-postgres-13-0<span class="w">                                  </span><span class="m">1</span>/1<span class="w">     </span>CrashLoopBackOff<span class="w">   </span><span class="m">3</span><span class="w">          </span>4m6s
+awx-84d5c45999-h7xm4<span class="w">                               </span><span class="m">4</span>/4<span class="w">     </span>Running<span class="w">            </span><span class="m">0</span><span class="w">          </span>3m59s
+
+$<span class="w"> </span>kubectl<span class="w"> </span>-n<span class="w"> </span>awx<span class="w"> </span>logs<span class="w"> </span>statefulset/awx-postgres
+mkdir:<span class="w"> </span>cannot<span class="w"> </span>create<span class="w"> </span>directory<span class="w"> </span><span class="s1">&#39;/var/lib/postgresql/data&#39;</span>:<span class="w"> </span>Permission<span class="w"> </span>denied
+</code></pre></div>
+<p>You should check the permissions and the owner of directories where used as PV on your K3s host. If you followed my guide, it would be <code>/data/postgres-13</code>. There is additional <code>data</code> directory created by K3s under <code>/data/postgres-13</code>.</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>ls<span class="w"> </span>-ld<span class="w"> </span>/data/postgres-13<span class="w"> </span>/data/postgres-13/data
+drwxr-xr-x.<span class="w"> </span><span class="m">2</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">18</span><span class="w"> </span>Aug<span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="m">10</span>:09<span class="w"> </span>/data/postgres-13
+drwxr-xr-x.<span class="w"> </span><span class="m">3</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">20</span><span class="w"> </span>Aug<span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="m">10</span>:09<span class="w"> </span>/data/postgres-13/data
+</code></pre></div>
+<p>In my environment, <code>755</code> and <code>root:root</code> (<code>0:0</code>) works correctly. So you can try:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">755</span><span class="w"> </span>/data/postgres-13<span class="w"> </span>/data/postgres-13/data
+sudo<span class="w"> </span>chown<span class="w"> </span><span class="m">0</span>:0<span class="w"> </span>/data/postgres-13<span class="w"> </span>/data/postgres-13/data
+</code></pre></div>
+<p>Or, you can also try <code>999:0</code> as owner/group for the directory.</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">755</span><span class="w"> </span>/data/postgres-13<span class="w"> </span>/data/postgres-13/data
+sudo<span class="w"> </span>chown<span class="w"> </span><span class="m">999</span>:0<span class="w"> </span>/data/postgres-13<span class="w"> </span>/data/postgres-13/data
+</code></pre></div>
+<p><code>999</code> is <a href="https://github.com/docker-library/postgres/blob/master/12/bullseye/Dockerfile#L23">the UID of the <code>postgres</code> user which used in the container</a>.</p>
+<h2 id="troubles-during-daily-use">Troubles during Daily Use</h2>
+<h3 id="job-failed-with-no-output">Job failed with no output</h3>
+<p>If the job is invoked to a large number of hosts or is running long time, sometimes the job is marked as failed and no log will be displayed in the Output tab.</p>
+<p>This is a problem caused by log rotation on Kubernetes. Refer <a href="https://github.com/ansible/awx/issues/10366">ansible/awx#10366</a> for details.</p>
+<p>In the case of K3s, you can reduce the possibility of this issue by changing the configuration as follows.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Change configuration using script:</span>
+$<span class="w"> </span>curl<span class="w"> </span>-sfL<span class="w"> </span>https://get.k3s.io<span class="w"> </span><span class="p">|</span><span class="w"> </span>sh<span class="w"> </span>-s<span class="w"> </span>-<span class="w"> </span>--write-kubeconfig-mode<span class="w"> </span><span class="m">644</span><span class="w"> </span>--kubelet-arg<span class="w"> </span><span class="s2">&quot;container-log-max-files=4&quot;</span><span class="w"> </span>--kubelet-arg<span class="w"> </span><span class="s2">&quot;container-log-max-size=50Mi&quot;</span>
+
+<span class="c1"># If you don&#39;t want to use the script, modify /etc/systemd/system/k3s.service manually:</span>
+$<span class="w"> </span>cat<span class="w"> </span>/etc/systemd/system/k3s.service
+...
+<span class="nv">ExecStart</span><span class="o">=</span>/usr/local/bin/k3s<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>server<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span><span class="s1">&#39;--write-kubeconfig-mode&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">        </span><span class="s1">&#39;644&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">        </span><span class="s1">&#39;--kubelet-arg&#39;</span><span class="w"> </span><span class="se">\ </span><span class="w">    </span>👈👈👈
+<span class="w">        </span><span class="s1">&#39;container-log-max-files=4&#39;</span><span class="w"> </span><span class="se">\ </span><span class="w">    </span>👈👈👈
+<span class="w">        </span><span class="s1">&#39;--kubelet-arg&#39;</span><span class="w"> </span><span class="se">\ </span><span class="w">    </span>👈👈👈
+<span class="w">        </span><span class="s1">&#39;container-log-max-size=50Mi&#39;</span><span class="w"> </span><span class="se">\ </span><span class="w">    </span>👈👈👈
+</code></pre></div>
+<p>Then restart K3s. The K3s service can be safely restarted without affecting the running resources.</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>daemon-reload
+sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>k3s
+</code></pre></div>
+<h3 id="provisioning-callback-does-not-work">Provisioning Callback does not work</h3>
+<p>If you use Traefik which is K3s' Ingress controller as completely default, the Pod may not be able to get the client's IP address (see <a href="https://github.com/k3s-io/k3s/discussions/2997">k3s-io/k3s#2997</a> for details). Therefore, the feature called Provisioning Callback in AWX does not work properly since AWX can't determine actual IP address of the remote host who request callback.</p>
+<p>For this reason, you should fix the Traefik configuration. For a single node like doing in this repository, reconfiguring your Traefik by creating YAML file is the easy way.</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>tee<span class="w"> </span>/var/lib/rancher/k3s/server/manifests/traefik-config.yaml<span class="w"> </span><span class="s">&lt;&lt;EOF</span>
+<span class="s">---</span>
+<span class="s">apiVersion: helm.cattle.io/v1</span>
+<span class="s">kind: HelmChartConfig</span>
+<span class="s">metadata:</span>
+<span class="s">  name: traefik</span>
+<span class="s">  namespace: kube-system</span>
+<span class="s">spec:</span>
+<span class="s">  valuesContent: |-</span>
+<span class="s">    hostNetwork: true</span>
+<span class="s">EOF</span>
+</code></pre></div>
+<p>Then wait until your <code>traefik</code> by the following command is <code>1/1</code> <code>READY</code>.</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>-n<span class="w"> </span>kube-system<span class="w"> </span>get<span class="w"> </span>deployment<span class="w"> </span>traefik
+</code></pre></div>
+<p>Now your client's IP address can be passed correctly through <code>X-Forwarded-For</code> and <code>X-Real-Ip</code> headers.</p>
+<p>The last step is modifying AWX. By default, AWX uses only <code>REMOTE_ADDR</code> and <code>REMOTE_HOST</code> headers to determine the remote host (means HTTP client). Therefore, you have to make AWX to use <code>X-Forwarded-For</code> header.</p>
+<p>This can be achieved by modifying your <code>base/awx.yaml</code> and apply it, or simply configure <code>Remote Host Headers</code> via AWX UI.</p>
+<p>If you want to use <code>base/awx.yaml</code> to achieve this, add following three lines to your <code>base/awx.yaml</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="nn">...</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">extra_settings</span><span class="p p-Indicator">:</span><span class="w">     </span><span class="l l-Scalar l-Scalar-Plain">👈👈👈</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">- setting</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">REMOTE_HOST_HEADERS     👈👈👈</span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">value</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;[&#39;HTTP_X_FORWARDED_FOR&#39;,</span><span class="nv"> </span><span class="s">&#39;REMOTE_ADDR&#39;,</span><span class="nv"> </span><span class="s">&#39;REMOTE_HOST&#39;]&quot;</span><span class="w">     </span><span class="l l-Scalar l-Scalar-Plain">👈👈👈</span>
+</code></pre></div>
+<p>Then apply this change and wait for your AWX will be reconfigured.</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-k<span class="w"> </span>base
+</code></pre></div>
+<p>You can watch its progress by following command as did when you deploy AWX at the first time.</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>-n<span class="w"> </span>awx<span class="w"> </span>logs<span class="w"> </span>-f<span class="w"> </span>deployments/awx-operator-controller-manager
+</code></pre></div>
+<p>Alternatively you can modify this settings via AWX UI. Move on to <code>Settings</code> &gt; <code>Miscellaneous System settings</code> &gt; <code>Edit</code> page, then and put following JSON strings as <code>Remote Host Headers</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="p">[</span>
+<span class="w">  </span><span class="s2">&quot;HTTP_X_FORWARDED_FOR&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">&quot;REMOTE_ADDR&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">&quot;REMOTE_HOST&quot;</span>
+<span class="p">]</span>
+</code></pre></div>
+<p>Now your Provisioning Callback should work. In my environment, the name of the host in the inventory have to be defined using IP address instead of DNS hostname.</p>
+<h3 id="the-job-failed-and-i-got-error-couldnt-resolve-moduleaction-or-failed-to-import-the-required-python-library-message">The job failed and I got "ERROR! couldn't resolve module/action" or "Failed to import the required Python library" message</h3>
+<p>When you launch the Job Template, it may fail and you will see an error like the following:</p>
+<div class="highlight"><pre><span></span><code>ERROR! couldn&#39;t resolve module/action &#39;community.postgresql.postgresql_info&#39;. This often indicates a misspelling, missing collection, or incorrect module path.
+
+The error appears to be in &#39;/runner/project/site.yml&#39;: line 6, column 7, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+  tasks:
+    - community.postgresql.postgresql_info:
+      ^ here
+</code></pre></div>
+<p>Alternatively, the import of Python modules may fail.</p>
+<div class="highlight"><pre><span></span><code>...
+TASK [community.postgresql.postgresql_info] ************************************
+fatal: [localhost]: FAILED! =&gt; {&quot;changed&quot;: false, &quot;msg&quot;: &quot;Failed to import the required Python library (psycopg2) on automation-job-12-v2gvf&#39;s Python /usr/bin/python3. Please read the module documentation and install it in the appropriate location. If the required library is installed, but Ansible is using the wrong Python interpreter, please consult the documentation on ansible_python_interpreter&quot;}
+...
+</code></pre></div>
+<p>To solve this, please contact the Ubiquity community via <a href="https://github.com/ubiquitycluster/ubiquity/issues">GitHub Issues</a> and we can work to build another container.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; The Ubiquity Authors
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../../../..", "features": ["navigation.indexes", "navigation.expand", "search.highlight", "search.share", "navigation.top", "navigation.tracking", "content.code.copy"], "search": "../../../../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+    
+  </body>
+</html>

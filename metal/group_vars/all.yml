@@ -34,19 +34,19 @@ timezone: Europe/London
 
 dockerhub_user: changeme
 dockerhub_pass: changeme
-logicalis_user: changeme
-logicalis_pass: changeme
+ubiquity_user: changeme
+ubiquity_pass: changeme
 
 registry_overrides:
 - name: "docker.io"
   endpoint: "https://ubiquity.azurecr.io"
-  username: "{{ logicalis_user }}"
-  password: "{{ logicalis_pass }}"
+  username: "{{ ubiquity_user }}"
+  password: "{{ ubiquity_pass }}"
 #- name: "quay.io"
 #  endpoint: "https://ubiquity.azurecr.io"
-#  username: "{{ logicalis_user }}"
-#  password: "{{ logicalis_pass }}"
+#  username: "{{ ubiquity_user }}"
+#  password: "{{ ubiquity_pass }}"
 - name: "ubiquity.azurecr.io"
   endpoint: "https://ubiquity.azurecr.io"
-  username: "{{ logicalis_user }}"
-  password: "{{ logicalis_pass }}"
+  username: "{{ ubiquity_user }}"
+  password: "{{ ubiquity_pass }}"

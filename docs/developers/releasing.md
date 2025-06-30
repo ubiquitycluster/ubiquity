@@ -34,7 +34,7 @@ Ubiquity uses [semantic versioning](https://semver.org).
 ### Repository setup
 
 Clone the repository:
-`git clone git@github.com:logicalisuki/ubiquity-open`
+`git clone git@github.com:ubiquitycluster/ubiquity`
 
 or if using existing repository, verify your intended remote is set to
 `ubiquity`: `git remote -v`. For this document, we assume it is `origin`.
@@ -74,7 +74,7 @@ Git tags pushed:
 
 Container images built and tagged at Quay registry:
 
-- [ubiquity-opus:v0.x.y](https://quay.io/repository/logicalis/ubiquity-opus?tab=tags)
+- [ubiquity-opus:v0.x.y](https://quay.io/repository/ubiquitycluster/ubiquity-opus?tab=tags)
 
 Ubiquity release in GitHub will only contain source code as artifact.
 

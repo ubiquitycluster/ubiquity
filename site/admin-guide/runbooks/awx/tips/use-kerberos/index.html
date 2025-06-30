@@ -1,0 +1,3302 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://ubiquitycluster.github.io/ubiquity/admin-guide/runbooks/awx/tips/use-kerberos/">
+      
+      
+      
+      
+      <link rel="icon" href="../../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>Use kerberos - Ubiquity</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.342714a4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#use-kerberos-authentication-to-connect-to-windows-hosts" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../../.." title="Ubiquity" class="md-header__button md-logo" aria-label="Ubiquity" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Ubiquity
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Use kerberos
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ubiquitycluster/ubiquity" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ubiquitycluster/ubiquity
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../.." title="Ubiquity" class="md-nav__button md-logo" aria-label="Ubiquity" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Ubiquity
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ubiquitycluster/ubiquity" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ubiquitycluster/ubiquity
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Admin Guide
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Admin Guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Deployment
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Deployment
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../deployment/prerequisites/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Prerequisites
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../deployment/configure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Configure
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../deployment/sandbox/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Sandbox
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../deployment/on-prem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    On-Premises
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../deployment/external-resources/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    External Resources
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../deployment/post-installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Post Installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_2_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2_7" id="__nav_3_2_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Production
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_2_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2_7">
+            <span class="md-nav__icon md-icon"></span>
+            Production
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../deployment/production/prerequisites/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Prerequisites
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../deployment/production/external-resources/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    External Resources
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../deployment/production/configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../deployment/production/deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Deployment
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../deployment/production/post-installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Post Installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../deployment/production/airgapping/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Air Gapping
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../deployment/production/awx-postinstall/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    AWX Post Install
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../deployment/production/hfi-infiniband/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    InfiniBand
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_2_8" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../deployment/cloud/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Cloud
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_2_8" id="__nav_3_2_8_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_2_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2_8">
+            <span class="md-nav__icon md-icon"></span>
+            Cloud
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../deployment/cloud/terraform_cloud/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Terraform Cloud
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Administration
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Administration
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3_1" id="__nav_3_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Tutorials
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Tutorials
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../administration/tutorials/add-or-remove-nodes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Add/Remove Nodes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../administration/tutorials/backup-cluster/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Backup Cluster
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../administration/tutorials/expose-services-to-the-internet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Expose Services
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../administration/tutorials/manual-dns-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Manual DNS Setup
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../administration/tutorials/run-commands-on-multiple-nodes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Multi-Node Commands
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../administration/tutorials/single-node-cluster-adjustments/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Single Node Adjustments
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../administration/tutorials/user-accounts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    User Accounts
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../administration/tutorials/use-both-github-and-gitea/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    GitHub and Gitea
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../administration/tutorials/updating-documentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Update Documentation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../administration/tutorials/kube-prometheus-stack/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Monitoring Stack
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../administration/tutorials/loki-promtail/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Logging Stack
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../administration/tutorials/ssl-cert-change-git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SSL Certificates
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../administration/tutorials/install-pre-commit-hooks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Pre-commit Hooks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../administration/tutorials/shutdown/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Shutdown Procedures
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Concepts
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            Concepts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../concepts/certificate-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Certificate Management
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../concepts/opus-container/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Opus Container
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../concepts/pxe-boot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    PXE Boot
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Runbooks
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            Runbooks
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../argocd/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ArgoCD
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cert-manager/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cert Manager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dnsmasq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    DNSmasq
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../documentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Documentation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../gitea/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Gitea
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../longhorn/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Longhorn
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../vault/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Vault
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../onyxia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Onyxia
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../osimages/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    OS Images
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ofed/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    OFED
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../matrix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Matrix
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../etcd-alerts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    etcd Alerts
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_5_13" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../backup/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    AWX
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_5_13" id="__nav_3_5_13_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_5_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5_13">
+            <span class="md-nav__icon md-icon"></span>
+            AWX
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../restore/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Restore
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Git Integration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../runner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Runner
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tips
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            Troubleshooting
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../troubleshooting/bmh-provisioning-error/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    BMH Provisioning
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../../user-guide/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    User Guide
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            User Guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../user-guide/onboarding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Onboarding
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../user-guide/EasyBuild/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    EasyBuild
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    About
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            About
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../about/support/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Support
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../about/screenshots/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Screenshots
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../changelog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Changelog
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      Table of Contents
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-environment-for-this-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example environment for this guide
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#procedure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Procedure
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Procedure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setting-up-your-windows-host" class="md-nav__link">
+    <span class="md-ellipsis">
+      Setting up your Windows host
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Setting up your Windows host">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#enable-winrm" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enable WinRM
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configure-group-or-permissions-for-the-domain-user" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configure group or permissions for the domain user
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setting-up-kubernetes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Setting up Kubernetes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Setting up Kubernetes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-krb5conf" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create krb5.conf
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-configmap-for-krb5conf" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create ConfigMap for krb5.conf
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setting-up-awx" class="md-nav__link">
+    <span class="md-ellipsis">
+      Setting up AWX
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Setting up AWX">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-container-group" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create Container Group
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-credential" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create Credential
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-inventory" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create Inventory
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configure-job-template" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configure Job Template
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Testing
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#playbook-for-investigation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Playbook for investigation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ensure-your-krb5conf-is-mounted" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ensure your krb5.conf is mounted
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ensure-your-kdc-and-target-host-are-accessible-from-the-ee" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ensure your KDC and target host are accessible from the EE
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ensure-kinit-can-be-succeeded-manually" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ensure kinit can be succeeded manually
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gather-trace-logs-for-your-playbook" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gather trace logs for your playbook
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-issues-and-workarounds" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common issues and workarounds
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common issues and workarounds">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#error-creating-pod" class="md-nav__link">
+    <span class="md-ellipsis">
+      Error creating pod
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kinit-cannot-find-kdc-for-realm-domainname-while-getting-initial-credentials" class="md-nav__link">
+    <span class="md-ellipsis">
+      kinit: Cannot find KDC for realm "\&lt;DOMAINNAME>" while getting initial credentials
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kerberos-the-specified-credentials-were-rejected-by-the-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      kerberos: the specified credentials were rejected by the server
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kerberos-access-is-denied-bad-http-response-returned-from-server-code-500" class="md-nav__link">
+    <span class="md-ellipsis">
+      kerberos: Access is denied. Bad HTTP response returned from server. Code 500
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alternative-solution-not-recommended" class="md-nav__link">
+    <span class="md-ellipsis">
+      Alternative solution (not recommended)
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<!-- omit in toc -->
+<h1 id="use-kerberos-authentication-to-connect-to-windows-hosts">Use Kerberos authentication to connect to Windows hosts</h1>
+<p>If you use Active Directory users to run job templates against Windows hosts that are domain members, Kerberos authentication is usually required for WinRM.</p>
+<p>There is <a href="https://docs.ansible.com/automation-controller/latest/html/administration/kerberos_auth.html">an official documentation to use Kerberos authentication in Ansible Automation Controller</a>, but it is not suitable for AWX.</p>
+<p>This page shows you how to use Kerberos authentication for running job templates in AWX.</p>
+<!-- omit in toc -->
+<h2 id="table-of-contents">Table of Contents</h2>
+<ul>
+<li><a href="#example-environment-for-this-guide">Example environment for this guide</a></li>
+<li><a href="#procedure">Procedure</a></li>
+<li><a href="#setting-up-your-windows-host">Setting up your Windows host</a><ul>
+<li><a href="#enable-winrm">Enable WinRM</a></li>
+<li><a href="#configure-group-or-permissions-for-the-domain-user">Configure group or permissions for the domain user</a></li>
+</ul>
+</li>
+<li><a href="#setting-up-kubernetes">Setting up Kubernetes</a><ul>
+<li><a href="#create-krb5conf">Create <code>krb5.conf</code></a></li>
+<li><a href="#create-configmap-for-krb5conf">Create ConfigMap for <code>krb5.conf</code></a></li>
+</ul>
+</li>
+<li><a href="#setting-up-awx">Setting up AWX</a><ul>
+<li><a href="#create-container-group">Create Container Group</a></li>
+<li><a href="#create-credential">Create Credential</a></li>
+<li><a href="#create-inventory">Create Inventory</a></li>
+<li><a href="#configure-job-template">Configure Job Template</a></li>
+</ul>
+</li>
+<li><a href="#testing">Testing</a></li>
+<li><a href="#troubleshooting">Troubleshooting</a></li>
+<li><a href="#playbook-for-investigation">Playbook for investigation</a></li>
+<li><a href="#ensure-your-krb5conf-is-mounted">Ensure your <code>krb5.conf</code> is mounted</a></li>
+<li><a href="#ensure-your-kdc-and-target-host-are-accessible-from-the-ee">Ensure your KDC and target host are accessible from the EE</a></li>
+<li><a href="#ensure-kinit-can-be-succeeded-manually">Ensure <code>kinit</code> can be succeeded manually</a></li>
+<li><a href="#gather-trace-logs-for-your-playbook">Gather trace logs for your playbook</a></li>
+<li><a href="#common-issues-and-workarounds">Common issues and workarounds</a><ul>
+<li><a href="#error-creating-pod">Error creating pod</a></li>
+<li><a href="#kinit-cannot-find-kdc-for-realm-domainname-while-getting-initial-credentials">kinit: Cannot find KDC for realm "\&lt;DOMAINNAME&gt;" while getting initial credentials</a></li>
+<li><a href="#kerberos-the-specified-credentials-were-rejected-by-the-server">kerberos: the specified credentials were rejected by the server</a></li>
+<li><a href="#kerberos-access-is-denied-bad-http-response-returned-from-server-code-500">kerberos: Access is denied. Bad HTTP response returned from server. Code 500</a></li>
+</ul>
+</li>
+<li><a href="#alternative-solution-not-recommended">Alternative solution (not recommended)</a></li>
+</ul>
+<h2 id="example-environment-for-this-guide">Example environment for this guide</h2>
+<p>This is my example environment for this guide. Replace these values in this guide as appropriate for your environment.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Domain</td>
+<td><code>kurokobo.internal</code></td>
+</tr>
+<tr>
+<td>Domain Controller</td>
+<td><code>kuro-ad01.kurokobo.internal</code></td>
+</tr>
+<tr>
+<td>KDC Server</td>
+<td><code>kuro-ad01.kurokobo.internal</code></td>
+</tr>
+<tr>
+<td>Ansible Target Host</td>
+<td><code>kuro-win01.kurokobo.internal</code></td>
+</tr>
+<tr>
+<td>Ansible User</td>
+<td><code>awx@kurokobo.internal</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="procedure">Procedure</h2>
+<p>To use Kerberos authentication in your AWX, following tasks are required.</p>
+<ol>
+<li>Setting up your Windows host</li>
+<li>Enable WinRM that uses Kerberos authentication</li>
+<li>Allow specific domain user to connect via WinRM</li>
+<li>Setting up your Kubernetes</li>
+<li>Create <code>krb5.conf</code> as ConfigMap on your Kubernetes cluster</li>
+<li>Setting up your AWX</li>
+<li>Create Container Group with custom pod spec that mounts <code>krb5.conf</code> to make Kerberos authentication to be used in your EE</li>
+<li>Create Credential for the domain user</li>
+<li>Create Inventory for the Windows hosts</li>
+<li>Configure your Job Template</li>
+</ol>
+<h3 id="setting-up-your-windows-host">Setting up your Windows host</h3>
+<p>Enable WinRM on your Windows host and allow specific domain user to connect to your host via WinRM.</p>
+<h4 id="enable-winrm">Enable WinRM</h4>
+<p>Refer <a href="https://docs.ansible.com/ansible/latest/user_guide/windows_setup.html">the Ansible documentation</a> and enable WinRM on your Windows host. Running <code>winrm quickconfig</code> on your Windows host is the simplest way, but GPO can also be used to enable WinRM.</p>
+<p>Ensure that your WinRM Listener is enabled for HTTP. Note that HTTP is safe to use with Kerberos authentication since Kerberos has its own encryption method and all messages will be encrypted over HTTP. Therefore WinRM Listener <em>for HTTPS</em> is not mandatory.</p>
+<div class="highlight"><pre><span></span><code><span class="p">&gt;</span> <span class="n">winrm</span> <span class="n">enumerate</span> <span class="n">winrm</span><span class="p">/</span><span class="n">config</span><span class="p">/</span><span class="n">Listener</span>
+<span class="n">Listener</span>
+    <span class="n">Address</span> <span class="p">=</span> <span class="p">*</span>
+    <span class="n">Transport</span> <span class="p">=</span> <span class="n">HTTP</span>
+    <span class="n">Port</span> <span class="p">=</span> <span class="n">5985</span>
+    <span class="n">Hostname</span>
+    <span class="n">Enabled</span> <span class="p">=</span> <span class="n">true</span>
+    <span class="n">URLPrefix</span> <span class="p">=</span> <span class="n">wsman</span>
+    <span class="n">CertificateThumbprint</span>
+    <span class="n">ListeningOn</span> <span class="p">=</span> <span class="n">127</span><span class="p">.</span><span class="n">0</span><span class="p">.</span><span class="n">0</span><span class="p">.</span><span class="n">1</span><span class="p">,</span> <span class="p">...</span>
+</code></pre></div>
+<p>Then ensure Kerberos authentication is enabled for WinRM.</p>
+<div class="highlight"><pre><span></span><code><span class="p">&gt;</span> <span class="n">winrm</span> <span class="n">get</span> <span class="n">winrm</span><span class="p">/</span><span class="n">config</span><span class="p">/</span><span class="n">Service</span>
+<span class="n">Service</span>
+    <span class="n">RootSDDL</span> <span class="p">=</span> <span class="p">...</span>
+    <span class="n">MaxConcurrentOperations</span> <span class="p">=</span> <span class="n">4294967295</span>
+    <span class="n">MaxConcurrentOperationsPerUser</span> <span class="p">=</span> <span class="n">1500</span>
+    <span class="n">EnumerationTimeoutms</span> <span class="p">=</span> <span class="n">240000</span>
+    <span class="n">MaxConnections</span> <span class="p">=</span> <span class="n">300</span>
+    <span class="n">MaxPacketRetrievalTimeSeconds</span> <span class="p">=</span> <span class="n">120</span>
+    <span class="n">AllowUnencrypted</span> <span class="p">=</span> <span class="n">false</span>
+    <span class="n">Auth</span>
+        <span class="n">Basic</span> <span class="p">=</span> <span class="n">true</span>
+        <span class="n">Kerberos</span> <span class="p">=</span> <span class="n">true</span>     <span class="err">👈👈👈</span>
+        <span class="n">Negotiate</span> <span class="p">=</span> <span class="n">true</span>
+        <span class="n">Certificate</span> <span class="p">=</span> <span class="n">false</span>
+        <span class="n">CredSSP</span> <span class="p">=</span> <span class="n">false</span>
+        <span class="n">CbtHardeningLevel</span> <span class="p">=</span> <span class="n">Relaxed</span>
+    <span class="n">DefaultPorts</span>
+        <span class="n">HTTP</span> <span class="p">=</span> <span class="n">5985</span>
+        <span class="n">HTTPS</span> <span class="p">=</span> <span class="n">5986</span>
+    <span class="n">IPv4Filter</span> <span class="p">=</span> <span class="p">*</span>
+    <span class="n">IPv6Filter</span> <span class="p">=</span> <span class="p">*</span>
+    <span class="n">EnableCompatibilityHttpListener</span> <span class="p">=</span> <span class="n">false</span>
+    <span class="n">EnableCompatibilityHttpsListener</span> <span class="p">=</span> <span class="n">false</span>
+    <span class="n">CertificateThumbprint</span>
+    <span class="n">AllowRemoteAccess</span> <span class="p">=</span> <span class="n">true</span>
+</code></pre></div>
+<h4 id="configure-group-or-permissions-for-the-domain-user">Configure group or permissions for the domain user</h4>
+<p>Additionally, you have to care about the group or permissions of the domain user that used for WinRM.</p>
+<p>WinRM is configured by default to only allow connections by users in the local <code>Administrators</code> group. In this guide, a domain user <code>awx@kurokobo.internal</code> will be used to connect to Windows hosts via WinRM.</p>
+<p>Therefore this user have to be joined local <code>Administrators</code>, or have permissions for <code>Read</code> and <code>Execute</code> for WinRM. Default permissions for WinRM can be changed by <code>winrm configSDDL default</code>. Refer <a href="https://docs.ansible.com/ansible/latest/user_guide/windows_winrm.html#non-administrator-accounts">the Ansible documentation</a> for more detail.</p>
+<h3 id="setting-up-kubernetes">Setting up Kubernetes</h3>
+<p>Create <code>krb5.conf</code> and add it as ConfigMap to your Kubernetes cluster.</p>
+<h4 id="create-krb5conf">Create <code>krb5.conf</code></h4>
+<p>Create new file <code>krb5.conf</code> on the host that <code>kubectl</code> for your Kubernetes cluster can be used. This file will be added as ConfigMap in your Kubernetes cluster in the later step.</p>
+<p>There are some official documentation about <code>krb5.conf</code>:</p>
+<ul>
+<li>Ansible documentation</li>
+<li><a href="https://docs.ansible.com/ansible/latest/user_guide/windows_winrm.html#configuring-host-kerberos">Windows Remote Management - Configuring Host Kerberos</a></li>
+<li>Ansible Automation Controller documentation</li>
+<li><a href="https://docs.ansible.com/automation-controller/latest/html/administration/kerberos_auth.html">23. User Authentication with Kerberos</a></li>
+</ul>
+<p>This is my example. Note that some domain names under <code>[realms]</code> and <code>[domain_realm]</code> are capitalized.</p>
+<div class="highlight"><pre><span></span><code><span class="k">[libdefaults]</span>
+<span class="w">  </span><span class="na">dns_lookup_realm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">false</span>
+<span class="w">  </span><span class="na">dns_lookup_kdc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">false</span>
+<span class="w">  </span><span class="na">rdns</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">false</span>
+
+<span class="k">[realms]</span>
+<span class="w">  </span><span class="na">KUROKOBO.INTERNAL</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">{</span>
+<span class="w">    </span><span class="na">kdc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">kuro-ad01.kurokobo.internal</span>
+<span class="w">    </span><span class="na">admin_server</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">kuro-ad01.kurokobo.internal</span>
+<span class="w">  </span><span class="na">}</span>
+
+<span class="k">[domain_realm]</span>
+<span class="w">  </span><span class="na">.kurokobo.internal</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">KUROKOBO.INTERNAL</span>
+<span class="w">  </span><span class="na">kurokobo.internal</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">KUROKOBO.INTERNAL</span>
+</code></pre></div>
+<h4 id="create-configmap-for-krb5conf">Create ConfigMap for <code>krb5.conf</code></h4>
+<p>Create new ConfigMap on your Kubernetes cluster using <code>krb5.conf</code> that you have created.</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>-n<span class="w"> </span>awx<span class="w"> </span>create<span class="w"> </span>configmap<span class="w"> </span>awx-kerberos-config<span class="w"> </span>--from-file<span class="o">=</span>krb5.conf
+</code></pre></div>
+<p>This command creates new ConfigMap called <code>awx-kerberos-config</code> in the namespace <code>awx</code>. Specify the path to your <code>krb5.conf</code> as <code>--from-file</code>.</p>
+<p>Note that the namespace has to be the name of the namespace that your EE will be launched on. If you've deployed your AWX using to my guide, the namespace is <code>awx</code>.</p>
+<p>Ensure new ConfigMap is created on your Kubernetes cluster.</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>kubectl<span class="w"> </span>-n<span class="w"> </span>awx<span class="w"> </span>get<span class="w"> </span>configmap<span class="w"> </span>awx-kerberos-config<span class="w"> </span>-o<span class="w"> </span>yaml
+apiVersion:<span class="w"> </span>v1
+data:
+<span class="w">  </span>krb5.conf:<span class="w"> </span><span class="p">|</span>-
+<span class="w">    </span><span class="o">[</span>libdefaults<span class="o">]</span>
+<span class="w">      </span><span class="nv">dns_lookup_realm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span>
+<span class="w">      </span><span class="nv">dns_lookup_kdc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span>
+<span class="w">      </span><span class="nv">rdns</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span>
+
+<span class="w">    </span><span class="o">[</span>realms<span class="o">]</span>
+<span class="w">      </span>KUROKOBO.INTERNAL<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">{</span>
+<span class="w">        </span><span class="nv">kdc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>kuro-ad01.kurokobo.internal
+<span class="w">        </span><span class="nv">admin_server</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>kuro-ad01.kurokobo.internal
+<span class="w">      </span><span class="o">}</span>
+
+<span class="w">    </span><span class="o">[</span>domain_realm<span class="o">]</span>
+<span class="w">      </span>.kurokobo.internal<span class="w"> </span><span class="o">=</span><span class="w"> </span>KUROKOBO.INTERNAL
+<span class="w">      </span>kurokobo.internal<span class="w"> </span><span class="o">=</span><span class="w"> </span>KUROKOBO.INTERNAL
+kind:<span class="w"> </span>ConfigMap
+metadata:
+<span class="w">  </span>...
+<span class="w">  </span>name:<span class="w"> </span>awx-kerberos-config
+<span class="w">  </span>namespace:<span class="w"> </span>awx
+<span class="w">  </span>...
+</code></pre></div>
+<h3 id="setting-up-awx">Setting up AWX</h3>
+<p>Create new Container Group, Credential, and Inventory in your AWX.</p>
+<h4 id="create-container-group">Create Container Group</h4>
+<p>Create Container Group with custom pod spec that mounts <code>krb5.conf</code> to make Kerberos authentication to be used in your EE.</p>
+<ol>
+<li>Open AWX UI and open <code>Instance Groups</code> under <code>Administration</code>, then press <code>Add</code> &gt; <code>Add container group</code>.</li>
+<li>Enter <code>Name</code> as you like (e.g. <code>kerberos</code>) and toggle <code>Customize pod specification</code>.</li>
+<li>Put following YAML string to <code>Custom pod spec</code> and press <code>Save</code></li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Pod</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">awx</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">serviceAccountName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span>
+<span class="w">  </span><span class="nt">automountServiceAccountToken</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">  </span><span class="nt">containers</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;quay.io/ansible/awx-ee:latest&#39;</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">worker</span>
+<span class="w">      </span><span class="nt">args</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ansible-runner</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">worker</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;--private-data-dir=/runner&#39;</span>
+<span class="w">      </span><span class="nt">resources</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">requests</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">250m</span>
+<span class="w">          </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100Mi</span>
+<span class="w">      </span><span class="nt">volumeMounts</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">awx-kerberos-volume</span>
+<span class="w">          </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/etc/krb5.conf</span>
+<span class="w">          </span><span class="nt">subPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">krb5.conf</span>
+<span class="w">  </span><span class="nt">volumes</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">awx-kerberos-volume</span>
+<span class="w">      </span><span class="nt">configMap</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">awx-kerberos-config</span>
+</code></pre></div>
+<p>This pod spec means that your ConfigMap including your <code>krb5.conf</code> will be mounted as <code>/etc/krb5.conf</code> in the EE based on this Container Group. Of course this pod spec is just a working example and you can modify this to suit your requirements. Refer <a href="../containergroup">my guide for Container Group</a> for detail.</p>
+<h4 id="create-credential">Create Credential</h4>
+<p>Create new Credential for your domain user. In this guide, the domain user <code>awx@kurokobo.internal</code> will be used to connect to Windows hosts via WinRM, so the Credential for <code>awx@kurokobo.internal</code> have to be created.</p>
+<ol>
+<li>Open AWX UI and open <code>Credentials</code> under <code>Resources</code>, then press <code>Add</code>.</li>
+<li>Enter <code>Name</code> as you like (e.g. <code>Domain User</code>) and select <code>Machine</code> as <code>Credential Type</code>.</li>
+<li>Enter <code>Username</code> and <code>Password</code> for your domain user in <code>&lt;username&gt;@&lt;DOMAINNAME&gt;</code> format. Note that <em>the domain name have to be capitalized</em> like <code>awx@KUROKOBO.INTERNAL</code>.</li>
+</ol>
+<p>It's very important that the domain name in the <code>Username</code> have to be capitalized, since this username will be passed as-is to <code>kinit</code>. If you specify your domain name in lower-case, <code>kinit</code> will fail because <code>kinit</code> cannot find KDC for realm in lower-case.</p>
+<p>Alternatively the name of the realm can be passed through <code>ansible_winrm_realm</code> variable, but my recommendation is specify realm in Credential as the part of <code>Username</code> in upper-case.</p>
+<h4 id="create-inventory">Create Inventory</h4>
+<p>Create Inventory in the standard way. The important points are as follows.</p>
+<ul>
+<li>The name of the <code>Host</code> in your Inventory have to be specified as FQDN, like <code>kuro-win01.kurokobo.internal</code>, instead of IP address. This is mandatory requirement.</li>
+<li>You should add following variables in the Inventory as host variables or group variables.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nn">---</span>
+<span class="nt">ansible_connection</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">winrm</span>
+<span class="nt">ansible_winrm_transport</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kerberos</span>
+<span class="nt">ansible_port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5985</span>
+</code></pre></div>
+<h4 id="configure-job-template">Configure Job Template</h4>
+<p>Create or configure your Job Template. The important points are as follows.</p>
+<ul>
+<li>Specify Inventory that includes your Windows hosts in FQDN.</li>
+<li>Specify Credential that includes the username in <code>&lt;username&gt;@&lt;DOMAINNAME&gt;</code> format. The domain name in the username have to be capitalized.</li>
+<li>Specify Instance Group that has custom pod spec that mounts your ConfigMap as <code>/etc/krb5.conf</code>.</li>
+</ul>
+<h2 id="testing">Testing</h2>
+<p>You can test connectivity via WinRM using Kerberos by using <code>ansible.windows.win_ping</code> module. This is an example playbook.</p>
+<div class="highlight"><pre><span></span><code><span class="nn">---</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Test Kerberos Authentication</span>
+<span class="w">  </span><span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kuro-win01.kurokobo.internal</span>
+<span class="w">  </span><span class="nt">gather_facts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">  </span><span class="nt">tasks</span><span class="p">:</span>
+
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Ensure windows host is reachable</span>
+<span class="w">      </span><span class="nt">ansible.windows.win_ping</span><span class="p">:</span>
+</code></pre></div>
+<p>If the <code>Verbosity</code> for the Job Template is configured <code>4 (Connection Debug)</code> and if your Kerberos authentication is successfully established, the job ends with success and the log shows that <code>kinit</code> is called to connect to Windows hosts.</p>
+<div class="highlight"><pre><span></span><code>TASK [Ensure windows host is reachable] ****************************************
+...
+&lt;kuro-win01.kurokobo.internal&gt; ESTABLISH WINRM CONNECTION FOR USER: awx@KUROKOBO.INTERNAL on PORT 5985 TO kuro-win01.kurokobo.internal
+calling kinit with pexpect for principal awx@KUROKOBO.INTERNAL     👈👈👈
+...
+ok: [kuro-win01.kurokobo.internal] =&gt; {
+    &quot;changed&quot;: false,
+    &quot;invocation&quot;: {
+        &quot;module_args&quot;: {
+            &quot;data&quot;: &quot;pong&quot;
+        }
+    },
+    &quot;ping&quot;: &quot;pong&quot;
+}
+</code></pre></div>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<p>The Kerberos authentication including <code>kinit</code> will be invoked on every Job Template running. This means that <code>kinit</code> will be invoked in EE, so if we want to investigate Kerberos related issues, we have to dig into the EE.</p>
+<h3 id="playbook-for-investigation">Playbook for investigation</h3>
+<p>Run this playbook as a Job on the Container Group.</p>
+<div class="highlight"><pre><span></span><code><span class="nn">---</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Debug Kerberos Authentication</span>
+<span class="w">  </span><span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">localhost</span>
+<span class="w">  </span><span class="nt">gather_facts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">  </span><span class="nt">tasks</span><span class="p">:</span>
+
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Ensure /etc/krb5.conf is mounted</span>
+<span class="w">      </span><span class="nt">ansible.builtin.debug</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">msg</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">lookup(</span><span class="nv"> </span><span class="s">&#39;file&#39;,</span><span class="nv"> </span><span class="s">&#39;/etc/krb5.conf&#39;</span><span class="nv"> </span><span class="s">)</span><span class="nv"> </span><span class="s">}}&quot;</span>
+
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Pause for specified minutes for debugging</span>
+<span class="w">      </span><span class="nt">ansible.builtin.pause</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">minutes</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+</code></pre></div>
+<p>You can dig into the EE during <code>ansible.builtin.pause</code> is working by following commands.</p>
+<ol>
+<li>Launch the Job with the playbook above.</li>
+<li>If your Job exits with <code>Failed</code> immediately, your custom pod spec for your Container Group or ConfigMap for your <code>krb5.conf</code> might be wrong.</li>
+<li>Invoke <code>kubectl -n &lt;namespace&gt; get pod</code> on your Kubernetes cluster</li>
+<li>Gather the pod name that starts with <code>automation-job-*</code></li>
+</ol>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>kubectl<span class="w"> </span>-n<span class="w"> </span>awx<span class="w"> </span>get<span class="w"> </span>pod
+NAME<span class="w">                                               </span>READY<span class="w">   </span>STATUS<span class="w">    </span>RESTARTS<span class="w">   </span>AGE
+awx-postgres-0<span class="w">                                     </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>41h
+awx-76445c946f-btfzz<span class="w">                               </span><span class="m">4</span>/4<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>41h
+awx-operator-controller-manager-7594795b6b-565wm<span class="w">   </span><span class="m">2</span>/2<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>41h
+automation-job-42-tdvs5<span class="w">                            </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>4s<span class="w">     </span>👈👈👈
+</code></pre></div>
+<p>Now you can access <code>bash</code> inside the EE by <code>kubectl -n &lt;namespace&gt; exec -it &lt;pod name&gt; -- bash</code>:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>kubectl<span class="w"> </span>-n<span class="w"> </span>awx<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>automation-job-42-tdvs5<span class="w"> </span>--<span class="w"> </span>bash
+bash-5.1$<span class="w">     </span>👈👈👈
+</code></pre></div>
+<p>Then proceed investigation.</p>
+<h3 id="ensure-your-krb5conf-is-mounted">Ensure your <code>krb5.conf</code> is mounted</h3>
+<p>If your Container Group and ConfigMap are configured correctly, you can get your <code>krb5.conf</code> as <code>/etc/krb5.conf</code> inside the EE.</p>
+<div class="highlight"><pre><span></span><code>bash-5.1$<span class="w"> </span>cat<span class="w"> </span>/etc/krb5.conf
+<span class="o">[</span>libdefaults<span class="o">]</span>
+<span class="w">  </span><span class="nv">dns_lookup_realm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span>
+<span class="w">  </span><span class="nv">dns_lookup_kdc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span>
+<span class="w">  </span><span class="nv">rdns</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span>
+
+<span class="o">[</span>realms<span class="o">]</span>
+<span class="w">  </span>KUROKOBO.INTERNAL<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="nv">kdc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>kuro-ad01.kurokobo.internal
+<span class="w">    </span><span class="nv">admin_server</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>kuro-ad01.kurokobo.internal
+<span class="w">  </span><span class="o">}</span>
+
+<span class="o">[</span>domain_realm<span class="o">]</span>
+<span class="w">  </span>.kurokobo.internal<span class="w"> </span><span class="o">=</span><span class="w"> </span>KUROKOBO.INTERNAL
+<span class="w">  </span>kurokobo.internal<span class="w"> </span><span class="o">=</span><span class="w"> </span>KUROKOBO.INTERNAL
+</code></pre></div>
+<p>If your <code>krb5.conf</code> is missing, ensure your custom pod spec for Container Group and ConfigMap for your <code>krb5.conf</code> are correct.</p>
+<h3 id="ensure-your-kdc-and-target-host-are-accessible-from-the-ee">Ensure your KDC and target host are accessible from the EE</h3>
+<p>Ensure your KDC server can be reachable. There is no command such as <code>ping</code> or <code>nslookup</code>, downloading and using  Busybox is helpful.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Download busybox and make it executable</span>
+bash-5.1$<span class="w"> </span>curl<span class="w"> </span>-o<span class="w"> </span>busybox<span class="w"> </span>https://busybox.net/downloads/binaries/1.35.0-x86_64-linux-musl/busybox
+bash-5.1$<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>busybox
+</code></pre></div>
+<p>Then test name resolution and network reachability.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Ensure your domain name can be resolved</span>
+bash-5.1$<span class="w"> </span>./busybox<span class="w"> </span>nslookup<span class="w"> </span>kurokobo.internal
+Server:<span class="w">         </span><span class="m">10</span>.43.0.10
+Address:<span class="w">        </span><span class="m">10</span>.43.0.10:53
+
+Name:<span class="w">   </span>kurokobo.internal
+Address:<span class="w"> </span>***.***.***.***
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1"># Ensure hostname of your KDC can be resolved</span>
+bash-5.1$<span class="w"> </span>./busybox<span class="w"> </span>nslookup<span class="w"> </span>kuro-ad01.kurokobo.internal
+Server:<span class="w">         </span><span class="m">10</span>.43.0.10
+Address:<span class="w">        </span><span class="m">10</span>.43.0.10:53
+
+Name:<span class="w">   </span>kuro-ad01.kurokobo.internal
+Address:<span class="w"> </span>***.***.***.***
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1"># Ensure the port 88 on your KDC can be opened</span>
+bash-5.1$<span class="w"> </span>./busybox<span class="w"> </span>nc<span class="w"> </span>-v<span class="w"> </span>-w<span class="w"> </span><span class="m">1</span><span class="w"> </span>kuro-ad01.kurokobo.internal<span class="w"> </span><span class="m">88</span>
+kuro-ad01.kurokobo.internal<span class="w"> </span><span class="o">(</span>***.***.***.***:88<span class="o">)</span><span class="w"> </span>open
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1"># Ensure hostname of your target host can be resolved</span>
+bash-5.1$<span class="w"> </span>./busybox<span class="w"> </span>nslookup<span class="w"> </span>kuro-win01.kurokobo.internal
+Server:<span class="w">         </span><span class="m">10</span>.43.0.10
+Address:<span class="w">        </span><span class="m">10</span>.43.0.10:53
+
+Name:<span class="w">   </span>kuro-win01.kurokobo.internal
+Address:<span class="w"> </span>***.***.***.***
+
+<span class="c1"># If you don&#39;t have &quot;rdns = false&quot; in your &quot;krb5.conf&quot;,</span>
+<span class="c1"># and the IP address of your target host can be reverse looked up,</span>
+<span class="c1"># the result must match the hostname of your target host.</span>
+bash-5.1$<span class="w"> </span>./busybox<span class="w"> </span>nslookup<span class="w"> </span>***.***.***.***
+Server:<span class="w">         </span><span class="m">10</span>.43.0.10
+Address:<span class="w">        </span><span class="m">10</span>.43.0.10:53
+
+***.***.***.***.in-addr.arpa<span class="w">      </span><span class="nv">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>kuro-win01.kurokobo.internal
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1"># Ensure the port 88 on your KDC is reachable</span>
+bash-5.1$<span class="w"> </span>./busybox<span class="w"> </span>nc<span class="w"> </span>-v<span class="w"> </span>-w<span class="w"> </span><span class="m">1</span><span class="w"> </span>kuro-ad01.kurokobo.internal<span class="w"> </span><span class="m">88</span>
+kuro-ad01.kurokobo.internal<span class="w"> </span>***.***.***.***:88<span class="o">)</span><span class="w"> </span>open
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1"># Ensure the port 5985 (or 5986 for HTTPS) on your target host respond 404 error to HTTP request</span>
+bash-5.1$<span class="w"> </span>curl<span class="w"> </span>-I<span class="w"> </span>http://kuro-win01.kurokobo.internal:5985
+HTTP/1.1<span class="w"> </span><span class="m">404</span><span class="w"> </span>Not<span class="w"> </span>Found
+Content-Length:<span class="w"> </span><span class="m">315</span>
+Content-Type:<span class="w"> </span>text/html<span class="p">;</span><span class="w"> </span><span class="nv">charset</span><span class="o">=</span>us-ascii
+Server:<span class="w"> </span>Microsoft-HTTPAPI/2.0
+Date:<span class="w"> </span>Wed,<span class="w"> </span><span class="m">15</span><span class="w"> </span>Mar<span class="w"> </span><span class="m">2023</span><span class="w"> </span><span class="m">16</span>:47:03<span class="w"> </span>GMT
+Connection:<span class="w"> </span>close
+</code></pre></div>
+<h3 id="ensure-kinit-can-be-succeeded-manually">Ensure <code>kinit</code> can be succeeded manually</h3>
+<p>You can test Kerberos authentication by using <code>kinit</code> manually inside the EE.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Ensure that there is no error while passing &lt;username&gt;@&lt;DOMAINNAME&gt; and password</span>
+<span class="c1"># Note that the domain name for kinit have to be capitalized</span>
+bash-5.1$<span class="w"> </span>kinit<span class="w"> </span>awx@KUROKOBO.INTERNAL
+Password<span class="w"> </span><span class="k">for</span><span class="w"> </span>awx@KUROKOBO.INTERNAL:
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1"># Ensure new ticket has been issued after kinit</span>
+bash-5.1$<span class="w"> </span>klist
+Ticket<span class="w"> </span>cache:<span class="w"> </span>FILE:/tmp/krb5cc_1000
+Default<span class="w"> </span>principal:<span class="w"> </span>awx@KUROKOBO.INTERNAL
+
+Valid<span class="w"> </span>starting<span class="w">     </span>Expires<span class="w">            </span>Service<span class="w"> </span>principal
+<span class="m">07</span>/02/22<span class="w"> </span><span class="m">12</span>:32:28<span class="w">  </span><span class="m">07</span>/02/22<span class="w"> </span><span class="m">22</span>:32:28<span class="w">  </span>krbtgt/KUROKOBO.INTERNAL@KUROKOBO.INTERNAL
+<span class="w">        </span>renew<span class="w"> </span><span class="k">until</span><span class="w"> </span><span class="m">07</span>/03/22<span class="w"> </span><span class="m">12</span>:32:21
+</code></pre></div>
+<p>If you have faced any errors, you can investigate by getting trace logs for <code>kinit</code> by exporting <code>KRB5_TRACE</code> environment variable.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># The command to destroy cached tickets if exists</span>
+bash-5.1$<span class="w"> </span>kdestroy
+
+<span class="c1"># Make trace logs to be displayed on stdout</span>
+bash-5.1$<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">KRB5_TRACE</span><span class="o">=</span>/dev/stdout
+
+<span class="c1"># Example trace logs for the case that the ticket has been issued successfully</span>
+bash-5.1$<span class="w"> </span>kinit<span class="w"> </span>awx@KUROKOBO.INTERNAL
+<span class="o">[</span><span class="m">38</span><span class="o">]</span><span class="w"> </span><span class="m">1678897813</span>.575763:<span class="w"> </span>Getting<span class="w"> </span>initial<span class="w"> </span>credentials<span class="w"> </span><span class="k">for</span><span class="w"> </span>awx@KUROKOBO.INTERNAL
+<span class="o">[</span><span class="m">38</span><span class="o">]</span><span class="w"> </span><span class="m">1678897813</span>.575765:<span class="w"> </span>Sending<span class="w"> </span>unauthenticated<span class="w"> </span>request
+<span class="o">[</span><span class="m">38</span><span class="o">]</span><span class="w"> </span><span class="m">1678897813</span>.575766:<span class="w"> </span>Sending<span class="w"> </span>request<span class="w"> </span><span class="o">(</span><span class="m">190</span><span class="w"> </span>bytes<span class="o">)</span><span class="w"> </span>to<span class="w"> </span>KUROKOBO.INTERNAL
+<span class="o">[</span><span class="m">38</span><span class="o">]</span><span class="w"> </span><span class="m">1678897813</span>.575767:<span class="w"> </span>Resolving<span class="w"> </span>hostname<span class="w"> </span>kuro-ad01.kurokobo.internal
+<span class="o">[</span><span class="m">38</span><span class="o">]</span><span class="w"> </span><span class="m">1678897813</span>.575768:<span class="w"> </span>Sending<span class="w"> </span>initial<span class="w"> </span>UDP<span class="w"> </span>request<span class="w"> </span>to<span class="w"> </span>dgram<span class="w"> </span>***.***.***.***:88
+<span class="o">[</span><span class="m">38</span><span class="o">]</span><span class="w"> </span><span class="m">1678897813</span>.575769:<span class="w"> </span>Received<span class="w"> </span>answer<span class="w"> </span><span class="o">(</span><span class="m">198</span><span class="w"> </span>bytes<span class="o">)</span><span class="w"> </span>from<span class="w"> </span>dgram<span class="w"> </span>***.***.***.***:88
+<span class="o">[</span><span class="m">38</span><span class="o">]</span><span class="w"> </span><span class="m">1678897813</span>.575770:<span class="w"> </span>Response<span class="w"> </span>was<span class="w"> </span>not<span class="w"> </span>from<span class="w"> </span>primary<span class="w"> </span>KDC
+<span class="o">[</span><span class="m">38</span><span class="o">]</span><span class="w"> </span><span class="m">1678897813</span>.575771:<span class="w"> </span>Received<span class="w"> </span>error<span class="w"> </span>from<span class="w"> </span>KDC:<span class="w"> </span>-1765328359/Additional<span class="w"> </span>pre-authentication<span class="w"> </span>required
+<span class="o">[</span><span class="m">38</span><span class="o">]</span><span class="w"> </span><span class="m">1678897813</span>.575774:<span class="w"> </span>Preauthenticating<span class="w"> </span>using<span class="w"> </span>KDC<span class="w"> </span>method<span class="w"> </span>data
+<span class="o">[</span><span class="m">38</span><span class="o">]</span><span class="w"> </span><span class="m">1678897813</span>.575775:<span class="w"> </span>Processing<span class="w"> </span>preauth<span class="w"> </span>types:<span class="w"> </span>PA-PK-AS-REQ<span class="w"> </span><span class="o">(</span><span class="m">16</span><span class="o">)</span>,<span class="w"> </span>PA-PK-AS-REP_OLD<span class="w"> </span><span class="o">(</span><span class="m">15</span><span class="o">)</span>,<span class="w"> </span>PA-ETYPE-INFO2<span class="w"> </span><span class="o">(</span><span class="m">19</span><span class="o">)</span>,<span class="w"> </span>PA-ENC-TIMESTAMP<span class="w"> </span><span class="o">(</span><span class="m">2</span><span class="o">)</span>
+<span class="o">[</span><span class="m">38</span><span class="o">]</span><span class="w"> </span><span class="m">1678897813</span>.575776:<span class="w"> </span>Selected<span class="w"> </span>etype<span class="w"> </span>info:<span class="w"> </span>etype<span class="w"> </span>aes256-cts,<span class="w"> </span>salt<span class="w"> </span><span class="s2">&quot;KUROKOBO.INTERNALawx&quot;</span>,<span class="w"> </span>params<span class="w"> </span><span class="s2">&quot;&quot;</span>
+<span class="o">[</span><span class="m">38</span><span class="o">]</span><span class="w"> </span><span class="m">1678897813</span>.575777:<span class="w"> </span>PKINIT<span class="w"> </span>client<span class="w"> </span>has<span class="w"> </span>no<span class="w"> </span>configured<span class="w"> </span>identity<span class="p">;</span><span class="w"> </span>giving<span class="w"> </span>up
+<span class="o">[</span><span class="m">38</span><span class="o">]</span><span class="w"> </span><span class="m">1678897813</span>.575778:<span class="w"> </span>Preauth<span class="w"> </span>module<span class="w"> </span>pkinit<span class="w"> </span><span class="o">(</span><span class="m">16</span><span class="o">)</span><span class="w"> </span><span class="o">(</span>real<span class="o">)</span><span class="w"> </span>returned:<span class="w"> </span>-1765328174/No<span class="w"> </span>pkinit_anchors<span class="w"> </span>supplied
+Password<span class="w"> </span><span class="k">for</span><span class="w"> </span>awx@KUROKOBO.INTERNAL:
+<span class="o">[</span><span class="m">38</span><span class="o">]</span><span class="w"> </span><span class="m">1678897823</span>.104967:<span class="w"> </span>AS<span class="w"> </span>key<span class="w"> </span>obtained<span class="w"> </span><span class="k">for</span><span class="w"> </span>encrypted<span class="w"> </span>timestamp:<span class="w"> </span>aes256-cts/1836
+<span class="o">[</span><span class="m">38</span><span class="o">]</span><span class="w"> </span><span class="m">1678897823</span>.104969:<span class="w"> </span>Encrypted<span class="w"> </span>timestamp<span class="w"> </span><span class="o">(</span><span class="k">for</span><span class="w"> </span><span class="m">1678897818</span>.79834<span class="o">)</span>:<span class="w"> </span>plain<span class="w"> </span>301AA...137DA,<span class="w"> </span>encrypted<span class="w"> </span>303E8...E278E
+<span class="o">[</span><span class="m">38</span><span class="o">]</span><span class="w"> </span><span class="m">1678897823</span>.104970:<span class="w"> </span>Preauth<span class="w"> </span>module<span class="w"> </span>encrypted_timestamp<span class="w"> </span><span class="o">(</span><span class="m">2</span><span class="o">)</span><span class="w"> </span><span class="o">(</span>real<span class="o">)</span><span class="w"> </span>returned:<span class="w"> </span><span class="m">0</span>/Success
+<span class="o">[</span><span class="m">38</span><span class="o">]</span><span class="w"> </span><span class="m">1678897823</span>.104971:<span class="w"> </span>Produced<span class="w"> </span>preauth<span class="w"> </span><span class="k">for</span><span class="w"> </span>next<span class="w"> </span>request:<span class="w"> </span>PA-ENC-TIMESTAMP<span class="w"> </span><span class="o">(</span><span class="m">2</span><span class="o">)</span>
+<span class="o">[</span><span class="m">38</span><span class="o">]</span><span class="w"> </span><span class="m">1678897823</span>.104972:<span class="w"> </span>Sending<span class="w"> </span>request<span class="w"> </span><span class="o">(</span><span class="m">270</span><span class="w"> </span>bytes<span class="o">)</span><span class="w"> </span>to<span class="w"> </span>KUROKOBO.INTERNAL
+<span class="o">[</span><span class="m">38</span><span class="o">]</span><span class="w"> </span><span class="m">1678897823</span>.104973:<span class="w"> </span>Resolving<span class="w"> </span>hostname<span class="w"> </span>kuro-ad01.kurokobo.internal
+<span class="o">[</span><span class="m">38</span><span class="o">]</span><span class="w"> </span><span class="m">1678897823</span>.104974:<span class="w"> </span>Sending<span class="w"> </span>initial<span class="w"> </span>UDP<span class="w"> </span>request<span class="w"> </span>to<span class="w"> </span>dgram<span class="w"> </span>***.***.***.***:88
+<span class="o">[</span><span class="m">38</span><span class="o">]</span><span class="w"> </span><span class="m">1678897823</span>.104975:<span class="w"> </span>Received<span class="w"> </span>answer<span class="w"> </span><span class="o">(</span><span class="m">106</span><span class="w"> </span>bytes<span class="o">)</span><span class="w"> </span>from<span class="w"> </span>dgram<span class="w"> </span>***.***.***.***:88
+<span class="o">[</span><span class="m">38</span><span class="o">]</span><span class="w"> </span><span class="m">1678897823</span>.104976:<span class="w"> </span>Response<span class="w"> </span>was<span class="w"> </span>not<span class="w"> </span>from<span class="w"> </span>primary<span class="w"> </span>KDC
+<span class="o">[</span><span class="m">38</span><span class="o">]</span><span class="w"> </span><span class="m">1678897823</span>.104977:<span class="w"> </span>Received<span class="w"> </span>error<span class="w"> </span>from<span class="w"> </span>KDC:<span class="w"> </span>-1765328332/Response<span class="w"> </span>too<span class="w"> </span>big<span class="w"> </span><span class="k">for</span><span class="w"> </span>UDP,<span class="w"> </span>retry<span class="w"> </span>with<span class="w"> </span>TCP
+<span class="o">[</span><span class="m">38</span><span class="o">]</span><span class="w"> </span><span class="m">1678897823</span>.104978:<span class="w"> </span>Request<span class="w"> </span>or<span class="w"> </span>response<span class="w"> </span>is<span class="w"> </span>too<span class="w"> </span>big<span class="w"> </span><span class="k">for</span><span class="w"> </span>UDP<span class="p">;</span><span class="w"> </span>retrying<span class="w"> </span>with<span class="w"> </span>TCP
+<span class="o">[</span><span class="m">38</span><span class="o">]</span><span class="w"> </span><span class="m">1678897823</span>.104979:<span class="w"> </span>Sending<span class="w"> </span>request<span class="w"> </span><span class="o">(</span><span class="m">270</span><span class="w"> </span>bytes<span class="o">)</span><span class="w"> </span>to<span class="w"> </span>KUROKOBO.INTERNAL<span class="w"> </span><span class="o">(</span>tcp<span class="w"> </span>only<span class="o">)</span>
+<span class="o">[</span><span class="m">38</span><span class="o">]</span><span class="w"> </span><span class="m">1678897823</span>.104980:<span class="w"> </span>Resolving<span class="w"> </span>hostname<span class="w"> </span>kuro-ad01.kurokobo.internal
+<span class="o">[</span><span class="m">38</span><span class="o">]</span><span class="w"> </span><span class="m">1678897823</span>.104981:<span class="w"> </span>Initiating<span class="w"> </span>TCP<span class="w"> </span>connection<span class="w"> </span>to<span class="w"> </span>stream<span class="w"> </span>***.***.***.***:88
+<span class="o">[</span><span class="m">38</span><span class="o">]</span><span class="w"> </span><span class="m">1678897823</span>.104982:<span class="w"> </span>Sending<span class="w"> </span>TCP<span class="w"> </span>request<span class="w"> </span>to<span class="w"> </span>stream<span class="w"> </span>***.***.***.***:88
+<span class="o">[</span><span class="m">38</span><span class="o">]</span><span class="w"> </span><span class="m">1678897823</span>.104983:<span class="w"> </span>Received<span class="w"> </span>answer<span class="w"> </span><span class="o">(</span><span class="m">1639</span><span class="w"> </span>bytes<span class="o">)</span><span class="w"> </span>from<span class="w"> </span>stream<span class="w"> </span>***.***.***.***:88
+<span class="o">[</span><span class="m">38</span><span class="o">]</span><span class="w"> </span><span class="m">1678897823</span>.104984:<span class="w"> </span>Terminating<span class="w"> </span>TCP<span class="w"> </span>connection<span class="w"> </span>to<span class="w"> </span>stream<span class="w"> </span>***.***.***.***:88
+<span class="o">[</span><span class="m">38</span><span class="o">]</span><span class="w"> </span><span class="m">1678897823</span>.104985:<span class="w"> </span>Response<span class="w"> </span>was<span class="w"> </span>not<span class="w"> </span>from<span class="w"> </span>primary<span class="w"> </span>KDC
+<span class="o">[</span><span class="m">38</span><span class="o">]</span><span class="w"> </span><span class="m">1678897823</span>.104986:<span class="w"> </span>Processing<span class="w"> </span>preauth<span class="w"> </span>types:<span class="w"> </span>PA-ETYPE-INFO2<span class="w"> </span><span class="o">(</span><span class="m">19</span><span class="o">)</span>
+<span class="o">[</span><span class="m">38</span><span class="o">]</span><span class="w"> </span><span class="m">1678897823</span>.104987:<span class="w"> </span>Selected<span class="w"> </span>etype<span class="w"> </span>info:<span class="w"> </span>etype<span class="w"> </span>aes256-cts,<span class="w"> </span>salt<span class="w"> </span><span class="s2">&quot;KUROKOBO.INTERNALawx&quot;</span>,<span class="w"> </span>params<span class="w"> </span><span class="s2">&quot;&quot;</span>
+<span class="o">[</span><span class="m">38</span><span class="o">]</span><span class="w"> </span><span class="m">1678897823</span>.104988:<span class="w"> </span>Produced<span class="w"> </span>preauth<span class="w"> </span><span class="k">for</span><span class="w"> </span>next<span class="w"> </span>request:<span class="w"> </span><span class="o">(</span>empty<span class="o">)</span>
+<span class="o">[</span><span class="m">38</span><span class="o">]</span><span class="w"> </span><span class="m">1678897823</span>.104989:<span class="w"> </span>AS<span class="w"> </span>key<span class="w"> </span>determined<span class="w"> </span>by<span class="w"> </span>preauth:<span class="w"> </span>aes256-cts/1836
+<span class="o">[</span><span class="m">38</span><span class="o">]</span><span class="w"> </span><span class="m">1678897823</span>.104990:<span class="w"> </span>Decrypted<span class="w"> </span>AS<span class="w"> </span>reply<span class="p">;</span><span class="w"> </span>session<span class="w"> </span>key<span class="w"> </span>is:<span class="w"> </span>aes256-cts/8188
+<span class="o">[</span><span class="m">38</span><span class="o">]</span><span class="w"> </span><span class="m">1678897823</span>.104991:<span class="w"> </span>FAST<span class="w"> </span>negotiation:<span class="w"> </span>unavailable
+<span class="o">[</span><span class="m">38</span><span class="o">]</span><span class="w"> </span><span class="m">1678897823</span>.104992:<span class="w"> </span>Resolving<span class="w"> </span>unique<span class="w"> </span>ccache<span class="w"> </span>of<span class="w"> </span><span class="nb">type</span><span class="w"> </span>MEMORY
+<span class="o">[</span><span class="m">38</span><span class="o">]</span><span class="w"> </span><span class="m">1678897823</span>.104993:<span class="w"> </span>Initializing<span class="w"> </span>MEMORY:9h1LvJw<span class="w"> </span>with<span class="w"> </span>default<span class="w"> </span>princ<span class="w"> </span>awx@KUROKOBO.INTERNAL
+<span class="o">[</span><span class="m">38</span><span class="o">]</span><span class="w"> </span><span class="m">1678897823</span>.104994:<span class="w"> </span>Storing<span class="w"> </span>config<span class="w"> </span><span class="k">in</span><span class="w"> </span>MEMORY:9h1LvJw<span class="w"> </span><span class="k">for</span><span class="w"> </span>krbtgt/KUROKOBO.INTERNAL@KUROKOBO.INTERNAL:<span class="w"> </span>pa_type:<span class="w"> </span><span class="m">2</span>
+<span class="o">[</span><span class="m">38</span><span class="o">]</span><span class="w"> </span><span class="m">1678897823</span>.104995:<span class="w"> </span>Storing<span class="w"> </span>awx@KUROKOBO.INTERNAL<span class="w"> </span>-&gt;<span class="w"> </span>krb5_ccache_conf_data/pa_type/krbtgt<span class="se">\/</span>KUROKOBO.INTERNAL<span class="se">\@</span>KUROKOBO.INTERNAL@X-CACHECONF:<span class="w"> </span><span class="k">in</span><span class="w"> </span>MEMORY:9h1LvJw
+<span class="o">[</span><span class="m">38</span><span class="o">]</span><span class="w"> </span><span class="m">1678897823</span>.104996:<span class="w"> </span>Storing<span class="w"> </span>awx@KUROKOBO.INTERNAL<span class="w"> </span>-&gt;<span class="w"> </span>krbtgt/KUROKOBO.INTERNAL@KUROKOBO.INTERNAL<span class="w"> </span><span class="k">in</span><span class="w"> </span>MEMORY:9h1LvJw
+<span class="o">[</span><span class="m">38</span><span class="o">]</span><span class="w"> </span><span class="m">1678897823</span>.104997:<span class="w"> </span>Moving<span class="w"> </span>ccache<span class="w"> </span>MEMORY:9h1LvJw<span class="w"> </span>to<span class="w"> </span>FILE:/tmp/krb5cc_1000
+<span class="o">[</span><span class="m">38</span><span class="o">]</span><span class="w"> </span><span class="m">1678897823</span>.104998:<span class="w"> </span>Destroying<span class="w"> </span>ccache<span class="w"> </span>MEMORY:9h1LvJw
+</code></pre></div>
+<h3 id="gather-trace-logs-for-your-playbook">Gather trace logs for your playbook</h3>
+<p>If manually invoked <code>kinit</code> succeeds but the task in your playbook such as <code>ansible.windows.win_ping</code> fails, it may be possible to investigate the cause from the trace logs of the <code>kinit</code> that invoked internally during runtime of playbook.</p>
+<ol>
+<li>Append <code>env</code> to your custom pod spec for Container Group</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Pod</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">awx</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">containers</span><span class="p p-Indicator">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;quay.io/ansible/awx-ee:latest&#39;</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">worker</span>
+<span class="w">      </span><span class="nt">env</span><span class="p">:</span><span class="w">     </span><span class="l l-Scalar l-Scalar-Plain">👈👈👈</span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">- name</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">KRB5_TRACE     👈👈👈</span>
+<span class="w">          </span><span class="l l-Scalar l-Scalar-Plain">value</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/tmp/krb5.log     👈👈👈</span>
+<span class="w">      </span><span class="nt">args</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ansible-runner</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">worker</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;--private-data-dir=/runner&#39;</span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+</code></pre></div>
+<ol>
+<li>Run playbook that contains following tasks</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="nn">...</span>
+<span class="w">  </span><span class="nt">tasks</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Ensure windows host is reachable</span>
+<span class="w">      </span><span class="nt">ansible.windows.win_ping</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">ignore_unreachable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Get /tmp/krb5.log</span>
+<span class="w">      </span><span class="nt">ansible.builtin.debug</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">msg</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">lookup(</span><span class="nv"> </span><span class="s">&#39;file&#39;,</span><span class="nv"> </span><span class="s">&#39;/tmp/krb5.log&#39;</span><span class="nv"> </span><span class="s">)</span><span class="nv"> </span><span class="s">}}&quot;</span>
+</code></pre></div>
+<p>You can get the contents of <code>/tmp/krb5.log</code> from your job output. Below is example with success. Note that <code>\\n</code> should be replaced with line break to make it readable.</p>
+<div class="highlight"><pre><span></span><code>...
+TASK<span class="w"> </span><span class="o">[</span>Ensure<span class="w"> </span>windows<span class="w"> </span>host<span class="w"> </span>is<span class="w"> </span>reachable<span class="o">]</span><span class="w"> </span>****************************************
+ok:<span class="w"> </span><span class="o">[</span>kuro-win01.kurokobo.internal<span class="o">]</span>
+
+TASK<span class="w"> </span><span class="o">[</span>Get<span class="w"> </span>/tmp/krb5.log<span class="o">]</span><span class="w"> </span>*******************************************************
+ok:<span class="w"> </span><span class="o">[</span>kuro-win01.kurokobo.internal<span class="o">]</span><span class="w"> </span><span class="o">=</span>&gt;<span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="s2">&quot;msg&quot;</span>:<span class="w"> </span><span class="s2">&quot;[25] 1678899932.599110: Matching awx@KUROKOBO.INTERNAL in collection with result: 0/Success</span>
+<span class="s2">            [25] 1678899932.599111: Matching awx@KUROKOBO.INTERNAL in collection with result: 0/Success</span>
+<span class="s2">            [25] 1678899932.599112: Getting credentials awx@KUROKOBO.INTERNAL -&gt; HTTP/kuro-win01.kurokobo.internal@KUROKOBO.INTERNAL using ccache FILE:/tmp/tmprrrrpt1c</span>
+<span class="s2">            [25] 1678899932.599113: Retrieving awx@KUROKOBO.INTERNAL -&gt; krb5_ccache_conf_data/start_realm@X-CACHECONF: from FILE:/tmp/tmprrrrpt1c with result: -1765328243/Matching credential not found (filename: /tmp/tmprrrrpt1c)</span>
+<span class="s2">            [25] 1678899932.599114: Retrieving awx@KUROKOBO.INTERNAL -&gt; HTTP/kuro-win01.kurokobo.internal@KUROKOBO.INTERNAL from FILE:/tmp/tmprrrrpt1c with result: -1765328243/Matching credential not found (filename: /tmp/tmprrrrpt1c)</span>
+<span class="s2">            [25] 1678899932.599115: Retrieving awx@KUROKOBO.INTERNAL -&gt; krbtgt/KUROKOBO.INTERNAL@KUROKOBO.INTERNAL from FILE:/tmp/tmprrrrpt1c with result: 0/Success</span>
+<span class="s2">            [25] 1678899932.599116: Starting with TGT for client realm: awx@KUROKOBO.INTERNAL -&gt; krbtgt/KUROKOBO.INTERNAL@KUROKOBO.INTERNAL</span>
+<span class="s2">            [25] 1678899932.599117: Requesting tickets for HTTP/kuro-win01.kurokobo.internal@KUROKOBO.INTERNAL, referrals on</span>
+<span class="s2">            [25] 1678899932.599118: Generated subkey for TGS request: aes256-cts/7945</span>
+<span class="s2">            [25] 1678899932.599119: etypes requested in TGS request: aes256-cts, aes128-cts, aes256-sha2, aes128-sha2, rc4-hmac, camellia128-cts, camellia256-cts</span>
+<span class="s2">            [25] 1678899932.599121: Encoding request body and padata into FAST request</span>
+<span class="s2">            [25] 1678899932.599122: Sending request (1827 bytes) to KUROKOBO.INTERNAL</span>
+<span class="s2">            [25] 1678899932.599123: Resolving hostname kuro-ad01.kurokobo.internal</span>
+<span class="s2">            [25] 1678899932.599124: Initiating TCP connection to stream ***.***.***.***:88</span>
+<span class="s2">            [25] 1678899932.599125: Sending TCP request to stream ***.***.***.***:88</span>
+<span class="s2">            [25] 1678899932.599126: Received answer (1752 bytes) from stream ***.***.***.***:88</span>
+<span class="s2">            [25] 1678899932.599127: Terminating TCP connection to stream ***.***.***.***:88</span>
+<span class="s2">            [25] 1678899932.599128: Response was not from primary KDC</span>
+<span class="s2">            [25] 1678899932.599129: Decoding FAST response</span>
+<span class="s2">            [25] 1678899932.599130: FAST reply key: aes256-cts/DEB0</span>
+<span class="s2">            [25] 1678899932.599131: TGS reply is for awx@KUROKOBO.INTERNAL -&gt; HTTP/kuro-win01.kurokobo.internal@KUROKOBO.INTERNAL with session key aes256-cts/93B1</span>
+<span class="s2">            [25] 1678899932.599132: TGS request result: 0/Success</span>
+<span class="s2">            [25] 1678899932.599133: Received creds for desired service HTTP/kuro-win01.kurokobo.internal@KUROKOBO.INTERNAL</span>
+<span class="s2">            [25] 1678899932.599134: Storing awx@KUROKOBO.INTERNAL -&gt; HTTP/kuro-win01.kurokobo.internal@KUROKOBO.INTERNAL in FILE:/tmp/tmprrrrpt1c</span>
+<span class="s2">            [25] 1678899932.599135: Creating authenticator for awx@KUROKOBO.INTERNAL -&gt; HTTP/kuro-win01.kurokobo.internal@KUROKOBO.INTERNAL, seqnum 655929156, subkey aes256-cts/1F31, session key aes256-cts/93B1</span>
+<span class="s2">            [25] 1678899932.599137: Read AP-REP, time 1678899927.599136, subkey aes256-cts/8266, seqnum 1460012097&quot;</span>
+<span class="o">}</span>
+...
+</code></pre></div>
+<h3 id="common-issues-and-workarounds">Common issues and workarounds</h3>
+<p>Some common issues during this guide and workaround for those errors.</p>
+<p>The following official documentations are also be helpful.</p>
+<ul>
+<li><a href="https://docs.ansible.com/ansible/latest/user_guide/windows_winrm.html#troubleshooting-kerberos">"Troubleshooting Kerberos" section in Ansible documentation</a></li>
+<li><a href="https://access.redhat.com/solutions/4911041">Red Hat's KB article for the error "Server not found in Kerberos database"</a></li>
+</ul>
+<h4 id="error-creating-pod">Error creating pod</h4>
+<p>The job had been failed immediately after running the job. The log shows following.</p>
+<div class="highlight"><pre><span></span><code>Error creating pod: container failed with exit code 128: failed to create containerd task: ...
+</code></pre></div>
+<p>This is usually caused by misconfigured custom pod spec of your Container Group or ConfigMap for your <code>krb5.conf</code>.</p>
+<h4 id="kinit-cannot-find-kdc-for-realm-domainname-while-getting-initial-credentials">kinit: Cannot find KDC for realm "\&lt;DOMAINNAME&gt;" while getting initial credentials</h4>
+<p><code>kinit</code> inside the EE or job failed with following error.</p>
+<div class="highlight"><pre><span></span><code>bash-5.1$<span class="w"> </span>kinit<span class="w"> </span>&lt;username&gt;@&lt;DOMAINNAME&gt;
+kinit:<span class="w"> </span>Cannot<span class="w"> </span>find<span class="w"> </span>KDC<span class="w"> </span><span class="k">for</span><span class="w"> </span>realm<span class="w"> </span><span class="s2">&quot;&lt;DOMAINNAME&gt;&quot;</span><span class="w"> </span><span class="k">while</span><span class="w"> </span>getting<span class="w"> </span>initial<span class="w"> </span>credentials
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>TASK [Ensure windows host is reachable] ****************************************
+fatal: [...]: UNREACHABLE! =&gt; {
+    &quot;changed&quot;: false,
+    &quot;msg&quot;: &quot;Kerberos auth failure for principal awx@kurokobo.internal with pexpect: Cannot find KDC for realm \&quot;&lt;DOMAINNAME&gt;\&quot; while getting initial credentials&quot;,
+    &quot;unreachable&quot;: true
+}
+</code></pre></div>
+<p>If this occurred, ensure:</p>
+<ul>
+<li><code>/etc/krb5.conf</code> is correctly configured</li>
+<li>Your KDC hostname can be resolved</li>
+<li>Your KDC can be accessed from EE</li>
+<li>The username for <code>kinit</code> is correct. Especially, note that the domain name in the username have to be capitalized like <code>awx@KUROKOBO.INTERNAL</code></li>
+<li>If manually invoked <code>kinit</code> is succeeded but <code>kinit</code> inside the job failed, ensure the username in your Credential in AWX is correct. Note that the domain name in the username have to be capitalized like <code>awx@KUROKOBO.INTERNAL</code></li>
+</ul>
+<h4 id="kerberos-the-specified-credentials-were-rejected-by-the-server">kerberos: the specified credentials were rejected by the server</h4>
+<p>The job failed with following error.</p>
+<div class="highlight"><pre><span></span><code>TASK [Ensure windows host is reachable] ****************************************
+fatal: [...]: UNREACHABLE! =&gt; {
+    &quot;changed&quot;: false,
+    &quot;msg&quot;: &quot;kerberos: the specified credentials were rejected by the server&quot;,
+    &quot;unreachable&quot;: true
+}
+</code></pre></div>
+<p>Ensure your domain user that used to connect to WinRM on the target host is the member of local <code>Administrators</code> group on the target host, or has permissions for <code>Read</code> and <code>Execute</code> for WinRM.</p>
+<h4 id="kerberos-access-is-denied-bad-http-response-returned-from-server-code-500">kerberos: Access is denied. Bad HTTP response returned from server. Code 500</h4>
+<p>The job failed with following error.</p>
+<div class="highlight"><pre><span></span><code>TASK [Ensure windows host is reachable] ****************************************
+fatal: [...]: UNREACHABLE! =&gt; {
+    &quot;changed&quot;: false,
+    &quot;msg&quot;: &quot;kerberos: Access is denied.  (extended fault data: {&#39;transport_message&#39;: &#39;Bad HTTP response returned from server. Code 500&#39;, &#39;http_status_code&#39;: 500, &#39;wsmanfault_code&#39;: &#39;5&#39;, &#39;fault_code&#39;: &#39;s:Sender&#39;, &#39;fault_subcode&#39;: &#39;w:AccessDenied&#39;})&quot;,
+    &quot;unreachable&quot;: true
+}
+</code></pre></div>
+<p>Ensure your domain user that used to connect to WinRM on the target host is the member of local <code>Administrators</code> group on the target host, or has permissions for <code>Read</code> and <code>Execute</code> for WinRM. In this case, <code>Execute</code> might be missing.</p>
+<h2 id="alternative-solution-not-recommended">Alternative solution (not recommended)</h2>
+<p>To replace <code>/etc/krb5.conf</code> in EE with your customized <code>krb5.conf</code>, you can also use <code>AWX_ISOLATION_SHOW_PATHS</code> settings in AWX. This is a setting to expose any path on the host to EE. If this setting is activated, it's no longer required to create a Container Group on AWX or ConfigMap on Kubernetes, that described in this guide.</p>
+<p>However, this feature will internally mount <code>krb5.conf</code> via <code>hostPath</code>, so a customized <code>krb5.conf</code> must be placed on all Kubernetes nodes where the EE will run.</p>
+<p>Also, side-effects and security concerns must be taken into consideration, as all EE jobs running on AWX will mount <code>krb5.conf</code> via <code>hostPath</code>, weather the job is for Windows hosts or not.</p>
+<p>Therefore, I don't recommend this method in this guide.</p>
+<p>If you want to use this feature, you can do so by following these steps.</p>
+<ol>
+<li>Place your <code>krb5.conf</code> on any path on your Kubernetes node, e.g. <code>/data/kerberos/krb5.conf</code>, instead of creating a Container Group on AWX or ConfigMap on Kubernetes</li>
+<li>Enable <code>Expose host paths for Container Groups</code> in AWX under <code>Settings</code> &gt; <code>Job settings</code>.</li>
+<li>This equals to set <code>AWX_MOUNT_ISOLATED_PATHS_ON_K8S</code> to <code>true</code>.</li>
+<li>Add <code>/data/kerberos/krb5.conf:/etc/krb5.conf:O</code> to <code>Paths to expose to isolated jobs</code> in AWX under <code>Settings</code> &gt; <code>Job settings</code>.</li>
+<li>This equals to append string to <code>AWX_ISOLATION_SHOW_PATHS</code>.</li>
+<li>Run your Job Template that without any Container Group.</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; The Ubiquity Authors
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../../../..", "features": ["navigation.indexes", "navigation.expand", "search.highlight", "search.share", "navigation.top", "navigation.tracking", "content.code.copy"], "search": "../../../../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+    
+  </body>
+</html>

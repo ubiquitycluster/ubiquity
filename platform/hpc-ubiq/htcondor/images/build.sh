@@ -1,11 +1,11 @@
 #!/bin/bash
-# Copyright 2023 Logicalis UKI. All Rights Reserved.
+# Copyright The Ubiquity Authors.
 #
 # Licensed under the Apache License, Version 2.0. Previously licensed under the Functional Source License (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#     https://github.com/logicalisuki/ubiquity-open/blob/main/LICENSE
+#     https://github.com/ubiquitycluster/ubiquity/blob/main/LICENSE
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,7 +17,7 @@
 
 for i in `find -type d | sed 1d | sed "s/.\///g"`; do 
 	cd $i
-        sudo docker build -t logicalisuki/htcondor-$i .
+        sudo docker build -t ubiquitycluster/htcondor-$i .
 	cd -
 done
 

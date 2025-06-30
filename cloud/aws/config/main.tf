@@ -1,10 +1,10 @@
-# Copyright 2023 Logicalis UKI. All Rights Reserved.
+# Copyright The Ubiquity Authors.
 #
 # Licensed under the Apache License, Version 2.0. Previously licensed under the Functional Source License (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#     https://github.com/logicalisuki/ubiquity-open-open/blob/main/LICENSE
+#     https://github.com/ubiquitycluster/ubiquity-open/blob/main/LICENSE
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -24,7 +24,7 @@ variable "pool" {
 
 module "aws" {
   source         = "../"
-  config_git_url = "https://github.com/logicalisuki/ubiq-playbooks.git"
+  config_git_url = "https://github.com/ubiquitycluster/ubiq-playbooks.git"
   config_version = "main"
 
   cluster_name = "ubiquity"
@@ -77,7 +77,7 @@ output "public_ip" {
 
 ## Uncomment to register your domain name with CloudFlare
 # module "dns" {
-#   source           = "git::https://github.com/logicalisuki/ubiquity-open.git/cloud/dns/cloudflare"
+#   source           = "git::https://github.com/ubiquitycluster/ubiquity.git/cloud/dns/cloudflare"
 #   email            = "you@example.com"
 #   name             = module.aws.cluster_name
 #   domain           = module.aws.domain
@@ -88,7 +88,7 @@ output "public_ip" {
 
 ## Uncomment to register your domain name with Google Cloud
 # module "dns" {
-#   source           = "git::https://github.com/logicalisuki/ubiquity-open.git/cloud/dns/gcloud"
+#   source           = "git::https://github.com/ubiquitycluster/ubiquity.git/cloud/dns/gcloud"
 #   email            = "you@example.com"
 #   project          = "your-project-id"
 #   zone_name        = "you-zone-name"

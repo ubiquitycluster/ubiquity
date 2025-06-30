@@ -1,12 +1,12 @@
 ---
 # yaml-language-server: $schema=https://squidfunk.github.io/mkdocs-material/schema.json
-# Copyright 2023 Logicalis UKI. All Rights Reserved.
+# Copyright The Ubiquity Authors.
 #
 # Licensed under the Apache License, Version 2.0. Previously licensed under the Functional Source License (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#     https://github.com/logicalisuki/ubiquity-open/blob/main/LICENSE
+#     https://github.com/ubiquitycluster/ubiquity/blob/main/LICENSE
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,9 +17,16 @@
 # limitations under the License.
 
 site_name: Ubiquity
-copyright: Copyright &copy; 2022 The Ubiquity Authors
+site_url: https://ubiquitycluster.github.io/ubiquity/
+copyright: Copyright &copy; The Ubiquity Authors
 
-repo_url: https://github.com/qassociates/ubiquity
+repo_url: https://github.com/ubiquitycluster/ubiquity
+repo_name: ubiquitycluster/ubiquity
+edit_uri: edit/main/docs/
+
+# Exclude problematic files with missing snippets
+exclude_docs: |
+  reference/concepts/secrets-management.md
 
 theme:
   name: material
@@ -30,16 +37,20 @@ theme:
     - navigation.expand
     - search.highlight
     - search.share
+    - navigation.top
+    - navigation.tracking
+    - content.code.copy
 
 markdown_extensions:
   - pymdownx.emoji:
-      emoji_index: !!python/name:materialx.emoji.twemoji
-      emoji_generator: !!python/name:materialx.emoji.to_svg
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - attr_list
   - admonition
   - pymdownx.details
   - pymdownx.snippets:
       check_paths: true
+      base_path: '.'
   - def_list
   - pymdownx.tasklist:
   - pymdownx.superfences:
@@ -52,42 +63,75 @@ markdown_extensions:
 
 nav:
   - Home: index.md
-  - Installation:
-    - installation/sandbox.md
-    - Production:
-      - installation/production/prerequisites.md
-      - installation/production/external-resources.md
-      - installation/production/configuration.md
-      - installation/production/deployment.md
-      - installation/production/post-installation.md
-  - Architecture:
-    - architecture/overview.md
-    - architecture/bare-metal-provisioning.md
-    - architecture/secrets-management.md
-    - architecture/networking.md
-  - Tutorials:
-    - tutorials/manual-dns-setup.md
-    - tutorials/create-a-new-user-account.md
-    - tutorials/expose-services-to-the-internet.md
-    - tutorials/use-both-github-and-gitea.md
-    - tutorials/add-or-remove-nodes.md
-    - tutorials/run-commands-on-multiple-nodes.md
-    - tutorials/single-node-cluster-adjustments.md
-  - Runbooks:
-    - runbooks/argocd.md
-    - runbooks/cert-manager.md
-    - runbooks/dnsmasq.md
-    - runbooks/documentation.md
-    - runbooks/gitea.md
-    - runbooks/longhorn.md
-    - runbooks/tools-container.md
-    - runbooks/vault.md
-  - troubleshooting.md
-  - User guide:
-    - user-guide/onboarding.md
-  - Reference:
-    - reference/license.md
-    - reference/changelog.md
-    - reference/roadmap.md
-    - reference/contributing.md
-    - reference/faq.md
+  - Getting Started: getting-started.md
+  - Admin Guide:
+    - Overview: admin-guide/index.md
+    - Deployment:
+      - Prerequisites: admin-guide/deployment/prerequisites.md
+      - Configure: admin-guide/deployment/configure.md
+      - Sandbox: admin-guide/deployment/sandbox.md
+      - On-Premises: admin-guide/deployment/on-prem.md
+      - External Resources: admin-guide/deployment/external-resources.md
+      - Post Installation: admin-guide/deployment/post-installation.md
+      - Production:
+        - Prerequisites: admin-guide/deployment/production/prerequisites.md
+        - External Resources: admin-guide/deployment/production/external-resources.md
+        - Configuration: admin-guide/deployment/production/configuration.md
+        - Deployment: admin-guide/deployment/production/deployment.md
+        - Post Installation: admin-guide/deployment/production/post-installation.md
+        - Air Gapping: admin-guide/deployment/production/airgapping.md
+        - AWX Post Install: admin-guide/deployment/production/awx-postinstall.md
+        - InfiniBand: admin-guide/deployment/production/hfi-infiniband.md
+      - Cloud:
+        - Overview: admin-guide/deployment/cloud/index.md
+        - Terraform Cloud: admin-guide/deployment/cloud/terraform_cloud.md
+    - Administration:
+      - Tutorials:
+        - Add/Remove Nodes: admin-guide/administration/tutorials/add-or-remove-nodes.md
+        - Backup Cluster: admin-guide/administration/tutorials/backup-cluster.md
+        - Expose Services: admin-guide/administration/tutorials/expose-services-to-the-internet.md
+        - Manual DNS Setup: admin-guide/administration/tutorials/manual-dns-setup.md
+        - Multi-Node Commands: admin-guide/administration/tutorials/run-commands-on-multiple-nodes.md
+        - Single Node Adjustments: admin-guide/administration/tutorials/single-node-cluster-adjustments.md
+        - User Accounts: admin-guide/administration/tutorials/user-accounts.md
+        - GitHub and Gitea: admin-guide/administration/tutorials/use-both-github-and-gitea.md
+        - Update Documentation: admin-guide/administration/tutorials/updating-documentation.md
+        - Monitoring Stack: admin-guide/administration/tutorials/kube-prometheus-stack.md
+        - Logging Stack: admin-guide/administration/tutorials/loki-promtail.md
+        - SSL Certificates: admin-guide/administration/tutorials/ssl-cert-change-git.md
+        - Pre-commit Hooks: admin-guide/administration/tutorials/install-pre-commit-hooks.md
+        - Shutdown Procedures: admin-guide/administration/tutorials/shutdown.md
+    - Concepts:
+      - Certificate Management: admin-guide/concepts/certificate-management.md
+      - Opus Container: admin-guide/concepts/opus-container.md
+      - PXE Boot: admin-guide/concepts/pxe-boot.md
+    - Runbooks:
+      - ArgoCD: admin-guide/runbooks/argocd.md
+      - Cert Manager: admin-guide/runbooks/cert-manager.md
+      - DNSmasq: admin-guide/runbooks/dnsmasq.md
+      - Documentation: admin-guide/runbooks/documentation.md
+      - Gitea: admin-guide/runbooks/gitea.md
+      - Longhorn: admin-guide/runbooks/longhorn.md
+      - Vault: admin-guide/runbooks/vault.md
+      - Onyxia: admin-guide/runbooks/onyxia.md
+      - OS Images: admin-guide/runbooks/osimages.md
+      - OFED: admin-guide/runbooks/ofed.md
+      - Matrix: admin-guide/runbooks/matrix.md
+      - etcd Alerts: admin-guide/runbooks/etcd-alerts.md
+      - AWX:
+        - Backup: admin-guide/runbooks/awx/backup/README.md
+        - Restore: admin-guide/runbooks/awx/restore/README.md
+        - Git Integration: admin-guide/runbooks/awx/git/README.md
+        - Runner: admin-guide/runbooks/awx/runner/README.md
+        - Tips: admin-guide/runbooks/awx/tips/README.md
+    - Troubleshooting:
+      - BMH Provisioning: admin-guide/troubleshooting/bmh-provisioning-error.md
+  - User Guide:
+    - Overview: user-guide/index.md
+    - Onboarding: user-guide/onboarding.md
+    - EasyBuild: user-guide/EasyBuild.md
+  - About:
+    - Support: about/support.md
+    - Screenshots: about/screenshots.md
+  - Troubleshooting: troubleshooting.md
+  - Changelog: changelog.md

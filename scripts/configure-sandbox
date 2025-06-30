@@ -1,11 +1,11 @@
 #!/usr/bin/env python3.9
-# Copyright 2023 Logicalis UKI. All Rights Reserved.
+# Copyright The Ubiquity Authors.
 #
 # Licensed under the Apache License, Version 2.0. Previously licensed under the Functional Source License (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#     https://github.com/logicalisuki/ubiquity-open/blob/main/LICENSE
+#     https://github.com/ubiquitycluster/ubiquity/blob/main/LICENSE
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -79,13 +79,13 @@ def read_or_create_env_file():
             env_file_contents = env_file.read()
             if Confirm.ask(f"Previous configuration exists at .env! Are you sure you want to proceed without changing these values??"):
                 print(f"Continuing...")
-                if Confirm.ask("Do you have a Logicalis Container Registry account?"):
-                    default_logicalis_reg_user = os.getenv('LOGICALIS_REG_USER')
-                    logicalis_reg_user = prompt_with_help("Enter your username given to you by Logicalis:", "This is the username given to you by Logicalis - Please discuss with your account manager if you don't have this!", default=default_logicalis_reg_user)
-                    default_logicalis_reg_token = os.getenv('LOGICALIS_REG_TOKEN')
-                    logicalis_reg_token = prompt_with_help("Enter your registration key:", "This is the special token given to you by Logicalis to allow you to log onto our container registry. Without this, you can't logon - And if you forget it, we cannot retrieve the original - We have to re-generate it. Don't lose this!", default=default_logicalis_reg_token)
+                if Confirm.ask("Do you have a Ubiquity Container Registry account?"):
+                    default_ubiquity_reg_user = os.getenv('UBIQUITY_REG_USER')
+                    ubiquity_reg_user = prompt_with_help("Enter your username for the Ubiquity container registry:", "This is your username for the Ubiquity container registry - Please check with the project maintainers if you don't have this!", default=default_ubiquity_reg_user)
+                    default_ubiquity_reg_token = os.getenv('UBIQUITY_REG_TOKEN')
+                    ubiquity_reg_token = prompt_with_help("Enter your registration key:", "This is the special token for the Ubiquity container registry. Without this, you can't log in - And if you forget it, the original cannot be retrieved - A new one has to be generated. Don't lose this!", default=default_ubiquity_reg_token)
                     client = docker.from_env()
-                    login = client.login(username=logicalis_reg_user, password=logicalis_reg_token,
+                    login = client.login(username=ubiquity_reg_user, password=ubiquity_reg_token,
                                            registry='https://ubiquity.azurecr.io')
                     try:
                         value = login['Status']
@@ -96,8 +96,8 @@ def read_or_create_env_file():
                             sys.exit("Login Failed. Credentials incorrect.")
                     except KeyError:
                         print ("Error with login")
-                    env_replace(pattern='LOGICALIS_REG_USER='+default_logicalis_reg_user, replacement='LOGICALIS_REG_USER='+logicalis_reg_user, paths=[".env"])
-                    env_replace(pattern='LOGICALIS_REG_TOKEN='+default_logicalis_reg_token, replacement='LOGICALIS_REG_TOKEN='+logicalis_reg_token, paths=[".env"])
+                    env_replace(pattern='UBIQUITY_REG_USER='+default_ubiquity_reg_user, replacement='UBIQUITY_REG_USER='+ubiquity_reg_user, paths=[".env"])
+                    env_replace(pattern='UBIQUITY_REG_TOKEN='+default_ubiquity_reg_token, replacement='UBIQUITY_REG_TOKEN='+ubiquity_reg_token, paths=[".env"])
                     if Confirm.ask("Do you have a Dockerhub account?"):
                         default_dockerhub_reg_user = os.getenv('DOCKERHUB_REG_USER')
                         dockerhub_reg_user = prompt_with_help("Enter your dockerhub username:", "This is your dockerhub username", default=default_dockerhub_reg_user)
@@ -116,7 +116,7 @@ def read_or_create_env_file():
                         except KeyError:
                             print ("Error with login")
                 else:
-                    print("Proceeding without a Logicalis Container Registry account. If you have dockerhub credentials it is recommended you put these in to cover for multiple container pulls - Ensure you don't hit ratelimits!")
+                    print("Proceeding without a Ubiquity Container Registry account. If you have dockerhub credentials it is recommended you put these in to cover for multiple container pulls - Ensure you don't hit ratelimits!")
                     if Confirm.ask("Do you have a Dockerhub account?"):
                         default_dockerhub_reg_user = os.getenv('DOCKERHUB_REG_USER')
                         dockerhub_reg_user = prompt_with_help("Enter your dockerhub username:", "This is your dockerhub username", default=default_dockerhub_reg_user)
@@ -150,7 +150,7 @@ def read_or_create_env_file():
             env_file.write("\n")
             env_file.write("# Domains and Repos\n")
             env_file.write("DOMAIN=127-0-0-1.nip.io\n")
-            env_file.write("SEED_REPO=https://github.com/logicalisuki/ubiquity-open.git\n")
+            env_file.write("SEED_REPO=https://github.com/ubiquitycluster/ubiquity.git\n")
             env_file.write("SEED_REPO_USERNAME=myawesomeusername\n")
             env_file.write("SEED_REPO_PASSWORD=myawesomepassword\n")
             env_file.write("\n")
@@ -260,8 +260,8 @@ def read_or_create_env_file():
             env_file.write("OFED_VERSION=5.4-3.6.8.1\n")
             env_file.write("\n")
             env_file.write("# Container Registry Credentials\n")
-            env_file.write("LOGICALIS_REG_USER=dave\n")
-            env_file.write("LOGICALIS_REG_TOKEN=token\n")
+            env_file.write("UBIQUITY_REG_USER=dave\n")
+            env_file.write("UBIQUITY_REG_TOKEN=token\n")
             env_file.write("DOCKERHUB_REG_USER=dave\n")
             env_file.write("DOCKERHUB_REG_TOKEN=token\n")
             env_file.write("\n")
@@ -754,13 +754,13 @@ def configure() -> None:
     print("Password:"+cloudcmd_htpass)
     update_config_yaml("apps/cloudcmd/auth.yaml", "data:auth", cloudcmd_htpass)
 
-    if Confirm.ask("Do you have a Logicalis Container Registry account?"):
-        default_logicalis_reg_user = os.getenv('LOGICALIS_REG_USER')
-        logicalis_reg_user = prompt_with_help("Enter your username given to you by Logicalis:", "This is the username given to you by Logicalis - Please discuss with your account manager if you don't have this!", default=default_logicalis_reg_user)
-        default_logicalis_reg_token = os.getenv('LOGICALIS_REG_TOKEN')
-        logicalis_reg_token = prompt_with_help("Enter your registration key:", "This is the special token given to you by Logicalis to allow you to log onto our container registry. Without this, you can't logon - And if you forget it, we cannot retrieve the original - We have to re-generate it. Don't lose this!", default=default_logicalis_reg_token)
+    if Confirm.ask("Do you have a Ubiquity Container Registry account?"):
+        default_ubiquity_reg_user = os.getenv('UBIQUITY_REG_USER')
+        ubiquity_reg_user = prompt_with_help("Enter your username for the Ubiquity project:", "This is the username for the Ubiquity project - Please check with the project maintainers if you don't have this!", default=default_ubiquity_reg_user)
+        default_ubiquity_reg_token = os.getenv('UBIQUITY_REG_TOKEN')
+        ubiquity_reg_token = prompt_with_help("Enter your registration key:", "This is the special token for the Ubiquity project to allow you to log onto our container registry. Without this, you can't logon - And if you forget it, we cannot retrieve the original - We have to re-generate it. Don't lose this!", default=default_ubiquity_reg_token)
         client = docker.from_env()
-        login = client.login(username=logicalis_reg_user, password=logicalis_reg_token,
+        login = client.login(username=ubiquity_reg_user, password=ubiquity_reg_token,
                                registry='https://ubiquity.azurecr.io')
         try:
             value = login['Status']
@@ -771,8 +771,8 @@ def configure() -> None:
                 sys.exit("Login Failed. Credentials incorrect.")
         except KeyError:
             print ("Error with login")
-        env_replace(pattern='LOGICALIS_REG_USER='+default_logicalis_reg_user, replacement='LOGICALIS_REG_USER='+logicalis_reg_user, paths=[".env"])
-        env_replace(pattern='LOGICALIS_REG_TOKEN='+default_logicalis_reg_token, replacement='LOGICALIS_REG_TOKEN='+logicalis_reg_token, paths=[".env"])
+        env_replace(pattern='UBIQUITY_REG_USER='+default_ubiquity_reg_user, replacement='UBIQUITY_REG_USER='+ubiquity_reg_user, paths=[".env"])
+        env_replace(pattern='UBIQUITY_REG_TOKEN='+default_ubiquity_reg_token, replacement='UBIQUITY_REG_TOKEN='+ubiquity_reg_token, paths=[".env"])
         if Confirm.ask("Do you have a Dockerhub account?"):
             default_dockerhub_reg_user = os.getenv('DOCKERHUB_REG_USER')
             dockerhub_reg_user = prompt_with_help("Enter your dockerhub username:", "This is your dockerhub username", default=default_dockerhub_reg_user)
@@ -791,7 +791,7 @@ def configure() -> None:
             except KeyError:
                 print ("Error with login")
     else:
-        print("Proceeding without a Logicalis Container Registry account. If you have dockerhub credentials it is recommended you put these in to cover for multiple container pulls - Ensure you don't hit ratelimits!")
+        print("Proceeding without a Ubiquity Container Registry account. If you have dockerhub credentials it is recommended you put these in to cover for multiple container pulls - Ensure you don't hit ratelimits!")
         if Confirm.ask("Do you have a Dockerhub account?"):
             default_dockerhub_reg_user = os.getenv('DOCKERHUB_REG_USER')
             dockerhub_reg_user = prompt_with_help("Enter your dockerhub username:", "This is your dockerhub username", default=default_dockerhub_reg_user)

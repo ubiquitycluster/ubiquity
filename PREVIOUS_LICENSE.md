@@ -8,7 +8,7 @@ FSL-1.0-Apache-2.0
 
 ## Notice
 
-Copyright 2023 Logicalis
+Copyright The Ubiquity Authors
 
 ## Terms and Conditions
 

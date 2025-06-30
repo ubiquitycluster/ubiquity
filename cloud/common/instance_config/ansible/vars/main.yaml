@@ -65,7 +65,7 @@ runcmd:
   # Install ansible requirements
   #- pip3 install -r /etc/ansible/requirements.txt
   # Bootstrap services that are essential to the ansible repo
-  #- git clone htttps://github.com/logicalisuki/ubiq-playbooks.git /etc/ansible 
+  #- git clone htttps://github.com/ubiquitycluster/ubiq-playbooks.git /etc/ansible 
 %{ endif }
 # Remove all ifcfg configuration files that have no corresponding network interface in ip link show.
   - for i in /etc/sysconfig/network-scripts/ifcfg-*; do if ! ip link show | grep -q "$${i##*-}:"; then rm -f $i; fi; done

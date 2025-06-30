@@ -1,11 +1,11 @@
 ---
-# Copyright 2023 Logicalis UKI. All Rights Reserved.
+# Copyright The Ubiquity Authors.
 #
 # Licensed under the Apache License, Version 2.0. Previously licensed under the Functional Source License (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#     https://github.com/logicalisuki/ubiquity-open-open/blob/main/LICENSE
+#     https://github.com/ubiquitycluster/ubiquity-open/blob/main/LICENSE
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -164,11 +164,11 @@ onyxia:
           #        long: 2.3174
           #        name: "Montrouge (France)"
     catalogs:
-    - id: logicalis-helm-charts-datascience
-      name: Logicalis datascience
-      description: Services for datascientists. https://github.com/CJCShadowsan/helm-charts-datascience
-      maintainer: chris.coates@uk.logicalis.com
-      location: https://cjcshadowsan.github.io/helm-charts-datascience
+    - id: ubiquity-helm-charts-datascience
+      name: Ubiquity datascience
+      description: Services for datascientists. https://github.com/ubiquitycluster/helm-charts-datascience
+      maintainer: ubiquity@ubiquitycluster.org
+      location: https://ubiquitycluster.github.io/helm-charts-datascience
       status: PROD
       type: helm
     - id: inseefrlab-helm-charts-datascience

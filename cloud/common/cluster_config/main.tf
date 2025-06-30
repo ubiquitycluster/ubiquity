@@ -1,10 +1,10 @@
-# Copyright 2023 Logicalis UKI. All Rights Reserved.
+# Copyright The Ubiquity Authors.
 #
 # Licensed under the Apache License, Version 2.0. Previously licensed under the Functional Source License (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#     https://github.com/logicalisuki/ubiquity-open/blob/main/LICENSE
+#     https://github.com/ubiquitycluster/ubiquity/blob/main/LICENSE
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -156,7 +156,7 @@ resource "null_resource" "deploy_ansible_vars" {
       "id -u ansible &> /dev/null || sudo useradd -m -s /bin/bash ansible",
       "which yum && sudo yum -y install make git || echo 'No yum' && true",
       "which apt && sudo apt-get -y install make git || echo 'No apt-get' && true",
-      "#git clone https://github.com/logicalisuki/ubiquity-open.git",
+      "#git clone https://github.com/ubiquitycluster/ubiquity.git",
       "#cd ubiquity && make tools",
       "#sudo install -m 650 terraform_facts.yaml /etc/ansible/facts/",
       # These chgrp commands do nothing if the ansible group does not yet exist

@@ -435,4 +435,4 @@ fatal: [localhost]: FAILED! => {"changed": false, "msg": "Failed to import the r
 ...
 ```
 
-To solve this, please contact Logicalis and we can work to build another container.
+To solve this, please contact the Ubiquity community via [GitHub Issues](https://github.com/ubiquitycluster/ubiquity/issues) and we can work to build another container.

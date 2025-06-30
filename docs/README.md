@@ -36,7 +36,7 @@ The remainder of the directories in here effectively are tools and utilities to 
 
 There is a special folder called `disabled` that effectively is a mirror of the main folders in Ubiquity, and you simply move a component in to that directory to disable components.
 
-Ubiquity is open-source, extendable and comes with a [professional support](about/support.md) provided by Logicalis.
+Ubiquity is open-source, extendable and comes with [community support](about/support.md) provided by The Ubiquity Authors and the broader community.
 
 To get a quick feeling as to what Ubiquity is, take a look at some [screenshots](about/screenshots.md).
 

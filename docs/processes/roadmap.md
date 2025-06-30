@@ -1,7 +1,7 @@
 # Ubiquity Roadmap
 
 The Ubiquity Roadmap is maintained as a Github project and can be found
-[here](https://github.com/orgs/logicalisuki/projects/2).
+[here](https://github.com/orgs/ubiquitycluster/projects/2).
 
 ## Description
 
