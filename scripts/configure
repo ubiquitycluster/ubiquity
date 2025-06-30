@@ -519,15 +519,38 @@ def main() -> None:
     env_replace(pattern='KUBERNETES_SERVICE_CIDR='+default_cluster_service_cidr, replacement='KUBERNETES_SERVICE_CIDR='+cluster_service_cidr, paths=[".env"])
     update_config_yaml("metal/group_vars/metal.yml", "service_cidr", cluster_service_cidr)
 
-    default_ofed = os.getenv('USE_OFED')
-    ofed = prompt_with_help("Enable OFED", "Please select if you want to enable OFED on your cluster", default=default_ofed)
-    env_replace(pattern='USE_OFED='+default_ofed, replacement='USE_OFED='+ofed, paths=[".env"])
-    update_config_yaml("metal/roles/pxe_server/defaults/main.yml", "ofed:enabled", ofed)
+    # Prompt for MLNX OFED
+    default_mlnx_ofed = os.getenv('USE_MLNX_OFED')
+    mlnx_ofed = prompt_with_help("Enable MLNX OFED", "Enable MLNX OFED driver installation", default=default_mlnx_ofed)
 
-    default_ofed_version = os.getenv('OFED_VERSION')
-    ofed_version = prompt_with_help("Enter OFED version", "Please select the OFED version you want to install on your cluster", default=default_ofed_version)
-    env_replace(pattern='OFED_VERSION='+default_ofed_version, replacement='OFED_VERSION='+ofed_version, paths=[".env"])
-    update_config_yaml("metal/roles/pxe_server/defaults/main.yml", "ofed:version", ofed_version)
+    # Prompt for DOCA OFED
+    default_doca_ofed = os.getenv('USE_DOCA_OFED')
+    doca_ofed = prompt_with_help("Enable DOCA OFED", "Enable DOCA OFED driver installation", default=default_doca_ofed)
+
+    # Ensure only one OFED is enabled
+    if mlnx_ofed.lower() in ["true", "yes", "1"] and doca_ofed.lower() in ["true", "yes", "1"]:
+        print("\n[WARNING] You selected both MLNX OFED and DOCA OFED.")
+        print("These are incompatible and cannot be installed together.")
+        use_doca = Confirm.ask("Would you like to proceed with DOCA OFED and disable MLNX OFED?")
+        if use_doca:
+            mlnx_ofed = "false"
+        else:
+            doca_ofed = "false"
+
+    # Apply .env and config replacements
+    env_replace(pattern='USE_MLNX_OFED='+default_mlnx_ofed, replacement='USE_MLNX_OFED='+mlnx_ofed, paths=[".env"])
+    update_config_yaml("metal/roles/pxe_server/defaults/main.yml", "ofed:mlnx_enabled", mlnx_ofed)
+
+    env_replace(pattern='USE_DOCA_OFED='+default_doca_ofed, replacement='USE_DOCA_OFED='+doca_ofed, paths=[".env"])
+    update_config_yaml("metal/roles/pxe_server/defaults/main.yml", "ofed:doca_enabled", doca_ofed)
+
+    # If DOCA OFED is enabled, prompt for version and write it out
+    if doca_ofed.lower() in ["true", "yes", "1"]:
+        default_doca_ofed_version = os.getenv('DOCA_OFED_VERSION')
+        doca_ofed_version = prompt_with_help("Enter DOCA OFED version", "Specify version of DOCA OFED", default=default_doca_ofed_version)
+        env_replace(pattern='DOCA_OFED_VERSION='+default_doca_ofed_version, replacement='DOCA_OFED_VERSION='+doca_ofed_version, paths=[".env"])
+        update_config_yaml("metal/roles/pxe_server/defaults/main.yml", "ofed:doca_version", doca_ofed_version)
+
 
     # Metal
     default_external_interface = os.getenv('EXTERNAL_IPV4_INTERFACE')
