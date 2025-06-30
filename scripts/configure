@@ -399,9 +399,9 @@ def main() -> None:
     update_config_yaml("platform/gitea/values.yaml", "gitea:ingress:tls:0:hosts:0", domain, "git.")
     update_config_yaml("platform/gitea/values.yaml", "gitea:gitea:config:server:ROOT_URL", domain, "https://git.")
     # Harbor
-    update_config_yaml("platform/harbor/values.yaml", "harbor:harbor:ingress:core:hostname", domain, "harbor.")
-    update_config_yaml("platform/harbor/values.yaml", "harbor:harbor:ingress:notary:hostname", domain, "harbor.")
-    update_config_yaml("platform/harbor/values.yaml", "harbor:harbor:externalURL", domain, "https://harbor.")
+    update_config_yaml("platform/harbor/values.yaml", "harbor:ingress:core:hostname", domain, "harbor.")
+    update_config_yaml("platform/harbor/values.yaml", "harbor:ingress:notary:hostname", domain, "harbor.")
+    update_config_yaml("platform/harbor/values.yaml", "harbor:externalURL", domain, "https://harbor.")
     find_and_replace(pattern=default_domain, replacement=domain, paths=["platform/harbor/templates/harbor-config-overwrite-secret.yaml"])
     # Keycloak
     update_config_yaml("platform/keycloak/values.yaml", "keycloak:ingress:rules:0:host", domain, "keycloak.")
@@ -629,8 +629,8 @@ def main() -> None:
     # Gitea
     update_config_yaml("platform/gitea/values.yaml", "gitea:ingress:annotations:cert-manager.io/cluster-issuer", cert_provider)
     # Harbor
-    update_config_yaml("platform/harbor/values.yaml", "harbor:harbor:ingress:core:annotations:cert-manager.io/cluster-issuer", cert_provider)
-    update_config_yaml("platform/harbor/values.yaml", "harbor:harbor:ingress:notary:annotations:cert-manager.io/cluster-issuer", cert_provider)
+    update_config_yaml("platform/harbor/values.yaml", "harbor:ingress:core:annotations:cert-manager.io/cluster-issuer", cert_provider)
+    update_config_yaml("platform/harbor/values.yaml", "harbor:ingress:notary:annotations:cert-manager.io/cluster-issuer", cert_provider)
     # Keycloak
     update_config_yaml("platform/keycloak/values.yaml", "keycloak:ingress:annotations:cert-manager.io/cluster-issuer", cert_provider)
     # Onyxia

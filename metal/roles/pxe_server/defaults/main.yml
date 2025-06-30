@@ -27,8 +27,8 @@ images:
       checksum: sha256:nope
 
 ofed:
-  mlnx_enabled: false
-  doca_enabled: false
+  mlnx_enabled: 'false'
+  doca_enabled: 'false'
   doca_version: v3.0.0
   mlnx_version:
     '5.8-5.1.1.2':
