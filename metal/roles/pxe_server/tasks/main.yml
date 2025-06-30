@@ -73,7 +73,7 @@
 - import_tasks: roles/pxe_server/tasks/infiniband.yml
   when:
     - ofed is defined
-    - ofed.enabled == "true"
+    - ofed.mlnx_enabled | bool or ofed.doca_enabled | bool
 
 - name: "PXE | Generate dnsmasq config"
   ansible.builtin.template:
