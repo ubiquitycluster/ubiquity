@@ -27,8 +27,9 @@ images:
       checksum: sha256:nope
 
 ofed:
-  version: 23.10-3.2.2.0-LTS
-  enabled: 'false'
+  mlnx_enabled: false
+  doca_enabled: false
+  doca_version: v3.0.0
   mlnx_version:
     '5.8-5.1.1.2':
       version: '5.8-5.1.1.2'
@@ -54,6 +55,7 @@ ofed:
             checksum: sha256:4d63608ef59582b94127f35be2cf1535e39886be8d72dcef7688ab8960c8cde1
           '9.4':
             checksum: sha256:6c4f9cc43c431750d9ce41fae104459a95148801008e387b4e30c37113f5003a
+
 
 timezone: Europe/London
 dhcp_proxy: false
