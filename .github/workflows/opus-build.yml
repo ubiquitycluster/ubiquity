@@ -276,9 +276,10 @@ jobs:
         run: |
           docker pull ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}-builder:${{ needs.build-awsk8s.outputs.ansible-version }}
           docker tag ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}-builder:${{ needs.build-awsk8s.outputs.ansible-version }} localhost/opus-builder:${{ needs.build-awsk8s.outputs.ansible-version }}
+          docker pull ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ needs.build-awsk8s.outputs.ansible-version }}-awsk8s
+          docker tag ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ needs.build-awsk8s.outputs.ansible-version }}-awsk8s localhost/opus:${{ needs.build-awsk8s.outputs.ansible-version }}-awsk8s
           # Also create the expected localhost/opus-builder:latest tag for Dockerfile FROM reference
           docker tag localhost/opus-builder:${{ needs.build-awsk8s.outputs.ansible-version }} localhost/opus-builder:latest
-          # Pull any other required intermediate images as needed by the opus build
       
       - name: Build and push opus image
         working-directory: ./opus
@@ -290,8 +291,8 @@ jobs:
           
           # Also tag as latest if this is a main branch push
           if [ "${{ github.event_name }}" = "push" ] && [ "${{ github.ref }}" = "refs/heads/main" ]; then
-            docker tag localhost/opus:${{ needs.build-awsk8s.outputs.ansible-version }}-opus-all-helm3.10 ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:latest
-            docker push ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:latest
+            docker tag localhost/opus:${{ needs.build-awsk8s.outputs.ansible-version }}-opus-all-helm3.10 ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:latest-opus-all-helm3.10
+            docker push ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:latest-opus-all-helm3.10
           fi
 
   test:
