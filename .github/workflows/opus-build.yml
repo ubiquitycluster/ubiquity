@@ -92,8 +92,8 @@ jobs:
         run: |
           docker pull ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}-builder:${{ needs.build-opus-builder.outputs.ansible-version }}
           docker tag ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}-builder:${{ needs.build-opus-builder.outputs.ansible-version }} localhost/opus-builder:${{ needs.build-opus-builder.outputs.ansible-version }}
-          docker pull ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ needs.build-tools.outputs.ansible-version }}
-          docker tag ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ needs.build-tools.outputs.ansible-version }} localhost/opus:${{ needs.build-tools.outputs.ansible-version }}
+          docker pull ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ needs.build-opus-builder.outputs.ansible-version }}
+          docker tag ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ needs.build-opus-builder.outputs.ansible-version }} localhost/opus:${{ needs.build-opus-builder.outputs.ansible-version }}
           # Also create the expected localhost/opus-builder:latest tag for Dockerfile FROM reference
           docker tag localhost/opus-builder:${{ needs.build-opus-builder.outputs.ansible-version }} localhost/opus-builder:latest
       
