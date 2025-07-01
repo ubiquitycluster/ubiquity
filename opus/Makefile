@@ -153,7 +153,13 @@ _build_builder:
 	docker buildx build --platform linux/amd64 $(NO_CACHE) --build-arg VERSION=$(ANSIBLE) \
 		-t localhost/opus-builder -f ${DIR}/builder ${DIR}
 
+# Dedicated builder target
+builder: _build_builder
+
+# Only build builder if SKIP_BUILDER is not set
+ifeq ($(SKIP_BUILDER),)
 build: _build_builder
+endif
 build:
 	@ \
 	if [ "$(FLAVOUR)" = "base" ]; then \
