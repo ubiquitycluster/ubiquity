@@ -238,7 +238,7 @@ jobs:
           # Build ${{ matrix.flavour }} image using Makefile but skip builder rebuild
           if [ -n "${{ matrix.helm }}" ]; then
             make build FLAVOUR=${{ matrix.flavour }} HELM=${{ matrix.helm }} ANSIBLE=${{ needs.build-awsk8s.outputs.ansible-version }} SKIP_BUILDER=1
-            LOCAL_TAG="localhost/opus:${{ needs.build-awsk8s.outputs.ansible-version }}-${{ matrix.flavour }}-all-helm${{ matrix.helm }}"
+            LOCAL_TAG="localhost/opus:${{ needs.build-awsk8s.outputs.ansible-version }}-${{ matrix.flavour }}-helm${{ matrix.helm }}"
             REMOTE_TAG="${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ needs.build-awsk8s.outputs.ansible-version }}-${{ matrix.flavour }}-helm${{ matrix.helm }}"
           else
             make build FLAVOUR=${{ matrix.flavour }} ANSIBLE=${{ needs.build-awsk8s.outputs.ansible-version }} SKIP_BUILDER=1
