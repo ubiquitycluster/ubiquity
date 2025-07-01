@@ -87,10 +87,8 @@
 
 - name: "PXE | Extract boot image"
   ansible.builtin.command:
-    cmd: "xorriso -osirrox on -indev {{ iso.dest }} -extract / {{ role_path }}/files/data/os"
+    cmd: "xorriso -osirrox on -indev {{ role_path }}/files/data/iso/{{ iso_url | basename }} -extract / {{ role_path }}/files/data/os"
     creates: "{{ role_path }}/files/data/os/.treeinfo"
-  when:
-    - "'OK' in iso.msg or 'file already exists' in iso.msg"
 
 - import_tasks: roles/pxe_server/tasks/infiniband.yml
   when:

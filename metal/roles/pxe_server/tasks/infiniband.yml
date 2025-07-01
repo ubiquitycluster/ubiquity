@@ -16,7 +16,14 @@
 # limitations under the License.
 
 - name: Infiniband Drivers download and setup
+  when: >
+    (ofed | default({})).mlnx_enabled | default(false) | bool or
+    (ofed | default({})).doca_enabled | default(false) | bool
   block:
+    - name: DEBUG | Print the ofed variable
+      debug:
+        var: ofed
+
     - name: Set OFED OS type string (rhel vs ubuntu)
       set_fact:
         ofed_url_os_type: "{{ 'ubuntu' if base_os == 'Ubuntu' else 'rhel' }}"
@@ -64,32 +71,3 @@
             -extract / {{ role_path }}/files/data/misc/ofed-{{ ofed.mlnx_version[mlnx_ver].version }}
           args:
             creates: "{{ role_path }}/files/data/misc/ofed-{{ ofed.mlnx_version[ofed.version].version }}/RPMS/repodata/repomd.xml"
-
-    # DOCA OFED BLOCK
-    - name: Download and extract DOCA OFED ISO
-      when: ofed.doca_enabled | bool
-      block:
-        - name: Set DOCA OFED version
-          set_fact:
-            doca_ver: "{{ ofed.doca_version }}"
-
-        - name: Check if DOCA OFED ISO exists
-          stat:
-            path: "{{ role_path }}/files/data/iso/DOCA_OFED_LINUX-{{ doca_ver }}-{{ ofed_url_os_type }}-{{ ansible_architecture }}.iso"
-          register: doca_ofed_iso
-
-        - name: Fail if DOCA OFED ISO is missing
-          fail:
-           msg: >
-              "DOCA OFED ISO not found at expected path.
-              Please download it manually from NVIDIA and place it here:
-              {{ role_path }}/files/data/iso/DOCA_OFED_LINUX-{{ doca_ver }}-{{ ofed_url_os_type }}-{{ ansible_architecture }}.iso"
-          when: not doca_ofed_iso.stat.exists
-
-        - name: Extract DOCA OFED ISO
-          command: >
-            xorriso -osirrox on -indev {{ docaiso.dest }}
-            -extract / {{ role_path }}/files/data/misc/ofed-doca-{{ doca_ver }}
-          args:
-            creates: "{{ role_path }}/files/data/misc/ofed-doca-{{ doca_ver }}/RPMS/repodata/repomd.xml"
-
