@@ -71,3 +71,22 @@
             -extract / {{ role_path }}/files/data/misc/ofed-{{ ofed.mlnx_version[mlnx_ver].version }}
           args:
             creates: "{{ role_path }}/files/data/misc/ofed-{{ ofed.mlnx_version[ofed.version].version }}/RPMS/repodata/repomd.xml"
+
+    # DOCA OFED BLOCK
+    - name: Download and extract DOCA OFED ISO
+      when: ofed.doca_enabled | bool
+      block:
+        - name: Set DOCA OFED version
+          set_fact:
+            doca_ver: "{{ ofed.doca_version }}"
+
+        - name: Check if DOCA OFED ISO exists
+          stat:
+            path: "{{ role_path }}/files/data/iso/DOCA_OFED_LINUX-{{ doca_ver }}-{{ ofed_url_os_type }}-{{ ansible_architecture }}.rpm"
+          register: doca_ofed_iso
+
+        - name: Download DOCA Host RPM
+          get_url:
+            url: "https://www.mellanox.com/downloads/DOCA/DOCA_{{ doca_ver }}/host/doca-host-{{ doca_ver }}-058000_25.04_rhel94.x86_64.rpm"
+            dest: "/tmp/doca-host.rpm"
+

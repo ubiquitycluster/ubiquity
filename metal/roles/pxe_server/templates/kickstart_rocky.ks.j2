@@ -53,7 +53,7 @@ repo --name="AppStream" --baseurl=http://{{ internal_ipv4.address }}/os/AppStrea
 repo --name="BaseOS" --baseurl=http://{{ internal_ipv4.address }}/os/BaseOS
 url --url="http://{{ internal_ipv4.address }}/os/"
 
-{% if ofed.enabled == 'true' %}
+{% if ofed.mlnx_enabled | default(false) %}
 {% if ofed.version.split('.') | map('int') | list >= [5, 0] %}
 # OFED Repo
 repo --name="OFED-{{ ofed.mlnx_version[ofed.version].version }}" --baseurl=http://{{ internal_ipv4.address }}/misc/ofed-{{ ofed.mlnx_version[ofed.version].version }}/RPMS --noverifyssl
@@ -116,11 +116,20 @@ services --enable=iscsid
 %post --log=/var/log/kickstart_post.log
 
 cat <<'!' > /etc/infiniband/openib.conf
-# DO NOT run Firmware update utlity upon system boot in order to update Firmware for newly installed devices
+# DO NOT run Firmware update utility upon system boot in order to update Firmware for newly installed devices
 RUN_FW_UPDATER_ONBOOT=no
 !
 
+{% if ofed.doca_enabled | default(false) %}
+# Install DOCA host package and doca-all group from local PXE server
+wget http://{{ internal_ipv4.address }}/misc/doca-host-{{ ofed.doca_version }}.rpm -O /root/doca-host.rpm
+rpm -i --nogpgcheck /root/doca-host.rpm > /var/log/doca_rpm.log 2>&1
+dnf clean all
+dnf -y install doca-all >> /var/log/doca_rpm.log 2>&1
+{% endif %}
+
 %end
+
 
 reboot
 
