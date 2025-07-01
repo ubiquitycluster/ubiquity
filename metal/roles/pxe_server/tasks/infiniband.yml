@@ -21,7 +21,6 @@
       set_fact:
         ofed_url_os_type: "{{ 'ubuntu' if base_os == 'Ubuntu' else 'rhel' }}"
 
-
     - name: Find ansible_distribution_version from gathered facts
       set_fact:
         os_version: "{{ ansible_distribution_version }}"
