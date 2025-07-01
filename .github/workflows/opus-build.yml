@@ -203,7 +203,7 @@ jobs:
       matrix:
         include:
           - flavour: awskops
-            helm: ""
+            kops: "1.32"
           - flavour: awshelm
             helm: "3.10"
     
@@ -240,10 +240,10 @@ jobs:
             make build FLAVOUR=${{ matrix.flavour }} HELM=${{ matrix.helm }} ANSIBLE=${{ needs.build-awsk8s.outputs.ansible-version }} SKIP_BUILDER=1
             LOCAL_TAG="localhost/opus:${{ needs.build-awsk8s.outputs.ansible-version }}-${{ matrix.flavour }}${{ matrix.helm }}"
             REMOTE_TAG="${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ needs.build-awsk8s.outputs.ansible-version }}-${{ matrix.flavour }}${{ matrix.helm }}"
-          else
-            make build FLAVOUR=${{ matrix.flavour }} ANSIBLE=${{ needs.build-awsk8s.outputs.ansible-version }} SKIP_BUILDER=1
-            LOCAL_TAG="localhost/opus:${{ needs.build-awsk8s.outputs.ansible-version }}-${{ matrix.flavour }}"
-            REMOTE_TAG="${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ needs.build-awsk8s.outputs.ansible-version }}-${{ matrix.flavour }}"
+          else if [ -n "${{ matrix.kops }}" ]; then
+            make build FLAVOUR=${{ matrix.flavour }} KOPS=${{ matrix.kops }} ANSIBLE=${{ needs.build-awsk8s.outputs.ansible-version }} SKIP_BUILDER=1
+            LOCAL_TAG="localhost/opus:${{ needs.build-awsk8s.outputs.ansible-version }}-${{ matrix.flavour }}${{ matrix.kops }}"
+            REMOTE_TAG="${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ needs.build-awsk8s.outputs.ansible-version }}-${{ matrix.flavour }}${{ matrix.kops }}"
           fi
           docker tag "${LOCAL_TAG}" "${REMOTE_TAG}"
           docker push "${REMOTE_TAG}"
