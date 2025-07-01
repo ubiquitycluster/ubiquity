@@ -51,17 +51,39 @@
     #iso_checksum: "{{ item.iso_checksum }}"
   when: "base_os == 'RHEL'"
 
-- name: "PXE | Download boot image"
-  ansible.builtin.get_url:
-    url: "{{ iso_url }}"
-    dest: "{{ role_path }}/files/data/iso/{{ iso_url | basename }}"
-    checksum: "{{ iso_checksum }}"
-    mode: 0644
-  register: iso
-  until: "'OK' in iso.msg or 'file already exists' in iso.msg"
-  retries: 4
-  when: 
-    - base_os in ['Fedora', 'RHEL', 'Rocky']
+- name: Debug ISO download result
+  debug:
+    var: iso
+
+- name: Debug iso url
+  debug:
+    msg: "Downloading ISO from {{ iso_url }}"
+
+- name: Debug base_os
+  debug:
+    var: base_os
+
+- name: "PXE | Download boot ISO using wget"
+  ansible.builtin.command: >
+    wget -O {{ role_path }}/files/data/iso/{{ iso_url | basename }} {{ iso_url }}
+  args:
+    creates: "{{ role_path }}/files/data/iso/{{ iso_url | basename }}"
+  register: iso_download
+
+#- name: "PXE | Download boot image"
+#  ansible.builtin.get_url:
+#    url: "https://download.rockylinux.org/vault/rocky/9.4/isos/x86_64/Rocky-9.4-x86_64-dvd.iso"
+#    dest: "{{ role_path }}/files/data/iso/{{ iso_url | basename }}"
+#    checksum: "{{ iso_checksum }}"
+#    mode: 0644
+#  register: iso
+#  until: "'OK' in iso.msg or 'file already exists' in iso.msg"
+#  retries: 4
+#  delay: 5
+
+- name: Debug ISO download result
+  debug:
+    var: iso
 
 - name: "PXE | Extract boot image"
   ansible.builtin.command:
