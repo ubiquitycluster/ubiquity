@@ -157,7 +157,7 @@ opus:
 		--volume ubiquity-tools-cache:/root/.cache \
 		--volume ubiquity-tools-aws:/data \
 		--workdir $(shell pwd) \
-		ubiquity.azurecr.io/opus:latest-opus-main /bin/bash
+		ghcr.io/ubiquitycluster/opus:latest-opus-all-helm3.10 /bin/bash
 
 nixos:  
 	#export PATH=/usr/bin:$PATH
