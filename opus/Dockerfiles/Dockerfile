@@ -48,6 +48,7 @@ RUN set -eux \
 	    bcrypt \
 		rich \
 		ipmitools \
+		PyYAML \
 	&& find /usr/lib/ -name '__pycache__' -print0 | xargs -0 -n1 rm -rf \
 	&& find /usr/lib/ -name '*.pyc' -print0 | xargs -0 -n1 rm -rf \
 	&& find /usr/local/lib/ -name '__pycache__' -print0 | xargs -0 -n1 rm -rf \

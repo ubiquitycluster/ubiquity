@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - develop
     paths:
       - 'opus/**'
   pull_request:
@@ -25,21 +24,14 @@ env:
   IMAGE_NAME: opus
 
 jobs:
-  build:
+  # Stage 1: Build the base opus-builder image
+  build-opus-builder:
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
-    
-    strategy:
-      matrix:
-        flavour:
-          - { name: "base", suffix: "latest", helm: "" }
-          - { name: "tools", suffix: "latest-tools", helm: "" }
-          - { name: "aws", suffix: "latest-aws", helm: "" }
-          - { name: "awsk8s", suffix: "latest-awsk8s", helm: "" }
-          - { name: "awshelm", suffix: "latest-awshelm3.10", helm: "3.10" }
-          - { name: "opus", suffix: "latest-opus-all-helm3.10", helm: "3.10" }
+    outputs:
+      ansible-version: ${{ steps.set-version.outputs.ansible-version }}
     
     steps:
       - name: Checkout repository
@@ -47,6 +39,8 @@ jobs:
       
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
+        with:
+          driver: docker
       
       - name: Log in to Container Registry
         uses: docker/login-action@v3
@@ -55,66 +49,256 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       
-      - name: Extract metadata
-        id: meta
-        uses: docker/metadata-action@v5
+      - name: Set Ansible version
+        id: set-version
+        run: echo "ansible-version=${{ inputs.ansible_version || 'latest' }}" >> $GITHUB_OUTPUT
+      
+      - name: Build opus-builder image
+        working-directory: ./opus
+        run: |
+          make build ANSIBLE=${{ steps.set-version.outputs.ansible-version }}
+          docker tag localhost/opus-builder:${{ steps.set-version.outputs.ansible-version }} ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}-builder:${{ steps.set-version.outputs.ansible-version }}
+          docker push ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}-builder:${{ steps.set-version.outputs.ansible-version }}
+          docker tag localhost/opus:${{ steps.set-version.outputs.ansible-version }} ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ steps.set-version.outputs.ansible-version }}
+          docker push ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ steps.set-version.outputs.ansible-version }}
+
+  # Stage 2: Build the tools image (depends on opus-builder)
+  build-tools:
+    runs-on: ubuntu-latest
+    needs: build-opus-builder
+    permissions:
+      contents: read
+      packages: write
+    outputs:
+      ansible-version: ${{ needs.build-opus-builder.outputs.ansible-version }}
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
         with:
-          images: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}
-          tags: |
-            type=ref,event=branch
-            type=ref,event=pr
-            type=sha,prefix={{branch}}-
-            type=raw,value=${{ matrix.flavour.suffix }}
-            type=raw,value=${{ matrix.flavour.suffix }}-{{sha}}
+          driver: docker
       
-      - name: Build base image first (if not base flavour)
-        if: matrix.flavour.name != 'base'
+      - name: Log in to Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Pull required base images
+        run: |
+          docker pull ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}-builder:${{ needs.build-opus-builder.outputs.ansible-version }}
+          docker tag ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}-builder:${{ needs.build-opus-builder.outputs.ansible-version }} localhost/opus-builder:${{ needs.build-opus-builder.outputs.ansible-version }}
+          docker pull ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ needs.build-opus-builder.outputs.ansible-version }}
+          docker tag ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ needs.build-opus-builder.outputs.ansible-version }} localhost/opus:${{ needs.build-opus-builder.outputs.ansible-version }}
+          # Also create the expected localhost/opus-builder:latest tag for Dockerfile FROM reference
+          docker tag localhost/opus-builder:${{ needs.build-opus-builder.outputs.ansible-version }} localhost/opus-builder:latest
+      
+      - name: Build and push tools image
         working-directory: ./opus
         run: |
-          make build ANSIBLE=${{ inputs.ansible_version || 'latest' }}
+          # Build tools image using Makefile but skip builder rebuild
+          make build FLAVOUR=tools ANSIBLE=${{ needs.build-opus-builder.outputs.ansible-version }} SKIP_BUILDER=1
+          docker tag localhost/opus:${{ needs.build-opus-builder.outputs.ansible-version }}-tools ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ needs.build-opus-builder.outputs.ansible-version }}-tools
+          docker push ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ needs.build-opus-builder.outputs.ansible-version }}-tools
+
+  # Stage 3: Build infra, azure, and aws images in parallel (all depend on tools)
+  build-cloud-images:
+    runs-on: ubuntu-latest
+    needs: build-tools
+    permissions:
+      contents: read
+      packages: write
+    strategy:
+      matrix:
+        flavour: [infra, azure, aws]
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
       
-      - name: Build and push Docker image
-        working-directory: ./opus
-        env:
-          ANSIBLE_VERSION: ${{ inputs.ansible_version || 'latest' }}
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        with:
+          driver: docker
+      
+      - name: Log in to Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Pull required base images
         run: |
-          # Determine build command based on flavour
-          if [ "${{ matrix.flavour.name }}" = "base" ]; then
-            make build ANSIBLE="${ANSIBLE_VERSION}"
-            LOCAL_TAG="localhost/opus:${ANSIBLE_VERSION}"
-          elif [ -n "${{ matrix.flavour.helm }}" ]; then
-            make build FLAVOUR="${{ matrix.flavour.name }}" HELM="${{ matrix.flavour.helm }}" ANSIBLE="${ANSIBLE_VERSION}"
-            LOCAL_TAG="localhost/opus:${ANSIBLE_VERSION}-${{ matrix.flavour.name }}-all-helm${{ matrix.flavour.helm }}"
-          else
-            make build FLAVOUR="${{ matrix.flavour.name }}" ANSIBLE="${ANSIBLE_VERSION}"
-            LOCAL_TAG="localhost/opus:${ANSIBLE_VERSION}-${{ matrix.flavour.name }}"
+          docker pull ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}-builder:${{ needs.build-tools.outputs.ansible-version }}
+          docker tag ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}-builder:${{ needs.build-tools.outputs.ansible-version }} localhost/opus-builder:${{ needs.build-tools.outputs.ansible-version }}
+          docker pull ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ needs.build-tools.outputs.ansible-version }}-tools
+          docker tag ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ needs.build-tools.outputs.ansible-version }}-tools localhost/opus:${{ needs.build-tools.outputs.ansible-version }}-tools
+          # Also create the expected localhost/opus-builder:latest tag for Dockerfile FROM reference
+          docker tag localhost/opus-builder:${{ needs.build-tools.outputs.ansible-version }} localhost/opus-builder:latest
+      
+      - name: Build and push ${{ matrix.flavour }} image
+        working-directory: ./opus
+        run: |
+          # Build ${{ matrix.flavour }} image using Makefile but skip builder rebuild
+          make build FLAVOUR=${{ matrix.flavour }} ANSIBLE=${{ needs.build-tools.outputs.ansible-version }} SKIP_BUILDER=1
+          docker tag localhost/opus:${{ needs.build-tools.outputs.ansible-version }}-${{ matrix.flavour }} ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ needs.build-tools.outputs.ansible-version }}-${{ matrix.flavour }}
+          docker push ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ needs.build-tools.outputs.ansible-version }}-${{ matrix.flavour }}
+
+  # Stage 4: Build awsk8s (depends on aws)
+  build-awsk8s:
+    runs-on: ubuntu-latest
+    needs: [build-tools, build-cloud-images]
+    permissions:
+      contents: read
+      packages: write
+    outputs:
+      ansible-version: ${{ needs.build-tools.outputs.ansible-version }}
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        with:
+          driver: docker
+      
+      - name: Log in to Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Pull required base images
+        run: |
+          docker pull ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}-builder:${{ needs.build-tools.outputs.ansible-version }}
+          docker tag ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}-builder:${{ needs.build-tools.outputs.ansible-version }} localhost/opus-builder:${{ needs.build-tools.outputs.ansible-version }}
+          docker pull ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ needs.build-tools.outputs.ansible-version }}-aws
+          docker tag ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ needs.build-tools.outputs.ansible-version }}-aws localhost/opus:${{ needs.build-tools.outputs.ansible-version }}-aws
+          # Also create the expected localhost/opus-builder:latest tag for Dockerfile FROM reference
+          docker tag localhost/opus-builder:${{ needs.build-tools.outputs.ansible-version }} localhost/opus-builder:latest
+      
+      - name: Build and push awsk8s image
+        working-directory: ./opus
+        run: |
+          # Build awsk8s image using Makefile but skip builder rebuild
+          make build FLAVOUR=awsk8s ANSIBLE=${{ needs.build-tools.outputs.ansible-version }} SKIP_BUILDER=1
+          docker tag localhost/opus:${{ needs.build-tools.outputs.ansible-version }}-awsk8s ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ needs.build-tools.outputs.ansible-version }}-awsk8s
+          docker push ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ needs.build-tools.outputs.ansible-version }}-awsk8s
+
+  # Stage 5: Build awskops and awshelm (both depend on awsk8s)
+  build-aws-helm-images:
+    runs-on: ubuntu-latest
+    needs: build-awsk8s
+    permissions:
+      contents: read
+      packages: write
+    strategy:
+      matrix:
+        include:
+          - flavour: awskops
+            kops: "1.32"
+          - flavour: awshelm
+            helm: "3.10"
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        with:
+          driver: docker
+      
+      - name: Log in to Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Pull required base images
+        run: |
+          docker pull ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}-builder:${{ needs.build-awsk8s.outputs.ansible-version }}
+          docker tag ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}-builder:${{ needs.build-awsk8s.outputs.ansible-version }} localhost/opus-builder:${{ needs.build-awsk8s.outputs.ansible-version }}
+          docker pull ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ needs.build-awsk8s.outputs.ansible-version }}-awsk8s
+          docker tag ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ needs.build-awsk8s.outputs.ansible-version }}-awsk8s localhost/opus:${{ needs.build-awsk8s.outputs.ansible-version }}-awsk8s
+          # Also create the expected localhost/opus-builder:latest tag for Dockerfile FROM reference
+          docker tag localhost/opus-builder:${{ needs.build-awsk8s.outputs.ansible-version }} localhost/opus-builder:latest
+      
+      - name: Build and push ${{ matrix.flavour }} image
+        working-directory: ./opus
+        run: |
+          # Build ${{ matrix.flavour }} image using Makefile but skip builder rebuild
+          if [ -n "${{ matrix.helm }}" ]; then
+            make build FLAVOUR=${{ matrix.flavour }} HELM=${{ matrix.helm }} ANSIBLE=${{ needs.build-awsk8s.outputs.ansible-version }} SKIP_BUILDER=1
+            LOCAL_TAG="localhost/opus:${{ needs.build-awsk8s.outputs.ansible-version }}-${{ matrix.flavour }}${{ matrix.helm }}"
+            REMOTE_TAG="${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ needs.build-awsk8s.outputs.ansible-version }}-${{ matrix.flavour }}${{ matrix.helm }}"
+          elif [ -n "${{ matrix.kops }}" ]; then
+            make build FLAVOUR=${{ matrix.flavour }} KOPS=${{ matrix.kops }} ANSIBLE=${{ needs.build-awsk8s.outputs.ansible-version }} SKIP_BUILDER=1
+            LOCAL_TAG="localhost/opus:${{ needs.build-awsk8s.outputs.ansible-version }}-${{ matrix.flavour }}${{ matrix.kops }}"
+            REMOTE_TAG="${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ needs.build-awsk8s.outputs.ansible-version }}-${{ matrix.flavour }}${{ matrix.kops }}"
           fi
-          
-          # Tag for registry
-          REMOTE_TAG="${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ matrix.flavour.suffix }}"
           docker tag "${LOCAL_TAG}" "${REMOTE_TAG}"
-          
-          # Push to registry
           docker push "${REMOTE_TAG}"
+
+  # Stage 6: Build the final opus image (depends on previous stages)
+  build-opus:
+    runs-on: ubuntu-latest
+    needs: [build-awsk8s, build-aws-helm-images]
+    permissions:
+      contents: read
+      packages: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        with:
+          driver: docker
+      
+      - name: Log in to Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Pull required base images
+        run: |
+          docker pull ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}-builder:${{ needs.build-awsk8s.outputs.ansible-version }}
+          docker tag ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}-builder:${{ needs.build-awsk8s.outputs.ansible-version }} localhost/opus-builder:${{ needs.build-awsk8s.outputs.ansible-version }}
+          docker pull ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ needs.build-awsk8s.outputs.ansible-version }}-awsk8s
+          docker tag ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ needs.build-awsk8s.outputs.ansible-version }}-awsk8s localhost/opus:${{ needs.build-awsk8s.outputs.ansible-version }}-awsk8s
+          # Also create the expected localhost/opus-builder:latest tag for Dockerfile FROM reference
+          docker tag localhost/opus-builder:${{ needs.build-awsk8s.outputs.ansible-version }} localhost/opus-builder:latest
+      
+      - name: Build and push opus image
+        working-directory: ./opus
+        run: |
+          # Build final opus image using Makefile but skip builder rebuild
+          make build FLAVOUR=opus HELM=3.10 ANSIBLE=${{ needs.build-awsk8s.outputs.ansible-version }} SKIP_BUILDER=1
+          docker tag localhost/opus:${{ needs.build-awsk8s.outputs.ansible-version }}-opus-all-helm3.10 ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ needs.build-awsk8s.outputs.ansible-version }}-opus-all-helm3.10
+          docker push ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ needs.build-awsk8s.outputs.ansible-version }}-opus-all-helm3.10
           
-          # Also tag and push with commit SHA
+          # Also tag as latest if this is a main branch push
           if [ "${{ github.event_name }}" = "push" ] && [ "${{ github.ref }}" = "refs/heads/main" ]; then
-            COMMIT_TAG="${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ matrix.flavour.suffix }}-${{ github.sha }}"
-            docker tag "${LOCAL_TAG}" "${COMMIT_TAG}"
-            docker push "${COMMIT_TAG}"
+            docker tag localhost/opus:${{ needs.build-awsk8s.outputs.ansible-version }}-opus-all-helm3.10 ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:latest-opus-all-helm3.10
+            docker push ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:latest-opus-all-helm3.10
           fi
 
   test:
     runs-on: ubuntu-latest
-    needs: build
+    needs: build-opus
     if: github.event_name == 'pull_request'
-    
-    strategy:
-      matrix:
-        flavour:
-          - { name: "base", suffix: "latest" }
-          - { name: "tools", suffix: "latest-tools" }
-          - { name: "aws", suffix: "latest-aws" }
     
     steps:
       - name: Checkout repository
@@ -127,15 +311,18 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       
-      - name: Test Docker image
+      - name: Test final opus image
         run: |
-          IMAGE="${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ matrix.flavour.suffix }}"
+          # For PR testing, use the latest tag which should be available after build-opus completes
+          IMAGE="${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:latest"
+          echo "Testing image: ${IMAGE}"
           docker run --rm "${IMAGE}" ansible --version
           docker run --rm "${IMAGE}" python3 --version
+          docker run --rm "${IMAGE}" python3 -c "import yaml; print('PyYAML version:', yaml.__version__)"
 
   security-scan:
     runs-on: ubuntu-latest
-    needs: build
+    needs: build-opus
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     
     steps:
