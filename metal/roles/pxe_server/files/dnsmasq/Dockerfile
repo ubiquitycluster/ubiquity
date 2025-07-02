@@ -13,9 +13,7 @@
 # on the second anniversary of the date we make the software available.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+FROM jpillora/dnsmasq
 
-FROM alpine:latest
-
-RUN apk --no-cache add dnsmasq
-
-ENTRYPOINT ["dnsmasq", "-k", "--server", "10.1.3.254"]
+# Override config location if needed
+ENTRYPOINT ["dnsmasq", "-k"]
