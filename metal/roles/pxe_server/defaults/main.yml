@@ -19,8 +19,8 @@ images:
       url: "https://download.rockylinux.org/vault/rocky/9.3/isos/x86_64/Rocky-9.3-x86_64-dvd.iso"
       checksum: sha256:82441c7c9630b313d4183106231b08e192382bb6c7827e62acd467a749f030b9
     '9.4':
-      url: "https://download.rockylinux.org/vault/rocky/9.4/isos/x86_64/Rocky-9.4-x86_64-dvd.iso"
-      checksum: sha256:e20445907daefbfcdb05ba034e9fc4cf91e0e8dc164ebd7266ffb8fdd8ea99e7
+      url: "https://download.rockylinux.org/pub/rocky/9/isos/x86_64/Rocky-9-latest-x86_64-minimal.iso"
+      checksum: sha256:ee3ac97fdffab58652421941599902012179c37535aece76824673105169c4a2
   RHEL:
     '8.8':
       url: "https://developers.redhat.com/content-gateway/file/rhel/8.8.0/rhel-8.8-x86_64-dvd.iso"
@@ -28,7 +28,7 @@ images:
 
 ofed:
   mlnx_enabled: 'false'
-  doca_enabled: 'false'
+  doca_enabled: 'true'
   doca_version: v3.0.0
   mlnx_version:
     '5.8-5.1.1.2':
