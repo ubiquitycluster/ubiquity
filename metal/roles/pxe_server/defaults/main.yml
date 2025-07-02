@@ -16,10 +16,10 @@ images:
       url: "https://download.rockylinux.org/vault/rocky/8.9/isos/x86_64/Rocky-x86_64-dvd1.iso"
       checksum: sha256:1abe38fd11279879e3e7658ef748c1ef06ee763351a53bb424020ec053c50d0b
     '9.3':
-      url: "https://download.rockylinux.org/vault/rocky/9.3/isos/x86_64/Rocky-9.3-x86_64-dvd.iso"
-      checksum: sha256:82441c7c9630b313d4183106231b08e192382bb6c7827e62acd467a749f030b9
+      url: "https://download.rockylinux.org/vault/rocky/9.3/isos/x86_64/Rocky-9.3-x86_64-minimal.iso"
+      checksum: sha256:eef8d26018f4fcc0dc101c468f65cbf588f2184900c556f243802e9698e56729
     '9.4':
-      url: "https://download.rockylinux.org/pub/rocky/9/isos/x86_64/Rocky-9-latest-x86_64-minimal.iso"
+      url: "https://download.rockylinux.org/vault/rocky/9.4/isos/x86_64/Rocky-9.4-x86_64-minimal.iso"
       checksum: sha256:ee3ac97fdffab58652421941599902012179c37535aece76824673105169c4a2
   RHEL:
     '8.8':
