@@ -14,8 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM ubiquity.azurecr.io/alpine-dnsmasq:latest
+FROM alpine:latest
 
-#RUN apk --no-cache add dnsmasq
+RUN apk --no-cache add dnsmasq
 
 ENTRYPOINT ["dnsmasq", "-k", "--server", "10.1.3.254"]
