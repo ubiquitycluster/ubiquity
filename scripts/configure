@@ -307,6 +307,38 @@ def modify_yaml_file(invocation, file_path, new_value):
     with open(file_path, 'w') as file:
         yaml.dump(yaml_data, file)
 
+def str_to_bool(val: str) -> bool:
+    return val.lower() in ["true", "yes", "1"]
+
+def update_config_yaml_bool(filename: str, key_path: str, bool_value: bool) -> None:
+    # Split the key path into a list of keys
+    keys = key_path.split(':')
+    last_key = keys[-1]
+
+    # Convert the key path into a Python expression
+    data = f'yaml_data[\'{keys[0]}\']'
+    for part in keys[1:]:
+        if part.isdigit():
+            data += f'[{part}]'
+        else:
+            data += f'[\'{part}\']'
+    converted_invocation = data
+
+    # Load and update YAML with actual boolean value
+    yaml = YAML()
+    yaml.preserve_quotes = True
+    yaml.explicit_start = True
+    yaml.default_flow_style = False
+    yaml.sort_keys = False
+
+    with open(filename, 'r') as file:
+        yaml_data = yaml.load(file)
+
+    exec(f"{converted_invocation} = {bool_value}", {}, {'yaml_data': yaml_data})
+
+    with open(filename, 'w') as file:
+        yaml.dump(yaml_data, file)
+
 def main() -> None:
     read_or_create_env_file() #As it says on the tin. If the file is there, read it and confirm the settings are correct. If not? Then create it and prompt normally.
     load_dotenv() #Load this .env file if the file exists
@@ -520,15 +552,15 @@ def main() -> None:
     update_config_yaml("metal/group_vars/metal.yml", "service_cidr", cluster_service_cidr)
 
     # Prompt for MLNX OFED
-    default_mlnx_ofed = os.getenv('USE_MLNX_OFED')
+    default_mlnx_ofed = os.getenv('USE_MLNX_OFED', 'false')
     mlnx_ofed = prompt_with_help("Enable MLNX OFED", "Enable MLNX OFED driver installation", default=default_mlnx_ofed)
 
     # Prompt for DOCA OFED
-    default_doca_ofed = os.getenv('USE_DOCA_OFED')
+    default_doca_ofed = os.getenv('USE_DOCA_OFED', 'false')
     doca_ofed = prompt_with_help("Enable DOCA OFED", "Enable DOCA OFED driver installation", default=default_doca_ofed)
 
     # Ensure only one OFED is enabled
-    if mlnx_ofed.lower() in ["true", "yes", "1"] and doca_ofed.lower() in ["true", "yes", "1"]:
+    if str_to_bool(mlnx_ofed) and str_to_bool(doca_ofed):
         print("\n[WARNING] You selected both MLNX OFED and DOCA OFED.")
         print("These are incompatible and cannot be installed together.")
         use_doca = Confirm.ask("Would you like to proceed with DOCA OFED and disable MLNX OFED?")
@@ -538,17 +570,17 @@ def main() -> None:
             doca_ofed = "false"
 
     # Apply .env and config replacements
-    env_replace(pattern='USE_MLNX_OFED='+default_mlnx_ofed, replacement='USE_MLNX_OFED='+mlnx_ofed, paths=[".env"])
-    update_config_yaml("metal/roles/pxe_server/defaults/main.yml", "ofed:mlnx_enabled", mlnx_ofed)
+    env_replace(pattern='USE_MLNX_OFED=' + default_mlnx_ofed, replacement='USE_MLNX_OFED=' + mlnx_ofed, paths=[".env"])
+    update_config_yaml_bool("metal/roles/pxe_server/defaults/main.yml", "ofed:mlnx_enabled", str_to_bool(mlnx_ofed))
 
-    env_replace(pattern='USE_DOCA_OFED='+default_doca_ofed, replacement='USE_DOCA_OFED='+doca_ofed, paths=[".env"])
-    update_config_yaml("metal/roles/pxe_server/defaults/main.yml", "ofed:doca_enabled", doca_ofed)
+    env_replace(pattern='USE_DOCA_OFED=' + default_doca_ofed, replacement='USE_DOCA_OFED=' + doca_ofed, paths=[".env"])
+    update_config_yaml_bool("metal/roles/pxe_server/defaults/main.yml", "ofed:doca_enabled", str_to_bool(doca_ofed))
 
     # If DOCA OFED is enabled, prompt for version and write it out
-    if doca_ofed.lower() in ["true", "yes", "1"]:
+    if str_to_bool(doca_ofed):
         default_doca_ofed_version = os.getenv('DOCA_OFED_VERSION')
         doca_ofed_version = prompt_with_help("Enter DOCA OFED version", "Specify version of DOCA OFED", default=default_doca_ofed_version)
-        env_replace(pattern='DOCA_OFED_VERSION='+default_doca_ofed_version, replacement='DOCA_OFED_VERSION='+doca_ofed_version, paths=[".env"])
+        env_replace(pattern='DOCA_OFED_VERSION=' + default_doca_ofed_version, replacement='DOCA_OFED_VERSION=' + doca_ofed_version, paths=[".env"])
         update_config_yaml("metal/roles/pxe_server/defaults/main.yml", "ofed:doca_version", doca_ofed_version)
 
 
