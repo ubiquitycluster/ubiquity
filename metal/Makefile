@@ -32,6 +32,7 @@ ipmitool:
 
 boot: ~/.ssh/id_ed25519 ssh
 	ansible-playbook \
+		-v \
 		--inventory inventories/${env}.yml \
                 --key-file "~/.ssh/id_ed25519" \
 		boot.yml

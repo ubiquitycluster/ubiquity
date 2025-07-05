@@ -25,6 +25,7 @@ services:
       - ./data/os/EFI/BOOT/grubx64.efi:/tftp/grubx64.efi
       - ./data/os/images/pxeboot/initrd.img:/tftp/initrd.img
       - ./data/os/images/pxeboot/vmlinuz:/tftp/vmlinuz
+      - ./data/iso:/tftp/iso
     network_mode: host
     privileged: true
     cap_add:

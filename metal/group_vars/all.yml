@@ -12,9 +12,6 @@ cluster_name: ubiquity
 cluster_domain: cluster.ubiquitycluster.uk
 
 
-ofed: 'true'
-mlnx_version: 24.01-0.3.3.1
-
 internal_ipv4:
   address: 10.0.3.253
   network: 10.0.0.0/22

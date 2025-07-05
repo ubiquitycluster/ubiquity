@@ -16,71 +16,77 @@
 # limitations under the License.
 
 - name: Infiniband Drivers download and setup
+  when: >
+    (ofed | default({})).mlnx_enabled | default(false) | bool or
+    (ofed | default({})).doca_enabled | default(false) | bool
   block:
+    - name: DEBUG | Print the ofed variable
+      debug:
+        var: ofed
 
-  - name: Identify major and minor versions of Linux OS
-    block:
-    - name: Find Rocky version from RPMs
-      shell:
-        cmd: |
-          ls {{ role_path }}/files/data/os/BaseOS/Packages/r/rocky-release* | tr -d [:alpha:][=/=][=_=][===][=\"=] | cut -d '-' -f3
+    - name: Set OFED OS type string (rhel vs ubuntu)
+      set_fact:
+        ofed_url_os_type: "{{ 'ubuntu' if base_os == 'Ubuntu' else 'rhel' }}"
+
+    - name: Find ansible_distribution_version from gathered facts
+      set_fact:
+        os_version: "{{ ansible_distribution_version }}"
+
+    - name: Identify major and minor versions of Linux OS
+      shell: |
+        ls {{ role_path }}/files/data/os/BaseOS/Packages/r/rocky-release* | tr -d [:alpha:][=/=][=_=][===][=\"=] | cut -d '-' -f3
       register: os_release
-    - set_fact:
+      when: base_os in ["Rocky", "Fedora", "Ubuntu"]
+
+    - name: Set OS version
+      set_fact:
         os_version: "{{ os_release.stdout }}"
-    when: base_os == "Rocky"
+      when: os_release is defined
 
-  - name: Identify major and minor versions of Linux OS
-    block:
-    - name: Find Fedora version from RPMs
-      shell:
-        cmd: |
-          ls {{ role_path }}/files/data/os/BaseOS/Packages/r/rocky-release* | tr -d [:alpha:][=/=][=_=][===][=\"=] | cut -d '-' -f3
-      register: os_release
-    - set_fact:
-        os_version: "{{ os_release.stdout }}"
-    when: base_os == "Fedora"
+    # MLNX OFED BLOCK
+    - name: Download and extract MLNX OFED ISO
+      when: ofed.mlnx_enabled | bool
+      block:
+        - name: Set MLNX OFED version
+          set_fact:
+            mlnx_ver: "{{ ofed.mlnx_version.keys() | list | first }}"
+          when: ofed.mlnx_version is defined
 
-  - name: Identify major and minor versions of Linux OS
-    block:
-    - name: Find Ubuntu version
-      shell:
-        cmd: |
-          ls {{ role_path }}/files/data/os/BaseOS/Packages/r/rocky-release* | tr -d [:alpha:][=/=][=_=][===][=\"=] | cut -d '-' -f3
-      register: os_release
-    - set_fact:
-        os_version: "{{ os_release.stdout }}"
-    when: base_os == "Ubuntu"
+        - name: Check if MLNX OFED ISO exists
+          stat:
+            path: "{{ role_path }}/files/data/iso/MLNX_OFED_LINUX-{{ ofed.mlnx_version[mlnx_ver].version }}-{{ ofed_url_os_type }}-{{ ansible_architecture }}.iso"
+          register: mlnx_ofed_iso
 
-  - name: Download Mellanox OFED ISO
-    vars:
-      rhel_os: ['Fedora', 'Rocky', 'RHEL']
-    block:
-    - name: Download Mellanox OFED ISO
-      get_url:
-        url: "https://content.mellanox.com/ofed/MLNX_OFED-{{ ofed.mlnx_version[ofed.version].version}}/MLNX_OFED_LINUX-{{ ofed.mlnx_version[ofed.version].version }}-rhel{{ base_os_version }}-{{ ansible_architecture }}.iso"
-        dest: "{{ role_path }}/files/data/iso/MLNX_OFED_LINUX-{{ ofed.mlnx_version[ofed.version].version }}-rhel{{ base_os_version }}-{{ ansible_architecture }}.iso"
-        checksum: "{{ ofed.mlnx_version[ofed.version].os[base_os][base_os_version].checksum }}"
-      register: mlnxiso
-      until: "'OK' in mlnxiso.msg or 'file already exists' in mlnxiso.msg"
-      retries: 4
-    - name: Extract OFED iso
-      ansible.builtin.command:
-        cmd: "xorriso -osirrox on -indev {{ mlnxiso.dest }} -extract / {{ role_path }}/files/data/misc/ofed-{{ ofed.mlnx_version[ofed.version].version }}"
-        creates: "{{ role_path }}/files/data/misc/ofed-{{ ofed.mlnx_version[ofed.version].version }}/RPMS/repodata/repomd.xml"
-    when: base_os in rhel_os
+        - name: Fail if MLNX OFED ISO is missing
+          fail:
+            msg: >
+              "MLNX OFED ISO not found at expected path.
+              Please download it manually from NVIDIA and place it here:
+              {{ role_path }}/files/data/iso/MLNX_OFED_LINUX-{{ ofed.mlnx_version[mlnx_ver].version }}-{{ ofed_url_os_type }}-{{ ansible_architecture }}.iso"
+          when: not mlnx_ofed_iso.stat.exists
 
-  - name: Download Mellanox OFED ISO
-    block:
-    - name: Ubuntu
-      get_url:
-        url: "https://content.mellanox.com/ofed/MLNX_OFED-{{ ofed.mlnx_version[ofed.version].version }}/MLNX_OFED_LINUX-{{ ofed.mlnx_version[ofed.version].version }}-ubuntu{{ base_os_version }}-{{ ansible_architecture }}.iso"
-        dest: "{{ role_path }}/files/data/iso/MLNX_OFED_LINUX-{{ ofed.mlnx_version[ofed.version].version }}-ubuntu{{ base_os_version }}-{{ ansible_architecture }}.iso"
-        checksum: "{{ ofed.mlnx_version[ofed.version].os[base_os][base_os_version].checksum }}"
-      register: mlnxiso
-      until: "'OK' in mlnxiso.msg or 'file already exists' in mlnxiso.msg"
-      retries: 4
-    - name: Extract OFED iso
-      ansible.builtin.command:
-        cmd: "xorriso -osirrox on -indev {{ mlnxiso.dest }} -extract / {{ role_path }}/files/data/misc/ofed-{{ ofed.mlnx_version[ofed.version].version }}"
-        creates: "{{ role_path }}/files/data/misc/ofed-{{ ofed.mlnx_version[ofed.version].version }}/RPMS/repodata/repomd.xml"
-    when: base_os == "Ubuntu"
+        - name: Extract MLNX OFED ISO
+          command: >
+            xorriso -osirrox on -indev {{ mlnxiso.dest }}
+            -extract / {{ role_path }}/files/data/misc/ofed-{{ ofed.mlnx_version[mlnx_ver].version }}
+          args:
+            creates: "{{ role_path }}/files/data/misc/ofed-{{ ofed.mlnx_version[ofed.version].version }}/RPMS/repodata/repomd.xml"
+
+    # DOCA OFED BLOCK
+    - name: Download and extract DOCA OFED ISO
+      when: ofed.doca_enabled | bool
+      block:
+        - name: Set DOCA OFED version
+          set_fact:
+            doca_ver: "{{ ofed.doca_version }}"
+
+        - name: Check if DOCA OFED ISO exists
+          stat:
+            path: "{{ role_path }}/files/data/iso/DOCA_OFED_LINUX-{{ doca_ver }}-{{ ofed_url_os_type }}-{{ ansible_architecture }}.rpm"
+          register: doca_ofed_iso
+
+        - name: Download DOCA Host RPM
+          get_url:
+            url: "https://www.mellanox.com/downloads/DOCA/DOCA_{{ doca_ver }}/host/doca-host-{{ doca_ver }}-058000_25.04_rhel94.x86_64.rpm"
+            dest: "/tmp/doca-host.rpm"
+
