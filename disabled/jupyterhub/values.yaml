@@ -18,7 +18,7 @@
 jupyterhub:
   global:
     storageClass: longhorn
-  clusterDomain: ubiquitycluster.uk
+  clusterDomain: jupyter.ubiquitycluster.uk
   hub:
     image:
       repository: bitnami/jupyterhub
@@ -32,7 +32,7 @@ jupyterhub:
         cert-manager.io/cluster-issuer: pebble-issuer
         hajimari.io/appName: Jupyter
         hajimari.io/icon: language-python
-      hostname: &host ubiquitycluster.uk
+      hostname: &host jupyter.ubiquitycluster.uk
       tls: true
       #      secrets:
       #        - secretName: jupyter-tls-certificate

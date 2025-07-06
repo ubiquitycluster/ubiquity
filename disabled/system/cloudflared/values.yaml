@@ -28,7 +28,7 @@ cloudflared:
   config:
     tunnel: ubiquity-tunnel
     ingress:
-      - hostname: '*.10-212-87-201.nip.io'
+      - hostname: '*.ubiquitycluster.uk'
         service: https://ingress-nginx-controller.ingress-nginx
         originRequest:
           noTLSVerify: true

@@ -1,0 +1,34 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-sops-plugin
+  namespace: argocd
+data:
+  plugin.yaml: |
+    apiVersion: argoproj.io/v1alpha1
+    kind: ConfigManagementPlugin
+    metadata:
+      name: sops
+    spec:
+      version: v1.0
+      init:
+        command: [sh, -c]
+        args: ["sops --version"]
+      generate:
+        command: [sh, -c]
+        args: ["sops --decrypt $ARGOCD_APP_SOURCE_PATH/$ARGOCD_APP_SOURCE_TARGET_REVISION/manifests.yaml | kubectl apply --dry-run=client -o yaml -f -"]
+      discover:
+        find:
+          command: [sh, -c]
+          args: ["find . -name '*.yaml' -o -name '*.yml' | xargs grep -l 'sops:'"]
+---
+apiVersion: v1
+kind: ConfigMap  
+metadata:
+  name: argocd-sops-cm
+  namespace: argocd
+data:
+  sops.yaml: |
+    creation_rules:
+      - path_regex: .*\.ya?ml$
+        age: age1g9j2yk58wju58pyycj7c6gh3ntwc24sevgm5rw22mr53ku3455pqz2an5t

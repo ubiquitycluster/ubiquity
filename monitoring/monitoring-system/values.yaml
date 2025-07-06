@@ -47,9 +47,9 @@ kube-prometheus-stack:
         enabled: true
         # SMTP config follows here as per
         # https://grafana.com/docs/grafana/latest/administrat
-        host: "10.144.200.12:25"
-        fromAddress: "ubiquity@kwhpc"
-        fromName: "Keyworth HPC Ubiquity"
+        host: smtp.ubiquitycluster.uk
+        fromAddress: "admin@ubiquitycluster"
+        fromName: "Ubiquity System Admin"
          #startTLS: "NoStartTLS"
          #passwordKey: '"""password"""'  # I use tripple quote
          #userKey: "hpcteam@ubiquitycluster"
