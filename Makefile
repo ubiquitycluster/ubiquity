@@ -80,7 +80,7 @@ configure-sandbox:
 	./scripts/configure-sandbox
 
 configure:
-	./scripts/configure
+	./scripts/secure-configure.py
 
 sandbox-boot:
 	make -C metal sandbox

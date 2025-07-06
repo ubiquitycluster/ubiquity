@@ -1,0 +1,6 @@
+# Encrypted secrets (safe to commit)
+bootstrap/secrets/*.yaml
+!bootstrap/secrets/.gitkeep
+
+# SOPS configuration
+.ubiquity/

@@ -129,6 +129,22 @@ RUN set -eux \
     && dnf -y install clustershell
 
 RUN set -eux \
+	&& AGE_LATEST_VERSION=$(curl -s "https://api.github.com/repos/FiloSottile/age/releases/latest" | grep -Po '"tag_name": "v\K[0-9.]+') \
+	&& curl -Lo age.tar.gz "https://github.com/FiloSottile/age/releases/latest/download/age-v${AGE_LATEST_VERSION}-linux-amd64.tar.gz" \
+	&& tar -xzf age.tar.gz \
+	&& mv age/age /usr/bin/ \
+	&& mv age/age-keygen /usr/bin/ \
+	&& chmod +x /usr/bin/age \
+	&& chmod +x /usr/bin/age-keygen \
+	&& rm -rf age.tar.gz age
+
+RUN set -eux \
+	&& SOPS_LATEST_VERSION=$(curl -s "https://api.github.com/repos/getsops/sops/releases/latest" | grep -Po '"tag_name": "v\K[0-9.]+') \
+	&& curl -LO "https://github.com/getsops/sops/releases/download/v${SOPS_LATEST_VERSION}/sops-v${SOPS_LATEST_VERSION}.linux.amd64" \
+    && mv sops-v${SOPS_LATEST_VERSION}.linux.amd64 /usr/local/bin/sops \
+	&& chmod +x /usr/local/bin/sops
+
+RUN set -eux \
 	&& curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
 
 COPY --from=builder /usr/bin/helm /usr/bin/helm
