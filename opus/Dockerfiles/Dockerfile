@@ -45,7 +45,7 @@ RUN set -eux \
 		Jinja2 \
 		MarkupSafe \
 		PyNaCl \
-	    bcrypt \
+		bcrypt \
 		rich \
 		ipmitools \
 		PyYAML \

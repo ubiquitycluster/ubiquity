@@ -24,4 +24,4 @@
 
 - include_tasks: optimise-ssds.yml
 
-- include: grub.yml
+- include_tasks: grub.yml
