@@ -45,7 +45,7 @@ RUN set -eux \
 		Jinja2 \
 		MarkupSafe \
 		PyNaCl \
-	    	bcrypt \
+		bcrypt \
 		rich \
 		ipmitools \
 		PyYAML \
@@ -82,16 +82,12 @@ LABEL "org.opencontainers.image.description"="Ansible ${VERSION} base"
 RUN set -eux \
 	&& dnf update -y \
 	&& dnf install -y \
-	&& dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo \
 # libgcc required for ansible-vault
 		libgcc \
 		python3 \
 		python3-pip \
 # Additional tools for Ansible operations
 		git \
-		docker-ce \
-		docker-ce-cli \
-		containerd.io \
 		openssh-clients \
 		sshpass \
 		rsync \
