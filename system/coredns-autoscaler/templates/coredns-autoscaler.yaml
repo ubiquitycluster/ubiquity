@@ -1,0 +1,98 @@
+{{- if .Values.corednsCustomConfig }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: coredns-custom
+  namespace: {{ .Values.namespace }}
+data:
+  {{- toYaml .Values.corednsCustomConfig | nindent 2 }}
+{{- end }}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "{{ .Values.syncWave }}"
+  name: coredns-autoscaler
+  namespace: {{ .Values.namespace }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "{{ .Values.syncWave }}"
+  name: system:coredns-autoscaler
+rules:
+  - apiGroups: [""]
+    resources: ["nodes"]
+    verbs: ["list", "watch"]
+  - apiGroups: [""]
+    resources: ["replicationcontrollers/scale"]
+    verbs: ["get", "update"]
+  - apiGroups: ["apps"]
+    resources: ["deployments/scale", "replicasets/scale"]
+    verbs: ["get", "update"]
+  # Remove the configmaps rule once below issue is fixed:
+  # kubernetes-incubator/cluster-proportional-autoscaler#16
+  - apiGroups: [""]
+    resources: ["configmaps"]
+    verbs: ["get", "create"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "{{ .Values.syncWave }}"
+  name: system:coredns-autoscaler
+subjects:
+  - kind: ServiceAccount
+    name: coredns-autoscaler
+    namespace: {{ .Values.namespace }}
+roleRef:
+  kind: ClusterRole
+  name: system:coredns-autoscaler
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "{{ .Values.syncWave }}"
+  name: coredns-autoscaler
+  namespace: {{ .Values.namespace }}
+  labels:
+    k8s-app: coredns-autoscaler
+    kubernetes.io/cluster-service: "true"
+spec:
+  replicas: {{ .Values.replicas }}
+  selector:
+    matchLabels:
+      k8s-app: coredns-autoscaler
+  template:
+    metadata:
+      labels:
+        k8s-app: coredns-autoscaler
+    spec:
+      priorityClassName: {{ .Values.priorityClassName }}
+      securityContext:
+        {{- toYaml .Values.securityContext | nindent 8 }}
+      nodeSelector:
+        {{- toYaml .Values.nodeSelector | nindent 8 }}
+      containers:
+        - name: autoscaler
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          command:
+            - /cluster-proportional-autoscaler
+            - --namespace={{ .Values.namespace }}
+            - --configmap={{ .Values.autoscaler.configMapName }}
+            - --target=deployment/{{ .Values.autoscaler.targetDeployment }}
+            - --default-params={{ .Values.autoscaler.defaultParams | toJson }}
+            - --logtostderr=true
+            - --v=2
+      tolerations:
+        {{- toYaml .Values.tolerations | nindent 8 }}
+      serviceAccountName: coredns-autoscaler

@@ -1,0 +1,38 @@
+suite: test coredns-autoscaler chart
+templates:
+  - coredns-autoscaler.yaml
+tests:
+  - it: should render a ServiceAccount
+    asserts:
+      - isKind:
+          of: ServiceAccount
+      - equal:
+          path: metadata.name
+          value: coredns-autoscaler
+
+  - it: should render a ClusterRole
+    asserts:
+      - isKind:
+          of: ClusterRole
+
+  - it: should render a ClusterRoleBinding
+    asserts:
+      - isKind:
+          of: ClusterRoleBinding
+
+  - it: should render a Deployment
+    asserts:
+      - isKind:
+          of: Deployment
+      - equal:
+          path: spec.replicas
+          value: 1
+      - equal:
+          path: spec.template.spec.containers[0].image
+          value: registry.k8s.io/cpa/cluster-proportional-autoscaler:1.8.4
+
+  - it: should use the default namespace
+    asserts:
+      - equal:
+          path: metadata.namespace
+          value: kube-system

@@ -1,0 +1,13 @@
+apiVersion: v2
+name: coredns-autoscaler
+description: Cluster-proportional autoscaler for CoreDNS
+type: application
+version: 0.1.0
+appVersion: 1.8.4
+keywords:
+  - coredns
+  - autoscaler
+  - dns
+home: https://github.com/kubernetes-incubator/cluster-proportional-autoscaler
+sources:
+  - https://github.com/kubernetes-incubator/cluster-proportional-autoscaler
