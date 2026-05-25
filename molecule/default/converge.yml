@@ -1,0 +1,25 @@
+---
+- name: Converge
+  hosts: all
+  gather_facts: true
+  tasks:
+    - name: Create MetalLB namespace
+      kubernetes.core.k8s:
+        state: present
+        definition:
+          apiVersion: v1
+          kind: Namespace
+          metadata:
+            name: "{{ metallb_namespace }}"
+            labels:
+              app: metallb
+      ignore_errors: "{{ ansible_local is not defined }}"
+
+    - name: Include metallb_config role
+      ansible.builtin.include_role:
+        name: metallb_config
+      vars:
+        metallb_namespace: metallb-system
+        metallb_subnet_cidr_prefix: "31"
+        metallb_network: "10.0.0.200"
+      when: ansible_virtualization_type != "docker"
