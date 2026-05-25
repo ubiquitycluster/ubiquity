@@ -1,0 +1,97 @@
+---
+# Copyright The Ubiquity Authors.
+#
+# Licensed under the Apache License, Version 2.0. Previously licensed under the Functional Source License (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://github.com/ubiquitycluster/ubiquity/blob/main/LICENSE
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# This software was previously licensed under the Functional Source License but has now transitioned to an Apache 2.0 License
+# as of June 2025.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+{{- if .Values.policies.disallowPrivilegedContainers.enabled }}
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: disallow-privileged-containers
+  annotations:
+    policies.kyverno.io/title: Disallow Privileged Containers
+    policies.kyverno.io/category: Pod Security Standards (Restricted)
+    policies.kyverno.io/severity: medium
+    policies.kyverno.io/subject: Pod,Container
+    policies.kyverno.io/description: >-
+      Forbids privileged containers and privilege escalation.
+      Only allows the default set of capabilities.
+spec:
+  validationFailureAction: {{ .Values.policies.disallowPrivilegedContainers.validationFailureAction | default "Enforce" }}
+  background: true
+  rules:
+    - name: forbid-privileged
+      match:
+        any:
+          - resources:
+              kinds:
+                - Pod
+      validate:
+        message: "Privileged containers are not allowed. Set securityContext.privileged: false."
+        pattern:
+          spec:
+            containers:
+              - securityContext:
+                  privileged: false
+            =(ephemeralContainers):
+              - securityContext:
+                  privileged: false
+            =(initContainers):
+              - securityContext:
+                  privileged: false
+    - name: forbid-privilege-escalation
+      match:
+        any:
+          - resources:
+              kinds:
+                - Pod
+      validate:
+        message: "Privilege escalation is not allowed. Set securityContext.allowPrivilegeEscalation: false."
+        pattern:
+          spec:
+            containers:
+              - securityContext:
+                  allowPrivilegeEscalation: false
+            =(ephemeralContainers):
+              - securityContext:
+                  allowPrivilegeEscalation: false
+            =(initContainers):
+              - securityContext:
+                  allowPrivilegeEscalation: false
+    - name: restrict-capabilities
+      match:
+        any:
+          - resources:
+              kinds:
+                - Pod
+      validate:
+        message: >-
+          Only the default container capabilities are allowed.
+          Do not add additional capabilities via capabilities.add.
+        pattern:
+          spec:
+            containers:
+              - =(securityContext):
+                  =(capabilities):
+                    =(add): []
+            =(ephemeralContainers):
+              - =(securityContext):
+                  =(capabilities):
+                    =(add): []
+            =(initContainers):
+              - =(securityContext):
+                  =(capabilities):
+                    =(add): []
+{{- end }}

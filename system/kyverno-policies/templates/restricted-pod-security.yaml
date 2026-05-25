@@ -1,0 +1,189 @@
+---
+# Copyright The Ubiquity Authors.
+#
+# Licensed under the Apache License, Version 2.0. Previously licensed under the Functional Source License (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://github.com/ubiquitycluster/ubiquity/blob/main/LICENSE
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# This software was previously licensed under the Functional Source License but has now transitioned to an Apache 2.0 License
+# as of June 2025.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+{{- if .Values.policies.restrictedPodSecurity.enabled }}
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: restricted-pod-security
+  annotations:
+    policies.kyverno.io/title: Restricted Pod Security Standards
+    policies.kyverno.io/category: Pod Security Standards (Restricted)
+    policies.kyverno.io/severity: high
+    policies.kyverno.io/subject: Pod
+    policies.kyverno.io/description: >-
+      Enforces the restricted profile of the Pod Security Standards.
+      Requires runAsNonRoot: true, seccompProfile.type: RuntimeDefault,
+      forbids privileged containers, hostNetwork, hostPID, hostIPC,
+      and requires resource limits on all containers.
+spec:
+  validationFailureAction: {{ .Values.policies.restrictedPodSecurity.validationFailureAction | default "Enforce" }}
+  background: true
+  rules:
+    - name: restricted-pod-security
+      match:
+        any:
+          - resources:
+              kinds:
+                - Pod
+      exclude:
+        any:
+          - resources:
+              namespaces:
+                {{- range .Values.policies.restrictedPodSecurity.exemptNamespaces }}
+                - {{ . }}
+                {{- end }}
+          - resources:
+              selector:
+                matchLabels:
+                  {{- range $key, $value := .Values.policies.restrictedPodSecurity.exemptLabels }}
+                  {{ $key }}: {{ $value }}
+                  {{- end }}
+      validate:
+        message: >-
+          Pods must meet the restricted Pod Security Standards. Set
+          runAsNonRoot: true, seccompProfile.type: RuntimeDefault,
+          do not run privileged containers, do not use hostNetwork/hostPID/hostIPC,
+          and set resource limits.
+        podSecurity:
+          level: restricted
+          version: latest
+    - name: require-run-as-non-root
+      match:
+        any:
+          - resources:
+              kinds:
+                - Pod
+      exclude:
+        any:
+          - resources:
+              namespaces:
+                {{- range .Values.policies.restrictedPodSecurity.exemptNamespaces }}
+                - {{ . }}
+                {{- end }}
+      validate:
+        message: "Running as root is not allowed. Set securityContext.runAsNonRoot: true."
+        pattern:
+          spec:
+            securityContext:
+              runAsNonRoot: true
+            =(ephemeralContainers):
+              - =(securityContext):
+                  runAsNonRoot: true
+            =(initContainers):
+              - =(securityContext):
+                  runAsNonRoot: true
+            containers:
+              - =(securityContext):
+                  runAsNonRoot: true
+    - name: require-seccomp-runtime-default
+      match:
+        any:
+          - resources:
+              kinds:
+                - Pod
+      exclude:
+        any:
+          - resources:
+              namespaces:
+                {{- range .Values.policies.restrictedPodSecurity.exemptNamespaces }}
+                - {{ . }}
+                {{- end }}
+      validate:
+        message: "Seccomp profile must be set to RuntimeDefault."
+        pattern:
+          spec:
+            securityContext:
+              seccompProfile:
+                type: RuntimeDefault
+            =(ephemeralContainers):
+              - =(securityContext):
+                  =(seccompProfile):
+                    type: RuntimeDefault
+            =(initContainers):
+              - =(securityContext):
+                  =(seccompProfile):
+                    type: RuntimeDefault
+            containers:
+              - =(securityContext):
+                  =(seccompProfile):
+                    type: RuntimeDefault
+    - name: forbid-privileged-containers
+      match:
+        any:
+          - resources:
+              kinds:
+                - Pod
+      exclude:
+        any:
+          - resources:
+              namespaces:
+                {{- range .Values.policies.restrictedPodSecurity.exemptNamespaces }}
+                - {{ . }}
+                {{- end }}
+      validate:
+        message: "Privileged containers are not allowed."
+        pattern:
+          spec:
+            containers:
+              - securityContext:
+                  privileged: false
+    - name: forbid-host-namespace
+      match:
+        any:
+          - resources:
+              kinds:
+                - Pod
+      exclude:
+        any:
+          - resources:
+              namespaces:
+                {{- range .Values.policies.restrictedPodSecurity.exemptNamespaces }}
+                - {{ . }}
+                {{- end }}
+      validate:
+        message: >-
+          Sharing the host network, PID, or IPC namespaces is forbidden.
+        forbid:
+          value:
+            spec:
+              hostNetwork: true
+              hostPID: true
+              hostIPC: true
+    - name: require-resource-limits
+      match:
+        any:
+          - resources:
+              kinds:
+                - Pod
+      exclude:
+        any:
+          - resources:
+              namespaces:
+                {{- range .Values.policies.restrictedPodSecurity.exemptNamespaces }}
+                - {{ . }}
+                {{- end }}
+      validate:
+        message: "Resource limits are required on all containers."
+        pattern:
+          spec:
+            containers:
+              - resources:
+                  limits:
+                    -(cpu):
+                    -(memory):
+{{- end }}

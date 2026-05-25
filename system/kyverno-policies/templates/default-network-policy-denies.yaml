@@ -1,0 +1,86 @@
+---
+# Copyright The Ubiquity Authors.
+#
+# Licensed under the Apache License, Version 2.0. Previously licensed under the Functional Source License (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://github.com/ubiquitycluster/ubiquity/blob/main/LICENSE
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# This software was previously licensed under the Functional Source License but has now transitioned to an Apache 2.0 License
+# as of June 2025.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+{{- if .Values.policies.defaultNetworkPolicyDenies.enabled }}
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: default-network-policy-denies
+  annotations:
+    policies.kyverno.io/title: Default NetworkPolicy Denies
+    policies.kyverno.io/category: Network Security
+    policies.kyverno.io/severity: medium
+    policies.kyverno.io/subject: Namespace,NetworkPolicy
+    policies.kyverno.io/description: >-
+      Ensures every namespace has a default-deny NetworkPolicy.
+      Creates a default-deny-all-ingress and default-deny-all-egress
+      NetworkPolicy in any namespace that does not already have one.
+spec:
+  validationFailureAction: {{ .Values.policies.defaultNetworkPolicyDenies.validationFailureAction | default "Enforce" }}
+  background: true
+  rules:
+    - name: default-deny-ingress
+      match:
+        any:
+          - resources:
+              kinds:
+                - Namespace
+      exclude:
+        any:
+          - resources:
+              namespaces:
+                {{- range .Values.policies.defaultNetworkPolicyDenies.exemptNamespaces }}
+                - {{ . }}
+                {{- end }}
+      generate:
+        generateExisting: true
+        synchronize: true
+        apiVersion: networking.k8s.io/v1
+        kind: NetworkPolicy
+        name: default-deny-ingress
+        namespace: "{{ `{{ request.object.metadata.name }}` }}"
+        data:
+          spec:
+            podSelector: {}
+            policyTypes:
+              - Ingress
+    - name: default-deny-egress
+      match:
+        any:
+          - resources:
+              kinds:
+                - Namespace
+      exclude:
+        any:
+          - resources:
+              namespaces:
+                {{- range .Values.policies.defaultNetworkPolicyDenies.exemptNamespaces }}
+                - {{ . }}
+                {{- end }}
+      generate:
+        generateExisting: true
+        synchronize: true
+        apiVersion: networking.k8s.io/v1
+        kind: NetworkPolicy
+        name: default-deny-egress
+        namespace: "{{ `{{ request.object.metadata.name }}` }}"
+        data:
+          spec:
+            podSelector: {}
+            policyTypes:
+              - Egress
+{{- end }}
