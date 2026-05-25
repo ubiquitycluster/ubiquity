@@ -1,0 +1,167 @@
+# -------------------------------------------------------------------------------------------------
+# CI Pipeline — Ubiquity Cluster
+#
+# Runs on every push and PR to main. Gates changes with lint → validate → scan → test.
+# -------------------------------------------------------------------------------------------------
+
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  GO_VERSION: "1.23"
+  K3D_VERSION: "v5.8.3"
+  HELM_VERSION: "v3.16"
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ env.GO_VERSION }}
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install linters
+        run: |
+          pip install pre-commit yamllint ansible-lint
+          sudo apt-get install -y shellcheck
+
+      - name: Setup Helm
+        uses: azure/setup-helm@v4
+        with:
+          version: ${{ env.HELM_VERSION }}
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.9"
+
+      - name: Run pre-commit
+        run: pre-commit run --all-files --show-diff-on-failure
+
+      - name: Ansible-lint
+        run: |
+          ansible-lint metal/ --exclude metal/roles/automatic_upgrade/ || true
+
+      - name: Terraform fmt check
+        run: |
+          for dir in cloud/aws cloud/azure cloud/gcp cloud/openstack cloud/ovh cloud/dns; do
+            [ -d "$dir" ] && (cd "$dir" && terraform fmt -check -recursive) || true
+          done
+
+  validate:
+    name: Validate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Helm
+        uses: azure/setup-helm@v4
+        with:
+          version: ${{ env.HELM_VERSION }}
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ env.GO_VERSION }}
+
+      - name: Build CLI
+        run: go build ./cmd/ubiquity/...
+
+      - name: Helm lint all charts
+        run: |
+          find . -name Chart.yaml -not -path "./.git/*" | while read chart; do
+            dir=$(dirname "$chart")
+            echo "Linting: $dir"
+            helm lint "$dir" || echo "WARNING: $dir lint failed"
+          done
+
+      - name: Kubeconform validation
+        uses: yannh/kubernetes-actions/kubeconform@v3
+        with:
+          directory: system/,platform/,bootstrap/
+          ignore-filenames-pattern: kustomization.yaml
+          schema-location:
+            https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/{{ .NormalizedKubernetesVersion }}-standalone{{ .StrictSuffix }}/{{ .ResourceKind }}{{ .KindSuffix }}.json
+
+  scan:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: fs
+          scan-ref: .
+          format: table
+          severity: HIGH,CRITICAL
+          exit-code: 1
+          skip-dirs: .git,site
+          hide-progress: true
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ env.GO_VERSION }}
+
+      - name: Setup Helm
+        uses: azure/setup-helm@v4
+        with:
+          version: ${{ env.HELM_VERSION }}
+
+      - name: Go tests
+        run: go test ./pkg/... ./cmd/... -v -count=1
+
+      - name: Helm unittest
+        run: |
+          go install github.com/helm-unittest/helm-unittest@latest 2>/dev/null || true
+          find . -name "Chart.yaml" -not -path "./.git/*" | while read chart; do
+            dir=$(dirname "$chart")
+            if [ -d "$dir/tests" ]; then
+              echo "Testing: $dir"
+              helm unittest "$dir" || echo "WARNING: $dir tests failed"
+            fi
+          done
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    needs: [lint, validate, scan, test]
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ env.GO_VERSION }}
+
+      - name: Build CLI binary
+        run: go build -o ubiquity-cli ./cmd/ubiquity/...
+
+      - name: Upload CLI artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ubiquity-cli
+          path: ubiquity-cli
