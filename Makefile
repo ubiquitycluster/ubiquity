@@ -36,19 +36,6 @@ NO_CACHE =
 BUILDVER = latest
 FLAVOUR = slurm
 
-# --------------------------------------
-# Docker Targets
-# --------------------------------------
-
-#.PHONY: docker-build
-#docker-build: generate manifests ## Build the docker image
-#	docker build . -t ${IMG} --build-arg http_proxy=$(http_proxy) --build-arg https_proxy=$(https_proxy)
-
-# Push the docker image
-#.PHONY: docker-push
-#docker-push:
-#	docker push ${IMG}
-
 # -------------------------------------------------------------------------------------------------
 # Default Target
 # -------------------------------------------------------------------------------------------------
@@ -109,10 +96,6 @@ wait:
 post-install:
 	./scripts/hacks
 	./scripts/bmo/bmo-create.sh
-
-docker:
-#	./scripts/get-docker.sh
-#	./scripts/docker-perms.sh
 
 podman:
 	sudo yum -y install podman
