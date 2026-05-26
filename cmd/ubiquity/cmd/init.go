@@ -19,6 +19,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"strings"
 
 	"github.com/spf13/cobra"
 )
@@ -79,6 +80,18 @@ env: ` + env + `
 
 		fmt.Printf("Initialized Ubiquity configuration for environment: %s\n", env)
 		fmt.Printf("Config directory: %s\n", ubiquityDir)
+
+		// Prompt to run config wizard
+		if _, err := os.Stat(configPath); err != nil {
+			fmt.Print("Run the configuration wizard now? [y/N]: ")
+			var response string
+			fmt.Scanln(&response)
+			if strings.ToLower(strings.TrimSpace(response)) == "y" {
+				configureCmd.Flags().Set("interactive", "true")
+				return configureCmd.RunE(configureCmd, []string{})
+			}
+		}
+
 		return nil
 	},
 }
