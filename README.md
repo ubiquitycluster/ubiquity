@@ -240,6 +240,14 @@ They can't capture all the project's features, but they are sufficient to get a 
 
 ## Get Started
 
+### Quick Start with the CLI
+```
+ubiquity init
+ubiquity configure --domain mycluster.example.com
+ubiquity up --sandbox
+```
+See the CLI help: `ubiquity --help`
+
 - [Try it out locally](docs/admin-guide/deployment/sandbox.md) without any hardware (just 4 commands!)
 - [Deploy on real hardware](docs/admin-guide/deployment/on-prem.md) for production workloads
 

@@ -41,3 +41,8 @@ repos:
     rev: v0.1.25
     hooks:
       - id: helmlint
+
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.18.0
+    hooks:
+      - id: gitleaks

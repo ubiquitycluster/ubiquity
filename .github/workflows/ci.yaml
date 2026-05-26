@@ -62,6 +62,9 @@ jobs:
             [ -d "$dir" ] && (cd "$dir" && terraform fmt -check -recursive) || true
           done
 
+      - name: Run gitleaks
+        run: gitleaks detect --source . -v --no-git
+
   validate:
     name: Validate
     runs-on: ubuntu-latest

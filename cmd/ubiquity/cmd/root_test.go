@@ -125,7 +125,7 @@ func TestUpSandboxFlag(t *testing.T) {
 
 func findCommand(parent *cobra.Command, name string) *cobra.Command {
 	for _, c := range parent.Commands() {
-		if c.Use == name {
+		if c.Name() == name {
 			return c
 		}
 	}
