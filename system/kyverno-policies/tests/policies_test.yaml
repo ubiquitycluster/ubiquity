@@ -1,4 +1,3 @@
----
 # Copyright The Ubiquity Authors.
 #
 # Licensed under the Apache License, Version 2.0. Previously licensed under the Functional Source License (the "License");
@@ -15,8 +14,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Basic test to verify the chart renders correctly
-# This test ensures the chart can be instantiated
 suite: test kyverno-policies
 templates:
   - templates/restricted-pod-security.yaml
@@ -24,17 +21,119 @@ templates:
   - templates/require-labels.yaml
   - templates/default-network-policy-denies.yaml
 tests:
-  - it: should render restricted-pod-security when enabled
-    set:
-      policies.restrictedPodSecurity.enabled: true
+  - it: should render all ClusterPolicies when enabled (default values)
+    asserts:
+      - hasDocuments:
+          count: 1
+        template: templates/restricted-pod-security.yaml
+      - hasDocuments:
+          count: 1
+        template: templates/disallow-privileged-containers.yaml
+      - hasDocuments:
+          count: 1
+        template: templates/require-labels.yaml
+      - hasDocuments:
+          count: 1
+        template: templates/default-network-policy-denies.yaml
+
+  - it: should create restricted-pod-security ClusterPolicy
     asserts:
       - isKind:
           of: ClusterPolicy
-      - hasDocuments:
-          count: 1
+        template: templates/restricted-pod-security.yaml
+      - equal:
+          path: metadata.name
+          value: restricted-pod-security
+        template: templates/restricted-pod-security.yaml
+      - equal:
+          path: spec.validationFailureAction
+          value: Enforce
+        template: templates/restricted-pod-security.yaml
+
+  - it: should create disallow-privileged-containers ClusterPolicy
+    asserts:
+      - isKind:
+          of: ClusterPolicy
+        template: templates/disallow-privileged-containers.yaml
+      - equal:
+          path: metadata.name
+          value: disallow-privileged-containers
+        template: templates/disallow-privileged-containers.yaml
+
+  - it: should create require-labels ClusterPolicy
+    asserts:
+      - isKind:
+          of: ClusterPolicy
+        template: templates/require-labels.yaml
+      - equal:
+          path: metadata.name
+          value: require-labels
+        template: templates/require-labels.yaml
+
   - it: should not render restricted-pod-security when disabled
     set:
       policies.restrictedPodSecurity.enabled: false
     asserts:
       - hasDocuments:
           count: 0
+        template: templates/restricted-pod-security.yaml
+      - hasDocuments:
+          count: 1
+        template: templates/disallow-privileged-containers.yaml
+      - hasDocuments:
+          count: 1
+        template: templates/require-labels.yaml
+      - hasDocuments:
+          count: 1
+        template: templates/default-network-policy-denies.yaml
+
+  - it: should not render disallow-privileged-containers when disabled
+    set:
+      policies.disallowPrivilegedContainers.enabled: false
+    asserts:
+      - hasDocuments:
+          count: 1
+        template: templates/restricted-pod-security.yaml
+      - hasDocuments:
+          count: 0
+        template: templates/disallow-privileged-containers.yaml
+      - hasDocuments:
+          count: 1
+        template: templates/require-labels.yaml
+      - hasDocuments:
+          count: 1
+        template: templates/default-network-policy-denies.yaml
+
+  - it: should not render require-labels when disabled
+    set:
+      policies.requireLabels.enabled: false
+    asserts:
+      - hasDocuments:
+          count: 1
+        template: templates/restricted-pod-security.yaml
+      - hasDocuments:
+          count: 1
+        template: templates/disallow-privileged-containers.yaml
+      - hasDocuments:
+          count: 0
+        template: templates/require-labels.yaml
+      - hasDocuments:
+          count: 1
+        template: templates/default-network-policy-denies.yaml
+
+  - it: should not render default-network-policy-denies when disabled
+    set:
+      policies.defaultNetworkPolicyDenies.enabled: false
+    asserts:
+      - hasDocuments:
+          count: 1
+        template: templates/restricted-pod-security.yaml
+      - hasDocuments:
+          count: 1
+        template: templates/disallow-privileged-containers.yaml
+      - hasDocuments:
+          count: 1
+        template: templates/require-labels.yaml
+      - hasDocuments:
+          count: 0
+        template: templates/default-network-policy-denies.yaml
