@@ -63,11 +63,13 @@ azure:
 azure-clean:
 	make -C cloud azureclean
 
+# configure: delegates to 'ubiquity configure' (Go CLI)
 configure-sandbox:
-	./scripts/configure-sandbox
+	./scripts/configure-sandbox.py.bak
 
+# configure: delegates to 'ubiquity configure' (Go CLI)
 configure:
-	./scripts/configure
+	./scripts/configure.py.bak
 
 sandbox-boot:
 	make -C metal sandbox
