@@ -15,6 +15,10 @@ func TestUpUsesProviderInterface(t *testing.T) {
 	mock := &provision.MockProvider{}
 	provider = mock
 
+	// Set env flag on root (persistent flags) before subcommand runs
+	rootCmd.PersistentFlags().Set("env", "sandbox")
+	defer rootCmd.PersistentFlags().Set("env", "sandbox")
+
 	// Execute the up command's RunE directly
 	err := upCmd.RunE(upCmd, []string{})
 	if err != nil {
@@ -27,8 +31,9 @@ func TestUpUsesProviderInterface(t *testing.T) {
 		t.Fatalf("expected %d calls, got %d: %v", len(expectedPhases), len(mock.Calls), mock.Calls)
 	}
 	for i, phase := range expectedPhases {
-		if mock.Calls[i] != phase+":" {
-			t.Errorf("call %d: expected %q, got %q", i, phase+":", mock.Calls[i])
+		expected := phase + ":sandbox"
+		if mock.Calls[i] != expected {
+			t.Errorf("call %d: expected %q, got %q", i, expected, mock.Calls[i])
 		}
 	}
 }

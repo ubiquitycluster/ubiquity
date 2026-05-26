@@ -25,7 +25,7 @@ argo-cd:
       serviceMonitor:
         enabled: true
     nodeSelector:
-      node-role.kubernetes.io/master: 'true'
+      node-role.kubernetes.io/control-plane: 'true'
     replicas: 1
     resources:
       limits:
@@ -50,7 +50,7 @@ argo-cd:
       enabled: true
     metrics: *id001
     nodeSelector:
-      node-role.kubernetes.io/master: 'true'
+      node-role.kubernetes.io/control-plane: 'true'
     resources:
       limits:
         cpu: 100m
@@ -65,7 +65,7 @@ argo-cd:
     metrics: *id001
     replicas: 1
     nodeSelector:
-      node-role.kubernetes.io/master: 'true'
+      node-role.kubernetes.io/control-plane: 'true'
     resources:
       limits:
         cpu: '3'
@@ -78,7 +78,7 @@ argo-cd:
     replicas: 1
     metrics: *id001
     nodeSelector:
-      node-role.kubernetes.io/master: 'true'
+      node-role.kubernetes.io/control-plane: 'true'
     resources:
       limits:
         cpu: 500m
@@ -104,7 +104,7 @@ argo-cd:
         return hs
       statusbadge.enabled: 'true'
     nodeSelector:
-      node-role.kubernetes.io/master: 'true'
+      node-role.kubernetes.io/control-plane: 'true'
     ingress:
       annotations:
         # See ../docs/reference/ingress.md for more information
@@ -177,4 +177,4 @@ argo-cd:
   notifications:
     enabled: true
     nodeSelector:
-      node-role.kubernetes.io/master: 'true'
+      node-role.kubernetes.io/control-plane: 'true'

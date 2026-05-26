@@ -38,6 +38,14 @@ policies:
   disallowPrivilegedContainers:
     # -- Enable the disallow privileged containers policy
     enabled: true
+    # -- Namespaces exempt from this policy (e.g. system-critical namespaces that need privileged access)
+    exemptNamespaces:
+      - kube-bench
+      - kube-system
+      - kyverno
+    # -- Exempt resources matching these labels
+    exemptLabels:
+      app.kubernetes.io/managed-by: argocd
 
   requireLabels:
     # -- Enable the require labels policy

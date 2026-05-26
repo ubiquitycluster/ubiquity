@@ -53,8 +53,12 @@ Phase ordering:
 		env, _ := cmd.Flags().GetString("env")
 		sandbox, _ := cmd.Flags().GetBool("sandbox")
 		skipSecurity, _ = cmd.Flags().GetBool("skip-security")
-		pkgPxeInstaller, _ = cmd.Flags().GetBool("pxe-installer")
 		if sandbox {
+			env = "sandbox"
+		}
+		// Default to sandbox when no environment is specified
+		if env == "" {
+			fmt.Print("No environment specified, defaulting to sandbox...\n")
 			env = "sandbox"
 		}
 
@@ -93,8 +97,29 @@ Phase ordering:
 }
 
 // executePhase dispatches to the appropriate provisioning mechanism.
+// Uses real functions for production, Provider interface for testing.
 func executePhase(phase, env string) error {
-	return provision.ExecutePhase(provider, phase, env)
+	// If a mock provider is set, use it (testing path)
+	if _, ok := provider.(*provision.MockProvider); ok {
+		return provision.ExecutePhase(provider, phase, env)
+	}
+	// Real execution path
+	switch phase {
+	case "metal":
+		return provisionMetal(env)
+	case "bootstrap":
+		return provisionBootstrap(env)
+	case "security":
+		return provisionSecurity(env)
+	case "external":
+		return provisionExternal(env)
+	case "wait":
+		return provisionWait(env)
+	case "post-install":
+		return provisionPostInstall(env)
+	default:
+		return nil
+	}
 }
 
 // provisionMetal provisions the cluster infrastructure (bare metal or k3d sandbox).
@@ -139,7 +164,11 @@ func provisionBootstrap(env string) error {
 	}
 
 	// Install ArgoCD via helm (this handles CRDs correctly)
-	if err := runHelmInstall("bootstrap/argocd", "argocd", "argocd"); err != nil {
+	if env == "sandbox" {
+		if err := runHelmInstall("bootstrap/argocd", "argocd", "argocd", "bootstrap/argocd/values-sandbox.yaml"); err != nil {
+			return fmt.Errorf("argo install failed: %w", err)
+		}
+	} else if err := runHelmInstall("bootstrap/argocd", "argocd", "argocd"); err != nil {
 		return fmt.Errorf("argo install failed: %w", err)
 	}
 	fmt.Print("waiting for CRDs...")
@@ -197,9 +226,17 @@ func provisionSecurity(env string) error {
 		}
 	}
 
-	// Deploy Kyverno (install via helm with CRDs)
-	if err := runHelmInstall("system/kyverno-policies", "kyverno", "kyverno"); err != nil {
-		fmt.Print("kyverno install skipped...")
+	// Install the Kyverno operator (provides kyverno.io/v1 CRDs).
+	// On K8s >= 1.28 this includes ValidatingAdmissionPolicy support;
+	// on K8s >= 1.29 selectableFields in CRDs work.
+	if err := runHelmInstall("system/kyverno", "kyverno", "kyverno"); err != nil {
+		fmt.Print("kyverno operator install skipped...")
+	}
+
+	// Deploy baseline Kyverno policies (ClusterPolicy resources)
+	fmt.Print("applying policies...")
+	if err := runHelmInstall("system/kyverno-policies", "kyverno-policies", "kyverno"); err != nil {
+		fmt.Print("kyverno policies install skipped...")
 	}
 
 	// Deploy network policies (simple resources, no CRD needed)
@@ -239,9 +276,9 @@ func provisionExternal(env string) error {
 // provisionWait waits for core applications to reach Ready.
 func provisionWait(env string) error {
 	fmt.Print("checking application readiness...")
-	// Wait for ArgoCD
+	// Wait for ArgoCD pods — omit --ignore-not-found (unsupported in kubectl >=1.28)
 	kubectl("-n", "argocd", "wait", "--timeout=300s", "--for=condition=Ready", "pod",
-		"--all", "--ignore-not-found=true")
+		"--all")
 	fmt.Print("applications ready...")
 	return nil
 }
@@ -313,6 +350,15 @@ func runSandbox() error {
 		return fmt.Errorf("writing kubeconfig: %w", err)
 	}
 
+	// Wait for cluster to be fully ready before proceeding
+	fmt.Print("waiting for cluster nodes to be ready...")
+	waitCmd := exec.Command("kubectl", "wait", "--for=condition=Ready", "nodes", "--all", "--timeout=120s")
+	waitCmd.Stdout = os.Stdout
+	waitCmd.Stderr = os.Stderr
+	if err := waitCmd.Run(); err != nil {
+		fmt.Print("warning: node readiness check timed out, continuing anyway...")
+	}
+
 	return nil
 }
 
@@ -345,16 +391,24 @@ func kubectlOutput(args ...string) ([]byte, error) {
 
 // runHelmTemplateAndApply runs `helm template` then pipes to `kubectl apply`.
 func runHelmTemplateAndApply(chartDir, namespace string) error {
-	// Create namespace first
-	runCommand("kubectl", "create", "namespace", namespace, "--dry-run=client", "-o", "yaml")
-	nsOut, _ := kubectlOutput("create", "namespace", namespace, "--dry-run=client", "-o", "yaml")
-	if len(nsOut) > 0 {
-		applyCmd := exec.Command("kubectl", "apply", "-f", "-")
-		applyCmd.Stdin = strings.NewReader(string(nsOut))
-		applyCmd.Stdout = os.Stdout
-		applyCmd.Stderr = os.Stderr
-		applyCmd.Run()
+	// Create namespace first (skip "default" — it always exists and kubectl apply
+	// warns about the missing last-applied-configuration annotation on pre-existing namespaces)
+	if namespace != "default" {
+		runCommand("kubectl", "create", "namespace", namespace, "--dry-run=client", "-o", "yaml")
+		nsOut, _ := kubectlOutput("create", "namespace", namespace, "--dry-run=client", "-o", "yaml")
+		if len(nsOut) > 0 {
+			applyCmd := exec.Command("kubectl", "apply", "-f", "-")
+			applyCmd.Stdin = strings.NewReader(string(nsOut))
+			applyCmd.Stdout = os.Stdout
+			applyCmd.Stderr = os.Stderr
+			applyCmd.Run()
+		}
 	}
+
+	// Download chart dependencies
+	depCmd := exec.Command("helm", "dependency", "update", chartDir)
+	depCmd.Dir = repoRoot
+	depCmd.Run()
 
 	args := []string{"template", "--include-crds", "--namespace", namespace, "release", chartDir}
 	cmd := exec.Command("helm", args...)
@@ -383,7 +437,8 @@ func runCommand(name string, args ...string) error {
 }
 
 // runHelmInstall installs a Helm chart directly (for operators with CRDs).
-func runHelmInstall(chartDir, releaseName, namespace string) error {
+// Optional valuesFiles are passed as --values to helm for environment-specific overrides.
+func runHelmInstall(chartDir, releaseName, namespace string, valuesFiles ...string) error {
 	// Create namespace first
 	nsOut, _ := kubectlOutput("create", "namespace", namespace, "--dry-run=client", "-o", "yaml")
 	if len(nsOut) > 0 {
@@ -394,14 +449,45 @@ func runHelmInstall(chartDir, releaseName, namespace string) error {
 		applyCmd.Run()
 	}
 
-	args := []string{"upgrade", "--install", releaseName, chartDir,
-		"--namespace", namespace, "--create-namespace", "--include-crds",
+	// Download chart dependencies (required for upstream charts like argo-cd)
+	fmt.Print("updating chart dependencies...")
+	depCmd := exec.Command("helm", "dependency", "update", chartDir)
+	depCmd.Dir = repoRoot
+	depCmd.Stdout = os.Stdout
+	depCmd.Stderr = os.Stderr
+	if err := depCmd.Run(); err != nil {
+		fmt.Print("warning: dependency update failed, trying anyway...")
+	}
+
+	// Build base args — --include-crds removed; Helm v3.21+ installs CRDs by default
+	installArgs := []string{"install", releaseName, chartDir,
+		"--namespace", namespace, "--create-namespace",
 		"--wait", "--timeout", "5m"}
-	cmd := exec.Command("helm", args...)
+	for _, vf := range valuesFiles {
+		installArgs = append(installArgs, "--values", vf)
+	}
+	cmd := exec.Command("helm", installArgs...)
 	cmd.Dir = repoRoot
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
-	return cmd.Run()
+	err := cmd.Run()
+	if err == nil {
+		return nil
+	}
+
+	// If install fails (e.g. already exists), fall back to upgrade
+	fmt.Print("helm install failed, trying upgrade...")
+	upgradeArgs := []string{"upgrade", "--install", releaseName, chartDir,
+		"--namespace", namespace, "--create-namespace",
+		"--wait", "--timeout", "5m"}
+	for _, vf := range valuesFiles {
+		upgradeArgs = append(upgradeArgs, "--values", vf)
+	}
+	cmd2 := exec.Command("helm", upgradeArgs...)
+	cmd2.Dir = repoRoot
+	cmd2.Stdout = os.Stdout
+	cmd2.Stderr = os.Stderr
+	return cmd2.Run()
 }
 
 // containsStr reports whether substr is within s.

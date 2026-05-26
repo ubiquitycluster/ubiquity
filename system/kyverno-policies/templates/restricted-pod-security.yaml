@@ -158,12 +158,18 @@ spec:
       validate:
         message: >-
           Sharing the host network, PID, or IPC namespaces is forbidden.
-        forbid:
-          value:
-            spec:
-              hostNetwork: true
-              hostPID: true
-              hostIPC: true
+        deny:
+          conditions:
+            any:
+            - key: "{{ "{{" }} request.object.spec.hostNetwork || 'false' {{ "}}" }}"
+              operator: Equals
+              value: "true"
+            - key: "{{ "{{" }} request.object.spec.hostPID || 'false' {{ "}}" }}"
+              operator: Equals
+              value: "true"
+            - key: "{{ "{{" }} request.object.spec.hostIPC || 'false' {{ "}}" }}"
+              operator: Equals
+              value: "true"
     - name: require-resource-limits
       match:
         any:

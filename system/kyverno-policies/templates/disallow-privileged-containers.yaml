@@ -38,6 +38,19 @@ spec:
           - resources:
               kinds:
                 - Pod
+      exclude:
+        any:
+          - resources:
+              namespaces:
+                {{- range .Values.policies.disallowPrivilegedContainers.exemptNamespaces }}
+                - {{ . }}
+                {{- end }}
+          - resources:
+              selector:
+                matchLabels:
+                  {{- range $key, $value := .Values.policies.disallowPrivilegedContainers.exemptLabels }}
+                  {{ $key }}: {{ $value }}
+                  {{- end }}
       validate:
         message: "Privileged containers are not allowed. Set securityContext.privileged: false."
         pattern:
@@ -57,6 +70,19 @@ spec:
           - resources:
               kinds:
                 - Pod
+      exclude:
+        any:
+          - resources:
+              namespaces:
+                {{- range .Values.policies.disallowPrivilegedContainers.exemptNamespaces }}
+                - {{ . }}
+                {{- end }}
+          - resources:
+              selector:
+                matchLabels:
+                  {{- range $key, $value := .Values.policies.disallowPrivilegedContainers.exemptLabels }}
+                  {{ $key }}: {{ $value }}
+                  {{- end }}
       validate:
         message: "Privilege escalation is not allowed. Set securityContext.allowPrivilegeEscalation: false."
         pattern:
@@ -76,6 +102,19 @@ spec:
           - resources:
               kinds:
                 - Pod
+      exclude:
+        any:
+          - resources:
+              namespaces:
+                {{- range .Values.policies.disallowPrivilegedContainers.exemptNamespaces }}
+                - {{ . }}
+                {{- end }}
+          - resources:
+              selector:
+                matchLabels:
+                  {{- range $key, $value := .Values.policies.disallowPrivilegedContainers.exemptLabels }}
+                  {{ $key }}: {{ $value }}
+                  {{- end }}
       validate:
         message: >-
           Only the default container capabilities are allowed.
