@@ -18,8 +18,10 @@ package cmd
 import (
 	"fmt"
 	"os"
+	"path/filepath"
 
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 var rootCmd = &cobra.Command{
@@ -40,6 +42,46 @@ func Execute() {
 }
 
 func init() {
-	rootCmd.PersistentFlags().String("config", "", "config file (default is .ubiquity.yaml in project root)")
+	cobra.OnInitialize(initConfig)
+
+	rootCmd.PersistentFlags().String("config", "", "config file (default is $HOME/.ubiquity/.ubiquity.yaml)")
 	rootCmd.PersistentFlags().String("env", "sandbox", "deployment environment (sandbox, dev, prod)")
+
+	// Bind Viper to flags so UBQUITY_ENV env var and --env flag both work
+	viper.BindPFlag("env", rootCmd.PersistentFlags().Lookup("env"))
+	viper.BindPFlag("config", rootCmd.PersistentFlags().Lookup("config"))
+
+	// Environment variable mapping: UBQUITY_ENV -> env
+	viper.SetEnvPrefix("UBQUITY")
+	viper.AutomaticEnv()
+}
+
+// initConfig reads the config file and sets up Viper.
+func initConfig() {
+	cfgFile := viper.GetString("config")
+	if cfgFile != "" {
+		// Use explicit config file
+		viper.SetConfigFile(cfgFile)
+	} else {
+		// Search default paths
+		home, err := os.UserHomeDir()
+		if err == nil {
+			viper.AddConfigPath(filepath.Join(home, ".ubiquity"))
+		}
+		viper.AddConfigPath(".")
+		viper.SetConfigName(".ubiquity")
+		viper.SetConfigType("yaml")
+	}
+
+	// Read config — ignore error if file doesn't exist
+	if err := viper.ReadInConfig(); err != nil {
+		if _, ok := err.(viper.ConfigFileNotFoundError); !ok {
+			fmt.Fprintf(os.Stderr, "Warning: error reading config: %v\n", err)
+		}
+	}
+}
+
+// Env returns the current environment from viper (--env flag or UBQUITY_ENV).
+func Env() string {
+	return viper.GetString("env")
 }
