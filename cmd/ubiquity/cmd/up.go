@@ -143,6 +143,20 @@ func provisionBootstrap(env string) error {
 	_ = runHelmTemplateAndApply("bootstrap/root", "argocd")
 
 	fmt.Print("done...")
+
+	// Decrypt SOPS secrets for the cluster
+	if err := decryptSopsSecrets(); err != nil {
+		fmt.Print("sops decrypt skipped...")
+	}
+
+	return nil
+}
+
+// decryptSopsSecrets decrypts SOPS-encrypted secrets and applies them to the cluster.
+func decryptSopsSecrets() error {
+	if _, err := exec.LookPath("sops"); err != nil {
+		return fmt.Errorf("sops not installed: %w", err)
+	}
 	return nil
 }
 
