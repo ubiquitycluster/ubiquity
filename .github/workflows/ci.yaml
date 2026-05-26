@@ -65,6 +65,15 @@ jobs:
       - name: Run gitleaks
         run: gitleaks detect --source . -v --no-git
 
+      - name: Helm diff
+        if: github.event_name == 'pull_request'
+        run: |
+          ./scripts/helm-diff \
+            --repository "${{ github.event.pull_request.head.repo.clone_url }}" \
+            --source "${{ github.event.pull_request.head.ref }}" \
+            --target "${{ github.event.pull_request.base.ref }}" \
+            --subpath "system"
+
   validate:
     name: Validate
     runs-on: ubuntu-latest
