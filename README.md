@@ -52,6 +52,13 @@ And for sandbox mode or to act as a bootstrapper:
 
 Yes, it runs on tiny hardware!
 
+### Raspberry Pi (Experimental)
+You can run Ubiquity on Raspberry Pi 4/5 clusters (64-bit OS required).
+Build the CLI for arm64:
+​```
+GOARCH=arm64 make cli
+​```
+
 ### Features
 
 - [x] Common applications: Gitea, Slurm, Harbor...
