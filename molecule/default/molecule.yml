@@ -16,15 +16,13 @@ platforms:
     privileged: true
 provisioner:
   name: ansible
+  role-path: ../../metal/roles
   config_options:
     defaults:
       stdout_callback: yaml
       bin_ansible_callbacks: true
   inventory:
     group_vars:
-      all:
-        metallb_namespace: metallb-system
-        metallb_subnet_cidr_prefix: "31"
-        metallb_network: "10.0.0.200"
+      all: {}
 verifier:
   name: ansible

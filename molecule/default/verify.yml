@@ -3,16 +3,46 @@
   hosts: all
   gather_facts: true
   tasks:
-    - name: Check that the MetalLB namespace is defined in vars
+    - name: Check that sysctl tuning file was created
+      ansible.builtin.stat:
+        path: /etc/sysctl.d/99-tuning.conf
+      register: sysctl_file
+
+    - name: Verify sysctl tuning file exists
       ansible.builtin.assert:
         that:
-          - metallb_namespace is defined
-          - metallb_namespace == "metallb-system"
+          - sysctl_file.stat.exists
         quiet: true
 
-    - name: Check that metallb config vars are defined
+    - name: Check that pam limits file was created
+      ansible.builtin.stat:
+        path: /etc/security/limits.d/99-tuning.conf
+      register: pam_file
+
+    - name: Verify pam limits file exists
       ansible.builtin.assert:
         that:
-          - metallb_network is defined
-          - metallb_subnet_cidr_prefix is defined
+          - pam_file.stat.exists
+        quiet: true
+
+    - name: Check kernel key maxbytes setting
+      ansible.builtin.command: sysctl -n kernel.keys.root_maxbytes
+      register: key_maxbytes
+      changed_when: false
+
+    - name: Verify kernel key maxbytes
+      ansible.builtin.assert:
+        that:
+          - key_maxbytes.stdout | int == 25000000
+        quiet: true
+
+    - name: Check fs.inotify.max_user_watches setting
+      ansible.builtin.command: sysctl -n fs.inotify.max_user_watches
+      register: max_watches
+      changed_when: false
+
+    - name: Verify fs.inotify.max_user_watches
+      ansible.builtin.assert:
+        that:
+          - max_watches.stdout | int >= 655360
         quiet: true
