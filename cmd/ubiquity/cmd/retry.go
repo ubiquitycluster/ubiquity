@@ -22,25 +22,43 @@ import (
 	"github.com/ubiquitycluster/ubiquity/pkg/provision"
 )
 
-var statusCmd = &cobra.Command{
-	Use:   "status",
-	Short: "Show cluster health summary",
-	Long:  `Reads provisioning state and displays the current cluster status across all phases.`,
+var retryCmd = &cobra.Command{
+	Use:   "retry [phase]",
+	Short: "Retry a failed provisioning phase",
+	Long: `Re-runs a specific provisioning phase that previously failed.
+Use 'ubiquity status' to see which phases need attention.
+
+Valid phases: metal, bootstrap, external, wait, post-install`,
+	Args: cobra.ExactArgs(1),
+	ValidArgs: []string{"metal", "bootstrap", "external", "wait", "post-install"},
 	RunE: func(cmd *cobra.Command, args []string) error {
+		phase := args[0]
+
 		state, err := provision.LoadState()
 		if err != nil {
 			return fmt.Errorf("reading provisioning state: %w", err)
 		}
 		if state == nil {
-			fmt.Println("No provisioning state found.")
-			fmt.Println("Run 'ubiquity init' then 'ubiquity up' to start deployment.")
+			fmt.Println("No provisioning state found. Run 'ubiquity up' first.")
 			return nil
 		}
-		fmt.Print(state.Summary())
+
+		fmt.Printf("Retrying phase: %s\n", phase)
+		if err := state.StartPhase(phase); err != nil {
+			return fmt.Errorf("starting phase %s: %w", phase, err)
+		}
+
+		if err := executePhase(phase, state.Environment); err != nil {
+			state.FailPhase(phase, err)
+			return fmt.Errorf("phase %s failed: %w", phase, err)
+		}
+
+		state.CompletePhase(phase)
+		fmt.Printf("Phase %s completed successfully.\n", phase)
 		return nil
 	},
 }
 
 func init() {
-	rootCmd.AddCommand(statusCmd)
+	rootCmd.AddCommand(retryCmd)
 }

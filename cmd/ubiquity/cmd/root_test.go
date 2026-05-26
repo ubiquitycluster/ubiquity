@@ -48,10 +48,29 @@ func TestRootCmdSubcommands(t *testing.T) {
 	}
 }
 
-func TestRootCmdHasExpectedNumberOfSubcommands(t *testing.T) {
-	// We expect exactly 5 subcommands: init, up, down, status, logs
-	if got := len(rootCmd.Commands()); got != 5 {
-		t.Errorf("expected rootCmd to have 5 subcommands, got %d", got)
+func TestRootCmdHasExpectedSubcommands(t *testing.T) {
+	// Expect all core subcommands to be registered
+	expected := map[string]bool{
+		"init":    true,
+		"up":      true,
+		"down":    true,
+		"status":  true,
+		"logs":    true,
+		"retry":   true,
+		"test":    true,
+	}
+
+	for _, cmd := range rootCmd.Commands() {
+		// cmd.Use may include arguments like "logs [phase]", strip them
+		base := cmd.Use
+		if idx := indexOfSpace(base); idx >= 0 {
+			base = base[:idx]
+		}
+		delete(expected, base)
+	}
+
+	for missing := range expected {
+		t.Errorf("expected subcommand %s to be registered, but it was missing", missing)
 	}
 }
 
@@ -108,6 +127,8 @@ func TestSubcommandRegistration(t *testing.T) {
 		{"down", "down", false},
 		{"status", "status", false},
 		{"logs", "logs [phase]", false},
+		{"retry", "retry [phase]", false},
+		{"test", "test", false},
 	}
 
 	for i := range tests {
@@ -116,4 +137,14 @@ func TestSubcommandRegistration(t *testing.T) {
 			t.Errorf("subcommand %q not found with Use %q", tests[i].name, tests[i].use)
 		}
 	}
+}
+
+// indexOfSpace returns the index of the first space in s, or -1 if not found.
+func indexOfSpace(s string) int {
+	for i, r := range s {
+		if r == ' ' {
+			return i
+		}
+	}
+	return -1
 }

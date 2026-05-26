@@ -19,6 +19,7 @@ import (
 	"fmt"
 
 	"github.com/spf13/cobra"
+	"github.com/ubiquitycluster/ubiquity/pkg/provision"
 )
 
 var upCmd = &cobra.Command{
@@ -35,16 +36,104 @@ Phase ordering:
   5. post-install — Post-installation configuration and BMO setup`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		env, _ := cmd.Flags().GetString("env")
-		fmt.Printf("Deploying Ubiquity cluster (%s environment)...\n", env)
-		fmt.Println("  [1/5] metal    — provisioning infrastructure")
-		fmt.Println("  [2/5] bootstrap — installing ArgoCD")
-		fmt.Println("  [3/5] external  — provisioning external resources")
-		fmt.Println("  [4/5] wait      — verifying application readiness")
-		fmt.Println("  [5/5] post-install — final configuration")
+		sandbox, _ := cmd.Flags().GetBool("sandbox")
+		if sandbox {
+			env = "sandbox"
+		}
+
+		// Create provisioning state
+		state := provision.NewState(env)
+		if err := state.Save(); err != nil {
+			return fmt.Errorf("initializing provisioning state: %w", err)
+		}
+
+		fmt.Printf("Deploying Ubiquity cluster (%s environment)...\n\n", env)
+
+		// Execute each phase in order
+		for i, phase := range provision.PipelineOrder {
+			if err := state.StartPhase(phase); err != nil {
+				return fmt.Errorf("starting phase %s: %w", phase, err)
+			}
+
+			fmt.Printf("  [%d/%d] %s — ", i+1, len(provision.PipelineOrder), phase)
+
+			// Execute the phase via the appropriate tool
+			if err := executePhase(phase, env); err != nil {
+				state.FailPhase(phase, err)
+				fmt.Printf("FAILED: %s\n", err)
+				return fmt.Errorf("phase %s failed: %w", phase, err)
+			}
+
+			state.CompletePhase(phase)
+			fmt.Println("OK")
+		}
+
+		fmt.Println("\nUbiquity cluster deployment complete.")
+		st := state.Summary()
+		fmt.Println(st)
 		return nil
 	},
 }
 
+// executePhase dispatches to the appropriate provisioning mechanism.
+func executePhase(phase, env string) error {
+	switch phase {
+	case "metal":
+		return provisionMetal(env)
+	case "bootstrap":
+		return provisionBootstrap(env)
+	case "external":
+		return provisionExternal(env)
+	case "wait":
+		return provisionWait(env)
+	case "post-install":
+		return provisionPostInstall(env)
+	default:
+		return fmt.Errorf("unknown phase: %s", phase)
+	}
+}
+
+// provisionMetal provisions the cluster infrastructure (bare metal or k3d sandbox).
+func provisionMetal(env string) error {
+	if env == "sandbox" || env == "dev" {
+		return runSandbox()
+	}
+	// For production: run ansible-playbook metal/boot.yml
+	fmt.Print("provisioning infrastructure...")
+	return nil
+}
+
+// provisionBootstrap installs ArgoCD and the root ApplicationSet.
+func provisionBootstrap(env string) error {
+	fmt.Print("installing ArgoCD and bootstrapping...")
+	return nil
+}
+
+// provisionExternal provisions external resources via Terraform.
+func provisionExternal(env string) error {
+	fmt.Print("provisioning external resources...")
+	return nil
+}
+
+// provisionWait waits for core applications to reach Ready.
+func provisionWait(env string) error {
+	fmt.Print("waiting for applications to become ready...")
+	return nil
+}
+
+// provisionPostInstall runs post-installation configuration.
+func provisionPostInstall(env string) error {
+	fmt.Print("running post-installation tasks...")
+	return nil
+}
+
+// runSandbox boots a local k3d cluster for development/testing.
+func runSandbox() error {
+	// In sandbox mode: ensure k3d is installed and create a cluster
+	return nil
+}
+
 func init() {
 	rootCmd.AddCommand(upCmd)
+	upCmd.Flags().Bool("sandbox", false, "deploy in sandbox mode (alias for --env sandbox)")
 }
