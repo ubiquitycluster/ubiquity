@@ -230,9 +230,11 @@ func provisionSecurity(env string) error {
 	// Install the Kyverno operator (provides kyverno.io/v1 CRDs).
 	// Version is auto-selected based on detected K8s version
 	// (chart 3.5.3 for K8s < 1.32, 3.8.1 for K8s >= 1.32).
-	kv, _ := detectKubeVersion()
-	kvStr := fmt.Sprintf("%d", kv)
-	kyvVer := lookupChartVersion("system/kyverno", kvStr)
+	kyvVer := ""
+	if kv, err := detectKubeVersion(); err == nil {
+		kvStr := fmt.Sprintf("%d", kv)
+		kyvVer = lookupChartVersion("system/kyverno", kvStr)
+	}
 	if err := runHelmInstall("system/kyverno", "kyverno", "kyverno", kyvVer); err != nil {
 		fmt.Print("kyverno operator install skipped...")
 	}
@@ -450,8 +452,9 @@ func runCommand(name string, args ...string) error {
 
 // runHelmInstall installs a Helm chart directly (for operators with CRDs).
 // chartVersion is an optional upstream chart version override (e.g., "3.5.3")
-// for charts that have K8s-version-dependent pins. Pass "" to use the default
-// from Chart.yaml/dependency lock.
+// for charts that have K8s-version-dependent pins. When set, the Chart.yaml
+// dependency version is patched before install so the correct upstream chart
+// is fetched. Pass "" to use the default from Chart.yaml/dependency lock.
 // Optional valuesFiles are passed as --values to helm for environment-specific overrides.
 func runHelmInstall(chartDir, releaseName, namespace, chartVersion string, valuesFiles ...string) error {
 	// Create namespace first
@@ -462,6 +465,25 @@ func runHelmInstall(chartDir, releaseName, namespace, chartVersion string, value
 		applyCmd.Stdout = os.Stdout
 		applyCmd.Stderr = os.Stderr
 		applyCmd.Run()
+	}
+
+	// If chartVersion is set, patch the Chart.yaml dependency version so the
+	// correct upstream chart is resolved. Restore the original after install.
+	var chartYamlBak []byte
+	var chartYamlPath string
+	if chartVersion != "" {
+		chartYamlPath = filepath.Join(repoRoot, chartDir, "Chart.yaml")
+		data, err := os.ReadFile(chartYamlPath)
+		if err == nil {
+			chartYamlBak = make([]byte, len(data))
+			copy(chartYamlBak, data)
+			// Replace the dependency version line: `version: ~3.8.1` → `version: "3.5.3"`
+			patched := patchDependencyVersion(string(data), chartVersion)
+			if patched != string(data) {
+				os.WriteFile(chartYamlPath, []byte(patched), 0644)
+				defer os.WriteFile(chartYamlPath, chartYamlBak, 0644)
+			}
+		}
 	}
 
 	// Download chart dependencies (required for upstream charts like argo-cd)
@@ -478,9 +500,6 @@ func runHelmInstall(chartDir, releaseName, namespace, chartVersion string, value
 	installArgs := []string{"install", releaseName, chartDir,
 		"--namespace", namespace, "--create-namespace",
 		"--wait", "--timeout", "5m"}
-	if chartVersion != "" {
-		installArgs = append(installArgs, "--version", chartVersion)
-	}
 	for _, vf := range valuesFiles {
 		installArgs = append(installArgs, "--values", vf)
 	}
@@ -498,9 +517,6 @@ func runHelmInstall(chartDir, releaseName, namespace, chartVersion string, value
 	upgradeArgs := []string{"upgrade", "--install", releaseName, chartDir,
 		"--namespace", namespace, "--create-namespace",
 		"--wait", "--timeout", "5m"}
-	if chartVersion != "" {
-		upgradeArgs = append(upgradeArgs, "--version", chartVersion)
-	}
 	for _, vf := range valuesFiles {
 		upgradeArgs = append(upgradeArgs, "--values", vf)
 	}
@@ -519,6 +535,41 @@ func containsStr(s, substr string) bool {
 		}
 	}
 	return false
+}
+
+// patchDependencyVersion replaces the dependency version line in a Chart.yaml
+// with the given version. It looks for a line matching:
+//   version: ~X.Y.Z  or  version: "~X.Y.Z"
+// within a dependency block (starting with "  - name:" and ending at the next
+// top-level key). Returns the patched content.
+func patchDependencyVersion(chartYaml, newVersion string) string {
+	lines := strings.Split(chartYaml, "\n")
+	inDeps := false
+	inDep := false
+	for i, line := range lines {
+		trimmed := strings.TrimSpace(line)
+		if trimmed == "dependencies:" {
+			inDeps = true
+			continue
+		}
+		if inDeps {
+			// Top-level key ends the dependencies block
+			if trimmed != "" && !strings.HasPrefix(trimmed, "-") && !strings.HasPrefix(trimmed, "#") && line[0] != ' ' && line[0] != '\t' {
+				break
+			}
+			if strings.HasPrefix(trimmed, "- name:") {
+				inDep = true
+				continue
+			}
+			if inDep && strings.HasPrefix(trimmed, "version:") {
+				// Replace version line with new version (preserve indentation)
+				indent := line[:len(line)-len(strings.TrimLeft(line, " \t"))]
+				lines[i] = indent + "version: \"" + newVersion + "\""
+				break
+			}
+		}
+	}
+	return strings.Join(lines, "\n")
 }
 
 // runAnsiblePlaybook runs an ansible-playbook command in the repo root.

@@ -1,23 +1,110 @@
 Deploying Ubiquity cluster (sandbox environment)...
 
-  [1/6] metal — [36mINFO[0m[0000] Using config file metal/k3d-dev.yaml (k3d.io/v1alpha4#simple) 
-[33mWARN[0m[0000] Default config apiVersion is 'k3d.io/v1alpha5', but you're using 'k3d.io/v1alpha4': consider migrating. 
-[36mINFO[0m[0000] portmapping '80:80' targets the loadbalancer: defaulting to [servers:*:proxy agents:*:proxy] 
-[36mINFO[0m[0000] portmapping '443:443' targets the loadbalancer: defaulting to [servers:*:proxy agents:*:proxy] 
-[36mINFO[0m[0000] Prep: Network                                
-[36mINFO[0m[0000] Created network 'k3d-ubiquity-dev'           
-[36mINFO[0m[0000] Created image volume k3d-ubiquity-dev-images 
-[36mINFO[0m[0000] Starting new tools node...                   
-[36mINFO[0m[0000] Starting node 'k3d-ubiquity-dev-tools'       
-[36mINFO[0m[0001] Creating node 'k3d-ubiquity-dev-server-0'    
-[36mINFO[0m[0001] Creating node 'k3d-ubiquity-dev-agent-0'     
-[36mINFO[0m[0001] Creating LoadBalancer 'k3d-ubiquity-dev-serverlb' 
-[36mINFO[0m[0001] Using the k3d-tools node to gather environment information 
-[36mINFO[0m[0001] HostIP: using network gateway 172.19.0.1 address 
-[36mINFO[0m[0001] Starting cluster 'ubiquity-dev'              
-[36mINFO[0m[0001] Starting servers...                          
-[36mINFO[0m[0001] Starting node 'k3d-ubiquity-dev-server-0'    
-[36mINFO[0m[0007] Starting agents...                           
-[36mINFO[0m[0007] Starting node 'k3d-ubiquity-dev-agent-0'     
-[36mINFO[0m[0010] Starting helpers...                          
-[36mINFO[0m[0010] Starting node 'k3d-ubiquity-dev-serverlb'    
+  [1/6] metal — cluster already connected via kubectl, skipping k3d...OK
+  [2/6] bootstrap — installing ArgoCD...Kubernetes control plane is running at https://0.0.0.0:43779
+CoreDNS is running at https://0.0.0.0:43779/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+Metrics-server is running at https://0.0.0.0:43779/api/v1/namespaces/kube-system/services/https:metrics-server:https/proxy
+
+To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
+namespace/argocd created
+namespace/argocd configured
+updating chart dependencies...Getting updates for unmanaged Helm repositories...
+...Successfully got an update from the "https://argoproj.github.io/argo-helm" chart repository
+Hang tight while we grab the latest from your chart repositories...
+...Successfully got an update from the "kyverno" chart repository
+Update Complete. ⎈Happy Helming!⎈
+Saving 1 charts
+Downloading argo-cd from repo https://argoproj.github.io/argo-helm
+Deleting outdated charts
+NAME: argocd
+LAST DEPLOYED: Wed May 27 01:54:39 2026
+NAMESPACE: argocd
+STATUS: deployed
+REVISION: 1
+waiting for CRDs...customresourcedefinition.apiextensions.k8s.io/applications.argoproj.io condition met
+customresourcedefinition.apiextensions.k8s.io/applicationsets.argoproj.io condition met
+applying root ApplicationSet...apiVersion: v1
+kind: Namespace
+metadata:
+  creationTimestamp: null
+  name: argocd
+spec: {}
+status: {}
+namespace/argocd configured
+applicationset.argoproj.io/bootstrap created
+applicationset.argoproj.io/system created
+applicationset.argoproj.io/monitoring created
+applicationset.argoproj.io/platform created
+applicationset.argoproj.io/apps created
+done...sops decrypt skipped...OK
+  [3/6] security — deploying Kyverno and baseline policies...Kubernetes control plane is running at https://0.0.0.0:43779
+CoreDNS is running at https://0.0.0.0:43779/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+Metrics-server is running at https://0.0.0.0:43779/api/v1/namespaces/kube-system/services/https:metrics-server:https/proxy
+
+To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
+namespace/kyverno created
+namespace/kube-bench created
+namespace/kyverno configured
+updating chart dependencies...Hang tight while we grab the latest from your chart repositories...
+...Successfully got an update from the "kyverno" chart repository
+Update Complete. ⎈Happy Helming!⎈
+Saving 1 charts
+Downloading kyverno from repo https://kyverno.github.io/kyverno
+Deleting outdated charts
+NAME: kyverno
+LAST DEPLOYED: Wed May 27 01:56:07 2026
+NAMESPACE: kyverno
+STATUS: deployed
+REVISION: 1
+applying policies...namespace/kyverno configured
+updating chart dependencies...I0527 01:56:38.233147  298868 warnings.go:107] "Warning: system:serviceaccount:kyverno:kyverno-reports-controller requires permissions get,list,watch for resource Secret"
+NAME: kyverno-policies
+LAST DEPLOYED: Wed May 27 01:56:38 2026
+NAMESPACE: kyverno
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+networkpolicy.networking.k8s.io/allow-dns created
+networkpolicy.networking.k8s.io/default-deny-egress created
+networkpolicy.networking.k8s.io/default-deny-ingress created
+apiVersion: v1
+kind: Namespace
+metadata:
+  creationTimestamp: null
+  name: kube-bench
+spec: {}
+status: {}
+namespace/kube-bench configured
+serviceaccount/release-kube-bench created
+configmap/release-kube-bench-config created
+persistentvolumeclaim/release-kube-bench-results created
+clusterrole.rbac.authorization.k8s.io/release-kube-bench created
+clusterrolebinding.rbac.authorization.k8s.io/release-kube-bench created
+cronjob.batch/release-kube-bench created
+security baseline applied...OK
+  [4/6] external — no external resources in sandbox mode...OK
+  [5/6] wait — checking application readiness...pod/argocd-application-controller-0 condition met
+pod/argocd-applicationset-controller-6584dc495c-4bfh7 condition met
+pod/argocd-notifications-controller-679b64d6c7-4jw89 condition met
+pod/argocd-redis-ha-haproxy-dbbc7dfb5-k8j5z condition met
+pod/argocd-redis-ha-server-0 condition met
+pod/argocd-repo-server-7f8bcb9c77-65qxp condition met
+pod/argocd-server-5748d4d764-mwxv5 condition met
+applications ready...OK
+  [6/6] post-install — no post-install tasks in sandbox mode...OK
+
+Ubiquity cluster deployment complete.
+Ubiquity Cluster Status (sandbox)
+=====================
+
+Phase           Status     Duration
+─────           ──────     ────────
+metal           success    0s
+bootstrap       success    1m29s
+security        success    34s
+external        success    0s
+wait            success    1s
+post-install    success    0s
+
+Last updated: 2026-05-26T23:56:40Z
+
