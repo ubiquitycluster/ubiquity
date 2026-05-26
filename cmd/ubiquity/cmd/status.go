@@ -17,6 +17,8 @@ package cmd
 
 import (
 	"fmt"
+	"net/http"
+	"os/exec"
 
 	"github.com/spf13/cobra"
 	"github.com/ubiquitycluster/ubiquity/pkg/provision"
@@ -44,6 +46,10 @@ var statusCmd = &cobra.Command{
 		} else {
 			tui.PrintStatus(state)
 		}
+
+		// Check PXE installer status
+		checkInstallerStatus()
+
 		return nil
 	},
 }
@@ -51,4 +57,24 @@ var statusCmd = &cobra.Command{
 func init() {
 	rootCmd.AddCommand(statusCmd)
 	statusCmd.Flags().Bool("plain", false, "plain text output (disable TUI)")
+}
+
+// checkInstallerStatus queries the PXE installer phone-home API if running.
+func checkInstallerStatus() {
+	// Check if ubiquity-installer binary exists
+	if _, err := exec.LookPath("ubiquity-installer"); err != nil {
+		return
+	}
+
+	// Query the phone-home API
+	resp, err := http.Get("http://localhost:8080/status")
+	if err != nil {
+		return
+	}
+	defer resp.Body.Close()
+
+	fmt.Println()
+	fmt.Println("PXE Installer:")
+	fmt.Println("  API: http://localhost:8080/status")
+	fmt.Println("  Status: running")
 }
