@@ -1,0 +1,21 @@
+nameOverride: ollama
+image:
+  repository: ollama/ollama
+  tag: latest
+service:
+  port: 11434
+  targetPort: 11434
+persistence:
+  enabled: true
+  size: 50Gi
+  storageClass: longhorn
+resources:
+  limits:
+    memory: 8Gi
+    cpu: 4
+  requests:
+    memory: 4Gi
+    cpu: 2
+env:
+  - name: OLLAMA_KEEP_ALIVE
+    value: "24h"
