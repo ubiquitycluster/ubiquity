@@ -1,4 +1,5 @@
 site/
-ubiquity
-ubiquity-cli
+/ubiquity
+/ubiquity-cli
+/ubiquity-installer
 dist/
