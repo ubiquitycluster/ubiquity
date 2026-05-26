@@ -1,3 +1,4 @@
+# The ubiquity CLI is the recommended entry point. Run 'ubiquity up' instead.
 # Copyright The Ubiquity Authors.
 #
 # Licensed under the Apache License, Version 2.0. Previously licensed under the Functional Source License (the "License");
@@ -44,7 +45,13 @@ KUBECONFIG = $(shell pwd)/metal/kubeconfig.yaml
 KUBE_CONFIG_PATH = $(KUBECONFIG)
 
 test1: metal bootstrap wait post-install
-default: metal bootstrap external wait post-install
+default:
+	@echo "============================================"
+	@echo "  Ubiquity - HPC Cluster Lifecycle Platform"
+	@echo "  The CLI is the recommended entry point."
+	@echo "  Run: ubiquity up --sandbox"
+	@echo "============================================"
+	@exit 0
 ucl: cluster bootstrap external wait post-install
 demo_onprem: metal bootstrap external wait post-install
 demo_azure: azure cluster bootstrap external wait post-install
@@ -184,6 +191,18 @@ clean:
 
 clean-sandbox:
 	make -C metal clean-sandbox
+
+# -------------------------------------------------------------------------------------------------
+# CLI Targets
+# -------------------------------------------------------------------------------------------------
+
+# Build the ubiquity CLI binary with version info
+cli:
+	go build -ldflags "-X github.com/ubiquitycluster/ubiquity/cmd/ubiquity/cmd.Version=latest -X github.com/ubiquitycluster/ubiquity/cmd/ubiquity/cmd.Commit=$$(git rev-parse --short HEAD 2>/dev/null) -X github.com/ubiquitycluster/ubiquity/cmd/ubiquity/cmd.Date=$$(date -u +%Y-%m-%d)" -o ubiquity-cli ./cmd/ubiquity/
+	@echo "Built: ubiquity-cli"
+
+install: cli
+	install -m 755 ubiquity-cli /usr/local/bin/ubiquity
 # -------------------------------------------------------------------------------------------------
 # Build Targets
 # -------------------------------------------------------------------------------------------------
