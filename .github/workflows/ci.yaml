@@ -65,6 +65,11 @@ jobs:
       - name: Run gitleaks
         run: gitleaks detect --source . -v --no-git
 
+      - name: Check sops tools
+        run: |
+          which age-keygen || echo "age not installed"
+          which sops || echo "sops not installed"
+
       - name: Helm diff
         if: github.event_name == 'pull_request'
         run: |
