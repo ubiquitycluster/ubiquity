@@ -1,0 +1,17 @@
+name: kyverno-policy-tests
+policies:
+  - ../templates/restricted-pod-security.yaml
+  - ../templates/disallow-privileged-containers.yaml
+  - ../templates/require-labels.yaml
+resources:
+  - resources/valid-pod.yaml
+  - resources/privileged-pod.yaml
+results:
+  - policy: disallow-privileged-containers
+    rule: privileged-containers
+    resource: valid-pod
+    result: pass
+  - policy: disallow-privileged-containers
+    rule: privileged-containers
+    resource: privileged-pod
+    result: fail
