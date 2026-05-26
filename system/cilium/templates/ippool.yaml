@@ -1,0 +1,14 @@
+{{- if .Values.loadBalancerIPPool.enabled }}
+---
+apiVersion: cilium.io/v2alpha1
+kind: CiliumLoadBalancerIPPool
+metadata:
+  name: {{ include "cilium.fullname" . }}-pool
+  labels:
+    {{- include "cilium.labels" . | nindent 4 }}
+spec:
+  blocks:
+    {{- range .Values.loadBalancerIPPool.cidrs }}
+    - cidr: {{ . }}
+    {{- end }}
+{{- end }}
