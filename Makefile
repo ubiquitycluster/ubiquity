@@ -290,3 +290,7 @@ build:
 rebuild: NO_CACHE=--no-cache
 rebuild: pull-base-image
 rebuild: build
+
+# Build the PXE installer binary
+installer:
+	cd tools && go build -o ../ubiquity-installer ./cmd/ubiquity-install/

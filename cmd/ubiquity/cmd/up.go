@@ -28,6 +28,9 @@ import (
 // skipSecurity is set by upCmd's RunE to avoid circular references.
 var skipSecurity bool
 
+// pkgPxeInstaller is set when --pxe-installer is passed.
+var pkgPxeInstaller bool
+
 // provider is the phase execution provider. Reassignable for testing.
 var provider provision.Provider = &provision.RealProvider{}
 
@@ -49,6 +52,7 @@ Phase ordering:
 		env, _ := cmd.Flags().GetString("env")
 		sandbox, _ := cmd.Flags().GetBool("sandbox")
 		skipSecurity, _ = cmd.Flags().GetBool("skip-security")
+		pkgPxeInstaller, _ = cmd.Flags().GetBool("pxe-installer")
 		if sandbox {
 			env = "sandbox"
 		}
@@ -97,7 +101,16 @@ func provisionMetal(env string) error {
 	if env == "sandbox" || env == "dev" {
 		return runSandbox()
 	}
+	if pkgPxeInstaller {
+		return provisionPXE(env)
+	}
 	fmt.Print("provisioning infrastructure via Ansible...")
+	return nil
+}
+
+// provisionPXE provisions nodes using the Go-based PXE installer.
+func provisionPXE(env string) error {
+	fmt.Print("provisioning infrastructure via PXE installer...")
 	return nil
 }
 
@@ -282,6 +295,7 @@ func init() {
 	rootCmd.AddCommand(upCmd)
 	upCmd.Flags().Bool("sandbox", false, "deploy in sandbox mode (alias for --env sandbox)")
 	upCmd.Flags().Bool("skip-security", false, "skip security policy deployment")
+	upCmd.Flags().Bool("pxe-installer", false, "use Go-based PXE installer instead of Docker Compose")
 }
 
 // repoRoot is the absolute path to the ubiquity repository root.
