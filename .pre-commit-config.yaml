@@ -1,3 +1,9 @@
+ci:
+  autofix_commit_msg: "chore: [pre-commit.ci] auto fixes"
+  autoupdate_commit_msg: "chore: [pre-commit.ci] autoupdate hooks"
+  autoupdate_schedule: monthly
+  submodules: false
+
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v5.0.0
@@ -38,7 +44,7 @@ repos:
     rev: v25.1.0
     hooks:
       - id: ansible-lint
-        files: \.(yaml|yml)$
+        files: \\.(yaml|yml)$
         args: [--exclude, metal/roles/automatic_upgrade/]
 
   - repo: https://github.com/gruntwork-io/pre-commit
@@ -50,3 +56,9 @@ repos:
     rev: v8.18.0
     hooks:
       - id: gitleaks
+
+  - repo: https://github.com/tekwizely/pre-commit-golang
+    rev: v1.0.0-rc.1
+    hooks:
+      - id: go-fmt
+      - id: go-mod-tidy
