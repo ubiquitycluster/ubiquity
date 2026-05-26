@@ -58,6 +58,7 @@ type State struct {
 var PipelineOrder = []string{
 	"metal",
 	"bootstrap",
+	"security",
 	"external",
 	"wait",
 	"post-install",

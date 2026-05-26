@@ -28,9 +28,9 @@ var retryCmd = &cobra.Command{
 	Long: `Re-runs a specific provisioning phase that previously failed.
 Use 'ubiquity status' to see which phases need attention.
 
-Valid phases: metal, bootstrap, external, wait, post-install`,
+Valid phases: metal, bootstrap, security, external, wait, post-install`,
 	Args: cobra.ExactArgs(1),
-	ValidArgs: []string{"metal", "bootstrap", "external", "wait", "post-install"},
+	ValidArgs: []string{"metal", "bootstrap", "security", "external", "wait", "post-install"},
 	RunE: func(cmd *cobra.Command, args []string) error {
 		phase := args[0]
 

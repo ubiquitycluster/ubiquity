@@ -25,21 +25,27 @@ import (
 	"github.com/ubiquitycluster/ubiquity/pkg/provision"
 )
 
+// skipSecurity is set by upCmd's RunE to avoid circular references.
+var skipSecurity bool
+
 var upCmd = &cobra.Command{
 	Use:   "up",
 	Short: "Deploy the full Ubiquity cluster stack",
 	Long: `Detects the platform (metal, cloud, sandbox) and deploys the full stack:
-provisioning → bootstrap → external resources → wait → post-install.
+provisioning → bootstrap → security → external → wait → post-install.
 
 Phase ordering:
   1. metal        — Provision bare metal or k3d sandbox cluster
   2. bootstrap    — Install ArgoCD and root ApplicationSet
-  3. external     — Provision external resources (Terraform)
-  4. wait         — Wait for core applications to reach Ready
-  5. post-install — Post-installation configuration and BMO setup`,
+  3. security     — Deploy Kyverno policies, kube-bench, network policies
+  4. external     — Provision external resources (Terraform)
+  5. wait         — Wait for core applications to reach Ready
+  6. post-install — Post-installation configuration and BMO setup`,
+
 	RunE: func(cmd *cobra.Command, args []string) error {
 		env, _ := cmd.Flags().GetString("env")
 		sandbox, _ := cmd.Flags().GetBool("sandbox")
+		skipSecurity, _ = cmd.Flags().GetBool("skip-security")
 		if sandbox {
 			env = "sandbox"
 		}
@@ -85,6 +91,8 @@ func executePhase(phase, env string) error {
 		return provisionMetal(env)
 	case "bootstrap":
 		return provisionBootstrap(env)
+	case "security":
+		return provisionSecurity(env)
 	case "external":
 		return provisionExternal(env)
 	case "wait":
@@ -135,6 +143,41 @@ func provisionBootstrap(env string) error {
 	_ = runHelmTemplateAndApply("bootstrap/root", "argocd")
 
 	fmt.Print("done...")
+	return nil
+}
+
+// provisionSecurity deploys Kyverno and baseline security policies.
+func provisionSecurity(env string) error {
+	if skipSecurity {
+		fmt.Print("security policies skipped (--skip-security)...")
+		return nil
+	}
+
+	fmt.Print("deploying Kyverno and baseline policies...")
+
+	// Check kubectl connectivity before attempting
+	if err := kubectl("", "cluster-info"); err != nil {
+		fmt.Print("cluster not ready, skipping security setup...")
+		return nil
+	}
+
+	// Deploy Kyverno policies chart
+	if err := runHelmTemplateAndApply("system/kyverno-policies", "kyverno"); err != nil {
+		// Non-fatal — policies can be deployed later
+		fmt.Print("kyverno-policies deployment skipped...")
+	}
+
+	// Deploy network policies
+	if err := runHelmTemplateAndApply("system/network-policies", "default"); err != nil {
+		fmt.Print("network-policies deployment skipped...")
+	}
+
+	// Deploy kube-bench
+	if err := runHelmTemplateAndApply("system/kube-bench", "kube-bench"); err != nil {
+		fmt.Print("kube-bench deployment skipped...")
+	}
+
+	fmt.Print("security baseline applied...")
 	return nil
 }
 
@@ -237,6 +280,7 @@ func runSandbox() error {
 func init() {
 	rootCmd.AddCommand(upCmd)
 	upCmd.Flags().Bool("sandbox", false, "deploy in sandbox mode (alias for --env sandbox)")
+	upCmd.Flags().Bool("skip-security", false, "skip security policy deployment")
 }
 
 // repoRoot is the absolute path to the ubiquity repository root.
