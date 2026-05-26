@@ -1,0 +1,7 @@
+# k3s versions for multi-version test matrix.
+# Each line is a docker image tag for rancher/k3s.
+# Test all supported minor releases — the test harness runs ubiquity up
+# against each version and validates compatibility.
+rancher/k3s:v1.30.14-k3s2
+rancher/k3s:v1.31.14-k3s1
+rancher/k3s:v1.32.13-k3s1

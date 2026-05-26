@@ -1,0 +1,32 @@
+---
+# Copyright The Ubiquity Authors.
+#
+# Licensed under the Apache License, Version 2.0.
+# See https://github.com/ubiquitycluster/ubiquity/blob/main/LICENSE
+#
+# Templatized k3d config for multi-version test harness.
+# The K3S_IMAGE environment variable selects the k3s version.
+# Cluster name includes the version tag to avoid collisions.
+apiVersion: k3d.io/v1alpha4
+kind: Simple
+metadata:
+  name: ubiquity-test-${K3S_VERSION_TAG}
+image: ${K3S_IMAGE}
+servers: 1
+agents: 1
+options:
+  k3s:
+    extraArgs:
+      - arg: --disable=traefik
+        nodeFilters:
+          - server:*
+      - arg: --disable-cloud-controller
+        nodeFilters:
+          - server:*
+ports:
+  - port: 80:80
+    nodeFilters:
+      - loadbalancer
+  - port: 443:443
+    nodeFilters:
+      - loadbalancer

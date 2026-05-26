@@ -164,11 +164,12 @@ func provisionBootstrap(env string) error {
 	}
 
 	// Install ArgoCD via helm (this handles CRDs correctly)
+	// Auto-detect K8s version for chart version selection (argo-cd has no pins, pass "")
 	if env == "sandbox" {
-		if err := runHelmInstall("bootstrap/argocd", "argocd", "argocd", "bootstrap/argocd/values-sandbox.yaml"); err != nil {
+		if err := runHelmInstall("bootstrap/argocd", "argocd", "argocd", "", "bootstrap/argocd/values-sandbox.yaml"); err != nil {
 			return fmt.Errorf("argo install failed: %w", err)
 		}
-	} else if err := runHelmInstall("bootstrap/argocd", "argocd", "argocd"); err != nil {
+	} else if err := runHelmInstall("bootstrap/argocd", "argocd", "argocd", ""); err != nil {
 		return fmt.Errorf("argo install failed: %w", err)
 	}
 	fmt.Print("waiting for CRDs...")
@@ -227,15 +228,18 @@ func provisionSecurity(env string) error {
 	}
 
 	// Install the Kyverno operator (provides kyverno.io/v1 CRDs).
-	// On K8s >= 1.28 this includes ValidatingAdmissionPolicy support;
-	// on K8s >= 1.29 selectableFields in CRDs work.
-	if err := runHelmInstall("system/kyverno", "kyverno", "kyverno"); err != nil {
+	// Version is auto-selected based on detected K8s version
+	// (chart 3.5.3 for K8s < 1.32, 3.8.1 for K8s >= 1.32).
+	kv, _ := detectKubeVersion()
+	kvStr := fmt.Sprintf("%d", kv)
+	kyvVer := lookupChartVersion("system/kyverno", kvStr)
+	if err := runHelmInstall("system/kyverno", "kyverno", "kyverno", kyvVer); err != nil {
 		fmt.Print("kyverno operator install skipped...")
 	}
 
 	// Deploy baseline Kyverno policies (ClusterPolicy resources)
 	fmt.Print("applying policies...")
-	if err := runHelmInstall("system/kyverno-policies", "kyverno-policies", "kyverno"); err != nil {
+	if err := runHelmInstall("system/kyverno-policies", "kyverno-policies", "kyverno", ""); err != nil {
 		fmt.Print("kyverno policies install skipped...")
 	}
 
@@ -437,8 +441,11 @@ func runCommand(name string, args ...string) error {
 }
 
 // runHelmInstall installs a Helm chart directly (for operators with CRDs).
+// chartVersion is an optional upstream chart version override (e.g., "3.5.3")
+// for charts that have K8s-version-dependent pins. Pass "" to use the default
+// from Chart.yaml/dependency lock.
 // Optional valuesFiles are passed as --values to helm for environment-specific overrides.
-func runHelmInstall(chartDir, releaseName, namespace string, valuesFiles ...string) error {
+func runHelmInstall(chartDir, releaseName, namespace, chartVersion string, valuesFiles ...string) error {
 	// Create namespace first
 	nsOut, _ := kubectlOutput("create", "namespace", namespace, "--dry-run=client", "-o", "yaml")
 	if len(nsOut) > 0 {
@@ -463,6 +470,9 @@ func runHelmInstall(chartDir, releaseName, namespace string, valuesFiles ...stri
 	installArgs := []string{"install", releaseName, chartDir,
 		"--namespace", namespace, "--create-namespace",
 		"--wait", "--timeout", "5m"}
+	if chartVersion != "" {
+		installArgs = append(installArgs, "--version", chartVersion)
+	}
 	for _, vf := range valuesFiles {
 		installArgs = append(installArgs, "--values", vf)
 	}
@@ -480,6 +490,9 @@ func runHelmInstall(chartDir, releaseName, namespace string, valuesFiles ...stri
 	upgradeArgs := []string{"upgrade", "--install", releaseName, chartDir,
 		"--namespace", namespace, "--create-namespace",
 		"--wait", "--timeout", "5m"}
+	if chartVersion != "" {
+		upgradeArgs = append(upgradeArgs, "--version", chartVersion)
+	}
 	for _, vf := range valuesFiles {
 		upgradeArgs = append(upgradeArgs, "--values", vf)
 	}

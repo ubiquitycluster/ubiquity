@@ -307,6 +307,23 @@ demo:
 	@echo "Demo saved to ubiquity-demo.cast"
 	@echo "Upload to https://asciinema.org or replay locally with 'asciinema play ubiquity-demo.cast'"
 
+# ── Multi-version k3s test matrix ──────────────────────────────────────────
+.PHONY: test-k3d-matrix test-k3d-v1.30 test-k3d-v1.31 test-k3d-v1.32
+
+# Run the full k3s version matrix test
+test-k3d-matrix:
+	bash test/k3d-matrix.sh
+
+# Test a specific k3s version
+test-k3d-v1.30:
+	K3S_IMAGE=rancher/k3s:v1.30.14-k3s2 bash test/k3d-matrix.sh
+
+test-k3d-v1.31:
+	K3S_IMAGE=rancher/k3s:v1.31.14-k3s1 bash test/k3d-matrix.sh
+
+test-k3d-v1.32:
+	K3S_IMAGE=rancher/k3s:v1.32.13-k3s1 bash test/k3d-matrix.sh
+
 # Show available targets
 help:
 	@echo "Available targets:"
