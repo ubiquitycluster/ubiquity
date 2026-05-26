@@ -109,6 +109,29 @@ func TestConfigFlagExists(t *testing.T) {
 	}
 }
 
+func TestUpSandboxFlag(t *testing.T) {
+	upCmd := findCommand(rootCmd, "up")
+	if upCmd == nil {
+		t.Fatal("expected up command to exist")
+	}
+	flag := upCmd.Flags().Lookup("sandbox")
+	if flag == nil {
+		t.Fatal("expected --sandbox flag on up command")
+	}
+	if flag.DefValue != "false" {
+		t.Errorf("expected --sandbox default to be false, got %q", flag.DefValue)
+	}
+}
+
+func findCommand(parent *cobra.Command, name string) *cobra.Command {
+	for _, c := range parent.Commands() {
+		if c.Use == name {
+			return c
+		}
+	}
+	return nil
+}
+
 func TestSubcommandRegistration(t *testing.T) {
 	// Verify each subcommand has the correct Use field
 	subcommands := rootCmd.Commands()

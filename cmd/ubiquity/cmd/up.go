@@ -17,6 +17,8 @@ package cmd
 
 import (
 	"fmt"
+	"os"
+	"os/exec"
 
 	"github.com/spf13/cobra"
 	"github.com/ubiquitycluster/ubiquity/pkg/provision"
@@ -129,11 +131,71 @@ func provisionPostInstall(env string) error {
 
 // runSandbox boots a local k3d cluster for development/testing.
 func runSandbox() error {
-	// In sandbox mode: ensure k3d is installed and create a cluster
+	// Check if k3d is installed
+	if _, err := exec.LookPath("k3d"); err != nil {
+		fmt.Print("k3d not found, installing...")
+		// Attempt to install k3d
+		installCmd := exec.Command("bash", "-c", "curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash")
+		installCmd.Stdout = os.Stdout
+		installCmd.Stderr = os.Stderr
+		if err := installCmd.Run(); err != nil {
+			return fmt.Errorf("installing k3d: %w", err)
+		}
+	}
+
+	// Check if k3d cluster exists
+	checkCmd := exec.Command("k3d", "cluster", "list", "-o", "json")
+	output, err := checkCmd.Output()
+	if err == nil && !containsStr(string(output), "ubiquity-dev") {
+		// Create cluster
+		createCmd := exec.Command("k3d", "cluster", "create", "ubiquity-dev", "--config", "metal/k3d-dev.yaml")
+		createCmd.Dir = repoRoot
+		createCmd.Stdout = os.Stdout
+		createCmd.Stderr = os.Stderr
+		if err := createCmd.Run(); err != nil {
+			return fmt.Errorf("creating k3d cluster: %w", err)
+		}
+		fmt.Print("cluster created...")
+	} else if containsStr(string(output), "ubiquity-dev") {
+		fmt.Print("cluster already exists, starting...")
+		startCmd := exec.Command("k3d", "cluster", "start", "ubiquity-dev")
+		startCmd.Stdout = os.Stdout
+		startCmd.Stderr = os.Stderr
+		if err := startCmd.Run(); err != nil {
+			return fmt.Errorf("starting k3d cluster: %w", err)
+		}
+	}
+
+	// Get kubeconfig
+	kubeconfigCmd := exec.Command("k3d", "kubeconfig", "get", "ubiquity-dev")
+	kubeconfigOut, err := kubeconfigCmd.Output()
+	if err != nil {
+		return fmt.Errorf("getting kubeconfig: %w", err)
+	}
+	if err := os.WriteFile("metal/kubeconfig.yaml", kubeconfigOut, 0644); err != nil {
+		return fmt.Errorf("writing kubeconfig: %w", err)
+	}
+
 	return nil
 }
 
 func init() {
 	rootCmd.AddCommand(upCmd)
 	upCmd.Flags().Bool("sandbox", false, "deploy in sandbox mode (alias for --env sandbox)")
+}
+
+// repoRoot is the absolute path to the ubiquity repository root.
+var repoRoot = func() string {
+	wd, _ := os.Getwd()
+	return wd
+}()
+
+// containsStr reports whether substr is within s.
+func containsStr(s, substr string) bool {
+	for i := 0; i <= len(s)-len(substr); i++ {
+		if s[i:i+len(substr)] == substr {
+			return true
+		}
+	}
+	return false
 }
