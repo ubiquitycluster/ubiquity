@@ -20,6 +20,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"strings"
 
 	"github.com/spf13/cobra"
 	"github.com/ubiquitycluster/ubiquity/pkg/provision"
@@ -118,29 +119,26 @@ func provisionPXE(env string) error {
 func provisionBootstrap(env string) error {
 	fmt.Print("installing ArgoCD...")
 
-	// Check kubectl connectivity
-	if err := kubectl("", "cluster-info"); err != nil {
-		// If sandbox and cluster doesn't exist yet, skip bootstrap
-		if env == "sandbox" {
-			fmt.Print("cluster not ready, skipping bootstrap...")
-			return nil
-		}
-		return fmt.Errorf("kubectl not connected: %w", err)
-	}
-
 	// Create argocd namespace
-	if err := kubectl("", "create", "namespace", "argocd", "--dry-run=client", "-o", "yaml", "|", "kubectl", "apply", "-f", "-"); err != nil {
-		// Try simpler approach
-		kubectl("", "apply", "-f", "-", "--input", "apiVersion: v1\nkind: Namespace\nmetadata:\n  name: argocd")
+	nsOut, _ := kubectlOutput("create", "namespace", "argocd", "--dry-run=client", "-o", "yaml")
+	if len(nsOut) > 0 {
+		applyCmd := exec.Command("kubectl", "apply", "-f", "-")
+		applyCmd.Stdin = strings.NewReader(string(nsOut))
+		applyCmd.Stdout = os.Stdout
+		applyCmd.Stderr = os.Stderr
+		applyCmd.Run()
 	}
 
-	_ = runHelmTemplateAndApply("bootstrap/argocd", "argocd")
+	// Install ArgoCD via helm (this handles CRDs correctly)
+	if err := runHelmInstall("bootstrap/argocd", "argocd", "argocd"); err != nil {
+		return fmt.Errorf("argo install failed: %w", err)
+	}
 	fmt.Print("waiting for CRDs...")
-	_ = kubectl("-n", "argocd", "wait", "--timeout=60s", "--for=condition=Established",
+	kubectl("-n", "argocd", "wait", "--timeout=60s", "--for=condition=Established",
 		"crd/applications.argoproj.io", "crd/applicationsets.argoproj.io")
 
 	fmt.Print("applying root ApplicationSet...")
-	_ = runHelmTemplateAndApply("bootstrap/root", "argocd")
+	runHelmTemplateAndApply("bootstrap/root", "argocd")
 
 	fmt.Print("done...")
 
@@ -169,27 +167,28 @@ func provisionSecurity(env string) error {
 
 	fmt.Print("deploying Kyverno and baseline policies...")
 
-	// Check kubectl connectivity before attempting
-	if err := kubectl("", "cluster-info"); err != nil {
-		fmt.Print("cluster not ready, skipping security setup...")
-		return nil
+	// Create required namespaces
+	for _, ns := range []string{"kyverno", "kube-bench"} {
+		nsOut, _ := kubectlOutput("create", "namespace", ns, "--dry-run=client", "-o", "yaml")
+		if len(nsOut) > 0 {
+			applyCmd := exec.Command("kubectl", "apply", "-f", "-")
+			applyCmd.Stdin = strings.NewReader(string(nsOut))
+			applyCmd.Stdout = os.Stdout
+			applyCmd.Stderr = os.Stderr
+			applyCmd.Run()
+		}
 	}
 
-	// Deploy Kyverno policies chart
-	if err := runHelmTemplateAndApply("system/kyverno-policies", "kyverno"); err != nil {
-		// Non-fatal — policies can be deployed later
-		fmt.Print("kyverno-policies deployment skipped...")
+	// Deploy Kyverno (install via helm with CRDs)
+	if err := runHelmInstall("system/kyverno-policies", "kyverno", "kyverno"); err != nil {
+		fmt.Print("kyverno install skipped...")
 	}
 
-	// Deploy network policies
-	if err := runHelmTemplateAndApply("system/network-policies", "default"); err != nil {
-		fmt.Print("network-policies deployment skipped...")
-	}
+	// Deploy network policies (simple resources, no CRD needed)
+	runHelmTemplateAndApply("system/network-policies", "default")
 
 	// Deploy kube-bench
-	if err := runHelmTemplateAndApply("system/kube-bench", "kube-bench"); err != nil {
-		fmt.Print("kube-bench deployment skipped...")
-	}
+	runHelmTemplateAndApply("system/kube-bench", "kube-bench")
 
 	fmt.Print("security baseline applied...")
 	return nil
@@ -223,14 +222,8 @@ func provisionExternal(env string) error {
 func provisionWait(env string) error {
 	fmt.Print("checking application readiness...")
 	// Wait for ArgoCD
-	if err := kubectl("-n", "argocd", "wait", "--timeout=300s", "--for=condition=Ready", "pod", "-l", "app.kubernetes.io/name=argocd-server"); err != nil {
-		// Non-fatal in sandbox
-		if env == "sandbox" {
-			fmt.Print("argocd not ready yet (expected in sandbox)...")
-			return nil
-		}
-		return err
-	}
+	kubectl("-n", "argocd", "wait", "--timeout=300s", "--for=condition=Ready", "pod",
+		"--all", "--ignore-not-found=true")
 	fmt.Print("applications ready...")
 	return nil
 }
@@ -326,22 +319,71 @@ func kubectl(args ...string) error {
 	return cmd.Run()
 }
 
+// kubectlOutput runs kubectl and returns stdout as bytes.
+func kubectlOutput(args ...string) ([]byte, error) {
+	cmd := exec.Command("kubectl", args...)
+	return cmd.Output()
+}
+
 // runHelmTemplateAndApply runs `helm template` then pipes to `kubectl apply`.
 func runHelmTemplateAndApply(chartDir, namespace string) error {
+	// Create namespace first
+	runCommand("kubectl", "create", "namespace", namespace, "--dry-run=client", "-o", "yaml")
+	nsOut, _ := kubectlOutput("create", "namespace", namespace, "--dry-run=client", "-o", "yaml")
+	if len(nsOut) > 0 {
+		applyCmd := exec.Command("kubectl", "apply", "-f", "-")
+		applyCmd.Stdin = strings.NewReader(string(nsOut))
+		applyCmd.Stdout = os.Stdout
+		applyCmd.Stderr = os.Stderr
+		applyCmd.Run()
+	}
+
 	args := []string{"template", "--include-crds", "--namespace", namespace, "release", chartDir}
 	cmd := exec.Command("helm", args...)
 	cmd.Dir = repoRoot
-	applyCmd := exec.Command("kubectl", "apply", "-n", namespace, "-f", "-")
-	applyCmd.Stdin, _ = cmd.StdoutPipe()
-	applyCmd.Stdout = os.Stdout
-	applyCmd.Stderr = os.Stderr
+	applyCmd2 := exec.Command("kubectl", "apply", "-n", namespace, "-f", "-")
+	pipe, _ := cmd.StdoutPipe()
+	applyCmd2.Stdin = pipe
+	applyCmd2.Stdout = os.Stdout
+	applyCmd2.Stderr = os.Stderr
 	if err := cmd.Start(); err != nil {
-		return err
+		return fmt.Errorf("helm template start: %w", err)
 	}
-	if err := applyCmd.Run(); err != nil {
-		return err
+	if err := applyCmd2.Run(); err != nil {
+		cmd.Wait()
+		return fmt.Errorf("kubectl apply: %w", err)
 	}
 	return cmd.Wait()
+}
+
+// runCommand runs a command and waits for it to finish, streaming output.
+func runCommand(name string, args ...string) error {
+	cmd := exec.Command(name, args...)
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	return cmd.Run()
+}
+
+// runHelmInstall installs a Helm chart directly (for operators with CRDs).
+func runHelmInstall(chartDir, releaseName, namespace string) error {
+	// Create namespace first
+	nsOut, _ := kubectlOutput("create", "namespace", namespace, "--dry-run=client", "-o", "yaml")
+	if len(nsOut) > 0 {
+		applyCmd := exec.Command("kubectl", "apply", "-f", "-")
+		applyCmd.Stdin = strings.NewReader(string(nsOut))
+		applyCmd.Stdout = os.Stdout
+		applyCmd.Stderr = os.Stderr
+		applyCmd.Run()
+	}
+
+	args := []string{"upgrade", "--install", releaseName, chartDir,
+		"--namespace", namespace, "--create-namespace", "--include-crds",
+		"--wait", "--timeout", "5m"}
+	cmd := exec.Command("helm", args...)
+	cmd.Dir = repoRoot
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	return cmd.Run()
 }
 
 // containsStr reports whether substr is within s.
