@@ -172,7 +172,12 @@ nixos:
 test:
 	make -C test
 
-dev: metal bootstrap wait post-install
+# Development workflow
+dev: cli
+	@echo "============================================"
+	@echo "  Development environment ready"
+	@echo "  Run: ./ubiquity-cli up --sandbox"
+	@echo "============================================"
 
 docs:
 	docker run \
@@ -294,3 +299,13 @@ rebuild: build
 # Build the PXE installer binary
 installer:
 	cd tools && go build -o ../ubiquity-installer ./cmd/ubiquity-install/
+
+# Show available targets
+help:
+	@echo "Available targets:"
+	@echo "  cli         Build the ubiquity CLI binary"
+	@echo "  installer   Build the PXE installer binary"
+	@echo "  completions Generate shell completion files"
+	@echo "  test        Run tests"
+	@echo "  dev         Prepare development environment"
+	@echo "  install     Install CLI to /usr/local/bin"
