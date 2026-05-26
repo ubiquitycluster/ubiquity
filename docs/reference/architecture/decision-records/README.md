@@ -12,3 +12,4 @@ This directory contains Architecture Decision Records (ADRs) for the Ubiquity pr
 | [ADR-006](ADR-006-longhorn.md) | Use Longhorn as primary storage | Accepted |
 | [ADR-007](ADR-007-argocd.md) | Use ArgoCD over Flux | Accepted |
 | [ADR-008](ADR-008-bubbletea.md) | Use Bubbletea for TUI | Accepted |
+| [ADR-009](ADR-009-cilium.md) | Use Cilium + Hubble for advanced networking | Accepted |
