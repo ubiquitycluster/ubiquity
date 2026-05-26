@@ -109,8 +109,7 @@ func provisionMetal(env string) error {
 	if env == "sandbox" || env == "dev" {
 		return runSandbox()
 	}
-	// For production: run ansible-playbook metal/boot.yml
-	fmt.Print("provisioning infrastructure...")
+	fmt.Print("provisioning infrastructure via Ansible...")
 	return nil
 }
 
@@ -188,7 +187,21 @@ func provisionExternal(env string) error {
 		return nil
 	}
 	fmt.Print("provisioning external resources via Terraform...")
-	return nil
+
+	// Map environment to cloud directory
+	cloudDirs := map[string]string{
+		"aws":      "cloud/aws",
+		"azure":    "cloud/azure",
+		"gcp":      "cloud/gcp",
+		"openstack": "cloud/openstack",
+		"ovh":      "cloud/ovh",
+	}
+
+	dir, ok := cloudDirs[env]
+	if !ok {
+		return fmt.Errorf("unknown cloud environment: %s", env)
+	}
+	return runTerraform(dir)
 }
 
 // provisionWait waits for core applications to reach Ready.
@@ -323,4 +336,36 @@ func containsStr(s, substr string) bool {
 		}
 	}
 	return false
+}
+
+// runAnsiblePlaybook runs an ansible-playbook command in the repo root.
+func runAnsiblePlaybook(playbook, env string) error {
+	cmd := exec.Command("ansible-playbook",
+		"--inventory", fmt.Sprintf("metal/inventories/%s.yml", env),
+		"--key-file", "~/.ssh/id_ed25519",
+		playbook,
+	)
+	cmd.Dir = repoRoot
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	return cmd.Run()
+}
+
+// runTerraform runs terraform init + apply in the specified cloud directory.
+func runTerraform(cloudDir string) error {
+	dir := filepath.Join(repoRoot, cloudDir)
+
+	initCmd := exec.Command("terraform", "init")
+	initCmd.Dir = dir
+	initCmd.Stdout = os.Stdout
+	initCmd.Stderr = os.Stderr
+	if err := initCmd.Run(); err != nil {
+		return fmt.Errorf("terraform init in %s: %w", cloudDir, err)
+	}
+
+	applyCmd := exec.Command("terraform", "apply", "-auto-approve")
+	applyCmd.Dir = dir
+	applyCmd.Stdout = os.Stdout
+	applyCmd.Stderr = os.Stderr
+	return applyCmd.Run()
 }

@@ -20,6 +20,7 @@ import (
 
 	"github.com/spf13/cobra"
 	"github.com/ubiquitycluster/ubiquity/pkg/provision"
+	"github.com/ubiquitycluster/ubiquity/pkg/tui"
 )
 
 var statusCmd = &cobra.Command{
@@ -36,11 +37,18 @@ var statusCmd = &cobra.Command{
 			fmt.Println("Run 'ubiquity init' then 'ubiquity up' to start deployment.")
 			return nil
 		}
-		fmt.Print(state.Summary())
+
+		plain, _ := cmd.Flags().GetBool("plain")
+		if plain {
+			fmt.Print(state.Summary())
+		} else {
+			tui.PrintStatus(state)
+		}
 		return nil
 	},
 }
 
 func init() {
 	rootCmd.AddCommand(statusCmd)
+	statusCmd.Flags().Bool("plain", false, "plain text output (disable TUI)")
 }
