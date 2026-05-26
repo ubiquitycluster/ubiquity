@@ -79,6 +79,16 @@ func initConfig() {
 			fmt.Fprintf(os.Stderr, "Warning: error reading config: %v\n", err)
 		}
 	}
+
+	// Version flag
+	rootCmd.Flags().BoolP("version", "v", false, "print version information")
+	rootCmd.Run = func(cmd *cobra.Command, args []string) {
+		if v, _ := cmd.Flags().GetBool("version"); v {
+			fmt.Printf("Ubiquity CLI %s (commit: %s, built: %s)\n", Version, Commit, Date)
+			return
+		}
+		cmd.Help()
+	}
 }
 
 // Env returns the current environment from viper (--env flag or UBQUITY_ENV).

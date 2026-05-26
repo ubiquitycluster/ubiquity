@@ -189,7 +189,8 @@ clean-sandbox:
 # -------------------------------------------------------------------------------------------------
 
 build:
-	@ \
+	@VERSION=$(BUILDVER) COMMIT=$$(git rev-parse --short HEAD 2>/dev/null || echo "none") DATE=$$(date --rfc-3339=s 2>/dev/null || date -u +%Y-%m-%dT%H:%M:%SZ); \
+	export VERSION COMMIT DATE; \
 	if [ "$(FLAVOUR)" = "slurm" ]; then \
 		docker build \
 			$(NO_CACHE) \
