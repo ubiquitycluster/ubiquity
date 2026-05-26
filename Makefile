@@ -300,6 +300,13 @@ rebuild: build
 installer:
 	cd tools && go build -o ../ubiquity-installer ./cmd/ubiquity-install/
 
+# Record a demo asciicast
+demo:
+	@echo "Recording demo... Press Ctrl+D when done."
+	asciinema rec ubiquity-demo.cast -c "./ubiquity-cli up --sandbox --skip-security 2>&1 | head -20"
+	@echo "Demo saved to ubiquity-demo.cast"
+	@echo "Upload to https://asciinema.org or replay locally with 'asciinema play ubiquity-demo.cast'"
+
 # Show available targets
 help:
 	@echo "Available targets:"
