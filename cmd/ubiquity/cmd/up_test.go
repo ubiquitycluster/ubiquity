@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"os/exec"
 	"testing"
 
 	"github.com/ubiquitycluster/ubiquity/pkg/provision"
@@ -70,6 +71,10 @@ func TestProvisionMetalProd(t *testing.T) {
 }
 
 func TestProvisionBootstrapSandbox(t *testing.T) {
+	// Skip if a real cluster is running (helm install would be attempted)
+	if err := exec.Command("kubectl", "cluster-info").Run(); err == nil {
+		t.Skip("Skipping: real cluster detected, would attempt helm install")
+	}
 	err := provisionBootstrap("sandbox")
 	if err != nil {
 		t.Fatalf("provisionBootstrap sandbox failed: %v", err)

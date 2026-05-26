@@ -119,6 +119,15 @@ func provisionPXE(env string) error {
 func provisionBootstrap(env string) error {
 	fmt.Print("installing ArgoCD...")
 
+	// In sandbox mode without a reachable cluster, skip
+	if env == "sandbox" {
+		if err := kubectl("", "cluster-info"); err != nil {
+			fmt.Print("cluster not ready, skipping bootstrap...")
+			return nil
+		}
+		// Cluster exists — proceed with install below
+	}
+
 	// Create argocd namespace
 	nsOut, _ := kubectlOutput("create", "namespace", "argocd", "--dry-run=client", "-o", "yaml")
 	if len(nsOut) > 0 {
@@ -166,6 +175,15 @@ func provisionSecurity(env string) error {
 	}
 
 	fmt.Print("deploying Kyverno and baseline policies...")
+
+	// Check if cluster is reachable (skip if not available)
+	if err := kubectl("", "cluster-info"); err != nil {
+		if env == "sandbox" {
+			fmt.Print("cluster not ready, skipping security...")
+			return nil
+		}
+		return fmt.Errorf("kubectl not connected: %w", err)
+	}
 
 	// Create required namespaces
 	for _, ns := range []string{"kyverno", "kube-bench"} {
