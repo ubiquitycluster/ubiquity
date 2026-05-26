@@ -1,0 +1,17 @@
+name: Dependency report
+on:
+  schedule:
+    - cron: "0 8 * * 1"
+  workflow_dispatch: {}
+jobs:
+  outdated:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.24"
+      - name: Check outdated Go deps
+        run: |
+          echo "## Outdated Go dependencies" >> $GITHUB_STEP_SUMMARY
+          go list -u -m all 2>/dev/null | grep "\[" >> $GITHUB_STEP_SUMMARY || echo "None" >> $GITHUB_STEP_SUMMARY
