@@ -22,3 +22,6 @@ dependencies:
   - name: hajimari
     version: 2.0.2
     repository: https://hajimari.io
+  - name: app-template
+    version: "0.1.0"
+    repository: "file://../../charts/app-template"

@@ -1,0 +1,9 @@
+dependencies:
+- name: hajimari
+  repository: https://hajimari.io
+  version: 2.0.2
+- name: app-template
+  repository: file://../../charts/app-template
+  version: 0.1.0
+digest: sha256:3f7bb62a546aa553be690d9438b042e65c8cab410ed4ec5e4caff57744a8929a
+generated: "2026-05-26T12:13:24.928812585+02:00"
