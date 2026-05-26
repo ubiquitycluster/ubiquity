@@ -36,24 +36,15 @@ var downCmd = &cobra.Command{
 		}
 		if state == nil {
 			fmt.Println("No provisioning state found.")
+			// Attempt k3d delete anyway in case cluster exists without state
+			tryK3dDelete()
 			return nil
 		}
 
-		env := state.Environment
+		// Always try to delete k3d cluster (harmless if it doesn't exist)
+		tryK3dDelete()
 
-		// Sandbox / k3d environments
-		if env == "sandbox" || strings.Contains(env, "sandbox") {
-			k3dCmd := exec.Command("k3d", "cluster", "delete", "ubiquity-dev")
-			if err := k3dCmd.Run(); err != nil {
-				if exitErr, ok := err.(*exec.ExitError); ok && exitErr.ExitCode() == 127 {
-					fmt.Println("k3d not available, skipping cluster deletion.")
-				} else {
-					fmt.Printf("k3d cluster delete failed: %v\n", err)
-				}
-			} else {
-				fmt.Println("k3d cluster deleted.")
-			}
-		}
+		env := state.Environment
 
 		// Cloud providers
 		cloudProviders := []string{"aws", "azure", "gcp", "openstack", "ovh"}
@@ -86,4 +77,21 @@ var downCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(downCmd)
+}
+
+// tryK3dDelete attempts to delete the k3d cluster. No error if it doesn't exist.
+func tryK3dDelete() {
+	if _, err := exec.LookPath("k3d"); err != nil {
+		fmt.Println("k3d not installed, skipping cluster deletion.")
+		return
+	}
+	cmd := exec.Command("k3d", "cluster", "delete", "ubiquity-dev")
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	if err := cmd.Run(); err != nil {
+		// k3d exits non-zero if cluster doesn't exist — that's fine
+		fmt.Println("k3d cluster delete attempted (cluster may not exist).")
+	} else {
+		fmt.Println("k3d cluster deleted.")
+	}
 }
