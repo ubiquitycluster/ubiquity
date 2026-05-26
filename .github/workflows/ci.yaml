@@ -136,6 +136,11 @@ jobs:
       - name: Go tests
         run: go test ./pkg/... ./cmd/... -v -count=1
 
+      - name: Govulncheck
+        run: |
+          go install golang.org/x/vuln/cmd/govulncheck@latest
+          govulncheck ./...
+
       - name: Helm unittest
         run: |
           go install github.com/helm-unittest/helm-unittest@latest 2>/dev/null || true
