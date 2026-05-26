@@ -98,6 +98,9 @@ jobs:
       - name: Build CLI
         run: go build ./cmd/ubiquity/...
 
+      - name: Verify Go modules
+        run: go mod verify
+
       - name: Helm lint all charts
         run: |
           find . -name Chart.yaml -not -path "./.git/*" | while read chart; do
