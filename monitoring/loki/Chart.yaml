@@ -17,7 +17,7 @@
 
 apiVersion: v2
 name: loki
-version: 0.0.0
+version: 2.9.10
 dependencies:
   - name: loki-stack
     version: 2.9.10

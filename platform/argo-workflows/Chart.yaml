@@ -17,7 +17,7 @@
 
 apiVersion: v2
 name: argo-workflows
-version: 0.0.0
+version: 0.20.6
 dependencies:
   - name: argo-workflows
     version: 0.20.6

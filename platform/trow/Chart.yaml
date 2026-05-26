@@ -17,7 +17,7 @@
 
 apiVersion: v2
 name: trow
-version: 0.0.0
+version: 0.3.5
 dependencies:
   - name: trow
     version: 0.3.5

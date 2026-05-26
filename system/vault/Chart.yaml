@@ -20,7 +20,7 @@ name: vault
 metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "-1"
-version: 0.0.0
+version: 1.15.6
 dependencies:
   - name: vault-operator
     version: 1.15.6
