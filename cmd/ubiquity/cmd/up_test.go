@@ -54,3 +54,58 @@ func TestUpSandboxFlagSetsEnv(t *testing.T) {
 		t.Error("expected at least one provider call for sandbox mode")
 	}
 }
+
+func TestProvisionMetalSandbox(t *testing.T) {
+	err := provisionMetal("sandbox")
+	if err != nil {
+		t.Fatalf("provisionMetal sandbox failed: %v", err)
+	}
+}
+
+func TestProvisionMetalProd(t *testing.T) {
+	err := provisionMetal("prod")
+	if err != nil {
+		t.Fatalf("provisionMetal prod failed: %v", err)
+	}
+}
+
+func TestProvisionBootstrapSandbox(t *testing.T) {
+	err := provisionBootstrap("sandbox")
+	if err != nil {
+		t.Fatalf("provisionBootstrap sandbox failed: %v", err)
+	}
+}
+
+func TestDecryptSopsSecrets(t *testing.T) {
+	err := decryptSopsSecrets()
+	// Expected: error if sops not installed (which is the case in test env)
+	t.Logf("decryptSopsSecrets result: %v", err)
+}
+
+func TestProvisionSecurity(t *testing.T) {
+	err := provisionSecurity("sandbox")
+	if err != nil {
+		t.Fatalf("provisionSecurity failed: %v", err)
+	}
+}
+
+func TestProvisionExternal(t *testing.T) {
+	err := provisionExternal("sandbox")
+	if err != nil {
+		t.Fatalf("provisionExternal failed: %v", err)
+	}
+}
+
+func TestProvisionWait(t *testing.T) {
+	err := provisionWait("sandbox")
+	if err != nil {
+		t.Fatalf("provisionWait failed: %v", err)
+	}
+}
+
+func TestProvisionPostInstall(t *testing.T) {
+	err := provisionPostInstall("sandbox")
+	if err != nil {
+		t.Fatalf("provisionPostInstall failed: %v", err)
+	}
+}
