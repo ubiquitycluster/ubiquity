@@ -54,6 +54,16 @@ func init() {
 	// Environment variable mapping: UBQUITY_ENV -> env
 	viper.SetEnvPrefix("UBQUITY")
 	viper.AutomaticEnv()
+
+	// Version flag (registered here, not in initConfig, so tests can see it)
+	rootCmd.Flags().BoolP("version", "v", false, "print version information")
+	rootCmd.Run = func(cmd *cobra.Command, args []string) {
+		if v, _ := cmd.Flags().GetBool("version"); v {
+			fmt.Printf("Ubiquity CLI %s (commit: %s, built: %s)\n", Version, Commit, Date)
+			return
+		}
+		cmd.Help()
+	}
 }
 
 // initConfig reads the config file and sets up Viper.
@@ -78,16 +88,6 @@ func initConfig() {
 		if _, ok := err.(viper.ConfigFileNotFoundError); !ok {
 			fmt.Fprintf(os.Stderr, "Warning: error reading config: %v\n", err)
 		}
-	}
-
-	// Version flag
-	rootCmd.Flags().BoolP("version", "v", false, "print version information")
-	rootCmd.Run = func(cmd *cobra.Command, args []string) {
-		if v, _ := cmd.Flags().GetBool("version"); v {
-			fmt.Printf("Ubiquity CLI %s (commit: %s, built: %s)\n", Version, Commit, Date)
-			return
-		}
-		cmd.Help()
 	}
 }
 

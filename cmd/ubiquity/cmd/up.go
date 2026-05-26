@@ -28,6 +28,9 @@ import (
 // skipSecurity is set by upCmd's RunE to avoid circular references.
 var skipSecurity bool
 
+// provider is the phase execution provider. Reassignable for testing.
+var provider provision.Provider = &provision.RealProvider{}
+
 var upCmd = &cobra.Command{
 	Use:   "up",
 	Short: "Deploy the full Ubiquity cluster stack",
@@ -86,22 +89,7 @@ Phase ordering:
 
 // executePhase dispatches to the appropriate provisioning mechanism.
 func executePhase(phase, env string) error {
-	switch phase {
-	case "metal":
-		return provisionMetal(env)
-	case "bootstrap":
-		return provisionBootstrap(env)
-	case "security":
-		return provisionSecurity(env)
-	case "external":
-		return provisionExternal(env)
-	case "wait":
-		return provisionWait(env)
-	case "post-install":
-		return provisionPostInstall(env)
-	default:
-		return fmt.Errorf("unknown phase: %s", phase)
-	}
+	return provision.ExecutePhase(provider, phase, env)
 }
 
 // provisionMetal provisions the cluster infrastructure (bare metal or k3d sandbox).
