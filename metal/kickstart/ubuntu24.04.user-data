@@ -1,0 +1,15 @@
+#cloud-config
+autoinstall:
+  version: 1
+  identity:
+    hostname: ubuntu-node
+    password: $6$CHANGEME
+    username: ubuntu
+  ssh:
+    install-server: true
+    authorized-keys: []
+  storage:
+    layout:
+      name: lvm
+  late-commands:
+    - curtin in-target -- /usr/bin/systemctl enable ssh
