@@ -7,6 +7,8 @@
 # Templatized k3d config for multi-version test harness.
 # The K3S_IMAGE environment variable selects the k3s version.
 # Cluster name includes the version tag to avoid collisions.
+# No port mappings — test clusters don't need ingress and port 80/443
+# would conflict with other clusters on the same Docker host.
 apiVersion: k3d.io/v1alpha4
 kind: Simple
 metadata:
@@ -23,10 +25,3 @@ options:
       - arg: --disable-cloud-controller
         nodeFilters:
           - server:*
-ports:
-  - port: 80:80
-    nodeFilters:
-      - loadbalancer
-  - port: 443:443
-    nodeFilters:
-      - loadbalancer

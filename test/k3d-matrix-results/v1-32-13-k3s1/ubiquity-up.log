@@ -1,0 +1,23 @@
+Deploying Ubiquity cluster (sandbox environment)...
+
+  [1/6] metal — [36mINFO[0m[0000] Using config file metal/k3d-dev.yaml (k3d.io/v1alpha4#simple) 
+[33mWARN[0m[0000] Default config apiVersion is 'k3d.io/v1alpha5', but you're using 'k3d.io/v1alpha4': consider migrating. 
+[36mINFO[0m[0000] portmapping '80:80' targets the loadbalancer: defaulting to [servers:*:proxy agents:*:proxy] 
+[36mINFO[0m[0000] portmapping '443:443' targets the loadbalancer: defaulting to [servers:*:proxy agents:*:proxy] 
+[36mINFO[0m[0000] Prep: Network                                
+[36mINFO[0m[0000] Created network 'k3d-ubiquity-dev'           
+[36mINFO[0m[0000] Created image volume k3d-ubiquity-dev-images 
+[36mINFO[0m[0000] Starting new tools node...                   
+[36mINFO[0m[0000] Starting node 'k3d-ubiquity-dev-tools'       
+[36mINFO[0m[0001] Creating node 'k3d-ubiquity-dev-server-0'    
+[36mINFO[0m[0001] Creating node 'k3d-ubiquity-dev-agent-0'     
+[36mINFO[0m[0001] Creating LoadBalancer 'k3d-ubiquity-dev-serverlb' 
+[36mINFO[0m[0001] Using the k3d-tools node to gather environment information 
+[36mINFO[0m[0001] HostIP: using network gateway 172.19.0.1 address 
+[36mINFO[0m[0001] Starting cluster 'ubiquity-dev'              
+[36mINFO[0m[0001] Starting servers...                          
+[36mINFO[0m[0001] Starting node 'k3d-ubiquity-dev-server-0'    
+[36mINFO[0m[0007] Starting agents...                           
+[36mINFO[0m[0007] Starting node 'k3d-ubiquity-dev-agent-0'     
+[36mINFO[0m[0010] Starting helpers...                          
+[36mINFO[0m[0010] Starting node 'k3d-ubiquity-dev-serverlb'    

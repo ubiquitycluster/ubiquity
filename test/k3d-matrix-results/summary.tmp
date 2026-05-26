@@ -1,0 +1,3 @@
+rancher/k3s:v1.30.14-k3s2: cluster_creation_failed
+rancher/k3s:v1.30.14-k3s2: fail exit_code_1 argocd_not_ready 
+rancher/k3s:v1.31.14-k3s1: fail exit_code_1 argocd_not_ready 

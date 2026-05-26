@@ -299,6 +299,14 @@ func provisionPostInstall(env string) error {
 
 // runSandbox boots a local k3d cluster for development/testing.
 func runSandbox() error {
+	// If kubectl already connects to a working cluster, don't touch k3d.
+	// This allows the test harness (or existing deployments) to manage the
+	// cluster independently of `ubiquity up`.
+	if err := exec.Command("kubectl", "cluster-info").Run(); err == nil {
+		fmt.Print("cluster already connected via kubectl, skipping k3d...")
+		return nil
+	}
+
 	// Test Docker connectivity first
 	dockerTest := exec.Command("docker", "info")
 	if err := dockerTest.Run(); err != nil {

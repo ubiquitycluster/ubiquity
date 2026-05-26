@@ -1,0 +1,45 @@
+Deploying Ubiquity cluster (sandbox environment)...
+
+  [1/6] metal — [36mINFO[0m[0000] Using config file metal/k3d-dev.yaml (k3d.io/v1alpha4#simple) 
+[33mWARN[0m[0000] Default config apiVersion is 'k3d.io/v1alpha5', but you're using 'k3d.io/v1alpha4': consider migrating. 
+[36mINFO[0m[0000] portmapping '80:80' targets the loadbalancer: defaulting to [servers:*:proxy agents:*:proxy] 
+[36mINFO[0m[0000] portmapping '443:443' targets the loadbalancer: defaulting to [servers:*:proxy agents:*:proxy] 
+[36mINFO[0m[0000] Prep: Network                                
+[36mINFO[0m[0000] Created network 'k3d-ubiquity-dev'           
+[36mINFO[0m[0000] Created image volume k3d-ubiquity-dev-images 
+[36mINFO[0m[0000] Starting new tools node...                   
+[36mINFO[0m[0000] Starting node 'k3d-ubiquity-dev-tools'       
+[36mINFO[0m[0001] Creating node 'k3d-ubiquity-dev-server-0'    
+[36mINFO[0m[0001] Creating node 'k3d-ubiquity-dev-agent-0'     
+[36mINFO[0m[0001] Creating LoadBalancer 'k3d-ubiquity-dev-serverlb' 
+[36mINFO[0m[0001] Using the k3d-tools node to gather environment information 
+[36mINFO[0m[0001] HostIP: using network gateway 172.19.0.1 address 
+[36mINFO[0m[0001] Starting cluster 'ubiquity-dev'              
+[36mINFO[0m[0001] Starting servers...                          
+[36mINFO[0m[0001] Starting node 'k3d-ubiquity-dev-server-0'    
+[36mINFO[0m[0007] Starting agents...                           
+[36mINFO[0m[0008] Starting node 'k3d-ubiquity-dev-agent-0'     
+[36mINFO[0m[0011] Starting helpers...                          
+[36mINFO[0m[0011] Starting node 'k3d-ubiquity-dev-serverlb'    
+[31mERRO[0m[0012] Failed Cluster Start: Failed to add one or more helper nodes: runtime failed to start node 'k3d-ubiquity-dev-serverlb': docker failed to start container for node 'k3d-ubiquity-dev-serverlb': Error response from daemon: failed to set up container networking: driver failed programming external connectivity on endpoint k3d-ubiquity-dev-serverlb (133b26d32916c963472e88c0f0d69277b2b8d91ad2a176b2aee7c8dfc9b0a7f3): Bind for 0.0.0.0:80 failed: port is already allocated 
+[31mERRO[0m[0012] Failed to create cluster >>> Rolling Back    
+[36mINFO[0m[0012] Deleting cluster 'ubiquity-dev'              
+[36mINFO[0m[0012] Deleting cluster network 'k3d-ubiquity-dev'  
+[36mINFO[0m[0013] Deleting 1 attached volumes...               
+[31mFATA[0m[0013] Cluster creation FAILED, all changes have been rolled back! 
+FAILED: creating k3d cluster: exit status 1
+Error: phase metal failed: creating k3d cluster: exit status 1
+Usage:
+  ubiquity up [flags]
+
+Flags:
+  -h, --help            help for up
+      --pxe-installer   use Go-based PXE installer instead of Docker Compose
+      --sandbox         deploy in sandbox mode (alias for --env sandbox)
+      --skip-security   skip security policy deployment
+
+Global Flags:
+      --config string   config file (default is $HOME/.ubiquity/.ubiquity.yaml)
+      --env string      deployment environment (sandbox, dev, prod) (default "sandbox")
+
+phase metal failed: creating k3d cluster: exit status 1

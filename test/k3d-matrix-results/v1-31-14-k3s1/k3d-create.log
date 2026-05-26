@@ -1,0 +1,26 @@
+[36mINFO[0m[0000] Using config file /home/ubuntu/ubiquity/test/k3d-matrix-config.yaml (k3d.io/v1alpha4#simple) 
+[33mWARN[0m[0000] Default config apiVersion is 'k3d.io/v1alpha5', but you're using 'k3d.io/v1alpha4': consider migrating. 
+[36mINFO[0m[0000] portmapping '80:80' targets the loadbalancer: defaulting to [servers:*:proxy agents:*:proxy] 
+[36mINFO[0m[0000] portmapping '443:443' targets the loadbalancer: defaulting to [servers:*:proxy agents:*:proxy] 
+[36mINFO[0m[0000] Prep: Network                                
+[36mINFO[0m[0000] Created network 'k3d-ubiquity-test-v1-31-14-k3s1' 
+[36mINFO[0m[0000] Created image volume k3d-ubiquity-test-v1-31-14-k3s1-images 
+[36mINFO[0m[0000] Starting new tools node...                   
+[36mINFO[0m[0000] Starting node 'k3d-ubiquity-test-v1-31-14-k3s1-tools' 
+[36mINFO[0m[0001] Creating node 'k3d-ubiquity-test-v1-31-14-k3s1-server-0' 
+[36mINFO[0m[0002] Pulling image 'rancher/k3s:v1.31.14-k3s1'    
+[36mINFO[0m[0006] Creating node 'k3d-ubiquity-test-v1-31-14-k3s1-agent-0' 
+[36mINFO[0m[0007] Creating LoadBalancer 'k3d-ubiquity-test-v1-31-14-k3s1-serverlb' 
+[36mINFO[0m[0007] Using the k3d-tools node to gather environment information 
+[36mINFO[0m[0007] HostIP: using network gateway 172.18.0.1 address 
+[36mINFO[0m[0007] Starting cluster 'ubiquity-test-v1-31-14-k3s1' 
+[36mINFO[0m[0007] Starting servers...                          
+[36mINFO[0m[0007] Starting node 'k3d-ubiquity-test-v1-31-14-k3s1-server-0' 
+[36mINFO[0m[0013] Starting agents...                           
+[36mINFO[0m[0013] Starting node 'k3d-ubiquity-test-v1-31-14-k3s1-agent-0' 
+[36mINFO[0m[0017] Starting helpers...                          
+[36mINFO[0m[0017] Starting node 'k3d-ubiquity-test-v1-31-14-k3s1-serverlb' 
+[36mINFO[0m[0023] Injecting records for hostAliases (incl. host.k3d.internal) and for 3 network members into CoreDNS configmap... 
+[36mINFO[0m[0025] Cluster 'ubiquity-test-v1-31-14-k3s1' created successfully! 
+[36mINFO[0m[0025] You can now use it like this:                
+kubectl cluster-info
