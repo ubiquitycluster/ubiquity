@@ -17,8 +17,10 @@ package cmd
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/spf13/cobra"
+	"github.com/ubiquitycluster/ubiquity/pkg/provision"
 )
 
 var logsCmd = &cobra.Command{
@@ -28,11 +30,70 @@ var logsCmd = &cobra.Command{
 Logs are sourced from structured JSON files in .ubiquity/state.`,
 	Args: cobra.MaximumNArgs(1),
 	RunE: func(cmd *cobra.Command, args []string) error {
-		phase := "all"
-		if len(args) > 0 {
-			phase = args[0]
+		state, err := provision.LoadState()
+		if err != nil {
+			return fmt.Errorf("reading provisioning state: %w", err)
 		}
-		fmt.Printf("Showing logs for phase: %s\n", phase)
+		if state == nil {
+			fmt.Println("No provisioning state found. Run 'ubiquity up' first.")
+			return nil
+		}
+
+		if len(args) == 0 {
+			// Print all phases
+			fmt.Printf("Provisioning Phases for environment: %s\n", state.Environment)
+			fmt.Println(strings.Repeat("-", 60))
+			fmt.Printf("%-18s %-12s %-12s %s\n", "Phase", "Status", "Duration", "Error")
+			fmt.Println(strings.Repeat("-", 60))
+			for _, p := range state.Phases {
+				errMsg := p.Error
+				if errMsg == "" {
+					errMsg = "—"
+				}
+				dur := p.Duration
+				if dur == "" {
+					if p.Status == provision.PhasePending {
+						dur = "—"
+					} else if p.Status == provision.PhaseRunning {
+						dur = "running…"
+					} else {
+						dur = "—"
+					}
+				}
+				fmt.Printf("%-18s %-12s %-12s %s\n", p.Name, p.Status, dur, errMsg)
+			}
+		} else {
+			// Print specific phase
+			phaseName := args[0]
+			found := false
+			for _, p := range state.Phases {
+				if p.Name == phaseName {
+					found = true
+					fmt.Printf("Phase: %s\n", p.Name)
+					fmt.Printf("Status: %s\n", p.Status)
+					if p.Duration != "" {
+						fmt.Printf("Duration: %s\n", p.Duration)
+					}
+					if p.Error != "" {
+						fmt.Printf("Error: %s\n", p.Error)
+					}
+					if p.StartedAt != nil {
+						fmt.Printf("Started: %s\n", p.StartedAt.Format("2006-01-02 15:04:05 UTC"))
+					}
+					if p.EndedAt != nil {
+						fmt.Printf("Ended: %s\n", p.EndedAt.Format("2006-01-02 15:04:05 UTC"))
+					}
+					if p.LogURL != "" {
+						fmt.Printf("Log URL: %s\n", p.LogURL)
+					}
+					break
+				}
+			}
+			if !found {
+				fmt.Printf("Phase %q not found.\n", phaseName)
+			}
+		}
+
 		return nil
 	},
 }
