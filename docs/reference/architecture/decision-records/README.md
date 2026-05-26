@@ -13,3 +13,5 @@ This directory contains Architecture Decision Records (ADRs) for the Ubiquity pr
 | [ADR-007](ADR-007-argocd.md) | Use ArgoCD over Flux | Accepted |
 | [ADR-008](ADR-008-bubbletea.md) | Use Bubbletea for TUI | Accepted |
 | [ADR-009](ADR-009-cilium.md) | Use Cilium + Hubble for advanced networking | Accepted |
+| [ADR-010](ADR-010-installer.md) | Use Go PXE installer instead of Python/Docker | Accepted |
+| [ADR-011](ADR-011-sops.md) | Use SOPS for secrets management | Accepted |
