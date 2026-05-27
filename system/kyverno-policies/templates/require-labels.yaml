@@ -47,6 +47,19 @@ spec:
                 - Secret
                 - PersistentVolumeClaim
                 - ServiceAccount
+      exclude:
+        any:
+          - resources:
+              namespaces:
+                {{- range .Values.policies.requireLabels.exemptNamespaces }}
+                - {{ . }}
+                {{- end }}
+          - resources:
+              selector:
+                matchLabels:
+                  {{- range $key, $value := .Values.policies.requireLabels.exemptLabels }}
+                  {{ $key }}: {{ $value }}
+                  {{- end }}
       validate:
         message: "The label 'app.kubernetes.io/name' is required for all resources."
         pattern:

@@ -53,6 +53,14 @@ policies:
     # -- Required labels that must be present on all resources
     requiredLabels:
       - app.kubernetes.io/name
+    # -- Namespaces exempt from this policy (e.g. system namespaces with legacy resources)
+    exemptNamespaces:
+      - kube-system
+      - kyverno
+      - argocd
+    # -- Exempt resources matching these labels
+    exemptLabels:
+      app.kubernetes.io/managed-by: argocd
 
   defaultNetworkPolicyDenies:
     # -- Enable the default-deny NetworkPolicy policy
