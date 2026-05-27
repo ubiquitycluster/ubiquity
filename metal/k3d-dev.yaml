@@ -21,8 +21,10 @@ apiVersion: k3d.io/v1alpha4
 kind: Simple
 metadata:
   name: ubiquity-dev
-# v1.32.13-k3s1 is the latest stable k3s as of May 2026
-image: docker.io/rancher/k3s:v1.32.13-k3s1
+# Image is overridden at runtime by runSandbox() via --image flag.
+# The default version is read from metal/k3s-default-version.txt.
+# Override permanently by setting K3S_IMAGE env var before ubiquity up.
+image: rancher/k3s:v1.32.13-k3s1  # fallback, overridden by --image
 servers: 1
 agents: 1
 options:

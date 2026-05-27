@@ -1,0 +1,4 @@
+# Default k3s image for the ubiquity-dev sandbox cluster.
+# Override with K3S_IMAGE environment variable.
+# See docs/compatibility/ for version compatibility matrix.
+rancher/k3s:v1.32.13-k3s1

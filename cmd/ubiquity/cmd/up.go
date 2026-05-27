@@ -300,6 +300,9 @@ func provisionPostInstall(env string) error {
 }
 
 // runSandbox boots a local k3d cluster for development/testing.
+// The k3s version defaults to the latest stable (read from
+// metal/k3s-default-version.txt) but can be overridden via the
+// K3S_IMAGE environment variable.
 func runSandbox() error {
 	// If kubectl already connects to a working cluster, don't touch k3d.
 	// This allows the test harness (or existing deployments) to manage the
@@ -307,6 +310,15 @@ func runSandbox() error {
 	if err := exec.Command("kubectl", "cluster-info").Run(); err == nil {
 		fmt.Print("cluster already connected via kubectl, skipping k3d...")
 		return nil
+	}
+
+	// Resolve the k3s image: K3S_IMAGE env var > default file > k3d default
+	k3sImage := os.Getenv("K3S_IMAGE")
+	if k3sImage == "" {
+		verFile := filepath.Join(repoRoot, "metal", "k3s-default-version.txt")
+		if data, err := os.ReadFile(verFile); err == nil {
+			k3sImage = strings.TrimSpace(string(data))
+		}
 	}
 
 	// Test Docker connectivity first
@@ -336,7 +348,11 @@ func runSandbox() error {
 	output, err := checkCmd.Output()
 	if err == nil && !containsStr(string(output), "ubiquity-dev") {
 		// Create cluster
-		createCmd := exec.Command("k3d", "cluster", "create", "ubiquity-dev", "--config", "metal/k3d-dev.yaml")
+		createArgs := []string{"cluster", "create", "ubiquity-dev", "--config", "metal/k3d-dev.yaml"}
+		if k3sImage != "" {
+			createArgs = append(createArgs, "--image", k3sImage)
+		}
+		createCmd := exec.Command("k3d", createArgs...)
 		createCmd.Dir = repoRoot
 		createCmd.Stdout = os.Stdout
 		createCmd.Stderr = os.Stderr
@@ -346,7 +362,11 @@ func runSandbox() error {
 		fmt.Print("cluster created...")
 	} else if containsStr(string(output), "ubiquity-dev") {
 		fmt.Print("cluster already exists, starting...")
-		startCmd := exec.Command("k3d", "cluster", "start", "ubiquity-dev")
+		startArgs := []string{"cluster", "start", "ubiquity-dev"}
+		if k3sImage != "" {
+			startArgs = append(startArgs, "--image", k3sImage)
+		}
+		startCmd := exec.Command("k3d", startArgs...)
 		startCmd.Stdout = os.Stdout
 		startCmd.Stderr = os.Stderr
 		if err := startCmd.Run(); err != nil {
