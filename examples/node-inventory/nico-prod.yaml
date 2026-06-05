@@ -1,0 +1,94 @@
+apiVersion: ubiquity.nousresearch.com/v1alpha1
+kind: NodeInventory
+images:
+  - name: rocky-9.4-gpu
+    family: rocky
+    version: "9.4"
+    architecture: x86_64
+    imageURL: https://images.example.internal/rocky/9.4/x86_64
+    checksum: sha256:0123456789abcdef-rocky94
+    provenance: packer-build-2026-06-05T09:00:00Z signed-by-infra
+    labels:
+      nvidia.com/gpu-ready: "true"
+      ubiquity.io/support-tier: prod
+  - name: rhel-9.4-fips
+    family: rhel
+    version: "9.4"
+    architecture: x86_64
+    imageURL: https://images.example.internal/rhel/9.4/x86_64
+    checksum: sha256:0123456789abcdef-rhel94
+    provenance: redhat-subscription-sync-2026-06-05 signed-by-infra
+    labels:
+      security: fips
+  - name: ubuntu-24.04-gpu
+    family: ubuntu
+    version: "24.04"
+    architecture: x86_64
+    imageURL: https://images.example.internal/ubuntu/24.04/live-server/amd64
+    checksum: sha256:0123456789abcdef-ubuntu2404
+    provenance: ubuntu-releases-mirror-2026-06-05 signed-by-infra
+    labels:
+      nvidia.com/gpu-ready: "true"
+  - name: custom-dpu-appliance
+    family: custom
+    version: "1.0.0"
+    architecture: x86_64
+    imageURL: https://images.example.internal/custom/dpu-appliance/1.0.0
+    checksum: sha256:0123456789abcdef-customdpu
+    provenance: vendor-signed-bundle-2026-06-05
+    ipxeScript: |
+      #!ipxe
+      echo Booting custom DPU appliance
+      kernel https://images.example.internal/custom/dpu-appliance/1.0.0/vmlinuz ip=dhcp
+      initrd https://images.example.internal/custom/dpu-appliance/1.0.0/initrd.img
+      boot
+    userData: |
+      #cloud-config
+      appliance:
+        mode: dpu-isolation
+nodes:
+  - name: cp01
+    site: sf01
+    role: control-plane
+    osImageRef: rocky-9.4-gpu
+    instanceTypeRef: mgmt-small
+    gpuProfile: none
+    joinProfile: k3s-server
+    machineSelector:
+      rack: rack-a
+      serial: CP01SERIAL
+    labels:
+      node-role.kubernetes.io/control-plane: "true"
+  - name: cp02
+    site: sf01
+    role: control-plane
+    osImageRef: rocky-9.4-gpu
+    instanceTypeRef: mgmt-small
+    gpuProfile: none
+    joinProfile: k3s-server
+    machineSelector:
+      rack: rack-a
+      serial: CP02SERIAL
+    labels:
+      node-role.kubernetes.io/control-plane: "true"
+  - name: cn01
+    site: sf01
+    role: worker
+    osImageRef: ubuntu-24.04-gpu
+    instanceTypeRef: gpu-h100-8x
+    gpuProfile: h100-8g
+    joinProfile: k3s-agent
+    machineSelector:
+      rack: rack-gpu-1
+      gpu: h100
+    labels:
+      nvidia.com/gpu.present: "true"
+  - name: spare01
+    site: sf01
+    role: spare
+    osImageRef: rhel-9.4-fips
+    instanceTypeRef: baremetal-standard
+    gpuProfile: none
+    joinProfile: none
+    machineSelector:
+      rack: rack-spare
