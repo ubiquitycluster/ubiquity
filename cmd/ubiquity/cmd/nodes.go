@@ -281,13 +281,52 @@ func runLiveNodesAction(ctx context.Context, client nodesNICOClient, action, tar
 		if err := client.DeleteInstance(ctx, resolved.InstanceID); err != nil {
 			return err
 		}
-		return renderNodeRows([]map[string]string{{"name": resolved.Name, "id": resolved.InstanceID, "backend": "nico", "status": "deleted", "effect": "delete instance requested"}}, nodeOpts.Output)
-	case "reinstall":
-		inst, err := client.CreateInstance(ctx, nico.Instance{Name: target, NodeName: target, OSImage: nodeOpts.OS, LastAction: "reinstall"})
+		task, err := pollRelatedNICoTask(ctx, client, resolved.MachineID, "delete")
 		if err != nil {
 			return err
 		}
-		return renderNodeRows([]map[string]string{instanceNodeRow(inst, action)}, nodeOpts.Output)
+		if err := verifyInstanceAbsent(ctx, client, resolved.InstanceID); err != nil {
+			return err
+		}
+		return renderNodeRows([]map[string]string{{"name": resolved.Name, "id": resolved.InstanceID, "task": task.ID, "backend": "nico", "status": "verified absent", "effect": "delete instance verified"}}, nodeOpts.Output)
+	case "reinstall":
+		statuses, err := collectLiveNodeStatuses(ctx, client)
+		if err != nil {
+			return err
+		}
+		resolved, err := resolveNodeTargetStatus(statuses, target)
+		if err != nil {
+			return err
+		}
+		if resolved.InstanceID == "" {
+			return fmt.Errorf("node target %q resolved to machine %q but has no NICo instance ID; refusing same-machine reinstall", target, resolved.MachineID)
+		}
+		if resolved.MachineID == "" {
+			return fmt.Errorf("node target %q has no NICo machine ID; refusing same-machine reinstall", target)
+		}
+		if err := client.DeleteInstance(ctx, resolved.InstanceID); err != nil {
+			return err
+		}
+		if err := verifyInstanceAbsent(ctx, client, resolved.InstanceID); err != nil {
+			return err
+		}
+		var inst nico.Instance
+		if strings.TrimSpace(nodeOpts.Inventory) != "" {
+			inst, err = createInstanceFromInventoryWithOverrides(ctx, client, nodeOpts.Inventory, resolved.Name, "reinstall", resolved.MachineID)
+		} else {
+			inst, err = client.CreateInstance(ctx, nico.Instance{Name: resolved.Name, NodeName: resolved.Name, MachineID: resolved.MachineID, OSImage: nodeOpts.OS, LastAction: "reinstall"})
+		}
+		if err != nil {
+			return err
+		}
+		task, err := pollRelatedNICoTask(ctx, client, resolved.MachineID, "reinstall")
+		if err != nil {
+			return err
+		}
+		row := instanceNodeRow(inst, "same-machine reinstall verified")
+		row["task"] = task.ID
+		row["machineId"] = resolved.MachineID
+		return renderNodeRows([]map[string]string{row}, nodeOpts.Output)
 	case "os apply":
 		if strings.TrimSpace(nodeOpts.Inventory) != "" {
 			oses, err := loadNICoOperatingSystemsFromInventory(nodeOpts.Inventory)
@@ -433,6 +472,10 @@ func nicoOperatingSystemFromRendered(osSpec nodeinventory.NICoOperatingSystem) n
 }
 
 func createInstanceFromInventory(ctx context.Context, client nodesNICOClient, path, target string) (nico.Instance, error) {
+	return createInstanceFromInventoryWithOverrides(ctx, client, path, target, "add", "")
+}
+
+func createInstanceFromInventoryWithOverrides(ctx context.Context, client nodesNICOClient, path, target, action, machineID string) (nico.Instance, error) {
 	inventory, err := loadNodeInventory(path)
 	if err != nil {
 		return nico.Instance{}, err
@@ -456,9 +499,67 @@ func createInstanceFromInventory(ctx context.Context, client nodesNICOClient, pa
 		if _, err := client.CreateOperatingSystem(ctx, osSpec); err != nil {
 			return nico.Instance{}, err
 		}
-		return client.CreateInstance(ctx, nico.Instance{Name: node.Name, NodeName: node.Name, OSImage: node.OSImageRef, InstanceTypeRef: node.InstanceTypeRef, GPUProfile: node.GPUProfile, JoinProfile: node.JoinProfile, MachineSelector: node.MachineSelector, Labels: node.Labels, LastAction: "add"})
+		return client.CreateInstance(ctx, nico.Instance{Name: node.Name, NodeName: node.Name, MachineID: machineID, OSImage: node.OSImageRef, InstanceTypeRef: node.InstanceTypeRef, GPUProfile: node.GPUProfile, JoinProfile: node.JoinProfile, MachineSelector: node.MachineSelector, Labels: node.Labels, LastAction: action})
 	}
 	return nico.Instance{}, fmt.Errorf("node %q not found in inventory %q", target, path)
+}
+
+func pollRelatedNICoTask(ctx context.Context, client nodesNICOClient, machineID, actionContains string) (nico.Task, error) {
+	tasks, err := client.ListTasks(ctx)
+	if err != nil {
+		return nico.Task{}, err
+	}
+	actionContains = strings.ToLower(actionContains)
+	for _, task := range tasks {
+		if machineID != "" && task.MachineID != "" && task.MachineID != machineID {
+			continue
+		}
+		if actionContains != "" && !strings.Contains(strings.ToLower(task.Action), actionContains) {
+			continue
+		}
+		return pollNICoTask(ctx, client, task.ID)
+	}
+	return nico.Task{}, nil
+}
+
+func pollNICoTask(ctx context.Context, client nodesNICOClient, taskID string) (nico.Task, error) {
+	if strings.TrimSpace(taskID) == "" {
+		return nico.Task{}, fmt.Errorf("cannot poll empty NICo task ID")
+	}
+	deadline := time.Now().Add(10 * time.Second)
+	for {
+		task, err := client.GetTask(ctx, taskID)
+		if err != nil {
+			return nico.Task{}, err
+		}
+		switch task.Status {
+		case nico.TaskSucceeded:
+			return task, nil
+		case nico.TaskFailed, nico.TaskCancelled:
+			return task, fmt.Errorf("NICo task %s %s: %s", taskID, task.Status, task.Error)
+		}
+		if time.Now().After(deadline) {
+			return task, fmt.Errorf("timed out waiting for NICo task %s to complete", taskID)
+		}
+		select {
+		case <-ctx.Done():
+			return task, ctx.Err()
+		case <-time.After(250 * time.Millisecond):
+		}
+	}
+}
+
+func verifyInstanceAbsent(ctx context.Context, client nodesNICOClient, instanceID string) error {
+	instances, err := client.ListInstances(ctx)
+	if err != nil {
+		return err
+	}
+	for _, inst := range instances {
+		if inst.ID == instanceID {
+			return fmt.Errorf("NICo instance %q still present after delete", instanceID)
+		}
+	}
+	return nil
 }
 
 func collectNodeKubernetesEvidence(ctx context.Context) nodestatus.Evidence {

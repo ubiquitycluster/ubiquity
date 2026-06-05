@@ -23,6 +23,7 @@ type fakeNodesNICOClient struct {
 	instances       []nico.Instance
 	tasks           []nico.Task
 	gpus            []nico.MachineGPUStats
+	getTaskCalls    []string
 }
 
 func (f *fakeNodesNICOClient) GetMachine(ctx context.Context, name string) (nico.Machine, error) {
@@ -39,10 +40,20 @@ func (f *fakeNodesNICOClient) CreateOperatingSystem(ctx context.Context, os nico
 func (f *fakeNodesNICOClient) CreateInstance(ctx context.Context, inst nico.Instance) (nico.Instance, error) {
 	f.createdInstance = append(f.createdInstance, inst)
 	inst.ID = "inst-1"
+	if inst.MachineID == "machine-1" && inst.LastAction == "reinstall" {
+		inst.ID = "inst-reinstall-1"
+	}
 	return inst, nil
 }
 func (f *fakeNodesNICOClient) DeleteInstance(ctx context.Context, id string) error {
 	f.deleted = append(f.deleted, id)
+	remaining := f.instances[:0]
+	for _, inst := range f.instances {
+		if inst.ID != id {
+			remaining = append(remaining, inst)
+		}
+	}
+	f.instances = remaining
 	return nil
 }
 func (f *fakeNodesNICOClient) PowerMachine(ctx context.Context, machineID, state, reason string) (nico.Task, error) {
@@ -78,6 +89,7 @@ func (f *fakeNodesNICOClient) GetTask(ctx context.Context, id string) (nico.Task
 	if _, ok := ctx.Deadline(); ok {
 		f.gotDeadline = true
 	}
+	f.getTaskCalls = append(f.getTaskCalls, id)
 	for _, task := range f.tasks {
 		if task.ID == id {
 			return task, nil
@@ -197,6 +209,73 @@ func TestNodesLiveDrainCordonsAndDrainsKubernetesNode(t *testing.T) {
 	}
 }
 
+func TestNodesLiveRemovePollsDeletionTaskAndVerifiesInstanceAbsent(t *testing.T) {
+	oldOpts := nodeOpts
+	oldFactory := newNodesNICOClient
+	defer func() { nodeOpts = oldOpts; newNodesNICOClient = oldFactory }()
+	fake := &fakeNodesNICOClient{
+		machines:  []nico.Machine{{ID: "machine-1", Name: "node-a", Status: "provisioned"}},
+		instances: []nico.Instance{{ID: "inst-1", NodeName: "node-a", MachineID: "machine-1", Status: "running"}},
+		tasks:     []nico.Task{{ID: "task-delete-1", Status: nico.TaskSucceeded, Action: "delete instance", MachineID: "machine-1"}},
+	}
+	newNodesNICOClient = func(cfg nico.Config) (nodesNICOClient, error) { return fake, nil }
+	nodeOpts = nodeCommandOptions{Backend: nodeBackendNICO, Output: "json", DryRun: false, Confirm: "node-a", DrainConfirmed: true, Site: "site-a"}
+	t.Setenv("UBIQUITY_NICO_MODE", "live")
+	t.Setenv("UBIQUITY_NICO_BASE_URL", "https://nico.example")
+	t.Setenv("UBIQUITY_NICO_ORG", "acme")
+	t.Setenv("UBIQUITY_NICO_TOKEN", "tok")
+	out, err := captureNodesOutput(t, func() error { return runNodesAction("remove", true)(nodesCmd, []string{"node-a"}) })
+	if err != nil {
+		t.Fatalf("remove live: %v", err)
+	}
+	if len(fake.deleted) != 1 || fake.deleted[0] != "inst-1" {
+		t.Fatalf("DeleteInstance calls = %#v", fake.deleted)
+	}
+	if len(fake.getTaskCalls) == 0 || fake.getTaskCalls[0] != "task-delete-1" {
+		t.Fatalf("expected delete task polling, got %#v", fake.getTaskCalls)
+	}
+	if !strings.Contains(out, "verified absent") || !strings.Contains(out, "task-delete-1") {
+		t.Fatalf("remove output missing verification/task evidence: %s", out)
+	}
+}
+
+func TestNodesLiveReinstallInventoryPinsReplacementToSameMachine(t *testing.T) {
+	oldOpts := nodeOpts
+	oldFactory := newNodesNICOClient
+	defer func() { nodeOpts = oldOpts; newNodesNICOClient = oldFactory }()
+	fake := &fakeNodesNICOClient{
+		machines:  []nico.Machine{{ID: "machine-1", Name: "cn01", Status: "provisioned"}},
+		instances: []nico.Instance{{ID: "inst-old", NodeName: "cn01", MachineID: "machine-1", Status: "running"}},
+		tasks:     []nico.Task{{ID: "task-reinstall-1", Status: nico.TaskSucceeded, Action: "reinstall", MachineID: "machine-1"}},
+	}
+	newNodesNICOClient = func(cfg nico.Config) (nodesNICOClient, error) { return fake, nil }
+	nodeOpts = nodeCommandOptions{Backend: nodeBackendNICO, Output: "json", DryRun: false, Confirm: "cn01", DrainConfirmed: true, Inventory: "../../../examples/node-inventory/nico-prod.yaml"}
+	t.Setenv("UBIQUITY_NICO_MODE", "live")
+	t.Setenv("UBIQUITY_NICO_BASE_URL", "https://nico.example")
+	t.Setenv("UBIQUITY_NICO_ORG", "acme")
+	t.Setenv("UBIQUITY_NICO_TOKEN", "tok")
+	out, err := captureNodesOutput(t, func() error { return runNodesAction("reinstall", true)(nodesCmd, []string{"cn01"}) })
+	if err != nil {
+		t.Fatalf("reinstall live: %v", err)
+	}
+	if len(fake.deleted) != 1 || fake.deleted[0] != "inst-old" {
+		t.Fatalf("reinstall should delete old instance first, got %#v", fake.deleted)
+	}
+	if len(fake.createdInstance) != 1 {
+		t.Fatalf("created instances = %#v", fake.createdInstance)
+	}
+	inst := fake.createdInstance[0]
+	if inst.MachineID != "machine-1" || inst.NodeName != "cn01" || inst.OSImage != "ubuntu-24.04-gpu" || inst.InstanceTypeRef != "gpu-h100-8x" || inst.LastAction != "reinstall" {
+		t.Fatalf("replacement instance did not preserve inventory and machine pinning: %#v", inst)
+	}
+	if len(fake.getTaskCalls) == 0 || fake.getTaskCalls[0] != "task-reinstall-1" {
+		t.Fatalf("expected reinstall task polling, got %#v", fake.getTaskCalls)
+	}
+	if !strings.Contains(out, "inst-reinstall-1") || !strings.Contains(out, "same-machine reinstall verified") {
+		t.Fatalf("reinstall output missing same-machine verification: %s", out)
+	}
+}
+
 func TestNodesLivePowerCallsNICoMachinePowerTask(t *testing.T) {
 	oldOpts := nodeOpts
 	oldFactory := newNodesNICOClient
@@ -287,7 +366,6 @@ func TestNodesLiveCreateActionsRenderCreatedPayloads(t *testing.T) {
 		want           string
 	}{
 		{action: "add", target: "cn01", args: []string{"cn01"}, want: "inst-1"},
-		{action: "reinstall", target: "cn01", args: []string{"cn01"}, want: "reinstall"},
 		{action: "os apply", target: "rocky", args: []string{"rocky"}, want: "os-1"},
 	} {
 		fake := &fakeNodesNICOClient{}
