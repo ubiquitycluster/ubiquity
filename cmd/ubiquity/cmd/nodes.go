@@ -334,7 +334,19 @@ func runLiveNodesAction(ctx context.Context, client nodesNICOClient, action, tar
 		}
 		return renderNodeRows([]map[string]string{{"name": resolved.Name, "id": task.ID, "backend": "nico", "status": string(task.Status), "effect": "power " + powerState, "machineId": resolved.MachineID}}, nodeOpts.Output)
 	case "drain":
-		return fmt.Errorf("nodes %s live mutation is not implemented for NICo client", action)
+		statuses, err := collectLiveNodeStatuses(ctx, client)
+		if err != nil {
+			return err
+		}
+		resolved, err := resolveNodeTargetStatus(statuses, target)
+		if err != nil {
+			return err
+		}
+		k8sNode := firstNonEmptyString(resolved.KubernetesNodeName, resolved.Name, target)
+		if err := drainKubernetesNode(ctx, k8sNode); err != nil {
+			return err
+		}
+		return renderNodeRows([]map[string]string{{"name": resolved.Name, "id": resolved.InstanceID, "backend": "nico", "status": "drained", "effect": "cordoned/drained", "machineId": resolved.MachineID}}, nodeOpts.Output)
 	case "status":
 		statuses, err := collectLiveNodeStatuses(ctx, client)
 		if err != nil {
@@ -459,6 +471,19 @@ func collectNodeKubernetesEvidence(ctx context.Context) nodestatus.Evidence {
 		return nodestatus.Evidence{KubernetesNodes: map[string]nodestatus.KubernetesNodeEvidence{}}
 	}
 	return nodestatus.Evidence{KubernetesNodes: nodes}
+}
+
+func drainKubernetesNode(ctx context.Context, nodeName string) error {
+	if strings.TrimSpace(nodeName) == "" {
+		return fmt.Errorf("cannot drain empty Kubernetes node name")
+	}
+	if _, err := runNodesKubectl(ctx, "cordon", nodeName); err != nil {
+		return fmt.Errorf("cordon Kubernetes node %q: %w", nodeName, err)
+	}
+	if _, err := runNodesKubectl(ctx, "drain", nodeName, "--ignore-daemonsets", "--delete-emptydir-data", "--timeout=10m"); err != nil {
+		return fmt.Errorf("drain Kubernetes node %q: %w", nodeName, err)
+	}
+	return nil
 }
 
 type nodeStorageSafety struct {

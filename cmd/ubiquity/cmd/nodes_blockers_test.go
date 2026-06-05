@@ -159,6 +159,44 @@ func TestNodesLiveMutatingOperationCallsFakeableClient(t *testing.T) {
 	}
 }
 
+func TestNodesLiveDrainCordonsAndDrainsKubernetesNode(t *testing.T) {
+	oldOpts := nodeOpts
+	oldFactory := newNodesNICOClient
+	oldKubectl := runNodesKubectl
+	defer func() { nodeOpts = oldOpts; newNodesNICOClient = oldFactory; runNodesKubectl = oldKubectl }()
+	fake := &fakeNodesNICOClient{
+		machines:  []nico.Machine{{ID: "machine-1", Name: "node-a", Status: "provisioned"}},
+		instances: []nico.Instance{{ID: "inst-1", NodeName: "node-a", MachineID: "machine-1", Status: "running"}},
+	}
+	newNodesNICOClient = func(cfg nico.Config) (nodesNICOClient, error) { return fake, nil }
+	var kubectlCalls []string
+	runNodesKubectl = func(ctx context.Context, args ...string) ([]byte, error) {
+		kubectlCalls = append(kubectlCalls, strings.Join(args, " "))
+		if strings.Join(args, " ") == "get nodes -o json" {
+			return []byte(`{"items":[{"metadata":{"name":"node-a","labels":{"kubernetes.io/role":"worker"}},"status":{"conditions":[{"type":"Ready","status":"True"}]}}]}`), nil
+		}
+		return []byte(`ok`), nil
+	}
+	nodeOpts = nodeCommandOptions{Backend: nodeBackendNICO, Output: "json", DryRun: false, Site: "site-a"}
+	t.Setenv("UBIQUITY_NICO_MODE", "live")
+	t.Setenv("UBIQUITY_NICO_BASE_URL", "https://nico.example")
+	t.Setenv("UBIQUITY_NICO_ORG", "acme")
+	t.Setenv("UBIQUITY_NICO_TOKEN", "tok")
+	out, err := captureNodesOutput(t, func() error { return runNodesAction("drain", true)(nodesCmd, []string{"node-a"}) })
+	if err != nil {
+		t.Fatalf("drain live: %v", err)
+	}
+	joined := strings.Join(kubectlCalls, "\n")
+	for _, want := range []string{"cordon node-a", "drain node-a --ignore-daemonsets --delete-emptydir-data --timeout=10m"} {
+		if !strings.Contains(joined, want) {
+			t.Fatalf("kubectl calls %q missing %q", joined, want)
+		}
+	}
+	if !strings.Contains(out, "cordoned/drained") || !strings.Contains(out, "node-a") {
+		t.Fatalf("drain output missing completion marker: %s", out)
+	}
+}
+
 func TestNodesLivePowerCallsNICoMachinePowerTask(t *testing.T) {
 	oldOpts := nodeOpts
 	oldFactory := newNodesNICOClient
