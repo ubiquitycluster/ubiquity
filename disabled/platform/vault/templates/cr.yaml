@@ -143,7 +143,9 @@ spec:
     listener:
       tcp:
         address: "0.0.0.0:8200"
-        # TODO enable TLS?
+        # TLS is intentionally disabled only for archived/dev template parity.
+        # Production overlays must provide tls_cert_file/tls_key_file and set
+        # tls_disable: false before exposing Vault outside the cluster.
         tls_disable: true
         # tls_cert_file: /vault/tls/server.crt
         # tls_key_file: /vault/tls/server.key
@@ -228,20 +230,20 @@ spec:
         path: secret/data/accounts/aws
         data:
           data:
-            AWS_ACCESS_KEY_ID: secretId
-            AWS_SECRET_ACCESS_KEY: s3cr3t
+            AWS_ACCESS_KEY_ID: "[REDACTED]"
+            AWS_SECRET_ACCESS_KEY: "[REDACTED]"
       - type: kv
         path: secret/data/dockerrepo
         data:
           data:
             DOCKER_REPO_USER: dockerrepouser
-            DOCKER_REPO_PASSWORD: dockerrepopassword
+            DOCKER_REPO_PASSWORD: "[REDACTED]"
       - type: kv
         path: secret/data/mysql
         data:
           data:
-            MYSQL_ROOT_PASSWORD: s3cr3t
-            MYSQL_PASSWORD: 3xtr3ms3cr3t
+            MYSQL_ROOT_PASSWORD: "[REDACTED]"
+            MYSQL_PASSWORD: "[REDACTED]"
 
   vaultEnvsConfig:
     - name: VAULT_LOG_LEVEL

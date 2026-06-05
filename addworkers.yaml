@@ -4,9 +4,9 @@
   become: yes
   vars:
     # Define your K3S token and URL of the control plane here
-    k3s_token: "K10ec0f161d1e9b57067486d7b4d0e7806295163bf986df2a90e648b1952aedaabc::server:cd74dad4de7ed1107346574128ba45c2"  # Replace with your actual token
-    k3s_url: "https://192.168.100.10:6443"  # Replace with your actual K3s control plane URL
-    kubeconfig_path: "/home/mmistry/ubiquity_dev/ucl-ubiquity-fork/metal/kubeconfig.yaml"
+    k3s_token: "{{ lookup('env', 'K3S_TOKEN') | default('[REDACTED]', true) }}"  # Never commit live K3s tokens
+    k3s_url: "{{ lookup('env', 'K3S_URL') | default('https://[REDACTED]:6443', true) }}"  # Set per environment
+    kubeconfig_path: "{{ lookup('env', 'KUBECONFIG') | default('/path/to/kubeconfig', true) }}"
 
 
   tasks:
