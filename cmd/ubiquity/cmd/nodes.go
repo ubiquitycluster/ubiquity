@@ -53,7 +53,12 @@ type nodesNICOClient interface {
 	GetTask(context.Context, string) (nico.Task, error)
 }
 
-var newNodesNICOClient = func(cfg nico.Config) (nodesNICOClient, error) {
+var newNodesNICOClient = newNodesNICOClientForConfig
+
+func newNodesNICOClientForConfig(cfg nico.Config) (nodesNICOClient, error) {
+	if useNICOCLITransport() {
+		return nico.NewNicoCLI(cfg), nil
+	}
 	return nico.NewClient(cfg)
 }
 
@@ -664,7 +669,7 @@ func requireNodeBackend(cfg nico.Config) error {
 	switch nodeOpts.Backend {
 	case nodeBackendNICO:
 		cfg = cfg.WithDefaults()
-		if cfg.Mode == nico.ModeLive && strings.TrimSpace(cfg.BaseURL) == "" {
+		if cfg.Mode == nico.ModeLive && strings.TrimSpace(cfg.BaseURL) == "" && !useNICOCLITransport() {
 			return fmt.Errorf("NICo config absent: set UBIQUITY_NICO_BASE_URL or use UBIQUITY_NICO_MODE=mock/--dry-run; refusing to claim lifecycle readiness")
 		}
 		return nil
@@ -682,7 +687,12 @@ func nicoConfigFromEnv(site string) nico.Config {
 	if mode == "" && nodeOpts.DryRun {
 		mode = nico.ModeMock
 	}
-	return nico.Config{BaseURL: os.Getenv("UBIQUITY_NICO_BASE_URL"), Org: os.Getenv("UBIQUITY_NICO_ORG"), SiteName: site, APIName: os.Getenv("UBIQUITY_NICO_API"), Token: os.Getenv("UBIQUITY_NICO_TOKEN"), TokenEnv: "UBIQUITY_NICO_TOKEN", TokenCommand: os.Getenv("UBIQUITY_NICO_TOKEN_COMMAND"), ConfigPath: os.Getenv("UBIQUITY_NICO_CONFIG"), Mode: mode}
+	return nico.Config{BaseURL: os.Getenv("UBIQUITY_NICO_BASE_URL"), Org: os.Getenv("UBIQUITY_NICO_ORG"), SiteName: site, APIName: os.Getenv("UBIQUITY_NICO_API"), Token: os.Getenv("UBIQUITY_NICO_TOKEN"), TokenEnv: "UBIQUITY_NICO_TOKEN", TokenCommand: os.Getenv("UBIQUITY_NICO_TOKEN_COMMAND"), ConfigPath: os.Getenv("UBIQUITY_NICO_CONFIG"), CLIPath: os.Getenv("UBIQUITY_NICO_CLI_PATH"), Mode: mode}
+}
+
+func useNICOCLITransport() bool {
+	transport := strings.ToLower(strings.TrimSpace(os.Getenv("UBIQUITY_NICO_TRANSPORT")))
+	return transport == "cli" || transport == "nicocli"
 }
 
 func renderNodeRows(rows []map[string]string, output string) error {

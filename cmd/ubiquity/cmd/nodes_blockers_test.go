@@ -276,6 +276,20 @@ func TestNodesLiveReinstallInventoryPinsReplacementToSameMachine(t *testing.T) {
 	}
 }
 
+func TestNodesNICOCLITransportDoesNotRequireRESTBaseURL(t *testing.T) {
+	old := nodeOpts
+	defer func() { nodeOpts = old }()
+	nodeOpts = nodeCommandOptions{Backend: nodeBackendNICO, DryRun: false}
+	t.Setenv("UBIQUITY_NICO_TRANSPORT", "cli")
+	if err := requireNodeBackend(nico.Config{Mode: nico.ModeLive, Org: "acme"}); err != nil {
+		t.Fatalf("CLI transport should not require REST base URL: %v", err)
+	}
+	cfg := nicoConfigFromEnv("site-a").WithDefaults()
+	if cfg.CLIPath != "nicocli" {
+		t.Fatalf("default CLIPath = %q", cfg.CLIPath)
+	}
+}
+
 func TestNodesLivePowerCallsNICoMachinePowerTask(t *testing.T) {
 	oldOpts := nodeOpts
 	oldFactory := newNodesNICOClient
