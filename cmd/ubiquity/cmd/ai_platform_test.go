@@ -21,8 +21,8 @@ func TestAIPlatformOutputIncludesBareMetalOrchestrationAlternatives(t *testing.T
 	if cmd == nil {
 		t.Fatal("expected ai-platform command to be registered")
 	}
-	cmd.Flags().Set("profile", "ai-production")
-	defer cmd.Flags().Set("profile", "gpu-basic")
+	cmd.PersistentFlags().Set("profile", "ai-production")
+	defer cmd.PersistentFlags().Set("profile", "gpu-basic")
 
 	output := captureOutput(func() {
 		if err := cmd.RunE(cmd, []string{}); err != nil {
@@ -43,8 +43,8 @@ func TestAIPlatformOutputIncludesStorageAlternatives(t *testing.T) {
 	if cmd == nil {
 		t.Fatal("expected ai-platform command to be registered")
 	}
-	cmd.Flags().Set("profile", "ai-production")
-	defer cmd.Flags().Set("profile", "gpu-basic")
+	cmd.PersistentFlags().Set("profile", "ai-production")
+	defer cmd.PersistentFlags().Set("profile", "gpu-basic")
 
 	output := captureOutput(func() {
 		if err := cmd.RunE(cmd, []string{}); err != nil {
@@ -64,8 +64,8 @@ func TestAIPlatformProfileOutputDemotesOllama(t *testing.T) {
 	if cmd == nil {
 		t.Fatal("expected ai-platform command to be registered")
 	}
-	cmd.Flags().Set("profile", "ai-production")
-	defer cmd.Flags().Set("profile", "gpu-basic")
+	cmd.PersistentFlags().Set("profile", "ai-production")
+	defer cmd.PersistentFlags().Set("profile", "gpu-basic")
 
 	output := captureOutput(func() {
 		if err := cmd.RunE(cmd, []string{}); err != nil {

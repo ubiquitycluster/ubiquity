@@ -94,7 +94,7 @@ func formatCapabilities(capabilities []aiplatform.Capability) string {
 }
 
 func init() {
-	aiPlatformCmd.Flags().StringVar(&aiPlatformProfile, "profile", "gpu-basic", fmt.Sprintf("AI platform profile (%s)", strings.Join(aiplatform.Names(), ", ")))
+	aiPlatformCmd.PersistentFlags().StringVar(&aiPlatformProfile, "profile", "gpu-basic", fmt.Sprintf("AI platform profile (%s)", strings.Join(aiplatform.Names(), ", ")))
 	renderCmd := &cobra.Command{Use: "render", Short: "Render profile manifests", Args: cobra.NoArgs, RunE: runAIPlatformRender}
 	applyCmd := &cobra.Command{Use: "apply", Short: "Apply rendered profile manifests", Args: cobra.NoArgs, RunE: runAIPlatformApply}
 	applyCmd.Flags().BoolVar(&aiPlatformApplyDryRun, "dry-run", true, "use kubectl server-side dry-run instead of mutating the cluster")
