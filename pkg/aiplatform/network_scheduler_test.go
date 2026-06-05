@@ -21,6 +21,15 @@ func TestNetworkOperatorValuesAreProfileDriven(t *testing.T) {
 	}
 }
 
+func TestNetworkOperatorSandboxValuesAvoidNFDNodeFeatureRules(t *testing.T) {
+	values := mustRead(t, "../../system/nvidia-network-operator/values-sandbox.yaml")
+	for _, required := range []string{"deployCR: false", "deployNodeFeatureRules: false", "rke2-multus:", "enabled: false"} {
+		if !strings.Contains(values, required) {
+			t.Fatalf("NVIDIA Network Operator sandbox values must include %q", required)
+		}
+	}
+}
+
 func TestProductionSchedulerTenancyManifestsExist(t *testing.T) {
 	for _, path := range []string{
 		"../../platform/ai-workload-tenancy/Chart.yaml",

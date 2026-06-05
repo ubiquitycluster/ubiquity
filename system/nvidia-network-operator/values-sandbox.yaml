@@ -5,6 +5,7 @@ network-operator:
   deployCR: false
   nfd:
     enabled: false
+    deployNodeFeatureRules: false
   sriovNetworkOperator:
     enabled: false
 
