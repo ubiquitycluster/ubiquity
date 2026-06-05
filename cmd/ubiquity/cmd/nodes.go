@@ -11,7 +11,9 @@ import (
 
 	"github.com/spf13/cobra"
 	"github.com/ubiquitycluster/ubiquity/pkg/nico"
+	"github.com/ubiquitycluster/ubiquity/pkg/nodeinventory"
 	"github.com/ubiquitycluster/ubiquity/pkg/nodestatus"
+	"go.yaml.in/yaml/v3"
 )
 
 const (
@@ -29,6 +31,7 @@ type nodeCommandOptions struct {
 	Site                string
 	OS                  string
 	Power               string
+	Inventory           string
 	Force               bool
 	Reason              string
 	DrainConfirmed      bool
@@ -76,6 +79,7 @@ func init() {
 	nodesCmd.PersistentFlags().StringVar(&nodeOpts.OS, "os", "", "operating system image/name for apply/reinstall")
 	nodesCmd.PersistentFlags().StringVar(&nodeOpts.OS, "os-image", "", "alias for --os")
 	nodesCmd.PersistentFlags().StringVar(&nodeOpts.Power, "state", "", "power state for power command")
+	nodesCmd.PersistentFlags().StringVar(&nodeOpts.Inventory, "inventory", "", "Ubiquity NodeInventory YAML for NICo OS apply/add/reinstall operations")
 	nodesCmd.PersistentFlags().BoolVar(&nodeOpts.Force, "force", false, "override selected safety gates")
 	nodesCmd.PersistentFlags().StringVar(&nodeOpts.Reason, "reason", "", "required reason when --force is used")
 	nodesCmd.PersistentFlags().BoolVar(&nodeOpts.DrainConfirmed, "drain-confirmed", false, "acknowledge node has been cordoned/drained")
@@ -101,7 +105,7 @@ func init() {
 
 	osCmd := &cobra.Command{Use: "os", Short: "Manage NICo Operating System objects"}
 	osCmd.AddCommand(&cobra.Command{Use: "list", Args: cobra.NoArgs, RunE: runNodesOSList})
-	osCmd.AddCommand(&cobra.Command{Use: "apply <image>", Args: cobra.ExactArgs(1), RunE: runNodesAction("os apply", false)})
+	osCmd.AddCommand(&cobra.Command{Use: "apply [image]", Args: cobra.MaximumNArgs(1), RunE: runNodesAction("os apply", false)})
 	nodesCmd.AddCommand(osCmd)
 }
 
@@ -278,9 +282,27 @@ func runLiveNodesAction(ctx context.Context, client nodesNICOClient, action, tar
 		}
 		return renderNodeRows([]map[string]string{instanceNodeRow(inst, action)}, nodeOpts.Output)
 	case "os apply":
+		if strings.TrimSpace(nodeOpts.Inventory) != "" {
+			oses, err := loadNICoOperatingSystemsFromInventory(nodeOpts.Inventory)
+			if err != nil {
+				return err
+			}
+			rows := make([]map[string]string, 0, len(oses))
+			for _, osSpec := range oses {
+				created, err := client.CreateOperatingSystem(ctx, osSpec)
+				if err != nil {
+					return err
+				}
+				rows = append(rows, map[string]string{"name": firstNonEmptyString(created.Name, created.Metadata.Name, osSpec.Name), "id": created.ID, "backend": "nico", "status": "created", "effect": "operating-system applied from inventory"})
+			}
+			return renderNodeRows(rows, nodeOpts.Output)
+		}
 		image := nodeOpts.OS
 		if image == "" && len(args) > 0 {
 			image = args[0]
+		}
+		if image == "" {
+			return fmt.Errorf("nodes os apply requires an image argument or --inventory")
 		}
 		os, err := client.CreateOperatingSystem(ctx, nico.OperatingSystem{Name: image})
 		if err != nil {
@@ -335,6 +357,45 @@ func runLiveNodesAction(ctx context.Context, client nodesNICOClient, action, tar
 
 func collectLiveNodeStatuses(ctx context.Context, client nodesNICOClient) ([]nodestatus.NodeStatus, error) {
 	return nodestatus.CollectNICo(ctx, client, collectNodeKubernetesEvidence(ctx))
+}
+
+func loadNICoOperatingSystemsFromInventory(path string) ([]nico.OperatingSystem, error) {
+	data, err := os.ReadFile(path)
+	if err != nil {
+		return nil, fmt.Errorf("read node inventory %q: %w", path, err)
+	}
+	var inventory nodeinventory.NodeInventory
+	if err := yaml.Unmarshal(data, &inventory); err != nil {
+		return nil, fmt.Errorf("parse node inventory %q: %w", path, err)
+	}
+	rendered, err := nodeinventory.RenderNICoOperatingSystems(inventory)
+	if err != nil {
+		return nil, err
+	}
+	out := make([]nico.OperatingSystem, 0, len(rendered))
+	for _, osSpec := range rendered {
+		out = append(out, nico.OperatingSystem{
+			Name:       osSpec.Metadata.Name,
+			APIVersion: osSpec.APIVersion,
+			Kind:       osSpec.Kind,
+			Metadata: nico.ObjectMetadata{
+				Name:   osSpec.Metadata.Name,
+				Labels: osSpec.Metadata.Labels,
+			},
+			Spec: nico.OperatingSystemSpec{
+				Family:       osSpec.Spec.Family,
+				Version:      osSpec.Spec.Version,
+				Architecture: osSpec.Spec.Architecture,
+				ImageURL:     osSpec.Spec.ImageURL,
+				Checksum:     osSpec.Spec.Checksum,
+				Provenance:   osSpec.Spec.Provenance,
+				IPXEScript:   osSpec.Spec.IPXEScript,
+				UserData:     osSpec.Spec.UserData,
+				Labels:       osSpec.Spec.Labels,
+			},
+		})
+	}
+	return out, nil
 }
 
 func collectNodeKubernetesEvidence(ctx context.Context) nodestatus.Evidence {

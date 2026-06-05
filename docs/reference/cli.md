@@ -82,6 +82,7 @@ ubiquity nodes list [-o table|json]
 ubiquity nodes status <name> [-o json]
 ubiquity nodes os list
 ubiquity nodes os apply <image>
+ubiquity nodes os apply --inventory examples/node-inventory/nico-prod.yaml
 ubiquity nodes add <name> --os-image <image>
 ubiquity nodes remove <name> --confirm <name> --drain-confirmed
 ubiquity nodes reinstall <name> --os-image <image> --confirm <name> --drain-confirmed

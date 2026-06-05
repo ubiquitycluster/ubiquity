@@ -71,8 +71,29 @@ type PowerRequest struct {
 }
 
 type OperatingSystem struct {
-	ID   string `json:"id,omitempty"`
-	Name string `json:"name,omitempty"`
+	ID         string              `json:"id,omitempty"`
+	Name       string              `json:"name,omitempty"`
+	APIVersion string              `json:"apiVersion,omitempty"`
+	Kind       string              `json:"kind,omitempty"`
+	Metadata   ObjectMetadata      `json:"metadata,omitempty"`
+	Spec       OperatingSystemSpec `json:"spec,omitempty"`
+}
+
+type ObjectMetadata struct {
+	Name   string            `json:"name,omitempty"`
+	Labels map[string]string `json:"labels,omitempty"`
+}
+
+type OperatingSystemSpec struct {
+	Family       string            `json:"family,omitempty"`
+	Version      string            `json:"version,omitempty"`
+	Architecture string            `json:"architecture,omitempty"`
+	ImageURL     string            `json:"imageURL,omitempty"`
+	Checksum     string            `json:"checksum,omitempty"`
+	Provenance   string            `json:"provenance,omitempty"`
+	IPXEScript   string            `json:"ipxeScript,omitempty"`
+	UserData     string            `json:"userData,omitempty"`
+	Labels       map[string]string `json:"labels,omitempty"`
 }
 
 type Instance struct {

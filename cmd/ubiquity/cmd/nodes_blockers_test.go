@@ -104,7 +104,7 @@ func captureNodesOutput(t *testing.T, fn func() error) (string, error) {
 
 func TestNodesFlagsConfirmStringOSImageAliasAndSafetyFlags(t *testing.T) {
 	cmd := findCommand(rootCmd, "nodes")
-	for _, name := range []string{"confirm", "os-image", "force", "reason", "drain-confirmed", "storage-ack", "aistore-ack"} {
+	for _, name := range []string{"confirm", "os-image", "inventory", "force", "reason", "drain-confirmed", "storage-ack", "aistore-ack"} {
 		if cmd.PersistentFlags().Lookup(name) == nil {
 			t.Fatalf("expected --%s persistent flag", name)
 		}
@@ -264,5 +264,29 @@ func TestNodesLiveCreateActionsRenderCreatedPayloads(t *testing.T) {
 		if !strings.Contains(out, tc.want) {
 			t.Fatalf("%s output %q missing created payload marker %q", tc.action, out, tc.want)
 		}
+	}
+}
+
+func TestNodesOSApplyInventoryCreatesRenderedNICoOperatingSystems(t *testing.T) {
+	old := nodeOpts
+	defer func() { nodeOpts = old }()
+	nodeOpts = nodeCommandOptions{Backend: nodeBackendNICO, Output: "json", DryRun: false, Inventory: "../../../examples/node-inventory/nico-prod.yaml"}
+	fake := &fakeNodesNICOClient{}
+	out, err := captureNodesOutput(t, func() error {
+		ctx, cancel := context.WithTimeout(context.Background(), nodeLiveCommandTimeout)
+		defer cancel()
+		return runLiveNodesAction(ctx, fake, "os apply", "", "", nil)
+	})
+	if err != nil {
+		t.Fatalf("os apply inventory: %v", err)
+	}
+	if len(fake.createdOS) != 4 {
+		t.Fatalf("created OS count = %d, want 4 (%#v)", len(fake.createdOS), fake.createdOS)
+	}
+	if fake.createdOS[0].Name != "rocky-9.4-gpu" || fake.createdOS[0].Kind != "OperatingSystem" || fake.createdOS[0].Spec.IPXEScript == "" {
+		t.Fatalf("first rendered OS was not preserved: %#v", fake.createdOS[0])
+	}
+	if !strings.Contains(out, "rocky-9.4-gpu") || !strings.Contains(out, "custom-dpu-appliance") {
+		t.Fatalf("inventory output missing rendered OS names: %s", out)
 	}
 }
