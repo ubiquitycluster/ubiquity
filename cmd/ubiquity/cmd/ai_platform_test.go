@@ -1,6 +1,10 @@
 package cmd
 
-import "testing"
+import (
+	"context"
+	"fmt"
+	"testing"
+)
 
 func TestAIPlatformCmdRegistered(t *testing.T) {
 	cmd := findCommand(rootCmd, "ai-platform")
@@ -73,6 +77,49 @@ func TestAIPlatformProfileOutputDemotesOllama(t *testing.T) {
 	assertContains(t, output, "NVIDIA/gpu-operator")
 	assertContains(t, output, "NVIDIA/k8s-nim-operator")
 	assertContains(t, output, "Ollama: optional diagnostics only")
+}
+
+func TestAIPlatformRenderAndApplySubcommandsAreActionable(t *testing.T) {
+	render := findCommand(aiPlatformCmd, "render")
+	if render == nil {
+		t.Fatal("expected ai-platform render subcommand")
+	}
+	aiPlatformProfile = "ai-production"
+	defer func() { aiPlatformProfile = "gpu-basic" }()
+	output := captureOutput(func() {
+		if err := render.RunE(render, []string{}); err != nil {
+			t.Fatalf("render failed: %v", err)
+		}
+	})
+	assertContains(t, output, "kind: ConfigMap")
+	assertContains(t, output, "name: ubiquity-ai-platform-profile")
+	assertContains(t, output, "profile: ai-production")
+	assertContains(t, output, "source: https://github.com/NVIDIA/gpu-operator")
+	assertContains(t, output, "not-nvidia-certified: \"true\"")
+
+	apply := findCommand(aiPlatformCmd, "apply")
+	if apply == nil {
+		t.Fatal("expected ai-platform apply subcommand")
+	}
+	oldRunner := runAIPlatformKubectl
+	defer func() { runAIPlatformKubectl = oldRunner }()
+	var gotArgs []string
+	var gotManifest string
+	runAIPlatformKubectl = func(ctx context.Context, args []string, stdin []byte) ([]byte, error) {
+		gotArgs = append([]string(nil), args...)
+		gotManifest = string(stdin)
+		return []byte("configmap/ubiquity-ai-platform-profile configured\n"), nil
+	}
+	output = captureOutput(func() {
+		if err := apply.RunE(apply, []string{}); err != nil {
+			t.Fatalf("apply failed: %v", err)
+		}
+	})
+	if fmt.Sprint(gotArgs) != "[apply --dry-run=server -f -]" {
+		t.Fatalf("kubectl args = %#v", gotArgs)
+	}
+	assertContains(t, gotManifest, "profile: ai-production")
+	assertContains(t, output, "configmap/ubiquity-ai-platform-profile configured")
 }
 
 func assertContains(t *testing.T, haystack, needle string) {

@@ -1,7 +1,10 @@
 package cmd
 
 import (
+	"bytes"
+	"context"
 	"fmt"
+	"os/exec"
 	"strings"
 
 	"github.com/spf13/cobra"
@@ -9,6 +12,13 @@ import (
 )
 
 var aiPlatformProfile string
+var aiPlatformApplyDryRun bool
+
+var runAIPlatformKubectl = func(ctx context.Context, args []string, stdin []byte) ([]byte, error) {
+	cmd := exec.CommandContext(ctx, "kubectl", args...)
+	cmd.Stdin = bytes.NewReader(stdin)
+	return cmd.CombinedOutput()
+}
 
 var aiPlatformCmd = &cobra.Command{
 	Use:   "ai-platform",
@@ -85,5 +95,73 @@ func formatCapabilities(capabilities []aiplatform.Capability) string {
 
 func init() {
 	aiPlatformCmd.Flags().StringVar(&aiPlatformProfile, "profile", "gpu-basic", fmt.Sprintf("AI platform profile (%s)", strings.Join(aiplatform.Names(), ", ")))
+	renderCmd := &cobra.Command{Use: "render", Short: "Render profile manifests", Args: cobra.NoArgs, RunE: runAIPlatformRender}
+	applyCmd := &cobra.Command{Use: "apply", Short: "Apply rendered profile manifests", Args: cobra.NoArgs, RunE: runAIPlatformApply}
+	applyCmd.Flags().BoolVar(&aiPlatformApplyDryRun, "dry-run", true, "use kubectl server-side dry-run instead of mutating the cluster")
+	aiPlatformCmd.AddCommand(renderCmd, applyCmd)
 	rootCmd.AddCommand(aiPlatformCmd)
+}
+
+func runAIPlatformRender(cmd *cobra.Command, args []string) error {
+	profile, err := aiplatform.GetProfile(aiPlatformProfile)
+	if err != nil {
+		return err
+	}
+	fmt.Print(renderAIPlatformManifest(profile))
+	return nil
+}
+
+func runAIPlatformApply(cmd *cobra.Command, args []string) error {
+	profile, err := aiplatform.GetProfile(aiPlatformProfile)
+	if err != nil {
+		return err
+	}
+	kubectlArgs := []string{"apply"}
+	if aiPlatformApplyDryRun {
+		kubectlArgs = append(kubectlArgs, "--dry-run=server")
+	}
+	kubectlArgs = append(kubectlArgs, "-f", "-")
+	out, err := runAIPlatformKubectl(cmd.Context(), kubectlArgs, []byte(renderAIPlatformManifest(profile)))
+	if len(out) > 0 {
+		fmt.Print(string(out))
+	}
+	return err
+}
+
+func renderAIPlatformManifest(profile aiplatform.Profile) string {
+	var b strings.Builder
+	b.WriteString("apiVersion: v1\nkind: ConfigMap\nmetadata:\n  name: ubiquity-ai-platform-profile\n  namespace: ubiquity-system\n  labels:\n    app.kubernetes.io/name: ubiquity-ai-platform\n    ubiquity.ai/profile: \"")
+	b.WriteString(profile.Name)
+	b.WriteString("\"\n    not-nvidia-certified: \"true\"\ndata:\n  profile: ")
+	b.WriteString(profile.Name)
+	b.WriteString("\n  description: |\n    ")
+	b.WriteString(profile.Description)
+	b.WriteString("\n  readiness-policy: \"fail closed until GPU, runtime, telemetry, and serving evidence is proven\"\n  approval-policy: \"no NVIDIA approval/certification claim without explicit evidence\"\n  components: |\n")
+	for _, component := range profile.Components {
+		b.WriteString("    - name: ")
+		b.WriteString(component.Name)
+		b.WriteString("\n")
+		if component.SourceRepo != "" {
+			b.WriteString("      source: ")
+			b.WriteString(component.SourceRepo)
+			b.WriteString("\n")
+		}
+		if component.ChartName != "" {
+			b.WriteString("      chart: ")
+			b.WriteString(component.ChartName)
+			b.WriteString("\n")
+		}
+		if component.ChartRepository != "" {
+			b.WriteString("      chartRepository: ")
+			b.WriteString(component.ChartRepository)
+			b.WriteString("\n")
+		}
+		if component.Namespace != "" {
+			b.WriteString("      namespace: ")
+			b.WriteString(component.Namespace)
+			b.WriteString("\n")
+		}
+		b.WriteString(fmt.Sprintf("      replacesLocal: %t\n      productionDefault: %t\n", component.ReplacesLocal, component.ProductionDefault))
+	}
+	return b.String()
 }
