@@ -290,3 +290,31 @@ func TestNodesOSApplyInventoryCreatesRenderedNICoOperatingSystems(t *testing.T) 
 		t.Fatalf("inventory output missing rendered OS names: %s", out)
 	}
 }
+
+func TestNodesAddInventoryCreatesOSAndInstanceForTargetNode(t *testing.T) {
+	old := nodeOpts
+	defer func() { nodeOpts = old }()
+	nodeOpts = nodeCommandOptions{Backend: nodeBackendNICO, Output: "json", DryRun: false, Inventory: "../../../examples/node-inventory/nico-prod.yaml"}
+	fake := &fakeNodesNICOClient{}
+	out, err := captureNodesOutput(t, func() error {
+		ctx, cancel := context.WithTimeout(context.Background(), nodeLiveCommandTimeout)
+		defer cancel()
+		return runLiveNodesAction(ctx, fake, "add", "cn01", "", []string{"cn01"})
+	})
+	if err != nil {
+		t.Fatalf("add inventory: %v", err)
+	}
+	if len(fake.createdOS) != 1 || fake.createdOS[0].Name != "ubuntu-24.04-gpu" {
+		t.Fatalf("created OS = %#v, want ubuntu-24.04-gpu only", fake.createdOS)
+	}
+	if len(fake.createdInstance) != 1 {
+		t.Fatalf("created instance count = %d", len(fake.createdInstance))
+	}
+	inst := fake.createdInstance[0]
+	if inst.NodeName != "cn01" || inst.OSImage != "ubuntu-24.04-gpu" || inst.InstanceTypeRef != "gpu-h100-8x" || inst.GPUProfile != "h100-8g" || inst.JoinProfile != "k3s-agent" {
+		t.Fatalf("created instance from inventory = %#v", inst)
+	}
+	if !strings.Contains(out, "cn01") || !strings.Contains(out, "ubuntu-24.04-gpu") {
+		t.Fatalf("add inventory output missing target/os: %s", out)
+	}
+}

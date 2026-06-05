@@ -97,15 +97,20 @@ type OperatingSystemSpec struct {
 }
 
 type Instance struct {
-	ID         string `json:"id,omitempty"`
-	Name       string `json:"name,omitempty"`
-	MachineID  string `json:"machineId,omitempty"`
-	NodeName   string `json:"nodeName,omitempty"`
-	Status     string `json:"status,omitempty"`
-	OSID       string `json:"osId,omitempty"`
-	OSImage    string `json:"osImage,omitempty"`
-	LastAction string `json:"lastAction,omitempty"`
-	Reason     string `json:"reason,omitempty"`
+	ID              string            `json:"id,omitempty"`
+	Name            string            `json:"name,omitempty"`
+	MachineID       string            `json:"machineId,omitempty"`
+	NodeName        string            `json:"nodeName,omitempty"`
+	Status          string            `json:"status,omitempty"`
+	OSID            string            `json:"osId,omitempty"`
+	OSImage         string            `json:"osImage,omitempty"`
+	InstanceTypeRef string            `json:"instanceTypeRef,omitempty"`
+	GPUProfile      string            `json:"gpuProfile,omitempty"`
+	JoinProfile     string            `json:"joinProfile,omitempty"`
+	MachineSelector map[string]string `json:"machineSelector,omitempty"`
+	Labels          map[string]string `json:"labels,omitempty"`
+	LastAction      string            `json:"lastAction,omitempty"`
+	Reason          string            `json:"reason,omitempty"`
 }
 
 type MachineGPUStats struct {

@@ -254,6 +254,13 @@ func evaluateNodeActionSafety(action, target, powerState string, node nodestatus
 func runLiveNodesAction(ctx context.Context, client nodesNICOClient, action, target, powerState string, args []string) error {
 	switch action {
 	case "add":
+		if strings.TrimSpace(nodeOpts.Inventory) != "" {
+			inst, err := createInstanceFromInventory(ctx, client, nodeOpts.Inventory, target)
+			if err != nil {
+				return err
+			}
+			return renderNodeRows([]map[string]string{instanceNodeRow(inst, action)}, nodeOpts.Output)
+		}
 		inst, err := client.CreateInstance(ctx, nico.Instance{Name: target, NodeName: target, OSImage: nodeOpts.OS})
 		if err != nil {
 			return err
@@ -360,13 +367,9 @@ func collectLiveNodeStatuses(ctx context.Context, client nodesNICOClient) ([]nod
 }
 
 func loadNICoOperatingSystemsFromInventory(path string) ([]nico.OperatingSystem, error) {
-	data, err := os.ReadFile(path)
+	inventory, err := loadNodeInventory(path)
 	if err != nil {
-		return nil, fmt.Errorf("read node inventory %q: %w", path, err)
-	}
-	var inventory nodeinventory.NodeInventory
-	if err := yaml.Unmarshal(data, &inventory); err != nil {
-		return nil, fmt.Errorf("parse node inventory %q: %w", path, err)
+		return nil, err
 	}
 	rendered, err := nodeinventory.RenderNICoOperatingSystems(inventory)
 	if err != nil {
@@ -374,28 +377,76 @@ func loadNICoOperatingSystemsFromInventory(path string) ([]nico.OperatingSystem,
 	}
 	out := make([]nico.OperatingSystem, 0, len(rendered))
 	for _, osSpec := range rendered {
-		out = append(out, nico.OperatingSystem{
-			Name:       osSpec.Metadata.Name,
-			APIVersion: osSpec.APIVersion,
-			Kind:       osSpec.Kind,
-			Metadata: nico.ObjectMetadata{
-				Name:   osSpec.Metadata.Name,
-				Labels: osSpec.Metadata.Labels,
-			},
-			Spec: nico.OperatingSystemSpec{
-				Family:       osSpec.Spec.Family,
-				Version:      osSpec.Spec.Version,
-				Architecture: osSpec.Spec.Architecture,
-				ImageURL:     osSpec.Spec.ImageURL,
-				Checksum:     osSpec.Spec.Checksum,
-				Provenance:   osSpec.Spec.Provenance,
-				IPXEScript:   osSpec.Spec.IPXEScript,
-				UserData:     osSpec.Spec.UserData,
-				Labels:       osSpec.Spec.Labels,
-			},
-		})
+		out = append(out, nicoOperatingSystemFromRendered(osSpec))
 	}
 	return out, nil
+}
+
+func loadNodeInventory(path string) (nodeinventory.NodeInventory, error) {
+	data, err := os.ReadFile(path)
+	if err != nil {
+		return nodeinventory.NodeInventory{}, fmt.Errorf("read node inventory %q: %w", path, err)
+	}
+	var inventory nodeinventory.NodeInventory
+	if err := yaml.Unmarshal(data, &inventory); err != nil {
+		return nodeinventory.NodeInventory{}, fmt.Errorf("parse node inventory %q: %w", path, err)
+	}
+	if err := inventory.Validate(); err != nil {
+		return nodeinventory.NodeInventory{}, err
+	}
+	return inventory, nil
+}
+
+func nicoOperatingSystemFromRendered(osSpec nodeinventory.NICoOperatingSystem) nico.OperatingSystem {
+	return nico.OperatingSystem{
+		Name:       osSpec.Metadata.Name,
+		APIVersion: osSpec.APIVersion,
+		Kind:       osSpec.Kind,
+		Metadata: nico.ObjectMetadata{
+			Name:   osSpec.Metadata.Name,
+			Labels: osSpec.Metadata.Labels,
+		},
+		Spec: nico.OperatingSystemSpec{
+			Family:       osSpec.Spec.Family,
+			Version:      osSpec.Spec.Version,
+			Architecture: osSpec.Spec.Architecture,
+			ImageURL:     osSpec.Spec.ImageURL,
+			Checksum:     osSpec.Spec.Checksum,
+			Provenance:   osSpec.Spec.Provenance,
+			IPXEScript:   osSpec.Spec.IPXEScript,
+			UserData:     osSpec.Spec.UserData,
+			Labels:       osSpec.Spec.Labels,
+		},
+	}
+}
+
+func createInstanceFromInventory(ctx context.Context, client nodesNICOClient, path, target string) (nico.Instance, error) {
+	inventory, err := loadNodeInventory(path)
+	if err != nil {
+		return nico.Instance{}, err
+	}
+	rendered, err := nodeinventory.RenderNICoOperatingSystems(inventory)
+	if err != nil {
+		return nico.Instance{}, err
+	}
+	osByName := map[string]nico.OperatingSystem{}
+	for _, osSpec := range rendered {
+		osByName[osSpec.Metadata.Name] = nicoOperatingSystemFromRendered(osSpec)
+	}
+	for _, node := range inventory.Nodes {
+		if node.Name != target {
+			continue
+		}
+		osSpec, ok := osByName[node.OSImageRef]
+		if !ok {
+			return nico.Instance{}, fmt.Errorf("node %q references unknown OS image %q", target, node.OSImageRef)
+		}
+		if _, err := client.CreateOperatingSystem(ctx, osSpec); err != nil {
+			return nico.Instance{}, err
+		}
+		return client.CreateInstance(ctx, nico.Instance{Name: node.Name, NodeName: node.Name, OSImage: node.OSImageRef, InstanceTypeRef: node.InstanceTypeRef, GPUProfile: node.GPUProfile, JoinProfile: node.JoinProfile, MachineSelector: node.MachineSelector, Labels: node.Labels, LastAction: "add"})
+	}
+	return nico.Instance{}, fmt.Errorf("node %q not found in inventory %q", target, path)
 }
 
 func collectNodeKubernetesEvidence(ctx context.Context) nodestatus.Evidence {
