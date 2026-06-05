@@ -1,0 +1,37 @@
+k8s-nim-operator: {}
+
+ngc:
+  commitCredentials: false
+  apiKeySecretName: ngc-api-secret
+  pullSecretName: ngc-secret
+  # Existing secret mode is the default. Do not place NGC credentials in Git.
+  existingApiKeySecret: ""
+  existingPullSecret: ""
+
+sampleNIMService:
+  enabled: false
+  namespace: nim-service
+  name: meta-llama-3-2-1b-instruct
+  image:
+    repository: nvcr.io/nim/meta/llama-3.2-1b-instruct
+    tag: "1.12.0"
+  modelPuller: nvcr.io/nim/meta/llama-3.2-1b-instruct:1.12.0
+  tensorParallelism: "1"
+  gpuLimit: 1
+  replicas: 1
+  storage:
+    storageClass: ""
+    size: 50Gi
+    volumeAccessMode: ReadWriteOnce
+  service:
+    type: ClusterIP
+    port: 8000
+
+smokeTest:
+  enabled: false
+  endpoint: http://meta-llama-3-2-1b-instruct.nim-service.svc.cluster.local:8000/v1/models
+  successConfigMapName: nim-smoke-test-passed
+  successNamespace: ""
+  serviceAccountName: nim-smoke-test
+  curlImage: curlimages/curl:8.12.1
+  kubectlImage: bitnami/kubectl:1.33.1

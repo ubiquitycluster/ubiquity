@@ -1,0 +1,33 @@
+suite: test nvidia-infra-controller-core wrapper
+templates:
+  - "*.yaml"
+tests:
+  - it: renders all default NICo Core components except optional unbound
+    asserts:
+      - hasDocuments:
+          count: 14
+      - containsDocument:
+          kind: Deployment
+          apiVersion: apps/v1
+          name: RELEASE-NAME-nico-api
+      - containsDocument:
+          kind: Deployment
+          apiVersion: apps/v1
+          name: RELEASE-NAME-nico-ssh-console-rs
+      - notContains:
+          path: metadata.name
+          content: RELEASE-NAME-unbound
+  - it: carries NVIDIA Infra Controller provenance annotations
+    documentSelector:
+      path: kind
+      value: ConfigMap
+    asserts:
+      - equal:
+          path: metadata.annotations.ubiquity\.dev/source-repo
+          value: NVIDIA/infra-controller
+      - equal:
+          path: metadata.annotations.ubiquity\.dev/source-component
+          value: nico-core
+      - equal:
+          path: metadata.annotations.ubiquity\.dev/source-status
+          value: experimental-preview

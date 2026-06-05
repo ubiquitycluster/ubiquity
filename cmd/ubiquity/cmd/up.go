@@ -5,7 +5,7 @@ Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 
-    https://github.com/ubiquitycluster/ubiquity/blob/main/LICENSE
+	https://github.com/ubiquitycluster/ubiquity/blob/main/LICENSE
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,6 +16,7 @@ limitations under the License.
 package cmd
 
 import (
+	"bytes"
 	"fmt"
 	"os"
 	"os/exec"
@@ -35,6 +36,26 @@ var pkgPxeInstaller bool
 // provider is the phase execution provider. Reassignable for testing.
 var provider provision.Provider = &provision.RealProvider{}
 
+type upLifecycleOptions struct {
+	MetalBootstrapBackend string
+	NodeLifecycleBackend  string
+	NICOValues            string
+	NICORESTValues        string
+	NICOSite              string
+}
+
+type nicoGitOpsTarget struct {
+	ChartDir    string
+	ReleaseName string
+	Namespace   string
+	ValuesFiles []string
+	Site        string
+}
+
+var upLifecycle = upLifecycleOptions{}
+
+var nicoGitOpsInstall = installNICOGitOpsTarget
+
 var upCmd = &cobra.Command{
 	Use:   "up",
 	Short: "Deploy the full Ubiquity cluster stack",
@@ -47,12 +68,22 @@ Phase ordering:
   3. security     — Deploy Kyverno policies, kube-bench, network policies
   4. external     — Provision external resources (Terraform)
   5. wait         — Wait for core applications to reach Ready
-  6. post-install — Post-installation configuration and BMO setup`,
+  6. post-install — Wire node lifecycle integration (NICo by default for production)
+
+Node lifecycle backend:
+  Production defaults to NVIDIA Infra Controller (NICo) through Ubiquity GitOps
+  wrappers. The legacy BMO backend is fallback/migration-only and is rejected by
+  'ubiquity up' unless UBIQUITY_ALLOW_BMO_MIGRATION=true is set explicitly.`,
 
 	RunE: func(cmd *cobra.Command, args []string) error {
 		env, _ := cmd.Flags().GetString("env")
 		sandbox, _ := cmd.Flags().GetBool("sandbox")
 		skipSecurity, _ = cmd.Flags().GetBool("skip-security")
+		upLifecycle.MetalBootstrapBackend, _ = cmd.Flags().GetString("metal-bootstrap-backend")
+		upLifecycle.NodeLifecycleBackend, _ = cmd.Flags().GetString("node-lifecycle-backend")
+		upLifecycle.NICOValues, _ = cmd.Flags().GetString("nico-values")
+		upLifecycle.NICORESTValues, _ = cmd.Flags().GetString("nico-rest-values")
+		upLifecycle.NICOSite, _ = cmd.Flags().GetString("nico-site")
 		if sandbox {
 			env = "sandbox"
 		}
@@ -60,6 +91,10 @@ Phase ordering:
 		if env == "" {
 			fmt.Print("No environment specified, defaulting to sandbox...\n")
 			env = "sandbox"
+		}
+		applyLifecycleDefaults(env)
+		if err := validateLifecycleBackends(); err != nil {
+			return err
 		}
 
 		// Create provisioning state
@@ -127,11 +162,69 @@ func provisionMetal(env string) error {
 	if env == "sandbox" || env == "dev" {
 		return runSandbox()
 	}
+	applyLifecycleDefaults(env)
 	if pkgPxeInstaller {
 		return provisionPXE(env)
 	}
+	if upLifecycle.MetalBootstrapBackend == "none" {
+		fmt.Print("metal bootstrap backend disabled...")
+		return nil
+	}
 	fmt.Print("provisioning infrastructure via Ansible...")
 	return nil
+}
+
+func applyLifecycleDefaults(env string) {
+	if upLifecycle.MetalBootstrapBackend == "" {
+		if env == "prod" || env == "production" {
+			upLifecycle.MetalBootstrapBackend = "ansible"
+		} else {
+			upLifecycle.MetalBootstrapBackend = "none"
+		}
+	}
+	if upLifecycle.NodeLifecycleBackend == "" {
+		if env == "prod" || env == "production" {
+			upLifecycle.NodeLifecycleBackend = "nico"
+		} else {
+			upLifecycle.NodeLifecycleBackend = "none"
+		}
+	}
+}
+
+func validateLifecycleBackends() error {
+	switch upLifecycle.MetalBootstrapBackend {
+	case "ansible", "none":
+	default:
+		return fmt.Errorf("unsupported metal bootstrap backend %q", upLifecycle.MetalBootstrapBackend)
+	}
+	switch upLifecycle.NodeLifecycleBackend {
+	case "nico", "none":
+	case "bmo":
+		if os.Getenv("UBIQUITY_ALLOW_BMO_MIGRATION") != "true" {
+			return fmt.Errorf("BMO node lifecycle backend is fallback/migration-only; use --node-lifecycle-backend=nico for normal up or set UBIQUITY_ALLOW_BMO_MIGRATION=true to acknowledge legacy migration fallback")
+		}
+	default:
+		return fmt.Errorf("unsupported node lifecycle backend %q", upLifecycle.NodeLifecycleBackend)
+	}
+	return nil
+}
+
+func describeNICOInstallPath(env string) string {
+	applyLifecycleDefaults(env)
+	if upLifecycle.NodeLifecycleBackend != "nico" {
+		return "NICo lifecycle backend disabled"
+	}
+	parts := []string{"NICo lifecycle backend enabled via GitOps wrappers", "render/apply NVIDIA Infra Controller wrappers with helm template and kubectl apply"}
+	if upLifecycle.NICOValues != "" {
+		parts = append(parts, "controller values="+upLifecycle.NICOValues)
+	}
+	if upLifecycle.NICORESTValues != "" {
+		parts = append(parts, "REST values="+upLifecycle.NICORESTValues)
+	}
+	if upLifecycle.NICOSite != "" {
+		parts = append(parts, "site="+upLifecycle.NICOSite)
+	}
+	return strings.Join(parts, "; ")
 }
 
 // provisionPXE provisions nodes using the Go-based PXE installer.
@@ -141,6 +234,10 @@ func provisionPXE(env string) error {
 }
 
 // provisionBootstrap installs ArgoCD and the root ApplicationSet.
+// In sandbox mode, the ArgoCD app-of-apps mechanism is bypassed because
+// ArgoCD cannot authenticate to the GitHub repository (credentials in
+// values-seed.yaml are placeholders). Instead, charts are applied directly
+// from the local filesystem via helm template | kubectl apply.
 func provisionBootstrap(env string) error {
 	fmt.Print("installing ArgoCD...")
 
@@ -176,8 +273,19 @@ func provisionBootstrap(env string) error {
 	kubectl("-n", "argocd", "wait", "--timeout=60s", "--for=condition=Established",
 		"crd/applications.argoproj.io", "crd/applicationsets.argoproj.io")
 
-	fmt.Print("applying root ApplicationSet...")
-	runHelmTemplateAndApply("bootstrap/root", "argocd")
+	if env == "sandbox" {
+		// In sandbox mode, skip the ArgoCD app-of-apps mechanism (which reads
+		// from GitHub via ApplicationSets) and instead apply all charts directly
+		// from the local filesystem. This avoids the GitHub authentication issue
+		// where ArgoCD cannot clone the repo with the placeholder credentials.
+		fmt.Print("applying charts directly (sandbox mode)...")
+		if err := applySandboxCharts(); err != nil {
+			return fmt.Errorf("applying sandbox charts failed: %w", err)
+		}
+	} else {
+		fmt.Print("applying root ApplicationSet...")
+		runHelmTemplateAndApply("bootstrap/root", "argocd")
+	}
 
 	fmt.Print("done...")
 
@@ -189,12 +297,332 @@ func provisionBootstrap(env string) error {
 	return nil
 }
 
+// applySandboxCharts applies all Helm charts and kustomize manifests from the
+// system/monitoring/platform/apps stacks directly from the local filesystem.
+// This is used in sandbox mode instead of the ArgoCD app-of-apps mechanism,
+// which cannot authenticate to GitHub with the placeholder credentials in
+// values-seed.yaml.
+//
+// Directories with Chart.yaml are deployed via helm template | kubectl apply.
+// Directories with kustomization.yaml (but no Chart.yaml) are deployed via
+// kubectl apply -k. Directories with neither are skipped silently.
+// Kyverno and kyverno-policies are skipped because they are already installed
+// in the security phase.
+func applySandboxCharts() error {
+	if err := kubectl("", "cluster-info"); err != nil {
+		fmt.Print("cluster not ready, skipping sandbox chart apply...")
+		return nil
+	}
+
+	targets, err := collectSandboxDeployTargets()
+	if err != nil {
+		return err
+	}
+
+	currentStack := ""
+	for _, target := range targets {
+		if currentStack != "" && currentStack != target.Stack && currentStack == "system" {
+			fmt.Print(" waiting for cert-manager...")
+			kubectl("-n", "cert-manager", "wait", "--timeout=120s",
+				"--for=condition=Ready", "pod", "-l", "app.kubernetes.io/instance=cert-manager")
+		}
+		currentStack = target.Stack
+
+		if target.SkipReason != "" {
+			fmt.Printf(" applying %s/%s... skipped (%s)\n", target.Stack, target.Name, target.SkipReason)
+			continue
+		}
+
+		if target.Kind == "helm" {
+			fmt.Printf(" applying %s/%s...", target.Stack, target.Name)
+			if err := runHelmTemplateAndApply(target.ChartDir, target.Namespace); err != nil {
+				if isNvidiaAISandboxDeployTarget(target) {
+					fmt.Printf(" failed (%v)\n", err)
+					return fmt.Errorf("required NVIDIA AI sandbox component %s/%s failed to deploy: %w", target.Stack, target.Name, err)
+				}
+				fmt.Printf(" skipped (%v)\n", err)
+				continue
+			}
+			fmt.Printf(" ok\n")
+			continue
+		}
+
+		if target.Kind == "kustomize" {
+			fmt.Printf(" applying kustomize %s/%s...", target.Stack, target.Name)
+			applyK := exec.Command("kubectl", "apply", "-k", filepath.Join(repoRoot, target.ChartDir))
+			applyK.Stdout = os.Stdout
+			applyK.Stderr = os.Stderr
+			if err := applyK.Run(); err != nil {
+				fmt.Printf(" skipped (%v)\n", err)
+				continue
+			}
+			fmt.Printf(" ok\n")
+		}
+	}
+
+	if currentStack == "system" {
+		fmt.Print(" waiting for cert-manager...")
+		kubectl("-n", "cert-manager", "wait", "--timeout=120s",
+			"--for=condition=Ready", "pod", "-l", "app.kubernetes.io/instance=cert-manager")
+	}
+
+	return nil
+}
+
 // decryptSopsSecrets decrypts SOPS-encrypted secrets and applies them to the cluster.
 func decryptSopsSecrets() error {
 	if _, err := exec.LookPath("sops"); err != nil {
 		return fmt.Errorf("sops not installed: %w", err)
 	}
 	return nil
+}
+
+type sandboxDeployTarget struct {
+	Stack      string
+	Name       string
+	ChartDir   string
+	Namespace  string
+	Kind       string
+	SkipReason string
+}
+
+func collectSandboxDeployTargets() ([]sandboxDeployTarget, error) {
+	stacks := []struct {
+		name string
+		path string
+	}{
+		{"system", "system"},
+		{"monitoring", "monitoring"},
+		{"platform", "platform"},
+		{"apps", "apps"},
+	}
+
+	skipCharts := map[string]string{
+		"kyverno":          "already installed in security phase",
+		"kyverno-policies": "already installed in security phase",
+	}
+	namespaceOverrides := map[string]string{
+		"nvidia-gpu-operator":     "gpu-operator",
+		"nim-operator":            "nim-operator",
+		"kai-scheduler":           "kai-scheduler",
+		"ai-workload-tenancy":     "ai-workload-tenancy",
+		"nvidia-network-operator": "nvidia-network-operator",
+	}
+
+	var targets []sandboxDeployTarget
+	for _, stack := range stacks {
+		stackDir := filepath.Join(repoRoot, stack.path)
+		entries, err := os.ReadDir(stackDir)
+		if err != nil {
+			fmt.Printf("warning: reading %s directory: %v\n", stack.path, err)
+			continue
+		}
+
+		for _, entry := range entries {
+			if !entry.IsDir() {
+				continue
+			}
+
+			chartName := entry.Name()
+			chartDir := filepath.Join(stackDir, chartName)
+			namespace := chartName
+			if override, ok := namespaceOverrides[chartName]; ok {
+				namespace = override
+			}
+
+			target := sandboxDeployTarget{
+				Stack:     stack.name,
+				Name:      chartName,
+				ChartDir:  filepath.ToSlash(filepath.Join(stack.path, chartName)),
+				Namespace: namespace,
+			}
+
+			if reason, ok := skipCharts[chartName]; ok {
+				target.SkipReason = reason
+				targets = append(targets, target)
+				continue
+			}
+
+			switch {
+			case fileExists(filepath.Join(chartDir, "Chart.yaml")):
+				target.Kind = "helm"
+				targets = append(targets, target)
+			case fileExists(filepath.Join(chartDir, "kustomization.yaml")):
+				target.Kind = "kustomize"
+				targets = append(targets, target)
+			}
+		}
+	}
+
+	return targets, nil
+}
+
+func validateSandboxDeployTargets(targets []sandboxDeployTarget) error {
+	for _, target := range targets {
+		if target.SkipReason != "" || target.Kind != "helm" {
+			continue
+		}
+		if err := renderSandboxHelmTarget(target); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func validateSandboxDeployTargetsForCLI() error {
+	targets, err := collectSandboxDeployTargets()
+	if err != nil {
+		return err
+	}
+	if len(targets) == 0 {
+		return fmt.Errorf("no sandbox deploy targets found under %s", repoRoot)
+	}
+	return validateSandboxDeployTargets(targets)
+}
+
+func validateNvidiaAISandboxDeployTargetsForCLI() error {
+	targets, err := collectSandboxDeployTargets()
+	if err != nil {
+		return err
+	}
+	filtered := filterNvidiaAISandboxDeployTargets(targets)
+	if len(filtered) == 0 {
+		return fmt.Errorf("no NVIDIA AI sandbox deploy targets found under %s", repoRoot)
+	}
+	return validateSandboxDeployTargets(filtered)
+}
+
+func filterNvidiaAISandboxDeployTargets(targets []sandboxDeployTarget) []sandboxDeployTarget {
+	var filtered []sandboxDeployTarget
+	for _, target := range targets {
+		if isNvidiaAISandboxDeployTarget(target) {
+			filtered = append(filtered, target)
+		}
+	}
+	return filtered
+}
+
+func isNvidiaAISandboxDeployTarget(target sandboxDeployTarget) bool {
+	included := map[string]bool{
+		"system/nvidia-gpu-operator":     true,
+		"system/nvidia-network-operator": true,
+		"platform/nim-operator":          true,
+		"platform/kai-scheduler":         true,
+		"platform/ai-workload-tenancy":   true,
+	}
+	return included[target.ChartDir]
+}
+
+func renderSandboxHelmTarget(target sandboxDeployTarget) error {
+	chartDir := filepath.Join(repoRoot, target.ChartDir)
+	if err := ensureHelmReposForChart(chartDir); err != nil {
+		return fmt.Errorf("%s: add Helm repos: %w", target.ChartDir, err)
+	}
+
+	if fileExists(filepath.Join(chartDir, "Chart.yaml")) {
+		depCmd := exec.Command("helm", "dependency", "build", chartDir)
+		depCmd.Dir = repoRoot
+		if out, err := depCmd.CombinedOutput(); err != nil {
+			return fmt.Errorf("%s: helm dependency build: %w\n%s", target.ChartDir, err, string(out))
+		}
+		defer cleanupSandboxDependencyArchives(chartDir)
+	}
+
+	args := helmTemplateArgs(target.Namespace, "release", chartDir)
+	cmd := exec.Command("helm", args...)
+	cmd.Dir = repoRoot
+	if out, err := cmd.CombinedOutput(); err != nil {
+		return fmt.Errorf("%s: helm template: %w\n%s", target.ChartDir, err, string(out))
+	}
+	return nil
+}
+
+func ensureHelmRepo(name, url string) error {
+	cmd := exec.Command("helm", "repo", "add", name, url)
+	cmd.Dir = repoRoot
+	if out, err := cmd.CombinedOutput(); err != nil && !strings.Contains(string(out), "already exists") {
+		return fmt.Errorf("%w\n%s", err, string(out))
+	}
+	return nil
+}
+
+func ensureHelmReposForChart(chartDir string) error {
+	for _, repoURL := range chartRepositoryURLs(chartDir) {
+		if strings.HasPrefix(repoURL, "file://") || strings.HasPrefix(repoURL, "oci://") || repoURL == "" {
+			continue
+		}
+		name := helmRepoName(repoURL)
+		if err := ensureHelmRepo(name, repoURL); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func chartRepositoryURLs(chartDir string) []string {
+	data, err := os.ReadFile(filepath.Join(chartDir, "Chart.yaml"))
+	if err != nil {
+		return nil
+	}
+	seen := map[string]bool{}
+	var repos []string
+	for _, line := range strings.Split(string(data), "\n") {
+		trimmed := strings.TrimSpace(line)
+		if !strings.HasPrefix(trimmed, "repository:") {
+			continue
+		}
+		repoURL := strings.TrimSpace(strings.TrimPrefix(trimmed, "repository:"))
+		repoURL = strings.Trim(repoURL, "\"'")
+		if repoURL != "" && !seen[repoURL] {
+			seen[repoURL] = true
+			repos = append(repos, repoURL)
+		}
+	}
+	return repos
+}
+
+func helmRepoName(repoURL string) string {
+	name := repoURL
+	for _, prefix := range []string{"https://", "http://"} {
+		name = strings.TrimPrefix(name, prefix)
+	}
+	name = strings.TrimSuffix(name, "/")
+	replacer := strings.NewReplacer("/", "-", ".", "-", ":", "-", "_", "-")
+	name = replacer.Replace(name)
+	if strings.Contains(repoURL, "helm.ngc.nvidia.com/nvidia") {
+		return "nvidia"
+	}
+	if strings.Contains(repoURL, "charts.jetstack.io") {
+		return "jetstack"
+	}
+	if strings.Contains(repoURL, "mysql.github.io/mysql-operator") {
+		return "mysql-operator"
+	}
+	return name
+}
+
+func chartUsesNvidiaHelmRepo(chartDir string) bool {
+	data, err := os.ReadFile(filepath.Join(chartDir, "Chart.yaml"))
+	return err == nil && strings.Contains(string(data), "https://helm.ngc.nvidia.com/nvidia")
+}
+
+func cleanupSandboxDependencyArchives(chartDir string) {
+	chartsDir := filepath.Join(chartDir, "charts")
+	entries, err := os.ReadDir(chartsDir)
+	if err == nil {
+		for _, entry := range entries {
+			if !entry.IsDir() && strings.HasSuffix(entry.Name(), ".tgz") {
+				_ = os.Remove(filepath.Join(chartsDir, entry.Name()))
+			}
+		}
+		_ = os.Remove(chartsDir)
+	}
+	_ = os.Remove(filepath.Join(chartDir, "Chart.lock"))
+}
+
+func fileExists(path string) bool {
+	_, err := os.Stat(path)
+	return err == nil
 }
 
 // provisionSecurity deploys Kyverno and baseline security policies.
@@ -265,11 +693,11 @@ func provisionExternal(env string) error {
 
 	// Map environment to cloud directory
 	cloudDirs := map[string]string{
-		"aws":      "cloud/aws",
-		"azure":    "cloud/azure",
-		"gcp":      "cloud/gcp",
+		"aws":       "cloud/aws",
+		"azure":     "cloud/azure",
+		"gcp":       "cloud/gcp",
 		"openstack": "cloud/openstack",
-		"ovh":      "cloud/ovh",
+		"ovh":       "cloud/ovh",
 	}
 
 	dir, ok := cloudDirs[env]
@@ -291,11 +719,99 @@ func provisionWait(env string) error {
 
 // provisionPostInstall runs post-installation configuration.
 func provisionPostInstall(env string) error {
-	if env == "sandbox" {
-		fmt.Print("no post-install tasks in sandbox mode...")
+	applyLifecycleDefaults(env)
+	switch upLifecycle.NodeLifecycleBackend {
+	case "nico":
+		fmt.Print(describeNICOInstallPath(env) + "...")
+		return installNICOGitOpsWrappers()
+	case "bmo":
+		if os.Getenv("UBIQUITY_ALLOW_BMO_MIGRATION") != "true" {
+			return fmt.Errorf("BMO node lifecycle backend is fallback/migration-only; set UBIQUITY_ALLOW_BMO_MIGRATION=true to acknowledge legacy migration fallback")
+		}
+		fmt.Print("WARNING: BMO node lifecycle backend selected as fallback/migration-only; NICo remains the default production path...")
+		return nil
+	}
+	if env == "sandbox" || env == "dev" {
+		fmt.Print("no post-install tasks in sandbox/dev mode...")
 		return nil
 	}
 	fmt.Print("applying post-install configuration...")
+	return nil
+}
+
+func installNICOGitOpsWrappers() error {
+	for _, target := range nicoGitOpsTargets() {
+		if err := nicoGitOpsInstall(target); err != nil {
+			return fmt.Errorf("installing NICo GitOps wrapper %s: %w", target.ChartDir, err)
+		}
+	}
+	return nil
+}
+
+func nicoGitOpsTargets() []nicoGitOpsTarget {
+	coreValues := filterEmptyStrings(upLifecycle.NICOValues)
+	restValues := filterEmptyStrings(upLifecycle.NICORESTValues)
+	return []nicoGitOpsTarget{
+		{ChartDir: "system/nvidia-infra-controller-prereqs", ReleaseName: "nico-prereqs", Namespace: "nvidia-infra-controller", Site: upLifecycle.NICOSite},
+		{ChartDir: "system/nvidia-infra-controller-core", ReleaseName: "nico-core", Namespace: "nvidia-infra-controller", ValuesFiles: coreValues, Site: upLifecycle.NICOSite},
+		{ChartDir: "platform/nvidia-infra-controller-rest", ReleaseName: "nico-rest", Namespace: "nvidia-infra-controller", ValuesFiles: restValues, Site: upLifecycle.NICOSite},
+		{ChartDir: "platform/node-lifecycle-exporter", ReleaseName: "node-lifecycle-exporter", Namespace: "node-lifecycle", Site: upLifecycle.NICOSite},
+	}
+}
+
+func filterEmptyStrings(values ...string) []string {
+	var out []string
+	for _, value := range values {
+		if strings.TrimSpace(value) != "" {
+			out = append(out, value)
+		}
+	}
+	return out
+}
+
+func installNICOGitOpsTarget(target nicoGitOpsTarget) error {
+	if target.Namespace != "" {
+		nsOut, _ := kubectlOutput("create", "namespace", target.Namespace, "--dry-run=client", "-o", "yaml")
+		if len(nsOut) > 0 {
+			if err := kubectlApplyRendered(nsOut, "", false, false); err != nil {
+				return fmt.Errorf("create namespace %s: %w", target.Namespace, err)
+			}
+		}
+	}
+	depCmd := exec.Command("helm", "dependency", "update", target.ChartDir)
+	depCmd.Dir = repoRoot
+	depCmd.Stdout = os.Stdout
+	depCmd.Stderr = os.Stderr
+	_ = depCmd.Run()
+
+	args := []string{"template", "--include-crds", "--namespace", target.Namespace, target.ReleaseName, target.ChartDir}
+	for _, valuesFile := range target.ValuesFiles {
+		args = append(args, "--values", valuesFile)
+	}
+	if target.Site != "" {
+		switch target.ChartDir {
+		case "system/nvidia-infra-controller-core":
+			args = append(args, "--set-string", "config.siteName="+target.Site)
+		case "platform/nvidia-infra-controller-rest":
+			args = append(args, "--set-string", "site.name="+target.Site)
+		}
+	}
+	cmd := exec.Command("helm", args...)
+	cmd.Dir = repoRoot
+	rendered, err := cmd.Output()
+	if err != nil {
+		return fmt.Errorf("helm template: %w", err)
+	}
+	if len(bytes.TrimSpace(rendered)) == 0 {
+		return fmt.Errorf("helm template rendered no resources")
+	}
+	if err := kubectlApplyRendered(rendered, target.Namespace, false, false); err != nil {
+		waitForCRDsEstablished()
+		if retryErr := kubectlApplyRendered(rendered, target.Namespace, false, false); retryErr != nil {
+			return fmt.Errorf("kubectl apply: %w", retryErr)
+		}
+	}
+	waitForCRDsEstablished()
 	return nil
 }
 
@@ -303,6 +819,18 @@ func provisionPostInstall(env string) error {
 // The k3s version defaults to the latest stable (read from
 // metal/k3s-default-version.txt) but can be overridden via the
 // K3S_IMAGE environment variable.
+func readK3sImage(data []byte) string {
+	// Strip comment lines (lines starting with #) and empty lines,
+	// then return the first remaining line trimmed.
+	for _, line := range strings.Split(string(data), "\n") {
+		line = strings.TrimSpace(line)
+		if line != "" && !strings.HasPrefix(line, "#") {
+			return line
+		}
+	}
+	return ""
+}
+
 func runSandbox() error {
 	// If kubectl already connects to a working cluster, don't touch k3d.
 	// This allows the test harness (or existing deployments) to manage the
@@ -317,7 +845,7 @@ func runSandbox() error {
 	if k3sImage == "" {
 		verFile := filepath.Join(repoRoot, "metal", "k3s-default-version.txt")
 		if data, err := os.ReadFile(verFile); err == nil {
-			k3sImage = strings.TrimSpace(string(data))
+			k3sImage = readK3sImage(data)
 		}
 	}
 
@@ -401,10 +929,19 @@ func init() {
 	upCmd.Flags().Bool("sandbox", false, "deploy in sandbox mode (alias for --env sandbox)")
 	upCmd.Flags().Bool("skip-security", false, "skip security policy deployment")
 	upCmd.Flags().Bool("pxe-installer", false, "use Go-based PXE installer instead of Docker Compose")
+	upCmd.Flags().String("metal-bootstrap-backend", "", "metal bootstrap backend (ansible, none); defaults sandbox/dev=none prod=ansible")
+	upCmd.Flags().String("node-lifecycle-backend", "", "node lifecycle backend (nico, none; bmo requires UBIQUITY_ALLOW_BMO_MIGRATION=true for legacy migration fallback); defaults sandbox/dev=none prod=nico")
+	upCmd.Flags().String("nico-values", "", "NVIDIA Infra Controller Helm values file for GitOps install")
+	upCmd.Flags().String("nico-rest-values", "", "NVIDIA Infra Controller REST API Helm values file for GitOps install")
+	upCmd.Flags().String("nico-site", "", "NVIDIA Infra Controller site name/ID")
 }
 
 // repoRoot is the absolute path to the ubiquity repository root.
 var repoRoot = func() string {
+	root, err := findRepoRoot()
+	if err == nil && root != "" {
+		return root
+	}
 	wd, _ := os.Getwd()
 	return wd
 }()
@@ -444,22 +981,61 @@ func runHelmTemplateAndApply(chartDir, namespace string) error {
 	depCmd.Dir = repoRoot
 	depCmd.Run()
 
-	args := []string{"template", "--include-crds", "--namespace", namespace, "release", chartDir}
+	args := helmTemplateArgs(namespace, "release", chartDir)
 	cmd := exec.Command("helm", args...)
 	cmd.Dir = repoRoot
-	applyCmd2 := exec.Command("kubectl", "apply", "-n", namespace, "-f", "-")
-	pipe, _ := cmd.StdoutPipe()
-	applyCmd2.Stdin = pipe
-	applyCmd2.Stdout = os.Stdout
-	applyCmd2.Stderr = os.Stderr
-	if err := cmd.Start(); err != nil {
-		return fmt.Errorf("helm template start: %w", err)
+	rendered, err := cmd.Output()
+	if err != nil {
+		return fmt.Errorf("helm template: %w", err)
 	}
-	if err := applyCmd2.Run(); err != nil {
-		cmd.Wait()
-		return fmt.Errorf("kubectl apply: %w", err)
+
+	if err := kubectlApplyRendered(rendered, namespace, shouldForceApplyNamespace(chartDir), shouldServerSideApply(chartDir)); err != nil {
+		waitForCRDsEstablished()
+		if retryErr := kubectlApplyRendered(rendered, namespace, shouldForceApplyNamespace(chartDir), shouldServerSideApply(chartDir)); retryErr != nil {
+			return fmt.Errorf("kubectl apply: %w", retryErr)
+		}
 	}
-	return cmd.Wait()
+	waitForCRDsEstablished()
+	return nil
+}
+
+func kubectlApplyRendered(rendered []byte, namespace string, forceNamespace bool, serverSide bool) error {
+	args := []string{"apply", "-f", "-"}
+	if forceNamespace && namespace != "" {
+		args = []string{"apply", "-n", namespace, "-f", "-"}
+	}
+	if serverSide {
+		args = append(args, "--server-side", "--force-conflicts")
+	}
+	applyCmd := exec.Command("kubectl", args...)
+	applyCmd.Stdin = bytes.NewReader(rendered)
+	applyCmd.Stdout = os.Stdout
+	applyCmd.Stderr = os.Stderr
+	return applyCmd.Run()
+}
+
+func shouldForceApplyNamespace(chartDir string) bool {
+	return strings.HasSuffix(filepath.ToSlash(chartDir), "platform/nim-operator")
+}
+
+func shouldServerSideApply(chartDir string) bool {
+	return strings.HasSuffix(filepath.ToSlash(chartDir), "platform/kai-scheduler")
+}
+
+func helmTemplateArgs(namespace, releaseName, chartDir string) []string {
+	args := []string{"template", "--include-crds", "--namespace", namespace, releaseName, chartDir}
+	sandboxValues := filepath.Join(chartDir, "values-sandbox.yaml")
+	if fileExists(sandboxValues) {
+		args = append(args, "--values", sandboxValues)
+	}
+	return args
+}
+
+func waitForCRDsEstablished() {
+	cmd := exec.Command("kubectl", "wait", "--for=condition=Established", "crd", "--all", "--timeout=60s")
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	_ = cmd.Run()
 }
 
 // runCommand runs a command and waits for it to finish, streaming output.
@@ -559,7 +1135,9 @@ func containsStr(s, substr string) bool {
 
 // patchDependencyVersion replaces the dependency version line in a Chart.yaml
 // with the given version. It looks for a line matching:
-//   version: ~X.Y.Z  or  version: "~X.Y.Z"
+//
+//	version: ~X.Y.Z  or  version: "~X.Y.Z"
+//
 // within a dependency block (starting with "  - name:" and ending at the next
 // top-level key). Returns the patched content.
 func patchDependencyVersion(chartYaml, newVersion string) string {

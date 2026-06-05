@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "nicoCore.fullname" . }}-config
+  labels:
+    {{- include "nicoCore.labels" . | nindent 4 }}
+  annotations:
+    {{- include "nicoCore.provenanceAnnotations" . | nindent 4 }}
+data:
+  nico-core.yaml: |
+    logLevel: {{ .Values.config.logLevel | quote }}
+    siteName: {{ .Values.config.siteName | quote }}
+    clusterDomain: {{ .Values.config.clusterDomain | quote }}
+    provisioningNetwork: {{ .Values.config.provisioningNetwork | quote }}
+    pxeInterface: {{ .Values.config.pxeInterface | quote }}
+    ntpServers:
+{{ toYaml .Values.config.ntpServers | indent 6 }}
+    dnsForwarders:
+{{ toYaml .Values.config.dnsForwarders | indent 6 }}
+    dhcp:
+{{ toYaml .Values.config.dhcp | indent 6 }}
+    bmc:
+{{ toYaml .Values.config.bmc | indent 6 }}
+    temporal:
+{{ toYaml .Values.config.temporal | indent 6 }}
+    postgres:
+      host: {{ .Values.config.postgres.host | quote }}
+      database: {{ .Values.config.postgres.database | quote }}
+      existingSecretName: {{ .Values.config.postgres.existingSecretName | quote }}
+    components:
+{{ toYaml .Values.components | indent 6 }}

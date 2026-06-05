@@ -1,0 +1,39 @@
+site: kvm-lab
+nodeLifecycleBackend: nico
+
+osImages:
+  - name: rocky-9
+    family: rhel
+    version: "9"
+    bootMode: bios
+    provenance:
+      source: local-kvm-lab
+      checksum: "[REDACTED]"
+  - name: ubuntu-24.04
+    family: ubuntu
+    version: "24.04"
+    bootMode: bios
+    provenance:
+      source: local-kvm-lab
+      checksum: "[REDACTED]"
+  - name: custom-ipxe
+    family: custom
+    version: lab
+    bootMode: bios
+    provenance:
+      source: local-kvm-lab
+      checksum: "[REDACTED]"
+
+nodes:
+  - name: qemu-node-01
+    role: worker
+    lifecycleBackend: nico
+    bmc:
+      protocol: redfish
+      address: https://qemu-node-01:443
+      username: admin
+      passwordRef: env:QEMU_BMC_PASSWORD
+    pxe:
+      macAddress: "52:54:00:00:00:01"
+      bootMode: bios
+    osImage: rocky-9

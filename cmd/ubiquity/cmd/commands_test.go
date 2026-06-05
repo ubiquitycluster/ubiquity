@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"io"
 	"os"
+	"strings"
 	"testing"
 )
 
@@ -82,13 +83,11 @@ func TestUpSkipSecurityFlag(t *testing.T) {
 	if cmd == nil {
 		t.Fatal("expected up command")
 	}
-	flag := cmd.Flags().Lookup("skip-security")
-	if flag == nil {
-		t.Fatal("expected --skip-security flag on up command")
-	}
-	flag = cmd.Flags().Lookup("sandbox")
-	if flag == nil {
-		t.Fatal("expected --sandbox flag on up command")
+	for _, name := range []string{"skip-security", "sandbox", "metal-bootstrap-backend", "node-lifecycle-backend", "nico-values", "nico-rest-values", "nico-site"} {
+		flag := cmd.Flags().Lookup(name)
+		if flag == nil {
+			t.Fatalf("expected --%s flag on up command", name)
+		}
 	}
 }
 
@@ -191,5 +190,11 @@ func TestUpHelpExecute(t *testing.T) {
 	err := cmd.Execute()
 	if err != nil {
 		t.Fatalf("up --help failed: %v", err)
+	}
+	out := cmd.Long + "\n" + cmd.Flags().Lookup("node-lifecycle-backend").Usage
+	for _, want := range []string{"node lifecycle integration", "NICo", "fallback/migration-only"} {
+		if !strings.Contains(out, want) {
+			t.Fatalf("up help missing %q: %s", want, out)
+		}
 	}
 }

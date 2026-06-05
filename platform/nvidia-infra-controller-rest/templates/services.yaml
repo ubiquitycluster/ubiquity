@@ -1,0 +1,45 @@
+{{- $services := dict "nico-rest-api" .Values.nicoRest "nico-rest-site-agent" .Values.siteAgent -}}
+{{- range $name, $svc := $services }}
+{{- if $svc.enabled }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "nicoRest.fullname" $ }}-{{ $name }}
+  labels:
+    {{- include "nicoRest.labels" $ | nindent 4 }}
+    app.kubernetes.io/component: {{ $name }}
+  annotations:
+    {{- include "nicoRest.provenanceAnnotations" $ | nindent 4 }}
+spec:
+  type: {{ $svc.service.type | default "ClusterIP" }}
+  selector:
+    app.kubernetes.io/instance: {{ $.Release.Name }}
+    app.kubernetes.io/component: {{ $name }}
+  ports:
+    - name: http
+      port: {{ $svc.service.port }}
+      targetPort: http
+{{- end }}
+{{- end }}
+{{- if or (eq .Values.idp.mode "bundled") .Values.idp.bundled.enabled }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "nicoRest.fullname" . }}-bundled-idp
+  labels:
+    {{- include "nicoRest.labels" . | nindent 4 }}
+    app.kubernetes.io/component: bundled-idp
+  annotations:
+    {{- include "nicoRest.provenanceAnnotations" . | nindent 4 }}
+spec:
+  type: {{ .Values.idp.bundled.service.type | default "ClusterIP" }}
+  selector:
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/component: bundled-idp
+  ports:
+    - name: http
+      port: {{ .Values.idp.bundled.service.port | default 8080 }}
+      targetPort: http
+{{- end }}

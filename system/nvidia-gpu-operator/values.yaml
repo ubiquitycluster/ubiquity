@@ -1,0 +1,20 @@
+gpu-operator:
+  driver:
+    enabled: true
+  toolkit:
+    enabled: true
+  devicePlugin:
+    enabled: true
+  gfd:
+    enabled: true
+  migManager:
+    enabled: true
+  dcgmExporter:
+    enabled: true
+    serviceMonitor:
+      enabled: true
+  validator:
+    plugin:
+      env:
+        - name: WITH_WORKLOAD
+          value: "true"

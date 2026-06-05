@@ -1,0 +1,7 @@
+global:
+  gpuSharing: false
+  clusterAutoscaling: false
+  leaderElection: true
+
+defaultQueue:
+  createDefaultQueue: true

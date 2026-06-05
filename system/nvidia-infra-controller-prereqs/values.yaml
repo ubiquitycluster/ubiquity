@@ -1,0 +1,33 @@
+mode: reuse
+
+prerequisites:
+  metallb:
+    mode: reuse
+    namespace: metallb-system
+    notes: "Required for LoadBalancer VIPs on bare metal; deploy only if no existing L2/BGP load balancer is available."
+  certManager:
+    mode: reuse
+    namespace: cert-manager
+    notes: "Required for TLS certificates and webhook serving certs; reuse the cluster issuer where possible."
+  vault:
+    mode: reuse
+    namespace: vault
+    notes: "Recommended source of truth for sensitive values; this wrapper never renders Secret objects."
+  externalSecrets:
+    mode: reuse
+    namespace: external-secrets
+    notes: "Use External Secrets Operator to project Vault or cloud-secret-manager data into Kubernetes."
+  postgresql:
+    mode: reuse
+    namespace: database
+    notes: "NICo Core/REST need a PostgreSQL endpoint; reuse a managed or existing in-cluster instance when available."
+
+storageClass:
+  # The wrapper will not create or mark any StorageClass as default unless this is explicitly true.
+  setDefault: false
+  explicitName: ""
+  notes: "Leave unset to avoid taking over a cluster default StorageClass; set both values only after platform approval."
+
+checks:
+  renderPrerequisiteReport: true
+  failOnImplicitDefaultStorageClass: true

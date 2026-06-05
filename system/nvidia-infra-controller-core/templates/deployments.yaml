@@ -1,0 +1,79 @@
+{{- range $name, $component := .Values.components }}
+{{- if $component.enabled }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "nicoCore.fullname" $ }}-{{ $name }}
+  labels:
+    {{- include "nicoCore.labels" $ | nindent 4 }}
+    app.kubernetes.io/component: {{ $name }}
+  annotations:
+    {{- include "nicoCore.provenanceAnnotations" $ | nindent 4 }}
+spec:
+  replicas: {{ $component.replicas | default 1 }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: {{ $.Release.Name }}
+      app.kubernetes.io/component: {{ $name }}
+  template:
+    metadata:
+      labels:
+        {{- include "nicoCore.labels" $ | nindent 8 }}
+        app.kubernetes.io/component: {{ $name }}
+        {{- with $.Values.global.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+      annotations:
+        {{- include "nicoCore.provenanceAnnotations" $ | nindent 8 }}
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") $ | sha256sum }}
+        {{- with $.Values.global.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      containers:
+        - name: {{ $name }}
+          image: {{ include "nicoCore.componentImage" (dict "root" $ "component" $component) | quote }}
+          imagePullPolicy: {{ $.Values.global.imagePullPolicy }}
+          {{- with $component.ports }}
+          ports:
+            {{- range $portName, $port := . }}
+            - name: {{ $portName }}
+              containerPort: {{ $port }}
+              protocol: {{ ternary "UDP" "TCP" (or (eq $portName "dns") (eq $portName "dhcp") (eq $portName "ntp") (eq $portName "tftp")) }}
+            {{- end }}
+          {{- end }}
+          env:
+            - name: NICO_COMPONENT
+              value: {{ $name | quote }}
+            - name: NICO_CONFIG
+              value: /etc/nico/nico-core.yaml
+            {{- with $.Values.global.env }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+          volumeMounts:
+            - name: config
+              mountPath: /etc/nico
+              readOnly: true
+          {{- with (default $.Values.global.resources $component.resources) }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      volumes:
+        - name: config
+          configMap:
+            name: {{ include "nicoCore.fullname" $ }}-config
+      {{- with $.Values.global.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with $.Values.global.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with $.Values.global.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+{{- end }}
+{{- end }}

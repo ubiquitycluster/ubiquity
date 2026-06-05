@@ -1,0 +1,35 @@
+suite: test nvidia-infra-controller-rest wrapper
+templates:
+  - "*.yaml"
+tests:
+  - it: renders REST and site-agent without Kubernetes Secrets
+    asserts:
+      - hasDocuments:
+          count: 5
+      - containsDocument:
+          kind: Deployment
+          apiVersion: apps/v1
+          name: RELEASE-NAME-nico-rest-api
+      - containsDocument:
+          kind: Deployment
+          apiVersion: apps/v1
+          name: RELEASE-NAME-nico-rest-site-agent
+      - notContains:
+          path: kind
+          content: Secret
+  - it: supports bundled IdP mode
+    set:
+      idp.mode: bundled
+    asserts:
+      - containsDocument:
+          kind: Deployment
+          apiVersion: apps/v1
+          name: RELEASE-NAME-bundled-idp
+  - it: carries provenance annotations
+    documentSelector:
+      path: kind
+      value: ConfigMap
+    asserts:
+      - equal:
+          path: metadata.annotations.ubiquity\.dev/source-component
+          value: nico-rest

@@ -1,5 +1,11 @@
 # BaremetalHost Provisioning States
 
+> NVIDIA Infra Controller reset: BareMetalHost state documentation is retained
+> as fallback/migration-only reference material for environments still using
+> Metal3 during migration. New Ubiquity day-2 lifecycle docs should describe
+> NVIDIA Infra Controller Machine, Instance, Operating System, and Task state
+> instead of treating BareMetalHost as the primary lifecycle API.
+
 The following diagram shows the possible Provisioning State transitions for the
 BaremetalHost object:
 

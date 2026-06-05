@@ -1,0 +1,9 @@
+apiVersion: v2
+name: kai-scheduler
+version: 0.1.0
+description: Ubiquity wrapper for NVIDIA KAI Scheduler
+appVersion: v0.10.2
+dependencies:
+  - name: kai-scheduler
+    version: v0.10.2
+    repository: oci://ghcr.io/kai-scheduler/kai-scheduler

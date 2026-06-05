@@ -1,0 +1,18 @@
+{
+  "title": "Ubiquity NICo Node Lifecycle",
+  "uid": "ubiquity-nico-node-lifecycle",
+  "schemaVersion": 39,
+  "version": 1,
+  "refresh": "30s",
+  "tags": ["ubiquity", "nico", "node-lifecycle", "nvidia"],
+  "panels": [
+    {"id": 1, "type": "timeseries", "title": "Machine count by state", "targets": [{"expr": "sum by (state) (ubiquity_nico_machine_state)"}], "gridPos": {"x": 0, "y": 0, "w": 8, "h": 8}},
+    {"id": 2, "type": "timeseries", "title": "Instance count by state", "targets": [{"expr": "sum by (state) (ubiquity_nico_instance_state)"}], "gridPos": {"x": 8, "y": 0, "w": 8, "h": 8}},
+    {"id": 3, "type": "stat", "title": "Active tasks", "targets": [{"expr": "sum(ubiquity_nico_task_active)"}], "gridPos": {"x": 16, "y": 0, "w": 8, "h": 8}},
+    {"id": 4, "type": "timeseries", "title": "Failed provisioning operations", "targets": [{"expr": "sum(increase(ubiquity_nico_task_active{state=~\"failed|cancelled\"}[15m]))"}], "gridPos": {"x": 0, "y": 8, "w": 8, "h": 8}},
+    {"id": 5, "type": "table", "title": "GPU mismatch nodes", "targets": [{"expr": "ubiquity_node_gpu_ready == 0"}], "gridPos": {"x": 8, "y": 8, "w": 8, "h": 8}},
+    {"id": 6, "type": "table", "title": "RDMA mismatch nodes", "targets": [{"expr": "ubiquity_node_rdma_ready == 0"}], "gridPos": {"x": 16, "y": 8, "w": 8, "h": 8}},
+    {"id": 7, "type": "table", "title": "Nodes not Kubernetes Ready", "targets": [{"expr": "ubiquity_node_kubernetes_ready == 0"}], "gridPos": {"x": 0, "y": 16, "w": 12, "h": 8}},
+    {"id": 8, "type": "stat", "title": "Lifecycle ready nodes", "targets": [{"expr": "sum(ubiquity_node_lifecycle_ready)"}], "gridPos": {"x": 12, "y": 16, "w": 12, "h": 8}}
+  ]
+}

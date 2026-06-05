@@ -15,6 +15,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+{{- $nicoRootGitOpsEnabled := .Values.nico.enabled | default false }}
 {{- range $index, $stack := .Values.stacks }}
 ---
 apiVersion: argoproj.io/v1alpha1
@@ -31,6 +32,22 @@ spec:
         revision: {{ $.Values.gitops.revision }}
         directories:
           - path: {{ $stack.name }}/*
+          {{- if and (not $nicoRootGitOpsEnabled) (eq $stack.name "system") }}
+          - path: system/nvidia-infra-controller-core
+            exclude: true
+          - path: system/nvidia-infra-controller-prereqs
+            exclude: true
+          {{- end }}
+          {{- if and (not $nicoRootGitOpsEnabled) (eq $stack.name "platform") }}
+          - path: platform/nvidia-infra-controller-rest
+            exclude: true
+          - path: platform/node-lifecycle-exporter
+            exclude: true
+          {{- end }}
+          {{- range $exclude := $stack.excludes }}
+          - path: {{ $exclude }}
+            exclude: true
+          {{- end }}
   template:
     metadata:
       name: '{{ `{{ path.basename }}` }}'

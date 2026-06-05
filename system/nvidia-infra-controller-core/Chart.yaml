@@ -1,0 +1,11 @@
+---
+apiVersion: v2
+name: nvidia-infra-controller-core
+description: Ubiquity GitOps wrapper for NVIDIA Infra Controller Core services
+version: 0.1.0
+appVersion: "preview"
+type: application
+annotations:
+  ubiquity.dev/source-repo: NVIDIA/infra-controller
+  ubiquity.dev/source-component: nico-core
+  ubiquity.dev/source-status: experimental-preview

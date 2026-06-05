@@ -1,0 +1,67 @@
+{{- if .Values.smokeTest.enabled }}
+{{- $successNamespace := default .Release.Namespace .Values.smokeTest.successNamespace }}
+{{- $serviceAccountName := default "nim-smoke-test" .Values.smokeTest.serviceAccountName }}
+{{- $successConfigMapName := default "nim-smoke-test-passed" .Values.smokeTest.successConfigMapName }}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: {{ $serviceAccountName }}
+  namespace: {{ $successNamespace }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ $serviceAccountName }}
+  namespace: {{ $successNamespace }}
+rules:
+  - apiGroups: [""]
+    resources: ["configmaps"]
+    verbs: ["get", "create", "patch", "update"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ $serviceAccountName }}
+  namespace: {{ $successNamespace }}
+subjects:
+  - kind: ServiceAccount
+    name: {{ $serviceAccountName }}
+    namespace: {{ $successNamespace }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ $serviceAccountName }}
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: nim-smoke-test
+  namespace: {{ $successNamespace }}
+spec:
+  backoffLimit: 1
+  template:
+    spec:
+      serviceAccountName: {{ $serviceAccountName }}
+      restartPolicy: Never
+      initContainers:
+        - name: smoke-test
+          image: {{ .Values.smokeTest.curlImage }}
+          command:
+            - /bin/sh
+            - -ec
+            - |
+              curl --fail --silent --show-error {{ .Values.smokeTest.endpoint | quote }}
+      containers:
+        - name: record-readiness-evidence
+          image: {{ .Values.smokeTest.kubectlImage }}
+          command:
+            - /bin/sh
+            - -ec
+            - |
+              kubectl create configmap {{ $successConfigMapName }} \
+                --namespace {{ $successNamespace }} \
+                --from-literal=endpoint={{ .Values.smokeTest.endpoint | quote }} \
+                --from-literal=result=passed \
+                --dry-run=client -o yaml | kubectl apply -f -
+{{- end }}

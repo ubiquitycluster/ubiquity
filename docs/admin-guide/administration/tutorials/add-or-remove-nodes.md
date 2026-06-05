@@ -2,6 +2,16 @@
 
 Or how to scale vertically. To replace the same node with a clean OS, remove it and add it again.
 
+!!! warning "NVIDIA Infra Controller preview path"
+
+    For new on-premises day-2 bare-metal lifecycle automation, prefer NVIDIA Infra Controller (NICo) after the Ubiquity bootstrap boundary. NICo integration is experimental/preview and does not imply hardware, software, support, or certification claims. Keep BMC credentials and API tokens in Vault or an equivalent secret manager; never commit secrets in Git.
+
+    The inventory and SSH steps below remain useful for legacy Ubiquity clusters and fallback/migration-only environments. For NICo-managed Machines, use the dedicated node management guide and runbooks instead:
+
+    - [NVIDIA Infra Controller node management](../../../nvidia-infra-controller-node-management.md)
+    - [NICo Machine provisioning](../../../runbooks/nvidia-infra-controller/nico-machine-provisioning.md)
+    - [NICo node reinstall](../../../runbooks/nvidia-infra-controller/nico-node-reinstall.md)
+
 ## Add new nodes to control plane
 
 !!! tip

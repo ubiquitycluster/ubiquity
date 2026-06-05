@@ -1,3 +1,25 @@
+aiPlatformProfile:
+  enabled: true
+  name: gpu-rdma
+  source: https://github.com/Mellanox/network-operator
+  rdma:
+    enabled: true
+    resourceName: nvidia.com/rdma
+    ifNames:
+      - ib0
+    networkAttachment:
+      name: rdma-ipoib
+      namespace: default
+      cniType: ipoib
+      ipam: whereabouts
+  validation:
+    failClosed: true
+    requireRdmaResource: true
+    requireNetworkAttachment: true
+    tools:
+      - NVIDIA/knetscan
+      - NVIDIA/ISV-NCP-Validation-Suite
+
 network-operator:
   nfd:
     enabled: true

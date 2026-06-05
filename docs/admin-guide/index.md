@@ -58,6 +58,10 @@
 
 ## Introduction
 
+Key operations guides:
+
+- [NVIDIA AI Platform operations guide](nvidia-ai-platform.md) - explains profiles, sandbox validation, NVIDIA component provenance, production deployment flow, fail-closed readiness, KAI Scheduler, and bare-metal orchestration alternatives.
+
 ### Document Format
 The documentation for Ubiquity is in markdown format - Embedded within the git repository and as such can be served as github pages or equivalent.
 

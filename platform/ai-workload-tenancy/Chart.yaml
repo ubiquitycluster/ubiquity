@@ -1,0 +1,5 @@
+---
+apiVersion: v2
+name: ai-workload-tenancy
+description: GPU-aware tenancy, quota, and priority defaults for NVIDIA AI workloads
+version: 0.1.0

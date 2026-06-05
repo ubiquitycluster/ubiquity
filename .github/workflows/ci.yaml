@@ -169,6 +169,47 @@ jobs:
             fi
           done
 
+      - name: Verify NICo E2E script gates
+        run: |
+          for script in \
+            test/e2e/nico-mock-node-lifecycle.sh \
+            test/e2e/nico-bare-metal-node-lifecycle.sh; do
+            test -f "$script"
+            bash -n "$script"
+          done
+
+  gpu-e2e:
+    name: Gated NVIDIA GPU E2E
+    runs-on: ubuntu-latest
+    needs: [test]
+    if: ${{ vars.UBIQUITY_RUN_GPU_E2E == 'true' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run NVIDIA AI platform E2E on GPU runner
+        env:
+          UBIQUITY_RUN_GPU_E2E: ${{ vars.UBIQUITY_RUN_GPU_E2E }}
+        run: test/e2e/nvidia-ai-platform.sh
+
+  nico-bare-metal-e2e:
+    name: Gated NICo Bare-Metal E2E
+    runs-on: ubuntu-latest
+    needs: [test]
+    if: ${{ vars.UBIQUITY_RUN_NICO_BARE_METAL_E2E == 'true' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run NICo mock lifecycle E2E
+        env:
+          UBIQUITY_RUN_NICO_MOCK_E2E: "true"
+        run: test/e2e/nico-mock-node-lifecycle.sh
+
+      - name: Run NICo bare-metal lifecycle E2E on hardware runner
+        env:
+          UBIQUITY_RUN_NICO_BARE_METAL_E2E: ${{ vars.UBIQUITY_RUN_NICO_BARE_METAL_E2E }}
+          UBIQUITY_ACK_NICO_BARE_METAL_DESTRUCTIVE: ${{ vars.UBIQUITY_ACK_NICO_BARE_METAL_DESTRUCTIVE }}
+        run: test/e2e/nico-bare-metal-node-lifecycle.sh
+
   build:
     name: Build
     runs-on: ubuntu-latest

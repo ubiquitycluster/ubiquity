@@ -1,0 +1,110 @@
+{{- $workloads := dict "nico-rest-api" .Values.nicoRest "nico-rest-site-agent" .Values.siteAgent -}}
+{{- range $name, $workload := $workloads }}
+{{- if $workload.enabled }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "nicoRest.fullname" $ }}-{{ $name }}
+  labels:
+    {{- include "nicoRest.labels" $ | nindent 4 }}
+    app.kubernetes.io/component: {{ $name }}
+  annotations:
+    {{- include "nicoRest.provenanceAnnotations" $ | nindent 4 }}
+spec:
+  replicas: {{ $workload.replicas | default 1 }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: {{ $.Release.Name }}
+      app.kubernetes.io/component: {{ $name }}
+  template:
+    metadata:
+      labels:
+        {{- include "nicoRest.labels" $ | nindent 8 }}
+        app.kubernetes.io/component: {{ $name }}
+        {{- with $.Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+      annotations:
+        {{- include "nicoRest.provenanceAnnotations" $ | nindent 8 }}
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") $ | sha256sum }}
+        {{- with $.Values.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      containers:
+        - name: {{ $name }}
+          image: {{ include "nicoRest.image" (dict "root" $ "repository" $workload.repository) | quote }}
+          imagePullPolicy: {{ $.Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ $workload.service.port }}
+          env:
+            - name: NICO_REST_CONFIG
+              value: /etc/nico/nico-rest.yaml
+            - name: NICO_TEMPORAL_NAMESPACE
+              value: {{ $.Values.temporal.namespace | quote }}
+            - name: NICO_SITE_UUID
+              value: {{ $.Values.site.uuid | quote }}
+            {{- with $.Values.env }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+          volumeMounts:
+            - name: config
+              mountPath: /etc/nico
+              readOnly: true
+          {{- with $.Values.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      volumes:
+        - name: config
+          configMap:
+            name: {{ include "nicoRest.fullname" $ }}-config
+      {{- with $.Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with $.Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with $.Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+{{- end }}
+{{- end }}
+{{- if or (eq .Values.idp.mode "bundled") .Values.idp.bundled.enabled }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "nicoRest.fullname" . }}-bundled-idp
+  labels:
+    {{- include "nicoRest.labels" . | nindent 4 }}
+    app.kubernetes.io/component: bundled-idp
+  annotations:
+    {{- include "nicoRest.provenanceAnnotations" . | nindent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: {{ .Release.Name }}
+      app.kubernetes.io/component: bundled-idp
+  template:
+    metadata:
+      labels:
+        {{- include "nicoRest.labels" . | nindent 8 }}
+        app.kubernetes.io/component: bundled-idp
+      annotations:
+        {{- include "nicoRest.provenanceAnnotations" . | nindent 8 }}
+    spec:
+      containers:
+        - name: bundled-idp
+          image: {{ include "nicoRest.image" (dict "root" . "repository" .Values.idp.bundled.repository) | quote }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.idp.bundled.service.port | default 8080 }}
+{{- end }}

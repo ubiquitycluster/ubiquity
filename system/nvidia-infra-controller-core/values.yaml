@@ -1,0 +1,138 @@
+global:
+  imageRegistry: ghcr.io/nvidia/infra-controller
+  imagePullPolicy: IfNotPresent
+  podAnnotations: {}
+  podLabels: {}
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+  resources: {}
+  env: []
+
+config:
+  logLevel: info
+  siteName: default
+  clusterDomain: cluster.local
+  provisioningNetwork: ""
+  pxeInterface: ""
+  ntpServers: []
+  dnsForwarders: []
+  dhcp:
+    enabled: true
+    subnet: ""
+    rangeStart: ""
+    rangeEnd: ""
+    gateway: ""
+  bmc:
+    enabled: true
+    endpoint: ""
+  temporal:
+    endpoint: temporal-frontend.temporal.svc.cluster.local:7233
+    namespace: nico
+  postgres:
+    host: ""
+    database: nico
+    existingSecretName: ""
+
+components:
+  nico-api:
+    enabled: true
+    image:
+      repository: nico-api
+      tag: preview
+    replicas: 1
+    ports:
+      http: 8080
+    service:
+      enabled: true
+      type: ClusterIP
+      port: 8080
+  nico-bmc-proxy:
+    enabled: true
+    image:
+      repository: nico-bmc-proxy
+      tag: preview
+    replicas: 1
+    ports:
+      http: 8081
+    service:
+      enabled: true
+      type: ClusterIP
+      port: 8081
+  nico-dhcp:
+    enabled: true
+    image:
+      repository: nico-dhcp
+      tag: preview
+    replicas: 1
+    ports:
+      dhcp: 67
+    service:
+      enabled: false
+  nico-dns:
+    enabled: true
+    image:
+      repository: nico-dns
+      tag: preview
+    replicas: 1
+    ports:
+      dns: 53
+    service:
+      enabled: false
+  nico-hardware-health:
+    enabled: true
+    image:
+      repository: nico-hardware-health
+      tag: preview
+    replicas: 1
+    ports:
+      metrics: 9090
+    service:
+      enabled: true
+      type: ClusterIP
+      port: 9090
+  nico-ntp:
+    enabled: true
+    image:
+      repository: nico-ntp
+      tag: preview
+    replicas: 1
+    ports:
+      ntp: 123
+    service:
+      enabled: false
+  nico-pxe:
+    enabled: true
+    image:
+      repository: nico-pxe
+      tag: preview
+    replicas: 1
+    ports:
+      http: 8080
+      tftp: 69
+    service:
+      enabled: true
+      type: ClusterIP
+      port: 8080
+  nico-ssh-console-rs:
+    enabled: true
+    image:
+      repository: nico-ssh-console-rs
+      tag: preview
+    replicas: 1
+    ports:
+      ssh: 2222
+    service:
+      enabled: true
+      type: ClusterIP
+      port: 2222
+  unbound:
+    enabled: false
+    image:
+      repository: unbound
+      tag: preview
+    replicas: 1
+    ports:
+      dns: 53
+    service:
+      enabled: false

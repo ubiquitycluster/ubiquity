@@ -6,6 +6,7 @@ Welcome to the Ubiquity documentation. Ubiquity is a cloud-native platform for h
 
 - [Installation Guide](installation/sandbox.md) - Start with our sandbox environment
 - [Architecture Overview](architecture/overview.md) - Learn about Ubiquity's design
+- [NVIDIA AI Platform Operations](admin-guide/nvidia-ai-platform.md) - Deploy and validate NVIDIA-backed AI workload profiles
 - [User Guide](user-guide/onboarding.md) - Get started as a user
 
 ## Quick Links

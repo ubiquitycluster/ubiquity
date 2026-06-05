@@ -63,7 +63,7 @@ GOARCH=arm64 make cli
 
 - [x] Common applications: Gitea, Slurm, Harbor...
 - [x] Automated bare metal provisioning with PXE boot
-- [x] Baremetal-operator leveraging OpenStack Ironic to deploy and manage worker nodes
+- [x] NVIDIA Infra Controller (NICo) is the default day-2 bare-metal lifecycle backend; Baremetal Operator/Metal3 with OpenStack Ironic is retained only as a fallback/migration-only path
 - [x] Automated Kubernetes installation and management
 - [x] Installing and managing applications using GitOps
 - [x] Automatic rolling upgrade for OS and Kubernetes (optional)
@@ -106,7 +106,7 @@ They can't capture all the project's features, but they are sufficient to get a 
 | [![][screenshot-09]][screenshot-09]                                                         | [![][screenshot-10]][screenshot-10]                                 |
 | Cluster management using [K9s](https://k9scli.io/)                                          | Federated Auth and 2FA with [Keycloak](https://www.keycloak.org/)   |
 | [![][screenshot-11]][screenshot-11]                                                         | [![][screenshot-12]][screenshot-12]                                 |
-| Bare metal management using the [Bare Metal Operator](https://metal3.io/)                                          | Secrets management with [Vault](https://www.vaultproject.io/)       |
+| Bare metal lifecycle management defaults to NVIDIA Infra Controller (NICo); [Bare Metal Operator/Metal3](https://metal3.io/) is fallback/migration-only                                          | Secrets management with [Vault](https://www.vaultproject.io/)       |
 | [![][screenshot-13]][screenshot-13]                                                         | [![][screenshot-14]][screenshot-14]                                 |
 | Dynamically scalable [Slurm](https://slurm.schedmd.com/) environment controlled by Kubernetes       | Remote cluster administration tooling via [Opus](https://github.com/ubiquitycluster/ubiq_opus)       |
 

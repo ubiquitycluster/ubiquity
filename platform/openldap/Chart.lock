@@ -1,0 +1,6 @@
+dependencies:
+- name: openldap-stack-ha
+  repository: https://jp-gouin.github.io/helm-openldap
+  version: 4.2.2
+digest: sha256:60d0d59293fc8585867095e2592de4912897856b9b6e59e1a108713918989cc0
+generated: "2026-06-04T13:46:32.346848+01:00"

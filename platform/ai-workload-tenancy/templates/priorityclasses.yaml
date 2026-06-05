@@ -1,0 +1,10 @@
+{{- range $key, $class := .Values.priorityClasses }}
+---
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: ai-{{ $key }}
+value: {{ $class.value }}
+globalDefault: false
+description: {{ $class.description | quote }}
+{{- end }}

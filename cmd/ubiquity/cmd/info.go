@@ -29,6 +29,8 @@ var infoCmd = &cobra.Command{
 			fmt.Println("Kubernetes: not connected")
 		}
 
+		fmt.Print(renderAIReadinessStatus(collectAIReadinessSnapshot()))
+
 		return nil
 	},
 }

@@ -1,0 +1,18 @@
+{{- if .Values.serviceMonitor.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "node-lifecycle-exporter.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "node-lifecycle-exporter.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+spec:
+  endpoints:
+    - port: metrics
+      interval: {{ .Values.serviceMonitor.interval }}
+      path: /metrics
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "node-lifecycle-exporter.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}

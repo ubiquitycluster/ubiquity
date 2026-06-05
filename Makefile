@@ -324,12 +324,17 @@ test-k3d-v1.31:
 test-k3d-v1.32:
 	K3S_IMAGE=rancher/k3s:v1.32.13-k3s1 bash test/k3d-matrix.sh
 
+# Run the opt-in NICo KVM/QEMU PXE virtual bare-metal lab.
+nico-kvm-pxe-lab:
+	bash test/e2e/nico-kvm-pxe-lab.sh
+
 # Show available targets
 help:
 	@echo "Available targets:"
-	@echo "  cli         Build the ubiquity CLI binary"
-	@echo "  installer   Build the PXE installer binary"
-	@echo "  completions Generate shell completion files"
-	@echo "  test        Run tests"
-	@echo "  dev         Prepare development environment"
-	@echo "  install     Install CLI to /usr/local/bin"
+	@echo "  cli              Build the ubiquity CLI binary"
+	@echo "  installer        Build the PXE installer binary"
+	@echo "  completions      Generate shell completion files"
+	@echo "  test             Run tests"
+	@echo "  nico-kvm-pxe-lab Run opt-in NICo KVM/QEMU PXE virtual bare-metal lab"
+	@echo "  dev              Prepare development environment"
+	@echo "  install          Install CLI to /usr/local/bin"

@@ -1,0 +1,11 @@
+---
+apiVersion: v2
+name: nvidia-infra-controller-rest
+description: Ubiquity GitOps wrapper for NVIDIA Infra Controller REST and site-agent services
+version: 0.1.0
+appVersion: "preview"
+type: application
+annotations:
+  ubiquity.dev/source-repo: NVIDIA/infra-controller
+  ubiquity.dev/source-component: nico-rest
+  ubiquity.dev/source-status: experimental-preview

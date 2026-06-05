@@ -5,7 +5,7 @@ Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 
-    https://github.com/ubiquitycluster/ubiquity/blob/main/LICENSE
+	https://github.com/ubiquitycluster/ubiquity/blob/main/LICENSE
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -34,21 +34,32 @@ Flags allow targeting specific test layers.`,
 		fmt.Println()
 
 		// Run Go tests
-		fmt.Println("  [1/3] Go unit tests...")
+		fmt.Println("  [1/4] Go unit tests...")
 		// In real usage this would exec `go test ./...`
 		fmt.Println("    → See: go test ./pkg/... ./cmd/... -v")
 
 		// Run Helm unit tests
-		fmt.Println("  [2/3] Helm unit tests...")
+		fmt.Println("  [2/4] Helm unit tests...")
 		fmt.Println("    → See: helm unittest ./system/... ./platform/... ./bootstrap/...")
 
 		// Run integration tests
 		runIntegration, _ := cmd.Flags().GetBool("integration")
+		runSandboxDeploy, _ := cmd.Flags().GetBool("sandbox-deploy")
 		if runIntegration {
-			fmt.Println("  [3/3] Integration tests...")
+			fmt.Println("  [3/4] Integration tests...")
 			fmt.Println("    → See: molecule test, go test ./test/...")
 		} else {
-			fmt.Println("  [3/3] Integration tests (skipped, use --integration)")
+			fmt.Println("  [3/4] Integration tests (skipped, use --integration)")
+		}
+
+		if runSandboxDeploy {
+			fmt.Println("  [4/4] NVIDIA AI sandbox deploy render validation...")
+			if err := validateNvidiaAISandboxDeployTargetsForCLI(); err != nil {
+				return err
+			}
+			fmt.Println("    → NVIDIA AI sandbox deploy components rendered cleanly")
+		} else {
+			fmt.Println("  [4/4] NVIDIA AI sandbox deploy render validation (skipped, use --sandbox-deploy)")
 		}
 
 		fmt.Println()
@@ -72,6 +83,7 @@ var integrationTestCmd = &cobra.Command{
 
 func init() {
 	testCmd.Flags().Bool("integration", false, "include integration tests")
+	testCmd.Flags().Bool("sandbox-deploy", false, "render NVIDIA AI platform sandbox-deployed Helm charts without requiring NVIDIA devices")
 	rootCmd.AddCommand(testCmd)
 	rootCmd.AddCommand(integrationTestCmd)
 

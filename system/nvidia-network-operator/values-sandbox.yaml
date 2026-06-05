@@ -1,0 +1,12 @@
+# Sandbox mode runs on k3d without NVIDIA/Mellanox devices. Deploy the
+# NVIDIA Network Operator control plane and CRDs, but do not install secondary
+# CNI plugins or RDMA operands that can replace/break the k3d default pod CNI.
+network-operator:
+  deployCR: false
+  nfd:
+    enabled: false
+  sriovNetworkOperator:
+    enabled: false
+
+rke2-multus:
+  enabled: false
