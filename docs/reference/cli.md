@@ -59,12 +59,47 @@ ubiquity retry metal
 ubiquity retry bootstrap
 ```
 
+### ai-platform
+Inspect a declarative NVIDIA-backed AI workload platform profile.
+
+This command prints the selected profile, capabilities, source repositories, chart repositories, replacement decisions, bare-metal orchestration alternatives, and fail-closed readiness policy. It does not claim NVIDIA approval or certification.
+
+```
+ubiquity ai-platform --profile sandbox
+ubiquity ai-platform --profile gpu-basic
+ubiquity ai-platform --profile gpu-rdma
+ubiquity ai-platform --profile gpu-mig
+ubiquity ai-platform --profile ai-production
+```
+
+Use `ai-production` when reviewing the full target platform: GPU Operator, NVIDIA Network Operator, NIM Operator, KAI Scheduler, AI workload tenancy, telemetry, and validation.
+
+### nodes
+Operate NVIDIA Infra Controller-backed bare-metal node lifecycle. Commands default to dry-run/mock safe output unless live NICo configuration is provided with `UBIQUITY_NICO_MODE=live`, `UBIQUITY_NICO_BASE_URL`, `UBIQUITY_NICO_ORG`, and credentials.
+
+```
+ubiquity nodes list [-o table|json]
+ubiquity nodes status <name> [-o json]
+ubiquity nodes os list
+ubiquity nodes os apply <image>
+ubiquity nodes add <name> --os-image <image>
+ubiquity nodes remove <name> --confirm <name> --drain-confirmed
+ubiquity nodes reinstall <name> --os-image <image> --confirm <name> --drain-confirmed
+ubiquity nodes power <name> on|off|reset --confirm <name> --drain-confirmed --reason <why>
+ubiquity nodes task <task-id>
+```
+
+Live power operations resolve the target through NICo/Kubernetes status first, enforce confirmation/drain/quorum/storage/AIStore safety gates, and then submit a NICo machine power task. `reset` and `off` never fall back to BMO or shell snippets by default.
+
 ### test
 Run the test suite.
 ```
 ubiquity test
 ubiquity test --integration
+ubiquity test --sandbox-deploy
 ```
+
+`ubiquity test --sandbox-deploy` runs NVIDIA AI sandbox deploy render validation. It dependency-builds and renders the sandbox-safe NVIDIA AI Helm charts with CRDs, cleans generated Helm artifacts afterward, and does not require NVIDIA devices. It proves manifest/render correctness, not GPU runtime, RDMA, NIM model serving, or production scheduling readiness.
 
 ### version
 Print version information.
@@ -83,4 +118,8 @@ ubiquity info
 Check cluster health.
 ```
 ubiquity health
+ubiquity health --nico
 ```
+
+Flags:
+- `--nico`: run only NVIDIA Infra Controller readiness checks.
