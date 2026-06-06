@@ -3,6 +3,8 @@ package cmd
 import (
 	"context"
 	"fmt"
+	"os"
+	"path/filepath"
 	"strings"
 	"testing"
 )
@@ -41,6 +43,34 @@ func TestCloudRenderPrerequisitesProducesCRDContract(t *testing.T) {
 	for _, required := range []string{"kind: ConfigMap", "datavolumes.cdi.kubevirt.io", "serverSideDryRunRequired"} {
 		if !strings.Contains(manifest, required) {
 			t.Fatalf("manifest missing %q:\n%s", required, manifest)
+		}
+	}
+}
+
+func TestCloudReadinessEvaluatesEvidenceFile(t *testing.T) {
+	old := cloudOpts
+	defer func() { cloudOpts = old }()
+	path := filepath.Join(t.TempDir(), "readiness.json")
+	if err := os.WriteFile(path, []byte(`{
+  "requiredCRDs": ["datavolumes.cdi.kubevirt.io"],
+  "presentCRDs": [],
+  "smokeTests": {"restore-drill": false}
+}`), 0o600); err != nil {
+		t.Fatalf("write evidence: %v", err)
+	}
+	cloudOpts.ReadinessFile = path
+	cmd := findCommand(cloudCmd, "readiness")
+	if cmd == nil {
+		t.Fatal("expected cloud readiness command")
+	}
+	out := captureStdout(t, func() {
+		if err := cmd.RunE(cmd, nil); err != nil {
+			t.Fatalf("cloud readiness failed: %v", err)
+		}
+	})
+	for _, required := range []string{"ready: false", "missing CRD datavolumes.cdi.kubevirt.io", "smoke test restore-drill did not pass"} {
+		if !strings.Contains(out, required) {
+			t.Fatalf("readiness output missing %q:\n%s", required, out)
 		}
 	}
 }

@@ -3,7 +3,9 @@ package cmd
 import (
 	"bytes"
 	"context"
+	"encoding/json"
 	"fmt"
+	"os"
 	"os/exec"
 
 	"github.com/spf13/cobra"
@@ -11,12 +13,13 @@ import (
 )
 
 type cloudOptions struct {
-	DryRun  bool
-	VMDisk  cloud.VMDiskRequest
-	Tenant  cloud.TenantVPCRequest
-	Cluster cloud.TenantClusterRequest
-	Service cloud.ManagedServiceRequest
-	Backup  cloud.BackupPolicyRequest
+	DryRun        bool
+	VMDisk        cloud.VMDiskRequest
+	Tenant        cloud.TenantVPCRequest
+	Cluster       cloud.TenantClusterRequest
+	Service       cloud.ManagedServiceRequest
+	Backup        cloud.BackupPolicyRequest
+	ReadinessFile string
 }
 
 var cloudOpts = cloudOptions{
@@ -111,10 +114,12 @@ func init() {
 	cloudCmd.PersistentFlags().StringVar(&cloudOpts.Backup.PresetCPU, "preset-cpu", cloudOpts.Backup.PresetCPU, "resource preset CPU")
 	cloudCmd.PersistentFlags().StringVar(&cloudOpts.Backup.PresetMemory, "preset-memory", cloudOpts.Backup.PresetMemory, "resource preset memory")
 	cloudCmd.PersistentFlags().StringVar(&cloudOpts.Backup.PresetGPU, "preset-gpu", cloudOpts.Backup.PresetGPU, "resource preset GPU count")
+	cloudCmd.PersistentFlags().StringVar(&cloudOpts.ReadinessFile, "readiness-file", cloudOpts.ReadinessFile, "JSON cloud readiness evidence file")
 
 	renderCmd := &cobra.Command{Use: "render RESOURCE", Short: "Render a cloud primitive", Args: cobra.ExactArgs(1), RunE: runCloudRender}
 	applyCmd := &cobra.Command{Use: "apply RESOURCE", Short: "Apply a cloud primitive", Args: cobra.ExactArgs(1), RunE: runCloudApply}
-	cloudCmd.AddCommand(renderCmd, applyCmd)
+	readinessCmd := &cobra.Command{Use: "readiness", Short: "Evaluate fail-closed cloud readiness evidence", Args: cobra.NoArgs, RunE: runCloudReadiness}
+	cloudCmd.AddCommand(renderCmd, applyCmd, readinessCmd)
 	rootCmd.AddCommand(cloudCmd)
 }
 
@@ -142,6 +147,22 @@ func runCloudApply(cmd *cobra.Command, args []string) error {
 	if err != nil {
 		return fmt.Errorf("kubectl %v failed: %w", kubectlArgs, err)
 	}
+	return nil
+}
+
+func runCloudReadiness(cmd *cobra.Command, args []string) error {
+	if cloudOpts.ReadinessFile == "" {
+		return fmt.Errorf("--readiness-file is required")
+	}
+	content, err := os.ReadFile(cloudOpts.ReadinessFile)
+	if err != nil {
+		return fmt.Errorf("read readiness evidence: %w", err)
+	}
+	var evidence cloud.CloudReadinessEvidence
+	if err := json.Unmarshal(content, &evidence); err != nil {
+		return fmt.Errorf("parse readiness evidence JSON: %w", err)
+	}
+	fmt.Fprint(cmd.OutOrStdout(), cloud.RenderCloudReadinessReport(cloud.EvaluateCloudReadiness(evidence)))
 	return nil
 }
 

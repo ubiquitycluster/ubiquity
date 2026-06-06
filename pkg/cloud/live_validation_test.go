@@ -30,7 +30,7 @@ func TestCloudReadinessRunbookDocumentsReconciliationNotObjectExistence(t *testi
 		t.Fatalf("missing cloud readiness runbook: %v", err)
 	}
 	runbook := string(content)
-	for _, required := range []string{"server-side dry-run", "CRD presence", "status condition", "restore drill", "fail closed", "not object existence"} {
+	for _, required := range []string{"server-side dry-run", "CRD presence", "status condition", "restore drill", "fail closed", "not object existence", "ubiquity cloud readiness", "readiness-file"} {
 		if !strings.Contains(runbook, required) {
 			t.Fatalf("runbook missing %q", required)
 		}

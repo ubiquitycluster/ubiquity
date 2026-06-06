@@ -26,3 +26,13 @@ This runbook defines the minimum evidence required before a Ubiquity cloud primi
 ## Script
 
 Use `test/e2e/cloud-primitives-server-dry-run.sh` against a CRD-enabled sandbox to prove schemas and API compatibility before live reconciliation testing.
+
+## Readiness evidence evaluation
+
+After collecting CRD, resource condition, and smoke-test evidence, write a JSON evidence file and run:
+
+```sh
+ubiquity cloud readiness --readiness-file readiness.json
+```
+
+The `readiness-file` must include required CRDs, present CRDs, resource conditions, and named smoke-test booleans. The command returns a stable reviewer-readable report and fails closed when evidence is absent or false; it does not treat Kubernetes object existence as readiness.
