@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["operatorBundles"],
+  "properties": {
+    "operatorBundles": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "namespace", "bundles"],
+      "properties": {
+        "name": {"type": "string", "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"},
+        "namespace": {"type": "string", "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"},
+        "bundles": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["name", "controller", "ownedCRD", "installNamespace", "source", "version", "airgapArtifact"],
+            "properties": {
+              "name": {"type": "string"},
+              "controller": {"type": "string"},
+              "ownedCRD": {"type": "string"},
+              "installNamespace": {"type": "string"},
+              "source": {"type": "string"},
+              "version": {"type": "string"},
+              "airgapArtifact": {"type": "string"}
+            }
+          }
+        }
+      }
+    }
+  }
+}

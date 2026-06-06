@@ -16,6 +16,7 @@ func TestCloudChartsHaveValuesSchemas(t *testing.T) {
 		"platform-ops-policy",
 		"cloud-prerequisites",
 		"cloud-governance",
+		"cloud-operator-bundles",
 	}
 	for _, chart := range charts {
 		t.Run(chart, func(t *testing.T) {

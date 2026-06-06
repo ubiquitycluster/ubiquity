@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.operatorBundles.name }}
+  namespace: {{ .Values.operatorBundles.namespace }}
+  labels:
+    ubiquity.ai/operator-install-plan: cloud
+data:
+  bundles: |
+    {{- range .Values.operatorBundles.bundles }}
+    - name: {{ .name }}
+      controller: {{ .controller }}
+      ownedCRD: {{ .ownedCRD }}
+      installNamespace: {{ .installNamespace }}
+      source: {{ .source }}
+      version: {{ .version }}
+      airgapArtifact: {{ .airgapArtifact }}
+    {{- end }}

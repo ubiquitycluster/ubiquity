@@ -1,0 +1,74 @@
+operatorBundles:
+  name: cloud-operators
+  namespace: ubiquity-system
+  bundles:
+    - name: kubevirt-cdi
+      controller: CDI Operator
+      ownedCRD: datavolumes.cdi.kubevirt.io
+      installNamespace: cdi
+      source: https://github.com/kubevirt/containerized-data-importer
+      version: pinned-by-platform
+      airgapArtifact: platform/vendor/cdi
+    - name: cloudnative-pg
+      controller: CloudNativePG Operator
+      ownedCRD: clusters.postgresql.cnpg.io
+      installNamespace: cnpg-system
+      source: https://github.com/cloudnative-pg/cloudnative-pg
+      version: pinned-by-platform
+      airgapArtifact: platform/vendor/cloudnative-pg
+    - name: strimzi
+      controller: Strimzi Operator
+      ownedCRD: kafkas.kafka.strimzi.io
+      installNamespace: strimzi-system
+      source: https://github.com/strimzi/strimzi-kafka-operator
+      version: pinned-by-platform
+      airgapArtifact: platform/vendor/strimzi
+    - name: cluster-api
+      controller: Cluster API
+      ownedCRD: clusters.cluster.x-k8s.io
+      installNamespace: capi-system
+      source: https://github.com/kubernetes-sigs/cluster-api
+      version: pinned-by-platform
+      airgapArtifact: platform/vendor/cluster-api
+    - name: k8up
+      controller: K8up Operator
+      ownedCRD: schedules.k8up.io
+      installNamespace: k8up-system
+      source: https://github.com/k8up-io/k8up
+      version: pinned-by-platform
+      airgapArtifact: platform/vendor/k8up
+    - name: longhorn
+      controller: Longhorn CSI
+      ownedCRD: volumesnapshotclasses.snapshot.storage.k8s.io
+      installNamespace: longhorn-system
+      source: https://github.com/longhorn/longhorn
+      version: pinned-by-platform
+      airgapArtifact: platform/vendor/longhorn
+    - name: gateway-api
+      controller: Gateway API Controller
+      ownedCRD: gateways.gateway.networking.k8s.io
+      installNamespace: gateway-system
+      source: https://gateway-api.sigs.k8s.io
+      version: pinned-by-platform
+      airgapArtifact: platform/vendor/gateway-api
+    - name: opencost
+      controller: OpenCost
+      ownedCRD: opencost.io/allocation
+      installNamespace: opencost
+      source: https://github.com/opencost/opencost
+      version: pinned-by-platform
+      airgapArtifact: platform/vendor/opencost
+    - name: kyverno
+      controller: Kyverno
+      ownedCRD: clusterpolicies.kyverno.io
+      installNamespace: kyverno
+      source: https://github.com/kyverno/kyverno
+      version: pinned-by-platform
+      airgapArtifact: platform/vendor/kyverno
+    - name: argocd
+      controller: Argo CD
+      ownedCRD: applications.argoproj.io
+      installNamespace: argocd
+      source: https://github.com/argoproj/argo-cd
+      version: pinned-by-platform
+      airgapArtifact: platform/vendor/argocd

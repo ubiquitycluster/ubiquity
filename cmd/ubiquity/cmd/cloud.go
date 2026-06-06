@@ -201,6 +201,8 @@ func renderCloudResource(resource string) (string, error) {
 		return cloud.RenderBackupPolicy(cloudOpts.Backup)
 	case "prerequisites", "prereqs", "requirements":
 		return cloud.RenderCloudPrerequisites(cloud.CloudPrerequisitesRequest{Name: "cloud-prereqs", Namespace: "ubiquity-system"})
+	case "operator-bundles", "operators", "install-plan":
+		return cloud.RenderCloudOperatorBundles(cloud.CloudOperatorBundlesRequest{Name: "cloud-operators", Namespace: "ubiquity-system"})
 	case "governance", "policy-bundle", "cloud-governance":
 		return cloud.RenderCloudGovernance(cloud.CloudGovernanceRequest{Name: "tenant-a-governance", Namespace: "tenant-a"})
 	default:

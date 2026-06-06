@@ -47,6 +47,18 @@ func TestCloudRenderPrerequisitesProducesCRDContract(t *testing.T) {
 	}
 }
 
+func TestCloudRenderOperatorBundlesProducesInstallPlan(t *testing.T) {
+	manifest, err := renderCloudResource("operator-bundles")
+	if err != nil {
+		t.Fatalf("render operator-bundles returned error: %v", err)
+	}
+	for _, required := range []string{"kind: ConfigMap", "kubevirt-cdi", "airgapArtifact"} {
+		if !strings.Contains(manifest, required) {
+			t.Fatalf("manifest missing %q:\n%s", required, manifest)
+		}
+	}
+}
+
 func TestCloudReadinessEvaluatesEvidenceFile(t *testing.T) {
 	old := cloudOpts
 	defer func() { cloudOpts = old }()

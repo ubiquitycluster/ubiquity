@@ -93,3 +93,7 @@ Failure at any gate must fail closed; do not infer readiness from render/apply s
 ## Governance policy bundle
 
 `ubiquity cloud render governance` emits a cross-cutting tenant bundle for RBAC, admission, GitOps lifecycle, observability alerts, cost allocation labels, Gateway API, external DNS intent, VPN egress policy, expandable retained storage, and upgrade/rollback policy metadata. The bundle is intentionally policy intent: controllers such as Kyverno, Argo CD, Prometheus Operator, OpenCost, Gateway API, external-dns, and Longhorn must be installed and reconciled before operators claim readiness.
+
+## Operator install-plan bundle
+
+`ubiquity cloud render operator-bundles` emits the controller ownership/provenance contract for cloud CRDs. Each bundle records the controller family, owned CRD, install namespace, upstream source, pinned-by-platform version policy, and expected air-gap artifact location. This does not fetch or install third-party controllers by itself; it gives GitOps and CI a reviewable installation contract before CRD-backed cloud resources are applied.
