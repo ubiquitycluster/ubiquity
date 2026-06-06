@@ -33,7 +33,17 @@
             "postgres",
             "redis",
             "kafka",
-            "registry"
+            "registry",
+            "mariadb",
+            "mongodb",
+            "nats",
+            "rabbitmq",
+            "clickhouse",
+            "opensearch",
+            "qdrant",
+            "openbao",
+            "http-cache",
+            "tcp-balancer"
           ]
         },
         "storageClassName": {

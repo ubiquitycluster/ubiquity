@@ -15,6 +15,16 @@ func TestRenderManagedServiceCatalogSupportsOperatorBackedServices(t *testing.T)
 		{ServiceRedis, []string{"kind: RedisFailover", "sentinel:", "replicas: 3"}},
 		{ServiceKafka, []string{"apiVersion: kafka.strimzi.io/v1beta2", "kind: Kafka", "replicas: 3"}},
 		{ServiceRegistry, []string{"kind: Project", "ubiquity.ai/service-type: registry"}},
+		{ServiceMariaDB, []string{"apiVersion: k8s.mariadb.com/v1alpha1", "kind: MariaDB", "rootPasswordSecretKeyRef"}},
+		{ServiceMongoDB, []string{"apiVersion: psmdb.percona.com/v1", "kind: PerconaServerMongoDB", "replsets:"}},
+		{ServiceNATS, []string{"apiVersion: nats.io/v1alpha2", "kind: NatsCluster", "size: 3"}},
+		{ServiceRabbitMQ, []string{"apiVersion: rabbitmq.com/v1beta1", "kind: RabbitmqCluster", "replicas: 3"}},
+		{ServiceClickHouse, []string{"apiVersion: clickhouse.altinity.com/v1", "kind: ClickHouseInstallation", "templates:"}},
+		{ServiceOpenSearch, []string{"apiVersion: opensearch.opster.io/v1", "kind: OpenSearchCluster", "dashboards:"}},
+		{ServiceQdrant, []string{"apiVersion: qdrant.io/v1", "kind: QdrantCluster", "persistence:"}},
+		{ServiceOpenBao, []string{"apiVersion: secrets.hashicorp.com/v1beta1", "kind: VaultConnection", "ubiquity.ai/service-type: openbao"}},
+		{ServiceHTTPCache, []string{"kind: Deployment", "ubiquity.ai/service-type: http-cache", "nginx:stable"}},
+		{ServiceTCPBalancer, []string{"kind: Service", "ubiquity.ai/service-type: tcp-balancer", "type: LoadBalancer"}},
 	}
 	for _, tc := range cases {
 		t.Run(string(tc.service), func(t *testing.T) {

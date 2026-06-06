@@ -9,11 +9,21 @@ import (
 type ServiceType string
 
 const (
-	ServiceBucket   ServiceType = "bucket"
-	ServicePostgres ServiceType = "postgres"
-	ServiceRedis    ServiceType = "redis"
-	ServiceKafka    ServiceType = "kafka"
-	ServiceRegistry ServiceType = "registry"
+	ServiceBucket      ServiceType = "bucket"
+	ServicePostgres    ServiceType = "postgres"
+	ServiceRedis       ServiceType = "redis"
+	ServiceKafka       ServiceType = "kafka"
+	ServiceRegistry    ServiceType = "registry"
+	ServiceMariaDB     ServiceType = "mariadb"
+	ServiceMongoDB     ServiceType = "mongodb"
+	ServiceNATS        ServiceType = "nats"
+	ServiceRabbitMQ    ServiceType = "rabbitmq"
+	ServiceClickHouse  ServiceType = "clickhouse"
+	ServiceOpenSearch  ServiceType = "opensearch"
+	ServiceQdrant      ServiceType = "qdrant"
+	ServiceOpenBao     ServiceType = "openbao"
+	ServiceHTTPCache   ServiceType = "http-cache"
+	ServiceTCPBalancer ServiceType = "tcp-balancer"
 )
 
 // ManagedServiceRequest renders a service CR for an operator already installed by the platform.
@@ -116,6 +126,173 @@ spec:
   public: false
   storageLimit: %s
 `, req.Name, req.Namespace, req.Size), nil
+	case ServiceMariaDB:
+		return fmt.Sprintf(`apiVersion: k8s.mariadb.com/v1alpha1
+kind: MariaDB
+metadata:
+  name: %s
+  namespace: %s
+  labels:
+    ubiquity.ai/service-type: mariadb
+spec:
+  replicas: %d
+  storage:
+    size: %s
+    storageClassName: %s
+  rootPasswordSecretKeyRef:
+    name: %s-root
+    key: password
+`, req.Name, req.Namespace, req.Replicas, req.Size, req.StorageClass, req.Name), nil
+	case ServiceMongoDB:
+		return fmt.Sprintf(`apiVersion: psmdb.percona.com/v1
+kind: PerconaServerMongoDB
+metadata:
+  name: %s
+  namespace: %s
+  labels:
+    ubiquity.ai/service-type: mongodb
+spec:
+  replsets:
+    - name: rs0
+      size: %d
+      volumeSpec:
+        persistentVolumeClaim:
+          storageClassName: %s
+          resources:
+            requests:
+              storage: %s
+`, req.Name, req.Namespace, req.Replicas, req.StorageClass, req.Size), nil
+	case ServiceNATS:
+		return fmt.Sprintf(`apiVersion: nats.io/v1alpha2
+kind: NatsCluster
+metadata:
+  name: %s
+  namespace: %s
+  labels:
+    ubiquity.ai/service-type: nats
+spec:
+  size: %d
+`, req.Name, req.Namespace, req.Replicas), nil
+	case ServiceRabbitMQ:
+		return fmt.Sprintf(`apiVersion: rabbitmq.com/v1beta1
+kind: RabbitmqCluster
+metadata:
+  name: %s
+  namespace: %s
+  labels:
+    ubiquity.ai/service-type: rabbitmq
+spec:
+  replicas: %d
+  persistence:
+    storageClassName: %s
+    storage: %s
+`, req.Name, req.Namespace, req.Replicas, req.StorageClass, req.Size), nil
+	case ServiceClickHouse:
+		return fmt.Sprintf(`apiVersion: clickhouse.altinity.com/v1
+kind: ClickHouseInstallation
+metadata:
+  name: %s
+  namespace: %s
+  labels:
+    ubiquity.ai/service-type: clickhouse
+spec:
+  configuration:
+    clusters:
+      - name: default
+        layout:
+          shardsCount: 1
+          replicasCount: %d
+  templates:
+    volumeClaimTemplates:
+      - name: data
+        spec:
+          storageClassName: %s
+          resources:
+            requests:
+              storage: %s
+`, req.Name, req.Namespace, req.Replicas, req.StorageClass, req.Size), nil
+	case ServiceOpenSearch:
+		return fmt.Sprintf(`apiVersion: opensearch.opster.io/v1
+kind: OpenSearchCluster
+metadata:
+  name: %s
+  namespace: %s
+  labels:
+    ubiquity.ai/service-type: opensearch
+spec:
+  general:
+    serviceName: %s
+  dashboards:
+    enable: true
+  nodePools:
+    - component: masters
+      replicas: %d
+      diskSize: %s
+`, req.Name, req.Namespace, req.Name, req.Replicas, req.Size), nil
+	case ServiceQdrant:
+		return fmt.Sprintf(`apiVersion: qdrant.io/v1
+kind: QdrantCluster
+metadata:
+  name: %s
+  namespace: %s
+  labels:
+    ubiquity.ai/service-type: qdrant
+spec:
+  replicas: %d
+  persistence:
+    storageClassName: %s
+    size: %s
+`, req.Name, req.Namespace, req.Replicas, req.StorageClass, req.Size), nil
+	case ServiceOpenBao:
+		return fmt.Sprintf(`apiVersion: secrets.hashicorp.com/v1beta1
+kind: VaultConnection
+metadata:
+  name: %s
+  namespace: %s
+  labels:
+    ubiquity.ai/service-type: openbao
+spec:
+  address: https://%s.%s.svc:8200
+`, req.Name, req.Namespace, req.Name, req.Namespace), nil
+	case ServiceHTTPCache:
+		return fmt.Sprintf(`apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: %s
+  namespace: %s
+  labels:
+    ubiquity.ai/service-type: http-cache
+spec:
+  replicas: %d
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: %s
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: %s
+    spec:
+      containers:
+        - name: cache
+          image: nginx:stable
+`, req.Name, req.Namespace, req.Replicas, req.Name, req.Name), nil
+	case ServiceTCPBalancer:
+		return fmt.Sprintf(`apiVersion: v1
+kind: Service
+metadata:
+  name: %s
+  namespace: %s
+  labels:
+    ubiquity.ai/service-type: tcp-balancer
+spec:
+  type: LoadBalancer
+  ports:
+    - name: tcp
+      port: 443
+      targetPort: 443
+  selector:
+    ubiquity.ai/tcp-backend: %s
+`, req.Name, req.Namespace, req.Name), nil
 	default:
 		return "", fmt.Errorf("unsupported managed service %q", req.Type)
 	}

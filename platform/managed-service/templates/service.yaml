@@ -63,6 +63,146 @@ metadata:
 spec:
   public: false
   storageLimit: {{ .Values.service.size }}
+{{- else if eq .Values.service.type "mariadb" }}
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: MariaDB
+metadata:
+  name: {{ .Values.service.name }}
+  namespace: {{ .Values.service.namespace }}
+  labels:
+    ubiquity.ai/service-type: mariadb
+spec:
+  replicas: {{ .Values.service.replicas }}
+  storage:
+    size: {{ .Values.service.size }}
+    storageClassName: {{ .Values.service.storageClassName }}
+  rootPasswordSecretKeyRef:
+    name: {{ .Values.service.name }}-root
+    key: password
+{{- else if eq .Values.service.type "mongodb" }}
+apiVersion: psmdb.percona.com/v1
+kind: PerconaServerMongoDB
+metadata:
+  name: {{ .Values.service.name }}
+  namespace: {{ .Values.service.namespace }}
+  labels:
+    ubiquity.ai/service-type: mongodb
+spec:
+  replsets:
+    - name: rs0
+      size: {{ .Values.service.replicas }}
+{{- else if eq .Values.service.type "nats" }}
+apiVersion: nats.io/v1alpha2
+kind: NatsCluster
+metadata:
+  name: {{ .Values.service.name }}
+  namespace: {{ .Values.service.namespace }}
+  labels:
+    ubiquity.ai/service-type: nats
+spec:
+  size: {{ .Values.service.replicas }}
+{{- else if eq .Values.service.type "rabbitmq" }}
+apiVersion: rabbitmq.com/v1beta1
+kind: RabbitmqCluster
+metadata:
+  name: {{ .Values.service.name }}
+  namespace: {{ .Values.service.namespace }}
+  labels:
+    ubiquity.ai/service-type: rabbitmq
+spec:
+  replicas: {{ .Values.service.replicas }}
+  persistence:
+    storageClassName: {{ .Values.service.storageClassName }}
+    storage: {{ .Values.service.size }}
+{{- else if eq .Values.service.type "clickhouse" }}
+apiVersion: clickhouse.altinity.com/v1
+kind: ClickHouseInstallation
+metadata:
+  name: {{ .Values.service.name }}
+  namespace: {{ .Values.service.namespace }}
+  labels:
+    ubiquity.ai/service-type: clickhouse
+spec:
+  configuration:
+    clusters:
+      - name: default
+        layout:
+          shardsCount: 1
+          replicasCount: {{ .Values.service.replicas }}
+  templates: {}
+{{- else if eq .Values.service.type "opensearch" }}
+apiVersion: opensearch.opster.io/v1
+kind: OpenSearchCluster
+metadata:
+  name: {{ .Values.service.name }}
+  namespace: {{ .Values.service.namespace }}
+  labels:
+    ubiquity.ai/service-type: opensearch
+spec:
+  general:
+    serviceName: {{ .Values.service.name }}
+  dashboards:
+    enable: true
+{{- else if eq .Values.service.type "qdrant" }}
+apiVersion: qdrant.io/v1
+kind: QdrantCluster
+metadata:
+  name: {{ .Values.service.name }}
+  namespace: {{ .Values.service.namespace }}
+  labels:
+    ubiquity.ai/service-type: qdrant
+spec:
+  replicas: {{ .Values.service.replicas }}
+  persistence:
+    storageClassName: {{ .Values.service.storageClassName }}
+    size: {{ .Values.service.size }}
+{{- else if eq .Values.service.type "openbao" }}
+apiVersion: secrets.hashicorp.com/v1beta1
+kind: VaultConnection
+metadata:
+  name: {{ .Values.service.name }}
+  namespace: {{ .Values.service.namespace }}
+  labels:
+    ubiquity.ai/service-type: openbao
+spec:
+  address: https://{{ .Values.service.name }}.{{ .Values.service.namespace }}.svc:8200
+{{- else if eq .Values.service.type "http-cache" }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.service.name }}
+  namespace: {{ .Values.service.namespace }}
+  labels:
+    ubiquity.ai/service-type: http-cache
+spec:
+  replicas: {{ .Values.service.replicas }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ .Values.service.name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ .Values.service.name }}
+    spec:
+      containers:
+        - name: cache
+          image: nginx:stable
+{{- else if eq .Values.service.type "tcp-balancer" }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.service.name }}
+  namespace: {{ .Values.service.namespace }}
+  labels:
+    ubiquity.ai/service-type: tcp-balancer
+spec:
+  type: LoadBalancer
+  ports:
+    - name: tcp
+      port: 443
+      targetPort: 443
+  selector:
+    ubiquity.ai/tcp-backend: {{ .Values.service.name }}
 {{- else }}
-{{- fail "service.type must be bucket, postgres, redis, kafka, or registry" }}
+{{- fail "service.type must be a supported Ubiquity managed service type" }}
 {{- end }}

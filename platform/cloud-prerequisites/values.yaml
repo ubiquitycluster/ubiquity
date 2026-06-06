@@ -13,6 +13,14 @@ prerequisites:
     - redisfailovers.databases.spotahome.com
     - kafkas.kafka.strimzi.io
     - projects.goharbor.io
+    - mariadbs.k8s.mariadb.com
+    - perconaservermongodbs.psmdb.percona.com
+    - natsclusters.nats.io
+    - rabbitmqclusters.rabbitmq.com
+    - clickhouseinstallations.clickhouse.altinity.com
+    - opensearchclusters.opensearch.opster.io
+    - qdrantclusters.qdrant.io
+    - vaultconnections.secrets.hashicorp.com
     - clusters.cluster.x-k8s.io
     - schedules.k8up.io
     - volumesnapshotclasses.snapshot.storage.k8s.io
@@ -25,6 +33,14 @@ prerequisites:
     - Redis Operator
     - Strimzi
     - Harbor operator or compatible registry controller
+    - MariaDB Operator
+    - Percona MongoDB Operator
+    - NATS Operator
+    - RabbitMQ Cluster Operator
+    - Altinity ClickHouse Operator
+    - OpenSearch Operator
+    - Qdrant Operator
+    - OpenBao/Vault-compatible secrets operator
     - Cluster API
     - Kamaji-compatible control-plane provider
     - K8up

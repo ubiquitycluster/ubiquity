@@ -61,7 +61,7 @@ ubiquity cloud render tenant-cluster --name tenant-a-dev --namespace tenant-a --
 
 ## Managed services
 
-The managed service catalog renders operator-backed service CRs without installing or replacing their operators. Supported first-slice services are `bucket`, `postgres`, `redis`, `kafka`, and `registry`. Production readiness still depends on the matching operator CRD/controller being installed and healthy.
+The managed service catalog renders operator-backed service CRs without installing or replacing their operators. Supported first-slice services are `bucket`, `postgres`, `redis`, `kafka`, `registry`, `mariadb`, `mongodb`, `nats`, `rabbitmq`, `clickhouse`, `opensearch`, `qdrant`, `openbao`, `http-cache`, and `tcp-balancer`. Production readiness still depends on the matching operator CRD/controller being installed and healthy.
 
 ```sh
 ubiquity cloud render service --name datasets --namespace tenant-a --service-type bucket --service-storage-class object-store
