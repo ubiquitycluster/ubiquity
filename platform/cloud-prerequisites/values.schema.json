@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["prerequisites"],
+  "properties": {
+    "prerequisites": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "namespace", "serverSideDryRunRequired", "reconciliationRequired", "restoreDrillRequired", "crds", "operators"],
+      "properties": {
+        "name": {"type": "string", "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"},
+        "namespace": {"type": "string", "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"},
+        "serverSideDryRunRequired": {"type": "boolean"},
+        "reconciliationRequired": {"type": "boolean"},
+        "restoreDrillRequired": {"type": "boolean"},
+        "crds": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "operators": {"type": "array", "minItems": 1, "items": {"type": "string"}}
+      }
+    }
+  }
+}

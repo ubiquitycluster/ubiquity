@@ -1,0 +1,32 @@
+prerequisites:
+  name: cloud-prereqs
+  namespace: ubiquity-system
+  serverSideDryRunRequired: true
+  reconciliationRequired: true
+  restoreDrillRequired: true
+  crds:
+    - datavolumes.cdi.kubevirt.io
+    - virtualmachines.kubevirt.io
+    - network-attachment-definitions.k8s.cni.cncf.io
+    - objectbucketclaims.objectbucket.io
+    - clusters.postgresql.cnpg.io
+    - redisfailovers.databases.spotahome.com
+    - kafkas.kafka.strimzi.io
+    - projects.goharbor.io
+    - clusters.cluster.x-k8s.io
+    - schedules.k8up.io
+    - volumesnapshotclasses.snapshot.storage.k8s.io
+  operators:
+    - KubeVirt CDI
+    - KubeVirt
+    - Multus
+    - ObjectBucket controller
+    - CloudNativePG
+    - Redis Operator
+    - Strimzi
+    - Harbor operator or compatible registry controller
+    - Cluster API
+    - Kamaji-compatible control-plane provider
+    - K8up
+    - snapshot-controller
+    - Longhorn CSI

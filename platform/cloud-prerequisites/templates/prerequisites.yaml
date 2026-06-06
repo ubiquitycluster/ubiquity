@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.prerequisites.name }}
+  namespace: {{ .Values.prerequisites.namespace }}
+  labels:
+    ubiquity.ai/prerequisite-contract: cloud
+data:
+  serverSideDryRunRequired: {{ .Values.prerequisites.serverSideDryRunRequired | quote }}
+  reconciliationRequired: {{ .Values.prerequisites.reconciliationRequired | quote }}
+  restoreDrillRequired: {{ .Values.prerequisites.restoreDrillRequired | quote }}
+  crds: |
+    {{- range .Values.prerequisites.crds }}
+    - {{ . }}
+    {{- end }}
+  operators: |
+    {{- range .Values.prerequisites.operators }}
+    - {{ . }}
+    {{- end }}

@@ -30,6 +30,21 @@ func TestCloudRenderVMDiskProducesStandaloneDisk(t *testing.T) {
 	}
 }
 
+func TestCloudRenderPrerequisitesProducesCRDContract(t *testing.T) {
+	old := cloudOpts
+	defer func() { cloudOpts = old }()
+	cloudOpts.VMDisk.Name = "cloud-prereqs"
+	manifest, err := renderCloudResource("prerequisites")
+	if err != nil {
+		t.Fatalf("render prerequisites returned error: %v", err)
+	}
+	for _, required := range []string{"kind: ConfigMap", "datavolumes.cdi.kubevirt.io", "serverSideDryRunRequired"} {
+		if !strings.Contains(manifest, required) {
+			t.Fatalf("manifest missing %q:\n%s", required, manifest)
+		}
+	}
+}
+
 func TestCloudApplyDefaultsToServerDryRun(t *testing.T) {
 	oldRunner := runCloudKubectl
 	old := cloudOpts

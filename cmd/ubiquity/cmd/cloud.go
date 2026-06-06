@@ -178,6 +178,8 @@ func renderCloudResource(resource string) (string, error) {
 			cloudOpts.Backup.Namespace = cloudOpts.VMDisk.Namespace
 		}
 		return cloud.RenderBackupPolicy(cloudOpts.Backup)
+	case "prerequisites", "prereqs", "requirements":
+		return cloud.RenderCloudPrerequisites(cloud.CloudPrerequisitesRequest{Name: "cloud-prereqs", Namespace: "ubiquity-system"})
 	default:
 		return "", fmt.Errorf("unsupported cloud resource %q", resource)
 	}
