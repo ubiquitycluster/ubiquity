@@ -1,0 +1,7 @@
+apiVersion: v2
+name: cloud-governance
+description: Ubiquity tenant cloud RBAC, admission, GitOps, observability, networking, storage, and upgrade governance
+type: application
+version: 0.1.0
+appVersion: "0.1.0"
+keywords: [rbac, kyverno, gitops, observability, opencost, gateway, storage, upgrade]

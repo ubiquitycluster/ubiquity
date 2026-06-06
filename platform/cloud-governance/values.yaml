@@ -1,0 +1,3 @@
+governance:
+  name: tenant-a-governance
+  namespace: tenant-a

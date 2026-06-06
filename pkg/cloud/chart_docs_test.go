@@ -26,6 +26,9 @@ func TestVMDiskChartAndDocsExist(t *testing.T) {
 		"../../platform/cloud-prerequisites/Chart.yaml",
 		"../../platform/cloud-prerequisites/values.yaml",
 		"../../platform/cloud-prerequisites/templates/prerequisites.yaml",
+		"../../platform/cloud-governance/Chart.yaml",
+		"../../platform/cloud-governance/values.yaml",
+		"../../platform/cloud-governance/templates/governance.yaml",
 		"../../docs/admin-guide/cloud-services.md",
 	} {
 		content, err := os.ReadFile(path)

@@ -89,3 +89,7 @@ Before an operator can claim a rendered cloud primitive is production-ready, run
 7. Record provenance: chart version, CRD version, controller image, rendered manifest hash, and validation timestamp.
 
 Failure at any gate must fail closed; do not infer readiness from render/apply success alone.
+
+## Governance policy bundle
+
+`ubiquity cloud render governance` emits a cross-cutting tenant bundle for RBAC, admission, GitOps lifecycle, observability alerts, cost allocation labels, Gateway API, external DNS intent, VPN egress policy, expandable retained storage, and upgrade/rollback policy metadata. The bundle is intentionally policy intent: controllers such as Kyverno, Argo CD, Prometheus Operator, OpenCost, Gateway API, external-dns, and Longhorn must be installed and reconciled before operators claim readiness.
