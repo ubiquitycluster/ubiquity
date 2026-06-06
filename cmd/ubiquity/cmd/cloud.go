@@ -123,7 +123,8 @@ func init() {
 	applyCmd := &cobra.Command{Use: "apply RESOURCE", Short: "Apply a cloud primitive", Args: cobra.ExactArgs(1), RunE: runCloudApply}
 	readinessCmd := &cobra.Command{Use: "readiness", Short: "Evaluate fail-closed cloud readiness evidence", Args: cobra.NoArgs, RunE: runCloudReadiness}
 	collectReadinessCmd := &cobra.Command{Use: "collect-readiness", Short: "Collect cloud readiness evidence JSON from the current cluster", Args: cobra.NoArgs, RunE: runCloudCollectReadiness}
-	cloudCmd.AddCommand(renderCmd, applyCmd, readinessCmd, collectReadinessCmd)
+	auditChecklistCmd := &cobra.Command{Use: "audit-checklist", Short: "Render the production cloud readiness audit checklist", Args: cobra.NoArgs, RunE: runCloudAuditChecklist}
+	cloudCmd.AddCommand(renderCmd, applyCmd, readinessCmd, collectReadinessCmd, auditChecklistCmd)
 	rootCmd.AddCommand(cloudCmd)
 }
 
@@ -180,6 +181,11 @@ func runCloudCollectReadiness(cmd *cobra.Command, args []string) error {
 		return err
 	}
 	fmt.Fprintln(cmd.OutOrStdout(), string(encoded))
+	return nil
+}
+
+func runCloudAuditChecklist(cmd *cobra.Command, args []string) error {
+	fmt.Fprint(cmd.OutOrStdout(), cloud.RenderCloudProductionAuditChecklist())
 	return nil
 }
 

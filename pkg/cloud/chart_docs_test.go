@@ -33,6 +33,7 @@ func TestVMDiskChartAndDocsExist(t *testing.T) {
 		"../../platform/cloud-operator-bundles/values.yaml",
 		"../../platform/cloud-operator-bundles/templates/operator-bundles.yaml",
 		"../../docs/admin-guide/cloud-services.md",
+		"../../docs/runbooks/cloud-production-readiness-audit.md",
 	} {
 		content, err := os.ReadFile(path)
 		if err != nil {

@@ -116,6 +116,23 @@ func TestDefaultCloudReadinessResourcesIncludeExpandedManagedServices(t *testing
 	}
 }
 
+func TestCloudProductionAuditChecklistCLI(t *testing.T) {
+	audit := findCommand(cloudCmd, "audit-checklist")
+	if audit == nil {
+		t.Fatal("expected cloud audit-checklist subcommand")
+	}
+	out := captureStdout(t, func() {
+		if err := audit.RunE(audit, nil); err != nil {
+			t.Fatalf("audit-checklist failed: %v", err)
+		}
+	})
+	for _, required := range []string{"production readiness audit checklist", "collect-readiness", "operator install-plan", "ready: true"} {
+		if !strings.Contains(out, required) {
+			t.Fatalf("audit checklist output missing %q:\n%s", required, out)
+		}
+	}
+}
+
 func TestCloudReadinessEvaluatesEvidenceFile(t *testing.T) {
 	old := cloudOpts
 	defer func() { cloudOpts = old }()
