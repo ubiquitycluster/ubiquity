@@ -7,19 +7,21 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"strings"
 
 	"github.com/spf13/cobra"
 	"github.com/ubiquitycluster/ubiquity/pkg/cloud"
 )
 
 type cloudOptions struct {
-	DryRun        bool
-	VMDisk        cloud.VMDiskRequest
-	Tenant        cloud.TenantVPCRequest
-	Cluster       cloud.TenantClusterRequest
-	Service       cloud.ManagedServiceRequest
-	Backup        cloud.BackupPolicyRequest
-	ReadinessFile string
+	DryRun             bool
+	VMDisk             cloud.VMDiskRequest
+	Tenant             cloud.TenantVPCRequest
+	Cluster            cloud.TenantClusterRequest
+	Service            cloud.ManagedServiceRequest
+	Backup             cloud.BackupPolicyRequest
+	ReadinessFile      string
+	ReadinessResources []string
 }
 
 var cloudOpts = cloudOptions{
@@ -115,11 +117,13 @@ func init() {
 	cloudCmd.PersistentFlags().StringVar(&cloudOpts.Backup.PresetMemory, "preset-memory", cloudOpts.Backup.PresetMemory, "resource preset memory")
 	cloudCmd.PersistentFlags().StringVar(&cloudOpts.Backup.PresetGPU, "preset-gpu", cloudOpts.Backup.PresetGPU, "resource preset GPU count")
 	cloudCmd.PersistentFlags().StringVar(&cloudOpts.ReadinessFile, "readiness-file", cloudOpts.ReadinessFile, "JSON cloud readiness evidence file")
+	cloudCmd.PersistentFlags().StringSliceVar(&cloudOpts.ReadinessResources, "readiness-resource", nil, "resource API to collect readiness conditions from; repeat for multiple resources")
 
 	renderCmd := &cobra.Command{Use: "render RESOURCE", Short: "Render a cloud primitive", Args: cobra.ExactArgs(1), RunE: runCloudRender}
 	applyCmd := &cobra.Command{Use: "apply RESOURCE", Short: "Apply a cloud primitive", Args: cobra.ExactArgs(1), RunE: runCloudApply}
 	readinessCmd := &cobra.Command{Use: "readiness", Short: "Evaluate fail-closed cloud readiness evidence", Args: cobra.NoArgs, RunE: runCloudReadiness}
-	cloudCmd.AddCommand(renderCmd, applyCmd, readinessCmd)
+	collectReadinessCmd := &cobra.Command{Use: "collect-readiness", Short: "Collect cloud readiness evidence JSON from the current cluster", Args: cobra.NoArgs, RunE: runCloudCollectReadiness}
+	cloudCmd.AddCommand(renderCmd, applyCmd, readinessCmd, collectReadinessCmd)
 	rootCmd.AddCommand(cloudCmd)
 }
 
@@ -164,6 +168,120 @@ func runCloudReadiness(cmd *cobra.Command, args []string) error {
 	}
 	fmt.Fprint(cmd.OutOrStdout(), cloud.RenderCloudReadinessReport(cloud.EvaluateCloudReadiness(evidence)))
 	return nil
+}
+
+func runCloudCollectReadiness(cmd *cobra.Command, args []string) error {
+	evidence, err := collectCloudReadinessEvidence(cmd.Context())
+	if err != nil {
+		return err
+	}
+	encoded, err := json.MarshalIndent(evidence, "", "  ")
+	if err != nil {
+		return err
+	}
+	fmt.Fprintln(cmd.OutOrStdout(), string(encoded))
+	return nil
+}
+
+func collectCloudReadinessEvidence(ctx context.Context) (cloud.CloudReadinessEvidence, error) {
+	evidence := cloud.CloudReadinessEvidence{
+		RequiredCRDs: cloud.RequiredCloudCRDs(),
+		SmokeTests:   map[string]bool{},
+		Metadata:     map[string]string{"collector": "ubiquity cloud collect-readiness"},
+	}
+	out, err := runCloudKubectl(ctx, []string{"get", "crd", "-o", "json"}, nil)
+	if err != nil {
+		return evidence, fmt.Errorf("collect CRD readiness evidence: %w", err)
+	}
+	present, err := parseKubectlCRDNames(out)
+	if err != nil {
+		return evidence, err
+	}
+	evidence.PresentCRDs = present
+	resources := cloudOpts.ReadinessResources
+	if len(resources) == 0 {
+		resources = defaultCloudReadinessResources()
+	}
+	for _, resource := range resources {
+		resource = strings.TrimSpace(resource)
+		if resource == "" {
+			continue
+		}
+		out, err := runCloudKubectl(ctx, []string{"get", resource, "-A", "-o", "json"}, nil)
+		if err != nil {
+			evidence.Metadata["skipped/"+resource] = err.Error()
+			continue
+		}
+		items, err := parseKubectlResourceEvidence(out)
+		if err != nil {
+			return evidence, fmt.Errorf("parse %s readiness evidence: %w", resource, err)
+		}
+		evidence.Resources = append(evidence.Resources, items...)
+	}
+	return evidence, nil
+}
+
+type kubectlList struct {
+	Items []struct {
+		Kind     string `json:"kind"`
+		Metadata struct {
+			Name      string `json:"name"`
+			Namespace string `json:"namespace"`
+		} `json:"metadata"`
+		Status struct {
+			Conditions []cloud.CloudCondition `json:"conditions"`
+		} `json:"status"`
+	} `json:"items"`
+}
+
+func parseKubectlCRDNames(content []byte) ([]string, error) {
+	var list struct {
+		Items []struct {
+			Metadata struct {
+				Name string `json:"name"`
+			} `json:"metadata"`
+		} `json:"items"`
+	}
+	if err := json.Unmarshal(content, &list); err != nil {
+		return nil, fmt.Errorf("parse CRD JSON: %w", err)
+	}
+	names := make([]string, 0, len(list.Items))
+	for _, item := range list.Items {
+		if item.Metadata.Name != "" {
+			names = append(names, item.Metadata.Name)
+		}
+	}
+	return names, nil
+}
+
+func parseKubectlResourceEvidence(content []byte) ([]cloud.CloudResourceEvidence, error) {
+	var list kubectlList
+	if err := json.Unmarshal(content, &list); err != nil {
+		return nil, err
+	}
+	resources := make([]cloud.CloudResourceEvidence, 0, len(list.Items))
+	for _, item := range list.Items {
+		resources = append(resources, cloud.CloudResourceEvidence{
+			Kind:       item.Kind,
+			Namespace:  item.Metadata.Namespace,
+			Name:       item.Metadata.Name,
+			Conditions: item.Status.Conditions,
+		})
+	}
+	return resources, nil
+}
+
+func defaultCloudReadinessResources() []string {
+	return []string{
+		"datavolumes.cdi.kubevirt.io",
+		"virtualmachines.kubevirt.io",
+		"objectbucketclaims.objectbucket.io",
+		"clusters.postgresql.cnpg.io",
+		"redisfailovers.databases.spotahome.com",
+		"kafkas.kafka.strimzi.io",
+		"clusters.cluster.x-k8s.io",
+		"schedules.k8up.io",
+	}
 }
 
 func renderCloudResource(resource string) (string, error) {

@@ -29,10 +29,19 @@ Use `test/e2e/cloud-primitives-server-dry-run.sh` against a CRD-enabled sandbox 
 
 ## Readiness evidence evaluation
 
-After collecting CRD, resource condition, and smoke-test evidence, write a JSON evidence file and run:
+After collecting evidence, run:
 
 ```sh
-ubiquity cloud readiness --readiness-file readiness.json
+ubiquity cloud readiness --readiness-file /tmp/cloud-readiness-evidence.json
 ```
 
-The `readiness-file` must include required CRDs, present CRDs, resource conditions, and named smoke-test booleans. The command returns a stable reviewer-readable report and fails closed when evidence is absent or false; it does not treat Kubernetes object existence as readiness.
+To collect baseline CRD and controller condition evidence from a live cluster, run:
+
+```sh
+ubiquity cloud collect-readiness > /tmp/cloud-readiness-evidence.json
+ubiquity cloud readiness --readiness-file /tmp/cloud-readiness-evidence.json
+```
+
+Use repeated `--readiness-resource <resource.api.group>` flags when validating a scoped primitive rather than the default cloud resource set.
+
+`ubiquity cloud readiness` fails closed if a required CRD is missing, a resource has no status conditions, no positive Ready/Available/Bound/Reconciled/Succeeded condition exists, or a smoke test is false.

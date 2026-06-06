@@ -59,6 +59,42 @@ func TestCloudRenderOperatorBundlesProducesInstallPlan(t *testing.T) {
 	}
 }
 
+func TestCloudCollectReadinessOutputsEvidenceJSON(t *testing.T) {
+	oldRunner := runCloudKubectl
+	oldOpts := cloudOpts
+	defer func() { runCloudKubectl = oldRunner; cloudOpts = oldOpts }()
+	cloudOpts.ReadinessResources = []string{"datavolumes.cdi.kubevirt.io"}
+	calls := []string{}
+	runCloudKubectl = func(ctx context.Context, args []string, stdin []byte) ([]byte, error) {
+		calls = append(calls, fmt.Sprint(args))
+		switch fmt.Sprint(args) {
+		case "[get crd -o json]":
+			return []byte(`{"items":[{"metadata":{"name":"datavolumes.cdi.kubevirt.io"}}]}`), nil
+		case "[get datavolumes.cdi.kubevirt.io -A -o json]":
+			return []byte(`{"items":[{"kind":"DataVolume","metadata":{"namespace":"tenant-a","name":"ubuntu-root"},"status":{"conditions":[{"type":"Ready","status":"True","reason":"ImportSucceeded"}]}}]}`), nil
+		default:
+			return nil, fmt.Errorf("unexpected kubectl args %v", args)
+		}
+	}
+	collect := findCommand(cloudCmd, "collect-readiness")
+	if collect == nil {
+		t.Fatal("expected cloud collect-readiness subcommand")
+	}
+	out := captureStdout(t, func() {
+		if err := collect.RunE(collect, nil); err != nil {
+			t.Fatalf("collect-readiness failed: %v", err)
+		}
+	})
+	for _, required := range []string{"requiredCRDs", "presentCRDs", "datavolumes.cdi.kubevirt.io", "DataVolume", "ubuntu-root", "ImportSucceeded"} {
+		if !strings.Contains(out, required) {
+			t.Fatalf("collector output missing %q:\n%s", required, out)
+		}
+	}
+	if len(calls) != 2 {
+		t.Fatalf("expected CRD and resource kubectl calls, got %v", calls)
+	}
+}
+
 func TestCloudReadinessEvaluatesEvidenceFile(t *testing.T) {
 	old := cloudOpts
 	defer func() { cloudOpts = old }()
