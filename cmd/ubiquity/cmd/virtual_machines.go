@@ -47,6 +47,8 @@ func init() {
 	virtualMachinesCmd.PersistentFlags().StringVar(&vmOpts.Name, "name", vmOpts.Name, "VM name")
 	virtualMachinesCmd.PersistentFlags().StringVar(&vmOpts.Namespace, "namespace", vmOpts.Namespace, "VM namespace/tenant")
 	virtualMachinesCmd.PersistentFlags().StringVar(&vmOpts.OS, "os", vmOpts.OS, "OS profile (ubuntu-24.04, rocky-9, windows-2022)")
+	virtualMachinesCmd.PersistentFlags().StringVar(&vmOpts.InstanceType, "instance-type", vmOpts.InstanceType, "optional KubeVirt VirtualMachineClusterInstancetype reference")
+	virtualMachinesCmd.PersistentFlags().StringVar(&vmOpts.Preference, "preference", vmOpts.Preference, "optional KubeVirt VirtualMachineClusterPreference reference")
 	virtualMachinesCmd.PersistentFlags().IntVar(&vmOpts.CPUCores, "cpu", vmOpts.CPUCores, "VM CPU cores")
 	virtualMachinesCmd.PersistentFlags().StringVar(&vmOpts.Memory, "memory", vmOpts.Memory, "VM memory request")
 	virtualMachinesCmd.PersistentFlags().StringVar(&vmOpts.DiskSize, "disk-size", vmOpts.DiskSize, "VM root disk size")
@@ -57,7 +59,10 @@ func init() {
 	virtualMachinesCmd.PersistentFlags().StringVar(&vmOpts.Network.Gateway, "network-gateway", vmOpts.Network.Gateway, "isolated network gateway")
 	virtualMachinesCmd.PersistentFlags().StringVar(&vmOpts.Network.Bridge, "network-bridge", vmOpts.Network.Bridge, "bridge name for Multus bridge CNI")
 	virtualMachinesCmd.PersistentFlags().StringVar(&vmOpts.GPU.ResourceName, "gpu-resource", "", "KubeVirt GPU deviceName/resourceName such as nvidia.com/GA100_A100_PCIE_40GB; enables GPU when set")
+	virtualMachinesCmd.PersistentFlags().StringVar((*string)(&vmOpts.GPU.Mode), "gpu-attachment-mode", string(virtualization.GPUAttachmentGPU), "KubeVirt GPU attachment mode (gpu, hostDevice)")
 	virtualMachinesCmd.PersistentFlags().IntVar(&vmOpts.GPU.Count, "gpu-count", vmOpts.GPU.Count, "number of GPU devices to attach")
+	virtualMachinesCmd.PersistentFlags().BoolVar(&vmOpts.External.Enabled, "external", vmOpts.External.Enabled, "render a LoadBalancer Service for selected VM ports")
+	virtualMachinesCmd.PersistentFlags().IntSliceVar(&vmOpts.External.Ports, "external-port", []int{22}, "external TCP port to expose; repeat for multiple ports")
 	virtualMachinesCmd.PersistentFlags().StringVar(&vmOpts.SSHAuthorizedKey, "ssh-key", "replace-with-authorized-key", "SSH authorized key for cloud-init")
 
 	renderCmd := &cobra.Command{Use: "render", Short: "Render KubeVirt VM manifests", Args: cobra.NoArgs, RunE: runVirtualMachinesRender}

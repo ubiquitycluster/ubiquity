@@ -8,6 +8,10 @@ vm:
   namespace: virtual-machines
   os: ubuntu-24.04
   running: false
+  # Optional KubeVirt ClusterInstancetype/ClusterPreference references.
+  # When instanceType is set, CPU/memory sizing comes from the referenced CR.
+  instanceType: ""
+  preference: ""
   cpuCores: 4
   memory: 16Gi
   diskSize: 80Gi
@@ -37,7 +41,13 @@ vm:
   gpu:
     enabled: false
     count: 1
+    # attachmentMode may be gpu or hostDevice. Use hostDevice for PCI VF/vGPU resources.
+    attachmentMode: gpu
     resourceName: nvidia.com/GA100_A100_PCIE_40GB
+  external:
+    enabled: false
+    ports:
+      - 22
   labels: {}
   annotations: {}
 networkPolicy:

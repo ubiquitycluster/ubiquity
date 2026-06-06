@@ -21,6 +21,16 @@ metadata:
     {{- end }}
 spec:
   runStrategy: {{ ternary "Always" "Manual" .Values.vm.running }}
+  {{- if .Values.vm.instanceType }}
+  instancetype:
+    name: {{ .Values.vm.instanceType }}
+    kind: VirtualMachineClusterInstancetype
+  {{- end }}
+  {{- if .Values.vm.preference }}
+  preference:
+    name: {{ .Values.vm.preference }}
+    kind: VirtualMachineClusterPreference
+  {{- end }}
   template:
     metadata:
       labels:
@@ -28,11 +38,13 @@ spec:
         ubiquity.ai/vm-name: {{ .Values.vm.name }}
     spec:
       domain:
+        {{- if not .Values.vm.instanceType }}
         cpu:
           cores: {{ .Values.vm.cpuCores }}
         resources:
           requests:
             memory: {{ .Values.vm.memory }}
+        {{- end }}
         devices:
           disks:
             - name: rootdisk
@@ -42,10 +54,18 @@ spec:
               disk:
                 bus: virtio
           {{- if .Values.vm.gpu.enabled }}
+          {{- if eq .Values.vm.gpu.attachmentMode "hostDevice" }}
+          hostDevices:
+          {{- range $i := until (int .Values.vm.gpu.count) }}
+            - name: hostdev{{ $i }}
+              deviceName: {{ $.Values.vm.gpu.resourceName }}
+          {{- end }}
+          {{- else }}
           gpus:
           {{- range $i := until (int .Values.vm.gpu.count) }}
             - name: gpu{{ $i }}
               deviceName: {{ $.Values.vm.gpu.resourceName }}
+          {{- end }}
           {{- end }}
           {{- end }}
       networks:

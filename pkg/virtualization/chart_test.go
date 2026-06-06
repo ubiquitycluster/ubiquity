@@ -14,6 +14,7 @@ func TestKubeVirtVMChartRendersVMsOSProfilesNetworkAndGPU(t *testing.T) {
 		"../../platform/kubevirt-vms/templates/datavolume.yaml",
 		"../../platform/kubevirt-vms/templates/networkattachmentdefinition.yaml",
 		"../../platform/kubevirt-vms/templates/networkpolicy.yaml",
+		"../../platform/kubevirt-vms/templates/service.yaml",
 	} {
 		content, err := os.ReadFile(path)
 		if err != nil {
@@ -24,7 +25,7 @@ func TestKubeVirtVMChartRendersVMsOSProfilesNetworkAndGPU(t *testing.T) {
 		}
 	}
 	values := mustReadFile(t, "../../platform/kubevirt-vms/values.yaml")
-	for _, required := range []string{"ubuntu-24.04", "rocky-9", "windows-2022", "networkIsolation:", "gpu:", "resourceName:"} {
+	for _, required := range []string{"ubuntu-24.04", "rocky-9", "windows-2022", "networkIsolation:", "gpu:", "resourceName:", "instanceType:", "preference:", "attachmentMode:", "external:", "ports:"} {
 		if !strings.Contains(values, required) {
 			t.Fatalf("kubevirt-vms values missing %q", required)
 		}

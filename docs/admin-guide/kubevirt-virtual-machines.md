@@ -29,25 +29,29 @@ ubiquity virtual-machines render \
   --os ubuntu-24.04
 ```
 
-Render a Rocky Linux VM with a KubeVirt GPU device and Multus network isolation:
+Render a Rocky Linux VM with a KubeVirt GPU device, Multus network isolation, a reusable KubeVirt instance type/profile, and selected external ports:
 
 ```sh
 ubiquity virtual-machines render \
   --name rocky-gpu \
   --namespace tenant-a \
   --os rocky-9 \
-  --cpu 16 \
-  --memory 128Gi \
-  --disk-size 500Gi \
-  --storage-class fast-nvme \
+  --instance-type gx-a100-medium \
+  --preference ubuntu-server \
   --network-isolation multus \
   --network-name tenant-a-rdma \
   --network-bridge br-tenant-a \
   --network-cidr 10.44.0.0/24 \
   --network-gateway 10.44.0.1 \
   --gpu-resource nvidia.com/GA100_A100_PCIE_40GB \
-  --gpu-count 1
+  --gpu-attachment-mode gpu \
+  --gpu-count 1 \
+  --external \
+  --external-port 22 \
+  --external-port 443
 ```
+
+When `--instance-type` is present, CPU and memory are taken from the referenced KubeVirt `VirtualMachineClusterInstancetype` instead of being duplicated in the VM manifest. For PCI VF / vGPU resources, set `--gpu-attachment-mode hostDevice`; for classic KubeVirt GPU resources, keep the default `gpu` mode.
 
 Apply uses server-side dry-run by default:
 

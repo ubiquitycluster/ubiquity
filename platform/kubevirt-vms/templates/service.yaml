@@ -1,0 +1,21 @@
+{{- if and .Values.vm.enabled .Values.vm.external.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.vm.name }}-external
+  namespace: {{ .Values.vm.namespace }}
+  labels:
+    {{- include "kubevirt-vms.labels" . | nindent 4 }}
+    ubiquity.ai/external-access: port-list
+spec:
+  type: LoadBalancer
+  selector:
+    kubevirt.io/domain: {{ .Values.vm.name }}
+  ports:
+  {{- range .Values.vm.external.ports }}
+    - name: tcp-{{ . }}
+      port: {{ . }}
+      targetPort: {{ . }}
+      protocol: TCP
+  {{- end }}
+{{- end }}

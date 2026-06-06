@@ -14,11 +14,28 @@ const (
 	NetworkIsolationMultus NetworkIsolation = "multus"
 )
 
+// GPUAttachmentMode selects the KubeVirt device field used for NVIDIA GPU resources.
+type GPUAttachmentMode string
+
+const (
+	// GPUAttachmentGPU renders domain.devices.gpus and is suitable for classic GPU passthrough resources.
+	GPUAttachmentGPU GPUAttachmentMode = "gpu"
+	// GPUAttachmentHostDevice renders domain.devices.hostDevices, the preferred shape for PCI VF/vGPU resources.
+	GPUAttachmentHostDevice GPUAttachmentMode = "hostDevice"
+)
+
 // GPURequest describes GPU passthrough/vGPU resource requests for KubeVirt.
 type GPURequest struct {
 	Enabled      bool
 	ResourceName string
 	Count        int
+	Mode         GPUAttachmentMode
+}
+
+// ExternalAccess describes optional Service exposure for selected VM ports.
+type ExternalAccess struct {
+	Enabled bool
+	Ports   []int
 }
 
 // NetworkRequest describes an isolated secondary network for VM workloads.
@@ -35,12 +52,15 @@ type VMRequest struct {
 	Name             string
 	Namespace        string
 	OS               string
+	InstanceType     string
+	Preference       string
 	CPUCores         int
 	Memory           string
 	DiskSize         string
 	StorageClass     string
 	Network          NetworkRequest
 	GPU              GPURequest
+	External         ExternalAccess
 	SSHAuthorizedKey string
 }
 
@@ -97,6 +117,9 @@ func RenderVM(req VMRequest) (string, error) {
 		writeNAD(&b, req)
 	}
 	writeNetworkPolicy(&b, req)
+	if req.External.Enabled {
+		writeExternalService(&b, req)
+	}
 	writeDataVolume(&b, req, profile)
 	writeVM(&b, req, profile)
 	return b.String(), nil
@@ -136,6 +159,9 @@ func defaultVMRequest(req VMRequest) VMRequest {
 	if req.GPU.Enabled && req.GPU.Count == 0 {
 		req.GPU.Count = 1
 	}
+	if req.GPU.Enabled && req.GPU.Mode == "" {
+		req.GPU.Mode = GPUAttachmentGPU
+	}
 	return req
 }
 
@@ -157,6 +183,19 @@ func validateVMRequest(req VMRequest) error {
 	}
 	if req.GPU.Enabled && strings.TrimSpace(req.GPU.ResourceName) == "" {
 		return fmt.Errorf("GPU-enabled VMs require a KubeVirt permittedHostDevices resource name such as nvidia.com/GA100_A100_PCIE_40GB")
+	}
+	if req.GPU.Enabled && req.GPU.Mode != GPUAttachmentGPU && req.GPU.Mode != GPUAttachmentHostDevice {
+		return fmt.Errorf("unsupported GPU attachment mode %q", req.GPU.Mode)
+	}
+	if req.External.Enabled {
+		if len(req.External.Ports) == 0 {
+			return fmt.Errorf("external VM access requires at least one external port")
+		}
+		for _, port := range req.External.Ports {
+			if port < 1 || port > 65535 {
+				return fmt.Errorf("external port %d must be in range 1-65535", port)
+			}
+		}
 	}
 	return nil
 }
@@ -207,6 +246,27 @@ spec:
 `, req.Name, req.Namespace, req.Name)
 }
 
+func writeExternalService(b *strings.Builder, req VMRequest) {
+	fmt.Fprintf(b, `apiVersion: v1
+kind: Service
+metadata:
+  name: %s-external
+  namespace: %s
+  labels:
+    app.kubernetes.io/part-of: ubiquity-virtual-machines
+    ubiquity.ai/external-access: port-list
+spec:
+  type: LoadBalancer
+  selector:
+    kubevirt.io/domain: %s
+  ports:
+`, req.Name, req.Namespace, req.Name)
+	for _, port := range req.External.Ports {
+		fmt.Fprintf(b, "    - name: tcp-%d\n      port: %d\n      targetPort: %d\n      protocol: TCP\n", port, port, port)
+	}
+	b.WriteString("---\n")
+}
+
 func writeDataVolume(b *strings.Builder, req VMRequest, profile OSProfile) {
 	fmt.Fprintf(b, `apiVersion: cdi.kubevirt.io/v1beta1
 kind: DataVolume
@@ -250,19 +310,30 @@ metadata:
     ubiquity.ai/gpu-note: "KubeVirt GPU access requires permittedHostDevices and NVIDIA GPU Operator/device-plugin resources on VM-capable nodes."
 spec:
   runStrategy: Manual
-  template:
+`, req.Name, req.Namespace, req.Name, req.OS, req.Network.Isolation, profile.DisplayName)
+	if req.InstanceType != "" {
+		fmt.Fprintf(b, "  instancetype:\n    name: %s\n    kind: VirtualMachineClusterInstancetype\n", req.InstanceType)
+	}
+	if req.Preference != "" {
+		fmt.Fprintf(b, "  preference:\n    name: %s\n    kind: VirtualMachineClusterPreference\n", req.Preference)
+	}
+	fmt.Fprintf(b, `  template:
     metadata:
       labels:
         kubevirt.io/domain: %s
         ubiquity.ai/vm-name: %s
     spec:
       domain:
-        cpu:
+`, req.Name, req.Name)
+	if req.InstanceType == "" {
+		fmt.Fprintf(b, `        cpu:
           cores: %d
         resources:
           requests:
             memory: %s
-        devices:
+`, req.CPUCores, req.Memory)
+	}
+	fmt.Fprintf(b, `        devices:
           disks:
             - name: rootdisk
               disk:
@@ -270,14 +341,17 @@ spec:
             - name: cloudinitdisk
               disk:
                 bus: virtio
-`, req.Name, req.Namespace, req.Name, req.OS, req.Network.Isolation, profile.DisplayName, req.Name, req.Name, req.CPUCores, req.Memory)
+`)
 	if req.GPU.Enabled {
-		for i := 0; i < req.GPU.Count; i++ {
-			fmt.Fprintf(b, "          gpus:\n")
-			break
+		heading := "gpus"
+		prefix := "gpu"
+		if req.GPU.Mode == GPUAttachmentHostDevice {
+			heading = "hostDevices"
+			prefix = "hostdev"
 		}
+		fmt.Fprintf(b, "          %s:\n", heading)
 		for i := 0; i < req.GPU.Count; i++ {
-			fmt.Fprintf(b, "            - name: gpu%d\n              deviceName: %s\n", i, req.GPU.ResourceName)
+			fmt.Fprintf(b, "            - name: %s%d\n              deviceName: %s\n", prefix, i, req.GPU.ResourceName)
 		}
 	}
 	fmt.Fprintf(b, `      networks:
