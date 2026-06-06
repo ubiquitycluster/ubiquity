@@ -1,0 +1,7 @@
+apiVersion: v2
+name: tenant-kubernetes-cluster
+description: Ubiquity tenant Kubernetes workload cluster intent for NICo-managed infrastructure
+type: application
+version: 0.1.0
+appVersion: "0.1.0"
+keywords: [cluster-api, kamaji, tenant-cluster, nico]

@@ -11,9 +11,10 @@ import (
 )
 
 type cloudOptions struct {
-	DryRun bool
-	VMDisk cloud.VMDiskRequest
-	Tenant cloud.TenantVPCRequest
+	DryRun  bool
+	VMDisk  cloud.VMDiskRequest
+	Tenant  cloud.TenantVPCRequest
+	Cluster cloud.TenantClusterRequest
 }
 
 var cloudOpts = cloudOptions{
@@ -31,6 +32,14 @@ var cloudOpts = cloudOptions{
 		Bridge:      "br-tenant-a",
 		CPUQuota:    "100",
 		MemoryQuota: "512Gi",
+	},
+	Cluster: cloud.TenantClusterRequest{
+		Name:              "tenant-a-dev",
+		Namespace:         "tenant-a",
+		KubernetesVersion: "v1.31.4",
+		ControlPlaneClass: "kamaji",
+		NodePoolClass:     "nico-managed-workers",
+		WorkerReplicas:    3,
 	},
 }
 
@@ -64,6 +73,10 @@ func init() {
 	cloudCmd.PersistentFlags().StringVar(&cloudOpts.Tenant.CPUQuota, "cpu-quota", cloudOpts.Tenant.CPUQuota, "tenant CPU quota")
 	cloudCmd.PersistentFlags().StringVar(&cloudOpts.Tenant.MemoryQuota, "memory-quota", cloudOpts.Tenant.MemoryQuota, "tenant memory quota")
 	cloudCmd.PersistentFlags().StringVar(&cloudOpts.Tenant.GPUQuota, "gpu-quota", cloudOpts.Tenant.GPUQuota, "tenant GPU quota")
+	cloudCmd.PersistentFlags().StringVar(&cloudOpts.Cluster.KubernetesVersion, "kubernetes-version", cloudOpts.Cluster.KubernetesVersion, "tenant cluster Kubernetes version")
+	cloudCmd.PersistentFlags().StringVar(&cloudOpts.Cluster.ControlPlaneClass, "control-plane-class", cloudOpts.Cluster.ControlPlaneClass, "tenant cluster control-plane class")
+	cloudCmd.PersistentFlags().StringVar(&cloudOpts.Cluster.NodePoolClass, "node-pool-class", cloudOpts.Cluster.NodePoolClass, "tenant cluster node-pool class")
+	cloudCmd.PersistentFlags().IntVar(&cloudOpts.Cluster.WorkerReplicas, "worker-replicas", cloudOpts.Cluster.WorkerReplicas, "tenant cluster worker replicas")
 
 	renderCmd := &cobra.Command{Use: "render RESOURCE", Short: "Render a cloud primitive", Args: cobra.ExactArgs(1), RunE: runCloudRender}
 	applyCmd := &cobra.Command{Use: "apply RESOURCE", Short: "Apply a cloud primitive", Args: cobra.ExactArgs(1), RunE: runCloudApply}
@@ -107,6 +120,14 @@ func renderCloudResource(resource string) (string, error) {
 			cloudOpts.Tenant.Tenant = cloudOpts.VMDisk.Name
 		}
 		return cloud.RenderTenantVPC(cloudOpts.Tenant)
+	case "tenant-cluster", "kubernetes", "kubernetes-cluster":
+		if cloudOpts.Cluster.Name == "tenant-a-dev" && cloudOpts.VMDisk.Name != "data-disk" {
+			cloudOpts.Cluster.Name = cloudOpts.VMDisk.Name
+		}
+		if cloudOpts.Cluster.Namespace == "tenant-a" && cloudOpts.VMDisk.Namespace != "virtual-machines" {
+			cloudOpts.Cluster.Namespace = cloudOpts.VMDisk.Namespace
+		}
+		return cloud.RenderTenantKubernetesCluster(cloudOpts.Cluster)
 	default:
 		return "", fmt.Errorf("unsupported cloud resource %q", resource)
 	}

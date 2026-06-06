@@ -1,0 +1,52 @@
+apiVersion: cluster.x-k8s.io/v1beta1
+kind: Cluster
+metadata:
+  name: {{ .Values.cluster.name }}
+  namespace: {{ .Values.cluster.namespace }}
+  labels:
+    app.kubernetes.io/part-of: ubiquity-tenant-kubernetes
+    ubiquity.ai/node-lifecycle: nico-primary
+  annotations:
+    ubiquity.ai/design-boundary: "Tenant clusters consume NICo-managed/bootstrap nodes; they do not replace physical node lifecycle management."
+spec:
+  clusterNetwork:
+    pods:
+      cidrBlocks: ["10.244.0.0/16"]
+    services:
+      cidrBlocks: ["10.96.0.0/12"]
+  controlPlaneRef:
+    apiVersion: controlplane.cluster.x-k8s.io/v1alpha1
+    kind: TenantControlPlane
+    name: {{ printf "%s-control-plane" .Values.cluster.name | quote }}
+---
+apiVersion: controlplane.cluster.x-k8s.io/v1alpha1
+kind: TenantControlPlane
+metadata:
+  name: {{ printf "%s-control-plane" .Values.cluster.name | quote }}
+  namespace: {{ .Values.cluster.namespace }}
+spec:
+  controlPlaneClass: {{ .Values.cluster.controlPlaneClass }}
+  version: {{ .Values.cluster.kubernetesVersion }}
+---
+apiVersion: cluster.x-k8s.io/v1beta1
+kind: MachineDeployment
+metadata:
+  name: {{ .Values.cluster.name }}-workers
+  namespace: {{ .Values.cluster.namespace }}
+  labels:
+    cluster.x-k8s.io/cluster-name: {{ .Values.cluster.name }}
+    ubiquity.ai/node-pool-class: {{ .Values.cluster.nodePoolClass }}
+spec:
+  clusterName: {{ .Values.cluster.name }}
+  replicas: {{ .Values.cluster.workerReplicas }}
+  selector:
+    matchLabels:
+      cluster.x-k8s.io/cluster-name: {{ .Values.cluster.name }}
+  template:
+    metadata:
+      labels:
+        cluster.x-k8s.io/cluster-name: {{ .Values.cluster.name }}
+        ubiquity.ai/node-pool-class: {{ .Values.cluster.nodePoolClass }}
+    spec:
+      clusterName: {{ .Values.cluster.name }}
+      version: {{ .Values.cluster.kubernetesVersion }}

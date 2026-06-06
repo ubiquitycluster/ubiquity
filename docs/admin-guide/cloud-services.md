@@ -31,3 +31,11 @@ ubiquity cloud render vpc --name tenant-a --cidr 10.60.0.0/24 --gateway 10.60.0.
 ```
 
 Each tenant VPC starts closed and only allows same-tenant namespace traffic until additional reviewed policies are added.
+
+## Tenant Kubernetes clusters
+
+Tenant Kubernetes cluster rendering expresses Cluster API/Kamaji-style workload cluster intent while preserving the Ubiquity decision that NICo remains primary for physical node lifecycle. These manifests are workload-cluster intent, not bootstrap replacement and not proof that a tenant cluster is ready.
+
+```sh
+ubiquity cloud render tenant-cluster --name tenant-a-dev --namespace tenant-a --kubernetes-version v1.31.4 --control-plane-class kamaji --node-pool-class nico-managed-workers --worker-replicas 3
+```

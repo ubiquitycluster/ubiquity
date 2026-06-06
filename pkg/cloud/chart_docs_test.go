@@ -14,6 +14,9 @@ func TestVMDiskChartAndDocsExist(t *testing.T) {
 		"../../platform/tenant-vpc/Chart.yaml",
 		"../../platform/tenant-vpc/values.yaml",
 		"../../platform/tenant-vpc/templates/vpc.yaml",
+		"../../platform/tenant-kubernetes-cluster/Chart.yaml",
+		"../../platform/tenant-kubernetes-cluster/values.yaml",
+		"../../platform/tenant-kubernetes-cluster/templates/cluster.yaml",
 		"../../docs/admin-guide/cloud-services.md",
 	} {
 		content, err := os.ReadFile(path)
