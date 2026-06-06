@@ -47,6 +47,12 @@ type NetworkRequest struct {
 	Bridge    string
 }
 
+// DiskAttachment describes an existing PVC attached to a VM as a persistent data disk.
+type DiskAttachment struct {
+	Name    string
+	PVCName string
+}
+
 // VMRequest is the reviewer-visible VM provisioning contract rendered into KubeVirt resources.
 type VMRequest struct {
 	Name             string
@@ -58,6 +64,8 @@ type VMRequest struct {
 	Memory           string
 	DiskSize         string
 	StorageClass     string
+	BootDisk         string
+	DataDisks        []DiskAttachment
 	Network          NetworkRequest
 	GPU              GPURequest
 	External         ExternalAccess
@@ -120,7 +128,9 @@ func RenderVM(req VMRequest) (string, error) {
 	if req.External.Enabled {
 		writeExternalService(&b, req)
 	}
-	writeDataVolume(&b, req, profile)
+	if req.BootDisk == "" {
+		writeDataVolume(&b, req, profile)
+	}
 	writeVM(&b, req, profile)
 	return b.String(), nil
 }
@@ -186,6 +196,22 @@ func validateVMRequest(req VMRequest) error {
 	}
 	if req.GPU.Enabled && req.GPU.Mode != GPUAttachmentGPU && req.GPU.Mode != GPUAttachmentHostDevice {
 		return fmt.Errorf("unsupported GPU attachment mode %q", req.GPU.Mode)
+	}
+	if req.BootDisk != "" && !dnsName.MatchString(req.BootDisk) {
+		return fmt.Errorf("boot disk %q must be a DNS-compatible PVC name", req.BootDisk)
+	}
+	seenDisks := map[string]struct{}{}
+	for _, disk := range req.DataDisks {
+		if !dnsName.MatchString(disk.Name) || !dnsName.MatchString(disk.PVCName) {
+			return fmt.Errorf("disk attachment names must be DNS-compatible: %+v", disk)
+		}
+		if disk.Name == "rootdisk" || disk.Name == "bootdisk" || disk.Name == "cloudinitdisk" {
+			return fmt.Errorf("disk attachment name %q is reserved", disk.Name)
+		}
+		if _, ok := seenDisks[disk.Name]; ok {
+			return fmt.Errorf("disk attachment name %q is duplicated", disk.Name)
+		}
+		seenDisks[disk.Name] = struct{}{}
 	}
 	if req.External.Enabled {
 		if len(req.External.Ports) == 0 {
@@ -335,10 +361,16 @@ spec:
 	}
 	fmt.Fprintf(b, `        devices:
           disks:
-            - name: rootdisk
-              disk:
-                bus: virtio
-            - name: cloudinitdisk
+`)
+	rootDiskName := "rootdisk"
+	if req.BootDisk != "" {
+		rootDiskName = "bootdisk"
+	}
+	fmt.Fprintf(b, "            - name: %s\n              disk:\n                bus: virtio\n", rootDiskName)
+	for _, disk := range req.DataDisks {
+		fmt.Fprintf(b, "            - name: %s\n              disk:\n                bus: virtio\n", disk.Name)
+	}
+	fmt.Fprintf(b, `            - name: cloudinitdisk
               disk:
                 bus: virtio
 `)
@@ -362,15 +394,21 @@ spec:
 		fmt.Fprintf(b, "        - name: isolated-net\n          multus:\n            networkName: %s\n", req.Network.Name)
 	}
 	fmt.Fprintf(b, `      volumes:
-        - name: rootdisk
-          dataVolume:
-            name: %s-rootdisk
-        - name: cloudinitdisk
+`)
+	if req.BootDisk != "" {
+		fmt.Fprintf(b, "        - name: bootdisk\n          persistentVolumeClaim:\n            claimName: %s\n", req.BootDisk)
+	} else {
+		fmt.Fprintf(b, "        - name: rootdisk\n          dataVolume:\n            name: %s-rootdisk\n", req.Name)
+	}
+	for _, disk := range req.DataDisks {
+		fmt.Fprintf(b, "        - name: %s\n          persistentVolumeClaim:\n            claimName: %s\n", disk.Name, disk.PVCName)
+	}
+	fmt.Fprintf(b, `        - name: cloudinitdisk
           cloudInitNoCloud:
             userData: |-
               #cloud-config
               ssh_authorized_keys:
                 - %s
               package_update: true
-`, req.Name, req.SSHAuthorizedKey)
+`, req.SSHAuthorizedKey)
 }

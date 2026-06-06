@@ -5,6 +5,7 @@ import (
 	"context"
 	"fmt"
 	"os/exec"
+	"strings"
 
 	"github.com/spf13/cobra"
 	"github.com/ubiquitycluster/ubiquity/pkg/virtualization"
@@ -27,6 +28,7 @@ var vmOpts = virtualization.VMRequest{
 	GPU: virtualization.GPURequest{Enabled: false, Count: 1, ResourceName: "nvidia.com/GA100_A100_PCIE_40GB"},
 }
 var vmApplyDryRun = true
+var vmAttachDisks []string
 
 var runVirtualMachinesKubectl = func(ctx context.Context, args []string, stdin []byte) ([]byte, error) {
 	cmd := exec.CommandContext(ctx, "kubectl", args...)
@@ -52,6 +54,8 @@ func init() {
 	virtualMachinesCmd.PersistentFlags().IntVar(&vmOpts.CPUCores, "cpu", vmOpts.CPUCores, "VM CPU cores")
 	virtualMachinesCmd.PersistentFlags().StringVar(&vmOpts.Memory, "memory", vmOpts.Memory, "VM memory request")
 	virtualMachinesCmd.PersistentFlags().StringVar(&vmOpts.DiskSize, "disk-size", vmOpts.DiskSize, "VM root disk size")
+	virtualMachinesCmd.PersistentFlags().StringVar(&vmOpts.BootDisk, "boot-disk", vmOpts.BootDisk, "existing standalone PVC to use as boot disk; skips root DataVolume rendering")
+	virtualMachinesCmd.PersistentFlags().StringArrayVar(&vmAttachDisks, "attach-disk", nil, "attach existing PVC as data disk in name:pvc form; repeat for multiple disks")
 	virtualMachinesCmd.PersistentFlags().StringVar(&vmOpts.StorageClass, "storage-class", vmOpts.StorageClass, "CDI DataVolume storage class")
 	virtualMachinesCmd.PersistentFlags().StringVar((*string)(&vmOpts.Network.Isolation), "network-isolation", string(vmOpts.Network.Isolation), "network isolation mode (pod, multus)")
 	virtualMachinesCmd.PersistentFlags().StringVar(&vmOpts.Network.Name, "network-name", vmOpts.Network.Name, "Multus NetworkAttachmentDefinition name")
@@ -103,5 +107,24 @@ func renderVirtualMachinesManifest() (string, error) {
 	if req.GPU.ResourceName != "" {
 		req.GPU.Enabled = true
 	}
+	if len(vmAttachDisks) > 0 {
+		disks, err := parseDiskAttachments(vmAttachDisks)
+		if err != nil {
+			return "", err
+		}
+		req.DataDisks = append(req.DataDisks, disks...)
+	}
 	return virtualization.RenderVM(req)
+}
+
+func parseDiskAttachments(values []string) ([]virtualization.DiskAttachment, error) {
+	disks := make([]virtualization.DiskAttachment, 0, len(values))
+	for _, value := range values {
+		parts := strings.Split(value, ":")
+		if len(parts) != 2 || strings.TrimSpace(parts[0]) == "" || strings.TrimSpace(parts[1]) == "" {
+			return nil, fmt.Errorf("--attach-disk must use name:pvc form, got %q", value)
+		}
+		disks = append(disks, virtualization.DiskAttachment{Name: strings.TrimSpace(parts[0]), PVCName: strings.TrimSpace(parts[1])})
+	}
+	return disks, nil
 }

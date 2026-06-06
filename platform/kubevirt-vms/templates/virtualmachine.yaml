@@ -47,9 +47,14 @@ spec:
         {{- end }}
         devices:
           disks:
-            - name: rootdisk
+            - name: {{ ternary "bootdisk" "rootdisk" (ne .Values.vm.bootDisk "") }}
               disk:
                 bus: virtio
+            {{- range .Values.vm.dataDisks }}
+            - name: {{ .name }}
+              disk:
+                bus: virtio
+            {{- end }}
             - name: cloudinitdisk
               disk:
                 bus: virtio
@@ -77,9 +82,20 @@ spec:
             networkName: {{ .Values.vm.network.name }}
         {{- end }}
       volumes:
+        {{- if .Values.vm.bootDisk }}
+        - name: bootdisk
+          persistentVolumeClaim:
+            claimName: {{ .Values.vm.bootDisk }}
+        {{- else }}
         - name: rootdisk
           dataVolume:
             name: {{ .Values.vm.name }}-rootdisk
+        {{- end }}
+        {{- range .Values.vm.dataDisks }}
+        - name: {{ .name }}
+          persistentVolumeClaim:
+            claimName: {{ .pvcName }}
+        {{- end }}
         - name: cloudinitdisk
           cloudInitNoCloud:
             userData: |-

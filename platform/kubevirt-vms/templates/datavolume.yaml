@@ -1,4 +1,4 @@
-{{- if .Values.vm.enabled }}
+{{- if and .Values.vm.enabled (not .Values.vm.bootDisk) }}
 {{- $profile := index .Values.vm.osProfiles .Values.vm.os }}
 {{- if not $profile }}{{ fail (printf "unknown vm.os %q" .Values.vm.os) }}{{- end }}
 apiVersion: cdi.kubevirt.io/v1beta1

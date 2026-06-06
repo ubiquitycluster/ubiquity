@@ -15,6 +15,12 @@ vm:
   cpuCores: 4
   memory: 16Gi
   diskSize: 80Gi
+  # Optional existing PVC to use as the boot disk. When set, this chart skips root DataVolume rendering.
+  bootDisk: ""
+  # Optional existing PVCs attached as additional data disks.
+  dataDisks: []
+  # - name: datasets
+  #   pvcName: datasets-pvc
   storageClassName: ""
   sshAuthorizedKeys: []
   osProfiles:

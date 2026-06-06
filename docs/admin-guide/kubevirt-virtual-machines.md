@@ -53,6 +53,19 @@ ubiquity virtual-machines render \
 
 When `--instance-type` is present, CPU and memory are taken from the referenced KubeVirt `VirtualMachineClusterInstancetype` instead of being duplicated in the VM manifest. For PCI VF / vGPU resources, set `--gpu-attachment-mode hostDevice`; for classic KubeVirt GPU resources, keep the default `gpu` mode.
 
+Render a VM that boots from an existing standalone disk and attaches reusable data disks created by `ubiquity cloud render vm-disk`:
+
+```sh
+ubiquity virtual-machines render \
+  --name ai-notebook \
+  --namespace tenant-a \
+  --boot-disk golden-ubuntu \
+  --attach-disk datasets:datasets-pvc \
+  --attach-disk checkpoints:checkpoints-pvc
+```
+
+When `--boot-disk` is set, Ubiquity references the existing PVC as `bootdisk` and skips rendering a new root CDI `DataVolume`. Each `--attach-disk` value uses `name:pvc` form and renders a KubeVirt disk plus `persistentVolumeClaim` volume.
+
 Apply uses server-side dry-run by default:
 
 ```sh
