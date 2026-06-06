@@ -1,0 +1,12 @@
+policy:
+  name: tenant-a-daily
+  namespace: tenant-a
+  schedule: "0 2 * * *"
+  retentionDays: 30
+  repositorySecretName: tenant-a-daily-repo
+  snapshotClass: longhorn-snapshots
+  preset:
+    name: gpu-medium
+    cpu: "16"
+    memory: 128Gi
+    gpu: "1"

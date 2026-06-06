@@ -20,6 +20,9 @@ func TestVMDiskChartAndDocsExist(t *testing.T) {
 		"../../platform/managed-service/Chart.yaml",
 		"../../platform/managed-service/values.yaml",
 		"../../platform/managed-service/templates/service.yaml",
+		"../../platform/platform-ops-policy/Chart.yaml",
+		"../../platform/platform-ops-policy/values.yaml",
+		"../../platform/platform-ops-policy/templates/policy.yaml",
 		"../../docs/admin-guide/cloud-services.md",
 	} {
 		content, err := os.ReadFile(path)

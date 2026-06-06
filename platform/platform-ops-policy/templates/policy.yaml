@@ -1,0 +1,45 @@
+apiVersion: k8up.io/v1
+kind: Schedule
+metadata:
+  name: {{ .Values.policy.name }}
+  namespace: {{ .Values.policy.namespace }}
+  labels:
+    ubiquity.ai/backup-policy: tenant
+spec:
+  backend:
+    repositorySecretRef:
+      name: {{ .Values.policy.repositorySecretName }}
+      key: password
+  backup:
+    schedule: {{ .Values.policy.schedule | quote }}
+  check:
+    schedule: {{ .Values.policy.schedule | quote }}
+  prune:
+    schedule: {{ .Values.policy.schedule | quote }}
+    retention:
+      keepDaily: {{ .Values.policy.retentionDays }}
+---
+apiVersion: snapshot.storage.k8s.io/v1
+kind: VolumeSnapshotClass
+metadata:
+  name: {{ .Values.policy.snapshotClass }}
+  labels:
+    ubiquity.ai/snapshot-policy: retained
+  annotations:
+    ubiquity.ai/immutability-note: "Retain snapshots and use immutable object storage where configured; rendering is not restore proof."
+driver: driver.longhorn.io
+deletionPolicy: Retain
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.policy.preset.name }}-resource-preset
+  namespace: {{ .Values.policy.namespace }}
+  labels:
+    ubiquity.ai/resource-preset: {{ .Values.policy.preset.name }}
+data:
+  cpu: {{ .Values.policy.preset.cpu | quote }}
+  memory: {{ .Values.policy.preset.memory }}
+  {{- if .Values.policy.preset.gpu }}
+  nvidia.com/gpu: {{ .Values.policy.preset.gpu | quote }}
+  {{- end }}

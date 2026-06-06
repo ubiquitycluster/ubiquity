@@ -16,6 +16,7 @@ type cloudOptions struct {
 	Tenant  cloud.TenantVPCRequest
 	Cluster cloud.TenantClusterRequest
 	Service cloud.ManagedServiceRequest
+	Backup  cloud.BackupPolicyRequest
 }
 
 var cloudOpts = cloudOptions{
@@ -49,6 +50,18 @@ var cloudOpts = cloudOptions{
 		StorageClass: "standard",
 		Size:         "100Gi",
 		Replicas:     3,
+	},
+	Backup: cloud.BackupPolicyRequest{
+		Name:                 "tenant-a-daily",
+		Namespace:            "tenant-a",
+		Schedule:             "0 2 * * *",
+		Retention:            "30d",
+		RepositorySecretName: "tenant-a-daily-repo",
+		SnapshotClass:        "longhorn-snapshots",
+		PresetName:           "gpu-medium",
+		PresetCPU:            "16",
+		PresetMemory:         "128Gi",
+		PresetGPU:            "1",
 	},
 }
 
@@ -90,6 +103,14 @@ func init() {
 	cloudCmd.PersistentFlags().StringVar(&cloudOpts.Service.StorageClass, "service-storage-class", cloudOpts.Service.StorageClass, "managed service storage class")
 	cloudCmd.PersistentFlags().StringVar(&cloudOpts.Service.Size, "service-size", cloudOpts.Service.Size, "managed service storage size/limit")
 	cloudCmd.PersistentFlags().IntVar(&cloudOpts.Service.Replicas, "service-replicas", cloudOpts.Service.Replicas, "managed service replicas")
+	cloudCmd.PersistentFlags().StringVar(&cloudOpts.Backup.Schedule, "backup-schedule", cloudOpts.Backup.Schedule, "backup five-field cron schedule")
+	cloudCmd.PersistentFlags().StringVar(&cloudOpts.Backup.Retention, "backup-retention", cloudOpts.Backup.Retention, "backup retention such as 30d")
+	cloudCmd.PersistentFlags().StringVar(&cloudOpts.Backup.RepositorySecretName, "backup-repository-secret", cloudOpts.Backup.RepositorySecretName, "backup repository secret name")
+	cloudCmd.PersistentFlags().StringVar(&cloudOpts.Backup.SnapshotClass, "snapshot-class", cloudOpts.Backup.SnapshotClass, "VolumeSnapshotClass name")
+	cloudCmd.PersistentFlags().StringVar(&cloudOpts.Backup.PresetName, "preset-name", cloudOpts.Backup.PresetName, "resource preset name")
+	cloudCmd.PersistentFlags().StringVar(&cloudOpts.Backup.PresetCPU, "preset-cpu", cloudOpts.Backup.PresetCPU, "resource preset CPU")
+	cloudCmd.PersistentFlags().StringVar(&cloudOpts.Backup.PresetMemory, "preset-memory", cloudOpts.Backup.PresetMemory, "resource preset memory")
+	cloudCmd.PersistentFlags().StringVar(&cloudOpts.Backup.PresetGPU, "preset-gpu", cloudOpts.Backup.PresetGPU, "resource preset GPU count")
 
 	renderCmd := &cobra.Command{Use: "render RESOURCE", Short: "Render a cloud primitive", Args: cobra.ExactArgs(1), RunE: runCloudRender}
 	applyCmd := &cobra.Command{Use: "apply RESOURCE", Short: "Apply a cloud primitive", Args: cobra.ExactArgs(1), RunE: runCloudApply}
@@ -149,6 +170,14 @@ func renderCloudResource(resource string) (string, error) {
 			cloudOpts.Service.Namespace = cloudOpts.VMDisk.Namespace
 		}
 		return cloud.RenderManagedService(cloudOpts.Service)
+	case "backup", "backup-policy", "ops-policy", "platform-ops":
+		if cloudOpts.Backup.Name == "tenant-a-daily" && cloudOpts.VMDisk.Name != "data-disk" {
+			cloudOpts.Backup.Name = cloudOpts.VMDisk.Name
+		}
+		if cloudOpts.Backup.Namespace == "tenant-a" && cloudOpts.VMDisk.Namespace != "virtual-machines" {
+			cloudOpts.Backup.Namespace = cloudOpts.VMDisk.Namespace
+		}
+		return cloud.RenderBackupPolicy(cloudOpts.Backup)
 	default:
 		return "", fmt.Errorf("unsupported cloud resource %q", resource)
 	}
