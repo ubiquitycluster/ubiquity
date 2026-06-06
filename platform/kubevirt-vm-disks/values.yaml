@@ -1,0 +1,15 @@
+disk:
+  enabled: true
+  name: data-disk
+  namespace: virtual-machines
+  size: 40Gi
+  storageClassName: ""
+  accessMode: ReadWriteOnce
+  # source.type may be blank, http, or pvc.
+  source:
+    type: blank
+    http:
+      url: ""
+    pvc:
+      name: ""
+      namespace: ""

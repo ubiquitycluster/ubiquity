@@ -1,0 +1,51 @@
+{{- if .Values.disk.enabled }}
+{{- if eq .Values.disk.source.type "blank" }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Values.disk.name }}
+  namespace: {{ .Values.disk.namespace }}
+  labels:
+    app.kubernetes.io/part-of: ubiquity-virtual-machines
+    ubiquity.ai/disk-source: blank
+spec:
+  accessModes:
+    - {{ .Values.disk.accessMode }}
+  resources:
+    requests:
+      storage: {{ .Values.disk.size }}
+  {{- if .Values.disk.storageClassName }}
+  storageClassName: {{ .Values.disk.storageClassName }}
+  {{- end }}
+{{- else }}
+apiVersion: cdi.kubevirt.io/v1beta1
+kind: DataVolume
+metadata:
+  name: {{ .Values.disk.name }}
+  namespace: {{ .Values.disk.namespace }}
+  labels:
+    app.kubernetes.io/part-of: ubiquity-virtual-machines
+    ubiquity.ai/disk-source: {{ .Values.disk.source.type }}
+spec:
+  source:
+    {{- if eq .Values.disk.source.type "http" }}
+    http:
+      url: {{ required "disk.source.http.url is required for http disks" .Values.disk.source.http.url }}
+    {{- else if eq .Values.disk.source.type "pvc" }}
+    pvc:
+      name: {{ required "disk.source.pvc.name is required for pvc clone disks" .Values.disk.source.pvc.name }}
+      namespace: {{ default .Values.disk.namespace .Values.disk.source.pvc.namespace }}
+    {{- else }}
+    {{- fail "disk.source.type must be blank, http, or pvc" }}
+    {{- end }}
+  pvc:
+    accessModes:
+      - {{ .Values.disk.accessMode }}
+    resources:
+      requests:
+        storage: {{ .Values.disk.size }}
+    {{- if .Values.disk.storageClassName }}
+    storageClassName: {{ .Values.disk.storageClassName }}
+    {{- end }}
+{{- end }}
+{{- end }}
