@@ -107,6 +107,15 @@ func TestCloudRenderBackupRestoreDrillProducesIsolatedRestore(t *testing.T) {
 	}
 }
 
+func TestDefaultCloudReadinessResourcesIncludeExpandedManagedServices(t *testing.T) {
+	resources := strings.Join(defaultCloudReadinessResources(), "\n")
+	for _, required := range []string{"mariadbs.k8s.mariadb.com", "opensearchclusters.opensearch.opster.io", "tcproutes.gateway.networking.k8s.io"} {
+		if !strings.Contains(resources, required) {
+			t.Fatalf("default readiness resources missing %q in %s", required, resources)
+		}
+	}
+}
+
 func TestCloudReadinessEvaluatesEvidenceFile(t *testing.T) {
 	old := cloudOpts
 	defer func() { cloudOpts = old }()

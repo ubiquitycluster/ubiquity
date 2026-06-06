@@ -272,16 +272,14 @@ func parseKubectlResourceEvidence(content []byte) ([]cloud.CloudResourceEvidence
 }
 
 func defaultCloudReadinessResources() []string {
-	return []string{
+	resources := []string{
 		"datavolumes.cdi.kubevirt.io",
 		"virtualmachines.kubevirt.io",
-		"objectbucketclaims.objectbucket.io",
-		"clusters.postgresql.cnpg.io",
-		"redisfailovers.databases.spotahome.com",
-		"kafkas.kafka.strimzi.io",
 		"clusters.cluster.x-k8s.io",
 		"schedules.k8up.io",
 	}
+	resources = append(resources, cloud.AllManagedServiceReadinessResources()...)
+	return resources
 }
 
 func renderCloudResource(resource string) (string, error) {
