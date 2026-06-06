@@ -37,6 +37,13 @@ operatorBundles:
       source: https://github.com/k8up-io/k8up
       version: pinned-by-platform
       airgapArtifact: platform/vendor/k8up
+    - name: k8up-restore
+      controller: K8up Operator
+      ownedCRD: restores.k8up.io
+      installNamespace: k8up-system
+      source: https://github.com/k8up-io/k8up
+      version: pinned-by-platform
+      airgapArtifact: platform/vendor/k8up
     - name: longhorn
       controller: Longhorn CSI
       ownedCRD: volumesnapshotclasses.snapshot.storage.k8s.io

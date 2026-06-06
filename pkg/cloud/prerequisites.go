@@ -34,6 +34,7 @@ func RequiredCloudCRDs() []string {
 		"tcproutes.gateway.networking.k8s.io",
 		"clusters.cluster.x-k8s.io",
 		"schedules.k8up.io",
+		"restores.k8up.io",
 		"volumesnapshotclasses.snapshot.storage.k8s.io",
 	}
 }

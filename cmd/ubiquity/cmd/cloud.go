@@ -283,6 +283,7 @@ func defaultCloudReadinessResources() []string {
 		"virtualmachines.kubevirt.io",
 		"clusters.cluster.x-k8s.io",
 		"schedules.k8up.io",
+		"restores.k8up.io",
 	}
 	resources = append(resources, cloud.AllManagedServiceReadinessResources()...)
 	return resources

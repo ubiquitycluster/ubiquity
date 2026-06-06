@@ -42,3 +42,15 @@ func TestRenderCloudOperatorBundlesRejectsBadNames(t *testing.T) {
 		t.Fatalf("expected DNS validation error, got %v", err)
 	}
 }
+
+func TestRequiredCloudOperatorBundlesIncludeRestoreOwnership(t *testing.T) {
+	manifest, err := RenderCloudOperatorBundles(CloudOperatorBundlesRequest{Name: "cloud-operators", Namespace: "ubiquity-system"})
+	if err != nil {
+		t.Fatalf("RenderCloudOperatorBundles returned error: %v", err)
+	}
+	for _, required := range []string{"restores.k8up.io", "K8up Operator"} {
+		if !strings.Contains(manifest, required) {
+			t.Fatalf("operator bundle manifest missing %q:\n%s", required, manifest)
+		}
+	}
+}

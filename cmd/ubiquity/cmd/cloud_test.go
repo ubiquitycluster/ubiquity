@@ -116,6 +116,15 @@ func TestDefaultCloudReadinessResourcesIncludeExpandedManagedServices(t *testing
 	}
 }
 
+func TestDefaultCloudReadinessResourcesIncludeRestoreDrillEvidence(t *testing.T) {
+	resources := strings.Join(defaultCloudReadinessResources(), "\n")
+	for _, required := range []string{"restores.k8up.io", "schedules.k8up.io"} {
+		if !strings.Contains(resources, required) {
+			t.Fatalf("default readiness resources missing %q in %s", required, resources)
+		}
+	}
+}
+
 func TestCloudProductionAuditChecklistCLI(t *testing.T) {
 	audit := findCommand(cloudCmd, "audit-checklist")
 	if audit == nil {
