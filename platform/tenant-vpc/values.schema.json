@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "tenant"
+  ],
+  "properties": {
+    "tenant": {
+      "type": "object",
+      "required": [
+        "name",
+        "cidr",
+        "gateway",
+        "bridge",
+        "quota"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+        },
+        "cidr": {
+          "type": "string"
+        },
+        "gateway": {
+          "type": "string"
+        },
+        "bridge": {
+          "type": "string",
+          "minLength": 1
+        },
+        "quota": {
+          "type": "object",
+          "required": [
+            "cpu",
+            "memory"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "cpu": {
+              "type": "string"
+            },
+            "memory": {
+              "type": "string"
+            },
+            "gpu": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

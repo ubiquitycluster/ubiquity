@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "service"
+  ],
+  "properties": {
+    "service": {
+      "type": "object",
+      "required": [
+        "name",
+        "namespace",
+        "type",
+        "storageClassName",
+        "size",
+        "replicas"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+        },
+        "namespace": {
+          "type": "string",
+          "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "bucket",
+            "postgres",
+            "redis",
+            "kafka",
+            "registry"
+          ]
+        },
+        "storageClassName": {
+          "type": "string"
+        },
+        "size": {
+          "type": "string"
+        },
+        "replicas": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    }
+  }
+}
