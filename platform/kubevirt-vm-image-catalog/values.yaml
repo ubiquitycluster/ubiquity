@@ -1,0 +1,20 @@
+catalog:
+  name: vm-image-catalog
+  namespace: ubiquity-system
+  readinessBoundary: import-and-guest-boot-not-proven-by-catalog
+  profiles:
+    - name: ubuntu-24.04
+      displayName: Ubuntu Server 24.04 LTS
+      sourceURL: https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img
+      cloudInit: true
+      notes: Ubuntu Noble cloud image imported by CDI DataVolume.
+    - name: rocky-9
+      displayName: Rocky Linux 9 GenericCloud
+      sourceURL: https://dl.rockylinux.org/pub/rocky/9/images/x86_64/Rocky-9-GenericCloud-Base.latest.x86_64.qcow2
+      cloudInit: true
+      notes: Rocky 9 GenericCloud image imported by CDI DataVolume.
+    - name: windows-2022
+      displayName: Windows Server 2022
+      sourceURL: https://example.invalid/replace-with-windows-2022-cloudbase-init-and-virtio-win-image.qcow2
+      cloudInit: true
+      notes: Operator must provide a licensed Windows image with Cloudbase-Init and virtio-win drivers.

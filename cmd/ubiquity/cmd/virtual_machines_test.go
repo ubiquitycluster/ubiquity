@@ -33,6 +33,23 @@ func TestVirtualMachinesRenderProducesKubeVirtManifest(t *testing.T) {
 	}
 }
 
+func TestVirtualMachinesRenderImageCatalogProducesProfiles(t *testing.T) {
+	catalog := findCommand(virtualMachinesCmd, "image-catalog")
+	if catalog == nil {
+		t.Fatal("expected virtual-machines image-catalog subcommand")
+	}
+	out := captureStdout(t, func() {
+		if err := catalog.RunE(catalog, []string{}); err != nil {
+			t.Fatalf("virtual-machines image-catalog failed: %v", err)
+		}
+	})
+	for _, required := range []string{"kind: ConfigMap", "ubuntu-24.04", "readinessBoundary"} {
+		if !strings.Contains(out, required) {
+			t.Fatalf("image catalog output missing %q:\n%s", required, out)
+		}
+	}
+}
+
 func TestVirtualMachinesApplyUsesServerDryRunByDefault(t *testing.T) {
 	oldRunner := runVirtualMachinesKubectl
 	oldOpts := vmOpts

@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.catalog.name }}
+  namespace: {{ .Values.catalog.namespace }}
+  labels:
+    ubiquity.ai/vm-image-catalog: kubevirt
+data:
+  readinessBoundary: {{ .Values.catalog.readinessBoundary }}
+  profiles: |
+    {{- range .Values.catalog.profiles }}
+    - name: {{ .name }}
+      displayName: {{ .displayName }}
+      sourceURL: {{ .sourceURL }}
+      cloudInit: {{ .cloudInit }}
+      notes: {{ .notes }}
+    {{- end }}

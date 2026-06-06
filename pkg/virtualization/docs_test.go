@@ -21,6 +21,8 @@ func TestKubeVirtAdminGuideDocumentsGPUAndNetworkIsolationBoundaries(t *testing.
 		"boot-disk",
 		"attach-disk",
 		"standalone disk",
+		"image-catalog",
+		"import-and-guest-boot-not-proven-by-catalog",
 		"hostDevice",
 		"NVIDIA GPU Operator",
 		"permittedHostDevices",

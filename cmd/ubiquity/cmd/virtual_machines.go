@@ -71,13 +71,23 @@ func init() {
 
 	renderCmd := &cobra.Command{Use: "render", Short: "Render KubeVirt VM manifests", Args: cobra.NoArgs, RunE: runVirtualMachinesRender}
 	applyCmd := &cobra.Command{Use: "apply", Short: "Apply KubeVirt VM manifests", Args: cobra.NoArgs, RunE: runVirtualMachinesApply}
+	imageCatalogCmd := &cobra.Command{Use: "image-catalog", Short: "Render supported VM image catalog", Args: cobra.NoArgs, RunE: runVirtualMachinesImageCatalog}
 	applyCmd.Flags().BoolVar(&vmApplyDryRun, "dry-run", true, "use kubectl server-side dry-run instead of mutating the cluster")
-	virtualMachinesCmd.AddCommand(renderCmd, applyCmd)
+	virtualMachinesCmd.AddCommand(renderCmd, applyCmd, imageCatalogCmd)
 	rootCmd.AddCommand(virtualMachinesCmd)
 }
 
 func runVirtualMachinesRender(cmd *cobra.Command, args []string) error {
 	manifest, err := renderVirtualMachinesManifest()
+	if err != nil {
+		return err
+	}
+	fmt.Print(manifest)
+	return nil
+}
+
+func runVirtualMachinesImageCatalog(cmd *cobra.Command, args []string) error {
+	manifest, err := virtualization.RenderVMImageCatalog(virtualization.VMImageCatalogRequest{Name: "vm-image-catalog", Namespace: "ubiquity-system"})
 	if err != nil {
 		return err
 	}

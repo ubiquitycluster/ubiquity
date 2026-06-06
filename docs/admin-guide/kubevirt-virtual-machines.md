@@ -20,6 +20,14 @@ The initial OS profiles are:
 
 ## CLI usage
 
+Render the VM image catalog before creating disks or VMs:
+
+```sh
+ubiquity virtual-machines image-catalog
+```
+
+The image catalog records supported OS profiles and the readiness boundary `import-and-guest-boot-not-proven-by-catalog`; operators must still prove CDI import, VM boot, and guest-level health before claiming an image is usable.
+
 Render a CPU-only Ubuntu VM:
 
 ```sh
