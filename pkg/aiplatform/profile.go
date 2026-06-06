@@ -17,6 +17,7 @@ const (
 	CapabilityStorage                Capability = "storage"
 	CapabilityScheduler              Capability = "scheduler"
 	CapabilityBareMetalOrchestration Capability = "bare-metal-orchestration"
+	CapabilityVirtualization         Capability = "virtualization"
 )
 
 // Component records the upstream source of a platform component and whether it
@@ -176,6 +177,39 @@ var ollama = Component{
 	Notes:             "Retained as lightweight local diagnostics/lab app; not a production NVIDIA serving default.",
 }
 
+var kubevirt = Component{
+	Name:              "kubevirt",
+	SourceRepo:        "https://github.com/kubevirt/kubevirt",
+	ChartName:         "kubevirt-vms",
+	ChartRepository:   "file://platform/kubevirt-vms",
+	Version:           "operator-managed",
+	Namespace:         "kubevirt",
+	ProductionDefault: true,
+	Notes:             "VirtualMachine API for VM workloads on bootstrapped Kubernetes nodes. GPU-enabled VMs require KubeVirt permittedHostDevices plus NVIDIA GPU Operator/device-plugin resources.",
+}
+
+var cdi = Component{
+	Name:              "containerized-data-importer",
+	SourceRepo:        "https://github.com/kubevirt/containerized-data-importer",
+	ChartName:         "kubevirt-vms",
+	ChartRepository:   "file://platform/kubevirt-vms",
+	Version:           "operator-managed",
+	Namespace:         "cdi",
+	ProductionDefault: true,
+	Notes:             "CDI DataVolume imports OS images for Ubuntu, Rocky, Windows, and future operator-defined profiles.",
+}
+
+var multusCNI = Component{
+	Name:              "multus-cni",
+	SourceRepo:        "https://github.com/k8snetworkplumbingwg/multus-cni",
+	ChartName:         "kubevirt-vms",
+	ChartRepository:   "file://platform/kubevirt-vms",
+	Version:           "operator-managed",
+	Namespace:         "kube-system",
+	ProductionDefault: true,
+	Notes:             "Secondary network attachment provider for isolated VM networks and RDMA/SR-IOV capable data-plane networks.",
+}
+
 var profiles = map[string]Profile{
 	"sandbox": {
 		Name:         "sandbox",
@@ -203,8 +237,8 @@ var profiles = map[string]Profile{
 	},
 	"ai-production": {
 		Name:         "ai-production",
-		Description:  "Full NVIDIA-backed AI workload platform profile with GPU, RDMA, serving, observability, storage/data-plane evaluation, security, and E2E validation.",
-		Capabilities: []Capability{CapabilityGPU, CapabilityRDMA, CapabilityServing, CapabilityTelemetry, CapabilityValidation, CapabilityStorage, CapabilityScheduler, CapabilityBareMetalOrchestration},
-		Components:   []Component{gpuOperator, dcgmExporter, nvidiaNetworkOperator, nimOperator, kaiScheduler, aicr, aiStore, ollama},
+		Description:  "Full NVIDIA-backed AI workload platform profile with GPU, RDMA, serving, observability, storage/data-plane evaluation, KubeVirt virtualization, security, and E2E validation.",
+		Capabilities: []Capability{CapabilityGPU, CapabilityRDMA, CapabilityServing, CapabilityTelemetry, CapabilityValidation, CapabilityStorage, CapabilityScheduler, CapabilityBareMetalOrchestration, CapabilityVirtualization},
+		Components:   []Component{gpuOperator, dcgmExporter, nvidiaNetworkOperator, nimOperator, kaiScheduler, kubevirt, cdi, multusCNI, aicr, aiStore, ollama},
 	},
 }

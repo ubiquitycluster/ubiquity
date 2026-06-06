@@ -1,0 +1,302 @@
+package virtualization
+
+import (
+	"fmt"
+	"regexp"
+	"strings"
+)
+
+// NetworkIsolation records the VM network isolation mode.
+type NetworkIsolation string
+
+const (
+	NetworkIsolationPod    NetworkIsolation = "pod"
+	NetworkIsolationMultus NetworkIsolation = "multus"
+)
+
+// GPURequest describes GPU passthrough/vGPU resource requests for KubeVirt.
+type GPURequest struct {
+	Enabled      bool
+	ResourceName string
+	Count        int
+}
+
+// NetworkRequest describes an isolated secondary network for VM workloads.
+type NetworkRequest struct {
+	Isolation NetworkIsolation
+	Name      string
+	CIDR      string
+	Gateway   string
+	Bridge    string
+}
+
+// VMRequest is the reviewer-visible VM provisioning contract rendered into KubeVirt resources.
+type VMRequest struct {
+	Name             string
+	Namespace        string
+	OS               string
+	CPUCores         int
+	Memory           string
+	DiskSize         string
+	StorageClass     string
+	Network          NetworkRequest
+	GPU              GPURequest
+	SSHAuthorizedKey string
+}
+
+// OSProfile defines an operating-system image known to be renderable as a KubeVirt VM.
+type OSProfile struct {
+	Name        string
+	DisplayName string
+	SourceURL   string
+	CloudInit   bool
+	Notes       string
+}
+
+var dnsName = regexp.MustCompile(`^[a-z0-9]([-a-z0-9]*[a-z0-9])?$`)
+
+var osProfiles = map[string]OSProfile{
+	"ubuntu-24.04": {
+		Name:        "ubuntu-24.04",
+		DisplayName: "Ubuntu Server 24.04 LTS",
+		SourceURL:   "https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img",
+		CloudInit:   true,
+		Notes:       "Ubuntu Noble cloud image imported by CDI DataVolume.",
+	},
+	"rocky-9": {
+		Name:        "rocky-9",
+		DisplayName: "Rocky Linux 9 GenericCloud",
+		SourceURL:   "https://dl.rockylinux.org/pub/rocky/9/images/x86_64/Rocky-9-GenericCloud-Base.latest.x86_64.qcow2",
+		CloudInit:   true,
+		Notes:       "Rocky 9 GenericCloud image imported by CDI DataVolume.",
+	},
+	"windows-2022": {
+		Name:        "windows-2022",
+		DisplayName: "Windows Server 2022",
+		SourceURL:   "https://example.invalid/replace-with-windows-2022-cloudbase-init-and-virtio-win-image.qcow2",
+		CloudInit:   true,
+		Notes:       "Placeholder for a licensed Windows Server 2022 image with Cloudbase-Init and virtio-win drivers; operators must supply an authorized image URL.",
+	},
+}
+
+// OSProfiles returns known OS profiles in a stable order.
+func OSProfiles() []OSProfile {
+	return []OSProfile{osProfiles["ubuntu-24.04"], osProfiles["rocky-9"], osProfiles["windows-2022"]}
+}
+
+// RenderVM renders KubeVirt/CDI/Multus resources for a single VM.
+func RenderVM(req VMRequest) (string, error) {
+	req = defaultVMRequest(req)
+	if err := validateVMRequest(req); err != nil {
+		return "", err
+	}
+	profile := osProfiles[req.OS]
+	var b strings.Builder
+	writeNamespace(&b, req)
+	if req.Network.Isolation == NetworkIsolationMultus {
+		writeNAD(&b, req)
+	}
+	writeNetworkPolicy(&b, req)
+	writeDataVolume(&b, req, profile)
+	writeVM(&b, req, profile)
+	return b.String(), nil
+}
+
+func defaultVMRequest(req VMRequest) VMRequest {
+	if req.Namespace == "" {
+		req.Namespace = "virtual-machines"
+	}
+	if req.OS == "" {
+		req.OS = "ubuntu-24.04"
+	}
+	if req.CPUCores == 0 {
+		req.CPUCores = 2
+	}
+	if req.Memory == "" {
+		req.Memory = "4Gi"
+	}
+	if req.DiskSize == "" {
+		req.DiskSize = "40Gi"
+	}
+	if req.Network.Isolation == "" {
+		req.Network.Isolation = NetworkIsolationPod
+	}
+	if req.Network.Name == "" {
+		req.Network.Name = req.Name + "-net"
+	}
+	if req.Network.CIDR == "" {
+		req.Network.CIDR = "10.42.0.0/24"
+	}
+	if req.Network.Gateway == "" {
+		req.Network.Gateway = "10.42.0.1"
+	}
+	if req.Network.Bridge == "" {
+		req.Network.Bridge = "br-" + req.Namespace
+	}
+	if req.GPU.Enabled && req.GPU.Count == 0 {
+		req.GPU.Count = 1
+	}
+	return req
+}
+
+func validateVMRequest(req VMRequest) error {
+	if !dnsName.MatchString(req.Name) {
+		return fmt.Errorf("VM name %q must be a DNS-compatible lowercase name", req.Name)
+	}
+	if !dnsName.MatchString(req.Namespace) {
+		return fmt.Errorf("VM namespace %q must be a DNS-compatible lowercase name", req.Namespace)
+	}
+	if _, ok := osProfiles[req.OS]; !ok {
+		return fmt.Errorf("unknown VM OS profile %q", req.OS)
+	}
+	if req.Network.Isolation != NetworkIsolationPod && req.Network.Isolation != NetworkIsolationMultus {
+		return fmt.Errorf("unsupported network isolation mode %q", req.Network.Isolation)
+	}
+	if req.Network.Isolation == NetworkIsolationMultus && !dnsName.MatchString(req.Network.Name) {
+		return fmt.Errorf("network attachment name %q must be DNS-compatible", req.Network.Name)
+	}
+	if req.GPU.Enabled && strings.TrimSpace(req.GPU.ResourceName) == "" {
+		return fmt.Errorf("GPU-enabled VMs require a KubeVirt permittedHostDevices resource name such as nvidia.com/GA100_A100_PCIE_40GB")
+	}
+	return nil
+}
+
+func writeNamespace(b *strings.Builder, req VMRequest) {
+	fmt.Fprintf(b, `apiVersion: v1
+kind: Namespace
+metadata:
+  name: %s
+  labels:
+    app.kubernetes.io/part-of: ubiquity-virtual-machines
+    ubiquity.ai/vm-tenant: %s
+---
+`, req.Namespace, req.Namespace)
+}
+
+func writeNAD(b *strings.Builder, req VMRequest) {
+	fmt.Fprintf(b, `apiVersion: k8s.cni.cncf.io/v1
+kind: NetworkAttachmentDefinition
+metadata:
+  name: %s
+  namespace: %s
+  labels:
+    app.kubernetes.io/part-of: ubiquity-virtual-machines
+    ubiquity.ai/network-isolation: multus
+spec:
+  config: '{"cniVersion":"0.3.1","type":"bridge","bridge":"%s","ipam":{"type":"host-local","subnet":"%s","gateway":"%s"}}'
+---
+`, req.Network.Name, req.Namespace, req.Network.Bridge, req.Network.CIDR, req.Network.Gateway)
+}
+
+func writeNetworkPolicy(b *strings.Builder, req VMRequest) {
+	fmt.Fprintf(b, `apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: %s-default-deny
+  namespace: %s
+  labels:
+    app.kubernetes.io/part-of: ubiquity-virtual-machines
+spec:
+  podSelector:
+    matchLabels:
+      kubevirt.io/domain: %s
+  policyTypes:
+    - Ingress
+    - Egress
+---
+`, req.Name, req.Namespace, req.Name)
+}
+
+func writeDataVolume(b *strings.Builder, req VMRequest, profile OSProfile) {
+	fmt.Fprintf(b, `apiVersion: cdi.kubevirt.io/v1beta1
+kind: DataVolume
+metadata:
+  name: %s-rootdisk
+  namespace: %s
+  labels:
+    app.kubernetes.io/part-of: ubiquity-virtual-machines
+    ubiquity.ai/os-profile: %s
+spec:
+  source:
+    http:
+      url: %s
+  pvc:
+    accessModes:
+      - ReadWriteOnce
+    resources:
+      requests:
+        storage: %s
+`, req.Name, req.Namespace, req.OS, profile.SourceURL, req.DiskSize)
+	if req.StorageClass != "" {
+		fmt.Fprintf(b, "    storageClassName: %s\n", req.StorageClass)
+	}
+	b.WriteString("---\n")
+}
+
+func writeVM(b *strings.Builder, req VMRequest, profile OSProfile) {
+	fmt.Fprintf(b, `apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  name: %s
+  namespace: %s
+  labels:
+    app.kubernetes.io/part-of: ubiquity-virtual-machines
+    kubevirt.io/domain: %s
+    ubiquity.ai/os-profile: %s
+    ubiquity.ai/network-isolation: %s
+  annotations:
+    ubiquity.ai/source: kubevirt-cdi-multus
+    ubiquity.ai/os-display-name: %q
+    ubiquity.ai/gpu-note: "KubeVirt GPU access requires permittedHostDevices and NVIDIA GPU Operator/device-plugin resources on VM-capable nodes."
+spec:
+  runStrategy: Manual
+  template:
+    metadata:
+      labels:
+        kubevirt.io/domain: %s
+        ubiquity.ai/vm-name: %s
+    spec:
+      domain:
+        cpu:
+          cores: %d
+        resources:
+          requests:
+            memory: %s
+        devices:
+          disks:
+            - name: rootdisk
+              disk:
+                bus: virtio
+            - name: cloudinitdisk
+              disk:
+                bus: virtio
+`, req.Name, req.Namespace, req.Name, req.OS, req.Network.Isolation, profile.DisplayName, req.Name, req.Name, req.CPUCores, req.Memory)
+	if req.GPU.Enabled {
+		for i := 0; i < req.GPU.Count; i++ {
+			fmt.Fprintf(b, "          gpus:\n")
+			break
+		}
+		for i := 0; i < req.GPU.Count; i++ {
+			fmt.Fprintf(b, "            - name: gpu%d\n              deviceName: %s\n", i, req.GPU.ResourceName)
+		}
+	}
+	fmt.Fprintf(b, `      networks:
+        - name: podnet
+          pod: {}
+`)
+	if req.Network.Isolation == NetworkIsolationMultus {
+		fmt.Fprintf(b, "        - name: isolated-net\n          multus:\n            networkName: %s\n", req.Network.Name)
+	}
+	fmt.Fprintf(b, `      volumes:
+        - name: rootdisk
+          dataVolume:
+            name: %s-rootdisk
+        - name: cloudinitdisk
+          cloudInitNoCloud:
+            userData: |-
+              #cloud-config
+              ssh_authorized_keys:
+                - %s
+              package_update: true
+`, req.Name, req.SSHAuthorizedKey)
+}

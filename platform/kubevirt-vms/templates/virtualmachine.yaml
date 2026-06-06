@@ -1,0 +1,76 @@
+{{- if .Values.vm.enabled }}
+{{- $profile := index .Values.vm.osProfiles .Values.vm.os }}
+{{- if not $profile }}{{ fail (printf "unknown vm.os %q" .Values.vm.os) }}{{- end }}
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  name: {{ .Values.vm.name }}
+  namespace: {{ .Values.vm.namespace }}
+  labels:
+    kubevirt.io/domain: {{ .Values.vm.name }}
+    {{- include "kubevirt-vms.labels" . | nindent 4 }}
+    {{- with .Values.vm.labels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  annotations:
+    ubiquity.ai/source: kubevirt-cdi-multus
+    ubiquity.ai/os-display-name: {{ $profile.displayName | quote }}
+    ubiquity.ai/gpu-note: "KubeVirt GPU access requires permittedHostDevices and NVIDIA GPU Operator/device-plugin resources on VM-capable nodes."
+    {{- with .Values.vm.annotations }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+spec:
+  runStrategy: {{ ternary "Always" "Manual" .Values.vm.running }}
+  template:
+    metadata:
+      labels:
+        kubevirt.io/domain: {{ .Values.vm.name }}
+        ubiquity.ai/vm-name: {{ .Values.vm.name }}
+    spec:
+      domain:
+        cpu:
+          cores: {{ .Values.vm.cpuCores }}
+        resources:
+          requests:
+            memory: {{ .Values.vm.memory }}
+        devices:
+          disks:
+            - name: rootdisk
+              disk:
+                bus: virtio
+            - name: cloudinitdisk
+              disk:
+                bus: virtio
+          {{- if .Values.vm.gpu.enabled }}
+          gpus:
+          {{- range $i := until (int .Values.vm.gpu.count) }}
+            - name: gpu{{ $i }}
+              deviceName: {{ $.Values.vm.gpu.resourceName }}
+          {{- end }}
+          {{- end }}
+      networks:
+        - name: podnet
+          pod: {}
+        {{- if eq .Values.vm.networkIsolation "multus" }}
+        - name: isolated-net
+          multus:
+            networkName: {{ .Values.vm.network.name }}
+        {{- end }}
+      volumes:
+        - name: rootdisk
+          dataVolume:
+            name: {{ .Values.vm.name }}-rootdisk
+        - name: cloudinitdisk
+          cloudInitNoCloud:
+            userData: |-
+              #cloud-config
+              ssh_authorized_keys:
+              {{- if .Values.vm.sshAuthorizedKeys }}
+              {{- range .Values.vm.sshAuthorizedKeys }}
+                - {{ . | quote }}
+              {{- end }}
+              {{- else }}
+                - "replace-with-authorized-key"
+              {{- end }}
+              package_update: true
+{{- end }}

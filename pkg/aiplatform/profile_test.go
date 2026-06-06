@@ -50,6 +50,26 @@ func TestProductionProfileRequiresServingNetworkAndValidation(t *testing.T) {
 	}
 }
 
+func TestAIProductionProfileIncludesKubeVirtVirtualization(t *testing.T) {
+	profile, err := GetProfile("ai-production")
+	if err != nil {
+		t.Fatalf("GetProfile(ai-production) returned error: %v", err)
+	}
+	if !profile.HasCapability(CapabilityVirtualization) {
+		t.Fatal("ai-production profile must include virtualization capability for KubeVirt VMs")
+	}
+	components := profile.ComponentsByName()
+	for _, name := range []string{"kubevirt", "containerized-data-importer", "multus-cni"} {
+		component, ok := components[name]
+		if !ok {
+			t.Fatalf("ai-production profile missing %s component", name)
+		}
+		if component.SourceRepo == "" {
+			t.Fatalf("%s component must include source repo", name)
+		}
+	}
+}
+
 func TestUnknownProfileFailsClosed(t *testing.T) {
 	_, err := GetProfile("unknown")
 	if err == nil {

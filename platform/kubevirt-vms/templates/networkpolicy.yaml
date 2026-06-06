@@ -1,0 +1,16 @@
+{{- if and .Values.vm.enabled .Values.networkPolicy.enabled .Values.networkPolicy.defaultDeny }}
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ .Values.vm.name }}-default-deny
+  namespace: {{ .Values.vm.namespace }}
+  labels:
+    {{- include "kubevirt-vms.labels" . | nindent 4 }}
+spec:
+  podSelector:
+    matchLabels:
+      kubevirt.io/domain: {{ .Values.vm.name }}
+  policyTypes:
+    - Ingress
+    - Egress
+{{- end }}

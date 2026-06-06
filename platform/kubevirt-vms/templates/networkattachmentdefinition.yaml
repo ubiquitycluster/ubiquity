@@ -1,0 +1,11 @@
+{{- if and .Values.vm.enabled (eq .Values.vm.networkIsolation "multus") }}
+apiVersion: k8s.cni.cncf.io/v1
+kind: NetworkAttachmentDefinition
+metadata:
+  name: {{ .Values.vm.network.name }}
+  namespace: {{ .Values.vm.namespace }}
+  labels:
+    {{- include "kubevirt-vms.labels" . | nindent 4 }}
+spec:
+  config: {{ printf `{"cniVersion":"%s","type":"bridge","bridge":"%s","ipam":{"type":"host-local","subnet":"%s","gateway":"%s"}}` .Values.vm.network.cniVersion .Values.vm.network.bridge .Values.vm.network.cidr .Values.vm.network.gateway | quote }}
+{{- end }}
