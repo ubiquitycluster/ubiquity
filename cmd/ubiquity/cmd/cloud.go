@@ -13,6 +13,7 @@ import (
 type cloudOptions struct {
 	DryRun bool
 	VMDisk cloud.VMDiskRequest
+	Tenant cloud.TenantVPCRequest
 }
 
 var cloudOpts = cloudOptions{
@@ -22,6 +23,14 @@ var cloudOpts = cloudOptions{
 		Namespace: "virtual-machines",
 		Size:      "40Gi",
 		Source:    cloud.VMDiskSource{Type: cloud.VMDiskSourceBlank},
+	},
+	Tenant: cloud.TenantVPCRequest{
+		Tenant:      "tenant-a",
+		CIDR:        "10.60.0.0/24",
+		Gateway:     "10.60.0.1",
+		Bridge:      "br-tenant-a",
+		CPUQuota:    "100",
+		MemoryQuota: "512Gi",
 	},
 }
 
@@ -48,6 +57,13 @@ func init() {
 	cloudCmd.PersistentFlags().StringVar(&cloudOpts.VMDisk.Source.URL, "source-url", "", "HTTP source URL for imported disks")
 	cloudCmd.PersistentFlags().StringVar(&cloudOpts.VMDisk.Source.PVCName, "source-pvc", "", "source PVC name for cloned disks")
 	cloudCmd.PersistentFlags().StringVar(&cloudOpts.VMDisk.Source.PVCNamespace, "source-pvc-namespace", "", "source PVC namespace for cloned disks")
+	cloudCmd.PersistentFlags().StringVar(&cloudOpts.Tenant.Tenant, "tenant", cloudOpts.Tenant.Tenant, "tenant name for VPC resources")
+	cloudCmd.PersistentFlags().StringVar(&cloudOpts.Tenant.CIDR, "cidr", cloudOpts.Tenant.CIDR, "tenant VPC CIDR")
+	cloudCmd.PersistentFlags().StringVar(&cloudOpts.Tenant.Gateway, "gateway", cloudOpts.Tenant.Gateway, "tenant VPC gateway")
+	cloudCmd.PersistentFlags().StringVar(&cloudOpts.Tenant.Bridge, "bridge", cloudOpts.Tenant.Bridge, "tenant VPC Multus bridge")
+	cloudCmd.PersistentFlags().StringVar(&cloudOpts.Tenant.CPUQuota, "cpu-quota", cloudOpts.Tenant.CPUQuota, "tenant CPU quota")
+	cloudCmd.PersistentFlags().StringVar(&cloudOpts.Tenant.MemoryQuota, "memory-quota", cloudOpts.Tenant.MemoryQuota, "tenant memory quota")
+	cloudCmd.PersistentFlags().StringVar(&cloudOpts.Tenant.GPUQuota, "gpu-quota", cloudOpts.Tenant.GPUQuota, "tenant GPU quota")
 
 	renderCmd := &cobra.Command{Use: "render RESOURCE", Short: "Render a cloud primitive", Args: cobra.ExactArgs(1), RunE: runCloudRender}
 	applyCmd := &cobra.Command{Use: "apply RESOURCE", Short: "Apply a cloud primitive", Args: cobra.ExactArgs(1), RunE: runCloudApply}
@@ -86,6 +102,11 @@ func renderCloudResource(resource string) (string, error) {
 	switch resource {
 	case "vm-disk", "vmdisk", "disk":
 		return cloud.RenderVMDisk(cloudOpts.VMDisk)
+	case "vpc", "tenant-vpc", "tenant":
+		if cloudOpts.Tenant.Tenant == "tenant-a" && cloudOpts.VMDisk.Name != "data-disk" {
+			cloudOpts.Tenant.Tenant = cloudOpts.VMDisk.Name
+		}
+		return cloud.RenderTenantVPC(cloudOpts.Tenant)
 	default:
 		return "", fmt.Errorf("unsupported cloud resource %q", resource)
 	}

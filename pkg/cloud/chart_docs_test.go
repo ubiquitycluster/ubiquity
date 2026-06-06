@@ -11,6 +11,9 @@ func TestVMDiskChartAndDocsExist(t *testing.T) {
 		"../../platform/kubevirt-vm-disks/Chart.yaml",
 		"../../platform/kubevirt-vm-disks/values.yaml",
 		"../../platform/kubevirt-vm-disks/templates/disk.yaml",
+		"../../platform/tenant-vpc/Chart.yaml",
+		"../../platform/tenant-vpc/values.yaml",
+		"../../platform/tenant-vpc/templates/vpc.yaml",
 		"../../docs/admin-guide/cloud-services.md",
 	} {
 		content, err := os.ReadFile(path)

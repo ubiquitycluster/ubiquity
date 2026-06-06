@@ -21,3 +21,13 @@ ubiquity cloud render vm-disk --name clone-a --namespace tenant-a --source pvc -
 ```
 
 Rendering or applying a disk is not proof that a VM booted from it. CDI import/clone readiness must be checked in-cluster before VM readiness is claimed.
+
+## Tenant VPCs
+
+Tenant VPC rendering creates a namespace, ResourceQuota, Multus `NetworkAttachmentDefinition`, and deny-by-default `NetworkPolicy` pair. This complements the existing Ubiquity AI tenancy and NVIDIA networking work; it does not replace cluster bootstrap, NICo, Cilium, or the NVIDIA Network Operator.
+
+```sh
+ubiquity cloud render vpc --name tenant-a --cidr 10.60.0.0/24 --gateway 10.60.0.1 --bridge br-tenant-a --gpu-quota 8
+```
+
+Each tenant VPC starts closed and only allows same-tenant namespace traffic until additional reviewed policies are added.
