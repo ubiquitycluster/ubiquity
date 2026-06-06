@@ -70,10 +70,11 @@ ubiquity cloud render service --name pg-ai --namespace tenant-a --service-type p
 
 ## Backup, snapshots, and resource presets
 
-Platform ops policies render K8up backup schedules, retained Longhorn-compatible `VolumeSnapshotClass` resources, and resource preset ConfigMaps for tenant self-service defaults. Rendering these resources is not restore proof; operators must validate backup repository access, snapshot creation, and restore drills in-cluster.
+Platform ops policies render K8up backup schedules, retained Longhorn-compatible `VolumeSnapshotClass` resources, restore-drill `Restore` objects, and resource preset ConfigMaps for tenant self-service defaults. Rendering these resources is not restore proof; operators must validate backup repository access, snapshot creation, isolated restore drills, restored data inspection, and application smoke tests in-cluster.
 
 ```sh
 ubiquity cloud render backup-policy --name tenant-a-daily --namespace tenant-a --backup-schedule "0 2 * * *" --backup-retention 30d --backup-repository-secret tenant-a-backup-repo --snapshot-class longhorn-snapshots --preset-name gpu-medium --preset-cpu 16 --preset-memory 128Gi --preset-gpu 1
+ubiquity cloud render restore-drill --name tenant-a-daily --namespace tenant-a --backup-repository-secret tenant-a-backup-repo
 ```
 
 ## Production readiness gates

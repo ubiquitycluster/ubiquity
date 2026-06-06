@@ -10,3 +10,8 @@ policy:
     cpu: "16"
     memory: 128Gi
     gpu: "1"
+  restoreDrill:
+    enabled: true
+    namespace: tenant-a-restore-drill
+    snapshot: latest
+    readinessBoundary: restore-object-rendered-not-restore-proof

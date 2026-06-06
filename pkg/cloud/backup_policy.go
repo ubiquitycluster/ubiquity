@@ -24,6 +24,15 @@ type BackupPolicyRequest struct {
 	PresetGPU            string
 }
 
+// BackupRestoreDrillRequest describes an isolated restore drill for a tenant backup repository.
+type BackupRestoreDrillRequest struct {
+	Name                 string
+	Namespace            string
+	DrillNamespace       string
+	RepositorySecretName string
+	Snapshot             string
+}
+
 // RenderBackupPolicy renders K8up, VolumeSnapshotClass, and resource preset primitives.
 func RenderBackupPolicy(req BackupPolicyRequest) (string, error) {
 	req = defaultBackupPolicy(req)
@@ -126,6 +135,86 @@ func validateBackupPolicy(req BackupPolicyRequest) error {
 	days, _ := strconv.Atoi(match[1])
 	if days < 1 || days > 3650 {
 		return fmt.Errorf("backup policy retention must be between 1d and 3650d")
+	}
+	return nil
+}
+
+// RenderBackupRestoreDrill renders an isolated K8up Restore plus reviewer checklist metadata.
+func RenderBackupRestoreDrill(req BackupRestoreDrillRequest) (string, error) {
+	req = defaultBackupRestoreDrill(req)
+	if err := validateBackupRestoreDrill(req); err != nil {
+		return "", err
+	}
+	return fmt.Sprintf(`apiVersion: v1
+kind: Namespace
+metadata:
+  name: %s
+  labels:
+    ubiquity.ai/restore-drill: %s
+---
+apiVersion: k8up.io/v1
+kind: Restore
+metadata:
+  name: %s-restore-drill
+  namespace: %s
+  labels:
+    ubiquity.ai/restore-drill: %s
+spec:
+  snapshot: %s
+  restoreMethod: folder
+  restoreTarget:
+    volume:
+      claimName: %s-restore-target
+  backend:
+    repositorySecretRef:
+      name: %s
+      key: password
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: %s-restore-drill-checklist
+  namespace: %s
+  labels:
+    ubiquity.ai/restore-drill: %s
+data:
+  readinessBoundary: restore-object-rendered-not-restore-proof
+  requiredEvidence: |
+    - Restore status condition reports completion.
+    - Restored PVC/data is inspected in the isolated drill namespace.
+    - Application smoke test passes against restored data.
+    - Drill namespace is deleted after evidence is captured.
+`, req.DrillNamespace, req.Name, req.Name, req.DrillNamespace, req.Name, req.Snapshot, req.Name, req.RepositorySecretName, req.Name, req.DrillNamespace, req.Name), nil
+}
+
+func defaultBackupRestoreDrill(req BackupRestoreDrillRequest) BackupRestoreDrillRequest {
+	if req.Name == "" {
+		req.Name = "tenant-a-daily"
+	}
+	if req.Namespace == "" {
+		req.Namespace = "tenant-a"
+	}
+	if req.DrillNamespace == "" {
+		req.DrillNamespace = req.Namespace + "-restore-drill"
+	}
+	if req.RepositorySecretName == "" {
+		req.RepositorySecretName = req.Name + "-repo"
+	}
+	if req.Snapshot == "" {
+		req.Snapshot = "latest"
+	}
+	return req
+}
+
+func validateBackupRestoreDrill(req BackupRestoreDrillRequest) error {
+	if !kubeName.MatchString(req.Name) || !kubeName.MatchString(req.Namespace) || !kubeName.MatchString(req.DrillNamespace) || !kubeName.MatchString(req.RepositorySecretName) {
+		return fmt.Errorf("restore drill names must be DNS-compatible")
+	}
+	if req.DrillNamespace == req.Namespace {
+		return fmt.Errorf("restore drill namespace must be isolated from production namespace %q", req.Namespace)
+	}
+	if strings.TrimSpace(req.Snapshot) == "" {
+		return fmt.Errorf("restore drill snapshot is required")
 	}
 	return nil
 }

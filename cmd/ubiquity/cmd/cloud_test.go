@@ -95,6 +95,18 @@ func TestCloudCollectReadinessOutputsEvidenceJSON(t *testing.T) {
 	}
 }
 
+func TestCloudRenderBackupRestoreDrillProducesIsolatedRestore(t *testing.T) {
+	manifest, err := renderCloudResource("restore-drill")
+	if err != nil {
+		t.Fatalf("render restore-drill returned error: %v", err)
+	}
+	for _, required := range []string{"kind: Restore", "restoreMethod: folder", "restore-drill", "readinessBoundary"} {
+		if !strings.Contains(manifest, required) {
+			t.Fatalf("manifest missing %q:\n%s", required, manifest)
+		}
+	}
+}
+
 func TestCloudReadinessEvaluatesEvidenceFile(t *testing.T) {
 	old := cloudOpts
 	defer func() { cloudOpts = old }()

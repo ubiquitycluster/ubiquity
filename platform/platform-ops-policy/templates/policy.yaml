@@ -43,3 +43,46 @@ data:
   {{- if .Values.policy.preset.gpu }}
   nvidia.com/gpu: {{ .Values.policy.preset.gpu | quote }}
   {{- end }}
+{{- if .Values.policy.restoreDrill.enabled }}
+{{- /* readiness boundary: restore-object-rendered-not-restore-proof */}}
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ .Values.policy.restoreDrill.namespace }}
+  labels:
+    ubiquity.ai/restore-drill: {{ .Values.policy.name }}
+---
+apiVersion: k8up.io/v1
+kind: Restore
+metadata:
+  name: {{ .Values.policy.name }}-restore-drill
+  namespace: {{ .Values.policy.restoreDrill.namespace }}
+  labels:
+    ubiquity.ai/restore-drill: {{ .Values.policy.name }}
+spec:
+  snapshot: {{ .Values.policy.restoreDrill.snapshot }}
+  restoreMethod: folder
+  restoreTarget:
+    volume:
+      claimName: {{ .Values.policy.name }}-restore-target
+  backend:
+    repositorySecretRef:
+      name: {{ .Values.policy.repositorySecretName }}
+      key: password
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.policy.name }}-restore-drill-checklist
+  namespace: {{ .Values.policy.restoreDrill.namespace }}
+  labels:
+    ubiquity.ai/restore-drill: {{ .Values.policy.name }}
+data:
+  readinessBoundary: {{ .Values.policy.restoreDrill.readinessBoundary }}
+  requiredEvidence: |
+    - Restore status condition reports completion.
+    - Restored PVC/data is inspected in the isolated drill namespace.
+    - Application smoke test passes against restored data.
+    - Drill namespace is deleted after evidence is captured.
+{{- end }}

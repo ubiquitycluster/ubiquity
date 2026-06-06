@@ -15,7 +15,8 @@
         "retentionDays",
         "repositorySecretName",
         "snapshotClass",
-        "preset"
+        "preset",
+        "restoreDrill"
       ],
       "additionalProperties": false,
       "properties": {
@@ -64,6 +65,33 @@
             },
             "gpu": {
               "type": "string"
+            }
+          }
+        },
+        "restoreDrill": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "enabled",
+            "namespace",
+            "snapshot",
+            "readinessBoundary"
+          ],
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "namespace": {
+              "type": "string",
+              "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+            },
+            "snapshot": {
+              "type": "string",
+              "minLength": 1
+            },
+            "readinessBoundary": {
+              "type": "string",
+              "const": "restore-object-rendered-not-restore-proof"
             }
           }
         }

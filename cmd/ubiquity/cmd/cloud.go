@@ -317,6 +317,14 @@ func renderCloudResource(resource string) (string, error) {
 			cloudOpts.Backup.Namespace = cloudOpts.VMDisk.Namespace
 		}
 		return cloud.RenderBackupPolicy(cloudOpts.Backup)
+	case "restore-drill", "backup-restore", "restore":
+		if cloudOpts.Backup.Name == "tenant-a-daily" && cloudOpts.VMDisk.Name != "data-disk" {
+			cloudOpts.Backup.Name = cloudOpts.VMDisk.Name
+		}
+		if cloudOpts.Backup.Namespace == "tenant-a" && cloudOpts.VMDisk.Namespace != "virtual-machines" {
+			cloudOpts.Backup.Namespace = cloudOpts.VMDisk.Namespace
+		}
+		return cloud.RenderBackupRestoreDrill(cloud.BackupRestoreDrillRequest{Name: cloudOpts.Backup.Name, Namespace: cloudOpts.Backup.Namespace, RepositorySecretName: cloudOpts.Backup.RepositorySecretName})
 	case "prerequisites", "prereqs", "requirements":
 		return cloud.RenderCloudPrerequisites(cloud.CloudPrerequisitesRequest{Name: "cloud-prereqs", Namespace: "ubiquity-system"})
 	case "operator-bundles", "operators", "install-plan":
