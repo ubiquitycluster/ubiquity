@@ -39,3 +39,12 @@ Tenant Kubernetes cluster rendering expresses Cluster API/Kamaji-style workload 
 ```sh
 ubiquity cloud render tenant-cluster --name tenant-a-dev --namespace tenant-a --kubernetes-version v1.31.4 --control-plane-class kamaji --node-pool-class nico-managed-workers --worker-replicas 3
 ```
+
+## Managed services
+
+The managed service catalog renders operator-backed service CRs without installing or replacing their operators. Supported first-slice services are `bucket`, `postgres`, `redis`, `kafka`, and `registry`. Production readiness still depends on the matching operator CRD/controller being installed and healthy.
+
+```sh
+ubiquity cloud render service --name datasets --namespace tenant-a --service-type bucket --service-storage-class object-store
+ubiquity cloud render service --name pg-ai --namespace tenant-a --service-type postgres --service-size 200Gi --service-replicas 3
+```

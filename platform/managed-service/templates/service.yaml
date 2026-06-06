@@ -1,0 +1,68 @@
+{{- if eq .Values.service.type "bucket" }}
+apiVersion: objectbucket.io/v1alpha1
+kind: ObjectBucketClaim
+metadata:
+  name: {{ .Values.service.name }}
+  namespace: {{ .Values.service.namespace }}
+  labels:
+    ubiquity.ai/service-type: bucket
+spec:
+  bucketName: {{ .Values.service.name }}
+  storageClassName: {{ .Values.service.storageClassName }}
+{{- else if eq .Values.service.type "postgres" }}
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: {{ .Values.service.name }}
+  namespace: {{ .Values.service.namespace }}
+  labels:
+    ubiquity.ai/service-type: postgres
+spec:
+  instances: {{ .Values.service.replicas }}
+  storage:
+    size: {{ .Values.service.size }}
+    storageClass: {{ .Values.service.storageClassName }}
+{{- else if eq .Values.service.type "redis" }}
+apiVersion: databases.spotahome.com/v1
+kind: RedisFailover
+metadata:
+  name: {{ .Values.service.name }}
+  namespace: {{ .Values.service.namespace }}
+  labels:
+    ubiquity.ai/service-type: redis
+spec:
+  sentinel:
+    replicas: 3
+  redis:
+    replicas: {{ .Values.service.replicas }}
+{{- else if eq .Values.service.type "kafka" }}
+apiVersion: kafka.strimzi.io/v1beta2
+kind: Kafka
+metadata:
+  name: {{ .Values.service.name }}
+  namespace: {{ .Values.service.namespace }}
+  labels:
+    ubiquity.ai/service-type: kafka
+spec:
+  kafka:
+    replicas: {{ .Values.service.replicas }}
+    storage:
+      type: persistent-claim
+      class: {{ .Values.service.storageClassName }}
+      size: {{ .Values.service.size }}
+  zookeeper:
+    replicas: 3
+{{- else if eq .Values.service.type "registry" }}
+apiVersion: goharbor.io/v1alpha1
+kind: Project
+metadata:
+  name: {{ .Values.service.name }}
+  namespace: {{ .Values.service.namespace }}
+  labels:
+    ubiquity.ai/service-type: registry
+spec:
+  public: false
+  storageLimit: {{ .Values.service.size }}
+{{- else }}
+{{- fail "service.type must be bucket, postgres, redis, kafka, or registry" }}
+{{- end }}

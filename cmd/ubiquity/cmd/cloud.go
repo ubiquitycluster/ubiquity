@@ -15,6 +15,7 @@ type cloudOptions struct {
 	VMDisk  cloud.VMDiskRequest
 	Tenant  cloud.TenantVPCRequest
 	Cluster cloud.TenantClusterRequest
+	Service cloud.ManagedServiceRequest
 }
 
 var cloudOpts = cloudOptions{
@@ -40,6 +41,14 @@ var cloudOpts = cloudOptions{
 		ControlPlaneClass: "kamaji",
 		NodePoolClass:     "nico-managed-workers",
 		WorkerReplicas:    3,
+	},
+	Service: cloud.ManagedServiceRequest{
+		Name:         "datasets",
+		Namespace:    "tenant-a",
+		Type:         cloud.ServiceBucket,
+		StorageClass: "standard",
+		Size:         "100Gi",
+		Replicas:     3,
 	},
 }
 
@@ -77,6 +86,10 @@ func init() {
 	cloudCmd.PersistentFlags().StringVar(&cloudOpts.Cluster.ControlPlaneClass, "control-plane-class", cloudOpts.Cluster.ControlPlaneClass, "tenant cluster control-plane class")
 	cloudCmd.PersistentFlags().StringVar(&cloudOpts.Cluster.NodePoolClass, "node-pool-class", cloudOpts.Cluster.NodePoolClass, "tenant cluster node-pool class")
 	cloudCmd.PersistentFlags().IntVar(&cloudOpts.Cluster.WorkerReplicas, "worker-replicas", cloudOpts.Cluster.WorkerReplicas, "tenant cluster worker replicas")
+	cloudCmd.PersistentFlags().StringVar((*string)(&cloudOpts.Service.Type), "service-type", string(cloudOpts.Service.Type), "managed service type (bucket, postgres, redis, kafka, registry)")
+	cloudCmd.PersistentFlags().StringVar(&cloudOpts.Service.StorageClass, "service-storage-class", cloudOpts.Service.StorageClass, "managed service storage class")
+	cloudCmd.PersistentFlags().StringVar(&cloudOpts.Service.Size, "service-size", cloudOpts.Service.Size, "managed service storage size/limit")
+	cloudCmd.PersistentFlags().IntVar(&cloudOpts.Service.Replicas, "service-replicas", cloudOpts.Service.Replicas, "managed service replicas")
 
 	renderCmd := &cobra.Command{Use: "render RESOURCE", Short: "Render a cloud primitive", Args: cobra.ExactArgs(1), RunE: runCloudRender}
 	applyCmd := &cobra.Command{Use: "apply RESOURCE", Short: "Apply a cloud primitive", Args: cobra.ExactArgs(1), RunE: runCloudApply}
@@ -128,6 +141,14 @@ func renderCloudResource(resource string) (string, error) {
 			cloudOpts.Cluster.Namespace = cloudOpts.VMDisk.Namespace
 		}
 		return cloud.RenderTenantKubernetesCluster(cloudOpts.Cluster)
+	case "service", "managed-service", "catalog":
+		if cloudOpts.Service.Name == "datasets" && cloudOpts.VMDisk.Name != "data-disk" {
+			cloudOpts.Service.Name = cloudOpts.VMDisk.Name
+		}
+		if cloudOpts.Service.Namespace == "tenant-a" && cloudOpts.VMDisk.Namespace != "virtual-machines" {
+			cloudOpts.Service.Namespace = cloudOpts.VMDisk.Namespace
+		}
+		return cloud.RenderManagedService(cloudOpts.Service)
 	default:
 		return "", fmt.Errorf("unsupported cloud resource %q", resource)
 	}

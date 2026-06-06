@@ -1,0 +1,7 @@
+service:
+  name: datasets
+  namespace: tenant-a
+  type: bucket
+  storageClassName: standard
+  size: 100Gi
+  replicas: 3
