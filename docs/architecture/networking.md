@@ -1,25 +1,60 @@
 # Networking
 
-As an example of how the networking works (because each system is different), this is an example of how you can
-use cloudflared to setup a tunnel, that goes to and from the cluster.
+Ubiquity treats networking as a layered Kubernetes contract rather than a single ingress diagram. Rendered objects describe intent; readiness evidence must come from controller status, live smoke tests, and policy behavior checks.
+
 ```mermaid
 flowchart TD
   subgraph LAN
-    laptop/desktop/phone <--> LoadBalancer
+    client[operator laptop / tenant client] --> lb[LoadBalancer]
     subgraph k8s[Kubernetes cluster]
-      Pod --> Service
-      Service --> Ingress
-
-      LoadBalancer
-
-      cloudflared
-      cloudflared <--> Ingress
+      pod[Pod] --> svc[Service]
+      svc --> ing[Ingress / HTTPProxy]
+      lb --> ing
+      cf[cloudflared] <--> ing
     end
-    LoadBalancer <--> Ingress
   end
-
-  cloudflared -- outbound --> Cloudflare
-  Internet -- inbound --> Cloudflare
+  cf -- outbound tunnel --> cloudflare[Cloudflare]
+  internet[Internet] -- inbound --> cloudflare
 ```
 
-TODO
+## Baseline policy model
+
+The `system/network-policies` chart defaults to deny-first behavior:
+
+- `default-deny-ingress` selects all pods and denies inbound traffic unless a more specific allow policy exists.
+- `default-deny-egress` selects all pods and denies outbound traffic unless a more specific allow policy exists.
+- `allow-dns` permits DNS egress so service discovery can continue while other egress is denied.
+- Optional `default-allow-*` policies are disabled by default and must be explicitly enabled.
+
+CI runs a dry-run contract for `test/e2e/network-policy-behavior.sh`. A live cluster can run the same script with `UBIQUITY_RUN_NETWORK_POLICY_E2E=true` to prove DNS is allowed and arbitrary HTTP traffic is blocked by default-deny policies.
+
+## Tenant and AI networking
+
+Tenant service networking uses Kubernetes Services, ingress resources, Gateway API resources, and service-specific operators. AI/RDMA networking adds Multus `NetworkAttachmentDefinition` evidence and NVIDIA RDMA resources such as `nvidia.com/rdma` when the NVIDIA Network Operator path is enabled.
+
+For NVIDIA AI workloads, readiness must show:
+
+- network operator or Multus control-plane resources exist and report ready;
+- `NetworkAttachmentDefinition` resources are present for RDMA-capable attachments;
+- Kubernetes nodes expose positive `nvidia.com/rdma` allocatable capacity where RDMA is required;
+- the `rdma-network-smoke-test-passed` marker exists after a real smoke test.
+
+A rendered `NetworkAttachmentDefinition`, Service, Ingress, HTTPProxy, or TCPRoute is not proof of service readiness. It only proves intended configuration. Readiness evidence requires reconciled status conditions and smoke tests.
+
+## Cloudflared boundary
+
+`cloudflared` is an optional ingress tunnel pattern. It can expose cluster ingress through an outbound tunnel, but it does not replace Kubernetes readiness checks. A healthy tunnel is not proof that tenant services, NIM endpoints, object buckets, databases, or restore drills are ready.
+
+## Validation commands
+
+```sh
+helm lint system/network-policies
+helm template network-policies system/network-policies
+test/e2e/network-policy-behavior.sh --dry-run
+UBIQUITY_RUN_NETWORK_POLICY_E2E=true test/e2e/network-policy-behavior.sh
+ubiquity cloud collect-readiness > /tmp/cloud-readiness-evidence.json
+ubiquity cloud readiness --readiness-file /tmp/cloud-readiness-evidence.json
+ubiquity health --ai
+```
+
+The readiness commands fail closed. Missing CRDs, absent controller conditions, missing network smoke markers, or object-only evidence must keep the platform not ready.
