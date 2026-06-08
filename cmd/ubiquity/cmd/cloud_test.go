@@ -7,6 +7,8 @@ import (
 	"path/filepath"
 	"strings"
 	"testing"
+
+	"github.com/ubiquitycluster/ubiquity/pkg/cloud"
 )
 
 func TestCloudRenderVMDiskProducesStandaloneDisk(t *testing.T) {
@@ -95,6 +97,25 @@ func TestCloudCollectReadinessOutputsEvidenceJSON(t *testing.T) {
 	}
 }
 
+func TestParseKubectlResourceEvidenceConvertsPVCPhaseToBoundCondition(t *testing.T) {
+	resources, err := parseKubectlResourceEvidence([]byte(`{"items":[{"kind":"PersistentVolumeClaim","metadata":{"namespace":"tenant-a","name":"ubuntu-dev-root"},"status":{"phase":"Bound"}}]}`))
+	if err != nil {
+		t.Fatalf("parse PVC evidence: %v", err)
+	}
+	if len(resources) != 1 || !cloudTestHasCondition(resources[0].Conditions, "Bound", "True") {
+		t.Fatalf("expected PVC Bound=True condition, got %#v", resources)
+	}
+}
+
+func cloudTestHasCondition(conditions []cloud.CloudCondition, typ, status string) bool {
+	for _, condition := range conditions {
+		if condition.Type == typ && condition.Status == status {
+			return true
+		}
+	}
+	return false
+}
+
 func TestCloudRenderBackupRestoreDrillProducesIsolatedRestore(t *testing.T) {
 	manifest, err := renderCloudResource("restore-drill")
 	if err != nil {
@@ -119,6 +140,15 @@ func TestDefaultCloudReadinessResourcesIncludeExpandedManagedServices(t *testing
 func TestDefaultCloudReadinessResourcesIncludeRestoreDrillEvidence(t *testing.T) {
 	resources := strings.Join(defaultCloudReadinessResources(), "\n")
 	for _, required := range []string{"restores.k8up.io", "schedules.k8up.io"} {
+		if !strings.Contains(resources, required) {
+			t.Fatalf("default readiness resources missing %q in %s", required, resources)
+		}
+	}
+}
+
+func TestDefaultCloudReadinessResourcesIncludeKubeVirtBootEvidence(t *testing.T) {
+	resources := strings.Join(defaultCloudReadinessResources(), "\n")
+	for _, required := range []string{"datavolumes.cdi.kubevirt.io", "persistentvolumeclaims", "virtualmachines.kubevirt.io", "virtualmachineinstances.kubevirt.io"} {
 		if !strings.Contains(resources, required) {
 			t.Fatalf("default readiness resources missing %q in %s", required, resources)
 		}

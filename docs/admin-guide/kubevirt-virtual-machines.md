@@ -82,6 +82,16 @@ ubiquity virtual-machines apply --name ubuntu-dev --os ubuntu-24.04
 
 Use `--dry-run=false` only against a cluster with the KubeVirt, CDI, and any required Multus/NVIDIA GPU prerequisites already installed.
 
+Collect fail-closed live readiness for a VM after it has been applied:
+
+```sh
+ubiquity virtual-machines readiness \
+  --name ubuntu-dev \
+  --namespace tenant-a
+```
+
+`virtual-machines readiness` requires all of the following before returning `ready: true`: CDI `DataVolume` import/clone success, bound boot PVC, KubeVirt `VirtualMachine` Ready condition, running `VirtualMachineInstance`, and guest health evidence. Guest health evidence is recorded with a ConfigMap named `<vm-name>-guest-health-passed`, for example `ubuntu-dev-guest-health-passed`, after an operator or smoke job proves cloud-init, guest agent, SSH, and any in-guest GPU checks required by the workload. A render, catalog entry, or server-side dry-run is not guest health evidence.
+
 ## Helm usage
 
 The same contract is available as a chart:

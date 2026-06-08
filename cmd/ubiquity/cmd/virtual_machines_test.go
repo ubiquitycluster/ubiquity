@@ -2,7 +2,6 @@ package cmd
 
 import (
 	"context"
-	"fmt"
 	"strings"
 	"testing"
 
@@ -50,34 +49,65 @@ func TestVirtualMachinesRenderImageCatalogProducesProfiles(t *testing.T) {
 	}
 }
 
-func TestVirtualMachinesApplyUsesServerDryRunByDefault(t *testing.T) {
+func TestVirtualMachinesApplyUsesServerSideDryRun(t *testing.T) {
 	oldRunner := runVirtualMachinesKubectl
 	oldOpts := vmOpts
 	defer func() { runVirtualMachinesKubectl = oldRunner; vmOpts = oldOpts }()
-	var gotArgs []string
-	var gotStdin string
+	var capturedArgs []string
+	var capturedStdin string
 	runVirtualMachinesKubectl = func(ctx context.Context, args []string, stdin []byte) ([]byte, error) {
-		gotArgs = append([]string{}, args...)
-		gotStdin = string(stdin)
-		return []byte("dry-run ok\n"), nil
+		capturedArgs = append([]string{}, args...)
+		capturedStdin = string(stdin)
+		return []byte("server dry-run ok\n"), nil
 	}
 	vmOpts = virtualization.VMRequest{Name: "rocky-gpu", Namespace: "virtual-machines", OS: "rocky-9"}
 	apply := findCommand(virtualMachinesCmd, "apply")
 	if apply == nil {
 		t.Fatal("expected virtual-machines apply subcommand")
 	}
-	out := captureStdout(t, func() {
+	output := captureOutput(func() {
 		if err := apply.RunE(apply, []string{}); err != nil {
 			t.Fatalf("virtual-machines apply failed: %v", err)
 		}
 	})
-	if fmt.Sprint(gotArgs) != "[apply --dry-run=server -f -]" {
-		t.Fatalf("apply should default to server dry-run, got args %v", gotArgs)
+	assertContains(t, output, "server dry-run ok")
+	if strings.Join(capturedArgs, " ") != "apply --dry-run=server -f -" {
+		t.Fatalf("expected server-side dry-run apply, got %v", capturedArgs)
 	}
-	if !strings.Contains(gotStdin, "kind: VirtualMachine") || !strings.Contains(gotStdin, "rocky-9") {
-		t.Fatalf("apply stdin missing VM manifest: %s", gotStdin)
+	assertContains(t, capturedStdin, "kind: VirtualMachine")
+}
+
+func TestVirtualMachinesReadinessCollectsCDIPVCVMAndGuestEvidence(t *testing.T) {
+	oldRunner := runVirtualMachinesKubectl
+	oldOpts := vmOpts
+	defer func() { runVirtualMachinesKubectl = oldRunner; vmOpts = oldOpts }()
+	vmOpts = virtualization.VMRequest{Name: "ubuntu-dev", Namespace: "tenant-a", OS: "ubuntu-24.04"}
+	runVirtualMachinesKubectl = func(ctx context.Context, args []string, stdin []byte) ([]byte, error) {
+		switch strings.Join(args, " ") {
+		case "-n tenant-a get datavolume ubuntu-dev-root -o jsonpath={.status.conditions[?(@.type==\"Ready\")].status}":
+			return []byte("True"), nil
+		case "-n tenant-a get pvc ubuntu-dev-root -o jsonpath={.status.phase}":
+			return []byte("Bound"), nil
+		case "-n tenant-a get virtualmachine ubuntu-dev -o jsonpath={.status.conditions[?(@.type==\"Ready\")].status}":
+			return []byte("True"), nil
+		case "-n tenant-a get virtualmachineinstance ubuntu-dev -o jsonpath={.status.phase}":
+			return []byte("Running"), nil
+		case "-n tenant-a get configmap ubuntu-dev-guest-health-passed":
+			return []byte("ok"), nil
+		default:
+			t.Fatalf("unexpected kubectl args: %v", args)
+		}
+		return nil, nil
 	}
-	if !strings.Contains(out, "dry-run ok") {
-		t.Fatalf("expected kubectl output, got %q", out)
+	readiness := findCommand(virtualMachinesCmd, "readiness")
+	if readiness == nil {
+		t.Fatal("expected virtual-machines readiness subcommand")
 	}
+	output := captureOutput(func() {
+		if err := readiness.RunE(readiness, []string{}); err != nil {
+			t.Fatalf("virtual-machines readiness failed: %v", err)
+		}
+	})
+	assertContains(t, output, "ready: true")
+	assertContains(t, output, "guest health evidence present")
 }

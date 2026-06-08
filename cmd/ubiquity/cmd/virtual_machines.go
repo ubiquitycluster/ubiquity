@@ -72,8 +72,9 @@ func init() {
 	renderCmd := &cobra.Command{Use: "render", Short: "Render KubeVirt VM manifests", Args: cobra.NoArgs, RunE: runVirtualMachinesRender}
 	applyCmd := &cobra.Command{Use: "apply", Short: "Apply KubeVirt VM manifests", Args: cobra.NoArgs, RunE: runVirtualMachinesApply}
 	imageCatalogCmd := &cobra.Command{Use: "image-catalog", Short: "Render supported VM image catalog", Args: cobra.NoArgs, RunE: runVirtualMachinesImageCatalog}
+	readinessCmd := &cobra.Command{Use: "readiness", Short: "Collect fail-closed KubeVirt VM readiness evidence", Args: cobra.NoArgs, RunE: runVirtualMachinesReadiness}
 	applyCmd.Flags().BoolVar(&vmApplyDryRun, "dry-run", true, "use kubectl server-side dry-run instead of mutating the cluster")
-	virtualMachinesCmd.AddCommand(renderCmd, applyCmd, imageCatalogCmd)
+	virtualMachinesCmd.AddCommand(renderCmd, applyCmd, imageCatalogCmd, readinessCmd)
 	rootCmd.AddCommand(virtualMachinesCmd)
 }
 
@@ -110,6 +111,66 @@ func runVirtualMachinesApply(cmd *cobra.Command, args []string) error {
 		fmt.Print(string(out))
 	}
 	return err
+}
+
+func runVirtualMachinesReadiness(cmd *cobra.Command, args []string) error {
+	evidence := collectVirtualMachinesReadinessEvidence(cmd.Context(), vmOpts)
+	status := virtualization.EvaluateVMReadiness(evidence)
+	fmt.Print(renderVirtualMachinesReadinessStatus(status))
+	if !status.Ready {
+		return fmt.Errorf("KubeVirt VM %s/%s is not ready", defaultName(vmOpts.Namespace, "default"), defaultName(vmOpts.Name, "unknown"))
+	}
+	return nil
+}
+
+func collectVirtualMachinesReadinessEvidence(ctx context.Context, req virtualization.VMRequest) virtualization.VMReadinessEvidence {
+	bootDisk := req.BootDisk
+	if bootDisk == "" {
+		bootDisk = req.Name + "-root"
+	}
+	return virtualization.VMReadinessEvidence{
+		Namespace:                  req.Namespace,
+		Name:                       req.Name,
+		BootDiskName:               bootDisk,
+		DataVolumeImportReady:      kubectlOutputEquals(ctx, []string{"-n", req.Namespace, "get", "datavolume", bootDisk, "-o", "jsonpath={.status.conditions[?(@.type==\"Ready\")].status}"}, "True"),
+		PersistentVolumeClaimBound: kubectlOutputEquals(ctx, []string{"-n", req.Namespace, "get", "pvc", bootDisk, "-o", "jsonpath={.status.phase}"}, "Bound"),
+		VirtualMachineReady:        kubectlOutputEquals(ctx, []string{"-n", req.Namespace, "get", "virtualmachine", req.Name, "-o", "jsonpath={.status.conditions[?(@.type==\"Ready\")].status}"}, "True"),
+		VirtualMachineRunning:      kubectlOutputEquals(ctx, []string{"-n", req.Namespace, "get", "virtualmachineinstance", req.Name, "-o", "jsonpath={.status.phase}"}, "Running"),
+		GuestAgentReady:            kubectlCommandSucceeds(ctx, []string{"-n", req.Namespace, "get", "configmap", req.Name + "-guest-health-passed"}),
+	}
+}
+
+func renderVirtualMachinesReadinessStatus(status virtualization.VMReadinessStatus) string {
+	var b strings.Builder
+	fmt.Fprintf(&b, "ready: %t\n", status.Ready)
+	if status.Ready {
+		b.WriteString("reasons:\n  []\n")
+		b.WriteString("guest health evidence present\n")
+		return b.String()
+	}
+	b.WriteString("reasons:\n")
+	for _, reason := range status.Reasons {
+		fmt.Fprintf(&b, "  - %s\n", reason)
+	}
+	b.WriteString("policy: fail closed; render/catalog proof is not CDI import, PVC, VM boot, or guest health proof\n")
+	return b.String()
+}
+
+func kubectlOutputEquals(ctx context.Context, args []string, expected string) bool {
+	out, err := runVirtualMachinesKubectl(ctx, args, nil)
+	return err == nil && strings.TrimSpace(string(out)) == expected
+}
+
+func kubectlCommandSucceeds(ctx context.Context, args []string) bool {
+	_, err := runVirtualMachinesKubectl(ctx, args, nil)
+	return err == nil
+}
+
+func defaultName(value, fallback string) string {
+	if value == "" {
+		return fallback
+	}
+	return value
 }
 
 func renderVirtualMachinesManifest() (string, error) {

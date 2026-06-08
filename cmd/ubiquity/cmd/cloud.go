@@ -238,6 +238,7 @@ type kubectlList struct {
 		} `json:"metadata"`
 		Status struct {
 			Conditions []cloud.CloudCondition `json:"conditions"`
+			Phase      string                 `json:"phase"`
 		} `json:"status"`
 	} `json:"items"`
 }
@@ -269,11 +270,18 @@ func parseKubectlResourceEvidence(content []byte) ([]cloud.CloudResourceEvidence
 	}
 	resources := make([]cloud.CloudResourceEvidence, 0, len(list.Items))
 	for _, item := range list.Items {
+		conditions := append([]cloud.CloudCondition{}, item.Status.Conditions...)
+		if strings.EqualFold(item.Status.Phase, "Bound") {
+			conditions = append(conditions, cloud.CloudCondition{Type: "Bound", Status: "True", Reason: "PersistentVolumeClaimBound"})
+		}
+		if strings.EqualFold(item.Status.Phase, "Running") {
+			conditions = append(conditions, cloud.CloudCondition{Type: "Ready", Status: "True", Reason: "PhaseRunning"})
+		}
 		resources = append(resources, cloud.CloudResourceEvidence{
 			Kind:       item.Kind,
 			Namespace:  item.Metadata.Namespace,
 			Name:       item.Metadata.Name,
-			Conditions: item.Status.Conditions,
+			Conditions: conditions,
 		})
 	}
 	return resources, nil
@@ -282,7 +290,9 @@ func parseKubectlResourceEvidence(content []byte) ([]cloud.CloudResourceEvidence
 func defaultCloudReadinessResources() []string {
 	resources := []string{
 		"datavolumes.cdi.kubevirt.io",
+		"persistentvolumeclaims",
 		"virtualmachines.kubevirt.io",
+		"virtualmachineinstances.kubevirt.io",
 		"clusters.cluster.x-k8s.io",
 		"schedules.k8up.io",
 		"restores.k8up.io",
