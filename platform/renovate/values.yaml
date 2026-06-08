@@ -16,6 +16,8 @@
 # limitations under the License.
 
 renovate:
+  apiVersionOverrides:
+    cronjob: batch/v1
   cronjob:
     schedule: 0 9 1 * *    # At 09:00 every month
   renovate:
