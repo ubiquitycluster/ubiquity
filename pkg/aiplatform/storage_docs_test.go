@@ -24,6 +24,7 @@ func TestAIStoreEvaluationDocumentsLonghornReplacementBoundary(t *testing.T) {
 		"aistore-bucket-smoke-test-passed",
 		"aistore-gpu-artifact-read-passed",
 		"aistore-metrics-proven",
+		"test/e2e/aistore-data-plane-smoke.sh",
 		"reported separately from core GPU/NIM/KAI readiness",
 	} {
 		if !strings.Contains(doc, required) {

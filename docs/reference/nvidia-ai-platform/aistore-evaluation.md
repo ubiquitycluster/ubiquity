@@ -64,6 +64,8 @@ Before Ubiquity can mark AIStore ready, collect all of the following:
 - A GPU workload can read a representative model or dataset artifact through the AIS/S3-compatible endpoint. Ubiquity records this with the `aistore-gpu-artifact-read-passed` ConfigMap.
 - Prometheus/metrics or AIS CLI health output is available for operational troubleshooting. Ubiquity records this with the `aistore-metrics-proven` ConfigMap after metrics or health output has been verified.
 
+Run `test/e2e/aistore-data-plane-smoke.sh` on a disposable AIStore cluster with `UBIQUITY_RUN_AISTORE_SMOKE=true` to create the smoke-test markers after the live checks pass. The script skips by default and only records evidence after `ais` object write/read verification and Kubernetes storage/service evidence succeed.
+
 ## Implementation notes for Ubiquity
 
 - `ai-production` may include AIStore as an evaluated optional component.
