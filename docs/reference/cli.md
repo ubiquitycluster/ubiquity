@@ -117,11 +117,15 @@ ubiquity info
 ```
 
 ### health
-Check cluster health.
+Check cluster health. Focused readiness flags fail closed and return a non-zero exit when required live evidence is missing.
 ```
 ubiquity health
+ubiquity health --ai
+ubiquity health --aistore
 ubiquity health --nico
 ```
 
 Flags:
+- `--ai`: run only core NVIDIA AI platform checks for GPU Operator, device plugin, DCGM metrics, RDMA evidence, NIM smoke evidence, and KAI Scheduler evidence.
+- `--aistore`: run only NVIDIA AIStore data-plane checks. AIStore is evaluated as an optional AI dataset/cache/object path and not a generic PVC replacement.
 - `--nico`: run only NVIDIA Infra Controller readiness checks.

@@ -32,6 +32,18 @@ var healthCmd = &cobra.Command{
 			}
 			return nil
 		}
+		aiStoreOnly, err := cmd.Flags().GetBool("aistore")
+		if err != nil {
+			return err
+		}
+		if aiStoreOnly {
+			status := collectAIStoreReadinessSnapshot()
+			fmt.Print(renderAIStoreReadinessStatus(status))
+			if !status.Ready {
+				return fmt.Errorf("NVIDIA AIStore data-plane is not ready")
+			}
+			return nil
+		}
 		nicoOnly, err := cmd.Flags().GetBool("nico")
 		if err != nil {
 			return err
@@ -76,6 +88,7 @@ var healthCmd = &cobra.Command{
 
 func init() {
 	healthCmd.Flags().Bool("ai", false, "run only NVIDIA AI platform readiness checks and fail closed when evidence is missing")
+	healthCmd.Flags().Bool("aistore", false, "run only NVIDIA AIStore data-plane readiness checks and fail closed when evidence is missing")
 	healthCmd.Flags().Bool("nico", false, "run only NVIDIA Infra Controller readiness checks")
 	rootCmd.AddCommand(healthCmd)
 }
