@@ -182,6 +182,7 @@ jobs:
         run: |
           for script in \
             test/e2e/nico-mock-node-lifecycle.sh \
+            test/e2e/nico-virtual-bare-metal-lab.sh \
             test/e2e/nico-bare-metal-node-lifecycle.sh; do
             test -f "$script"
             bash -n "$script"
