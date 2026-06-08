@@ -23,11 +23,12 @@ type CloudResourceEvidence struct {
 
 // CloudReadinessEvidence is the evidence bundle evaluated before claiming cloud readiness.
 type CloudReadinessEvidence struct {
-	RequiredCRDs []string                `json:"requiredCRDs" yaml:"requiredCRDs"`
-	PresentCRDs  []string                `json:"presentCRDs" yaml:"presentCRDs"`
-	Resources    []CloudResourceEvidence `json:"resources" yaml:"resources"`
-	SmokeTests   map[string]bool         `json:"smokeTests" yaml:"smokeTests"`
-	Metadata     map[string]string       `json:"metadata,omitempty" yaml:"metadata,omitempty"`
+	RequiredCRDs       []string                `json:"requiredCRDs" yaml:"requiredCRDs"`
+	PresentCRDs        []string                `json:"presentCRDs" yaml:"presentCRDs"`
+	Resources          []CloudResourceEvidence `json:"resources" yaml:"resources"`
+	RequiredSmokeTests []string                `json:"requiredSmokeTests,omitempty" yaml:"requiredSmokeTests,omitempty"`
+	SmokeTests         map[string]bool         `json:"smokeTests" yaml:"smokeTests"`
+	Metadata           map[string]string       `json:"metadata,omitempty" yaml:"metadata,omitempty"`
 }
 
 // CloudReadinessResult is a fail-closed readiness decision.
@@ -73,6 +74,20 @@ func EvaluateCloudReadiness(ev CloudReadinessEvidence) CloudReadinessResult {
 	sort.Strings(smokeNames)
 	for _, name := range smokeNames {
 		if !ev.SmokeTests[name] {
+			reasons = append(reasons, "smoke test "+name+" did not pass")
+		}
+	}
+	for _, name := range ev.RequiredSmokeTests {
+		name = strings.TrimSpace(name)
+		if name == "" {
+			continue
+		}
+		passed, ok := ev.SmokeTests[name]
+		if !ok {
+			reasons = append(reasons, "missing required smoke test "+name)
+			continue
+		}
+		if !passed {
 			reasons = append(reasons, "smoke test "+name+" did not pass")
 		}
 	}

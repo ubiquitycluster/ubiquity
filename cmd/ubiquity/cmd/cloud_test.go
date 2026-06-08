@@ -85,7 +85,7 @@ func TestCloudCollectReadinessOutputsEvidenceJSON(t *testing.T) {
 			t.Fatalf("collect-readiness failed: %v", err)
 		}
 	})
-	for _, required := range []string{"requiredCRDs", "presentCRDs", "datavolumes.cdi.kubevirt.io", "DataVolume", "ubuntu-root", "ImportSucceeded"} {
+	for _, required := range []string{"requiredCRDs", "requiredSmokeTests", "restore-drill-readable", "presentCRDs", "datavolumes.cdi.kubevirt.io", "DataVolume", "ubuntu-root", "ImportSucceeded"} {
 		if !strings.Contains(out, required) {
 			t.Fatalf("collector output missing %q:\n%s", required, out)
 		}

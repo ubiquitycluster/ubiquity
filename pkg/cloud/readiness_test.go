@@ -55,3 +55,65 @@ func TestRenderCloudReadinessReportIsReviewerReadableAndMachineParseable(t *test
 		}
 	}
 }
+
+func TestCloudReadinessRequiresNamedSmokeTests(t *testing.T) {
+	ev := readyCloudEvidence()
+	ev.RequiredSmokeTests = []string{"postgres-connectivity", "restore-drill-readable"}
+	ev.SmokeTests = map[string]bool{"postgres-connectivity": true}
+
+	result := EvaluateCloudReadiness(ev)
+	if result.Ready {
+		t.Fatalf("expected missing required smoke test to fail closed")
+	}
+	if !containsReason(result.Reasons, "missing required smoke test restore-drill-readable") {
+		t.Fatalf("expected missing smoke test reason, got %v", result.Reasons)
+	}
+}
+
+func TestCloudReadinessRequiresRestoreDrillReadableSmoke(t *testing.T) {
+	ev := readyCloudEvidence()
+	ev.RequiredSmokeTests = RequiredCloudSmokeTests()
+	ev.SmokeTests = map[string]bool{
+		"postgres-connectivity":   true,
+		"redis-connectivity":      true,
+		"kafka-produce-consume":   true,
+		"objectbucket-read-write": true,
+	}
+
+	result := EvaluateCloudReadiness(ev)
+	if result.Ready {
+		t.Fatalf("expected missing restore drill completion proof to fail closed")
+	}
+	if !containsReason(result.Reasons, "missing required smoke test restore-drill-readable") {
+		t.Fatalf("expected restore drill smoke reason, got %v", result.Reasons)
+	}
+}
+
+func TestCloudReadinessPassesWhenRequiredSmokeTestsPass(t *testing.T) {
+	ev := readyCloudEvidence()
+	ev.RequiredSmokeTests = RequiredCloudSmokeTests()
+	ev.SmokeTests = map[string]bool{}
+	for _, name := range ev.RequiredSmokeTests {
+		ev.SmokeTests[name] = true
+	}
+
+	result := EvaluateCloudReadiness(ev)
+	if !result.Ready {
+		t.Fatalf("expected ready evidence with required smoke tests to pass, got %v", result.Reasons)
+	}
+}
+
+func readyCloudEvidence() CloudReadinessEvidence {
+	return CloudReadinessEvidence{
+		RequiredCRDs: []string{"datavolumes.cdi.kubevirt.io"},
+		PresentCRDs:  []string{"datavolumes.cdi.kubevirt.io"},
+		Resources: []CloudResourceEvidence{
+			{Kind: "DataVolume", Namespace: "tenant-a", Name: "ubuntu", Conditions: []CloudCondition{{Type: "Ready", Status: "True"}}},
+		},
+		SmokeTests: map[string]bool{},
+	}
+}
+
+func containsReason(reasons []string, needle string) bool {
+	return strings.Contains(strings.Join(reasons, "\n"), needle)
+}

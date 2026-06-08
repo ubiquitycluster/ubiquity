@@ -191,10 +191,12 @@ func runCloudAuditChecklist(cmd *cobra.Command, args []string) error {
 
 func collectCloudReadinessEvidence(ctx context.Context) (cloud.CloudReadinessEvidence, error) {
 	evidence := cloud.CloudReadinessEvidence{
-		RequiredCRDs: cloud.RequiredCloudCRDs(),
-		SmokeTests:   map[string]bool{},
-		Metadata:     map[string]string{"collector": "ubiquity cloud collect-readiness"},
+		RequiredCRDs:       cloud.RequiredCloudCRDs(),
+		RequiredSmokeTests: cloud.RequiredCloudSmokeTests(),
+		SmokeTests:         map[string]bool{},
+		Metadata:           map[string]string{"collector": "ubiquity cloud collect-readiness"},
 	}
+
 	out, err := runCloudKubectl(ctx, []string{"get", "crd", "-o", "json"}, nil)
 	if err != nil {
 		return evidence, fmt.Errorf("collect CRD readiness evidence: %w", err)

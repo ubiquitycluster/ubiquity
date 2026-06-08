@@ -19,6 +19,7 @@ func RenderCloudProductionAuditChecklist() string {
 		"Install prerequisite CRDs/controllers before applying service intent; record required CRDs and present CRDs.",
 		"Run `ubiquity cloud collect-readiness` and then `ubiquity cloud readiness --readiness-file <file>` until the report contains `ready: true`.",
 		"Prove persistent services with a restore drill; rendered Restore objects are not restore proof.",
+		"Capture required smoke tests: " + strings.Join(RequiredCloudSmokeTests(), ", ") + ".",
 		"For KubeVirt, review the KubeVirt image catalog, standalone disk attachments, CDI import, guest boot, and guest health separately.",
 		"For air-gap environments, verify every operator/chart/image artifact referenced by the install-plan is mirrored and checksummed.",
 	} {
