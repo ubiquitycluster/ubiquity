@@ -5,6 +5,10 @@ on:
     tags:
       - "v*"
 
+permissions:
+  contents: write
+  id-token: write
+
 jobs:
   goreleaser:
     runs-on: ubuntu-latest
@@ -22,3 +26,24 @@ jobs:
           args: release --clean
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Generate release SBOM
+        uses: anchore/sbom-action@v0
+        with:
+          path: dist
+          format: spdx-json
+          output-file: dist/ubiquity.sbom.spdx.json
+      - name: Install cosign
+        uses: sigstore/cosign-installer@v3
+      - name: Sign checksums and SBOM with keyless cosign
+        shell: bash
+        run: |
+          set -euo pipefail
+          cosign sign-blob --yes --output-signature dist/checksums.txt.sig dist/checksums.txt
+          cosign sign-blob --yes --output-signature dist/ubiquity.sbom.spdx.json.sig dist/ubiquity.sbom.spdx.json
+      - name: Upload SBOM and signatures
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/*.sbom.spdx.json
+            dist/*.sbom.spdx.json.sig
+            dist/checksums.txt.sig
