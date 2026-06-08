@@ -169,6 +169,15 @@ jobs:
             fi
           done
 
+      - name: Install Kyverno CLI
+        uses: kyverno/action-install-cli@v0.2.0
+
+      - name: Kyverno policy tests
+        run: kyverno test system/kyverno-policies/kyverno-test
+
+      - name: Network policy behavioral dry-run
+        run: test/e2e/network-policy-behavior.sh --dry-run
+
       - name: Verify NICo E2E script gates
         run: |
           for script in \
