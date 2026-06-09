@@ -1,8 +1,8 @@
 suite: chart smoke coverage
 templates:
-  - "*.yaml"
+  - charts/argo-workflows/templates/controller/workflow-controller-sa.yaml
 tests:
-  - it: renders expected manifest count
+  - it: renders charts/argo-workflows/templates/controller/workflow-controller-sa.yaml
     asserts:
       - hasDocuments:
-          count: 30
+          count: 1

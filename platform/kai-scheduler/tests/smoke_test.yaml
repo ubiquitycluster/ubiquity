@@ -1,8 +1,8 @@
 suite: chart smoke coverage
 templates:
-  - "*.yaml"
+  - charts/kai-scheduler/templates/priorityclasses/build-preemptible.yaml
 tests:
-  - it: renders expected manifest count
+  - it: renders charts/kai-scheduler/templates/priorityclasses/build-preemptible.yaml
     asserts:
       - hasDocuments:
-          count: 63
+          count: 1

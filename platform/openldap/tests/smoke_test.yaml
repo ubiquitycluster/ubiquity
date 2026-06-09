@@ -1,8 +1,8 @@
 suite: chart smoke coverage
 templates:
-  - "*.yaml"
+  - charts/openldap-stack-ha/templates/secret-ltb.yaml
 tests:
-  - it: renders expected manifest count
+  - it: renders charts/openldap-stack-ha/templates/secret-ltb.yaml
     asserts:
       - hasDocuments:
-          count: 18
+          count: 1

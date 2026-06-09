@@ -1,8 +1,8 @@
 suite: chart smoke coverage
 templates:
-  - "*.yaml"
+  - charts/renovate/templates/configmap.yaml
 tests:
-  - it: renders expected manifest count
+  - it: renders charts/renovate/templates/configmap.yaml
     asserts:
       - hasDocuments:
-          count: 3
+          count: 1

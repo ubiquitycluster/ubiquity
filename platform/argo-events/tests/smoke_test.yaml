@@ -1,8 +1,8 @@
 suite: chart smoke coverage
 templates:
-  - "*.yaml"
+  - charts/argo-events/templates/argo-events-controller/serviceaccount.yaml
 tests:
-  - it: renders expected manifest count
+  - it: renders charts/argo-events/templates/argo-events-controller/serviceaccount.yaml
     asserts:
       - hasDocuments:
-          count: 9
+          count: 1

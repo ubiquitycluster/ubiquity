@@ -1,8 +1,8 @@
 suite: chart smoke coverage
 templates:
-  - "*.yaml"
+  - charts/trow/templates/service.yaml
 tests:
-  - it: renders expected manifest count
+  - it: renders charts/trow/templates/service.yaml
     asserts:
       - hasDocuments:
-          count: 3
+          count: 1

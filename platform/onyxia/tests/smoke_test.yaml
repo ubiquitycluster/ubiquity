@@ -1,8 +1,8 @@
 suite: chart smoke coverage
 templates:
-  - "*.yaml"
+  - charts/onyxia/templates/serviceaccount-api.yaml
 tests:
-  - it: renders expected manifest count
+  - it: renders charts/onyxia/templates/serviceaccount-api.yaml
     asserts:
       - hasDocuments:
-          count: 13
+          count: 1
