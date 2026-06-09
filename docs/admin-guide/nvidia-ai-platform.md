@@ -178,17 +178,35 @@ Use this flow for a real GPU environment. Do not skip readiness checks.
 7. Run readiness checks:
 
    ```sh
-   ubiquity health
-   ubiquity info
+   ubiquity health --ai
+   ubiquity info --ai
    ```
 
-8. Run gated GPU E2E only on an appropriate GPU cluster:
+   `ubiquity health --ai` and `ubiquity info --ai` report fail-closed readiness signals for GPU runtime, NVIDIA operator state, NIM serving readiness, KAI scheduler readiness, and NVIDIA Network Operator / RDMA readiness. They require live evidence for GPU Operator operands (driver, runtime/toolkit, device plugin, GPU Feature Discovery, GPU Operator managed DCGM exporter, MIG Manager, and validators), allocatable GPU or MIG resources, NIM smoke evidence, KAI scheduling evidence, and RDMA smoke evidence when RDMA is in the profile.
+
+8. Run focused gated proof paths only on appropriate GPU/RDMA clusters:
+
+   ```sh
+   UBIQUITY_RUN_NIM_GPU_SMOKE=true test/e2e/nim-gpu-serving-smoke.sh
+   UBIQUITY_RUN_NVIDIA_RDMA_SMOKE=true test/e2e/nvidia-rdma-smoke.sh
+   UBIQUITY_RUN_KAI_SMOKE=true test/e2e/kai-scheduler-smoke.sh
+   ```
+
+   The NIM smoke path calls the configured NIM endpoint and writes the `nim-smoke-test-passed` ConfigMap only after the endpoint responds successfully. The RDMA smoke path verifies `nvidia.com/rdma` allocatable resources and `NetworkAttachmentDefinition` evidence before writing `rdma-network-smoke-test-passed`. The KAI smoke path proves queue-backed scheduling before writing `kai-scheduling-smoke-test-passed`.
+
+9. Run gated GPU E2E only on an appropriate GPU cluster:
 
    ```sh
    UBIQUITY_RUN_GPU_E2E=true test/e2e/nvidia-ai-platform.sh
    ```
 
-   The NIM smoke path calls the configured NIM endpoint and writes the `nim-smoke-test-passed` ConfigMap only after the endpoint responds successfully. The readiness collector treats that ConfigMap as evidence that serving was tested rather than merely installed.
+10. Run the final demo path only after the cluster is expected to be fully ready:
+
+   ```sh
+   UBIQUITY_RUN_NVIDIA_AI_FINAL_DEMO=true test/e2e/nvidia-ai-platform-final-demo.sh
+   ```
+
+   The final demo path proves provision, reconcile, schedule, serve, observe, and validate in order. It renders and reconciles the `ai-production` GitOps applications, runs the scheduler/NIM/RDMA smoke paths, proves NVIDIA GPU Operator managed DCGM metrics, calls `ubiquity info --ai`, requires `ubiquity health --ai`, and records `nvidia-ai-final-demo-passed` only after every stage passes.
 
 ## NGC credentials
 

@@ -70,6 +70,15 @@ func TestNvidiaAIPlatformDocsIncludeProvenanceAndOperations(t *testing.T) {
 		"KAI scheduling proof",
 		"Troubleshooting",
 		"ubiquity health",
+		"ubiquity health --ai",
+		"ubiquity info --ai",
+		"test/e2e/nim-gpu-serving-smoke.sh",
+		"UBIQUITY_RUN_NIM_GPU_SMOKE=true",
+		"test/e2e/nvidia-rdma-smoke.sh",
+		"UBIQUITY_RUN_NVIDIA_RDMA_SMOKE=true",
+		"test/e2e/nvidia-ai-platform-final-demo.sh",
+		"UBIQUITY_RUN_NVIDIA_AI_FINAL_DEMO=true",
+		"provision, reconcile, schedule, serve, observe, and validate",
 	} {
 		if !strings.Contains(doc, required) {
 			t.Fatalf("NVIDIA AI platform docs must include %q", required)

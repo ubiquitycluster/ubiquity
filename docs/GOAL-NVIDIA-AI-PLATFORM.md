@@ -149,6 +149,20 @@ Document:
 
 No generated docs or CLI output may claim NVIDIA approval/certification unless explicit approval evidence is attached.
 
+## Implementation status
+
+Current implementation status for this goal:
+
+1. End-to-end GitOps deployment path for a GPU-enabled Kubernetes AI platform is implemented through `ubiquity ai-platform render/apply --profile ai-production`, which emits ArgoCD `Application` resources for the NVIDIA GPU Operator, NVIDIA Network Operator, NIM Operator, KAI Scheduler, and AI workload tenancy charts.
+2. GPU Operator is the primary GPU substrate path. Readiness now fails closed on individual evidence for the driver, runtime/toolkit, device plugin, GPU Feature Discovery, GPU Operator managed DCGM exporter, MIG Manager, validators, and allocatable GPU or MIG resources.
+3. Hand-authored DCGM exporter paths are no longer accepted as production readiness evidence. Production telemetry evidence must come through the NVIDIA GPU Operator managed `gpu-operator/nvidia-dcgm-exporter` service.
+4. NIM Operator-backed serving is proven by the gated `test/e2e/nim-gpu-serving-smoke.sh` path, which requires a real GPU node, waits for a `NIMService`, calls the endpoint with `curl --fail`, and records `nim-smoke-test-passed` only after success.
+5. `ubiquity health --ai` and `ubiquity info --ai` report fail-closed readiness signals for GPU runtime, operator state, NIM serving readiness, KAI scheduler readiness, and NVIDIA Network Operator / RDMA readiness.
+6. NVIDIA Network Operator / RDMA profile readiness is fail-closed through allocatable `nvidia.com/rdma`, `NetworkAttachmentDefinition`, and `rdma-network-smoke-test-passed` evidence.
+7. Ollama is diagnostics-only. The chart is disabled by default and the `ubiquity ai` command describes it as local diagnostics rather than production AI serving.
+8. Gated real-GPU E2E remains skipped by default and runs only when explicitly enabled. Focused proofs are available for NIM, RDMA, KAI scheduling, and the composed GPU E2E path.
+9. The final demo path is `UBIQUITY_RUN_NVIDIA_AI_FINAL_DEMO=true test/e2e/nvidia-ai-platform-final-demo.sh`; it proves provision, reconcile, schedule, serve, observe, and validate in order and records `nvidia-ai-final-demo-passed` only after all stages pass.
+
 ## Acceptance criteria
 
 The goal is complete when:
