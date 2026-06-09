@@ -13,6 +13,7 @@ import (
 
 var aiPlatformProfile string
 var aiPlatformApplyDryRun bool
+var aiPlatformApplyServerSide bool
 
 var runAIPlatformKubectl = func(ctx context.Context, args []string, stdin []byte) ([]byte, error) {
 	cmd := exec.CommandContext(ctx, "kubectl", args...)
@@ -98,6 +99,7 @@ func init() {
 	renderCmd := &cobra.Command{Use: "render", Short: "Render profile manifests", Args: cobra.NoArgs, RunE: runAIPlatformRender}
 	applyCmd := &cobra.Command{Use: "apply", Short: "Apply rendered profile manifests", Args: cobra.NoArgs, RunE: runAIPlatformApply}
 	applyCmd.Flags().BoolVar(&aiPlatformApplyDryRun, "dry-run", true, "use kubectl server-side dry-run instead of mutating the cluster")
+	applyCmd.Flags().BoolVar(&aiPlatformApplyServerSide, "server-side", true, "use kubectl server-side apply for GitOps resources")
 	aiPlatformCmd.AddCommand(renderCmd, applyCmd)
 	rootCmd.AddCommand(aiPlatformCmd)
 }
@@ -119,6 +121,8 @@ func runAIPlatformApply(cmd *cobra.Command, args []string) error {
 	kubectlArgs := []string{"apply"}
 	if aiPlatformApplyDryRun {
 		kubectlArgs = append(kubectlArgs, "--dry-run=server")
+	} else if aiPlatformApplyServerSide {
+		kubectlArgs = append(kubectlArgs, "--server-side")
 	}
 	kubectlArgs = append(kubectlArgs, "-f", "-")
 	out, err := runAIPlatformKubectl(cmd.Context(), kubectlArgs, []byte(renderAIPlatformManifest(profile)))

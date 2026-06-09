@@ -133,6 +133,42 @@ func TestAIPlatformRenderAndApplySubcommandsAreActionable(t *testing.T) {
 	assertContains(t, output, "configmap/ubiquity-ai-platform-profile configured")
 }
 
+func TestAIPlatformApplyCanMutateWithServerSideApply(t *testing.T) {
+	apply := findCommand(aiPlatformCmd, "apply")
+	if apply == nil {
+		t.Fatal("expected ai-platform apply subcommand")
+	}
+	aiPlatformProfile = "ai-production"
+	oldDryRun := aiPlatformApplyDryRun
+	oldServerSide := aiPlatformApplyServerSide
+	defer func() {
+		aiPlatformProfile = "gpu-basic"
+		aiPlatformApplyDryRun = oldDryRun
+		aiPlatformApplyServerSide = oldServerSide
+		apply.Flags().Set("dry-run", "true")
+		apply.Flags().Set("server-side", "true")
+	}()
+	apply.Flags().Set("dry-run", "false")
+	apply.Flags().Set("server-side", "true")
+
+	oldRunner := runAIPlatformKubectl
+	defer func() { runAIPlatformKubectl = oldRunner }()
+	var gotArgs []string
+	runAIPlatformKubectl = func(ctx context.Context, args []string, stdin []byte) ([]byte, error) {
+		gotArgs = append([]string(nil), args...)
+		return []byte("application/ai-platform-nvidia-gpu-operator configured\n"), nil
+	}
+	output := captureOutput(func() {
+		if err := apply.RunE(apply, []string{}); err != nil {
+			t.Fatalf("apply failed: %v", err)
+		}
+	})
+	if fmt.Sprint(gotArgs) != "[apply --server-side -f -]" {
+		t.Fatalf("kubectl args = %#v", gotArgs)
+	}
+	assertContains(t, output, "application/ai-platform-nvidia-gpu-operator configured")
+}
+
 func assertContains(t *testing.T, haystack, needle string) {
 	t.Helper()
 	if !contains(haystack, needle) {
