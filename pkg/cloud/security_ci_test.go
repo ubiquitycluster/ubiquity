@@ -19,3 +19,13 @@ func TestProductionSecurityCIIncludesSBOMAndSigning(t *testing.T) {
 		}
 	}
 }
+
+func TestKyvernoPolicyTestsCoverAllowAndDenyFixtures(t *testing.T) {
+	workflow := mustRead(t, "../../.github/workflows/ci.yaml")
+	testSpec := mustRead(t, "../../system/kyverno-policies/kyverno-test/kyverno-test.yaml")
+	for _, required := range []string{"kyverno test system/kyverno-policies/kyverno-test", "valid-pod", "privileged-pod", "missing-label-pod", "default-network-policy-denies", "result: pass", "result: fail"} {
+		if !strings.Contains(workflow+"\n"+testSpec, required) {
+			t.Fatalf("kyverno CI/test coverage missing %q", required)
+		}
+	}
+}
