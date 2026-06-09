@@ -15,7 +15,7 @@ func TestNodesCommandRegisteredWithSubcommands(t *testing.T) {
 	if cmd.Flags().Lookup("backend") == nil && cmd.PersistentFlags().Lookup("backend") == nil {
 		t.Fatal("expected --backend flag")
 	}
-	for _, name := range []string{"list", "status", "os", "add", "drain", "remove", "reinstall", "power", "task"} {
+	for _, name := range []string{"list", "status", "os", "add", "enroll", "inspect", "image", "cordon", "drain", "maintenance", "remove", "reinstall", "reboot", "power", "task"} {
 		if findCommand(cmd, name) == nil {
 			t.Fatalf("expected nodes %s command", name)
 		}
@@ -25,6 +25,10 @@ func TestNodesCommandRegisteredWithSubcommands(t *testing.T) {
 		if findCommand(osCmd, name) == nil {
 			t.Fatalf("expected nodes os %s command", name)
 		}
+	}
+	statusCmd := findCommand(cmd, "status")
+	if findCommand(statusCmd, "reconcile") == nil {
+		t.Fatalf("expected nodes status reconcile command")
 	}
 }
 

@@ -91,22 +91,32 @@ func init() {
 	nodesCmd.PersistentFlags().BoolVar(&nodeOpts.StorageAcknowledged, "storage-ack", false, "acknowledge local persistent volume storage risk")
 	nodesCmd.PersistentFlags().BoolVar(&nodeOpts.AIStoreAcknowledged, "aistore-ack", false, "acknowledge AIStore target data risk")
 
+	statusCmd := &cobra.Command{Use: "status [node]", Args: cobra.MaximumNArgs(1), RunE: runNodesStatus}
+	statusCmd.AddCommand(&cobra.Command{Use: "reconcile [node]", Short: "Reconcile joined NICo/Kubernetes/NVIDIA node status", Args: cobra.MaximumNArgs(1), RunE: runNodesAction("status reconcile", false)})
+
 	for _, spec := range []struct {
-		use  string
-		args cobra.PositionalArgs
-		run  func(*cobra.Command, []string) error
+		use   string
+		short string
+		args  cobra.PositionalArgs
+		run   func(*cobra.Command, []string) error
 	}{
-		{"list", cobra.NoArgs, runNodesList},
-		{"status [node]", cobra.MaximumNArgs(1), runNodesStatus},
-		{"add <node>", cobra.ExactArgs(1), runNodesAction("add", false)},
-		{"drain <node>", cobra.ExactArgs(1), runNodesAction("drain", true)},
-		{"remove <node>", cobra.ExactArgs(1), runNodesAction("remove", true)},
-		{"reinstall <node>", cobra.ExactArgs(1), runNodesAction("reinstall", true)},
-		{"power <name> on|off|reset", validatePowerArgs, runNodesAction("power", true)},
-		{"task <task-id>", cobra.ExactArgs(1), runNodesTask},
+		{"list", "List NICo-managed nodes", cobra.NoArgs, runNodesList},
+		{"add <node>", "Create a NICo instance request", cobra.ExactArgs(1), runNodesAction("add", false)},
+		{"enroll <node>", "Enroll a physical node through NICo", cobra.ExactArgs(1), runNodesAction("enroll", false)},
+		{"inspect [node]", "Inspect joined NICo/Kubernetes/NVIDIA status", cobra.MaximumNArgs(1), runNodesAction("inspect", false)},
+		{"image [image]", "Apply NICo OperatingSystem image definitions", cobra.MaximumNArgs(1), runNodesAction("image", false)},
+		{"cordon <node>", "Cordon a Kubernetes node before maintenance", cobra.ExactArgs(1), runNodesAction("cordon", false)},
+		{"drain <node>", "Cordon and drain a Kubernetes node", cobra.ExactArgs(1), runNodesAction("drain", true)},
+		{"maintenance <node>", "Put a node into maintenance by cordoning and draining it", cobra.ExactArgs(1), runNodesAction("maintenance", true)},
+		{"remove <node>", "Delete a NICo instance after safety checks", cobra.ExactArgs(1), runNodesAction("remove", true)},
+		{"reinstall <node>", "Reimage a node on the same machine after safety checks", cobra.ExactArgs(1), runNodesAction("reinstall", true)},
+		{"reboot <node>", "Safely reboot a node through NICo power reset", cobra.ExactArgs(1), runNodesAction("reboot", true)},
+		{"power <name> on|off|reset", "Run a NICo power operation", validatePowerArgs, runNodesAction("power", true)},
+		{"task <task-id>", "Inspect a NICo task", cobra.ExactArgs(1), runNodesTask},
 	} {
-		nodesCmd.AddCommand(&cobra.Command{Use: spec.use, Args: spec.args, RunE: spec.run})
+		nodesCmd.AddCommand(&cobra.Command{Use: spec.use, Short: spec.short, Args: spec.args, RunE: spec.run})
 	}
+	nodesCmd.AddCommand(statusCmd)
 
 	osCmd := &cobra.Command{Use: "os", Short: "Manage NICo Operating System objects"}
 	osCmd.AddCommand(&cobra.Command{Use: "list", Args: cobra.NoArgs, RunE: runNodesOSList})
@@ -197,8 +207,12 @@ func runNodesAction(action string, destructive bool) func(*cobra.Command, []stri
 		if action == "power" && len(args) > 1 {
 			powerState = args[1]
 		}
+		if action == "reboot" {
+			powerState = "reset"
+		}
+		canonicalAction := canonicalNodeAction(action)
 		if destructive && (cfg.Mode == nico.ModeMock || nodeOpts.DryRun) {
-			if err := evaluateNodeActionSafety(action, target, powerState, nodestatus.NodeStatus{Name: target}, nil); err != nil {
+			if err := evaluateNodeActionSafety(canonicalAction, target, powerState, nodestatus.NodeStatus{Name: target}, nil); err != nil {
 				return err
 			}
 		}
@@ -221,11 +235,28 @@ func runNodesAction(action string, destructive bool) func(*cobra.Command, []stri
 			if err != nil {
 				return err
 			}
-			if err := evaluateNodeActionSafety(action, resolved.Name, powerState, resolved, statuses); err != nil {
+			if err := evaluateNodeActionSafety(canonicalAction, resolved.Name, powerState, resolved, statuses); err != nil {
 				return err
 			}
 		}
-		return runLiveNodesAction(ctx, client, action, target, powerState, args)
+		return runLiveNodesAction(ctx, client, canonicalAction, target, powerState, args)
+	}
+}
+
+func canonicalNodeAction(action string) string {
+	switch action {
+	case "enroll":
+		return "add"
+	case "inspect", "status reconcile":
+		return "status"
+	case "image":
+		return "os apply"
+	case "reboot":
+		return "power"
+	case "maintenance":
+		return "drain"
+	default:
+		return action
 	}
 }
 
@@ -377,6 +408,20 @@ func runLiveNodesAction(ctx context.Context, client nodesNICOClient, action, tar
 			return err
 		}
 		return renderNodeRows([]map[string]string{{"name": resolved.Name, "id": task.ID, "backend": "nico", "status": string(task.Status), "effect": "power " + powerState, "machineId": resolved.MachineID}}, nodeOpts.Output)
+	case "cordon":
+		statuses, err := collectLiveNodeStatuses(ctx, client)
+		if err != nil {
+			return err
+		}
+		resolved, err := resolveNodeTargetStatus(statuses, target)
+		if err != nil {
+			return err
+		}
+		k8sNode := firstNonEmptyString(resolved.KubernetesNodeName, resolved.Name, target)
+		if _, err := runNodesKubectl(ctx, "cordon", k8sNode); err != nil {
+			return fmt.Errorf("cordon Kubernetes node %q: %w", k8sNode, err)
+		}
+		return renderNodeRows([]map[string]string{{"name": resolved.Name, "id": resolved.InstanceID, "backend": "nico", "status": "cordoned", "effect": "cordoned", "machineId": resolved.MachineID}}, nodeOpts.Output)
 	case "drain":
 		statuses, err := collectLiveNodeStatuses(ctx, client)
 		if err != nil {
