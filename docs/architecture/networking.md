@@ -1,6 +1,6 @@
 # Networking
 
-Ubiquity treats networking as a layered Kubernetes contract rather than a single ingress diagram. Rendered objects describe intent; readiness evidence must come from controller status, live smoke tests, and policy behavior checks.
+Ubiquity treats networking as a layered Kubernetes contract rather than a single ingress diagram. Rendered objects describe intent; readiness evidence must come from controller status, live smoke tests, and policy behavior checks. Cilium is the preferred advanced CNI path when NetworkPolicy observability or Hubble flow inspection is required.
 
 ```mermaid
 flowchart TD
@@ -19,7 +19,7 @@ flowchart TD
 
 ## Baseline policy model
 
-The `system/network-policies` chart defaults to deny-first behavior:
+The `system/network-policies` chart defaults to deny-first NetworkPolicy behavior:
 
 - `default-deny-ingress` selects all pods and denies inbound traffic unless a more specific allow policy exists.
 - `default-deny-egress` selects all pods and denies outbound traffic unless a more specific allow policy exists.
@@ -30,7 +30,7 @@ CI runs a dry-run contract for `test/e2e/network-policy-behavior.sh`. A live clu
 
 ## Tenant and AI networking
 
-Tenant service networking uses Kubernetes Services, ingress resources, Gateway API resources, and service-specific operators. AI/RDMA networking adds Multus `NetworkAttachmentDefinition` evidence and NVIDIA RDMA resources such as `nvidia.com/rdma` when the NVIDIA Network Operator path is enabled.
+Tenant service networking uses Kubernetes Services, ingress resources, Gateway API resources, and service-specific operators. The control plane owns reconciliation and status; tenants consume only namespace-scoped Services, routes, and policies. Storage networking is isolated from tenant ingress paths: Longhorn, object storage, databases, and restore-drill traffic must be validated through their own service readiness markers rather than inferred from a working ingress route. AI/RDMA networking adds Multus `NetworkAttachmentDefinition` evidence and NVIDIA RDMA resources such as `nvidia.com/rdma` when the NVIDIA Network Operator path is enabled.
 
 For NVIDIA AI workloads, readiness must show:
 
