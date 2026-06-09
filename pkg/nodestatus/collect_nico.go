@@ -100,6 +100,13 @@ func CollectNICo(ctx context.Context, source NICoSource, evidence Evidence) ([]N
 			MIGProfiles:        CloneMIGProfiles(k8s.MIGProfiles),
 			RDMAResources:      k8s.RDMAResources,
 			NVIDIAReady:        k8s.NVIDIAReady,
+			BMCStatus:          bmcStatus(machine),
+			KubeletStatus:      kubeletStatus(k8s),
+			GPUStatus:          gpuStatus(nicoGPU.Count, k8s),
+			RDMAStatus:         rdmaStatus(k8s),
+			FirmwareStatus:     "unknown",
+			ImageStatus:        imageStatus(firstNonEmpty(inst.OSImage, inst.OSID)),
+			MaintenanceState:   maintenanceState(machine, inst, nico.Task{}),
 			LastAction:         firstNonEmpty(machine.LastAction, inst.LastAction),
 			Reason:             firstNonEmpty(machine.Reason, inst.Reason),
 		}
@@ -107,6 +114,7 @@ func CollectNICo(ctx context.Context, source NICoSource, evidence Evidence) ([]N
 			status.ActiveTaskID = task.ID
 			status.LastAction = firstNonEmpty(task.Action, status.LastAction)
 			status.Reason = firstNonEmpty(task.Error, status.Reason)
+			status.MaintenanceState = maintenanceState(machine, inst, task)
 		}
 		out = append(out, status)
 	}
@@ -135,6 +143,58 @@ func lookupK8sEvidence(nodes map[string]KubernetesNodeEvidence, keys ...string) 
 func isActiveTask(status string) bool {
 	s := strings.ToLower(status)
 	return s == "pending" || s == "running" || s == "in_progress" || s == "in-progress"
+}
+
+func bmcStatus(machine nico.Machine) string {
+	if strings.TrimSpace(machine.PowerState) == "" {
+		return "unknown"
+	}
+	return "power:" + machine.PowerState
+}
+
+func kubeletStatus(k8s KubernetesNodeEvidence) string {
+	if k8s.Name == "" {
+		return "unknown"
+	}
+	if k8s.Ready {
+		return "Ready"
+	}
+	return "NotReady"
+}
+
+func gpuStatus(nicoGPUs int, k8s KubernetesNodeEvidence) string {
+	if k8s.NVIDIAReady && (k8s.GPUs > 0 || len(k8s.MIGProfiles) > 0) {
+		return "ready"
+	}
+	if nicoGPUs > 0 && k8s.GPUs == 0 && len(k8s.MIGProfiles) == 0 {
+		return "hardware-only"
+	}
+	return "unknown"
+}
+
+func rdmaStatus(k8s KubernetesNodeEvidence) string {
+	if k8s.RDMAResources > 0 {
+		return "ready"
+	}
+	return "unknown"
+}
+
+func imageStatus(osImage string) string {
+	if strings.TrimSpace(osImage) == "" {
+		return "unknown"
+	}
+	return "image:" + osImage
+}
+
+func maintenanceState(machine nico.Machine, inst nico.Instance, task nico.Task) string {
+	if task.ID != "" {
+		return "active-task:" + strings.ToLower(firstNonEmpty(task.Action, string(task.Status)))
+	}
+	last := strings.ToLower(firstNonEmpty(machine.LastAction, inst.LastAction))
+	if strings.Contains(last, "maintenance") || strings.Contains(last, "drain") || strings.Contains(last, "reinstall") || strings.Contains(last, "delete") {
+		return "last-action:" + last
+	}
+	return "normal"
 }
 
 func firstNonEmpty(values ...string) string {

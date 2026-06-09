@@ -446,7 +446,7 @@ func runLiveNodesAction(ctx context.Context, client nodesNICOClient, action, tar
 			if target != "" && target != s.Name && target != s.MachineID && target != s.InstanceID {
 				continue
 			}
-			rows = append(rows, map[string]string{"name": s.Name, "id": s.MachineID, "instance": s.InstanceID, "backend": "nico", "status": firstNonEmptyString(s.MachineStatus, s.InstanceStatus), "site": s.Site, "effect": s.LastAction})
+			rows = append(rows, map[string]string{"name": s.Name, "id": s.MachineID, "instance": s.InstanceID, "backend": "nico", "status": firstNonEmptyString(s.MachineStatus, s.InstanceStatus), "site": s.Site, "effect": s.LastAction, "bmcStatus": s.BMCStatus, "kubeletStatus": s.KubeletStatus, "gpuStatus": s.GPUStatus, "rdmaStatus": s.RDMAStatus, "firmwareStatus": s.FirmwareStatus, "imageStatus": s.ImageStatus, "maintenanceState": s.MaintenanceState})
 		}
 		if target != "" && len(rows) == 0 {
 			return fmt.Errorf("node %q not found in NICo status", target)

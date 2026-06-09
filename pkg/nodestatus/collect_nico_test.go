@@ -47,6 +47,9 @@ func TestCollectNICoAggregatesMachineInstanceKubernetesAndNVIDIAEvidence(t *test
 	if !n.KubernetesReady || !n.NVIDIAReady || n.GPUs != 8 || n.NICoGPUs != 8 || n.KubernetesGPUs != 8 || n.RDMAResources != 4 || n.ActiveTaskID != "task-1" || n.LastAction != "reinstall" {
 		t.Fatalf("aggregation missed readiness/resource/task evidence: %+v", n)
 	}
+	if n.BMCStatus != "power:on" || n.KubeletStatus != "Ready" || n.GPUStatus != "ready" || n.RDMAStatus != "ready" || n.ImageStatus != "image:rocky-9.4-gpu" || n.MaintenanceState != "active-task:reinstall" || n.FirmwareStatus != "unknown" {
+		t.Fatalf("long-term status aggregation fields missing or wrong: %+v", n)
+	}
 }
 
 func TestCollectNICoDoesNotOverwriteNICoGPUsWithKubernetesEvidence(t *testing.T) {
