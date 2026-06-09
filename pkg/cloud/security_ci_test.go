@@ -30,6 +30,17 @@ func TestKyvernoPolicyTestsCoverAllowAndDenyFixtures(t *testing.T) {
 	}
 }
 
+func TestHelmHardeningChecksCoverUnitTestsAndDependencyFreshness(t *testing.T) {
+	workflow := mustRead(t, "../../.github/workflows/ci.yaml")
+	script := mustRead(t, "../../test/e2e/helm-hardening-checks.sh")
+	combined := workflow + "\n" + script
+	for _, required := range []string{"helm unittest", "helm dependency list", "helm dependency build", "helm lint", "helm template", "missing helm unittest coverage", "helm-hardening-checks.sh --dry-run"} {
+		if !strings.Contains(combined, required) {
+			t.Fatalf("helm hardening checks missing %q", required)
+		}
+	}
+}
+
 func TestNetworkPolicyBehaviorScriptProvesDenyAndAllowTraffic(t *testing.T) {
 	script := mustRead(t, "../../test/e2e/network-policy-behavior.sh")
 	for _, required := range []string{"deny-client", "allow-client", "expected denied traffic to fail", "expected allowed traffic to succeed", "allow-netpol-client-to-echo", "network-policy-deny-allow-proof-passed", "--dry-run"} {

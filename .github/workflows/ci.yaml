@@ -198,6 +198,9 @@ jobs:
       - name: Runtime security validation dry-run
         run: test/e2e/runtime-security-validation.sh --dry-run
 
+      - name: Helm hardening checks dry-run
+        run: test/e2e/helm-hardening-checks.sh --dry-run
+
       - name: Verify NICo E2E script gates
         run: |
           for script in \

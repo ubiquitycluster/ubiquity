@@ -1,0 +1,8 @@
+suite: chart smoke coverage
+templates:
+  - "*.yaml"
+tests:
+  - it: renders expected manifest count
+    asserts:
+      - hasDocuments:
+          count: 23
