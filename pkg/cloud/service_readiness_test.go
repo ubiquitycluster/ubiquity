@@ -28,6 +28,42 @@ func TestManagedServiceReadinessResourcesCoverEveryServiceType(t *testing.T) {
 	}
 }
 
+func TestManagedServiceReadinessContractsRequireSpecificSmokeMarkers(t *testing.T) {
+	cases := map[ServiceType]string{
+		ServiceBucket:      "cloud-bucket-smoke-passed",
+		ServicePostgres:    "cnpg-postgres-smoke-passed",
+		ServiceRedis:       "redis-smoke-passed",
+		ServiceKafka:       "kafka-smoke-passed",
+		ServiceRegistry:    "harbor-registry-smoke-passed",
+		ServiceMariaDB:     "mariadb-smoke-passed",
+		ServiceMongoDB:     "mongodb-smoke-passed",
+		ServiceNATS:        "nats-smoke-passed",
+		ServiceRabbitMQ:    "rabbitmq-smoke-passed",
+		ServiceClickHouse:  "clickhouse-smoke-passed",
+		ServiceOpenSearch:  "opensearch-smoke-passed",
+		ServiceQdrant:      "qdrant-smoke-passed",
+		ServiceOpenBao:     "openbao-vault-smoke-passed",
+		ServiceHTTPCache:   "http-cache-smoke-passed",
+		ServiceTCPBalancer: "tcp-balancer-smoke-passed",
+	}
+	for serviceType, wantSmoke := range cases {
+		contract, ok := ManagedServiceReadinessContract(serviceType)
+		if !ok {
+			t.Fatalf("missing readiness contract for %s", serviceType)
+		}
+		if contract.SmokeTest != wantSmoke {
+			t.Fatalf("service %s smoke marker = %q, want %q", serviceType, contract.SmokeTest, wantSmoke)
+		}
+		if len(contract.Resources) == 0 {
+			t.Fatalf("service %s has no readiness resources", serviceType)
+		}
+	}
+	all := AllManagedServiceSmokeTests()
+	if len(all) != len(cases) {
+		t.Fatalf("all smoke tests = %v, want %d entries", all, len(cases))
+	}
+}
+
 func TestAllManagedServiceReadinessResourcesAreDeduplicated(t *testing.T) {
 	resources := AllManagedServiceReadinessResources()
 	seen := map[string]struct{}{}
