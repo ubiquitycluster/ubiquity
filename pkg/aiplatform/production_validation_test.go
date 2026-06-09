@@ -55,6 +55,9 @@ func TestNvidiaAIPlatformDocsIncludeProvenanceAndOperations(t *testing.T) {
 		"Longhorn",
 		"not a generic PVC replacement",
 		"kubectl apply --server-side --force-conflicts",
+		"test/e2e/kai-scheduler-smoke.sh",
+		"UBIQUITY_RUN_KAI_SMOKE=true",
+		"KAI scheduling proof",
 		"Troubleshooting",
 		"ubiquity health",
 	} {

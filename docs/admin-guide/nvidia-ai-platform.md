@@ -235,6 +235,14 @@ Reason: KAI Scheduler CRDs are large enough that client-side apply can fail with
 
 In production, KAI Scheduler readiness is not only controller rollout. A production readiness check must also prove that workloads can schedule through the intended queues and that GPU resources are visible to the scheduler.
 
+KAI scheduling proof can be exercised independently from the full GPU E2E script:
+
+```sh
+UBIQUITY_RUN_KAI_SMOKE=true test/e2e/kai-scheduler-smoke.sh
+```
+
+The KAI smoke script is gated by `UBIQUITY_RUN_KAI_SMOKE=true` and skips by default. When enabled, it verifies the `queues.scheduling.run.ai` CRD, checks KAI controller deployments, applies a queue and smoke pod with `kubectl apply --server-side`, waits for the pod to be scheduled and complete through `schedulerName: kai-scheduler`, then records the `kai-scheduling-smoke-test-passed` ConfigMap only after live scheduling evidence exists. Render/apply success alone is not KAI scheduling proof.
+
 ## Bare-metal orchestration alternatives
 
 Ubiquity considers NVIDIA bare-metal repositories, but it separates replacement candidates from references.
