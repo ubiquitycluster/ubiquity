@@ -64,7 +64,8 @@ func TestCoreServicesDoesNotMentionForbiddenVendorName(t *testing.T) {
 	}
 	for _, path := range paths {
 		content := strings.ToLower(mustRead(t, filepath.Clean(path)))
-		if strings.Contains(content, "forbidden-vendor-name") {
+		forbidden := "ns" + "cale"
+		if strings.Contains(content, forbidden) {
 			t.Fatalf("%s contains forbidden vendor name", path)
 		}
 	}
