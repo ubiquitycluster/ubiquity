@@ -15,6 +15,7 @@ scripts/generate-helm-chart-reference.sh --check
 | `system/cert-manager` | `cert-manager` | `v1.11.2` | `n/a` | yes | yes |
 | `system/cilium` | `cilium` | `0.1.0` | `1.16.1` | yes | yes |
 | `system/cluster-deps` | `cluster-deps` | `0.1.0` | `1.0` | yes | yes |
+| `system/core-services` | `core-services` | `0.1.0` | `1.0.0` | yes | yes |
 | `system/coredns-autoscaler` | `coredns-autoscaler` | `0.1.0` | `1.8.4` | yes | yes |
 | `system/cvmfs-csi` | `cvmfs-csi` | `2.3.2` | `n/a` | yes | yes |
 | `system/cvmfs-csi/charts/cvmfs-csi` | `cvmfs-csi` | `2.3.2` | `v2.3.2` | yes | yes |
