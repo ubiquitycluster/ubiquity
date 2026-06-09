@@ -29,12 +29,15 @@ func TestNICoKVMPXELabArtifactsDefineRunnableVirtualBareMetalTier(t *testing.T) 
 
 	for _, required := range []string{
 		"UBIQUITY_NICO_KVM_LAB",
+		"--dry-run",
 		"qemu-bmc",
 		"containerlab",
 		"wait_for_redfish",
 		"wait_for_ipmi",
 		"nodes os apply",
 		"nodes power",
+		"nico-day2-lifecycle-proof.sh --dry-run",
+		"UBIQUITY_RUN_NICO_DAY2=true",
 		"--confirm",
 	} {
 		if !strings.Contains(script, required) {

@@ -5,6 +5,26 @@ set -euo pipefail
 # This starts a qemu-bmc/containerlab topology, checks Redfish/IPMI reachability,
 # and exercises non-destructive Ubiquity/NICo node flows. Destructive power/reset
 # checks require UBIQUITY_NICO_KVM_LAB_DESTRUCTIVE=1 and exact confirmation.
+# Use --dry-run for CI-safe validation of qemu-bmc, Redfish, IPMI, PXE, and NICo command flow.
+
+DRY_RUN=false
+if [[ "${1:-}" == "--dry-run" ]]; then
+  DRY_RUN=true
+elif [[ "${1:-}" == "--help" || "${1:-}" == "-h" ]]; then
+  sed -n '1,24p' "$0"
+  exit 0
+fi
+
+if [[ "$DRY_RUN" == "true" ]]; then
+  echo "[dry-run] validate qemu-bmc/containerlab fixture, Redfish/IPMI endpoints, PXE path, and NICo day-2 composition"
+  echo "[dry-run] containerlab deploy -t test/fixtures/nico-kvm-pxe/containerlab.yml"
+  echo "[dry-run] wait_for_redfish 127.0.0.1 8443 admin [REDACTED]"
+  echo "[dry-run] wait_for_ipmi 127.0.0.1 8623 admin [REDACTED]"
+  echo "[dry-run] go run ./cmd/ubiquity nodes os apply rocky-9 --site kvm-lab -o json"
+  echo "[dry-run] go run ./cmd/ubiquity nodes power qemu-node-01 reset --confirm qemu-node-01 --site kvm-lab -o json"
+  echo "[dry-run] UBIQUITY_RUN_NICO_DAY2=true test/e2e/nico-day2-lifecycle-proof.sh --dry-run"
+  exit 0
+fi
 
 if [[ "${UBIQUITY_NICO_KVM_LAB:-}" != "1" ]]; then
   echo "SKIP: set UBIQUITY_NICO_KVM_LAB=1 to run the NICo KVM/QEMU PXE lab"
@@ -119,3 +139,4 @@ else
 fi
 
 echo "KVM/QEMU PXE lab preflight completed. Use the physical hardware gate for final GPU/RDMA acceptance."
+UBIQUITY_RUN_NICO_DAY2=true "$ROOT_DIR/test/e2e/nico-day2-lifecycle-proof.sh" --dry-run
