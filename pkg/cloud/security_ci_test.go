@@ -30,6 +30,15 @@ func TestKyvernoPolicyTestsCoverAllowAndDenyFixtures(t *testing.T) {
 	}
 }
 
+func TestNetworkPolicyBehaviorScriptProvesDenyAndAllowTraffic(t *testing.T) {
+	script := mustRead(t, "../../test/e2e/network-policy-behavior.sh")
+	for _, required := range []string{"deny-client", "allow-client", "expected denied traffic to fail", "expected allowed traffic to succeed", "allow-netpol-client-to-echo", "network-policy-deny-allow-proof-passed", "--dry-run"} {
+		if !strings.Contains(script, required) {
+			t.Fatalf("network policy behavior script missing %q", required)
+		}
+	}
+}
+
 func TestRuntimeSecurityValidationIncludesFalcoAlertingAndDashboard(t *testing.T) {
 	workflow := mustRead(t, "../../.github/workflows/ci.yaml")
 	script := mustRead(t, "../../test/e2e/runtime-security-validation.sh")
