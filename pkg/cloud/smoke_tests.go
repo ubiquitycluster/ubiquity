@@ -7,6 +7,9 @@ func RequiredCloudSmokeTests() []string {
 		"restore-drill-controller-succeeded",
 		"restore-drill-readable",
 		"cloud-restore-drill-smoke-passed",
+		"tenant-cluster-kubeconfig-present",
+		"tenant-cluster-api-reachable",
+		"tenant-cluster-nodes-ready",
 	)
 	return markers
 }

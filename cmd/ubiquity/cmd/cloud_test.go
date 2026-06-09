@@ -74,6 +74,8 @@ func TestCloudCollectReadinessOutputsEvidenceJSON(t *testing.T) {
 			return []byte(`{"items":[{"metadata":{"name":"datavolumes.cdi.kubevirt.io"}}]}`), nil
 		case "[get datavolumes.cdi.kubevirt.io -A -o json]":
 			return []byte(`{"items":[{"kind":"DataVolume","metadata":{"namespace":"tenant-a","name":"ubuntu-root"},"status":{"conditions":[{"type":"Ready","status":"True","reason":"ImportSucceeded"}]}}]}`), nil
+		case "[get configmaps -A -l ubiquity.ai/cloud-smoke=true -o json]":
+			return []byte(`{"items":[{"metadata":{"name":"tenant-cluster-kubeconfig-present","labels":{"ubiquity.ai/cloud-smoke":"true"}},"data":{"passed":"true"}}]}`), nil
 		default:
 			return nil, fmt.Errorf("unexpected kubectl args %v", args)
 		}
@@ -87,13 +89,23 @@ func TestCloudCollectReadinessOutputsEvidenceJSON(t *testing.T) {
 			t.Fatalf("collect-readiness failed: %v", err)
 		}
 	})
-	for _, required := range []string{"requiredCRDs", "requiredSmokeTests", "restore-drill-readable", "presentCRDs", "datavolumes.cdi.kubevirt.io", "DataVolume", "ubuntu-root", "ImportSucceeded"} {
+	for _, required := range []string{"requiredCRDs", "requiredSmokeTests", "restore-drill-readable", "tenant-cluster-kubeconfig-present", "presentCRDs", "datavolumes.cdi.kubevirt.io", "DataVolume", "ubuntu-root", "ImportSucceeded"} {
 		if !strings.Contains(out, required) {
 			t.Fatalf("collector output missing %q:\n%s", required, out)
 		}
 	}
-	if len(calls) != 2 {
-		t.Fatalf("expected CRD and resource kubectl calls, got %v", calls)
+	if len(calls) != 3 {
+		t.Fatalf("expected CRD, resource, and smoke-marker kubectl calls, got %v", calls)
+	}
+}
+
+func TestParseCloudSmokeMarkersFromConfigMaps(t *testing.T) {
+	markers, err := parseCloudSmokeMarkers([]byte(`{"items":[{"metadata":{"name":"tenant-cluster-kubeconfig-present","labels":{"ubiquity.ai/cloud-smoke":"true"}},"data":{"passed":"true"}},{"metadata":{"name":"tenant-cluster-api-reachable","labels":{"ubiquity.ai/cloud-smoke":"true"}},"data":{"passed":"true"}},{"metadata":{"name":"tenant-cluster-nodes-ready","labels":{"ubiquity.ai/cloud-smoke":"true"}},"data":{"passed":"false"}}]}`))
+	if err != nil {
+		t.Fatalf("parse smoke markers: %v", err)
+	}
+	if !markers["tenant-cluster-kubeconfig-present"] || !markers["tenant-cluster-api-reachable"] || markers["tenant-cluster-nodes-ready"] {
+		t.Fatalf("unexpected marker map: %#v", markers)
 	}
 }
 

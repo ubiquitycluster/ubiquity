@@ -226,6 +226,18 @@ func collectCloudReadinessEvidence(ctx context.Context) (cloud.CloudReadinessEvi
 		}
 		evidence.Resources = append(evidence.Resources, items...)
 	}
+	out, err = runCloudKubectl(ctx, []string{"get", "configmaps", "-A", "-l", "ubiquity.ai/cloud-smoke=true", "-o", "json"}, nil)
+	if err != nil {
+		evidence.Metadata["skipped/cloud-smoke-configmaps"] = err.Error()
+	} else {
+		markers, err := parseCloudSmokeMarkers(out)
+		if err != nil {
+			return evidence, fmt.Errorf("parse cloud smoke markers: %w", err)
+		}
+		for name, passed := range markers {
+			evidence.SmokeTests[name] = passed
+		}
+	}
 	return evidence, nil
 }
 
@@ -261,6 +273,30 @@ func parseKubectlCRDNames(content []byte) ([]string, error) {
 		}
 	}
 	return names, nil
+}
+
+func parseCloudSmokeMarkers(content []byte) (map[string]bool, error) {
+	var list struct {
+		Items []struct {
+			Metadata struct {
+				Name   string            `json:"name"`
+				Labels map[string]string `json:"labels"`
+			} `json:"metadata"`
+			Data map[string]string `json:"data"`
+		} `json:"items"`
+	}
+	if err := json.Unmarshal(content, &list); err != nil {
+		return nil, err
+	}
+	markers := map[string]bool{}
+	for _, item := range list.Items {
+		name := strings.TrimSpace(item.Metadata.Name)
+		if name == "" || item.Metadata.Labels["ubiquity.ai/cloud-smoke"] != "true" {
+			continue
+		}
+		markers[name] = strings.EqualFold(strings.TrimSpace(item.Data["passed"]), "true")
+	}
+	return markers, nil
 }
 
 func parseKubectlResourceEvidence(content []byte) ([]cloud.CloudResourceEvidence, error) {

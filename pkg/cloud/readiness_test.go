@@ -108,9 +108,31 @@ func TestCloudReadinessRequiresRestoreCompletionReadableDataAndMarker(t *testing
 	}
 }
 
+func TestCloudReadinessRequiresTenantClusterEvidence(t *testing.T) {
+	ev := readyCloudEvidence()
+	ev.RequiredCRDs = append(ev.RequiredCRDs, "clusters.cluster.x-k8s.io")
+	ev.PresentCRDs = append(ev.PresentCRDs, "clusters.cluster.x-k8s.io")
+	ev.Resources = append(ev.Resources, CloudResourceEvidence{Kind: "Cluster", Namespace: "tenant-a", Name: "tenant-a-dev", Conditions: []CloudCondition{{Type: "Ready", Status: "True"}}})
+	ev.RequiredSmokeTests = []string{"tenant-cluster-kubeconfig-present", "tenant-cluster-api-reachable", "tenant-cluster-nodes-ready"}
+	ev.SmokeTests = map[string]bool{"tenant-cluster-kubeconfig-present": true, "tenant-cluster-api-reachable": true}
+
+	result := EvaluateCloudReadiness(ev)
+	if result.Ready {
+		t.Fatalf("expected missing tenant node readiness to fail closed")
+	}
+	if !containsReason(result.Reasons, "missing required smoke test tenant-cluster-nodes-ready") {
+		t.Fatalf("expected tenant node readiness reason, got %v", result.Reasons)
+	}
+	ev.SmokeTests["tenant-cluster-nodes-ready"] = true
+	result = EvaluateCloudReadiness(ev)
+	if !result.Ready {
+		t.Fatalf("expected tenant cluster evidence to pass, got %v", result.Reasons)
+	}
+}
+
 func TestRequiredCloudSmokeTestsIncludeServiceAndRestoreMarkers(t *testing.T) {
 	got := strings.Join(RequiredCloudSmokeTests(), "\n")
-	for _, required := range append(AllManagedServiceSmokeTests(), "restore-drill-controller-succeeded", "restore-drill-readable", "cloud-restore-drill-smoke-passed") {
+	for _, required := range append(AllManagedServiceSmokeTests(), "restore-drill-controller-succeeded", "restore-drill-readable", "cloud-restore-drill-smoke-passed", "tenant-cluster-kubeconfig-present", "tenant-cluster-api-reachable", "tenant-cluster-nodes-ready") {
 		if !strings.Contains(got, required) {
 			t.Fatalf("RequiredCloudSmokeTests missing %q in %s", required, got)
 		}
