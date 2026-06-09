@@ -185,6 +185,16 @@ jobs:
           test/e2e/cloud-service-smoke-tests.sh --dry-run
           test/e2e/cloud-readiness-proof-bundle.sh --dry-run
 
+      - name: SBOM and Sigstore signing proof dry-run
+        run: |
+          test/e2e/sbom-and-signing-proof.sh --dry-run
+          test -f /tmp/ubiquity-security/sbom.spdx.json
+          test -f /tmp/ubiquity-security/sbom.cyclonedx.json
+          grep -q 'syft' /tmp/ubiquity-security/sbom-generation.log
+          grep -q 'cyclonedx' /tmp/ubiquity-security/cyclonedx-validation.log
+          grep -q 'cosign sign' /tmp/ubiquity-security/cosign.log
+          grep -q 'cosign verify' /tmp/ubiquity-security/cosign.log
+
       - name: Verify NICo E2E script gates
         run: |
           for script in \
