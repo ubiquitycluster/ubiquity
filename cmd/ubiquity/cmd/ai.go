@@ -23,8 +23,10 @@ type ollamaResponse struct {
 
 var aiCmd = &cobra.Command{
 	Use:   "ai [prompt]",
-	Short: "AI-assisted troubleshooting using Ollama",
-	Long:  `Sends cluster state and logs to a local Ollama LLM for diagnosis. Requires Ollama running.`,
+	Short: "Local diagnostics using Ollama",
+	Long: `Sends cluster state and logs to a local diagnostics Ollama LLM for troubleshooting.
+Ollama is not the production AI serving layer; production inference readiness is
+provided by NVIDIA NIM Operator-backed services and checked through ubiquity health --ai.`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		userPrompt := ""
 		if len(args) > 0 {

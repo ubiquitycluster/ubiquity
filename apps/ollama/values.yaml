@@ -1,3 +1,7 @@
+enabled: false
+mode: diagnostics-only
+productionDefault: false
+notProductionServing: true
 nameOverride: ollama
 image:
   repository: ollama/ollama
