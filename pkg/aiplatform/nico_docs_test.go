@@ -139,6 +139,34 @@ func TestNvidiaInfraControllerAdminReferenceAndRunbookDocs(t *testing.T) {
 	}
 }
 
+func TestNICoDefaultAndBMOMetal3BoundaryIsExplicit(t *testing.T) {
+	for path, required := range map[string][]string{
+		"../../docs/architecture/on-prem/nvidia-infra-controller-node-lifecycle.md": {
+			"NICo is the default",
+			"BMO/Metal3 fallback/migration-only",
+			"single active lifecycle owner",
+		},
+		"../../docs/admin-guide/runbooks/nico-bootstrap.md": {
+			"NICo is the default",
+			"BMO/Metal3 fallback/migration-only",
+			"nvidia-infra-controller/nico-bootstrap.md",
+		},
+	} {
+		doc := mustRead(t, path)
+		for _, term := range required {
+			if !strings.Contains(doc, term) {
+				t.Fatalf("%s must include explicit NICo/BMO boundary term %q", path, term)
+			}
+		}
+	}
+	cmdSource := mustRead(t, "../../cmd/ubiquity/cmd/nodes.go")
+	for _, term := range []string{"nodeBackendNICO", "nodeBackendBMO", "BMO backend is not the default"} {
+		if !strings.Contains(cmdSource, term) {
+			t.Fatalf("nodes command source must include %q", term)
+		}
+	}
+}
+
 func TestMetal3DocsDescribeMigrationOnlyFallback(t *testing.T) {
 	for path, required := range map[string][]string{
 		"../../docs/architecture/on-prem/openstack-bmo-node-discovery.md": {

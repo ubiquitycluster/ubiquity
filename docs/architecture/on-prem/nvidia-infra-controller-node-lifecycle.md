@@ -8,7 +8,9 @@ This document is intentionally descriptive rather than a certification statement
 
 ## Role in Ubiquity
 
-NVIDIA Infra Controller owns day-2 bare-metal lifecycle operations after the initial Ubiquity bootstrap boundary. In this model, Ubiquity can still prepare a site, networking, credentials, and the first management cluster, but ongoing node lifecycle work should flow through NVIDIA Infra Controller rather than ad-hoc Metal3/Ironic helper scripts.
+NVIDIA Infra Controller owns day-2 bare-metal lifecycle operations after the initial Ubiquity bootstrap boundary. NICo is the default physical node lifecycle backend in Ubiquity. BMO/Metal3 fallback/migration-only paths are retained for migrations and break-glass recovery, not for new production day-2 automation. In this model, Ubiquity can still prepare a site, networking, credentials, and the first management cluster, but ongoing node lifecycle work should flow through NVIDIA Infra Controller rather than ad-hoc Metal3/Ironic helper scripts.
+
+Ubiquity requires a single active lifecycle owner for each physical machine. Do not run NICo and BMO/Metal3 reconciliation against the same server at the same time.
 
 The bootstrap boundary is the line between:
 
