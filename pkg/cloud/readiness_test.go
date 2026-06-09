@@ -89,6 +89,34 @@ func TestCloudReadinessRequiresRestoreDrillReadableSmoke(t *testing.T) {
 	}
 }
 
+func TestCloudReadinessRequiresRestoreCompletionReadableDataAndMarker(t *testing.T) {
+	ev := readyCloudEvidence()
+	ev.RequiredSmokeTests = []string{"restore-drill-controller-succeeded", "restore-drill-readable", "cloud-restore-drill-smoke-passed"}
+	ev.SmokeTests = map[string]bool{"restore-drill-controller-succeeded": true, "restore-drill-readable": true}
+
+	result := EvaluateCloudReadiness(ev)
+	if result.Ready {
+		t.Fatalf("expected missing named restore drill marker to fail closed")
+	}
+	if !containsReason(result.Reasons, "missing required smoke test cloud-restore-drill-smoke-passed") {
+		t.Fatalf("expected named restore marker reason, got %v", result.Reasons)
+	}
+	ev.SmokeTests["cloud-restore-drill-smoke-passed"] = true
+	result = EvaluateCloudReadiness(ev)
+	if !result.Ready {
+		t.Fatalf("expected restore drill evidence to pass, got %v", result.Reasons)
+	}
+}
+
+func TestRequiredCloudSmokeTestsIncludeServiceAndRestoreMarkers(t *testing.T) {
+	got := strings.Join(RequiredCloudSmokeTests(), "\n")
+	for _, required := range append(AllManagedServiceSmokeTests(), "restore-drill-controller-succeeded", "restore-drill-readable", "cloud-restore-drill-smoke-passed") {
+		if !strings.Contains(got, required) {
+			t.Fatalf("RequiredCloudSmokeTests missing %q in %s", required, got)
+		}
+	}
+}
+
 func TestCloudReadinessPassesWhenRequiredSmokeTestsPass(t *testing.T) {
 	ev := readyCloudEvidence()
 	ev.RequiredSmokeTests = RequiredCloudSmokeTests()

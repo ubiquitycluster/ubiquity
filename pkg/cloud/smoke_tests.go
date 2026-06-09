@@ -2,11 +2,11 @@ package cloud
 
 // RequiredCloudSmokeTests returns named smoke-test markers that must pass before cloud readiness can be claimed.
 func RequiredCloudSmokeTests() []string {
-	return []string{
-		"postgres-connectivity",
-		"redis-connectivity",
-		"kafka-produce-consume",
-		"objectbucket-read-write",
+	markers := append([]string{}, AllManagedServiceSmokeTests()...)
+	markers = append(markers,
+		"restore-drill-controller-succeeded",
 		"restore-drill-readable",
-	}
+		"cloud-restore-drill-smoke-passed",
+	)
+	return markers
 }
