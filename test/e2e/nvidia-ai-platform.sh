@@ -19,7 +19,7 @@ kubectl run nvidia-smi-smoke --rm -i --restart=Never \
   --limits=nvidia.com/gpu=1 \
   --command -- nvidia-smi
 
-kubectl -n gpu-operator get service nvidia-dcgm-exporter || kubectl -n monitoring-system get service dcgm-exporter
+kubectl -n gpu-operator get service nvidia-dcgm-exporter
 kubectl get --raw /api/v1/namespaces/gpu-operator/services/nvidia-dcgm-exporter:9400/proxy/metrics | grep -i dcgm
 
 kubectl get nodes -o jsonpath='{range .items[*]}{.metadata.name}{" "}{.status.allocatable.nvidia\.com/rdma}{"\n"}{end}' | grep -E '[1-9][0-9]*$'

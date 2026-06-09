@@ -30,6 +30,16 @@ func TestGatedGPUE2EScriptExistsAndRequiresExplicitFlag(t *testing.T) {
 	}
 }
 
+func TestGatedGPUE2EScriptRequiresGPUOperatorManagedDCGMExporter(t *testing.T) {
+	script := mustRead(t, "../../test/e2e/nvidia-ai-platform.sh")
+	if !strings.Contains(script, "gpu-operator/services/nvidia-dcgm-exporter:9400") {
+		t.Fatal("GPU E2E must prove DCGM metrics through NVIDIA GPU Operator managed exporter")
+	}
+	if strings.Contains(script, "monitoring-system get service dcgm-exporter") {
+		t.Fatal("GPU E2E must not accept hand-authored monitoring-system DCGM exporter as production evidence")
+	}
+}
+
 func TestNvidiaAIPlatformDocsIncludeProvenanceAndOperations(t *testing.T) {
 	doc := mustRead(t, "../../docs/admin-guide/nvidia-ai-platform.md")
 	for _, required := range []string{
