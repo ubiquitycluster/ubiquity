@@ -163,5 +163,50 @@ func renderAIPlatformManifest(profile aiplatform.Profile) string {
 		}
 		b.WriteString(fmt.Sprintf("      replacesLocal: %t\n      productionDefault: %t\n", component.ReplacesLocal, component.ProductionDefault))
 	}
+	b.WriteString(renderAIPlatformGitOpsApplications(profile))
 	return b.String()
+}
+
+type aiPlatformGitOpsTarget struct {
+	Name      string
+	Path      string
+	Namespace string
+}
+
+func renderAIPlatformGitOpsApplications(profile aiplatform.Profile) string {
+	targets := aiPlatformGitOpsTargets(profile)
+	if len(targets) == 0 {
+		return ""
+	}
+	var b strings.Builder
+	for _, target := range targets {
+		b.WriteString("---\napiVersion: argoproj.io/v1alpha1\nkind: Application\nmetadata:\n  name: ai-platform-")
+		b.WriteString(target.Name)
+		b.WriteString("\n  namespace: argocd\n  labels:\n    app.kubernetes.io/part-of: ubiquity-ai-platform\n    ubiquity.ai/profile: \"")
+		b.WriteString(profile.Name)
+		b.WriteString("\"\nspec:\n  project: default\n  source:\n    repoURL: https://github.com/ubiquitycluster/ubiquity\n    targetRevision: HEAD\n    path: ")
+		b.WriteString(target.Path)
+		b.WriteString("\n  destination:\n    server: https://kubernetes.default.svc\n    namespace: ")
+		b.WriteString(target.Namespace)
+		b.WriteString("\n  syncPolicy:\n    automated:\n      prune: true\n      selfHeal: true\n    syncOptions:\n      - CreateNamespace=true\n")
+	}
+	return b.String()
+}
+
+func aiPlatformGitOpsTargets(profile aiplatform.Profile) []aiPlatformGitOpsTarget {
+	components := profile.ComponentsByName()
+	targets := []aiPlatformGitOpsTarget{}
+	add := func(componentName, appName, path, namespace string) {
+		if _, ok := components[componentName]; ok {
+			targets = append(targets, aiPlatformGitOpsTarget{Name: appName, Path: path, Namespace: namespace})
+		}
+	}
+	add("gpu-operator", "nvidia-gpu-operator", "system/nvidia-gpu-operator", "gpu-operator")
+	add("nvidia-network-operator", "nvidia-network-operator", "system/nvidia-network-operator", "nvidia-network-operator")
+	add("nim-operator", "nim-operator", "platform/nim-operator", "nim-operator")
+	add("kai-scheduler", "kai-scheduler", "platform/kai-scheduler", "kai-scheduler")
+	if profile.HasCapability(aiplatform.CapabilityServing) || profile.HasCapability(aiplatform.CapabilityScheduler) {
+		targets = append(targets, aiPlatformGitOpsTarget{Name: "ai-workload-tenancy", Path: "platform/ai-workload-tenancy", Namespace: "ai-workloads"})
+	}
+	return targets
 }
