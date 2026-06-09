@@ -391,3 +391,10 @@ No NVIDIA approval or certification is implied.
 Do not claim the platform is ready to serve AI workloads unless the selected profile's readiness checks have passed on the target cluster.
 
 Do not claim a CPU-only k3d sandbox proves GPU runtime, RDMA, NIM model serving, or production scheduling behavior. It proves only that the sandbox-safe control-plane manifests render and can be applied without NVIDIA hardware.
+
+
+## Live proof and approval boundary
+
+Live proof means evidence observed from the target cluster or a gated smoke-test script: controller status, API reachability, workload behavior, restore-drill readability, or service-specific smoke markers. Render, lint, dry-run, or object existence prove intent only.
+
+These docs and scripts do not claim the system is NVIDIA approved or NVIDIA certified. The platform is not NVIDIA approved and not NVIDIA certified by repository evidence alone. Treat any NVIDIA approval evidence, support statement, or certification letter as an external artifact that must be attached to the deployment record before using approved/certified wording. Without that approval evidence, Ubiquity can claim only local validation results and live proof observed during the run.

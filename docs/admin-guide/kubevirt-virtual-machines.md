@@ -128,3 +128,10 @@ When `networkIsolation=multus`, Ubiquity renders a Multus `NetworkAttachmentDefi
 ## What local sandbox validation proves
 
 A CPU-only sandbox can prove deterministic rendering, Helm lint/template success, server-side schema acceptance after CRDs are installed, and that VM manifests include the right KubeVirt/CDI/Multus/GPU fields. It does not prove guest boot, in-guest GPU access, RDMA readiness, Windows licensing, or NVIDIA certification.
+
+
+## Live proof and approval boundary
+
+Live proof means evidence observed from the target cluster or a gated smoke-test script: controller status, API reachability, workload behavior, restore-drill readability, or service-specific smoke markers. Render, lint, dry-run, or object existence prove intent only.
+
+These docs and scripts do not claim the system is NVIDIA approved or NVIDIA certified. The platform is not NVIDIA approved and not NVIDIA certified by repository evidence alone. Treat any NVIDIA approval evidence, support statement, or certification letter as an external artifact that must be attached to the deployment record before using approved/certified wording. Without that approval evidence, Ubiquity can claim only local validation results and live proof observed during the run.

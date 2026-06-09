@@ -58,3 +58,10 @@ UBIQUITY_RUN_CLOUD_READINESS_PROOF=true test/e2e/cloud-readiness-proof-bundle.sh
 The bundle captures a prerequisite contract, operator provenance, server-side dry-run output, collected readiness JSON, a readiness report, and restore-drill evidence. The readiness evaluator must fail closed until `ubiquity cloud collect-readiness` observes controller conditions plus named smoke markers.
 
 Required live markers include service-specific tests for CNPG/Postgres, Redis, Kafka, Harbor registry, MariaDB, MongoDB, NATS, RabbitMQ, ClickHouse, OpenSearch, Qdrant, OpenBao/Vault-compatible secrets, HTTP cache, TCP balancer, and object bucket claims. Restore readiness requires `restore-drill-controller-succeeded`, `restore-drill-readable`, and `cloud-restore-drill-smoke-passed`. Tenant cluster readiness requires `tenant-cluster-kubeconfig-present`, `tenant-cluster-api-reachable`, and `tenant-cluster-nodes-ready` in addition to Cluster API conditions.
+
+
+## Live proof and approval boundary
+
+Live proof means evidence observed from the target cluster or a gated smoke-test script: controller status, API reachability, workload behavior, restore-drill readability, or service-specific smoke markers. Render, lint, dry-run, or object existence prove intent only.
+
+These docs and scripts do not claim the system is NVIDIA approved or NVIDIA certified. The platform is not NVIDIA approved and not NVIDIA certified by repository evidence alone. Treat any NVIDIA approval evidence, support statement, or certification letter as an external artifact that must be attached to the deployment record before using approved/certified wording. Without that approval evidence, Ubiquity can claim only local validation results and live proof observed during the run.

@@ -79,3 +79,10 @@ notes: Experimental/preview image pending site-local validation.
 ## Failure handling
 
 If an install fails, mark the image `blocked` for the affected pool while the issue is investigated. Preserve Task logs, console output, BMC event logs, and image build metadata. Do not repeatedly reinstall production Machines with an unproven image.
+
+
+## Live proof and approval boundary
+
+Live proof means evidence observed from the target cluster or a gated smoke-test script: controller status, API reachability, workload behavior, restore-drill readability, or service-specific smoke markers. Render, lint, dry-run, or object existence prove intent only.
+
+These docs and scripts do not claim the system is NVIDIA approved or NVIDIA certified. The platform is not NVIDIA approved and not NVIDIA certified by repository evidence alone. Treat any NVIDIA approval evidence, support statement, or certification letter as an external artifact that must be attached to the deployment record before using approved/certified wording. Without that approval evidence, Ubiquity can claim only local validation results and live proof observed during the run.
