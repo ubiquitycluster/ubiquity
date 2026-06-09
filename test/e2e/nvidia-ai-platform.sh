@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+# Explicitly gated real-GPU proof path. Composed checks must include:
+# - nim-smoke-test evidence via nim-gpu-serving-smoke.sh
+# - rdma-network-smoke-test-passed evidence via nvidia-rdma-smoke.sh for nvidia.com/rdma and network-attachment-definitions.k8s.cni.cncf.io
+# - kai-scheduling-smoke-test-passed evidence via kai-scheduler-smoke.sh, kai-scheduler-default, and default-queue
 set -euo pipefail
 
 if [ "${UBIQUITY_RUN_GPU_E2E:-}" != "true" ]; then
@@ -22,32 +26,8 @@ kubectl run nvidia-smi-smoke --rm -i --restart=Never \
 kubectl -n gpu-operator get service nvidia-dcgm-exporter
 kubectl get --raw /api/v1/namespaces/gpu-operator/services/nvidia-dcgm-exporter:9400/proxy/metrics | grep -i dcgm
 
-kubectl get nodes -o jsonpath='{range .items[*]}{.metadata.name}{" "}{.status.allocatable.nvidia\.com/rdma}{"\n"}{end}' | grep -E '[1-9][0-9]*$'
-kubectl get network-attachment-definitions.k8s.cni.cncf.io -A
-kubectl get network-attachment-definitions.k8s.cni.cncf.io -A | grep -E 'rdma|ipoib'
-kubectl -n kube-system get pods | grep -E 'whereabouts|multus' || true
-kubectl -n gpu-operator create configmap rdma-network-smoke-test-passed \
-  --from-literal=resource=nvidia.com/rdma \
-  --from-literal=networkAttachment=rdma-ipoib \
-  --dry-run=client -o yaml | kubectl apply -f -
+UBIQUITY_RUN_NVIDIA_RDMA_SMOKE=true "$(dirname "$0")/nvidia-rdma-smoke.sh"
 
-kubectl -n nim-operator get pods
-kubectl -n nim-service get nimservice
-kubectl -n nim-operator get configmap nim-smoke-test-passed
+UBIQUITY_RUN_NIM_GPU_SMOKE=true "$(dirname "$0")/nim-gpu-serving-smoke.sh"
 
-kubectl -n kai-scheduler rollout status deploy/kai-operator --timeout=5m
-kubectl -n kai-scheduler rollout status deploy/kai-scheduler-default --timeout=5m
-kubectl -n kai-scheduler rollout status deploy/binder --timeout=5m
-kubectl -n kai-scheduler rollout status deploy/admission --timeout=5m
-kubectl -n kai-scheduler rollout status deploy/pod-grouper --timeout=5m
-kubectl -n kai-scheduler rollout status deploy/podgroup-controller --timeout=5m
-kubectl -n kai-scheduler rollout status deploy/queue-controller --timeout=5m
-kubectl get queues.scheduling.run.ai default-queue
-kubectl run kai-scheduler-smoke --rm -i --restart=Never \
-  --image=busybox:1.36 \
-  --overrides='{"spec":{"schedulerName":"kai-scheduler"}}' \
-  --command -- sh -c 'echo scheduled-by-kai-scheduler-default'
-kubectl -n kai-scheduler create configmap kai-scheduling-smoke-test-passed \
-  --from-literal=scheduler=kai-scheduler-default \
-  --from-literal=queue=default-queue \
-  --dry-run=client -o yaml | kubectl apply -f -
+UBIQUITY_RUN_KAI_SMOKE=true "$(dirname "$0")/kai-scheduler-smoke.sh"
