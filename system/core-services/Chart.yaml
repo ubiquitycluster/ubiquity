@@ -1,0 +1,12 @@
+apiVersion: v2
+name: core-services
+description: GitOps orchestration for Ubiquity core infrastructure services
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
+annotations:
+  argocd.argoproj.io/sync-wave: "-3"
+keywords:
+  - core-services
+  - gitops
+  - infrastructure

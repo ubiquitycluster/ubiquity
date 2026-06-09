@@ -1,0 +1,126 @@
+global:
+  argocdNamespace: argocd
+  project: default
+  repoURL: https://github.com/ubiquitycluster/ubiquity.git
+  targetRevision: HEAD
+  destinationServer: https://kubernetes.default.svc
+  automated:
+    prune: true
+    selfHeal: true
+  createNamespace: true
+
+placement:
+  nodeSelector: {}
+  tolerations: []
+
+applications:
+  cert-manager:
+    enabled: true
+    namespace: cert-manager
+    path: system/cert-manager
+    syncWave: "-2"
+  cilium:
+    enabled: true
+    namespace: kube-system
+    path: system/cilium
+    syncWave: "-2"
+  external-secrets:
+    enabled: true
+    namespace: external-secrets
+    path: platform/external-secrets
+    syncWave: "-1"
+  longhorn:
+    enabled: true
+    namespace: longhorn-system
+    path: system/longhorn-system
+    syncWave: "0"
+  network-policies:
+    enabled: true
+    namespace: default
+    path: system/network-policies
+    syncWave: "1"
+  kyverno:
+    enabled: true
+    namespace: kyverno
+    path: system/kyverno
+    syncWave: "0"
+  kyverno-policies:
+    enabled: true
+    namespace: kyverno
+    path: system/kyverno-policies
+    syncWave: "1"
+  falco:
+    enabled: true
+    namespace: falco
+    path: system/falco
+    syncWave: "1"
+  monitoring-system:
+    enabled: true
+    namespace: monitoring
+    path: system/monitoring-system
+    syncWave: "2"
+  ingress-nginx:
+    enabled: true
+    namespace: ingress-nginx
+    path: system/ingress-nginx
+    syncWave: "0"
+  metrics-server:
+    enabled: true
+    namespace: kube-system
+    chart: metrics-server
+    repoURL: https://kubernetes-sigs.github.io/metrics-server/
+    targetRevision: 3.13.0
+    syncWave: "0"
+  node-feature-discovery:
+    enabled: true
+    namespace: node-feature-discovery
+    chart: node-feature-discovery
+    repoURL: https://kubernetes-sigs.github.io/node-feature-discovery/charts
+    targetRevision: 0.18.0
+    syncWave: "0"
+  node-problem-detector:
+    enabled: true
+    namespace: node-problem-detector
+    chart: node-problem-detector
+    repoURL: https://charts.deliveryhero.io/
+    targetRevision: 2.3.22
+    syncWave: "0"
+  snapshot-controller:
+    enabled: true
+    namespace: snapshot-controller
+    chart: snapshot-controller
+    repoURL: https://piraeus.io/helm-charts/
+    targetRevision: 4.0.0
+    syncWave: "0"
+  vertical-pod-autoscaler:
+    enabled: true
+    namespace: vertical-pod-autoscaler
+    chart: vpa
+    repoURL: https://charts.fairwinds.com/stable
+    targetRevision: 4.7.2
+    syncWave: "0"
+  kubescape:
+    enabled: true
+    namespace: kubescape
+    chart: kubescape-operator
+    repoURL: https://kubescape.github.io/helm-charts/
+    targetRevision: 1.27.0
+    syncWave: "1"
+  local-path-provisioner:
+    enabled: false
+    namespace: local-path-storage
+    chart: local-path-provisioner
+    repoURL: https://charts.containeroo.ch
+    targetRevision: 0.0.32
+    syncWave: "0"
+  velero:
+    enabled: false
+    namespace: velero
+    chart: velero
+    repoURL: https://vmware-tanzu.github.io/helm-charts
+    targetRevision: 11.3.2
+    syncWave: "1"
+    backupBucket: ""
+    backupProvider: aws
+    backupRegion: us-east-1
+    backupS3Url: ""
