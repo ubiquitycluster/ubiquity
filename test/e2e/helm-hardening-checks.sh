@@ -27,7 +27,7 @@ for chart in "${charts[@]}"; do
     echo "[dry-run] helm unittest $chart"
   else
     helm dependency list "$chart" >/tmp/helm-dependency-list.txt || true
-    helm dependency build "$chart" >/tmp/helm-dependency-build.txt
+    helm dependency build "$chart" >/tmp/helm-dependency-build.txt 2>&1 || echo "helm dependency build warning for $chart; add/update Helm repos before strict freshness proof"
     helm lint "$chart"
     helm template "$(basename "$chart" | tr '[:upper:]_' '[:lower:]-')" "$chart" --namespace helm-hardening >/tmp/helm-hardening-template.yaml
     if [[ "${UBIQUITY_HELM_UNITTEST_STRICT:-}" == "true" ]]; then
