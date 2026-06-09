@@ -32,6 +32,12 @@ func TestParseMIGAllocatableByNodeReadsOnlyPositiveNvidiaMIGResources(t *testing
 func TestEvaluateReadinessAcceptsMIGAllocatableWhenFullGPUResourceIsAbsent(t *testing.T) {
 	status := EvaluateReadiness(ClusterSnapshot{
 		GPUOperatorReady:                 true,
+		GPUDriverReady:                   true,
+		GPUContainerToolkitReady:         true,
+		GPUFeatureDiscoveryReady:         true,
+		GPUManagedDCGMExporterReady:      true,
+		GPUMIGManagerReady:               true,
+		GPUOperatorValidatorReady:        true,
 		GPUDevicePluginReady:             true,
 		DCGMMetricsScraped:               true,
 		GPUAllocatableByNode:             map[string]int{},

@@ -24,7 +24,13 @@ func TestRenderAIStoreReadinessStatusReportsOptionalDataPlaneBoundary(t *testing
 func TestRenderAIReadinessStatusReady(t *testing.T) {
 	status := aiplatform.EvaluateReadiness(aiplatform.ClusterSnapshot{
 		GPUOperatorReady:                 true,
+		GPUDriverReady:                   true,
+		GPUContainerToolkitReady:         true,
 		GPUDevicePluginReady:             true,
+		GPUFeatureDiscoveryReady:         true,
+		GPUManagedDCGMExporterReady:      true,
+		GPUMIGManagerReady:               true,
+		GPUOperatorValidatorReady:        true,
 		DCGMMetricsScraped:               true,
 		GPUAllocatableByNode:             map[string]int{"gpu-node-1": 8},
 		RDMAResourcesByNode:              map[string]int{"gpu-node-1": 4},

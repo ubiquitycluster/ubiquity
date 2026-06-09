@@ -6,7 +6,13 @@ import "fmt"
 // Empty or missing evidence is treated as not-ready.
 type ClusterSnapshot struct {
 	GPUOperatorReady                 bool
+	GPUDriverReady                   bool
+	GPUContainerToolkitReady         bool
 	GPUDevicePluginReady             bool
+	GPUFeatureDiscoveryReady         bool
+	GPUManagedDCGMExporterReady      bool
+	GPUMIGManagerReady               bool
+	GPUOperatorValidatorReady        bool
 	DCGMMetricsScraped               bool
 	GPUAllocatableByNode             map[string]int
 	MIGProfilesByNode                map[string][]string
@@ -48,7 +54,13 @@ func (s ReadinessStatus) ChecksByName() map[string]CheckResult {
 func EvaluateReadiness(snapshot ClusterSnapshot) ReadinessStatus {
 	checks := []CheckResult{
 		boolCheck("gpu-operator", snapshot.GPUOperatorReady, "NVIDIA GPU Operator reports ready", "NVIDIA GPU Operator is missing or not ready"),
+		boolCheck("gpu-driver", snapshot.GPUDriverReady, "NVIDIA GPU Operator driver operand reports ready", "NVIDIA GPU Operator driver operand is missing or not ready"),
+		boolCheck("gpu-runtime-toolkit", snapshot.GPUContainerToolkitReady, "NVIDIA container runtime/toolkit operand reports ready", "NVIDIA container runtime/toolkit operand is missing or not ready"),
 		boolCheck("device-plugin", snapshot.GPUDevicePluginReady, "NVIDIA device plugin reports ready", "NVIDIA device plugin is missing or not ready"),
+		boolCheck("gpu-feature-discovery", snapshot.GPUFeatureDiscoveryReady, "GPU Feature Discovery reports ready", "GPU Feature Discovery is missing or not ready"),
+		boolCheck("gpu-dcgm-exporter", snapshot.GPUManagedDCGMExporterReady, "NVIDIA GPU Operator managed DCGM exporter reports ready", "NVIDIA GPU Operator managed DCGM exporter is missing or not ready"),
+		boolCheck("gpu-mig-manager", snapshot.GPUMIGManagerReady, "NVIDIA MIG Manager reports ready", "NVIDIA MIG Manager is missing or not ready"),
+		boolCheck("gpu-validator", snapshot.GPUOperatorValidatorReady, "NVIDIA GPU Operator validator reports ready", "NVIDIA GPU Operator validator is missing or not ready"),
 		gpuAllocatableCheck(snapshot.GPUAllocatableByNode, snapshot.MIGAllocatableByNode),
 		gpuCorrelationCheck(snapshot.GPUCorrelationIssues),
 		rdmaNetworkCheck(snapshot.RDMAResourcesByNode, snapshot.NetworkAttachments, snapshot.LastRDMASmokeTestPassed),

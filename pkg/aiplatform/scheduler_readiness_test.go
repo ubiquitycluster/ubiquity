@@ -24,6 +24,12 @@ func TestEvaluateReadinessRequiresKAISchedulerEvidenceForProductionScheduling(t 
 func TestEvaluateReadinessPassesWithKAISchedulerEvidence(t *testing.T) {
 	status := EvaluateReadiness(ClusterSnapshot{
 		GPUOperatorReady:                 true,
+		GPUDriverReady:                   true,
+		GPUContainerToolkitReady:         true,
+		GPUFeatureDiscoveryReady:         true,
+		GPUManagedDCGMExporterReady:      true,
+		GPUMIGManagerReady:               true,
+		GPUOperatorValidatorReady:        true,
 		GPUDevicePluginReady:             true,
 		DCGMMetricsScraped:               true,
 		GPUAllocatableByNode:             map[string]int{"gpu-node-1": 8},

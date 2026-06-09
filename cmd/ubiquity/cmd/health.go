@@ -157,11 +157,28 @@ func collectAIReadinessSnapshot() aiplatform.ReadinessStatus {
 	if deploymentsAvailable("gpu-operator", "gpu-operator") {
 		snapshot.GPUOperatorReady = true
 	}
+	if daemonSetsReady("gpu-operator", "nvidia-driver-daemonset") || readyPodCount("gpu-operator", "app=nvidia-driver-daemonset") > 0 || readyPodCount("gpu-operator", "app.kubernetes.io/component=nvidia-driver") > 0 {
+		snapshot.GPUDriverReady = true
+	}
+	if daemonSetsReady("gpu-operator", "nvidia-container-toolkit-daemonset") || readyPodCount("gpu-operator", "app=nvidia-container-toolkit-daemonset") > 0 || readyPodCount("gpu-operator", "app.kubernetes.io/component=nvidia-container-toolkit") > 0 {
+		snapshot.GPUContainerToolkitReady = true
+	}
 	if daemonSetsReady("gpu-operator", "nvidia-device-plugin-daemonset") {
 		snapshot.GPUDevicePluginReady = true
 	}
-	if exec.Command("kubectl", "-n", "gpu-operator", "get", "service", "nvidia-dcgm-exporter").Run() == nil ||
-		exec.Command("kubectl", "-n", "monitoring-system", "get", "service", "dcgm-exporter").Run() == nil {
+	if daemonSetsReady("gpu-operator", "gpu-feature-discovery") || readyPodCount("gpu-operator", "app=gpu-feature-discovery") > 0 {
+		snapshot.GPUFeatureDiscoveryReady = true
+	}
+	if daemonSetsReady("gpu-operator", "nvidia-dcgm-exporter") || readyPodCount("gpu-operator", "app=nvidia-dcgm-exporter") > 0 || exec.Command("kubectl", "-n", "gpu-operator", "get", "service", "nvidia-dcgm-exporter").Run() == nil {
+		snapshot.GPUManagedDCGMExporterReady = true
+	}
+	if daemonSetsReady("gpu-operator", "nvidia-mig-manager") || readyPodCount("gpu-operator", "app=nvidia-mig-manager") > 0 {
+		snapshot.GPUMIGManagerReady = true
+	}
+	if daemonSetsReady("gpu-operator", "nvidia-operator-validator") || readyPodCount("gpu-operator", "app=nvidia-operator-validator") > 0 || readyPodCount("gpu-operator", "app.kubernetes.io/component=validator") > 0 {
+		snapshot.GPUOperatorValidatorReady = true
+	}
+	if snapshot.GPUManagedDCGMExporterReady {
 		snapshot.DCGMMetricsScraped = true
 	}
 	if output, err := exec.Command("kubectl", "get", "nodes", "-o", "json").Output(); err == nil {

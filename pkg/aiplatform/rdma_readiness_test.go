@@ -5,6 +5,12 @@ import "testing"
 func TestEvaluateReadinessRequiresRDMAResourceEvidence(t *testing.T) {
 	status := EvaluateReadiness(ClusterSnapshot{
 		GPUOperatorReady:                 true,
+		GPUDriverReady:                   true,
+		GPUContainerToolkitReady:         true,
+		GPUFeatureDiscoveryReady:         true,
+		GPUManagedDCGMExporterReady:      true,
+		GPUMIGManagerReady:               true,
+		GPUOperatorValidatorReady:        true,
 		GPUDevicePluginReady:             true,
 		DCGMMetricsScraped:               true,
 		GPUAllocatableByNode:             map[string]int{"gpu-node-1": 8},
@@ -27,6 +33,12 @@ func TestEvaluateReadinessRequiresRDMAResourceEvidence(t *testing.T) {
 func TestEvaluateReadinessRequiresNetworkAttachmentEvidence(t *testing.T) {
 	status := EvaluateReadiness(ClusterSnapshot{
 		GPUOperatorReady:                 true,
+		GPUDriverReady:                   true,
+		GPUContainerToolkitReady:         true,
+		GPUFeatureDiscoveryReady:         true,
+		GPUManagedDCGMExporterReady:      true,
+		GPUMIGManagerReady:               true,
+		GPUOperatorValidatorReady:        true,
 		GPUDevicePluginReady:             true,
 		DCGMMetricsScraped:               true,
 		GPUAllocatableByNode:             map[string]int{"gpu-node-1": 8},
@@ -49,6 +61,12 @@ func TestEvaluateReadinessRequiresNetworkAttachmentEvidence(t *testing.T) {
 func TestEvaluateReadinessRequiresRDMASmokeTestEvidence(t *testing.T) {
 	status := EvaluateReadiness(ClusterSnapshot{
 		GPUOperatorReady:                 true,
+		GPUDriverReady:                   true,
+		GPUContainerToolkitReady:         true,
+		GPUFeatureDiscoveryReady:         true,
+		GPUManagedDCGMExporterReady:      true,
+		GPUMIGManagerReady:               true,
+		GPUOperatorValidatorReady:        true,
 		GPUDevicePluginReady:             true,
 		DCGMMetricsScraped:               true,
 		GPUAllocatableByNode:             map[string]int{"gpu-node-1": 8},
@@ -72,6 +90,12 @@ func TestEvaluateReadinessRequiresRDMASmokeTestEvidence(t *testing.T) {
 func TestEvaluateReadinessAcceptsCompleteRDMAEvidence(t *testing.T) {
 	status := EvaluateReadiness(ClusterSnapshot{
 		GPUOperatorReady:                 true,
+		GPUDriverReady:                   true,
+		GPUContainerToolkitReady:         true,
+		GPUFeatureDiscoveryReady:         true,
+		GPUManagedDCGMExporterReady:      true,
+		GPUMIGManagerReady:               true,
+		GPUOperatorValidatorReady:        true,
 		GPUDevicePluginReady:             true,
 		DCGMMetricsScraped:               true,
 		GPUAllocatableByNode:             map[string]int{"gpu-node-1": 8},
