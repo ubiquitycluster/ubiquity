@@ -33,6 +33,11 @@ func TestRenderNICoOperatingSystemsForRockyRHELUbuntuAndCustom(t *testing.T) {
 		if object.Spec.Checksum == "" || object.Spec.Provenance == "" {
 			t.Fatalf("%s missing checksum/provenance in rendered spec", object.Metadata.Name)
 		}
+		for _, key := range []string{"ubiquity.ai/os-family", "ubiquity.ai/os-version", "ubiquity.ai/architecture", "ubiquity.ai/provenance", "ubiquity.ai/boot-mode", "ubiquity.ai/fallback-behavior"} {
+			if object.Metadata.Labels[key] == "" || object.Spec.Labels[key] == "" {
+				t.Fatalf("%s missing compatibility label %s: metadata=%v spec=%v", object.Metadata.Name, key, object.Metadata.Labels, object.Spec.Labels)
+			}
+		}
 	}
 
 	for _, name := range []string{"rocky-9.4-gpu", "rhel-9.4"} {

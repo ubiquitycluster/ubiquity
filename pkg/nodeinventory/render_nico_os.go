@@ -39,12 +39,13 @@ func RenderNICoOperatingSystems(inventory NodeInventory) ([]NICoOperatingSystem,
 		if err != nil {
 			return nil, err
 		}
+		labels := nicoOSLabels(image)
 		objects = append(objects, NICoOperatingSystem{
 			APIVersion: "infra.nvidia.com/v1alpha1",
 			Kind:       "OperatingSystem",
 			Metadata: NICoObjectMetadata{
 				Name:   image.Name,
-				Labels: image.Labels,
+				Labels: labels,
 			},
 			Spec: NICoOperatingSystemSpec{
 				Family:       image.Family,
@@ -55,11 +56,38 @@ func RenderNICoOperatingSystems(inventory NodeInventory) ([]NICoOperatingSystem,
 				Provenance:   image.Provenance,
 				IPXEScript:   ipxe,
 				UserData:     userData,
-				Labels:       image.Labels,
+				Labels:       labels,
 			},
 		})
 	}
 	return objects, nil
+}
+
+func nicoOSLabels(image OSImage) map[string]string {
+	labels := map[string]string{}
+	for k, v := range image.Labels {
+		labels[k] = v
+	}
+	labels["ubiquity.ai/os-family"] = image.Family
+	labels["ubiquity.ai/os-version"] = image.Version
+	labels["ubiquity.ai/architecture"] = image.Architecture
+	labels["ubiquity.ai/provenance"] = image.Provenance
+	labels["ubiquity.ai/boot-mode"] = bootModeForFamily(image.Family)
+	labels["ubiquity.ai/fallback-behavior"] = "fail-closed-require-explicit-custom-boot-data"
+	return labels
+}
+
+func bootModeForFamily(family string) string {
+	switch family {
+	case OSFamilyRocky, OSFamilyRHEL:
+		return "pxe-kickstart"
+	case OSFamilyUbuntu:
+		return "pxe-autoinstall"
+	case OSFamilyCustom:
+		return "custom-ipxe"
+	default:
+		return "unsupported"
+	}
 }
 
 func renderBootData(image OSImage) (string, string, error) {
