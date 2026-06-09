@@ -201,6 +201,9 @@ jobs:
       - name: Helm hardening checks dry-run
         run: test/e2e/helm-hardening-checks.sh --dry-run
 
+      - name: Core services proof dry-run
+        run: test/e2e/core-services-proof.sh --dry-run
+
       - name: Verify NICo E2E script gates
         run: |
           for script in \
