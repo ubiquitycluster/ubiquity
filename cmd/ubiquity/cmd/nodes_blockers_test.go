@@ -189,7 +189,7 @@ func TestNodesLiveDrainCordonsAndDrainsKubernetesNode(t *testing.T) {
 		}
 		return []byte(`ok`), nil
 	}
-	nodeOpts = nodeCommandOptions{Backend: nodeBackendNICO, Output: "json", DryRun: false, Site: "site-a"}
+	nodeOpts = nodeCommandOptions{Backend: nodeBackendNICO, Output: "json", DryRun: false, Site: "site-a", Confirm: "node-a", DrainConfirmed: true}
 	t.Setenv("UBIQUITY_NICO_MODE", "live")
 	t.Setenv("UBIQUITY_NICO_BASE_URL", "https://nico.example")
 	t.Setenv("UBIQUITY_NICO_ORG", "acme")
