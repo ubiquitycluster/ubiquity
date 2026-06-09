@@ -30,6 +30,17 @@ func TestKyvernoPolicyTestsCoverAllowAndDenyFixtures(t *testing.T) {
 	}
 }
 
+func TestScheduledDependencyFreshnessReportWorkflow(t *testing.T) {
+	workflow := mustRead(t, "../../.github/workflows/dependency-freshness.yml")
+	script := mustRead(t, "../../test/e2e/dependency-freshness-report.sh")
+	combined := workflow + "\n" + script
+	for _, required := range []string{"schedule:", "workflow_dispatch:", "dependency-freshness-report.sh --dry-run", "go list -m -u all", "helm dependency list", "renovate", "dependabot", "actions", "container images", "dependency-freshness-report.md"} {
+		if !strings.Contains(combined, required) {
+			t.Fatalf("dependency freshness report missing %q", required)
+		}
+	}
+}
+
 func TestHelmHardeningChecksCoverUnitTestsAndDependencyFreshness(t *testing.T) {
 	workflow := mustRead(t, "../../.github/workflows/ci.yaml")
 	script := mustRead(t, "../../test/e2e/helm-hardening-checks.sh")
