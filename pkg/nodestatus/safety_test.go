@@ -44,3 +44,18 @@ func TestSafetyRequiresStorageAndAIStoreAcknowledgement(t *testing.T) {
 		t.Fatalf("decision=%+v err=%v, want allowed with storage/aistore warnings", decision, err)
 	}
 }
+
+func TestSafetyGatesCoverRebootReimageDrainEvictAndMaintenance(t *testing.T) {
+	for _, op := range []Operation{OperationReset, OperationReinstall, OperationReimage, OperationDrain, OperationEvict, OperationMaintenance} {
+		_, err := EvaluateSafety(SafetyRequest{Operation: op, NodeName: "cn01", Confirm: "wrong"}, SafetyClusterState{Node: NodeStatus{Name: "cn01", KubernetesReady: true}})
+		if !errors.Is(err, ErrSafetyGateDenied) {
+			t.Fatalf("operation %s did not require exact confirmation: %v", op, err)
+		}
+	}
+	for _, op := range []Operation{OperationReimage, OperationDrain, OperationEvict, OperationMaintenance} {
+		_, err := EvaluateSafety(SafetyRequest{Operation: op, NodeName: "cn01", Confirm: "cn01"}, SafetyClusterState{Node: NodeStatus{Name: "cn01", KubernetesReady: true}})
+		if !errors.Is(err, ErrSafetyGateDenied) {
+			t.Fatalf("operation %s did not require drain acknowledgement for Ready node: %v", op, err)
+		}
+	}
+}

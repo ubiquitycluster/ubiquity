@@ -8,11 +8,15 @@ import (
 type Operation string
 
 const (
-	OperationRemove    Operation = "remove"
-	OperationReinstall Operation = "reinstall"
-	OperationPowerOff  Operation = "power-off"
-	OperationReset     Operation = "reset"
-	OperationAdd       Operation = "add"
+	OperationRemove      Operation = "remove"
+	OperationReinstall   Operation = "reinstall"
+	OperationPowerOff    Operation = "power-off"
+	OperationReset       Operation = "reset"
+	OperationReimage     Operation = "reimage"
+	OperationDrain       Operation = "drain"
+	OperationEvict       Operation = "evict"
+	OperationMaintenance Operation = "maintenance"
+	OperationAdd         Operation = "add"
 )
 
 type SafetyRequest struct {
@@ -76,7 +80,7 @@ func EvaluateSafety(req SafetyRequest, state SafetyClusterState) (SafetyDecision
 
 func requiresConfirmation(op Operation) bool {
 	switch op {
-	case OperationRemove, OperationReinstall, OperationReset, OperationPowerOff:
+	case OperationRemove, OperationReinstall, OperationReset, OperationPowerOff, OperationReimage, OperationDrain, OperationEvict, OperationMaintenance:
 		return true
 	default:
 		return false
@@ -85,7 +89,7 @@ func requiresConfirmation(op Operation) bool {
 
 func requiresDrain(op Operation) bool {
 	switch op {
-	case OperationRemove, OperationReinstall, OperationPowerOff, OperationReset:
+	case OperationRemove, OperationReinstall, OperationPowerOff, OperationReset, OperationReimage, OperationDrain, OperationEvict, OperationMaintenance:
 		return true
 	default:
 		return false
