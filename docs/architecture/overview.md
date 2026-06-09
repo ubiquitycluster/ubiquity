@@ -32,7 +32,7 @@
 
 ### Packaging model
 
-Most `./system` and `./platform` components use Helm as the component packaging boundary: charts own templates, values, dependency metadata, and chart tests. Kustomize remains the environment-specific patches and composition boundary. The main exception is `platform/hpc-ubiq`, which keeps legacy HPC/Slurm composition as Kustomize overlays until those workloads are split into stable charted components. See [Kustomize and Helm relationship](kustomize-helm.md).
+Most `./system` and `./platform` components use Helm as the component packaging boundary: charts own templates, values, dependency metadata, and chart tests. Kustomize remains the environment-specific patches and composition boundary. The main exception is `platform/hpc-ubiq`, which keeps legacy HPC/Slurm composition as Kustomize overlays until those workloads are split into stable charted components. `system/core-services` adds a thin ArgoCD Application orchestration layer over these component charts and vetted public charts; see [Core services architecture](core-services.md) and [Kustomize and Helm relationship](kustomize-helm.md).
 
 ### Support Components
 
