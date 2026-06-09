@@ -30,6 +30,10 @@
 - **`./apps`** - User-facing applications
 - **`./external`** (optional) - Externally managed services
 
+### Packaging model
+
+Most `./system` and `./platform` components use Helm as the component packaging boundary: charts own templates, values, dependency metadata, and chart tests. Kustomize remains the environment-specific patches and composition boundary. The main exception is `platform/hpc-ubiq`, which keeps legacy HPC/Slurm composition as Kustomize overlays until those workloads are split into stable charted components. See [Kustomize and Helm relationship](kustomize-helm.md).
+
 ### Support Components
 
 - **`./tools`** - Tools container with all utilities needed to manage the cluster and troubleshoot issues, including disk image building
