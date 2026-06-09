@@ -178,6 +178,13 @@ jobs:
       - name: Network policy behavioral dry-run
         run: test/e2e/network-policy-behavior.sh --dry-run
 
+      - name: Cloud readiness proof dry-run
+        run: |
+          go run ./cmd/ubiquity cloud render prerequisites >/tmp/cloud-prerequisites.yaml
+          go run ./cmd/ubiquity cloud render operator-bundles >/tmp/cloud-operator-bundles.yaml
+          test/e2e/cloud-service-smoke-tests.sh --dry-run
+          test/e2e/cloud-readiness-proof-bundle.sh --dry-run
+
       - name: Verify NICo E2E script gates
         run: |
           for script in \

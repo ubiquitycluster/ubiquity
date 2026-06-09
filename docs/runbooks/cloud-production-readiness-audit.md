@@ -32,3 +32,16 @@ ubiquity virtual-machines image-catalog
 - Kubernetes object existence is not readiness.
 - A KubeVirt image catalog entry does not prove CDI import or guest boot.
 - A backup Schedule or Restore object does not prove recoverability without a completed restore drill and smoke test.
+
+## Cloud readiness proof bundle
+
+Use `test/e2e/cloud-readiness-proof-bundle.sh` as the reviewer-facing collection path. The bundle must preserve:
+
+- prerequisite contract
+- operator provenance
+- server-side dry-run output
+- collected readiness JSON
+- readiness report
+- restore-drill evidence
+
+A rendered Restore object is not recoverability proof. The audit is incomplete until restore-drill evidence includes controller success, readable restored data, and the `cloud-restore-drill-smoke-passed` marker.

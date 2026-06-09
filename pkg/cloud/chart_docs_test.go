@@ -51,6 +51,37 @@ func TestVMDiskChartAndDocsExist(t *testing.T) {
 	}
 }
 
+func TestCloudReadinessDocsAndCIIncludeLiveProofFlows(t *testing.T) {
+	for path, required := range map[string][]string{
+		"../../docs/runbooks/cloud-readiness-validation.md": {
+			"cloud-readiness-proof-bundle.sh",
+			"collect-readiness",
+			"readiness evaluator",
+			"restore-drill-controller-succeeded",
+			"tenant-cluster-kubeconfig-present",
+		},
+		"../../docs/runbooks/cloud-production-readiness-audit.md": {
+			"cloud-readiness-proof-bundle.sh",
+			"operator provenance",
+			"server-side dry-run output",
+			"restore-drill evidence",
+		},
+		"../../.github/workflows/ci.yaml": {
+			"cloud-readiness-proof-bundle.sh --dry-run",
+			"cloud-service-smoke-tests.sh --dry-run",
+			"cloud render operator-bundles",
+			"cloud render prerequisites",
+		},
+	} {
+		content := mustRead(t, path)
+		for _, term := range required {
+			if !strings.Contains(content, term) {
+				t.Fatalf("%s missing %q", path, term)
+			}
+		}
+	}
+}
+
 func mustRead(t *testing.T, path string) string {
 	t.Helper()
 	content, err := os.ReadFile(path)
