@@ -195,6 +195,9 @@ jobs:
           grep -q 'cosign sign' /tmp/ubiquity-security/cosign.log
           grep -q 'cosign verify' /tmp/ubiquity-security/cosign.log
 
+      - name: Runtime security validation dry-run
+        run: test/e2e/runtime-security-validation.sh --dry-run
+
       - name: Verify NICo E2E script gates
         run: |
           for script in \

@@ -1,0 +1,6 @@
+alerting:
+  sidekick: Falcosidekick
+  receiver: Alertmanager
+  severity: warning
+rules:
+  enabled: true

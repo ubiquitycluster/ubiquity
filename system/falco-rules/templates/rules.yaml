@@ -1,0 +1,20 @@
+{{- if .Values.rules.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Chart.Name }}
+  labels:
+    app.kubernetes.io/name: falco-rules
+    ubiquity.ai/runtime-security: "falco"
+data:
+  alerting-path: "Falco -> {{ .Values.alerting.sidekick }} -> {{ .Values.alerting.receiver }}"
+  custom-rules.yaml: |
+    - rule: Terminal shell in container
+      desc: Detect an interactive shell spawned inside a container runtime namespace.
+      condition: >
+        spawned_process and container and proc.name in (bash, sh, zsh, dash, ash)
+      output: >
+        Falco runtime alert: terminal shell in container (user=%user.name command=%proc.cmdline container=%container.name image=%container.image.repository)
+      priority: WARNING
+      tags: [container, shell, runtime-security, ubiquity]
+{{- end }}

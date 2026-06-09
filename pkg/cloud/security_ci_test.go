@@ -29,3 +29,16 @@ func TestKyvernoPolicyTestsCoverAllowAndDenyFixtures(t *testing.T) {
 		}
 	}
 }
+
+func TestRuntimeSecurityValidationIncludesFalcoAlertingAndDashboard(t *testing.T) {
+	workflow := mustRead(t, "../../.github/workflows/ci.yaml")
+	script := mustRead(t, "../../test/e2e/runtime-security-validation.sh")
+	rules := mustRead(t, "../../system/falco-rules/templates/rules.yaml")
+	dashboard := mustRead(t, "../../grafana/dashboards/cluster.json")
+	combined := workflow + "\n" + script + "\n" + rules + "\n" + dashboard
+	for _, required := range []string{"falco-rules", "Falco", "Falcosidekick", "Alertmanager", "Terminal shell in container", "runtime-security-validation.sh --dry-run", "falco_events_total", "--dry-run"} {
+		if !strings.Contains(combined, required) {
+			t.Fatalf("runtime security validation missing %q", required)
+		}
+	}
+}
