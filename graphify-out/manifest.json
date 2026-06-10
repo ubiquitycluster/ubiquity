@@ -2135,8 +2135,8 @@
     "semantic_hash": ""
   },
   "AGENTS.md": {
-    "mtime": 1780566625.0,
-    "ast_hash": "62c05a2bf20bf036a0b2633478663e64",
+    "mtime": 1781091375.5356333,
+    "ast_hash": "c4378441aa3ea5a9a224eb41cde87e41",
     "semantic_hash": ""
   },
   "CLA.md": {
@@ -6077,6 +6077,21 @@
   "pkg/cloud/setup_tutorial_docs_test.go": {
     "mtime": 1781091139.4045982,
     "ast_hash": "447fadec962c1d70cfcc1f8ae266f23e",
+    "semantic_hash": ""
+  },
+  "pkg/cloud/graphify_workflow_test.go": {
+    "mtime": 1781091335.4886334,
+    "ast_hash": "89dbe6ce73575ede74797759f0704bba",
+    "semantic_hash": ""
+  },
+  "scripts/check-graphify-freshness.sh": {
+    "mtime": 1781091390.4997144,
+    "ast_hash": "3bdd7fe90f1f51ae1ad6d2fae7cab453",
+    "semantic_hash": ""
+  },
+  "docs/developers/graphify-workflow.md": {
+    "mtime": 1781091411.9454288,
+    "ast_hash": "8ad50864828d6c7d9faa6ff67754d9cf",
     "semantic_hash": ""
   }
 }

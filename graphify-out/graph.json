@@ -614,7 +614,7 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_d13",
-      "community": 921,
+      "community": 37,
       "norm_label": "standard_d13"
     },
     {
@@ -624,7 +624,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_d13_vcpus",
-      "community": 921,
+      "community": 37,
       "norm_label": "vcpus"
     },
     {
@@ -634,7 +634,7 @@
       "source_location": "L29",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_d13_ram",
-      "community": 921,
+      "community": 37,
       "norm_label": "ram"
     },
     {
@@ -644,7 +644,7 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_d13_gpus",
-      "community": 921,
+      "community": 37,
       "norm_label": "gpus"
     },
     {
@@ -654,7 +654,7 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_d13_v2",
-      "community": 37,
+      "community": 1091,
       "norm_label": "standard_d13_v2"
     },
     {
@@ -664,7 +664,7 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_d13_v2_vcpus",
-      "community": 37,
+      "community": 1091,
       "norm_label": "vcpus"
     },
     {
@@ -674,7 +674,7 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_d13_v2_ram",
-      "community": 37,
+      "community": 1091,
       "norm_label": "ram"
     },
     {
@@ -684,7 +684,7 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_d13_v2_gpus",
-      "community": 37,
+      "community": 1091,
       "norm_label": "gpus"
     },
     {
@@ -7052,7 +7052,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "cmd_health_nico_test",
-      "community": 987,
+      "community": 20,
       "norm_label": "health_nico_test.go"
     },
     {
@@ -7062,7 +7062,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "cmd_health_nico_test_testhealthnicoflagregisteredinhelpandparses",
-      "community": 987,
+      "community": 20,
       "norm_label": "testhealthnicoflagregisteredinhelpandparses()"
     },
     {
@@ -7072,7 +7072,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "cmd_ubiquity_cmd_health_nico_test_go_t",
-      "community": 987,
+      "community": 20,
       "norm_label": "t"
     },
     {
@@ -7082,7 +7082,7 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "cmd_health_nico_test_testhealthnicoonlyrendersnicoreadiness",
-      "community": 987,
+      "community": 20,
       "norm_label": "testhealthnicoonlyrendersnicoreadiness()"
     },
     {
@@ -7092,7 +7092,7 @@
       "source_location": "L79",
       "_origin": "ast",
       "id": "cmd_health_nico_test_installfailingkubectl",
-      "community": 987,
+      "community": 20,
       "norm_label": "installfailingkubectl()"
     },
     {
@@ -7242,7 +7242,7 @@
       "source_location": "L42",
       "_origin": "ast",
       "id": "cmd_nodesnicoclient",
-      "community": 2,
+      "community": 921,
       "norm_label": "nodesnicoclient"
     },
     {
@@ -7382,7 +7382,7 @@
       "source_location": "L290",
       "_origin": "ast",
       "id": "cmd_nodes_runlivenodesaction",
-      "community": 2,
+      "community": 921,
       "norm_label": "runlivenodesaction()"
     },
     {
@@ -7392,7 +7392,7 @@
       "source_location": "L290",
       "_origin": "ast",
       "id": "cmd_ubiquity_cmd_nodes_go_context",
-      "community": 2,
+      "community": 921,
       "norm_label": "context"
     },
     {
@@ -7402,7 +7402,7 @@
       "source_location": "L466",
       "_origin": "ast",
       "id": "cmd_nodes_collectlivenodestatuses",
-      "community": 2,
+      "community": 921,
       "norm_label": "collectlivenodestatuses()"
     },
     {
@@ -7412,7 +7412,7 @@
       "source_location": "L470",
       "_origin": "ast",
       "id": "cmd_nodes_loadnicooperatingsystemsfrominventory",
-      "community": 2,
+      "community": 1089,
       "norm_label": "loadnicooperatingsystemsfrominventory()"
     },
     {
@@ -7422,7 +7422,7 @@
       "source_location": "L470",
       "_origin": "ast",
       "id": "cmd_ubiquity_cmd_nodes_go_operatingsystem",
-      "community": 2,
+      "community": 1089,
       "norm_label": "operatingsystem"
     },
     {
@@ -7432,7 +7432,7 @@
       "source_location": "L486",
       "_origin": "ast",
       "id": "cmd_nodes_loadnodeinventory",
-      "community": 2,
+      "community": 1089,
       "norm_label": "loadnodeinventory()"
     },
     {
@@ -7442,7 +7442,7 @@
       "source_location": "L486",
       "_origin": "ast",
       "id": "cmd_ubiquity_cmd_nodes_go_nodeinventory",
-      "community": 2,
+      "community": 1089,
       "norm_label": "nodeinventory"
     },
     {
@@ -7452,7 +7452,7 @@
       "source_location": "L501",
       "_origin": "ast",
       "id": "cmd_nodes_nicooperatingsystemfromrendered",
-      "community": 2,
+      "community": 1089,
       "norm_label": "nicooperatingsystemfromrendered()"
     },
     {
@@ -7462,7 +7462,7 @@
       "source_location": "L501",
       "_origin": "ast",
       "id": "nicooperatingsystem",
-      "community": 2,
+      "community": 1089,
       "norm_label": "nicooperatingsystem"
     },
     {
@@ -7472,7 +7472,7 @@
       "source_location": "L524",
       "_origin": "ast",
       "id": "cmd_nodes_createinstancefrominventory",
-      "community": 2,
+      "community": 921,
       "norm_label": "createinstancefrominventory()"
     },
     {
@@ -7482,7 +7482,7 @@
       "source_location": "L524",
       "_origin": "ast",
       "id": "cmd_ubiquity_cmd_nodes_go_instance",
-      "community": 2,
+      "community": 921,
       "norm_label": "instance"
     },
     {
@@ -7492,7 +7492,7 @@
       "source_location": "L528",
       "_origin": "ast",
       "id": "cmd_nodes_createinstancefrominventorywithoverrides",
-      "community": 2,
+      "community": 921,
       "norm_label": "createinstancefrominventorywithoverrides()"
     },
     {
@@ -7502,7 +7502,7 @@
       "source_location": "L557",
       "_origin": "ast",
       "id": "cmd_nodes_pollrelatednicotask",
-      "community": 2,
+      "community": 921,
       "norm_label": "pollrelatednicotask()"
     },
     {
@@ -7512,7 +7512,7 @@
       "source_location": "L557",
       "_origin": "ast",
       "id": "cmd_ubiquity_cmd_nodes_go_task",
-      "community": 2,
+      "community": 921,
       "norm_label": "task"
     },
     {
@@ -7522,7 +7522,7 @@
       "source_location": "L575",
       "_origin": "ast",
       "id": "cmd_nodes_pollnicotask",
-      "community": 2,
+      "community": 921,
       "norm_label": "pollnicotask()"
     },
     {
@@ -7532,7 +7532,7 @@
       "source_location": "L602",
       "_origin": "ast",
       "id": "cmd_nodes_verifyinstanceabsent",
-      "community": 2,
+      "community": 921,
       "norm_label": "verifyinstanceabsent()"
     },
     {
@@ -7542,7 +7542,7 @@
       "source_location": "L615",
       "_origin": "ast",
       "id": "cmd_nodes_collectnodekubernetesevidence",
-      "community": 2,
+      "community": 921,
       "norm_label": "collectnodekubernetesevidence()"
     },
     {
@@ -7552,7 +7552,7 @@
       "source_location": "L615",
       "_origin": "ast",
       "id": "evidence",
-      "community": 2,
+      "community": 921,
       "norm_label": "evidence"
     },
     {
@@ -7562,7 +7562,7 @@
       "source_location": "L627",
       "_origin": "ast",
       "id": "cmd_nodes_drainkubernetesnode",
-      "community": 2,
+      "community": 921,
       "norm_label": "drainkubernetesnode()"
     },
     {
@@ -7622,7 +7622,7 @@
       "source_location": "L700",
       "_origin": "ast",
       "id": "cmd_nodes_instancenoderow",
-      "community": 2,
+      "community": 921,
       "norm_label": "instancenoderow()"
     },
     {
@@ -7632,7 +7632,7 @@
       "source_location": "L704",
       "_origin": "ast",
       "id": "cmd_nodes_firstnonemptystring",
-      "community": 2,
+      "community": 921,
       "norm_label": "firstnonemptystring()"
     },
     {
@@ -7692,7 +7692,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "cmd_nodes_blockers_test",
-      "community": 2,
+      "community": 862,
       "norm_label": "nodes_blockers_test.go"
     },
     {
@@ -7702,7 +7702,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "cmd_fakenodesnicoclient",
-      "community": 8,
+      "community": 3,
       "norm_label": "fakenodesnicoclient"
     },
     {
@@ -7712,7 +7712,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "cmd_ubiquity_cmd_nodes_blockers_test_go_operatingsystem",
-      "community": 8,
+      "community": 3,
       "norm_label": "operatingsystem"
     },
     {
@@ -7722,7 +7722,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "cmd_ubiquity_cmd_nodes_blockers_test_go_instance",
-      "community": 8,
+      "community": 3,
       "norm_label": "instance"
     },
     {
@@ -7732,7 +7732,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "powerrequest",
-      "community": 8,
+      "community": 3,
       "norm_label": "powerrequest"
     },
     {
@@ -7742,7 +7742,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "cmd_ubiquity_cmd_nodes_blockers_test_go_site",
-      "community": 8,
+      "community": 3,
       "norm_label": "site"
     },
     {
@@ -7752,7 +7752,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "cmd_ubiquity_cmd_nodes_blockers_test_go_machine",
-      "community": 8,
+      "community": 3,
       "norm_label": "machine"
     },
     {
@@ -7762,7 +7762,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "cmd_ubiquity_cmd_nodes_blockers_test_go_task",
-      "community": 8,
+      "community": 3,
       "norm_label": "task"
     },
     {
@@ -7772,7 +7772,7 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "cmd_ubiquity_cmd_nodes_blockers_test_go_machinegpustats",
-      "community": 8,
+      "community": 3,
       "norm_label": "machinegpustats"
     },
     {
@@ -7782,7 +7782,7 @@
       "source_location": "L29",
       "_origin": "ast",
       "id": "cmd_fakenodesnicoclient_getmachine",
-      "community": 8,
+      "community": 3,
       "norm_label": ".getmachine()"
     },
     {
@@ -7792,7 +7792,7 @@
       "source_location": "L29",
       "_origin": "ast",
       "id": "cmd_ubiquity_cmd_nodes_blockers_test_go_context",
-      "community": 8,
+      "community": 3,
       "norm_label": "context"
     },
     {
@@ -7802,7 +7802,7 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "cmd_fakenodesnicoclient_createoperatingsystem",
-      "community": 8,
+      "community": 3,
       "norm_label": ".createoperatingsystem()"
     },
     {
@@ -7812,7 +7812,7 @@
       "source_location": "L40",
       "_origin": "ast",
       "id": "cmd_fakenodesnicoclient_createinstance",
-      "community": 8,
+      "community": 3,
       "norm_label": ".createinstance()"
     },
     {
@@ -7822,7 +7822,7 @@
       "source_location": "L48",
       "_origin": "ast",
       "id": "cmd_fakenodesnicoclient_deleteinstance",
-      "community": 8,
+      "community": 3,
       "norm_label": ".deleteinstance()"
     },
     {
@@ -7832,7 +7832,7 @@
       "source_location": "L59",
       "_origin": "ast",
       "id": "cmd_fakenodesnicoclient_powermachine",
-      "community": 8,
+      "community": 3,
       "norm_label": ".powermachine()"
     },
     {
@@ -7842,7 +7842,7 @@
       "source_location": "L67",
       "_origin": "ast",
       "id": "cmd_fakenodesnicoclient_listsites",
-      "community": 8,
+      "community": 3,
       "norm_label": ".listsites()"
     },
     {
@@ -7852,7 +7852,7 @@
       "source_location": "L73",
       "_origin": "ast",
       "id": "cmd_fakenodesnicoclient_listmachines",
-      "community": 8,
+      "community": 3,
       "norm_label": ".listmachines()"
     },
     {
@@ -7862,7 +7862,7 @@
       "source_location": "L79",
       "_origin": "ast",
       "id": "cmd_fakenodesnicoclient_listinstances",
-      "community": 8,
+      "community": 3,
       "norm_label": ".listinstances()"
     },
     {
@@ -7872,7 +7872,7 @@
       "source_location": "L82",
       "_origin": "ast",
       "id": "cmd_fakenodesnicoclient_listtasks",
-      "community": 8,
+      "community": 3,
       "norm_label": ".listtasks()"
     },
     {
@@ -7882,7 +7882,7 @@
       "source_location": "L85",
       "_origin": "ast",
       "id": "cmd_fakenodesnicoclient_listmachinegpustats",
-      "community": 8,
+      "community": 3,
       "norm_label": ".listmachinegpustats()"
     },
     {
@@ -7892,7 +7892,7 @@
       "source_location": "L88",
       "_origin": "ast",
       "id": "cmd_fakenodesnicoclient_gettask",
-      "community": 8,
+      "community": 3,
       "norm_label": ".gettask()"
     },
     {
@@ -7902,7 +7902,7 @@
       "source_location": "L101",
       "_origin": "ast",
       "id": "cmd_nodes_blockers_test_capturenodesoutput",
-      "community": 2,
+      "community": 862,
       "norm_label": "capturenodesoutput()"
     },
     {
@@ -7912,7 +7912,7 @@
       "source_location": "L101",
       "_origin": "ast",
       "id": "cmd_ubiquity_cmd_nodes_blockers_test_go_t",
-      "community": 2,
+      "community": 862,
       "norm_label": "t"
     },
     {
@@ -7922,7 +7922,7 @@
       "source_location": "L117",
       "_origin": "ast",
       "id": "cmd_nodes_blockers_test_testnodesflagsconfirmstringosimagealiasandsafetyflags",
-      "community": 2,
+      "community": 862,
       "norm_label": "testnodesflagsconfirmstringosimagealiasandsafetyflags()"
     },
     {
@@ -7932,7 +7932,7 @@
       "source_location": "L129",
       "_origin": "ast",
       "id": "cmd_nodes_blockers_test_testnodesexactargsandpowersyntax",
-      "community": 2,
+      "community": 862,
       "norm_label": "testnodesexactargsandpowersyntax()"
     },
     {
@@ -7942,7 +7942,7 @@
       "source_location": "L142",
       "_origin": "ast",
       "id": "cmd_nodes_blockers_test_testnodessafetyrequiresexactconfirmation",
-      "community": 2,
+      "community": 862,
       "norm_label": "testnodessafetyrequiresexactconfirmation()"
     },
     {
@@ -7952,7 +7952,7 @@
       "source_location": "L152",
       "_origin": "ast",
       "id": "cmd_nodes_blockers_test_testnodeslivemutatingoperationcallsfakeableclient",
-      "community": 2,
+      "community": 862,
       "norm_label": "testnodeslivemutatingoperationcallsfakeableclient()"
     },
     {
@@ -7962,7 +7962,7 @@
       "source_location": "L174",
       "_origin": "ast",
       "id": "cmd_nodes_blockers_test_testnodeslivedraincordonsanddrainskubernetesnode",
-      "community": 2,
+      "community": 862,
       "norm_label": "testnodeslivedraincordonsanddrainskubernetesnode()"
     },
     {
@@ -7972,7 +7972,7 @@
       "source_location": "L212",
       "_origin": "ast",
       "id": "cmd_nodes_blockers_test_testnodesliveremovepollsdeletiontaskandverifiesinstanceabsent",
-      "community": 2,
+      "community": 862,
       "norm_label": "testnodesliveremovepollsdeletiontaskandverifiesinstanceabsent()"
     },
     {
@@ -7982,7 +7982,7 @@
       "source_location": "L242",
       "_origin": "ast",
       "id": "cmd_nodes_blockers_test_testnodeslivereinstallinventorypinsreplacementtosamemachine",
-      "community": 2,
+      "community": 862,
       "norm_label": "testnodeslivereinstallinventorypinsreplacementtosamemachine()"
     },
     {
@@ -7992,7 +7992,7 @@
       "source_location": "L279",
       "_origin": "ast",
       "id": "cmd_nodes_blockers_test_testnodesnicoclitransportdoesnotrequirerestbaseurl",
-      "community": 2,
+      "community": 862,
       "norm_label": "testnodesnicoclitransportdoesnotrequirerestbaseurl()"
     },
     {
@@ -8002,7 +8002,7 @@
       "source_location": "L293",
       "_origin": "ast",
       "id": "cmd_nodes_blockers_test_testnodeslivepowercallsnicomachinepowertask",
-      "community": 2,
+      "community": 862,
       "norm_label": "testnodeslivepowercallsnicomachinepowertask()"
     },
     {
@@ -8012,7 +8012,7 @@
       "source_location": "L322",
       "_origin": "ast",
       "id": "cmd_nodes_blockers_test_testnodeslivetaskcallsfakeableclientandrenderstask",
-      "community": 2,
+      "community": 862,
       "norm_label": "testnodeslivetaskcallsfakeableclientandrenderstask()"
     },
     {
@@ -8022,7 +8022,7 @@
       "source_location": "L345",
       "_origin": "ast",
       "id": "cmd_nodes_blockers_test_testnodeslivestatuscollectsnicofilterstargetandusesdeadline",
-      "community": 2,
+      "community": 862,
       "norm_label": "testnodeslivestatuscollectsnicofilterstargetandusesdeadline()"
     },
     {
@@ -8032,7 +8032,7 @@
       "source_location": "L373",
       "_origin": "ast",
       "id": "cmd_nodes_blockers_test_testnodeslivecreateactionsrendercreatedpayloads",
-      "community": 2,
+      "community": 862,
       "norm_label": "testnodeslivecreateactionsrendercreatedpayloads()"
     },
     {
@@ -8042,7 +8042,7 @@
       "source_location": "L400",
       "_origin": "ast",
       "id": "cmd_nodes_blockers_test_testnodesosapplyinventorycreatesrenderednicooperatingsystems",
-      "community": 2,
+      "community": 862,
       "norm_label": "testnodesosapplyinventorycreatesrenderednicooperatingsystems()"
     },
     {
@@ -8052,7 +8052,7 @@
       "source_location": "L424",
       "_origin": "ast",
       "id": "cmd_nodes_blockers_test_testnodesaddinventorycreatesosandinstancefortargetnode",
-      "community": 2,
+      "community": 862,
       "norm_label": "testnodesaddinventorycreatesosandinstancefortargetnode()"
     },
     {
@@ -8062,7 +8062,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "cmd_nodes_live_evidence_test",
-      "community": 2,
+      "community": 987,
       "norm_label": "nodes_live_evidence_test.go"
     },
     {
@@ -8072,7 +8072,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "cmd_nodes_live_evidence_test_testcollectnodekubernetesevidenceuseskubectlnodesjson",
-      "community": 2,
+      "community": 987,
       "norm_label": "testcollectnodekubernetesevidenceuseskubectlnodesjson()"
     },
     {
@@ -8082,7 +8082,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "cmd_ubiquity_cmd_nodes_live_evidence_test_go_t",
-      "community": 2,
+      "community": 987,
       "norm_label": "t"
     },
     {
@@ -8092,7 +8092,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "cmd_nodes_live_evidence_test_testcollectnodekubernetesevidencefailsclosedwhenkubectlunavailable",
-      "community": 2,
+      "community": 987,
       "norm_label": "testcollectnodekubernetesevidencefailsclosedwhenkubectlunavailable()"
     },
     {
@@ -8102,7 +8102,7 @@
       "source_location": "L40",
       "_origin": "ast",
       "id": "cmd_nodes_live_evidence_test_testresolvenodetargetstatusfailsclosedforambiguousormissingtargets",
-      "community": 2,
+      "community": 987,
       "norm_label": "testresolvenodetargetstatusfailsclosedforambiguousormissingtargets()"
     },
     {
@@ -8112,7 +8112,7 @@
       "source_location": "L50",
       "_origin": "ast",
       "id": "cmd_nodes_live_evidence_test_testrunliveremoveresolvesnodenametoinstanceid",
-      "community": 2,
+      "community": 987,
       "norm_label": "testrunliveremoveresolvesnodenametoinstanceid()"
     },
     {
@@ -8122,7 +8122,7 @@
       "source_location": "L69",
       "_origin": "ast",
       "id": "cmd_nodes_live_evidence_test_testcontrolplanecountsuseliverolesandreadyevidence",
-      "community": 2,
+      "community": 987,
       "norm_label": "testcontrolplanecountsuseliverolesandreadyevidence()"
     },
     {
@@ -8132,7 +8132,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "cmd_nodes_test",
-      "community": 2,
+      "community": 1081,
       "norm_label": "nodes_test.go"
     },
     {
@@ -8142,7 +8142,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "cmd_nodes_test_testnodescommandregisteredwithsubcommands",
-      "community": 2,
+      "community": 1081,
       "norm_label": "testnodescommandregisteredwithsubcommands()"
     },
     {
@@ -8152,7 +8152,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "cmd_ubiquity_cmd_nodes_test_go_t",
-      "community": 2,
+      "community": 1081,
       "norm_label": "t"
     },
     {
@@ -8162,7 +8162,7 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "cmd_nodes_test_testnodesdefaultbackendnicoandabsentconfigfailsclosed",
-      "community": 2,
+      "community": 1081,
       "norm_label": "testnodesdefaultbackendnicoandabsentconfigfailsclosed()"
     },
     {
@@ -8172,7 +8172,7 @@
       "source_location": "L47",
       "_origin": "ast",
       "id": "cmd_nodes_test_testnodesdestructiverequiresconfirm",
-      "community": 2,
+      "community": 1081,
       "norm_label": "testnodesdestructiverequiresconfirm()"
     },
     {
@@ -8182,7 +8182,7 @@
       "source_location": "L57",
       "_origin": "ast",
       "id": "cmd_nodes_test_testnodesjsonredactssecrets",
-      "community": 2,
+      "community": 1081,
       "norm_label": "testnodesjsonredactssecrets()"
     },
     {
@@ -8192,7 +8192,7 @@
       "source_location": "L65",
       "_origin": "ast",
       "id": "cmd_nodes_test_testnicohealthrendererfailsclosed",
-      "community": 2,
+      "community": 1081,
       "norm_label": "testnicohealthrendererfailsclosed()"
     },
     {
@@ -8512,7 +8512,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "cmd_status",
-      "community": 1081,
+      "community": 3,
       "norm_label": "status.go"
     },
     {
@@ -8522,7 +8522,7 @@
       "source_location": "L57",
       "_origin": "ast",
       "id": "cmd_status_init",
-      "community": 1081,
+      "community": 3,
       "norm_label": "init()"
     },
     {
@@ -8532,7 +8532,7 @@
       "source_location": "L63",
       "_origin": "ast",
       "id": "cmd_status_checkinstallerstatus",
-      "community": 1081,
+      "community": 3,
       "norm_label": "checkinstallerstatus()"
     },
     {
@@ -9572,7 +9572,7 @@
       "source_location": "L191",
       "_origin": "ast",
       "id": "cmd_virtual_machines_parsediskattachments",
-      "community": 4,
+      "community": 872,
       "norm_label": "parsediskattachments()"
     },
     {
@@ -9592,7 +9592,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "cmd_virtual_machines_disk_test",
-      "community": 4,
+      "community": 872,
       "norm_label": "virtual_machines_disk_test.go"
     },
     {
@@ -9602,7 +9602,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "cmd_virtual_machines_disk_test_testparsediskattachmentsacceptsnamepvclist",
-      "community": 4,
+      "community": 872,
       "norm_label": "testparsediskattachmentsacceptsnamepvclist()"
     },
     {
@@ -9612,7 +9612,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "cmd_ubiquity_cmd_virtual_machines_disk_test_go_t",
-      "community": 4,
+      "community": 872,
       "norm_label": "t"
     },
     {
@@ -9622,7 +9622,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "cmd_virtual_machines_disk_test_testparsediskattachmentsrejectsmalformedinput",
-      "community": 4,
+      "community": 872,
       "norm_label": "testparsediskattachmentsrejectsmalformedinput()"
     },
     {
@@ -10204,7 +10204,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "disabled_platform_vault_files_generate_secrets_main_go_generate_secrets_main",
-      "community": 862,
+      "community": 5,
       "norm_label": "main.go"
     },
     {
@@ -10214,7 +10214,7 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "disabled_platform_vault_files_generate_secrets_main_go_generate_secrets_randompassword",
-      "community": 862,
+      "community": 5,
       "norm_label": "randompassword"
     },
     {
@@ -10224,7 +10224,7 @@
       "source_location": "L41",
       "_origin": "ast",
       "id": "disabled_platform_vault_files_generate_secrets_main_go_generate_secrets_main_main",
-      "community": 862,
+      "community": 5,
       "norm_label": "main()"
     },
     {
@@ -12940,7 +12940,7 @@
       "source_location": "L49",
       "_origin": "ast",
       "id": "aiplatform_workload_parser_parseavailabledeployments",
-      "community": 34,
+      "community": 925,
       "norm_label": "parseavailabledeployments()"
     },
     {
@@ -12950,7 +12950,7 @@
       "source_location": "L76",
       "_origin": "ast",
       "id": "aiplatform_workload_parser_parsereadydaemonsets",
-      "community": 34,
+      "community": 925,
       "norm_label": "parsereadydaemonsets()"
     },
     {
@@ -12960,7 +12960,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "aiplatform_workload_parser_test",
-      "community": 34,
+      "community": 925,
       "norm_label": "workload_parser_test.go"
     },
     {
@@ -12970,7 +12970,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "aiplatform_workload_parser_test_testparseavailabledeploymentsonlycountsavailablereplicas",
-      "community": 34,
+      "community": 925,
       "norm_label": "testparseavailabledeploymentsonlycountsavailablereplicas()"
     },
     {
@@ -12980,7 +12980,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "pkg_aiplatform_workload_parser_test_go_t",
-      "community": 34,
+      "community": 925,
       "norm_label": "t"
     },
     {
@@ -12990,7 +12990,7 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "aiplatform_workload_parser_test_testparseavailabledeploymentshandlessingledeploymentobject",
-      "community": 34,
+      "community": 925,
       "norm_label": "testparseavailabledeploymentshandlessingledeploymentobject()"
     },
     {
@@ -13000,7 +13000,7 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "aiplatform_workload_parser_test_testparsereadydaemonsetsrequiresdesiredscheduledreadyandavailable",
-      "community": 34,
+      "community": 925,
       "norm_label": "testparsereadydaemonsetsrequiresdesiredscheduledreadyandavailable()"
     },
     {
@@ -13010,7 +13010,7 @@
       "source_location": "L56",
       "_origin": "ast",
       "id": "aiplatform_workload_parser_test_testparsereadydaemonsetshandlessingledaemonsetobject",
-      "community": 34,
+      "community": 925,
       "norm_label": "testparsereadydaemonsetshandlessingledaemonsetobject()"
     },
     {
@@ -13642,6 +13642,36 @@
       "id": "cloud_governance_test_testrendercloudgovernancefailsclosedforbadnames",
       "community": 95,
       "norm_label": "testrendercloudgovernancefailsclosedforbadnames()"
+    },
+    {
+      "label": "graphify_workflow_test.go",
+      "file_type": "code",
+      "source_file": "pkg/cloud/graphify_workflow_test.go",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "cloud_graphify_workflow_test",
+      "community": 1093,
+      "norm_label": "graphify_workflow_test.go"
+    },
+    {
+      "label": "TestGraphifyWorkflowDocumentationAndFreshnessCheck()",
+      "file_type": "code",
+      "source_file": "pkg/cloud/graphify_workflow_test.go",
+      "source_location": "L9",
+      "_origin": "ast",
+      "id": "cloud_graphify_workflow_test_testgraphifyworkflowdocumentationandfreshnesscheck",
+      "community": 1093,
+      "norm_label": "testgraphifyworkflowdocumentationandfreshnesscheck()"
+    },
+    {
+      "label": "T",
+      "file_type": "code",
+      "source_file": "pkg/cloud/graphify_workflow_test.go",
+      "source_location": "L9",
+      "_origin": "ast",
+      "id": "pkg_cloud_graphify_workflow_test_go_t",
+      "community": 1093,
+      "norm_label": "t"
     },
     {
       "label": "hardening_test.go",
@@ -14920,7 +14950,7 @@
       "source_location": "L138",
       "_origin": "ast",
       "id": "config_config_defaultconfig",
-      "community": 862,
+      "community": 5,
       "norm_label": "defaultconfig()"
     },
     {
@@ -15480,7 +15510,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "nico_clientoption",
-      "community": 925,
+      "community": 3,
       "norm_label": "clientoption"
     },
     {
@@ -15490,7 +15520,7 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "nico_client_withhttpclient",
-      "community": 925,
+      "community": 3,
       "norm_label": "withhttpclient()"
     },
     {
@@ -15630,7 +15660,7 @@
       "source_location": "L126",
       "_origin": "ast",
       "id": "nico_client_listmachines",
-      "community": 8,
+      "community": 3,
       "norm_label": ".listmachines()"
     },
     {
@@ -15800,7 +15830,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "nico_client_blockers_test",
-      "community": 925,
+      "community": 1076,
       "norm_label": "client_blockers_test.go"
     },
     {
@@ -15810,7 +15840,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "nico_client_blockers_test_testclientdefaulthttptimeout",
-      "community": 925,
+      "community": 1076,
       "norm_label": "testclientdefaulthttptimeout()"
     },
     {
@@ -15820,7 +15850,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "pkg_nico_client_blockers_test_go_t",
-      "community": 925,
+      "community": 1076,
       "norm_label": "t"
     },
     {
@@ -15830,7 +15860,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "nico_client_blockers_test_testclientlivemethodsuseexpectedhttpverbsandpaths",
-      "community": 925,
+      "community": 1076,
       "norm_label": "testclientlivemethodsuseexpectedhttpverbsandpaths()"
     },
     {
@@ -17920,7 +17950,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "nodestatus_safety",
-      "community": 2,
+      "community": 8,
       "norm_label": "safety.go"
     },
     {
@@ -17930,7 +17960,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "nodestatus_operation",
-      "community": 2,
+      "community": 8,
       "norm_label": "operation"
     },
     {
@@ -17940,7 +17970,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "nodestatus_safetyrequest",
-      "community": 2,
+      "community": 8,
       "norm_label": "safetyrequest"
     },
     {
@@ -17950,7 +17980,7 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "nodestatus_safetyclusterstate",
-      "community": 2,
+      "community": 8,
       "norm_label": "safetyclusterstate"
     },
     {
@@ -17960,7 +17990,7 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "pkg_nodestatus_safety_go_nodestatus",
-      "community": 2,
+      "community": 8,
       "norm_label": "nodestatus"
     },
     {
@@ -17970,7 +18000,7 @@
       "source_location": "L41",
       "_origin": "ast",
       "id": "nodestatus_safetydecision",
-      "community": 2,
+      "community": 8,
       "norm_label": "safetydecision"
     },
     {
@@ -17980,7 +18010,7 @@
       "source_location": "L48",
       "_origin": "ast",
       "id": "nodestatus_safety_evaluatesafety",
-      "community": 2,
+      "community": 8,
       "norm_label": "evaluatesafety()"
     },
     {
@@ -17990,7 +18020,7 @@
       "source_location": "L81",
       "_origin": "ast",
       "id": "nodestatus_safety_requiresconfirmation",
-      "community": 2,
+      "community": 8,
       "norm_label": "requiresconfirmation()"
     },
     {
@@ -18000,7 +18030,7 @@
       "source_location": "L90",
       "_origin": "ast",
       "id": "nodestatus_safety_requiresdrain",
-      "community": 2,
+      "community": 8,
       "norm_label": "requiresdrain()"
     },
     {
@@ -18010,7 +18040,7 @@
       "source_location": "L99",
       "_origin": "ast",
       "id": "nodestatus_safety_iscontrolplane",
-      "community": 2,
+      "community": 8,
       "norm_label": "iscontrolplane()"
     },
     {
@@ -18020,7 +18050,7 @@
       "source_location": "L109",
       "_origin": "ast",
       "id": "nodestatus_safety_quorumsafeafteroneloss",
-      "community": 2,
+      "community": 8,
       "norm_label": "quorumsafeafteroneloss()"
     },
     {
@@ -18030,7 +18060,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "nodestatus_safety_test",
-      "community": 2,
+      "community": 8,
       "norm_label": "safety_test.go"
     },
     {
@@ -18040,7 +18070,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "nodestatus_safety_test_testsafetyrequiresexactconfirmation",
-      "community": 2,
+      "community": 8,
       "norm_label": "testsafetyrequiresexactconfirmation()"
     },
     {
@@ -18050,7 +18080,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "pkg_nodestatus_safety_test_go_t",
-      "community": 2,
+      "community": 8,
       "norm_label": "t"
     },
     {
@@ -18060,7 +18090,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "nodestatus_safety_test_testsafetyblockscontrolplanequorumloss",
-      "community": 2,
+      "community": 8,
       "norm_label": "testsafetyblockscontrolplanequorumloss()"
     },
     {
@@ -18070,7 +18100,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "nodestatus_safety_test_testsafetyrequiresdrainforreadynodesunlessforcedwithreason",
-      "community": 2,
+      "community": 8,
       "norm_label": "testsafetyrequiresdrainforreadynodesunlessforcedwithreason()"
     },
     {
@@ -18080,7 +18110,7 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "nodestatus_safety_test_testsafetyrequiresstorageandaistoreacknowledgement",
-      "community": 2,
+      "community": 8,
       "norm_label": "testsafetyrequiresstorageandaistoreacknowledgement()"
     },
     {
@@ -18090,7 +18120,7 @@
       "source_location": "L48",
       "_origin": "ast",
       "id": "nodestatus_safety_test_testsafetygatescoverrebootreimagedrainevictandmaintenance",
-      "community": 2,
+      "community": 8,
       "norm_label": "testsafetygatescoverrebootreimagedrainevictandmaintenance()"
     },
     {
@@ -23908,7 +23938,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "nim_operator_values_schema",
-      "community": 803,
+      "community": 820,
       "norm_label": "values.schema.json"
     },
     {
@@ -23918,7 +23948,7 @@
       "source_location": "L2",
       "_origin": "ast",
       "id": "nim_operator_values_schema_schema",
-      "community": 803,
+      "community": 820,
       "norm_label": "$schema"
     },
     {
@@ -23928,7 +23958,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "nim_operator_values_schema_type",
-      "community": 803,
+      "community": 820,
       "norm_label": "type"
     },
     {
@@ -24188,7 +24218,7 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "nim_operator_values_schema_properties_enabled",
-      "community": 803,
+      "community": 808,
       "norm_label": "enabled"
     },
     {
@@ -24198,7 +24228,7 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "nim_operator_values_schema_enabled_type",
-      "community": 803,
+      "community": 808,
       "norm_label": "type"
     },
     {
@@ -24338,7 +24368,7 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "nim_operator_values_schema_properties_tag",
-      "community": 873,
+      "community": 803,
       "norm_label": "tag"
     },
     {
@@ -24348,7 +24378,7 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "nim_operator_values_schema_tag_type",
-      "community": 873,
+      "community": 803,
       "norm_label": "type"
     },
     {
@@ -24358,7 +24388,7 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "nim_operator_values_schema_tag_minlength",
-      "community": 873,
+      "community": 803,
       "norm_label": "minlength"
     },
     {
@@ -24368,7 +24398,7 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "nim_operator_values_schema_properties_modelpuller",
-      "community": 873,
+      "community": 808,
       "norm_label": "modelpuller"
     },
     {
@@ -24378,7 +24408,7 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "nim_operator_values_schema_modelpuller_type",
-      "community": 873,
+      "community": 808,
       "norm_label": "type"
     },
     {
@@ -24388,7 +24418,7 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "nim_operator_values_schema_modelpuller_minlength",
-      "community": 873,
+      "community": 808,
       "norm_label": "minlength"
     },
     {
@@ -24398,7 +24428,7 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "nim_operator_values_schema_properties_tensorparallelism",
-      "community": 1087,
+      "community": 808,
       "norm_label": "tensorparallelism"
     },
     {
@@ -24408,7 +24438,7 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "nim_operator_values_schema_tensorparallelism_type",
-      "community": 1087,
+      "community": 808,
       "norm_label": "type"
     },
     {
@@ -24418,7 +24448,7 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "nim_operator_values_schema_tensorparallelism_minlength",
-      "community": 1087,
+      "community": 808,
       "norm_label": "minlength"
     },
     {
@@ -24428,7 +24458,7 @@
       "source_location": "L38",
       "_origin": "ast",
       "id": "nim_operator_values_schema_properties_gpulimit",
-      "community": 808,
+      "community": 1088,
       "norm_label": "gpulimit"
     },
     {
@@ -24438,7 +24468,7 @@
       "source_location": "L38",
       "_origin": "ast",
       "id": "nim_operator_values_schema_gpulimit_type",
-      "community": 808,
+      "community": 1088,
       "norm_label": "type"
     },
     {
@@ -24448,7 +24478,7 @@
       "source_location": "L38",
       "_origin": "ast",
       "id": "nim_operator_values_schema_gpulimit_minimum",
-      "community": 808,
+      "community": 1088,
       "norm_label": "minimum"
     },
     {
@@ -24458,7 +24488,7 @@
       "source_location": "L39",
       "_origin": "ast",
       "id": "nim_operator_values_schema_properties_replicas",
-      "community": 808,
+      "community": 1088,
       "norm_label": "replicas"
     },
     {
@@ -24468,7 +24498,7 @@
       "source_location": "L39",
       "_origin": "ast",
       "id": "nim_operator_values_schema_replicas_type",
-      "community": 808,
+      "community": 1088,
       "norm_label": "type"
     },
     {
@@ -24478,7 +24508,7 @@
       "source_location": "L39",
       "_origin": "ast",
       "id": "nim_operator_values_schema_replicas_minimum",
-      "community": 808,
+      "community": 1088,
       "norm_label": "minimum"
     },
     {
@@ -24698,7 +24728,7 @@
       "source_location": "L54",
       "_origin": "ast",
       "id": "nim_operator_values_schema_port_minimum",
-      "community": 808,
+      "community": 1088,
       "norm_label": "minimum"
     },
     {
@@ -26554,6 +26584,62 @@
       "norm_label": "nameprefix"
     },
     {
+      "label": "check-graphify-freshness.sh",
+      "file_type": "code",
+      "source_file": "scripts/check-graphify-freshness.sh",
+      "source_location": "L1",
+      "metadata": {
+        "language": "bash",
+        "kind": "file"
+      },
+      "_origin": "ast",
+      "id": "scripts_check_graphify_freshness",
+      "community": 1092,
+      "norm_label": "check-graphify-freshness.sh"
+    },
+    {
+      "label": "check-graphify-freshness.sh script",
+      "file_type": "code",
+      "source_file": "scripts/check-graphify-freshness.sh",
+      "source_location": "L1",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_entrypoint"
+      },
+      "_origin": "ast",
+      "id": "users_ccoates_documents_ubiquity_scripts_check_graphify_freshness_sh__entry",
+      "community": 1092,
+      "norm_label": "check-graphify-freshness.sh script"
+    },
+    {
+      "label": "fail()",
+      "file_type": "code",
+      "source_file": "scripts/check-graphify-freshness.sh",
+      "source_location": "L30",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "scripts_check_graphify_freshness_fail",
+      "community": 1092,
+      "norm_label": "fail()"
+    },
+    {
+      "label": "require_file()",
+      "file_type": "code",
+      "source_file": "scripts/check-graphify-freshness.sh",
+      "source_location": "L38",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "scripts_check_graphify_freshness_require_file",
+      "community": 1092,
+      "norm_label": "require_file()"
+    },
+    {
       "label": "create-nat.sh",
       "file_type": "code",
       "source_file": "scripts/create-nat.sh",
@@ -27844,7 +27930,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "system_vault_files_generate_secrets_main_go_generate_secrets_main",
-      "community": 862,
+      "community": 5,
       "norm_label": "main.go"
     },
     {
@@ -27854,7 +27940,7 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "system_vault_files_generate_secrets_main_go_generate_secrets_randompassword",
-      "community": 862,
+      "community": 5,
       "norm_label": "randompassword"
     },
     {
@@ -27864,7 +27950,7 @@
       "source_location": "L41",
       "_origin": "ast",
       "id": "system_vault_files_generate_secrets_main_go_generate_secrets_main_main",
-      "community": 862,
+      "community": 5,
       "norm_label": "main()"
     },
     {
@@ -45248,6 +45334,76 @@
       "id": "developers_developers_5_release",
       "community": 824,
       "norm_label": "5. release"
+    },
+    {
+      "label": "graphify-workflow.md",
+      "file_type": "document",
+      "source_file": "docs/developers/graphify-workflow.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "developers_graphify_workflow",
+      "community": 1087,
+      "norm_label": "graphify-workflow.md"
+    },
+    {
+      "label": "Graphify workflow",
+      "file_type": "document",
+      "source_file": "docs/developers/graphify-workflow.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "developers_graphify_workflow_graphify_workflow",
+      "community": 1087,
+      "norm_label": "graphify workflow"
+    },
+    {
+      "label": "When to query the graph",
+      "file_type": "document",
+      "source_file": "docs/developers/graphify-workflow.md",
+      "source_location": "L7",
+      "_origin": "ast",
+      "id": "developers_graphify_workflow_when_to_query_the_graph",
+      "community": 1087,
+      "norm_label": "when to query the graph"
+    },
+    {
+      "label": "Updating the graph",
+      "file_type": "document",
+      "source_file": "docs/developers/graphify-workflow.md",
+      "source_location": "L26",
+      "_origin": "ast",
+      "id": "developers_graphify_workflow_updating_the_graph",
+      "community": 1087,
+      "norm_label": "updating the graph"
+    },
+    {
+      "label": "Visualization and size limits",
+      "file_type": "document",
+      "source_file": "docs/developers/graphify-workflow.md",
+      "source_location": "L39",
+      "_origin": "ast",
+      "id": "developers_graphify_workflow_visualization_and_size_limits",
+      "community": 1087,
+      "norm_label": "visualization and size limits"
+    },
+    {
+      "label": "Token cost reporting",
+      "file_type": "document",
+      "source_file": "docs/developers/graphify-workflow.md",
+      "source_location": "L46",
+      "_origin": "ast",
+      "id": "developers_graphify_workflow_token_cost_reporting",
+      "community": 1087,
+      "norm_label": "token cost reporting"
+    },
+    {
+      "label": "Freshness check",
+      "file_type": "document",
+      "source_file": "docs/developers/graphify-workflow.md",
+      "source_location": "L53",
+      "_origin": "ast",
+      "id": "developers_graphify_workflow_freshness_check",
+      "community": 1087,
+      "norm_label": "freshness check"
     },
     {
       "label": "releasing.md",
@@ -128458,6 +128614,27 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "pkg/cloud/graphify_workflow_test.go",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "cloud_graphify_workflow_test",
+      "target": "cloud_graphify_workflow_test_testgraphifyworkflowdocumentationandfreshnesscheck",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "pkg/cloud/graphify_workflow_test.go",
+      "source_location": "L9",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "cloud_graphify_workflow_test_testgraphifyworkflowdocumentationandfreshnesscheck",
+      "target": "pkg_cloud_graphify_workflow_test_go_t",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "pkg/cloud/hardening_test.go",
       "source_location": "L10",
       "weight": 1.0,
@@ -130522,9 +130699,9 @@
       "source_file": "pkg/cloud/setup_tutorial_docs_test.go",
       "source_location": "L9",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cloud_setup_tutorial_docs_test",
-      "target": "cloud_setup_tutorial_docs_test_testsetuptutorialdocsareactionable",
-      "confidence_score": 1.0
+      "target": "cloud_setup_tutorial_docs_test_testsetuptutorialdocsareactionable"
     },
     {
       "relation": "references",
@@ -130533,9 +130710,9 @@
       "source_location": "L9",
       "weight": 1.0,
       "context": "parameter_type",
+      "confidence_score": 1.0,
       "source": "cloud_setup_tutorial_docs_test_testsetuptutorialdocsareactionable",
-      "target": "pkg_cloud_setup_tutorial_docs_test_go_t",
-      "confidence_score": 1.0
+      "target": "pkg_cloud_setup_tutorial_docs_test_go_t"
     },
     {
       "relation": "contains",
@@ -149985,6 +150162,69 @@
       "target": "config_deploy_usage"
     },
     {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/check-graphify-freshness.sh",
+      "source_location": "L30",
+      "weight": 1.0,
+      "source": "scripts_check_graphify_freshness",
+      "target": "scripts_check_graphify_freshness_fail",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/check-graphify-freshness.sh",
+      "source_location": "L38",
+      "weight": 1.0,
+      "source": "scripts_check_graphify_freshness",
+      "target": "scripts_check_graphify_freshness_require_file",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/check-graphify-freshness.sh",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "scripts_check_graphify_freshness",
+      "target": "users_ccoates_documents_ubiquity_scripts_check_graphify_freshness_sh__entry",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/check-graphify-freshness.sh",
+      "source_location": "L52",
+      "weight": 1.0,
+      "context": "call",
+      "source": "users_ccoates_documents_ubiquity_scripts_check_graphify_freshness_sh__entry",
+      "target": "scripts_check_graphify_freshness_fail",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/check-graphify-freshness.sh",
+      "source_location": "L45",
+      "weight": 1.0,
+      "context": "call",
+      "source": "users_ccoates_documents_ubiquity_scripts_check_graphify_freshness_sh__entry",
+      "target": "scripts_check_graphify_freshness_require_file",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/check-graphify-freshness.sh",
+      "source_location": "L41",
+      "weight": 1.0,
+      "context": "call",
+      "source": "scripts_check_graphify_freshness_require_file",
+      "target": "scripts_check_graphify_freshness_fail",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/create-nat.sh",
@@ -158271,9 +158511,9 @@
       "source_file": "docs/admin-guide/administration/tutorials/install-pre-commit-hooks.md",
       "source_location": "L7",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tutorials_install_pre_commit_hooks_install_pre_commit_hooks",
-      "target": "tutorials_install_pre_commit_hooks_install_pre_commit",
-      "confidence_score": 1.0
+      "target": "tutorials_install_pre_commit_hooks_install_pre_commit"
     },
     {
       "relation": "contains",
@@ -158281,9 +158521,9 @@
       "source_file": "docs/admin-guide/administration/tutorials/install-pre-commit-hooks.md",
       "source_location": "L30",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tutorials_install_pre_commit_hooks_install_pre_commit_hooks",
-      "target": "tutorials_install_pre_commit_hooks_install_repository_hooks",
-      "confidence_score": 1.0
+      "target": "tutorials_install_pre_commit_hooks_install_repository_hooks"
     },
     {
       "relation": "contains",
@@ -158291,9 +158531,9 @@
       "source_file": "docs/admin-guide/administration/tutorials/install-pre-commit-hooks.md",
       "source_location": "L55",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tutorials_install_pre_commit_hooks_install_pre_commit_hooks",
-      "target": "tutorials_install_pre_commit_hooks_troubleshooting",
-      "confidence_score": 1.0
+      "target": "tutorials_install_pre_commit_hooks_troubleshooting"
     },
     {
       "relation": "contains",
@@ -158301,9 +158541,9 @@
       "source_file": "docs/admin-guide/administration/tutorials/install-pre-commit-hooks.md",
       "source_location": "L44",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tutorials_install_pre_commit_hooks_install_pre_commit_hooks",
-      "target": "tutorials_install_pre_commit_hooks_verify_the_hooks",
-      "confidence_score": 1.0
+      "target": "tutorials_install_pre_commit_hooks_verify_the_hooks"
     },
     {
       "relation": "contains",
@@ -159071,9 +159311,9 @@
       "source_file": "docs/admin-guide/administration/tutorials/updating-documentation.md",
       "source_location": "L54",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tutorials_updating_documentation_updating_documentation_this_website",
-      "target": "tutorials_updating_documentation_dns_failover_and_rollback",
-      "confidence_score": 1.0
+      "target": "tutorials_updating_documentation_dns_failover_and_rollback"
     },
     {
       "relation": "contains",
@@ -159331,9 +159571,9 @@
       "source_file": "docs/admin-guide/concepts/pxe-boot.md",
       "source_location": "L57",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "concepts_pxe_boot_pxe_boot",
-      "target": "concepts_pxe_boot_troubleshooting",
-      "confidence_score": 1.0
+      "target": "concepts_pxe_boot_troubleshooting"
     },
     {
       "relation": "contains",
@@ -159341,9 +159581,9 @@
       "source_file": "docs/admin-guide/concepts/pxe-boot.md",
       "source_location": "L38",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "concepts_pxe_boot_pxe_boot",
-      "target": "concepts_pxe_boot_what_to_validate",
-      "confidence_score": 1.0
+      "target": "concepts_pxe_boot_what_to_validate"
     },
     {
       "relation": "contains",
@@ -169004,6 +169244,66 @@
       "confidence_score": 1.0,
       "source": "developers_developers_4_2_selinux",
       "target": "developers_developers_references"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/developers/graphify-workflow.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "developers_graphify_workflow",
+      "target": "developers_graphify_workflow_graphify_workflow",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/developers/graphify-workflow.md",
+      "source_location": "L53",
+      "weight": 1.0,
+      "source": "developers_graphify_workflow_graphify_workflow",
+      "target": "developers_graphify_workflow_freshness_check",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/developers/graphify-workflow.md",
+      "source_location": "L46",
+      "weight": 1.0,
+      "source": "developers_graphify_workflow_graphify_workflow",
+      "target": "developers_graphify_workflow_token_cost_reporting",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/developers/graphify-workflow.md",
+      "source_location": "L26",
+      "weight": 1.0,
+      "source": "developers_graphify_workflow_graphify_workflow",
+      "target": "developers_graphify_workflow_updating_the_graph",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/developers/graphify-workflow.md",
+      "source_location": "L39",
+      "weight": 1.0,
+      "source": "developers_graphify_workflow_graphify_workflow",
+      "target": "developers_graphify_workflow_visualization_and_size_limits",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/developers/graphify-workflow.md",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "developers_graphify_workflow_graphify_workflow",
+      "target": "developers_graphify_workflow_when_to_query_the_graph",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -212487,5 +212787,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "adfebbdef29ff35d108acf0bfe6c7c9c12b4dd88"
+  "built_at_commit": "aeb0a0589fcadabc698b6b0c6d048a560b3f3211"
 }
