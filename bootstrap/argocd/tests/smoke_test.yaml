@@ -1,0 +1,10 @@
+suite: bootstrap argocd smoke coverage
+templates:
+  - charts/argo-cd/templates/argocd-server/service.yaml
+tests:
+  - it: renders the Argo CD server service
+    asserts:
+      - hasDocuments:
+          count: 1
+      - isKind:
+          of: Service

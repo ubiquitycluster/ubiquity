@@ -2190,8 +2190,8 @@
     "semantic_hash": ""
   },
   "apps/hajimari/Chart.yaml": {
-    "mtime": 1780566623.0,
-    "ast_hash": "4b5cf9cfee9a0b002739b0487ae58307",
+    "mtime": 1781089611.034203,
+    "ast_hash": "1bd9ceb61b2fe226fcf95fd46d9bc086",
     "semantic_hash": ""
   },
   "apps/hajimari/README.md": {
@@ -2255,8 +2255,8 @@
     "semantic_hash": ""
   },
   "bootstrap/root/Chart.yaml": {
-    "mtime": 1780566623.0,
-    "ast_hash": "a8b2d911a5f0e1af4e6e603229789671",
+    "mtime": 1781089610.5607343,
+    "ast_hash": "9d34d88f46bfe6c165a0f2d1593ef164",
     "semantic_hash": ""
   },
   "bootstrap/root/defaults.yaml": {
@@ -3390,7 +3390,7 @@
     "semantic_hash": ""
   },
   "docs/reference/helm-charts.md": {
-    "mtime": 1781011096.074941,
+    "mtime": 1781089673.3651,
     "ast_hash": "6bd31b380c1d1836c65c53589fb992c9",
     "semantic_hash": ""
   },
@@ -6007,6 +6007,51 @@
   "docs/GOAL-PROJECT-COMPLETION.md": {
     "mtime": 1781089336.9433813,
     "ast_hash": "a4c9f18d7966b11e7986d8033ec38aa3",
+    "semantic_hash": ""
+  },
+  "pkg/cloud/chart_maturity_contract_test.go": {
+    "mtime": 1781089413.5747256,
+    "ast_hash": "70a86a8c63b62f764c87668b71d1643e",
+    "semantic_hash": ""
+  },
+  "apps/cloudcmd/tests/smoke_test.yaml": {
+    "mtime": 1781089584.796544,
+    "ast_hash": "eff73b0a272a3e46bbf0db2e177e2f43",
+    "semantic_hash": ""
+  },
+  "apps/hajimari/tests/smoke_test.yaml": {
+    "mtime": 1781089653.0018384,
+    "ast_hash": "2269fdf6b0cabef3323ecfe0cfb49a12",
+    "semantic_hash": ""
+  },
+  "apps/ollama/tests/smoke_test.yaml": {
+    "mtime": 1781089599.7312653,
+    "ast_hash": "29962acbd562b943b0aa32f05bcd625c",
+    "semantic_hash": ""
+  },
+  "bootstrap/argocd/tests/smoke_test.yaml": {
+    "mtime": 1781089545.525521,
+    "ast_hash": "09c8d3287b08f9970fde6f121dcbcc12",
+    "semantic_hash": ""
+  },
+  "charts/app-template/tests/smoke_test.yaml": {
+    "mtime": 1781089558.8873851,
+    "ast_hash": "a0ccc0171fc722a67d824fe07cdf222f",
+    "semantic_hash": ""
+  },
+  "monitoring/loki/tests/smoke_test.yaml": {
+    "mtime": 1781089571.8512297,
+    "ast_hash": "9975f2fd9b7e02fab0780bf9ade1ea88",
+    "semantic_hash": ""
+  },
+  "monitoring/monitoring-system/tests/smoke_test.yaml": {
+    "mtime": 1781089640.7172666,
+    "ast_hash": "c7c0d7fc603a21172ce682226dc631db",
+    "semantic_hash": ""
+  },
+  "storage/dragonfly-system/tests/smoke_test.yaml": {
+    "mtime": 1781089628.1694791,
+    "ast_hash": "c350bde783215e94f5f24e16bde926e6",
     "semantic_hash": ""
   }
 }

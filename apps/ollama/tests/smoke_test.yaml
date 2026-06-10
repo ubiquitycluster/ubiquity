@@ -1,0 +1,19 @@
+suite: ollama smoke coverage
+templates:
+  - charts/app-template/templates/deployment.yaml
+  - charts/app-template/templates/service.yaml
+tests:
+  - it: renders the Ollama deployment
+    template: charts/app-template/templates/deployment.yaml
+    asserts:
+      - hasDocuments:
+          count: 1
+      - isKind:
+          of: Deployment
+  - it: renders the Ollama service
+    template: charts/app-template/templates/service.yaml
+    asserts:
+      - hasDocuments:
+          count: 1
+      - isKind:
+          of: Service

@@ -1,0 +1,27 @@
+suite: app-template smoke coverage
+templates:
+  - templates/deployment.yaml
+  - templates/service.yaml
+  - templates/ingress.yaml
+tests:
+  - it: renders the application deployment
+    template: templates/deployment.yaml
+    asserts:
+      - hasDocuments:
+          count: 1
+      - isKind:
+          of: Deployment
+  - it: renders the application service
+    template: templates/service.yaml
+    asserts:
+      - hasDocuments:
+          count: 1
+      - isKind:
+          of: Service
+  - it: renders the application ingress
+    template: templates/ingress.yaml
+    asserts:
+      - hasDocuments:
+          count: 1
+      - isKind:
+          of: Ingress

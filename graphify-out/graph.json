@@ -614,7 +614,7 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_d13",
-      "community": 37,
+      "community": 921,
       "norm_label": "standard_d13"
     },
     {
@@ -624,7 +624,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_d13_vcpus",
-      "community": 37,
+      "community": 921,
       "norm_label": "vcpus"
     },
     {
@@ -634,7 +634,7 @@
       "source_location": "L29",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_d13_ram",
-      "community": 37,
+      "community": 921,
       "norm_label": "ram"
     },
     {
@@ -644,7 +644,7 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_d13_gpus",
-      "community": 37,
+      "community": 921,
       "norm_label": "gpus"
     },
     {
@@ -654,7 +654,7 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_d13_v2",
-      "community": 1081,
+      "community": 37,
       "norm_label": "standard_d13_v2"
     },
     {
@@ -664,7 +664,7 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_d13_v2_vcpus",
-      "community": 1081,
+      "community": 37,
       "norm_label": "vcpus"
     },
     {
@@ -674,7 +674,7 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_d13_v2_ram",
-      "community": 1081,
+      "community": 37,
       "norm_label": "ram"
     },
     {
@@ -684,7 +684,7 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_d13_v2_gpus",
-      "community": 1081,
+      "community": 37,
       "norm_label": "gpus"
     },
     {
@@ -1574,7 +1574,7 @@
       "source_location": "L147",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_d48ds_v4",
-      "community": 6,
+      "community": 993,
       "norm_label": "standard_d48ds_v4"
     },
     {
@@ -1584,7 +1584,7 @@
       "source_location": "L148",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_d48ds_v4_vcpus",
-      "community": 6,
+      "community": 993,
       "norm_label": "vcpus"
     },
     {
@@ -1594,7 +1594,7 @@
       "source_location": "L149",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_d48ds_v4_ram",
-      "community": 6,
+      "community": 993,
       "norm_label": "ram"
     },
     {
@@ -1604,7 +1604,7 @@
       "source_location": "L150",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_d48ds_v4_gpus",
-      "community": 6,
+      "community": 993,
       "norm_label": "gpus"
     },
     {
@@ -3014,7 +3014,7 @@
       "source_location": "L327",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_e48_v3",
-      "community": 863,
+      "community": 6,
       "norm_label": "standard_e48_v3"
     },
     {
@@ -3024,7 +3024,7 @@
       "source_location": "L328",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_e48_v3_vcpus",
-      "community": 863,
+      "community": 6,
       "norm_label": "vcpus"
     },
     {
@@ -3034,7 +3034,7 @@
       "source_location": "L329",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_e48_v3_ram",
-      "community": 863,
+      "community": 6,
       "norm_label": "ram"
     },
     {
@@ -3044,7 +3044,7 @@
       "source_location": "L330",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_e48_v3_gpus",
-      "community": 863,
+      "community": 6,
       "norm_label": "gpus"
     },
     {
@@ -4774,7 +4774,7 @@
       "source_location": "L547",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_nc16as_t4_v3",
-      "community": 987,
+      "community": 6,
       "norm_label": "standard_nc16as_t4_v3"
     },
     {
@@ -4784,7 +4784,7 @@
       "source_location": "L548",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_nc16as_t4_v3_vcpus",
-      "community": 987,
+      "community": 6,
       "norm_label": "vcpus"
     },
     {
@@ -4794,7 +4794,7 @@
       "source_location": "L549",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_nc16as_t4_v3_ram",
-      "community": 987,
+      "community": 6,
       "norm_label": "ram"
     },
     {
@@ -4804,7 +4804,7 @@
       "source_location": "L550",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_nc16as_t4_v3_gpus",
-      "community": 987,
+      "community": 6,
       "norm_label": "gpus"
     },
     {
@@ -5254,7 +5254,7 @@
       "source_location": "L607",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_nv6",
-      "community": 6,
+      "community": 863,
       "norm_label": "standard_nv6"
     },
     {
@@ -5264,7 +5264,7 @@
       "source_location": "L608",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_nv6_vcpus",
-      "community": 6,
+      "community": 863,
       "norm_label": "vcpus"
     },
     {
@@ -5274,7 +5274,7 @@
       "source_location": "L609",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_nv6_ram",
-      "community": 6,
+      "community": 863,
       "norm_label": "ram"
     },
     {
@@ -5284,7 +5284,7 @@
       "source_location": "L610",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_nv6_gpus",
-      "community": 6,
+      "community": 863,
       "norm_label": "gpus"
     },
     {
@@ -5912,7 +5912,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "cmd_ai_readiness_test",
-      "community": 48,
+      "community": 363,
       "norm_label": "ai_readiness_test.go"
     },
     {
@@ -5922,7 +5922,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "cmd_ai_readiness_test_testrenderaireadinessstatusfailsclosed",
-      "community": 48,
+      "community": 363,
       "norm_label": "testrenderaireadinessstatusfailsclosed()"
     },
     {
@@ -5932,7 +5932,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "cmd_ubiquity_cmd_ai_readiness_test_go_t",
-      "community": 48,
+      "community": 363,
       "norm_label": "t"
     },
     {
@@ -5942,7 +5942,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "cmd_ai_readiness_test_testrenderaistorereadinessstatusreportsoptionaldataplaneboundary",
-      "community": 48,
+      "community": 363,
       "norm_label": "testrenderaistorereadinessstatusreportsoptionaldataplaneboundary()"
     },
     {
@@ -5952,7 +5952,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "cmd_ai_readiness_test_testrenderaireadinessstatusready",
-      "community": 48,
+      "community": 363,
       "norm_label": "testrenderaireadinessstatusready()"
     },
     {
@@ -7702,7 +7702,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "cmd_fakenodesnicoclient",
-      "community": 450,
+      "community": 3,
       "norm_label": "fakenodesnicoclient"
     },
     {
@@ -7712,7 +7712,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "cmd_ubiquity_cmd_nodes_blockers_test_go_operatingsystem",
-      "community": 450,
+      "community": 3,
       "norm_label": "operatingsystem"
     },
     {
@@ -7722,7 +7722,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "cmd_ubiquity_cmd_nodes_blockers_test_go_instance",
-      "community": 450,
+      "community": 3,
       "norm_label": "instance"
     },
     {
@@ -7732,7 +7732,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "powerrequest",
-      "community": 450,
+      "community": 3,
       "norm_label": "powerrequest"
     },
     {
@@ -7742,7 +7742,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "cmd_ubiquity_cmd_nodes_blockers_test_go_site",
-      "community": 450,
+      "community": 3,
       "norm_label": "site"
     },
     {
@@ -7752,7 +7752,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "cmd_ubiquity_cmd_nodes_blockers_test_go_machine",
-      "community": 450,
+      "community": 3,
       "norm_label": "machine"
     },
     {
@@ -7762,7 +7762,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "cmd_ubiquity_cmd_nodes_blockers_test_go_task",
-      "community": 450,
+      "community": 3,
       "norm_label": "task"
     },
     {
@@ -7772,7 +7772,7 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "cmd_ubiquity_cmd_nodes_blockers_test_go_machinegpustats",
-      "community": 450,
+      "community": 3,
       "norm_label": "machinegpustats"
     },
     {
@@ -7782,7 +7782,7 @@
       "source_location": "L29",
       "_origin": "ast",
       "id": "cmd_fakenodesnicoclient_getmachine",
-      "community": 450,
+      "community": 3,
       "norm_label": ".getmachine()"
     },
     {
@@ -7792,7 +7792,7 @@
       "source_location": "L29",
       "_origin": "ast",
       "id": "cmd_ubiquity_cmd_nodes_blockers_test_go_context",
-      "community": 450,
+      "community": 3,
       "norm_label": "context"
     },
     {
@@ -7802,7 +7802,7 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "cmd_fakenodesnicoclient_createoperatingsystem",
-      "community": 450,
+      "community": 3,
       "norm_label": ".createoperatingsystem()"
     },
     {
@@ -7812,7 +7812,7 @@
       "source_location": "L40",
       "_origin": "ast",
       "id": "cmd_fakenodesnicoclient_createinstance",
-      "community": 450,
+      "community": 3,
       "norm_label": ".createinstance()"
     },
     {
@@ -7822,7 +7822,7 @@
       "source_location": "L48",
       "_origin": "ast",
       "id": "cmd_fakenodesnicoclient_deleteinstance",
-      "community": 450,
+      "community": 3,
       "norm_label": ".deleteinstance()"
     },
     {
@@ -7832,7 +7832,7 @@
       "source_location": "L59",
       "_origin": "ast",
       "id": "cmd_fakenodesnicoclient_powermachine",
-      "community": 450,
+      "community": 3,
       "norm_label": ".powermachine()"
     },
     {
@@ -7842,7 +7842,7 @@
       "source_location": "L67",
       "_origin": "ast",
       "id": "cmd_fakenodesnicoclient_listsites",
-      "community": 450,
+      "community": 3,
       "norm_label": ".listsites()"
     },
     {
@@ -7852,7 +7852,7 @@
       "source_location": "L73",
       "_origin": "ast",
       "id": "cmd_fakenodesnicoclient_listmachines",
-      "community": 450,
+      "community": 3,
       "norm_label": ".listmachines()"
     },
     {
@@ -7862,7 +7862,7 @@
       "source_location": "L79",
       "_origin": "ast",
       "id": "cmd_fakenodesnicoclient_listinstances",
-      "community": 450,
+      "community": 3,
       "norm_label": ".listinstances()"
     },
     {
@@ -7872,7 +7872,7 @@
       "source_location": "L82",
       "_origin": "ast",
       "id": "cmd_fakenodesnicoclient_listtasks",
-      "community": 450,
+      "community": 3,
       "norm_label": ".listtasks()"
     },
     {
@@ -7882,7 +7882,7 @@
       "source_location": "L85",
       "_origin": "ast",
       "id": "cmd_fakenodesnicoclient_listmachinegpustats",
-      "community": 450,
+      "community": 3,
       "norm_label": ".listmachinegpustats()"
     },
     {
@@ -7892,7 +7892,7 @@
       "source_location": "L88",
       "_origin": "ast",
       "id": "cmd_fakenodesnicoclient_gettask",
-      "community": 450,
+      "community": 3,
       "norm_label": ".gettask()"
     },
     {
@@ -8492,7 +8492,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "cmd_status",
-      "community": 1083,
+      "community": 3,
       "norm_label": "status.go"
     },
     {
@@ -8502,7 +8502,7 @@
       "source_location": "L57",
       "_origin": "ast",
       "id": "cmd_status_init",
-      "community": 1083,
+      "community": 3,
       "norm_label": "init()"
     },
     {
@@ -8512,7 +8512,7 @@
       "source_location": "L63",
       "_origin": "ast",
       "id": "cmd_status_checkinstallerstatus",
-      "community": 1083,
+      "community": 3,
       "norm_label": "checkinstallerstatus()"
     },
     {
@@ -9612,7 +9612,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "cmd_virtual_machines_test",
-      "community": 20,
+      "community": 862,
       "norm_label": "virtual_machines_test.go"
     },
     {
@@ -9622,7 +9622,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "cmd_virtual_machines_test_testvirtualmachinesrenderproduceskubevirtmanifest",
-      "community": 20,
+      "community": 862,
       "norm_label": "testvirtualmachinesrenderproduceskubevirtmanifest()"
     },
     {
@@ -9632,7 +9632,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "cmd_ubiquity_cmd_virtual_machines_test_go_t",
-      "community": 20,
+      "community": 862,
       "norm_label": "t"
     },
     {
@@ -9642,7 +9642,7 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "cmd_virtual_machines_test_testvirtualmachinesrenderimagecatalogproducesprofiles",
-      "community": 20,
+      "community": 862,
       "norm_label": "testvirtualmachinesrenderimagecatalogproducesprofiles()"
     },
     {
@@ -9652,7 +9652,7 @@
       "source_location": "L52",
       "_origin": "ast",
       "id": "cmd_virtual_machines_test_testvirtualmachinesapplyusesserversidedryrun",
-      "community": 20,
+      "community": 862,
       "norm_label": "testvirtualmachinesapplyusesserversidedryrun()"
     },
     {
@@ -9662,7 +9662,7 @@
       "source_location": "L80",
       "_origin": "ast",
       "id": "cmd_virtual_machines_test_testvirtualmachinesreadinesscollectscdipvcvmandguestevidence",
-      "community": 20,
+      "community": 862,
       "norm_label": "testvirtualmachinesreadinesscollectscdipvcvmandguestevidence()"
     },
     {
@@ -10154,7 +10154,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "disabled_platform_vault_files_generate_secrets_main_go_generate_secrets_main",
-      "community": 1076,
+      "community": 5,
       "norm_label": "main.go"
     },
     {
@@ -10164,7 +10164,7 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "disabled_platform_vault_files_generate_secrets_main_go_generate_secrets_randompassword",
-      "community": 1076,
+      "community": 5,
       "norm_label": "randompassword"
     },
     {
@@ -10174,7 +10174,7 @@
       "source_location": "L41",
       "_origin": "ast",
       "id": "disabled_platform_vault_files_generate_secrets_main_go_generate_secrets_main_main",
-      "community": 1076,
+      "community": 5,
       "norm_label": "main()"
     },
     {
@@ -12890,7 +12890,7 @@
       "source_location": "L49",
       "_origin": "ast",
       "id": "aiplatform_workload_parser_parseavailabledeployments",
-      "community": 34,
+      "community": 450,
       "norm_label": "parseavailabledeployments()"
     },
     {
@@ -12900,7 +12900,7 @@
       "source_location": "L76",
       "_origin": "ast",
       "id": "aiplatform_workload_parser_parsereadydaemonsets",
-      "community": 34,
+      "community": 450,
       "norm_label": "parsereadydaemonsets()"
     },
     {
@@ -12910,7 +12910,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "aiplatform_workload_parser_test",
-      "community": 34,
+      "community": 450,
       "norm_label": "workload_parser_test.go"
     },
     {
@@ -12920,7 +12920,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "aiplatform_workload_parser_test_testparseavailabledeploymentsonlycountsavailablereplicas",
-      "community": 34,
+      "community": 450,
       "norm_label": "testparseavailabledeploymentsonlycountsavailablereplicas()"
     },
     {
@@ -12930,7 +12930,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "pkg_aiplatform_workload_parser_test_go_t",
-      "community": 34,
+      "community": 450,
       "norm_label": "t"
     },
     {
@@ -12940,7 +12940,7 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "aiplatform_workload_parser_test_testparseavailabledeploymentshandlessingledeploymentobject",
-      "community": 34,
+      "community": 450,
       "norm_label": "testparseavailabledeploymentshandlessingledeploymentobject()"
     },
     {
@@ -12950,7 +12950,7 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "aiplatform_workload_parser_test_testparsereadydaemonsetsrequiresdesiredscheduledreadyandavailable",
-      "community": 34,
+      "community": 450,
       "norm_label": "testparsereadydaemonsetsrequiresdesiredscheduledreadyandavailable()"
     },
     {
@@ -12960,7 +12960,7 @@
       "source_location": "L56",
       "_origin": "ast",
       "id": "aiplatform_workload_parser_test_testparsereadydaemonsetshandlessingledaemonsetobject",
-      "community": 34,
+      "community": 450,
       "norm_label": "testparsereadydaemonsetshandlessingledaemonsetobject()"
     },
     {
@@ -13100,7 +13100,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "cloud_backup_policy",
-      "community": 862,
+      "community": 5,
       "norm_label": "backup_policy.go"
     },
     {
@@ -13110,7 +13110,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "cloud_backuppolicyrequest",
-      "community": 862,
+      "community": 5,
       "norm_label": "backuppolicyrequest"
     },
     {
@@ -13120,7 +13120,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "cloud_backuprestoredrillrequest",
-      "community": 862,
+      "community": 5,
       "norm_label": "backuprestoredrillrequest"
     },
     {
@@ -13130,7 +13130,7 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "cloud_backup_policy_renderbackuppolicy",
-      "community": 862,
+      "community": 5,
       "norm_label": "renderbackuppolicy()"
     },
     {
@@ -13140,7 +13140,7 @@
       "source_location": "L93",
       "_origin": "ast",
       "id": "cloud_backup_policy_defaultbackuppolicy",
-      "community": 862,
+      "community": 5,
       "norm_label": "defaultbackuppolicy()"
     },
     {
@@ -13150,7 +13150,7 @@
       "source_location": "L121",
       "_origin": "ast",
       "id": "cloud_backup_policy_validatebackuppolicy",
-      "community": 862,
+      "community": 5,
       "norm_label": "validatebackuppolicy()"
     },
     {
@@ -13160,7 +13160,7 @@
       "source_location": "L143",
       "_origin": "ast",
       "id": "cloud_backup_policy_renderbackuprestoredrill",
-      "community": 862,
+      "community": 5,
       "norm_label": "renderbackuprestoredrill()"
     },
     {
@@ -13170,7 +13170,7 @@
       "source_location": "L190",
       "_origin": "ast",
       "id": "cloud_backup_policy_defaultbackuprestoredrill",
-      "community": 862,
+      "community": 5,
       "norm_label": "defaultbackuprestoredrill()"
     },
     {
@@ -13180,7 +13180,7 @@
       "source_location": "L209",
       "_origin": "ast",
       "id": "cloud_backup_policy_validatebackuprestoredrill",
-      "community": 862,
+      "community": 5,
       "norm_label": "validatebackuprestoredrill()"
     },
     {
@@ -13190,7 +13190,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "cloud_backup_policy_test",
-      "community": 862,
+      "community": 5,
       "norm_label": "backup_policy_test.go"
     },
     {
@@ -13200,7 +13200,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "cloud_backup_policy_test_testrenderbackuppolicycreatesk8upschedulesnapshotclassandresourcepreset",
-      "community": 862,
+      "community": 5,
       "norm_label": "testrenderbackuppolicycreatesk8upschedulesnapshotclassandresourcepreset()"
     },
     {
@@ -13210,7 +13210,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "pkg_cloud_backup_policy_test_go_t",
-      "community": 862,
+      "community": 5,
       "norm_label": "t"
     },
     {
@@ -13220,7 +13220,7 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "cloud_backup_policy_test_testrenderbackuppolicyfailsclosedforunsafescheduleorretention",
-      "community": 862,
+      "community": 5,
       "norm_label": "testrenderbackuppolicyfailsclosedforunsafescheduleorretention()"
     },
     {
@@ -13260,7 +13260,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "cloud_backup_restore_drill_test",
-      "community": 862,
+      "community": 5,
       "norm_label": "backup_restore_drill_test.go"
     },
     {
@@ -13270,7 +13270,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "cloud_backup_restore_drill_test_testrenderbackuprestoredrillcreatesisolatedk8uprestoreandchecklist",
-      "community": 862,
+      "community": 5,
       "norm_label": "testrenderbackuprestoredrillcreatesisolatedk8uprestoreandchecklist()"
     },
     {
@@ -13280,7 +13280,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "pkg_cloud_backup_restore_drill_test_go_t",
-      "community": 862,
+      "community": 5,
       "norm_label": "t"
     },
     {
@@ -13290,7 +13290,7 @@
       "source_location": "L38",
       "_origin": "ast",
       "id": "cloud_backup_restore_drill_test_testrenderbackuprestoredrillrejectsproductionnamespace",
-      "community": 862,
+      "community": 5,
       "norm_label": "testrenderbackuprestoredrillrejectsproductionnamespace()"
     },
     {
@@ -13342,6 +13342,46 @@
       "id": "cloud_chart_docs_test_mustread",
       "community": 474,
       "norm_label": "mustread()"
+    },
+    {
+      "label": "chart_maturity_contract_test.go",
+      "file_type": "code",
+      "source_file": "pkg/cloud/chart_maturity_contract_test.go",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "cloud_chart_maturity_contract_test",
+      "community": 959,
+      "norm_label": "chart_maturity_contract_test.go"
+    },
+    {
+      "label": "TestActiveChartsHaveTestsAndNonPlaceholderVersions()",
+      "file_type": "code",
+      "source_file": "pkg/cloud/chart_maturity_contract_test.go",
+      "source_location": "L12",
+      "_origin": "ast",
+      "id": "cloud_chart_maturity_contract_test_testactivechartshavetestsandnonplaceholderversions",
+      "community": 959,
+      "norm_label": "testactivechartshavetestsandnonplaceholderversions()"
+    },
+    {
+      "label": "T",
+      "file_type": "code",
+      "source_file": "pkg/cloud/chart_maturity_contract_test.go",
+      "source_location": "L12",
+      "_origin": "ast",
+      "id": "pkg_cloud_chart_maturity_contract_test_go_t",
+      "community": 959,
+      "norm_label": "t"
+    },
+    {
+      "label": "chartMaturityRepoRoot()",
+      "file_type": "code",
+      "source_file": "pkg/cloud/chart_maturity_contract_test.go",
+      "source_location": "L81",
+      "_origin": "ast",
+      "id": "cloud_chart_maturity_contract_test_chartmaturityreporoot",
+      "community": 959,
+      "norm_label": "chartmaturityreporoot()"
     },
     {
       "label": "cloud_readiness_bundle_test.go",
@@ -14740,7 +14780,7 @@
       "source_location": "L138",
       "_origin": "ast",
       "id": "config_config_defaultconfig",
-      "community": 1076,
+      "community": 5,
       "norm_label": "defaultconfig()"
     },
     {
@@ -14760,7 +14800,7 @@
       "source_location": "L203",
       "_origin": "ast",
       "id": "config_config_load",
-      "community": 959,
+      "community": 5,
       "norm_label": "load()"
     },
     {
@@ -14840,7 +14880,7 @@
       "source_location": "L433",
       "_origin": "ast",
       "id": "config_config_parseenvfile",
-      "community": 959,
+      "community": 5,
       "norm_label": "parseenvfile()"
     },
     {
@@ -14850,7 +14890,7 @@
       "source_location": "L449",
       "_origin": "ast",
       "id": "config_config_setfieldsfromenv",
-      "community": 959,
+      "community": 5,
       "norm_label": "setfieldsfromenv()"
     },
     {
@@ -14950,7 +14990,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "config_config_test",
-      "community": 959,
+      "community": 5,
       "norm_label": "config_test.go"
     },
     {
@@ -14960,7 +15000,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "config_config_test_testloadnonexistent",
-      "community": 959,
+      "community": 5,
       "norm_label": "testloadnonexistent()"
     },
     {
@@ -14970,7 +15010,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "pkg_config_config_test_go_t",
-      "community": 959,
+      "community": 5,
       "norm_label": "t"
     },
     {
@@ -14980,7 +15020,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "config_config_test_testsaveandload",
-      "community": 959,
+      "community": 5,
       "norm_label": "testsaveandload()"
     },
     {
@@ -14990,7 +15030,7 @@
       "source_location": "L50",
       "_origin": "ast",
       "id": "config_config_test_testparseenvfile",
-      "community": 959,
+      "community": 5,
       "norm_label": "testparseenvfile()"
     },
     {
@@ -15000,7 +15040,7 @@
       "source_location": "L72",
       "_origin": "ast",
       "id": "config_config_test_testpatchvalues",
-      "community": 959,
+      "community": 5,
       "norm_label": "testpatchvalues()"
     },
     {
@@ -15010,7 +15050,7 @@
       "source_location": "L98",
       "_origin": "ast",
       "id": "config_config_test_testisvalidcidr",
-      "community": 959,
+      "community": 5,
       "norm_label": "testisvalidcidr()"
     },
     {
@@ -15020,7 +15060,7 @@
       "source_location": "L118",
       "_origin": "ast",
       "id": "config_config_test_testconfigfilepath",
-      "community": 959,
+      "community": 5,
       "norm_label": "testconfigfilepath()"
     },
     {
@@ -15030,7 +15070,7 @@
       "source_location": "L125",
       "_origin": "ast",
       "id": "config_config_test_contains",
-      "community": 959,
+      "community": 5,
       "norm_label": "contains()"
     },
     {
@@ -15230,7 +15270,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "pkg_nico_client_go_config",
-      "community": 921,
+      "community": 3,
       "norm_label": "config"
     },
     {
@@ -15240,7 +15280,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "nico_clientoption",
-      "community": 1078,
+      "community": 3,
       "norm_label": "clientoption"
     },
     {
@@ -15250,7 +15290,7 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "nico_client_withhttpclient",
-      "community": 1078,
+      "community": 3,
       "norm_label": "withhttpclient()"
     },
     {
@@ -15260,7 +15300,7 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "nico_client_newclient",
-      "community": 921,
+      "community": 3,
       "norm_label": "newclient()"
     },
     {
@@ -15390,7 +15430,7 @@
       "source_location": "L126",
       "_origin": "ast",
       "id": "nico_client_listmachines",
-      "community": 450,
+      "community": 3,
       "norm_label": ".listmachines()"
     },
     {
@@ -15560,7 +15600,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "nico_client_blockers_test",
-      "community": 1078,
+      "community": 3,
       "norm_label": "client_blockers_test.go"
     },
     {
@@ -15570,7 +15610,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "nico_client_blockers_test_testclientdefaulthttptimeout",
-      "community": 1078,
+      "community": 3,
       "norm_label": "testclientdefaulthttptimeout()"
     },
     {
@@ -15580,7 +15620,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "pkg_nico_client_blockers_test_go_t",
-      "community": 1078,
+      "community": 3,
       "norm_label": "t"
     },
     {
@@ -15590,7 +15630,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "nico_client_blockers_test_testclientlivemethodsuseexpectedhttpverbsandpaths",
-      "community": 1078,
+      "community": 3,
       "norm_label": "testclientlivemethodsuseexpectedhttpverbsandpaths()"
     },
     {
@@ -15600,7 +15640,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "nico_client_test",
-      "community": 921,
+      "community": 3,
       "norm_label": "client_test.go"
     },
     {
@@ -15610,7 +15650,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "nico_client_test_testclientbuildsopenapiresourcepaths",
-      "community": 921,
+      "community": 3,
       "norm_label": "testclientbuildsopenapiresourcepaths()"
     },
     {
@@ -15620,7 +15660,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "pkg_nico_client_test_go_t",
-      "community": 921,
+      "community": 3,
       "norm_label": "t"
     },
     {
@@ -15630,7 +15670,7 @@
       "source_location": "L53",
       "_origin": "ast",
       "id": "nico_client_test_testclientescapesorgapiandresourceid",
-      "community": 921,
+      "community": 3,
       "norm_label": "testclientescapesorgapiandresourceid()"
     },
     {
@@ -15640,7 +15680,7 @@
       "source_location": "L72",
       "_origin": "ast",
       "id": "nico_client_test_testclientlistmethodsdecodebarearraysanditemsenvelope",
-      "community": 921,
+      "community": 3,
       "norm_label": "testclientlistmethodsdecodebarearraysanditemsenvelope()"
     },
     {
@@ -15650,7 +15690,7 @@
       "source_location": "L115",
       "_origin": "ast",
       "id": "nico_client_test_testclienterrorsredactresponsebodyandtokencommand",
-      "community": 921,
+      "community": 3,
       "norm_label": "testclienterrorsredactresponsebodyandtokencommand()"
     },
     {
@@ -16550,7 +16590,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "nico_tasks_test",
-      "community": 921,
+      "community": 3,
       "norm_label": "tasks_test.go"
     },
     {
@@ -16560,7 +16600,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "nico_tasks_test_testpolltasksucceedsafterpendingstates",
-      "community": 921,
+      "community": 3,
       "norm_label": "testpolltasksucceedsafterpendingstates()"
     },
     {
@@ -16570,7 +16610,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "pkg_nico_tasks_test_go_t",
-      "community": 921,
+      "community": 3,
       "norm_label": "t"
     },
     {
@@ -16580,7 +16620,7 @@
       "source_location": "L38",
       "_origin": "ast",
       "id": "nico_tasks_test_testpolltaskfailsonterminalfailedorcancelled",
-      "community": 921,
+      "community": 3,
       "norm_label": "testpolltaskfailsonterminalfailedorcancelled()"
     },
     {
@@ -16590,7 +16630,7 @@
       "source_location": "L57",
       "_origin": "ast",
       "id": "nico_tasks_test_testpolltasktimesout",
-      "community": 921,
+      "community": 3,
       "norm_label": "testpolltasktimesout()"
     },
     {
@@ -20340,7 +20380,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "config_main",
-      "community": 1079,
+      "community": 3,
       "norm_label": "main.go"
     },
     {
@@ -20350,7 +20390,7 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "config_organization",
-      "community": 1079,
+      "community": 3,
       "norm_label": "organization"
     },
     {
@@ -20360,7 +20400,7 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "config_repository",
-      "community": 1079,
+      "community": 3,
       "norm_label": "repository"
     },
     {
@@ -20370,7 +20410,7 @@
       "source_location": "L45",
       "_origin": "ast",
       "id": "platform_gitea_files_config_main_go_config_config",
-      "community": 1079,
+      "community": 3,
       "norm_label": "config"
     },
     {
@@ -20380,7 +20420,7 @@
       "source_location": "L50",
       "_origin": "ast",
       "id": "config_main_main",
-      "community": 1079,
+      "community": 3,
       "norm_label": "main()"
     },
     {
@@ -23668,7 +23708,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "nim_operator_values_schema",
-      "community": 803,
+      "community": 820,
       "norm_label": "values.schema.json"
     },
     {
@@ -23678,7 +23718,7 @@
       "source_location": "L2",
       "_origin": "ast",
       "id": "nim_operator_values_schema_schema",
-      "community": 803,
+      "community": 820,
       "norm_label": "$schema"
     },
     {
@@ -23688,7 +23728,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "nim_operator_values_schema_type",
-      "community": 803,
+      "community": 820,
       "norm_label": "type"
     },
     {
@@ -23948,7 +23988,7 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "nim_operator_values_schema_properties_enabled",
-      "community": 803,
+      "community": 808,
       "norm_label": "enabled"
     },
     {
@@ -23958,7 +23998,7 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "nim_operator_values_schema_enabled_type",
-      "community": 803,
+      "community": 808,
       "norm_label": "type"
     },
     {
@@ -23968,7 +24008,7 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "nim_operator_values_schema_properties_namespace",
-      "community": 873,
+      "community": 808,
       "norm_label": "namespace"
     },
     {
@@ -23978,7 +24018,7 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "nim_operator_values_schema_namespace_type",
-      "community": 873,
+      "community": 808,
       "norm_label": "type"
     },
     {
@@ -23988,7 +24028,7 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "nim_operator_values_schema_namespace_minlength",
-      "community": 873,
+      "community": 808,
       "norm_label": "minlength"
     },
     {
@@ -24028,7 +24068,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "nim_operator_values_schema_properties_image",
-      "community": 808,
+      "community": 873,
       "norm_label": "image"
     },
     {
@@ -24038,7 +24078,7 @@
       "source_location": "L29",
       "_origin": "ast",
       "id": "nim_operator_values_schema_image_type",
-      "community": 808,
+      "community": 873,
       "norm_label": "type"
     },
     {
@@ -24048,7 +24088,7 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "nim_operator_values_schema_image_additionalproperties",
-      "community": 808,
+      "community": 873,
       "norm_label": "additionalproperties"
     },
     {
@@ -24098,7 +24138,7 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "nim_operator_values_schema_properties_tag",
-      "community": 873,
+      "community": 803,
       "norm_label": "tag"
     },
     {
@@ -24108,7 +24148,7 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "nim_operator_values_schema_tag_type",
-      "community": 873,
+      "community": 803,
       "norm_label": "type"
     },
     {
@@ -24118,7 +24158,7 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "nim_operator_values_schema_tag_minlength",
-      "community": 873,
+      "community": 803,
       "norm_label": "minlength"
     },
     {
@@ -24158,7 +24198,7 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "nim_operator_values_schema_properties_tensorparallelism",
-      "community": 873,
+      "community": 808,
       "norm_label": "tensorparallelism"
     },
     {
@@ -24168,7 +24208,7 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "nim_operator_values_schema_tensorparallelism_type",
-      "community": 873,
+      "community": 808,
       "norm_label": "type"
     },
     {
@@ -24178,7 +24218,7 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "nim_operator_values_schema_tensorparallelism_minlength",
-      "community": 873,
+      "community": 808,
       "norm_label": "minlength"
     },
     {
@@ -27604,7 +27644,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "system_vault_files_generate_secrets_main_go_generate_secrets_main",
-      "community": 1076,
+      "community": 5,
       "norm_label": "main.go"
     },
     {
@@ -27614,7 +27654,7 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "system_vault_files_generate_secrets_main_go_generate_secrets_randompassword",
-      "community": 1076,
+      "community": 5,
       "norm_label": "randompassword"
     },
     {
@@ -27624,7 +27664,7 @@
       "source_location": "L41",
       "_origin": "ast",
       "id": "system_vault_files_generate_secrets_main_go_generate_secrets_main_main",
-      "community": 1076,
+      "community": 5,
       "norm_label": "main()"
     },
     {
@@ -38626,7 +38666,7 @@
       "source_location": "L177",
       "_origin": "ast",
       "id": "admin_guide_index_maintenance_procedures",
-      "community": 1080,
+      "community": 816,
       "norm_label": "maintenance procedures"
     },
     {
@@ -38636,7 +38676,7 @@
       "source_location": "L179",
       "_origin": "ast",
       "id": "admin_guide_index_getting_support",
-      "community": 1080,
+      "community": 816,
       "norm_label": "getting support"
     },
     {
@@ -38646,7 +38686,7 @@
       "source_location": "L182",
       "_origin": "ast",
       "id": "admin_guide_index_general_maintenance_procedures",
-      "community": 1080,
+      "community": 816,
       "norm_label": "general maintenance procedures"
     },
     {
@@ -38656,7 +38696,7 @@
       "source_location": "L183",
       "_origin": "ast",
       "id": "admin_guide_index_power_up_procedures",
-      "community": 1080,
+      "community": 816,
       "norm_label": "power up procedures"
     },
     {
@@ -127550,6 +127590,59 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "pkg/cloud/chart_maturity_contract_test.go",
+      "source_location": "L81",
+      "weight": 1.0,
+      "source": "cloud_chart_maturity_contract_test",
+      "target": "cloud_chart_maturity_contract_test_chartmaturityreporoot",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "pkg/cloud/chart_maturity_contract_test.go",
+      "source_location": "L12",
+      "weight": 1.0,
+      "source": "cloud_chart_maturity_contract_test",
+      "target": "cloud_chart_maturity_contract_test_testactivechartshavetestsandnonplaceholderversions",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "pkg/cloud/chart_maturity_contract_test.go",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "cloud_chart_maturity_contract_test_testactivechartshavetestsandnonplaceholderversions",
+      "target": "cloud_chart_maturity_contract_test_chartmaturityreporoot",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "pkg/cloud/chart_maturity_contract_test.go",
+      "source_location": "L12",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "cloud_chart_maturity_contract_test_testactivechartshavetestsandnonplaceholderversions",
+      "target": "pkg_cloud_chart_maturity_contract_test_go_t",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "pkg/cloud/chart_maturity_contract_test.go",
+      "source_location": "L81",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "cloud_chart_maturity_contract_test_chartmaturityreporoot",
+      "target": "pkg_cloud_chart_maturity_contract_test_go_t",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "pkg/cloud/cloud_readiness_bundle_test.go",
       "source_location": "L9",
       "weight": 1.0,
@@ -152582,9 +152675,9 @@
       "source_file": ".hermes/GOAL-PROJECT-COMPLETION.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "hermes_goal_project_completion",
-      "target": "hermes_goal_project_completion_active_goal_ubiquity_project_completion",
-      "confidence_score": 1.0
+      "target": "hermes_goal_project_completion_active_goal_ubiquity_project_completion"
     },
     {
       "relation": "contains",
@@ -152592,9 +152685,9 @@
       "source_file": ".hermes/GOAL-PROJECT-COMPLETION.md",
       "source_location": "L39",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "hermes_goal_project_completion_active_goal_ubiquity_project_completion",
-      "target": "hermes_goal_project_completion_current_next_slice",
-      "confidence_score": 1.0
+      "target": "hermes_goal_project_completion_current_next_slice"
     },
     {
       "relation": "contains",
@@ -152602,9 +152695,9 @@
       "source_file": ".hermes/GOAL-PROJECT-COMPLETION.md",
       "source_location": "L20",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "hermes_goal_project_completion_active_goal_ubiquity_project_completion",
-      "target": "hermes_goal_project_completion_execute_in_this_order",
-      "confidence_score": 1.0
+      "target": "hermes_goal_project_completion_execute_in_this_order"
     },
     {
       "relation": "contains",
@@ -152612,9 +152705,9 @@
       "source_file": ".hermes/GOAL-PROJECT-COMPLETION.md",
       "source_location": "L13",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "hermes_goal_project_completion_active_goal_ubiquity_project_completion",
-      "target": "hermes_goal_project_completion_goal",
-      "confidence_score": 1.0
+      "target": "hermes_goal_project_completion_goal"
     },
     {
       "relation": "contains",
@@ -152622,9 +152715,9 @@
       "source_file": ".hermes/GOAL-PROJECT-COMPLETION.md",
       "source_location": "L30",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "hermes_goal_project_completion_active_goal_ubiquity_project_completion",
-      "target": "hermes_goal_project_completion_required_execution_discipline",
-      "confidence_score": 1.0
+      "target": "hermes_goal_project_completion_required_execution_discipline"
     },
     {
       "relation": "contains",
@@ -155992,9 +156085,9 @@
       "source_file": "docs/GOAL-PROJECT-COMPLETION.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_goal_project_completion",
-      "target": "docs_goal_project_completion_ubiquity_project_completion_goal",
-      "confidence_score": 1.0
+      "target": "docs_goal_project_completion_ubiquity_project_completion_goal"
     },
     {
       "relation": "contains",
@@ -156002,9 +156095,9 @@
       "source_file": "docs/GOAL-PROJECT-COMPLETION.md",
       "source_location": "L70",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_goal_project_completion_ubiquity_project_completion_goal",
-      "target": "docs_goal_project_completion_acceptance_criteria",
-      "confidence_score": 1.0
+      "target": "docs_goal_project_completion_acceptance_criteria"
     },
     {
       "relation": "contains",
@@ -156012,9 +156105,9 @@
       "source_file": "docs/GOAL-PROJECT-COMPLETION.md",
       "source_location": "L60",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_goal_project_completion_ubiquity_project_completion_goal",
-      "target": "docs_goal_project_completion_execution_rules",
-      "confidence_score": 1.0
+      "target": "docs_goal_project_completion_execution_rules"
     },
     {
       "relation": "contains",
@@ -156022,9 +156115,9 @@
       "source_file": "docs/GOAL-PROJECT-COMPLETION.md",
       "source_location": "L11",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_goal_project_completion_ubiquity_project_completion_goal",
-      "target": "docs_goal_project_completion_explicitly_out_of_scope",
-      "confidence_score": 1.0
+      "target": "docs_goal_project_completion_explicitly_out_of_scope"
     },
     {
       "relation": "contains",
@@ -156032,9 +156125,9 @@
       "source_file": "docs/GOAL-PROJECT-COMPLETION.md",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_goal_project_completion_ubiquity_project_completion_goal",
-      "target": "docs_goal_project_completion_goal",
-      "confidence_score": 1.0
+      "target": "docs_goal_project_completion_goal"
     },
     {
       "relation": "contains",
@@ -156042,9 +156135,9 @@
       "source_file": "docs/GOAL-PROJECT-COMPLETION.md",
       "source_location": "L16",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_goal_project_completion_ubiquity_project_completion_goal",
-      "target": "docs_goal_project_completion_in_scope",
-      "confidence_score": 1.0
+      "target": "docs_goal_project_completion_in_scope"
     },
     {
       "relation": "contains",
@@ -156052,9 +156145,9 @@
       "source_file": "docs/GOAL-PROJECT-COMPLETION.md",
       "source_location": "L18",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_goal_project_completion_in_scope",
-      "target": "docs_goal_project_completion_1_helm_chart_maturity",
-      "confidence_score": 1.0
+      "target": "docs_goal_project_completion_1_helm_chart_maturity"
     },
     {
       "relation": "contains",
@@ -156062,9 +156155,9 @@
       "source_file": "docs/GOAL-PROJECT-COMPLETION.md",
       "source_location": "L25",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_goal_project_completion_in_scope",
-      "target": "docs_goal_project_completion_2_todo_fixme_debt_reduction",
-      "confidence_score": 1.0
+      "target": "docs_goal_project_completion_2_todo_fixme_debt_reduction"
     },
     {
       "relation": "contains",
@@ -156072,9 +156165,9 @@
       "source_file": "docs/GOAL-PROJECT-COMPLETION.md",
       "source_location": "L31",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_goal_project_completion_in_scope",
-      "target": "docs_goal_project_completion_3_cli_root_command_coverage",
-      "confidence_score": 1.0
+      "target": "docs_goal_project_completion_3_cli_root_command_coverage"
     },
     {
       "relation": "contains",
@@ -156082,9 +156175,9 @@
       "source_file": "docs/GOAL-PROJECT-COMPLETION.md",
       "source_location": "L37",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_goal_project_completion_in_scope",
-      "target": "docs_goal_project_completion_4_nico_day_2_lifecycle_proof_without_live_hardware_execution",
-      "confidence_score": 1.0
+      "target": "docs_goal_project_completion_4_nico_day_2_lifecycle_proof_without_live_hardware_execution"
     },
     {
       "relation": "contains",
@@ -156092,9 +156185,9 @@
       "source_file": "docs/GOAL-PROJECT-COMPLETION.md",
       "source_location": "L43",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_goal_project_completion_in_scope",
-      "target": "docs_goal_project_completion_5_production_operations_documentation",
-      "confidence_score": 1.0
+      "target": "docs_goal_project_completion_5_production_operations_documentation"
     },
     {
       "relation": "contains",
@@ -156102,9 +156195,9 @@
       "source_file": "docs/GOAL-PROJECT-COMPLETION.md",
       "source_location": "L49",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_goal_project_completion_in_scope",
-      "target": "docs_goal_project_completion_6_graphify_maintenance",
-      "confidence_score": 1.0
+      "target": "docs_goal_project_completion_6_graphify_maintenance"
     },
     {
       "relation": "contains",
@@ -156112,9 +156205,9 @@
       "source_file": "docs/GOAL-PROJECT-COMPLETION.md",
       "source_location": "L55",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_goal_project_completion_in_scope",
-      "target": "docs_goal_project_completion_7_generated_reference_docs_freshness",
-      "confidence_score": 1.0
+      "target": "docs_goal_project_completion_7_generated_reference_docs_freshness"
     },
     {
       "relation": "contains",
@@ -211288,5 +211381,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "a7e24ebb60ee79d694bd5b2af62cc316ca90aebf"
+  "built_at_commit": "aa3e5a81607edb8bdea6d8fdc0dd67ff1877c3ce"
 }

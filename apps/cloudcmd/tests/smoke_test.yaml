@@ -1,0 +1,8 @@
+suite: cloudcmd smoke coverage
+templates:
+  - charts/cloudcmd/templates/common.yaml
+tests:
+  - it: renders Cloud Commander application resources
+    asserts:
+      - hasDocuments:
+          count: 3

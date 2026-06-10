@@ -1,0 +1,19 @@
+suite: monitoring-system smoke coverage
+templates:
+  - templates/secret.yaml
+  - charts/kube-prometheus-stack/templates/prometheus/service.yaml
+tests:
+  - it: renders the local Grafana admin external secret
+    template: templates/secret.yaml
+    asserts:
+      - hasDocuments:
+          count: 1
+      - isKind:
+          of: ExternalSecret
+  - it: renders the Prometheus service from kube-prometheus-stack
+    template: charts/kube-prometheus-stack/templates/prometheus/service.yaml
+    asserts:
+      - hasDocuments:
+          count: 1
+      - isKind:
+          of: Service
