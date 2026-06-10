@@ -81,8 +81,8 @@ jobs:
             go install github.com/zricethezav/gitleaks/v8@latest
           fi
           if [ "${{ github.event_name }}" = "pull_request" ]; then
-            git fetch origin "${{ github.event.pull_request.base.sha }}" "${{ github.event.pull_request.head.sha }}" --depth=1
-            gitleaks git --log-opts="${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }}" -v
+            git fetch origin "${{ github.event.pull_request.head.sha }}" --depth=2
+            gitleaks git --log-opts="${{ github.event.pull_request.head.sha }}^..${{ github.event.pull_request.head.sha }}" -v
           else
             gitleaks detect --source . -v --no-git
           fi
