@@ -52,8 +52,8 @@ jobs:
       - name: Run pre-commit
         run: |
           if [ "${{ github.event_name }}" = "pull_request" ]; then
-            git fetch origin "${{ github.event.pull_request.base.ref }}" --depth=1
-            git show --name-only --format= HEAD > /tmp/pre-commit-files.txt
+            git fetch origin "${{ github.event.pull_request.head.sha }}" --depth=1
+            git show --name-only --format= "${{ github.event.pull_request.head.sha }}" > /tmp/pre-commit-files.txt
             if [ -s /tmp/pre-commit-files.txt ]; then
               xargs env SKIP=ansible-lint,yamllint pre-commit run --show-diff-on-failure --files < /tmp/pre-commit-files.txt
             else
@@ -221,22 +221,22 @@ jobs:
             - resources/missing-label-pod.yaml
           results:
             - policy: disallow-privileged-containers
-              rule: privileged-containers
+              rule: forbid-privileged
               resource: valid-pod
               kind: Pod
               result: pass
             - policy: disallow-privileged-containers
-              rule: privileged-containers
+              rule: forbid-privileged
               resource: privileged-pod
               kind: Pod
               result: fail
             - policy: require-labels
-              rule: require-app-label
+              rule: require-app-name-label
               resource: valid-pod
               kind: Pod
               result: pass
             - policy: require-labels
-              rule: require-app-label
+              rule: require-app-name-label
               resource: missing-label-pod
               kind: Pod
               result: fail

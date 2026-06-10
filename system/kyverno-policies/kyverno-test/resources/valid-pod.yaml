@@ -5,11 +5,16 @@ metadata:
   labels:
     app.kubernetes.io/name: valid-pod
 spec:
+  securityContext:
+    runAsNonRoot: true
+    seccompProfile:
+      type: RuntimeDefault
   containers:
   - name: nginx
     image: nginx:latest
     securityContext:
       runAsNonRoot: true
+      privileged: false
       seccompProfile:
         type: RuntimeDefault
       allowPrivilegeEscalation: false
