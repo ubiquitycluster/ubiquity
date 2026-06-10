@@ -2950,8 +2950,8 @@
     "semantic_hash": ""
   },
   "docs/admin-guide/runbooks/cert-manager.md": {
-    "mtime": 1780566623.0,
-    "ast_hash": "2696650210504fbcdd4e701c7bc3d394",
+    "mtime": 1781090402.4742615,
+    "ast_hash": "c0ea1373f01c47ceaec372007582279c",
     "semantic_hash": ""
   },
   "docs/admin-guide/runbooks/dnsmasq.md": {
@@ -3060,8 +3060,8 @@
     "semantic_hash": ""
   },
   "docs/admin-guide/runbooks/vault.md": {
-    "mtime": 1780566623.0,
-    "ast_hash": "1a4ae9803c38e226cec78aa6de6f4dc0",
+    "mtime": 1781090452.303422,
+    "ast_hash": "0e9c135fafb83cbb20afa3014058572f",
     "semantic_hash": ""
   },
   "docs/admin-guide/troubleshooting/bmh-provisioning-error.md": {
@@ -6062,6 +6062,11 @@
   "pkg/config/k3s_secret_contract_test.go": {
     "mtime": 1781090215.840294,
     "ast_hash": "8f36062a8c74bca6175cbdac7ee5bbe7",
+    "semantic_hash": ""
+  },
+  "pkg/cloud/core_operations_runbooks_test.go": {
+    "mtime": 1781090359.252281,
+    "ast_hash": "b99952a43a1d31a32f08c377bd97068c",
     "semantic_hash": ""
   }
 }
