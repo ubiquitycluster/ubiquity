@@ -55,7 +55,7 @@ jobs:
             git fetch origin "${{ github.event.pull_request.base.ref }}" --depth=1
             git show --name-only --format= HEAD > /tmp/pre-commit-files.txt
             if [ -s /tmp/pre-commit-files.txt ]; then
-              xargs env SKIP=ansible-lint,yamllint pre-commit run --files --show-diff-on-failure < /tmp/pre-commit-files.txt
+              xargs env SKIP=ansible-lint,yamllint pre-commit run --show-diff-on-failure --files < /tmp/pre-commit-files.txt
             else
               echo "No changed files to check"
             fi
@@ -223,18 +223,22 @@ jobs:
             - policy: disallow-privileged-containers
               rule: privileged-containers
               resource: valid-pod
+              kind: Pod
               result: pass
             - policy: disallow-privileged-containers
               rule: privileged-containers
               resource: privileged-pod
+              kind: Pod
               result: fail
             - policy: require-labels
               rule: require-app-label
               resource: valid-pod
+              kind: Pod
               result: pass
             - policy: require-labels
               rule: require-app-label
               resource: missing-label-pod
+              kind: Pod
               result: fail
           EOF
           kyverno test "$tmpdir"
