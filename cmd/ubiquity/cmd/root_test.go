@@ -162,6 +162,52 @@ func TestSubcommandRegistration(t *testing.T) {
 	}
 }
 
+func TestModernPlatformSubcommandsAreRegistered(t *testing.T) {
+	expected := []string{
+		"ai",
+		"ai-platform",
+		"backup",
+		"cloud",
+		"configure",
+		"health",
+		"info",
+		"integration",
+		"nodes",
+		"restore",
+		"version",
+		"virtual-machines",
+	}
+
+	for _, name := range expected {
+		if findCommand(rootCmd, name) == nil {
+			t.Errorf("expected modern platform subcommand %q to be registered", name)
+		}
+	}
+}
+
+func TestNodesCommandSafeDefaultsAreVisibleFromRootRegistry(t *testing.T) {
+	nodes := findCommand(rootCmd, "nodes")
+	if nodes == nil {
+		t.Fatal("expected nodes command to be registered")
+	}
+
+	dryRun := nodes.PersistentFlags().Lookup("dry-run")
+	if dryRun == nil {
+		t.Fatal("expected nodes command to expose --dry-run safety flag")
+	}
+	if dryRun.DefValue != "true" {
+		t.Fatalf("expected nodes --dry-run to default to true, got %q", dryRun.DefValue)
+	}
+
+	backend := nodes.PersistentFlags().Lookup("backend")
+	if backend == nil {
+		t.Fatal("expected nodes command to expose --backend flag")
+	}
+	if backend.DefValue != nodeBackendNICO {
+		t.Fatalf("expected nodes --backend to default to %q, got %q", nodeBackendNICO, backend.DefValue)
+	}
+}
+
 // indexOfSpace returns the index of the first space in s, or -1 if not found.
 func indexOfSpace(s string) int {
 	for i, r := range s {

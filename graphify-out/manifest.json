@@ -615,8 +615,8 @@
     "semantic_hash": ""
   },
   "cmd/ubiquity/cmd/root_test.go": {
-    "mtime": 1780566625.0,
-    "ast_hash": "df7ece41a100656521318f26198ea5e6",
+    "mtime": 1781090124.978382,
+    "ast_hash": "4c18845f2b987fc8a337f5e47ef2989f",
     "semantic_hash": ""
   },
   "cmd/ubiquity/cmd/sandbox_deploy_test.go": {

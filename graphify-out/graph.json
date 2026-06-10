@@ -5912,7 +5912,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "cmd_ai_readiness_test",
-      "community": 48,
+      "community": 363,
       "norm_label": "ai_readiness_test.go"
     },
     {
@@ -5922,7 +5922,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "cmd_ai_readiness_test_testrenderaireadinessstatusfailsclosed",
-      "community": 48,
+      "community": 363,
       "norm_label": "testrenderaireadinessstatusfailsclosed()"
     },
     {
@@ -5932,7 +5932,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "cmd_ubiquity_cmd_ai_readiness_test_go_t",
-      "community": 48,
+      "community": 363,
       "norm_label": "t"
     },
     {
@@ -5942,7 +5942,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "cmd_ai_readiness_test_testrenderaistorereadinessstatusreportsoptionaldataplaneboundary",
-      "community": 48,
+      "community": 363,
       "norm_label": "testrenderaistorereadinessstatusreportsoptionaldataplaneboundary()"
     },
     {
@@ -5952,7 +5952,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "cmd_ai_readiness_test_testrenderaireadinessstatusready",
-      "community": 48,
+      "community": 363,
       "norm_label": "testrenderaireadinessstatusready()"
     },
     {
@@ -6862,7 +6862,7 @@
       "source_location": "L96",
       "_origin": "ast",
       "id": "readinessresult",
-      "community": 2,
+      "community": 48,
       "norm_label": "readinessresult"
     },
     {
@@ -6892,7 +6892,7 @@
       "source_location": "L130",
       "_origin": "ast",
       "id": "cmd_health_rendernicoreadinessstatus",
-      "community": 2,
+      "community": 48,
       "norm_label": "rendernicoreadinessstatus()"
     },
     {
@@ -7052,7 +7052,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "cmd_health_nico_test",
-      "community": 20,
+      "community": 987,
       "norm_label": "health_nico_test.go"
     },
     {
@@ -7062,7 +7062,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "cmd_health_nico_test_testhealthnicoflagregisteredinhelpandparses",
-      "community": 20,
+      "community": 987,
       "norm_label": "testhealthnicoflagregisteredinhelpandparses()"
     },
     {
@@ -7072,7 +7072,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "cmd_ubiquity_cmd_health_nico_test_go_t",
-      "community": 20,
+      "community": 987,
       "norm_label": "t"
     },
     {
@@ -7082,7 +7082,7 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "cmd_health_nico_test_testhealthnicoonlyrendersnicoreadiness",
-      "community": 20,
+      "community": 987,
       "norm_label": "testhealthnicoonlyrendersnicoreadiness()"
     },
     {
@@ -7092,7 +7092,7 @@
       "source_location": "L79",
       "_origin": "ast",
       "id": "cmd_health_nico_test_installfailingkubectl",
-      "community": 20,
+      "community": 987,
       "norm_label": "installfailingkubectl()"
     },
     {
@@ -8406,10 +8406,30 @@
       "norm_label": "testsubcommandregistration()"
     },
     {
+      "label": "TestModernPlatformSubcommandsAreRegistered()",
+      "file_type": "code",
+      "source_file": "cmd/ubiquity/cmd/root_test.go",
+      "source_location": "L165",
+      "_origin": "ast",
+      "id": "cmd_root_test_testmodernplatformsubcommandsareregistered",
+      "community": 63,
+      "norm_label": "testmodernplatformsubcommandsareregistered()"
+    },
+    {
+      "label": "TestNodesCommandSafeDefaultsAreVisibleFromRootRegistry()",
+      "file_type": "code",
+      "source_file": "cmd/ubiquity/cmd/root_test.go",
+      "source_location": "L188",
+      "_origin": "ast",
+      "id": "cmd_root_test_testnodescommandsafedefaultsarevisiblefromrootregistry",
+      "community": 63,
+      "norm_label": "testnodescommandsafedefaultsarevisiblefromrootregistry()"
+    },
+    {
       "label": "indexOfSpace()",
       "file_type": "code",
       "source_file": "cmd/ubiquity/cmd/root_test.go",
-      "source_location": "L166",
+      "source_location": "L212",
       "_origin": "ast",
       "id": "cmd_root_test_indexofspace",
       "community": 63,
@@ -10184,7 +10204,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "disabled_platform_vault_files_generate_secrets_main_go_generate_secrets_main",
-      "community": 987,
+      "community": 3,
       "norm_label": "main.go"
     },
     {
@@ -10194,7 +10214,7 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "disabled_platform_vault_files_generate_secrets_main_go_generate_secrets_randompassword",
-      "community": 987,
+      "community": 3,
       "norm_label": "randompassword"
     },
     {
@@ -10204,7 +10224,7 @@
       "source_location": "L41",
       "_origin": "ast",
       "id": "disabled_platform_vault_files_generate_secrets_main_go_generate_secrets_main_main",
-      "community": 987,
+      "community": 3,
       "norm_label": "main()"
     },
     {
@@ -12920,7 +12940,7 @@
       "source_location": "L49",
       "_origin": "ast",
       "id": "aiplatform_workload_parser_parseavailabledeployments",
-      "community": 34,
+      "community": 862,
       "norm_label": "parseavailabledeployments()"
     },
     {
@@ -12930,7 +12950,7 @@
       "source_location": "L76",
       "_origin": "ast",
       "id": "aiplatform_workload_parser_parsereadydaemonsets",
-      "community": 34,
+      "community": 862,
       "norm_label": "parsereadydaemonsets()"
     },
     {
@@ -12940,7 +12960,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "aiplatform_workload_parser_test",
-      "community": 34,
+      "community": 862,
       "norm_label": "workload_parser_test.go"
     },
     {
@@ -12950,7 +12970,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "aiplatform_workload_parser_test_testparseavailabledeploymentsonlycountsavailablereplicas",
-      "community": 34,
+      "community": 862,
       "norm_label": "testparseavailabledeploymentsonlycountsavailablereplicas()"
     },
     {
@@ -12960,7 +12980,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "pkg_aiplatform_workload_parser_test_go_t",
-      "community": 34,
+      "community": 862,
       "norm_label": "t"
     },
     {
@@ -12970,7 +12990,7 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "aiplatform_workload_parser_test_testparseavailabledeploymentshandlessingledeploymentobject",
-      "community": 34,
+      "community": 862,
       "norm_label": "testparseavailabledeploymentshandlessingledeploymentobject()"
     },
     {
@@ -12980,7 +13000,7 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "aiplatform_workload_parser_test_testparsereadydaemonsetsrequiresdesiredscheduledreadyandavailable",
-      "community": 34,
+      "community": 862,
       "norm_label": "testparsereadydaemonsetsrequiresdesiredscheduledreadyandavailable()"
     },
     {
@@ -12990,7 +13010,7 @@
       "source_location": "L56",
       "_origin": "ast",
       "id": "aiplatform_workload_parser_test_testparsereadydaemonsetshandlessingledaemonsetobject",
-      "community": 34,
+      "community": 862,
       "norm_label": "testparsereadydaemonsetshandlessingledaemonsetobject()"
     },
     {
@@ -13130,7 +13150,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "cloud_backup_policy",
-      "community": 450,
+      "community": 5,
       "norm_label": "backup_policy.go"
     },
     {
@@ -13140,7 +13160,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "cloud_backuppolicyrequest",
-      "community": 450,
+      "community": 5,
       "norm_label": "backuppolicyrequest"
     },
     {
@@ -13150,7 +13170,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "cloud_backuprestoredrillrequest",
-      "community": 450,
+      "community": 5,
       "norm_label": "backuprestoredrillrequest"
     },
     {
@@ -13160,7 +13180,7 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "cloud_backup_policy_renderbackuppolicy",
-      "community": 450,
+      "community": 5,
       "norm_label": "renderbackuppolicy()"
     },
     {
@@ -13170,7 +13190,7 @@
       "source_location": "L93",
       "_origin": "ast",
       "id": "cloud_backup_policy_defaultbackuppolicy",
-      "community": 450,
+      "community": 5,
       "norm_label": "defaultbackuppolicy()"
     },
     {
@@ -13180,7 +13200,7 @@
       "source_location": "L121",
       "_origin": "ast",
       "id": "cloud_backup_policy_validatebackuppolicy",
-      "community": 450,
+      "community": 5,
       "norm_label": "validatebackuppolicy()"
     },
     {
@@ -13190,7 +13210,7 @@
       "source_location": "L143",
       "_origin": "ast",
       "id": "cloud_backup_policy_renderbackuprestoredrill",
-      "community": 450,
+      "community": 5,
       "norm_label": "renderbackuprestoredrill()"
     },
     {
@@ -13200,7 +13220,7 @@
       "source_location": "L190",
       "_origin": "ast",
       "id": "cloud_backup_policy_defaultbackuprestoredrill",
-      "community": 450,
+      "community": 5,
       "norm_label": "defaultbackuprestoredrill()"
     },
     {
@@ -13210,7 +13230,7 @@
       "source_location": "L209",
       "_origin": "ast",
       "id": "cloud_backup_policy_validatebackuprestoredrill",
-      "community": 450,
+      "community": 5,
       "norm_label": "validatebackuprestoredrill()"
     },
     {
@@ -13220,7 +13240,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "cloud_backup_policy_test",
-      "community": 450,
+      "community": 5,
       "norm_label": "backup_policy_test.go"
     },
     {
@@ -13230,7 +13250,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "cloud_backup_policy_test_testrenderbackuppolicycreatesk8upschedulesnapshotclassandresourcepreset",
-      "community": 450,
+      "community": 5,
       "norm_label": "testrenderbackuppolicycreatesk8upschedulesnapshotclassandresourcepreset()"
     },
     {
@@ -13240,7 +13260,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "pkg_cloud_backup_policy_test_go_t",
-      "community": 450,
+      "community": 5,
       "norm_label": "t"
     },
     {
@@ -13250,7 +13270,7 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "cloud_backup_policy_test_testrenderbackuppolicyfailsclosedforunsafescheduleorretention",
-      "community": 450,
+      "community": 5,
       "norm_label": "testrenderbackuppolicyfailsclosedforunsafescheduleorretention()"
     },
     {
@@ -13290,7 +13310,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "cloud_backup_restore_drill_test",
-      "community": 450,
+      "community": 5,
       "norm_label": "backup_restore_drill_test.go"
     },
     {
@@ -13300,7 +13320,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "cloud_backup_restore_drill_test_testrenderbackuprestoredrillcreatesisolatedk8uprestoreandchecklist",
-      "community": 450,
+      "community": 5,
       "norm_label": "testrenderbackuprestoredrillcreatesisolatedk8uprestoreandchecklist()"
     },
     {
@@ -13310,7 +13330,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "pkg_cloud_backup_restore_drill_test_go_t",
-      "community": 450,
+      "community": 5,
       "norm_label": "t"
     },
     {
@@ -13320,7 +13340,7 @@
       "source_location": "L38",
       "_origin": "ast",
       "id": "cloud_backup_restore_drill_test_testrenderbackuprestoredrillrejectsproductionnamespace",
-      "community": 450,
+      "community": 5,
       "norm_label": "testrenderbackuprestoredrillrejectsproductionnamespace()"
     },
     {
@@ -14810,7 +14830,7 @@
       "source_location": "L138",
       "_origin": "ast",
       "id": "config_config_defaultconfig",
-      "community": 987,
+      "community": 5,
       "norm_label": "defaultconfig()"
     },
     {
@@ -14830,7 +14850,7 @@
       "source_location": "L203",
       "_origin": "ast",
       "id": "config_config_load",
-      "community": 862,
+      "community": 5,
       "norm_label": "load()"
     },
     {
@@ -14910,7 +14930,7 @@
       "source_location": "L433",
       "_origin": "ast",
       "id": "config_config_parseenvfile",
-      "community": 862,
+      "community": 5,
       "norm_label": "parseenvfile()"
     },
     {
@@ -14920,7 +14940,7 @@
       "source_location": "L449",
       "_origin": "ast",
       "id": "config_config_setfieldsfromenv",
-      "community": 862,
+      "community": 5,
       "norm_label": "setfieldsfromenv()"
     },
     {
@@ -15020,7 +15040,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "config_config_test",
-      "community": 862,
+      "community": 5,
       "norm_label": "config_test.go"
     },
     {
@@ -15030,7 +15050,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "config_config_test_testloadnonexistent",
-      "community": 862,
+      "community": 5,
       "norm_label": "testloadnonexistent()"
     },
     {
@@ -15040,7 +15060,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "pkg_config_config_test_go_t",
-      "community": 862,
+      "community": 5,
       "norm_label": "t"
     },
     {
@@ -15050,7 +15070,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "config_config_test_testsaveandload",
-      "community": 862,
+      "community": 5,
       "norm_label": "testsaveandload()"
     },
     {
@@ -15060,7 +15080,7 @@
       "source_location": "L50",
       "_origin": "ast",
       "id": "config_config_test_testparseenvfile",
-      "community": 862,
+      "community": 5,
       "norm_label": "testparseenvfile()"
     },
     {
@@ -15070,7 +15090,7 @@
       "source_location": "L72",
       "_origin": "ast",
       "id": "config_config_test_testpatchvalues",
-      "community": 862,
+      "community": 5,
       "norm_label": "testpatchvalues()"
     },
     {
@@ -15080,7 +15100,7 @@
       "source_location": "L98",
       "_origin": "ast",
       "id": "config_config_test_testisvalidcidr",
-      "community": 862,
+      "community": 5,
       "norm_label": "testisvalidcidr()"
     },
     {
@@ -15090,7 +15110,7 @@
       "source_location": "L118",
       "_origin": "ast",
       "id": "config_config_test_testconfigfilepath",
-      "community": 862,
+      "community": 5,
       "norm_label": "testconfigfilepath()"
     },
     {
@@ -15100,7 +15120,7 @@
       "source_location": "L125",
       "_origin": "ast",
       "id": "config_config_test_contains",
-      "community": 862,
+      "community": 5,
       "norm_label": "contains()"
     },
     {
@@ -23738,7 +23758,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "nim_operator_values_schema",
-      "community": 820,
+      "community": 8,
       "norm_label": "values.schema.json"
     },
     {
@@ -23748,7 +23768,7 @@
       "source_location": "L2",
       "_origin": "ast",
       "id": "nim_operator_values_schema_schema",
-      "community": 820,
+      "community": 8,
       "norm_label": "$schema"
     },
     {
@@ -23758,7 +23778,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "nim_operator_values_schema_type",
-      "community": 820,
+      "community": 8,
       "norm_label": "type"
     },
     {
@@ -23818,7 +23838,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "nim_operator_values_schema_properties_ngc",
-      "community": 814,
+      "community": 8,
       "norm_label": "ngc"
     },
     {
@@ -23828,7 +23848,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "nim_operator_values_schema_ngc_type",
-      "community": 814,
+      "community": 8,
       "norm_label": "type"
     },
     {
@@ -23838,7 +23858,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "nim_operator_values_schema_ngc_additionalproperties",
-      "community": 814,
+      "community": 8,
       "norm_label": "additionalproperties"
     },
     {
@@ -24508,7 +24528,7 @@
       "source_location": "L54",
       "_origin": "ast",
       "id": "nim_operator_values_schema_properties_port",
-      "community": 842,
+      "community": 872,
       "norm_label": "port"
     },
     {
@@ -24518,7 +24538,7 @@
       "source_location": "L54",
       "_origin": "ast",
       "id": "nim_operator_values_schema_port_type",
-      "community": 842,
+      "community": 872,
       "norm_label": "type"
     },
     {
@@ -24538,7 +24558,7 @@
       "source_location": "L54",
       "_origin": "ast",
       "id": "nim_operator_values_schema_port_maximum",
-      "community": 842,
+      "community": 872,
       "norm_label": "maximum"
     },
     {
@@ -27674,7 +27694,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "system_vault_files_generate_secrets_main_go_generate_secrets_main",
-      "community": 987,
+      "community": 3,
       "norm_label": "main.go"
     },
     {
@@ -27684,7 +27704,7 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "system_vault_files_generate_secrets_main_go_generate_secrets_randompassword",
-      "community": 987,
+      "community": 3,
       "norm_label": "randompassword"
     },
     {
@@ -27694,7 +27714,7 @@
       "source_location": "L41",
       "_origin": "ast",
       "id": "system_vault_files_generate_secrets_main_go_generate_secrets_main_main",
-      "community": 987,
+      "community": 3,
       "norm_label": "main()"
     },
     {
@@ -37506,7 +37526,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "deployment_prerequisites_hardware_requirements",
-      "community": 476,
+      "community": 1079,
       "norm_label": "hardware requirements"
     },
     {
@@ -37516,7 +37536,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "deployment_prerequisites_initial_controller",
-      "community": 476,
+      "community": 1079,
       "norm_label": "initial controller"
     },
     {
@@ -37526,7 +37546,7 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "deployment_prerequisites_servers",
-      "community": 476,
+      "community": 1079,
       "norm_label": "servers"
     },
     {
@@ -37536,7 +37556,7 @@
       "source_location": "L51",
       "_origin": "ast",
       "id": "deployment_prerequisites_network_setup",
-      "community": 476,
+      "community": 1079,
       "norm_label": "network setup"
     },
     {
@@ -87077,7 +87097,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 8,
+      "community": 450,
       "norm_label": "sample nimservice",
       "id": "templates_sample_nimservice_document"
     },
@@ -87090,7 +87110,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 8,
+      "community": 450,
       "norm_label": "nvidia",
       "id": "templates_sample_nimservice_nvidia"
     },
@@ -87103,7 +87123,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 8,
+      "community": 450,
       "norm_label": "gpu",
       "id": "templates_sample_nimservice_gpu"
     },
@@ -87116,7 +87136,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 8,
+      "community": 450,
       "norm_label": "policy",
       "id": "templates_sample_nimservice_policy"
     },
@@ -87129,7 +87149,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 8,
+      "community": 450,
       "norm_label": "storage",
       "id": "templates_sample_nimservice_storage"
     },
@@ -87142,7 +87162,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 8,
+      "community": 450,
       "norm_label": "namespace",
       "id": "templates_sample_nimservice_namespace"
     },
@@ -87155,7 +87175,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 8,
+      "community": 450,
       "norm_label": "nimcache",
       "id": "templates_sample_nimservice_nimcache"
     },
@@ -87168,7 +87188,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 8,
+      "community": 450,
       "norm_label": "nimservice",
       "id": "templates_sample_nimservice_nimservice"
     },
@@ -87181,7 +87201,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 8,
+      "community": 450,
       "norm_label": "platform nim-operator",
       "id": "templates_sample_nimservice_platform_nim_operator"
     },
@@ -119233,6 +119253,26 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "cmd/ubiquity/cmd/root_test.go",
+      "source_location": "L165",
+      "weight": 1.0,
+      "source": "cmd_root_test",
+      "target": "cmd_root_test_testmodernplatformsubcommandsareregistered",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "cmd/ubiquity/cmd/root_test.go",
+      "source_location": "L188",
+      "weight": 1.0,
+      "source": "cmd_root_test",
+      "target": "cmd_root_test_testnodescommandsafedefaultsarevisiblefromrootregistry",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "cmd/ubiquity/cmd/root_test.go",
       "source_location": "L51",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -119327,6 +119367,28 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "cmd/ubiquity/cmd/root_test.go",
+      "source_location": "L165",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "cmd_root_test_testmodernplatformsubcommandsareregistered",
+      "target": "cmd_ubiquity_cmd_root_test_go_t",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "cmd/ubiquity/cmd/root_test.go",
+      "source_location": "L188",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "cmd_root_test_testnodescommandsafedefaultsarevisiblefromrootregistry",
+      "target": "cmd_ubiquity_cmd_root_test_go_t",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "cmd/ubiquity/cmd/root_test.go",
       "source_location": "L51",
       "weight": 1.0,
       "context": "parameter_type",
@@ -119399,6 +119461,28 @@
       "confidence_score": 1.0,
       "source": "cmd_root_test_findcommand",
       "target": "cmd_ubiquity_cmd_root_test_go_command"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "cmd/ubiquity/cmd/root_test.go",
+      "source_location": "L182",
+      "weight": 1.0,
+      "source": "cmd_root_test_testmodernplatformsubcommandsareregistered",
+      "target": "cmd_root_test_findcommand",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "cmd/ubiquity/cmd/root_test.go",
+      "source_location": "L189",
+      "weight": 1.0,
+      "source": "cmd_root_test_testnodescommandsafedefaultsarevisiblefromrootregistry",
+      "target": "cmd_root_test_findcommand",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -122385,9 +122469,9 @@
       "source_file": "cmd/ubiquity/main_test.go",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "ubiquity_main_test",
-      "target": "ubiquity_main_test_testmainpackagecompiles",
-      "confidence_score": 1.0
+      "target": "ubiquity_main_test_testmainpackagecompiles"
     },
     {
       "relation": "references",
@@ -122396,9 +122480,9 @@
       "source_location": "L5",
       "weight": 1.0,
       "context": "parameter_type",
+      "confidence_score": 1.0,
       "source": "ubiquity_main_test_testmainpackagecompiles",
-      "target": "cmd_ubiquity_main_test_go_t",
-      "confidence_score": 1.0
+      "target": "cmd_ubiquity_main_test_go_t"
     },
     {
       "relation": "defines",
@@ -211432,5 +211516,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "1caa80edd1bb9b2a02cd8333667a9fe641f5e695"
+  "built_at_commit": "8c0efcf79a08c22012efcfc834829031dbd70f44"
 }
