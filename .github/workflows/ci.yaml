@@ -78,7 +78,7 @@ jobs:
       - name: Run gitleaks
         run: |
           if ! command -v gitleaks >/dev/null 2>&1; then
-            go install github.com/gitleaks/gitleaks/v8@latest
+            go install github.com/zricethezav/gitleaks/v8@latest
           fi
           gitleaks detect --source . -v --no-git
 
