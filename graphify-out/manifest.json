@@ -3545,8 +3545,8 @@
     "semantic_hash": ""
   },
   "metal/group_vars/metal.yml": {
-    "mtime": 1780566625.0,
-    "ast_hash": "2642b97d11aa9b973d5663e31fe4a35e",
+    "mtime": 1781090237.462342,
+    "ast_hash": "b1e0837b8edbc7dbc5d9f63b891c4f26",
     "semantic_hash": ""
   },
   "metal/host_vars/cn1.yml": {
@@ -3880,8 +3880,8 @@
     "semantic_hash": ""
   },
   "metal/roles/k3s/defaults/main.yml": {
-    "mtime": 1780566625.0,
-    "ast_hash": "154b61535ac6345a0f71512dffe37620",
+    "mtime": 1781090238.0124848,
+    "ast_hash": "8da2db39d32f223f88832a74a73515eb",
     "semantic_hash": ""
   },
   "metal/roles/k3s/demo/non-privileged-deploy.yaml": {
@@ -3930,8 +3930,8 @@
     "semantic_hash": ""
   },
   "metal/roles/k3s/tasks/cluster_bootstrap.yml": {
-    "mtime": 1780566625.0,
-    "ast_hash": "c7e0b7678bd07cfee2b4d0ea1fadec87",
+    "mtime": 1781090270.8143237,
+    "ast_hash": "e9511fa5601e00ab8a207fe0214441fc",
     "semantic_hash": ""
   },
   "metal/roles/k3s/tasks/cluster_hardening.yml": {
@@ -6057,6 +6057,11 @@
   "cmd/ubiquity/main_test.go": {
     "mtime": 1781089748.655416,
     "ast_hash": "2bf58101689138a20a3561f7f72dc3f1",
+    "semantic_hash": ""
+  },
+  "pkg/config/k3s_secret_contract_test.go": {
+    "mtime": 1781090215.840294,
+    "ast_hash": "8f36062a8c74bca6175cbdac7ee5bbe7",
     "semantic_hash": ""
   }
 }

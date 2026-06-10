@@ -3,6 +3,18 @@
 #
 #
 # CIS - 1.2.33, 1.2.34
+- name: Validate K3s encryption secret is provided
+  ansible.builtin.assert:
+    that:
+      - k3s_encryption_secret is defined
+      - k3s_encryption_secret != ''
+      - not k3s_encryption_secret.startswith('CHANGEME')
+    fail_msg: >-
+      k3s_encryption_secret must be supplied from Ansible Vault or an
+      inventory-specific secret before rendering {{ k3s_encryption_file }}.
+      Generate a 32-byte base64 value with: head -c 32 /dev/urandom | base64
+    quiet: true
+
 - name: Deploy encryption provider config
   template:
     src: k3s-encryption.yaml.j2
@@ -99,7 +111,7 @@
     - name: Wait for service to start
       pause:
         seconds: 5
-      run_once: yes
+      run_once: true
 
     - name: Wait for HA ip to come up
       command: |
@@ -110,7 +122,7 @@
       retries: 30
       delay: 5
       run_once: true
-      changed_when: no
+      changed_when: false
 
     - name: Start K3s service bootstrap /2
       systemd:
@@ -134,13 +146,13 @@
         - (masters.stdout_lines | length ) == (groups['masters'] | length)
       retries: 30
       delay: 5
-      run_once: yes
-      changed_when: no
+      run_once: true
+      changed_when: false
 
     - name: Cluster formed
       debug:
         msg: Cluster formed, stop bootstrap and carry on normal setup
-      run_once: yes
+      run_once: true
 
   when:
     - groups['masters'] | length > 1

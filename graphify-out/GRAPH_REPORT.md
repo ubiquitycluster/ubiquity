@@ -1,16 +1,16 @@
 # Graph Report - ubiquity  (2026-06-10)
 
 ## Corpus Check
-- 631 files · ~552,830 words
+- 632 files · ~553,105 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 9237 nodes · 10398 edges · 1081 communities (899 shown, 182 thin omitted)
+- 9243 nodes · 10410 edges · 1085 communities (902 shown, 183 thin omitted)
 - Extraction: 59% EXTRACTED · 41% INFERRED · 0% AMBIGUOUS · INFERRED: 4222 edges (avg confidence: 0.7)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `8c0efcf7`
+- Built from commit: `78002bbc`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -1069,7 +1069,11 @@
 - [[_COMMUNITY_Community 1077|Community 1077]]
 - [[_COMMUNITY_Community 1078|Community 1078]]
 - [[_COMMUNITY_Community 1079|Community 1079]]
+- [[_COMMUNITY_Community 1080|Community 1080]]
+- [[_COMMUNITY_Community 1081|Community 1081]]
 - [[_COMMUNITY_Community 1082|Community 1082]]
+- [[_COMMUNITY_Community 1083|Community 1083]]
+- [[_COMMUNITY_Community 1084|Community 1084]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `vcpus` - 50 edges
@@ -1092,13 +1096,13 @@
   platform/cloud-governance/Chart.yaml → pkg/cloud/governance.go
 - `Chart` --conceptually_related_to--> `CloudPrerequisitesRequest`  [INFERRED]
   platform/cloud-prerequisites/Chart.yaml → pkg/cloud/prerequisites.go
-- `runCloudReadiness()` --calls--> `EvaluateCloudReadiness()`  [INFERRED]
-  cmd/ubiquity/cmd/cloud.go → pkg/cloud/readiness.go
+- `main()` --calls--> `NewClient()`  [INFERRED]
+  platform/gitea/files/config/main.go → pkg/nico/client.go
 
 ## Import Cycles
 - None detected.
 
-## Communities (1081 total, 182 thin omitted)
+## Communities (1085 total, 183 thin omitted)
 
 ### Community 0 - "Community 0"
 Cohesion: 0.02
@@ -1113,8 +1117,8 @@ Cohesion: 0.05
 Nodes (90): nodeCommandOptions, captureNodesOutput(), TestNodesAddInventoryCreatesOSAndInstanceForTargetNode(), TestNodesExactArgsAndPowerSyntax(), TestNodesFlagsConfirmStringOSImageAliasAndSafetyFlags(), TestNodesLiveCreateActionsRenderCreatedPayloads(), TestNodesLiveDrainCordonsAndDrainsKubernetesNode(), TestNodesLiveMutatingOperationCallsFakeableClient() (+82 more)
 
 ### Community 3 - "Community 3"
-Cohesion: 0.05
-Nodes (49): fakeNodesNICOClient, checkInstallerStatus(), Context, Instance, Machine, MachineGPUStats, OperatingSystem, Site (+41 more)
+Cohesion: 0.18
+Nodes (15): decodeNICOResponse(), isPointerToSlice(), Instance, Machine, MachineGPUStats, ObjectMetadata, OperatingSystem, OperatingSystemSpec (+7 more)
 
 ### Community 4 - "Community 4"
 Cohesion: 0.06
@@ -1122,7 +1126,7 @@ Nodes (58): Builder, T, Command, Context, collectVirtualMachinesReadinessEvidenc
 
 ### Community 5 - "Community 5"
 Cohesion: 0.07
-Nodes (44): defaultBackupPolicy(), defaultBackupRestoreDrill(), RenderBackupPolicy(), RenderBackupRestoreDrill(), TestRenderBackupPolicyCreatesK8upScheduleSnapshotClassAndResourcePreset(), TestRenderBackupPolicyFailsClosedForUnsafeScheduleOrRetention(), validateBackupPolicy(), validateBackupRestoreDrill() (+36 more)
+Nodes (43): defaultBackupPolicy(), defaultBackupRestoreDrill(), RenderBackupPolicy(), RenderBackupRestoreDrill(), TestRenderBackupPolicyCreatesK8upScheduleSnapshotClassAndResourcePreset(), TestRenderBackupPolicyFailsClosedForUnsafeScheduleOrRetention(), validateBackupPolicy(), validateBackupRestoreDrill() (+35 more)
 
 ### Community 6 - "Community 6"
 Cohesion: 0.03
@@ -1133,8 +1137,8 @@ Cohesion: 0.08
 Nodes (23): admin guide bare-metal operations, Add a node, Components and namespaces, Node lifecycle workflow, NVIDIA Infra Controller node management, Operational safety, Prerequisites, Readiness checks (+15 more)
 
 ### Community 8 - "Community 8"
-Cohesion: 0.16
-Nodes (15): additionalProperties, additionalProperties, type, additionalProperties, type, additionalProperties, type, image (+7 more)
+Cohesion: 0.20
+Nodes (9): fakeNodesNICOClient, Context, Instance, Machine, MachineGPUStats, OperatingSystem, Site, Task (+1 more)
 
 ### Community 9 - "Community 9"
 Cohesion: 0.05
@@ -1265,8 +1269,8 @@ Cohesion: 0.11
 Nodes (31): additionalProperties, items, minItems, type, type, pattern, type, pattern (+23 more)
 
 ### Community 41 - "Community 41"
-Cohesion: 0.19
-Nodes (16): CloudResourceEvidence, collectCloudReadinessEvidence(), parseCloudSmokeMarkers(), parseKubectlCRDNames(), parseKubectlResourceEvidence(), renderCloudResource(), runCloudApply(), runCloudAuditChecklist() (+8 more)
+Cohesion: 0.20
+Nodes (15): CloudResourceEvidence, collectCloudReadinessEvidence(), parseCloudSmokeMarkers(), parseKubectlCRDNames(), parseKubectlResourceEvidence(), renderCloudResource(), runCloudApply(), runCloudAuditChecklist() (+7 more)
 
 ### Community 42 - "Community 42"
 Cohesion: 0.12
@@ -1278,7 +1282,7 @@ Nodes (31): additionalProperties, minLength, type, type, type, type, type, type 
 
 ### Community 44 - "Community 44"
 Cohesion: 0.05
-Nodes (75): CheckResult, ClusterSnapshot, boolCheck(), EvaluateReadiness(), gpuAllocatableCheck(), gpuCorrelationCheck(), kaiSchedulerCheck(), nimServingCheck() (+67 more)
+Nodes (76): CheckResult, ClusterSnapshot, boolCheck(), EvaluateReadiness(), gpuAllocatableCheck(), gpuCorrelationCheck(), kaiSchedulerCheck(), nimServingCheck() (+68 more)
 
 ### Community 45 - "Community 45"
 Cohesion: 0.05
@@ -2897,8 +2901,8 @@ Cohesion: 0.53
 Nodes (5): T, TestExecutePhaseDispatchesCorrectly(), TestExecutePhaseUnknown(), TestMockProviderRecordsCalls(), TestRealProviderReturnsNoError()
 
 ### Community 450 - "Community 450"
-Cohesion: 0.22
-Nodes (9): Sample Nimservice, Gpu, Namespace, Nimcache, Nimservice, Nvidia, Platform Nim-Operator, Policy (+1 more)
+Cohesion: 0.12
+Nodes (16): additionalProperties, additionalProperties, type, k8s-nim-operator, smokeTest, additionalProperties, type, Sample Nimservice (+8 more)
 
 ### Community 451 - "Community 451"
 Cohesion: 0.33
@@ -3001,8 +3005,8 @@ Cohesion: 0.40
 Nodes (5): Ansible, Cloud Init, Cloud Init Installation Rocky 87, Readme, Tools Disk-Image
 
 ### Community 476 - "Community 476"
-Cohesion: 0.14
-Nodes (15): BIOS setup, Domain, Fork this repository, Gather information, Prerequisites, Docs Admin-Guide, Fork Repository, Hardware requirements (+7 more)
+Cohesion: 0.11
+Nodes (19): BIOS setup, Domain, Fork this repository, Gather information, Hardware requirements, Initial controller, Network setup, Prerequisites (+11 more)
 
 ### Community 477 - "Community 477"
 Cohesion: 0.40
@@ -3641,8 +3645,8 @@ Cohesion: 0.10
 Nodes (20): Design Tenets, Goal: Project Ubiquity Next — The HPC Cluster Lifecycle Platform, Implementation Phases, Phase 1: Foundation (Weeks 1-2), Phase 2: Standardization (Weeks 3-4), Phase 3: Security (Weeks 5-6), Phase 4: Testing & Reliability (Weeks 7-8), Phase 5: Polish (Weeks 9-10) (+12 more)
 
 ### Community 803 - "Community 803"
-Cohesion: 0.13
-Nodes (15): minLength, type, minLength, type, endpoint, kubectlImage, serviceAccountName, successConfigMapName (+7 more)
+Cohesion: 0.11
+Nodes (21): minLength, type, minLength, type, minLength, type, curlImage, endpoint (+13 more)
 
 ### Community 804 - "Community 804"
 Cohesion: 0.10
@@ -3661,8 +3665,8 @@ Cohesion: 0.11
 Nodes (17): How do I identify the current state, How ironic boots hardware, How ironic controls hardware, how-ironic-works, How ironic writes an operating system image to baremetal, How-to, How to add hardware to ironic, How to create the record of an active node (+9 more)
 
 ### Community 808 - "Community 808"
-Cohesion: 0.13
-Nodes (15): type, minLength, type, minLength, type, enabled, modelPuller, name (+7 more)
+Cohesion: 0.11
+Nodes (18): type, minLength, type, minLength, type, minLength, type, enabled (+10 more)
 
 ### Community 809 - "Community 809"
 Cohesion: 0.11
@@ -3685,16 +3689,16 @@ Cohesion: 0.12
 Nodes (17): automatedCleaningMode, BareMetalHost spec, bmc, bootMACAddress, bootMode, consumerRef, customDeploy, description (+9 more)
 
 ### Community 814 - "Community 814"
-Cohesion: 0.19
-Nodes (14): minLength, type, type, type, type, properties, properties, apiKeySecretName (+6 more)
+Cohesion: 0.15
+Nodes (17): minLength, type, type, type, type, additionalProperties, properties, type (+9 more)
 
 ### Community 815 - "Community 815"
 Cohesion: 0.12
 Nodes (16): First Step: Investigate your Situation, Investigate Logs of the Containers inside the Pods, Investigate Status and Events of the Pods, Job failed with no output, Provisioning Callback does not work, Reveal "censored" output in the AWX Operator's log, Table of Contents, The job failed and I got "ERROR! couldn't resolve module/action" or "Failed to import the required Python library" message (+8 more)
 
 ### Community 816 - "Community 816"
-Cohesion: 0.17
-Nodes (12): Control plane:, Cordon workers, Get bmh_host, Marking a Compute Node Down for maintenance, Power Down Procedures, Powering on a Compute Node, poweroff, reboot (+4 more)
+Cohesion: 0.12
+Nodes (16): Control plane:, Cordon workers, General Maintenance Procedures, Get bmh_host, Getting Support, MAINTENANCE PROCEDURES, Marking a Compute Node Down for maintenance, Power Down Procedures (+8 more)
 
 ### Community 817 - "Community 817"
 Cohesion: 0.12
@@ -3709,8 +3713,8 @@ Cohesion: 0.12
 Nodes (15): Background, Bare-Metal Service: HTCondor, Bare-Metal Service: Slurm, Draining Worker Nodes, How to shutdown a Ubiquity cluster, Requirements, Shutting down storage, Shutting down the control plane nodes (+7 more)
 
 ### Community 820 - "Community 820"
-Cohesion: 0.17
-Nodes (12): size, storage, storageClass, volumeAccessMode, minLength, type, additionalProperties, properties (+4 more)
+Cohesion: 0.16
+Nodes (14): size, storage, storageClass, volumeAccessMode, $schema, minLength, type, additionalProperties (+6 more)
 
 ### Community 821 - "Community 821"
 Cohesion: 0.13
@@ -3921,8 +3925,8 @@ Cohesion: 0.20
 Nodes (10): minimum, type, maximum, minimum, type, gpuLimit, port, replicas (+2 more)
 
 ### Community 873 - "Community 873"
-Cohesion: 0.17
-Nodes (13): minLength, type, properties, minLength, type, curlImage, namespace, repository (+5 more)
+Cohesion: 0.29
+Nodes (7): additionalProperties, properties, type, image, repository, minLength, type
 
 ### Community 874 - "Community 874"
 Cohesion: 0.29
@@ -4577,20 +4581,32 @@ Cohesion: 0.28
 Nodes (9): scripts/configure contract, deployment configuration inputs, Keycloak identity management, Keycloak realm/client/user setup flow, nip.io test DNS, on-premises production deployment, sandbox deployment, Slurm integration path (+1 more)
 
 ### Community 1076 - "Community 1076"
-Cohesion: 0.50
-Nodes (4): General Maintenance Procedures, Getting Support, MAINTENANCE PROCEDURES, Power Up Procedures
+Cohesion: 0.28
+Nodes (11): NewClient(), TestClientBuildsOpenAPIResourcePaths(), TestClientErrorsRedactResponseBodyAndTokenCommand(), TestClientEscapesOrgAPIAndResourceID(), TestClientListMethodsDecodeBareArraysAndItemsEnvelope(), TestPollTaskFailsOnTerminalFailedOrCancelled(), TestPollTaskSucceedsAfterPendingStates(), TestPollTaskTimesOut() (+3 more)
 
 ### Community 1077 - "Community 1077"
 Cohesion: 0.33
 Nodes (5): Active Goal: Ubiquity Project Completion, Current next slice, Execute in this order, Goal, Required execution discipline
 
 ### Community 1079 - "Community 1079"
-Cohesion: 0.50
-Nodes (4): Hardware requirements, Initial controller, Network setup, Servers
+Cohesion: 0.29
+Nodes (5): DefaultConfig(), main(), RandomPassword, main(), RandomPassword
+
+### Community 1080 - "Community 1080"
+Cohesion: 0.80
+Nodes (5): configRepoRoot(), readConfigTestFile(), TestK3SEncryptionSecretFailsClosedBeforeTemplateDeployment(), TestK3SEncryptionSecretIsNotCommittedAsLiteral(), T
+
+### Community 1081 - "Community 1081"
+Cohesion: 0.40
+Nodes (5): TestClientDefaultHTTPTimeout(), TestClientLiveMethodsUseExpectedHTTPVerbsAndPaths(), WithHTTPClient(), ClientOption, T
 
 ### Community 1082 - "Community 1082"
 Cohesion: 0.50
 Nodes (4): cloud deployment Terraform workshop, cloud DNS and SSL configuration, cloud Terraform configuration model, Terraform Cloud management
+
+### Community 1083 - "Community 1083"
+Cohesion: 0.60
+Nodes (4): main(), Organization, Repository, Config
 
 ## Ambiguous Edges - Review These
 - `Vulnerability Reporting and Disclosure Workflow` → `Bug Report Template`  [AMBIGUOUS]
@@ -4599,7 +4615,7 @@ Nodes (4): cloud deployment Terraform workshop, cloud DNS and SSL configuration,
 ## Knowledge Gaps
 - **5908 isolated node(s):** `name`, `image`, `ghcr.io/devcontainers/features/docker-in-docker:2`, `ghcr.io/devcontainers/features/kubectl:1`, `ghcr.io/devcontainers/features/helm:1` (+5903 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **182 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **183 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
@@ -4608,9 +4624,9 @@ _Questions this graph is uniquely positioned to answer:_
   _Edge tagged AMBIGUOUS (relation: conceptually_related_to) - confidence is low._
 - **Why does `ParseKubernetesNodeEvidence()` connect `Community 67` to `Community 2`, `Community 389`, `Community 12`, `Community 76`, `Community 77`?**
   _High betweenness centrality (0.003) - this node is a cross-community bridge._
-- **Why does `atoi()` connect `Community 5` to `Community 67`, `Community 77`, `Community 389`?**
-  _High betweenness centrality (0.003) - this node is a cross-community bridge._
 - **Why does `collectNodeKubernetesEvidence()` connect `Community 2` to `Community 67`?**
+  _High betweenness centrality (0.003) - this node is a cross-community bridge._
+- **Why does `atoi()` connect `Community 5` to `Community 67`, `Community 77`, `Community 389`?**
   _High betweenness centrality (0.003) - this node is a cross-community bridge._
 - **Are the 33 inferred relationships involving `findCommand()` (e.g. with `TestAIPlatformApplyCanMutateWithServerSideApply()` and `TestAIPlatformCmdRegistered()`) actually correct?**
   _`findCommand()` has 33 INFERRED edges - model-reasoned connections that need verification._
