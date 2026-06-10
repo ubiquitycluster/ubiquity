@@ -1,15 +1,16 @@
-# Graph Report - .  (2026-06-10)
+# Graph Report - ubiquity  (2026-06-10)
 
 ## Corpus Check
-- cluster-only mode — file stats not available
+- 627 files · ~551,405 words
+- Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 6445 nodes · 7412 edges · 797 communities (647 shown, 150 thin omitted)
-- Extraction: 43% EXTRACTED · 57% INFERRED · 0% AMBIGUOUS · INFERRED: 4206 edges (avg confidence: 0.7)
-- Token cost: 124490 input · 62950 output recorded in graph build metadata for completed Codex semantic chunks; deterministic fallback chunks were counted as 0 input · 0 output because they were generated locally from repository files after Codex transport failures.
+- 9210 nodes · 10367 edges · 1073 communities (892 shown, 181 thin omitted)
+- Extraction: 59% EXTRACTED · 41% INFERRED · 0% AMBIGUOUS · INFERRED: 4222 edges (avg confidence: 0.7)
+- Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `b5b35d9b`
+- Built from commit: `74c3406f`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -792,6 +793,275 @@
 - [[_COMMUNITY_Community 793|Community 793]]
 - [[_COMMUNITY_Community 794|Community 794]]
 - [[_COMMUNITY_Community 796|Community 796]]
+- [[_COMMUNITY_Community 797|Community 797]]
+- [[_COMMUNITY_Community 798|Community 798]]
+- [[_COMMUNITY_Community 799|Community 799]]
+- [[_COMMUNITY_Community 800|Community 800]]
+- [[_COMMUNITY_Community 801|Community 801]]
+- [[_COMMUNITY_Community 802|Community 802]]
+- [[_COMMUNITY_Community 803|Community 803]]
+- [[_COMMUNITY_Community 804|Community 804]]
+- [[_COMMUNITY_Community 805|Community 805]]
+- [[_COMMUNITY_Community 806|Community 806]]
+- [[_COMMUNITY_Community 807|Community 807]]
+- [[_COMMUNITY_Community 808|Community 808]]
+- [[_COMMUNITY_Community 809|Community 809]]
+- [[_COMMUNITY_Community 810|Community 810]]
+- [[_COMMUNITY_Community 811|Community 811]]
+- [[_COMMUNITY_Community 812|Community 812]]
+- [[_COMMUNITY_Community 813|Community 813]]
+- [[_COMMUNITY_Community 814|Community 814]]
+- [[_COMMUNITY_Community 815|Community 815]]
+- [[_COMMUNITY_Community 816|Community 816]]
+- [[_COMMUNITY_Community 817|Community 817]]
+- [[_COMMUNITY_Community 818|Community 818]]
+- [[_COMMUNITY_Community 819|Community 819]]
+- [[_COMMUNITY_Community 820|Community 820]]
+- [[_COMMUNITY_Community 821|Community 821]]
+- [[_COMMUNITY_Community 822|Community 822]]
+- [[_COMMUNITY_Community 823|Community 823]]
+- [[_COMMUNITY_Community 824|Community 824]]
+- [[_COMMUNITY_Community 825|Community 825]]
+- [[_COMMUNITY_Community 826|Community 826]]
+- [[_COMMUNITY_Community 827|Community 827]]
+- [[_COMMUNITY_Community 828|Community 828]]
+- [[_COMMUNITY_Community 829|Community 829]]
+- [[_COMMUNITY_Community 830|Community 830]]
+- [[_COMMUNITY_Community 831|Community 831]]
+- [[_COMMUNITY_Community 832|Community 832]]
+- [[_COMMUNITY_Community 833|Community 833]]
+- [[_COMMUNITY_Community 834|Community 834]]
+- [[_COMMUNITY_Community 835|Community 835]]
+- [[_COMMUNITY_Community 836|Community 836]]
+- [[_COMMUNITY_Community 837|Community 837]]
+- [[_COMMUNITY_Community 838|Community 838]]
+- [[_COMMUNITY_Community 839|Community 839]]
+- [[_COMMUNITY_Community 840|Community 840]]
+- [[_COMMUNITY_Community 841|Community 841]]
+- [[_COMMUNITY_Community 842|Community 842]]
+- [[_COMMUNITY_Community 843|Community 843]]
+- [[_COMMUNITY_Community 844|Community 844]]
+- [[_COMMUNITY_Community 845|Community 845]]
+- [[_COMMUNITY_Community 846|Community 846]]
+- [[_COMMUNITY_Community 847|Community 847]]
+- [[_COMMUNITY_Community 848|Community 848]]
+- [[_COMMUNITY_Community 849|Community 849]]
+- [[_COMMUNITY_Community 850|Community 850]]
+- [[_COMMUNITY_Community 851|Community 851]]
+- [[_COMMUNITY_Community 852|Community 852]]
+- [[_COMMUNITY_Community 853|Community 853]]
+- [[_COMMUNITY_Community 854|Community 854]]
+- [[_COMMUNITY_Community 855|Community 855]]
+- [[_COMMUNITY_Community 856|Community 856]]
+- [[_COMMUNITY_Community 857|Community 857]]
+- [[_COMMUNITY_Community 858|Community 858]]
+- [[_COMMUNITY_Community 859|Community 859]]
+- [[_COMMUNITY_Community 860|Community 860]]
+- [[_COMMUNITY_Community 861|Community 861]]
+- [[_COMMUNITY_Community 862|Community 862]]
+- [[_COMMUNITY_Community 863|Community 863]]
+- [[_COMMUNITY_Community 864|Community 864]]
+- [[_COMMUNITY_Community 865|Community 865]]
+- [[_COMMUNITY_Community 866|Community 866]]
+- [[_COMMUNITY_Community 867|Community 867]]
+- [[_COMMUNITY_Community 868|Community 868]]
+- [[_COMMUNITY_Community 869|Community 869]]
+- [[_COMMUNITY_Community 870|Community 870]]
+- [[_COMMUNITY_Community 871|Community 871]]
+- [[_COMMUNITY_Community 872|Community 872]]
+- [[_COMMUNITY_Community 873|Community 873]]
+- [[_COMMUNITY_Community 874|Community 874]]
+- [[_COMMUNITY_Community 875|Community 875]]
+- [[_COMMUNITY_Community 876|Community 876]]
+- [[_COMMUNITY_Community 877|Community 877]]
+- [[_COMMUNITY_Community 878|Community 878]]
+- [[_COMMUNITY_Community 879|Community 879]]
+- [[_COMMUNITY_Community 880|Community 880]]
+- [[_COMMUNITY_Community 881|Community 881]]
+- [[_COMMUNITY_Community 882|Community 882]]
+- [[_COMMUNITY_Community 883|Community 883]]
+- [[_COMMUNITY_Community 884|Community 884]]
+- [[_COMMUNITY_Community 885|Community 885]]
+- [[_COMMUNITY_Community 886|Community 886]]
+- [[_COMMUNITY_Community 887|Community 887]]
+- [[_COMMUNITY_Community 888|Community 888]]
+- [[_COMMUNITY_Community 889|Community 889]]
+- [[_COMMUNITY_Community 890|Community 890]]
+- [[_COMMUNITY_Community 891|Community 891]]
+- [[_COMMUNITY_Community 892|Community 892]]
+- [[_COMMUNITY_Community 893|Community 893]]
+- [[_COMMUNITY_Community 894|Community 894]]
+- [[_COMMUNITY_Community 895|Community 895]]
+- [[_COMMUNITY_Community 896|Community 896]]
+- [[_COMMUNITY_Community 897|Community 897]]
+- [[_COMMUNITY_Community 898|Community 898]]
+- [[_COMMUNITY_Community 899|Community 899]]
+- [[_COMMUNITY_Community 900|Community 900]]
+- [[_COMMUNITY_Community 901|Community 901]]
+- [[_COMMUNITY_Community 902|Community 902]]
+- [[_COMMUNITY_Community 903|Community 903]]
+- [[_COMMUNITY_Community 904|Community 904]]
+- [[_COMMUNITY_Community 905|Community 905]]
+- [[_COMMUNITY_Community 906|Community 906]]
+- [[_COMMUNITY_Community 907|Community 907]]
+- [[_COMMUNITY_Community 908|Community 908]]
+- [[_COMMUNITY_Community 909|Community 909]]
+- [[_COMMUNITY_Community 910|Community 910]]
+- [[_COMMUNITY_Community 911|Community 911]]
+- [[_COMMUNITY_Community 912|Community 912]]
+- [[_COMMUNITY_Community 913|Community 913]]
+- [[_COMMUNITY_Community 914|Community 914]]
+- [[_COMMUNITY_Community 915|Community 915]]
+- [[_COMMUNITY_Community 916|Community 916]]
+- [[_COMMUNITY_Community 917|Community 917]]
+- [[_COMMUNITY_Community 918|Community 918]]
+- [[_COMMUNITY_Community 919|Community 919]]
+- [[_COMMUNITY_Community 920|Community 920]]
+- [[_COMMUNITY_Community 921|Community 921]]
+- [[_COMMUNITY_Community 922|Community 922]]
+- [[_COMMUNITY_Community 923|Community 923]]
+- [[_COMMUNITY_Community 924|Community 924]]
+- [[_COMMUNITY_Community 925|Community 925]]
+- [[_COMMUNITY_Community 926|Community 926]]
+- [[_COMMUNITY_Community 927|Community 927]]
+- [[_COMMUNITY_Community 928|Community 928]]
+- [[_COMMUNITY_Community 929|Community 929]]
+- [[_COMMUNITY_Community 930|Community 930]]
+- [[_COMMUNITY_Community 931|Community 931]]
+- [[_COMMUNITY_Community 932|Community 932]]
+- [[_COMMUNITY_Community 933|Community 933]]
+- [[_COMMUNITY_Community 934|Community 934]]
+- [[_COMMUNITY_Community 935|Community 935]]
+- [[_COMMUNITY_Community 936|Community 936]]
+- [[_COMMUNITY_Community 937|Community 937]]
+- [[_COMMUNITY_Community 938|Community 938]]
+- [[_COMMUNITY_Community 939|Community 939]]
+- [[_COMMUNITY_Community 940|Community 940]]
+- [[_COMMUNITY_Community 941|Community 941]]
+- [[_COMMUNITY_Community 942|Community 942]]
+- [[_COMMUNITY_Community 943|Community 943]]
+- [[_COMMUNITY_Community 944|Community 944]]
+- [[_COMMUNITY_Community 945|Community 945]]
+- [[_COMMUNITY_Community 946|Community 946]]
+- [[_COMMUNITY_Community 947|Community 947]]
+- [[_COMMUNITY_Community 948|Community 948]]
+- [[_COMMUNITY_Community 949|Community 949]]
+- [[_COMMUNITY_Community 950|Community 950]]
+- [[_COMMUNITY_Community 951|Community 951]]
+- [[_COMMUNITY_Community 952|Community 952]]
+- [[_COMMUNITY_Community 953|Community 953]]
+- [[_COMMUNITY_Community 954|Community 954]]
+- [[_COMMUNITY_Community 955|Community 955]]
+- [[_COMMUNITY_Community 956|Community 956]]
+- [[_COMMUNITY_Community 957|Community 957]]
+- [[_COMMUNITY_Community 958|Community 958]]
+- [[_COMMUNITY_Community 959|Community 959]]
+- [[_COMMUNITY_Community 960|Community 960]]
+- [[_COMMUNITY_Community 961|Community 961]]
+- [[_COMMUNITY_Community 962|Community 962]]
+- [[_COMMUNITY_Community 963|Community 963]]
+- [[_COMMUNITY_Community 964|Community 964]]
+- [[_COMMUNITY_Community 965|Community 965]]
+- [[_COMMUNITY_Community 966|Community 966]]
+- [[_COMMUNITY_Community 967|Community 967]]
+- [[_COMMUNITY_Community 968|Community 968]]
+- [[_COMMUNITY_Community 969|Community 969]]
+- [[_COMMUNITY_Community 970|Community 970]]
+- [[_COMMUNITY_Community 971|Community 971]]
+- [[_COMMUNITY_Community 972|Community 972]]
+- [[_COMMUNITY_Community 973|Community 973]]
+- [[_COMMUNITY_Community 974|Community 974]]
+- [[_COMMUNITY_Community 975|Community 975]]
+- [[_COMMUNITY_Community 976|Community 976]]
+- [[_COMMUNITY_Community 977|Community 977]]
+- [[_COMMUNITY_Community 978|Community 978]]
+- [[_COMMUNITY_Community 979|Community 979]]
+- [[_COMMUNITY_Community 980|Community 980]]
+- [[_COMMUNITY_Community 981|Community 981]]
+- [[_COMMUNITY_Community 982|Community 982]]
+- [[_COMMUNITY_Community 983|Community 983]]
+- [[_COMMUNITY_Community 984|Community 984]]
+- [[_COMMUNITY_Community 985|Community 985]]
+- [[_COMMUNITY_Community 986|Community 986]]
+- [[_COMMUNITY_Community 987|Community 987]]
+- [[_COMMUNITY_Community 988|Community 988]]
+- [[_COMMUNITY_Community 989|Community 989]]
+- [[_COMMUNITY_Community 990|Community 990]]
+- [[_COMMUNITY_Community 991|Community 991]]
+- [[_COMMUNITY_Community 992|Community 992]]
+- [[_COMMUNITY_Community 993|Community 993]]
+- [[_COMMUNITY_Community 994|Community 994]]
+- [[_COMMUNITY_Community 995|Community 995]]
+- [[_COMMUNITY_Community 996|Community 996]]
+- [[_COMMUNITY_Community 997|Community 997]]
+- [[_COMMUNITY_Community 998|Community 998]]
+- [[_COMMUNITY_Community 999|Community 999]]
+- [[_COMMUNITY_Community 1000|Community 1000]]
+- [[_COMMUNITY_Community 1001|Community 1001]]
+- [[_COMMUNITY_Community 1002|Community 1002]]
+- [[_COMMUNITY_Community 1003|Community 1003]]
+- [[_COMMUNITY_Community 1004|Community 1004]]
+- [[_COMMUNITY_Community 1005|Community 1005]]
+- [[_COMMUNITY_Community 1006|Community 1006]]
+- [[_COMMUNITY_Community 1007|Community 1007]]
+- [[_COMMUNITY_Community 1008|Community 1008]]
+- [[_COMMUNITY_Community 1009|Community 1009]]
+- [[_COMMUNITY_Community 1010|Community 1010]]
+- [[_COMMUNITY_Community 1011|Community 1011]]
+- [[_COMMUNITY_Community 1012|Community 1012]]
+- [[_COMMUNITY_Community 1013|Community 1013]]
+- [[_COMMUNITY_Community 1014|Community 1014]]
+- [[_COMMUNITY_Community 1015|Community 1015]]
+- [[_COMMUNITY_Community 1016|Community 1016]]
+- [[_COMMUNITY_Community 1017|Community 1017]]
+- [[_COMMUNITY_Community 1018|Community 1018]]
+- [[_COMMUNITY_Community 1019|Community 1019]]
+- [[_COMMUNITY_Community 1020|Community 1020]]
+- [[_COMMUNITY_Community 1021|Community 1021]]
+- [[_COMMUNITY_Community 1022|Community 1022]]
+- [[_COMMUNITY_Community 1023|Community 1023]]
+- [[_COMMUNITY_Community 1024|Community 1024]]
+- [[_COMMUNITY_Community 1025|Community 1025]]
+- [[_COMMUNITY_Community 1026|Community 1026]]
+- [[_COMMUNITY_Community 1027|Community 1027]]
+- [[_COMMUNITY_Community 1028|Community 1028]]
+- [[_COMMUNITY_Community 1029|Community 1029]]
+- [[_COMMUNITY_Community 1030|Community 1030]]
+- [[_COMMUNITY_Community 1031|Community 1031]]
+- [[_COMMUNITY_Community 1032|Community 1032]]
+- [[_COMMUNITY_Community 1033|Community 1033]]
+- [[_COMMUNITY_Community 1034|Community 1034]]
+- [[_COMMUNITY_Community 1035|Community 1035]]
+- [[_COMMUNITY_Community 1036|Community 1036]]
+- [[_COMMUNITY_Community 1037|Community 1037]]
+- [[_COMMUNITY_Community 1038|Community 1038]]
+- [[_COMMUNITY_Community 1039|Community 1039]]
+- [[_COMMUNITY_Community 1040|Community 1040]]
+- [[_COMMUNITY_Community 1041|Community 1041]]
+- [[_COMMUNITY_Community 1042|Community 1042]]
+- [[_COMMUNITY_Community 1043|Community 1043]]
+- [[_COMMUNITY_Community 1044|Community 1044]]
+- [[_COMMUNITY_Community 1045|Community 1045]]
+- [[_COMMUNITY_Community 1046|Community 1046]]
+- [[_COMMUNITY_Community 1047|Community 1047]]
+- [[_COMMUNITY_Community 1048|Community 1048]]
+- [[_COMMUNITY_Community 1049|Community 1049]]
+- [[_COMMUNITY_Community 1050|Community 1050]]
+- [[_COMMUNITY_Community 1051|Community 1051]]
+- [[_COMMUNITY_Community 1052|Community 1052]]
+- [[_COMMUNITY_Community 1053|Community 1053]]
+- [[_COMMUNITY_Community 1054|Community 1054]]
+- [[_COMMUNITY_Community 1055|Community 1055]]
+- [[_COMMUNITY_Community 1056|Community 1056]]
+- [[_COMMUNITY_Community 1057|Community 1057]]
+- [[_COMMUNITY_Community 1058|Community 1058]]
+- [[_COMMUNITY_Community 1059|Community 1059]]
+- [[_COMMUNITY_Community 1060|Community 1060]]
+- [[_COMMUNITY_Community 1061|Community 1061]]
+- [[_COMMUNITY_Community 1062|Community 1062]]
+- [[_COMMUNITY_Community 1063|Community 1063]]
+- [[_COMMUNITY_Community 1064|Community 1064]]
+- [[_COMMUNITY_Community 1065|Community 1065]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `vcpus` - 50 edges
@@ -799,116 +1069,116 @@
 3. `gpus` - 50 edges
 4. `findCommand()` - 36 edges
 5. `EvaluateReadiness()` - 35 edges
-6. `runLiveNodesAction()` - 21 edges
-7. `T` - 21 edges
-8. `Basic Test` - 21 edges
-9. `runNodesAction()` - 20 edges
-10. `Main` - 20 edges
+6. `Client` - 33 edges
+7. `NicoCLI` - 26 edges
+8. `Onyxia` - 25 edges
+9. `Admin Guide` - 24 edges
+10. `NVIDIA Infra Controller node management` - 24 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `Chart` --conceptually_related_to--> `CloudGovernanceRequest`  [INFERRED]
-  platform/cloud-governance/Chart.yaml → pkg/cloud/governance.go
 - `Chart` --conceptually_related_to--> `CloudOperatorBundle`  [INFERRED]
   platform/cloud-operator-bundles/Chart.yaml → pkg/cloud/operator_bundles.go
-- `Chart` --conceptually_related_to--> `CloudPrerequisitesRequest`  [INFERRED]
-  platform/cloud-prerequisites/Chart.yaml → pkg/cloud/prerequisites.go
 - `Chart` --conceptually_related_to--> `ManagedServiceRequest`  [INFERRED]
   platform/managed-service/Chart.yaml → cmd/ubiquity/cmd/cloud.go
-- `TestRenderAIStoreReadinessStatusReportsOptionalDataPlaneBoundary()` --calls--> `EvaluateAIStoreReadiness()`  [INFERRED]
-  cmd/ubiquity/cmd/ai_readiness_test.go → pkg/aiplatform/aistore_readiness.go
+- `Chart` --conceptually_related_to--> `CloudGovernanceRequest`  [INFERRED]
+  platform/cloud-governance/Chart.yaml → pkg/cloud/governance.go
+- `Chart` --conceptually_related_to--> `CloudPrerequisitesRequest`  [INFERRED]
+  platform/cloud-prerequisites/Chart.yaml → pkg/cloud/prerequisites.go
+- `runCloudAuditChecklist()` --calls--> `RenderCloudProductionAuditChecklist()`  [INFERRED]
+  cmd/ubiquity/cmd/cloud.go → pkg/cloud/audit_checklist.go
 
 ## Import Cycles
 - None detected.
 
-## Communities (797 total, 150 thin omitted)
+## Communities (1073 total, 181 thin omitted)
 
 ### Community 0 - "Community 0"
 Cohesion: 0.02
-Nodes (93): accessCodeLifespan, accessCodeLifespanLogin, accessCodeLifespanUserAction, accessTokenLifespan, accessTokenLifespanForImplicitFlow, actionTokenGeneratedByAdminLifespan, actionTokenGeneratedByUserLifespan, adminEventsDetailsEnabled (+85 more)
+Nodes (94): accessCodeLifespan, accessCodeLifespanLogin, accessCodeLifespanUserAction, accessTokenLifespan, accessTokenLifespanForImplicitFlow, actionTokenGeneratedByAdminLifespan, actionTokenGeneratedByUserLifespan, adminEventsDetailsEnabled (+86 more)
 
 ### Community 1 - "Community 1"
 Cohesion: 0.06
 Nodes (76): TestSandboxDeployTargetsIncludeKAIScheduler(), nicoGitOpsTarget, TestSandboxDeployTargetsIncludeNvidiaAIComponents(), TestValidateNvidiaAISandboxChartsRenderWithoutDevices(), sandboxDeployTarget, TestKAISchedulerUsesServerSideApplyForLargeCRDs(), T, T (+68 more)
 
 ### Community 2 - "Community 2"
-Cohesion: 0.07
-Nodes (74): nodeCommandOptions, captureNodesOutput(), TestNodesAddInventoryCreatesOSAndInstanceForTargetNode(), TestNodesExactArgsAndPowerSyntax(), TestNodesFlagsConfirmStringOSImageAliasAndSafetyFlags(), TestNodesLiveCreateActionsRenderCreatedPayloads(), TestNodesLiveDrainCordonsAndDrainsKubernetesNode(), TestNodesLiveMutatingOperationCallsFakeableClient() (+66 more)
+Cohesion: 0.05
+Nodes (90): nodeCommandOptions, captureNodesOutput(), TestNodesAddInventoryCreatesOSAndInstanceForTargetNode(), TestNodesExactArgsAndPowerSyntax(), TestNodesFlagsConfirmStringOSImageAliasAndSafetyFlags(), TestNodesLiveCreateActionsRenderCreatedPayloads(), TestNodesLiveDrainCordonsAndDrainsKubernetesNode(), TestNodesLiveMutatingOperationCallsFakeableClient() (+82 more)
 
 ### Community 3 - "Community 3"
 Cohesion: 0.06
-Nodes (42): fakeNodesNICOClient, checkInstallerStatus(), Context, Instance, Machine, MachineGPUStats, OperatingSystem, Site (+34 more)
+Nodes (45): fakeNodesNICOClient, checkInstallerStatus(), Context, Instance, Machine, MachineGPUStats, OperatingSystem, Site (+37 more)
 
 ### Community 4 - "Community 4"
 Cohesion: 0.06
-Nodes (57): Builder, T, Command, Context, collectVirtualMachinesReadinessEvidence(), defaultName(), TestParseDiskAttachmentsAcceptsNamePVCList(), TestParseDiskAttachmentsRejectsMalformedInput() (+49 more)
+Nodes (58): Builder, T, Command, Context, collectVirtualMachinesReadinessEvidence(), defaultName(), TestParseDiskAttachmentsAcceptsNamePVCList(), TestParseDiskAttachmentsRejectsMalformedInput() (+50 more)
 
 ### Community 5 - "Community 5"
 Cohesion: 0.06
-Nodes (47): defaultBackupPolicy(), defaultBackupRestoreDrill(), RenderBackupPolicy(), RenderBackupRestoreDrill(), TestRenderBackupPolicyCreatesK8upScheduleSnapshotClassAndResourcePreset(), TestRenderBackupPolicyFailsClosedForUnsafeScheduleOrRetention(), validateBackupPolicy(), validateBackupRestoreDrill() (+39 more)
+Nodes (48): defaultBackupPolicy(), defaultBackupRestoreDrill(), RenderBackupPolicy(), RenderBackupRestoreDrill(), TestRenderBackupPolicyCreatesK8upScheduleSnapshotClassAndResourcePreset(), TestRenderBackupPolicyFailsClosedForUnsafeScheduleOrRetention(), validateBackupPolicy(), validateBackupRestoreDrill() (+40 more)
 
 ### Community 6 - "Community 6"
-Cohesion: 0.14
-Nodes (53): Standard_D1, Standard_D16_v3, Standard_D16ds_v4, gpus, ram, vcpus, Standard_D2, Standard_D2as_v4 (+45 more)
+Cohesion: 0.03
+Nodes (104): Standard_D1, Standard_D16_v3, gpus, ram, vcpus, Standard_D16ds_v4, gpus, ram (+96 more)
 
 ### Community 7 - "Community 7"
-Cohesion: 0.04
-Nodes (49): admin guide bare-metal operations, Alertmanager configuration, Ubiquity cloud services catalog, cloud render VM disk primitive, Cloudflare Tunnel ingress exposure, governance policy bundle, Grafana dashboard automation, Helm dependency freshness work (+41 more)
+Cohesion: 0.08
+Nodes (23): admin guide bare-metal operations, Add a node, Components and namespaces, Node lifecycle workflow, NVIDIA Infra Controller node management, Operational safety, Prerequisites, Readiness checks (+15 more)
 
 ### Community 8 - "Community 8"
-Cohesion: 0.10
-Nodes (47): additionalProperties, maximum, minimum, properties, apiKeySecretName, commitCredentials, curlImage, enabled (+39 more)
+Cohesion: 0.12
+Nodes (16): additionalProperties, additionalProperties, type, k8s-nim-operator, smokeTest, additionalProperties, type, Sample Nimservice (+8 more)
 
 ### Community 9 - "Community 9"
-Cohesion: 0.07
-Nodes (41): CloudOperatorBundle, CloudPrerequisitesRequest, Chart, Platform Cloud-Operator-Bundles, RenderCloudOperatorBundles(), TestRenderCloudOperatorBundlesCreatesInstallPlanConfigMap(), TestRenderCloudOperatorBundlesRejectsBadNames(), TestRequiredCloudOperatorBundlesIncludeOwnershipAndAirgapMetadata() (+33 more)
+Cohesion: 0.05
+Nodes (56): CloudOperatorBundle, CloudOperatorBundlesRequest, CloudPrerequisitesRequest, Chart, Platform Cloud-Operator-Bundles, RenderCloudOperatorBundles(), RequiredCloudOperatorBundles(), TestRenderCloudOperatorBundlesCreatesInstallPlanConfigMap() (+48 more)
 
 ### Community 10 - "Community 10"
 Cohesion: 0.07
-Nodes (37): Capability, Component, TestProductionProfileUsesKAISchedulerForAIWorkloadScheduling(), BareMetalOrchestrationAlternatives(), orchestrationAlternativesByName(), TestBareMetalOrchestrationAlternativesAreNvidiaSourceBacked(), TestBareMetalOrchestrationDecisionReplacesWeakLocalPaths(), TestProductionProfileCarriesBareMetalOrchestrationCapability() (+29 more)
+Nodes (38): Capability, Component, TestProductionProfileUsesKAISchedulerForAIWorkloadScheduling(), BareMetalOrchestrationAlternatives(), orchestrationAlternativesByName(), TestBareMetalOrchestrationAlternativesAreNvidiaSourceBacked(), TestBareMetalOrchestrationDecisionReplacesWeakLocalPaths(), TestProductionProfileCarriesBareMetalOrchestrationCapability() (+30 more)
 
 ### Community 11 - "Community 11"
 Cohesion: 0.10
-Nodes (32): Get_input(), main(), Toss(), PhaseState, T, T, Phase, PhaseState (+24 more)
+Nodes (33): Get_input(), main(), Toss(), PhaseState, T, T, Phase, PhaseState (+25 more)
 
 ### Community 12 - "Community 12"
-Cohesion: 0.07
-Nodes (29): bmcStatus(), firstNonEmpty(), gpuStatus(), kubeletStatus(), lookupK8sEvidence(), maintenanceState(), rdmaStatus(), TestCollectNICoAggregatesMachineInstanceKubernetesAndNVIDIAEvidence() (+21 more)
+Cohesion: 0.09
+Nodes (33): bmcStatus(), CollectNICo(), firstNonEmpty(), gpuStatus(), imageStatus(), isActiveTask(), kubeletStatus(), lookupK8sEvidence() (+25 more)
 
 ### Community 13 - "Community 13"
-Cohesion: 0.07
-Nodes (37): ACME DNS-01 challenge, air-gapped container mirroring, air-gapped deployment model, ansible-console multi-node operations, ArgoCD TLS certificates ConfigMap, AWX post-installation setup, cert-manager certificate lifecycle, cloud deployment Terraform workshop (+29 more)
+Cohesion: 0.06
+Nodes (45): ACME DNS-01 challenge, air-gapped container mirroring, air-gapped deployment model, ansible-console multi-node operations, ArgoCD TLS certificates ConfigMap, AWX post-installation setup, cert-manager certificate lifecycle, cloud deployment Terraform workshop (+37 more)
 
 ### Community 14 - "Community 14"
 Cohesion: 0.12
-Nodes (20): CLIOption, CommandRunner, CommandRunnerFunc, execRunner, jsonPayload(), NewNicoCLI(), TestNicoCLIAdapterInvokesBinaryAndParsesJSON(), TestNicoCLIAdapterRedactsAndPropagatesErrors() (+12 more)
+Nodes (22): CLIOption, CommandRunner, CommandRunnerFunc, execRunner, NicoCLI, jsonPayload(), NewNicoCLI(), TestNicoCLIAdapterInvokesBinaryAndParsesJSON() (+14 more)
 
 ### Community 15 - "Community 15"
 Cohesion: 0.06
 Nodes (33): Cert Manager, Configmap, Deployment, Basic Test, Basic Test, Basic Test, Gpu, Longhorn (+25 more)
 
 ### Community 16 - "Community 16"
-Cohesion: 0.13
-Nodes (25): ansibleAll, NICoObjectMetadata, NICoOperatingSystemSpec, ansibleInventory, NICoOperatingSystem, RenderAnsibleBootstrapInventory(), sortedMap(), TestRenderAnsibleBootstrapInventoryFromNodeInventory() (+17 more)
+Cohesion: 0.11
+Nodes (28): ansibleAll, NICoObjectMetadata, NICoOperatingSystemSpec, ansibleAll, ansibleInventory, NICoObjectMetadata, NICoOperatingSystem, NICoOperatingSystemSpec (+20 more)
 
 ### Community 17 - "Community 17"
-Cohesion: 0.07
-Nodes (28): Argocd, Boundary, Docs Architecture, Kustomize Helm, Helm, Kustomize, Kustomize Helm Relationship, Storage (+20 more)
+Cohesion: 0.05
+Nodes (43): Argocd, Boundary, Docs Architecture, Kustomize Helm, Helm, Kustomize, Kustomize and Helm relationship, Kustomize Helm Relationship (+35 more)
 
 ### Community 18 - "Community 18"
-Cohesion: 0.07
-Nodes (28): Cilium, Docs Architecture, Networking, Helm, Ingress, Longhorn, Nvidia, Policy (+20 more)
+Cohesion: 0.06
+Nodes (32): Baseline policy model, Cilium, Cloudflared boundary, Docs Architecture, Helm, Ingress, Longhorn, Networking (+24 more)
 
 ### Community 19 - "Community 19"
-Cohesion: 0.12
-Nodes (27): additionalProperties, definitions, enabledBlock, $ref, properties, devicePlugin, driver, enabled (+19 more)
+Cohesion: 0.07
+Nodes (45): additionalProperties, additionalProperties, properties, type, definitions, enabledBlock, $ref, $ref (+37 more)
 
 ### Community 20 - "Community 20"
 Cohesion: 0.15
 Nodes (21): assertContains(), contains(), TestAIPlatformApplyCanMutateWithServerSideApply(), TestAIPlatformCmdRegistered(), TestAIPlatformOutputIncludesBareMetalOrchestrationAlternatives(), TestAIPlatformOutputIncludesStorageAlternatives(), TestAIPlatformProfileOutputDemotesOllama(), TestAIPlatformRenderAndApplySubcommandsAreActionable() (+13 more)
 
 ### Community 21 - "Community 21"
-Cohesion: 0.16
-Nodes (25): additionalProperties, pattern, properties, cpu, enabled, gpu, memory, name (+17 more)
+Cohesion: 0.07
+Nodes (53): additionalProperties, type, type, type, type, pattern, type, pattern (+45 more)
 
 ### Community 22 - "Community 22"
 Cohesion: 0.15
@@ -927,8 +1197,8 @@ Cohesion: 0.18
 Nodes (22): Ansible, Backup, Cilium, Copyright Ubiquity Authors, Distributed Under License Is, Main, Main, Main (+14 more)
 
 ### Community 26 - "Community 26"
-Cohesion: 0.21
-Nodes (21): additionalProperties, minLength, properties, aiPlatformProfile, enabled, failClosed, ifNames, name (+13 more)
+Cohesion: 0.07
+Nodes (49): additionalProperties, additionalProperties, properties, type, type, type, items, type (+41 more)
 
 ### Community 27 - "Community 27"
 Cohesion: 0.10
@@ -955,36 +1225,36 @@ Cohesion: 0.13
 Nodes (18): ARTIFACTS, configure_helm_values(), deploy_operator(), download_and_build(), GOPATH, KIND_NODE_IMAGE, KUBECONFIG, label_node() (+10 more)
 
 ### Community 33 - "Community 33"
-Cohesion: 0.19
-Nodes (11): TestConfigAllowsUnauthenticatedOnlyOutsideLiveUnlessExplicit(), TestConfigIncludesDeploymentFieldsAndValidatesLiveStrictly(), TestTokenCommandRejectsShellMetacharacters(), TestTokenCommandResolutionUsesInjectableRunnerWithoutShell(), safeTokenCommandArgs(), execTokenResolver, Mode, TokenResolver (+3 more)
+Cohesion: 0.18
+Nodes (12): Config, TestConfigAllowsUnauthenticatedOnlyOutsideLiveUnlessExplicit(), TestConfigIncludesDeploymentFieldsAndValidatesLiveStrictly(), TestTokenCommandRejectsShellMetacharacters(), TestTokenCommandResolutionUsesInjectableRunnerWithoutShell(), safeTokenCommandArgs(), execTokenResolver, Mode (+4 more)
 
 ### Community 34 - "Community 34"
-Cohesion: 0.22
-Nodes (16): daemonSetList, deploymentList, daemonSetIsReady(), deploymentIsAvailable(), ParseAvailableDeployments(), ParseReadyDaemonSets(), TestParseAvailableDeploymentsHandlesSingleDeploymentObject(), TestParseAvailableDeploymentsOnlyCountsAvailableReplicas() (+8 more)
+Cohesion: 0.27
+Nodes (14): daemonSetItem, daemonSetList, daemonSetStatus, deploymentItem, deploymentList, deploymentStatus, namedMetadata, daemonSetIsReady() (+6 more)
 
 ### Community 35 - "Community 35"
-Cohesion: 0.27
-Nodes (17): additionalProperties, pattern, properties, accessMode, disk, enabled, http, name (+9 more)
+Cohesion: 0.08
+Nodes (42): enum, type, additionalProperties, additionalProperties, properties, required, type, type (+34 more)
 
 ### Community 36 - "Community 36"
-Cohesion: 0.20
-Nodes (17): additionalProperties, pattern, items, minItems, properties, catalog, cloudInit, displayName (+9 more)
+Cohesion: 0.11
+Nodes (30): additionalProperties, additionalProperties, properties, required, type, additionalProperties, properties, required (+22 more)
 
 ### Community 37 - "Community 37"
-Cohesion: 0.24
-Nodes (16): Operation, EvaluateSafety(), isControlPlane(), quorumSafeAfterOneLoss(), requiresConfirmation(), requiresDrain(), TestSafetyBlocksControlPlaneQuorumLoss(), TestSafetyGatesCoverRebootReimageDrainEvictAndMaintenance() (+8 more)
+Cohesion: 0.05
+Nodes (36): Standard_D13_v2, gpus, ram, vcpus, Standard_D16as_v4, gpus, ram, vcpus (+28 more)
 
 ### Community 38 - "Community 38"
-Cohesion: 0.20
-Nodes (15): apply_bm_hosts(), apply_networkdata_credential(), apply_userdata_credential(), create_networkdata(), create_userdata(), find_bm_mac_idrac(), find_bm_mac_sbmc(), find_bm_mac_xcc() (+7 more)
+Cohesion: 0.18
+Nodes (17): apply_bm_hosts(), apply_networkdata_credential(), apply_userdata_credential(), create_networkdata(), create_userdata(), find_bm_mac_idrac(), find_bm_mac_ilom(), find_bm_mac_irmc() (+9 more)
 
 ### Community 39 - "Community 39"
 Cohesion: 0.12
 Nodes (17): Docs Assets, Screenshot 01, Docs Assets, Docs Assets, Docs Assets, Docs Assets, Docs Assets, Docs Assets (+9 more)
 
 ### Community 40 - "Community 40"
-Cohesion: 0.23
-Nodes (16): additionalProperties, items, minItems, pattern, properties, crds, name, namespace (+8 more)
+Cohesion: 0.11
+Nodes (31): additionalProperties, items, minItems, type, type, pattern, type, pattern (+23 more)
 
 ### Community 41 - "Community 41"
 Cohesion: 0.20
@@ -995,28 +1265,28 @@ Cohesion: 0.12
 Nodes (17): Binding Allows Deployed Vault, Clusterrole, Clusterrolebinding, Copyright Ubiquity Authors, Rbac, Httpsgithubcomubiquityclusterubiquityblobmainlicense, Platform Node-Lifecycle-Exporter, Role (+9 more)
 
 ### Community 43 - "Community 43"
-Cohesion: 0.23
-Nodes (16): additionalProperties, minLength, pattern, properties, bridge, cidr, cpu, gateway (+8 more)
+Cohesion: 0.10
+Nodes (31): additionalProperties, minLength, type, type, type, type, type, type (+23 more)
 
 ### Community 44 - "Community 44"
-Cohesion: 0.28
-Nodes (13): CheckResult, ClusterSnapshot, boolCheck(), gpuAllocatableCheck(), gpuCorrelationCheck(), kaiSchedulerCheck(), nimServingCheck(), rdmaNetworkCheck() (+5 more)
+Cohesion: 0.05
+Nodes (76): CheckResult, ClusterSnapshot, boolCheck(), EvaluateReadiness(), gpuAllocatableCheck(), gpuCorrelationCheck(), kaiSchedulerCheck(), nimServingCheck() (+68 more)
 
 ### Community 45 - "Community 45"
-Cohesion: 0.28
-Nodes (14): containsReason(), readyCloudEvidence(), TestCloudReadinessPassesWhenRequiredSmokeTestsPass(), TestCloudReadinessRequiresNamedSmokeTests(), TestCloudReadinessRequiresRestoreCompletionReadableDataAndMarker(), TestCloudReadinessRequiresRestoreDrillReadableSmoke(), TestCloudReadinessRequiresTenantClusterEvidence(), TestEvaluateCloudReadinessFailsClosedWhenEvidenceIsMissing() (+6 more)
+Cohesion: 0.05
+Nodes (36): Ansible aws, Ansible awshelm, Ansible awsk8s, Ansible awskops, Ansible azure, Ansible base, Ansible infra, Ansible tools (+28 more)
 
 ### Community 46 - "Community 46"
 Cohesion: 0.22
 Nodes (13): DnsmasqConfig(), NetworkToBroadcast(), NetworkToGateway(), NetworkToNetmask(), NetworkToRange(), TestDnsmasqConfig(), TestIsValidCIDR(), TestNetworkToBroadcast() (+5 more)
 
 ### Community 47 - "Community 47"
-Cohesion: 0.23
-Nodes (15): additionalProperties, pattern, minLength, properties, cluster, controlPlaneClass, kubernetesVersion, name (+7 more)
+Cohesion: 0.11
+Nodes (28): additionalProperties, additionalProperties, properties, required, type, minLength, type, pattern (+20 more)
 
 ### Community 48 - "Community 48"
-Cohesion: 0.26
-Nodes (13): ParseReadyPodCount(), collectAIReadinessSnapshot(), collectAIStoreReadinessSnapshot(), collectNICOReadinessSnapshot(), daemonSetsReady(), deploymentComponentReady(), deploymentsAvailable(), readyPodCount() (+5 more)
+Cohesion: 0.23
+Nodes (16): collectAIReadinessSnapshot(), collectAIStoreReadinessSnapshot(), collectNICOReadinessSnapshot(), daemonSetsReady(), deploymentComponentReady(), deploymentsAvailable(), readyPodCount(), readyPodCountAllNamespaces() (+8 more)
 
 ### Community 49 - "Community 49"
 Cohesion: 0.14
@@ -1027,8 +1297,8 @@ Cohesion: 0.22
 Nodes (15): Ansible, As Of June 2025, Chronyd, Cilium, Copyright Ubiquity Authors, Distributed Under License Is, Main, Main (+7 more)
 
 ### Community 51 - "Community 51"
-Cohesion: 0.24
-Nodes (14): additionalProperties, pattern, properties, name, namespace, replicas, service, size (+6 more)
+Cohesion: 0.12
+Nodes (26): additionalProperties, pattern, type, pattern, type, properties, name, namespace (+18 more)
 
 ### Community 52 - "Community 52"
 Cohesion: 0.13
@@ -1043,12 +1313,12 @@ Cohesion: 0.23
 Nodes (11): ParseLaunchKitRDMAInventory(), SelectRDMAProvenance(), TestParseLaunchKitRDMAInventory(), TestSelectRDMAProvenancePrefersNICoThenLaunchKitThenLocalKubectl(), TestValidateRDMAExpectedFailsClosed(), ValidateRDMAExpected(), launchKitInventory, MissingRDMAError (+3 more)
 
 ### Community 55 - "Community 55"
-Cohesion: 0.15
-Nodes (13): apiVersion, kind, app, metadata, generateName, labels, namespace, matchLabels (+5 more)
+Cohesion: 0.14
+Nodes (14): apiVersion, kind, app, app, metadata, generateName, labels, namespace (+6 more)
 
 ### Community 56 - "Community 56"
-Cohesion: 0.33
-Nodes (11): AllManagedServiceReadinessResources(), AllManagedServiceSmokeTests(), allManagedServiceTypes(), ManagedServiceReadinessContract(), ManagedServiceReadinessResources(), TestAllManagedServiceReadinessResourcesAreDeduplicated(), TestManagedServiceReadinessContractsRequireSpecificSmokeMarkers(), TestManagedServiceReadinessResourcesCoverEveryServiceType() (+3 more)
+Cohesion: 0.06
+Nodes (35): Acceptance Criteria, Baseline State, Final Verification Gate, Phase A: Helm Chart Maturity, Phase B: TODO/FIXME Debt Reduction, Phase C: CLI and Root Command Coverage, Phase D: NICo Day-2 Lifecycle Proof Without Live ThinkCentre Execution, Phase E: Production Operations Documentation (+27 more)
 
 ### Community 57 - "Community 57"
 Cohesion: 0.32
@@ -1059,8 +1329,8 @@ Cohesion: 0.15
 Nodes (12): extensions, features, ghcr.io/devcontainers/features/docker-in-docker:2, ghcr.io/devcontainers/features/helm:1, ghcr.io/devcontainers/features/kubectl:1, image, name, postCreateCommand (+4 more)
 
 ### Community 59 - "Community 59"
-Cohesion: 0.15
-Nodes (13): Backup, Cert Manager, Docs Admin-Guide, Docs Reference, Prerequisites, Helm, Longhorn, Metal3 (+5 more)
+Cohesion: 0.05
+Nodes (38): NVIDIA Infra Controller prerequisites, Backup, cert-manager, Docs Admin-Guide, Docs Reference, External Secrets Operator, Helm, Longhorn (+30 more)
 
 ### Community 60 - "Community 60"
 Cohesion: 0.32
@@ -1071,8 +1341,8 @@ Cohesion: 0.27
 Nodes (9): findRepoRoot(), hasExistingConfig(), TestAllCommandsHaveHelp(), TestConfigFlagDefaultHelpMessage(), TestConfigureCmdParseArgs(), TestFindRepoRoot(), TestHasExistingConfig(), TestRootCmdHasVersionFlag() (+1 more)
 
 ### Community 62 - "Community 62"
-Cohesion: 0.31
-Nodes (9): TestEvaluateReadinessFailsClosedWhenGPUOperatorMissing(), TestEvaluateReadinessPassesWithCompleteEvidence(), TestEvaluateReadinessReportsEveryGPUOperatorOperand(), TestEvaluateReadinessRequiresNIMForProduction(), T, T, containsReason(), TestEvaluateVMReadinessFailsClosedUntilCDIPVCVMAndGuestEvidenceExist() (+1 more)
+Cohesion: 0.06
+Nodes (33): 10. License, 1. Introduction, 2.1.1 Amazon Web Services (AWS), 2.1.1 Sandbox mode, 2.1.2 Google Cloud, 2.1.2 Production mode (dev/test), 2.1.3 Microsoft Azure, 2.1.3 Production mode (prod) (+25 more)
 
 ### Community 63 - "Community 63"
 Cohesion: 0.33
@@ -1087,12 +1357,12 @@ Cohesion: 0.18
 Nodes (11): Ansible, Docs Reference, Readme, Included Roles, Ingress, K3S, K3S Lightweight Made Ready, Metal Roles (+3 more)
 
 ### Community 66 - "Community 66"
-Cohesion: 0.36
-Nodes (10): additionalProperties, properties, clusterAutoscaling, createDefaultQueue, defaultQueue, global, gpuSharing, leaderElection (+2 more)
+Cohesion: 0.15
+Nodes (20): additionalProperties, type, type, additionalProperties, properties, type, additionalProperties, properties (+12 more)
 
 ### Community 67 - "Community 67"
-Cohesion: 0.27
-Nodes (9): kubernetesNodeCondition, kubernetesNodeItem, nodeReady(), nodeRoles(), ParseKubernetesNodeEvidence(), sumAllocatableContaining(), TestParseKubernetesNodeEvidenceExtractsReadyRolesCordonAndNVIDIAResources(), KubernetesNodeEvidence (+1 more)
+Cohesion: 0.23
+Nodes (12): kubernetesNodeCondition, kubernetesNodeItem, nodeReady(), nodeRoles(), ParseKubernetesNodeEvidence(), sumAllocatableContaining(), TestParseKubernetesNodeEvidenceExtractsReadyRolesCordonAndNVIDIAResources(), kubernetesNodeCondition (+4 more)
 
 ### Community 68 - "Community 68"
 Cohesion: 0.18
@@ -1107,11 +1377,11 @@ Cohesion: 0.18
 Nodes (11): Copyright Ubiquity Authors, Pv Nfs, Httpsgithubcomubiquityclusterubiquityblobmainlicense, Nfs, Persistentvolume, Platform Hpc-Ubiq, Policy, Pv Nfs Home (+3 more)
 
 ### Community 71 - "Community 71"
-Cohesion: 0.38
+Cohesion: 0.36
 Nodes (11): CorrelationState, CorrelateGPUEvidence(), CorrelateGPUStatus(), isHealthyMachineStatus(), TestCorrelateGPUEvidenceAcceptsMIGAsKubernetesAcceleratorEvidence(), TestCorrelateGPUEvidenceDegradedWhenKubernetesGPUHasUnhealthyNICoMachine(), TestCorrelateGPUEvidenceIncompleteWhenNICoGPUHasNoKubernetesGPUOrMIG(), TestCorrelateGPUStatusUsesSeparateNICoAndKubernetesCounts() (+3 more)
 
 ### Community 72 - "Community 72"
-Cohesion: 0.42
+Cohesion: 0.26
 Nodes (4): ExecutePhase(), MockProvider, Provider, RealProvider
 
 ### Community 73 - "Community 73"
@@ -1127,12 +1397,12 @@ Cohesion: 0.18
 Nodes (11): As Of June 2025, Copyright Ubiquity Authors, Distributed Under License Is, Main, Httpsgithubcomubiquityclusterubiquityblobmainlicense, Metal Roles, Security, Unless Required By Applicable (+3 more)
 
 ### Community 76 - "Community 76"
-Cohesion: 0.38
-Nodes (9): ParseGPUAllocatableByNode(), TestParseGPUAllocatableByNodeFailsClosedForEmptyNodeList(), TestParseGPUAllocatableByNodeMalformedJSONFailsClosed(), TestParseGPUAllocatableByNodeReadsOnlyPositiveNvidiaGPUCapacity(), nodeList, nodeStatus, nodeItem, nodeMetadata (+1 more)
+Cohesion: 0.26
+Nodes (12): ParseGPUAllocatableByNode(), TestParseGPUAllocatableByNodeFailsClosedForEmptyNodeList(), TestParseGPUAllocatableByNodeMalformedJSONFailsClosed(), TestParseGPUAllocatableByNodeReadsOnlyPositiveNvidiaGPUCapacity(), nodeItem, nodeList, nodeMetadata, nodeStatus (+4 more)
 
 ### Community 77 - "Community 77"
-Cohesion: 0.27
-Nodes (8): ParseAllocatableResourceByNode(), ParseNetworkAttachments(), TestParseAllocatableResourceByNodeReadsRDMAResources(), TestParseNetworkAttachmentsReadsNamespacedNames(), networkAttachmentList, networkAttachmentItem, networkAttachmentMetadata, T
+Cohesion: 0.23
+Nodes (10): ParseAllocatableResourceByNode(), ParseNetworkAttachments(), TestParseAllocatableResourceByNodeReadsRDMAResources(), TestParseNetworkAttachmentsReadsNamespacedNames(), networkAttachmentItem, networkAttachmentList, networkAttachmentMetadata, networkAttachmentItem (+2 more)
 
 ### Community 78 - "Community 78"
 Cohesion: 0.20
@@ -1147,8 +1417,8 @@ Cohesion: 0.20
 Nodes (10): Argocd, Cert Manager, Cilium, Docs Architecture, Core Services, External Secrets, Helm, Ingress (+2 more)
 
 ### Community 81 - "Community 81"
-Cohesion: 0.20
-Nodes (10): Argocd, Cert Manager, Docs Architecture, Overview, Helm, K3S, Kustomize, Longhorn (+2 more)
+Cohesion: 0.11
+Nodes (18): Architecture Flow Diagram, Argocd, Cert Manager, Components, Design Tenets, Detailed Provisioning Flow, Docs Architecture, Helm (+10 more)
 
 ### Community 82 - "Community 82"
 Cohesion: 0.20
@@ -1171,8 +1441,8 @@ Cohesion: 0.20
 Nodes (10): Ansible, Awx, Awx Ubiquity, Cert Manager, Awx Platform, Hajimari, Ingress, Metallb (+2 more)
 
 ### Community 87 - "Community 87"
-Cohesion: 0.20
-Nodes (10): Ansible, Awxbackup, Back Up Awx Awx, Back Up Awx Manually, Backup, Docs Admin-Guide, Readme, Instruction (+2 more)
+Cohesion: 0.16
+Nodes (13): Ansible, Appendix: Back up AWX using Ansible, Awxbackup, Back Up Awx Awx, Back up AWX manually, Back up AWX using AWX Operator, Backup, Docs Admin-Guide (+5 more)
 
 ### Community 88 - "Community 88"
 Cohesion: 0.20
@@ -1187,8 +1457,8 @@ Cohesion: 0.20
 Nodes (10): Cert Manager, Copyright Ubiquity Authors, Distributed Under License Is, Chart, Httpsgithubcomubiquityclusterubiquityblobmainlicense, System Cert-Manager, Unless Required By Applicable, Without Warranties Or Conditions (+2 more)
 
 ### Community 91 - "Community 91"
-Cohesion: 0.20
-Nodes (10): Cert Manager, Readme, Helm, Ingress, Monitoring, Networkpolicy, Policy, Prometheus (+2 more)
+Cohesion: 0.11
+Nodes (17): Assigning Values, cert-manager, Contributing, Default Security Contexts, Readme, Helm, Ingress, Installing the Chart (+9 more)
 
 ### Community 92 - "Community 92"
 Cohesion: 0.20
@@ -1211,8 +1481,8 @@ Cohesion: 0.20
 Nodes (10): Ansible, Aws, Azure, Cloud Init, Docs Architecture, Design, Openstack, Ovh (+2 more)
 
 ### Community 97 - "Community 97"
-Cohesion: 0.36
-Nodes (9): additionalProperties, pattern, properties, governance, name, namespace, required, $schema (+1 more)
+Cohesion: 0.18
+Nodes (16): additionalProperties, additionalProperties, properties, required, type, pattern, type, pattern (+8 more)
 
 ### Community 98 - "Community 98"
 Cohesion: 0.20
@@ -1259,16 +1529,16 @@ Cohesion: 0.20
 Nodes (10): Aws, Azure, Create Persistentvolume Persistentvolumeclaim Cvmfs, Cvmfs Eessi Io, Pvc Cvmfs Eessi, Persistentvolume, Persistentvolumeclaim, Platform Hpc-Ubiq (+2 more)
 
 ### Community 109 - "Community 109"
-Cohesion: 0.20
-Nodes (10): Adr 003 Terraform Cloud Provisioning, Aws, Azure, Context, Docs Reference, Adr 003 Terraform, Gcp, Openstack (+2 more)
+Cohesion: 0.14
+Nodes (13): Adr 003 Terraform Cloud Provisioning, ADR-003: Use Terraform for cloud provisioning, Aws, Azure, Consequences, Context, Decision, Docs Reference (+5 more)
 
 ### Community 110 - "Community 110"
 Cohesion: 0.20
 Nodes (10): Ansible, Argocd, Cilium, Docs Reference, Adr 009 Cilium, Ingress, K3S, Metallb (+2 more)
 
 ### Community 111 - "Community 111"
-Cohesion: 0.20
-Nodes (10): Adr 014 Nvidia Infra Controller, Context, Decision, Docs Reference, Adr 014 Nico, Metal3, Nico, Nvidia (+2 more)
+Cohesion: 0.18
+Nodes (12): Adr 014 Nvidia Infra Controller, ADR-014: Use NVIDIA Infra Controller for day-2 node lifecycle, Consequences, Context, Decision, Docs Reference, Adr 014 Nico, Metal3 (+4 more)
 
 ### Community 112 - "Community 112"
 Cohesion: 0.20
@@ -1295,8 +1565,8 @@ Cohesion: 0.20
 Nodes (10): Ansible, Aws, Azure, Cloud Init, Docs Developers, Developers, Gcp, Openstack (+2 more)
 
 ### Community 118 - "Community 118"
-Cohesion: 0.20
-Nodes (10): Before Making A Release, Docs Developers, Releasing, Helm, Permissions, Process, Release Artifacts, Repository Setup (+2 more)
+Cohesion: 0.26
+Nodes (11): Before making a release, Docs Developers, Releasing, Helm, Permissions, Process, Release artifacts, Release notes (+3 more)
 
 ### Community 119 - "Community 119"
 Cohesion: 0.20
@@ -1403,8 +1673,8 @@ Cohesion: 0.20
 Nodes (10): Copyright Ubiquity Authors, Deployment, Distributed Under License Is, Htcondor Worker Deployment, Htcondor Worker, Httpsgithubcomubiquityclusterubiquityblobmainlicense, Platform Hpc-Ubiq, Unless Required By Applicable (+2 more)
 
 ### Community 145 - "Community 145"
-Cohesion: 0.20
-Nodes (10): Deploy Central Manager Schedd, Readme, Kubectl Get Deployment Htcondor Central Manager, Kubectl Get Pods, Kubectl Scale   Replicas 2, Next Steps, Platform Hpc-Ubiq, Preparing Pool Password (+2 more)
+Cohesion: 0.12
+Nodes (16): Autoscaling the number of worker nodes, Deploy Central Manager Schedd, Deploy the central manager, schedd and a worker node, Readme, Kubectl Get Deployment Htcondor Central Manager, Kubectl Get Pods, Kubectl Scale   Replicas 2, Next steps (+8 more)
 
 ### Community 146 - "Community 146"
 Cohesion: 0.20
@@ -1419,16 +1689,16 @@ Cohesion: 0.20
 Nodes (10): Ansible, Copyright Ubiquity Authors, Distributed Under License Is, Prod, Httpsgithubcomubiquityclusterubiquityblobmainlicense, Metal Inventories, Unless Required By Applicable, Without Warranties Or Conditions (+2 more)
 
 ### Community 149 - "Community 149"
-Cohesion: 0.20
-Nodes (10): Ansible, Directory Structure, Docs Reference, Quickstart Cluster, Execution, Helm, Inventory, K3S (+2 more)
+Cohesion: 0.19
+Nodes (12): Ansible, Directory structure, Docs Reference, Quickstart Cluster, Execution, Helm, Inventory, K3S (+4 more)
 
 ### Community 150 - "Community 150"
-Cohesion: 0.20
-Nodes (10): Adding K3Scontrolnode To Each, Ansible, Directory Structure, Docs Reference, Quickstart Ha Cluster, Helm, Inventory, K3S (+2 more)
+Cohesion: 0.14
+Nodes (14): Adding K3Scontrolnode To Each, Ansible, Directory structure, Docs Reference, Quickstart Ha Cluster, Execution, Helm, Inventory (+6 more)
 
 ### Community 151 - "Community 151"
-Cohesion: 0.20
-Nodes (10): Ansible, Directory Structure, Docs Reference, Quickstart Single Node, Execution, Helm, Inventory, K3S (+2 more)
+Cohesion: 0.23
+Nodes (11): Ansible, Directory structure, Docs Reference, Quickstart Single Node, Execution, Helm, Inventory, K3S (+3 more)
 
 ### Community 152 - "Community 152"
 Cohesion: 0.20
@@ -1515,24 +1785,24 @@ Cohesion: 0.20
 Nodes (10): As Of June 2025, Copyright Ubiquity Authors, Distributed Under License Is, Package Installs, Httpsgithubcomubiquityclusterubiquityblobmainlicense, Tools Disk-Image, Unless Required By Applicable, Without Warranties Or Conditions (+2 more)
 
 ### Community 173 - "Community 173"
-Cohesion: 0.20
-Nodes (10): Bare Metal, Baremetalhost, Bmo Controlplane 0, Docs Reference, Api, Ironic, Metal3, Openstack (+2 more)
+Cohesion: 0.18
+Nodes (11): Bare Metal, BareMetalHost, BareMetalHost Example, Bmo Controlplane 0, Docs Reference, Api, Ironic, Metal3 (+3 more)
 
 ### Community 174 - "Community 174"
-Cohesion: 0.20
-Nodes (10): Baremetalhost Provisioning States, Created, Docs Reference, Baremetalhost States, Externally Provisioned, Ironic, Metal3, Nvidia (+2 more)
+Cohesion: 0.13
+Nodes (18): Available, BaremetalHost Provisioning States, Created, Deleting, Deprovisioning, Docs Reference, Baremetalhost States, Error (+10 more)
 
 ### Community 175 - "Community 175"
-Cohesion: 0.20
-Nodes (10): Add Boot Iso Api To, Bare Metal, Docs Reference, Bmh Live Iso, Ironic, Metal3, Openstack, Pxe (+2 more)
+Cohesion: 0.09
+Nodes (22): Add Boot Iso Api To, Add boot-iso API to BareMetalHost, Alternatives, Bare Metal, Dependencies, Design Details, Docs Reference, Bmh Live Iso (+14 more)
 
 ### Community 176 - "Community 176"
 Cohesion: 0.20
 Nodes (10): Bare Metal, Cloud Init, Docs Reference, How Ironic Works, Ironic, Metal3, Openstack, Pxe (+2 more)
 
 ### Community 177 - "Community 177"
-Cohesion: 0.20
-Nodes (10): Annotate Machine, Bare Metal, Delete Baremetalhost, Docs Reference, Remove Host, Metal3, Nvidia, Remove A Host A (+2 more)
+Cohesion: 0.12
+Nodes (16): Annotate Machine, Annotate the Machine, Bare Metal, Delete Baremetalhost, Delete the BareMetalHost, Delete the Machine First, Docs Reference, Remove Host (+8 more)
 
 ### Community 178 - "Community 178"
 Cohesion: 0.20
@@ -1591,28 +1861,28 @@ Cohesion: 0.20
 Nodes (10): Bare Metal, Cloud Init, Docs Reference, Kvm Pxe Validation Lab, Gpu, Helm, Nico, Nvidia (+2 more)
 
 ### Community 192 - "Community 192"
-Cohesion: 0.20
-Nodes (10): Docs Admin-Guide, Nico Bmc Redfish, Gpu, Nico, Nvidia, Policy, Preconditions, Runbook Nico Bmc Redfish (+2 more)
+Cohesion: 0.13
+Nodes (15): Docs Admin-Guide, Nico Bmc Redfish, Failure handling, Gpu, Nico, Nvidia, Optional controlled power test, Policy (+7 more)
 
 ### Community 193 - "Community 193"
 Cohesion: 0.20
 Nodes (10): Backup, Cert Manager, Docs Admin-Guide, Nico Bootstrap, Helm, Metallb, Nico, Nvidia (+2 more)
 
 ### Community 194 - "Community 194"
-Cohesion: 0.20
-Nodes (10): Docs Admin-Guide, Nico Gpu Validation, Gpu, Monitoring, Nico, Nvidia, Policy, Preconditions (+2 more)
+Cohesion: 0.11
+Nodes (18): DCGM evidence, Docs Admin-Guide, Nico Gpu Validation, Failure handling, Gpu, GPU Operator evidence, Kubernetes node evidence, Monitoring (+10 more)
 
 ### Community 195 - "Community 195"
-Cohesion: 0.20
-Nodes (10): Bare Metal, Docs Admin-Guide, Nico Machine Provisioning, Gpu, Nico, Nvidia, Preconditions, Procedure (+2 more)
+Cohesion: 0.18
+Nodes (13): Bare Metal, Docs Admin-Guide, Nico Machine Provisioning, Evidence to record, Failure handling, Gpu, Nico, Nvidia (+5 more)
 
 ### Community 196 - "Community 196"
-Cohesion: 0.20
-Nodes (10): Docs Admin-Guide, Nico Node Reinstall, Gpu, Nico, Nvidia, Policy, Preconditions, Procedure (+2 more)
+Cohesion: 0.19
+Nodes (12): Docs Admin-Guide, Nico Node Reinstall, Failure handling, Gpu, Nico, Nvidia, Policy, Preconditions (+4 more)
 
 ### Community 197 - "Community 197"
-Cohesion: 0.20
-Nodes (10): Docs Reference, Node State Machine, Gpu, Machine States, Nico, Nvidia, Nvidia Infra Controller Node, Objects (+2 more)
+Cohesion: 0.15
+Nodes (14): Docs Reference, Node State Machine, Gpu, Instance states, Machine states, Nico, Nvidia, Nvidia Infra Controller Node (+6 more)
 
 ### Community 198 - "Community 198"
 Cohesion: 0.20
@@ -1623,8 +1893,8 @@ Cohesion: 0.20
 Nodes (10): Bare Metal, Cert Manager, Values, External Secrets, Metallb, Nico, Nvidia, Storage (+2 more)
 
 ### Community 200 - "Community 200"
-Cohesion: 0.20
-Nodes (10): Aggregated Readiness Levels, Docs Reference, Status Aggregation, Goal, Gpu, Inputs, Monitoring, Nico (+2 more)
+Cohesion: 0.14
+Nodes (15): Aggregated readiness levels, Docs Reference, Status Aggregation, Goal, Gpu, GPU and RDMA evidence, Inputs, Monitoring (+7 more)
 
 ### Community 201 - "Community 201"
 Cohesion: 0.20
@@ -1651,20 +1921,20 @@ Cohesion: 0.20
 Nodes (10): Control Node, Copyright Ubiquity Authors, Openpbs, Home, Hpc Node, Nodes, Pbsconf, Platform Hpc-Ubiq (+2 more)
 
 ### Community 207 - "Community 207"
-Cohesion: 0.20
-Nodes (10): Ansible, Assumptions, Docs Reference, Stop Start Cluster, K3S, Method, Restart, Start (+2 more)
+Cohesion: 0.12
+Nodes (16): Ansible, Assumptions, Docs Reference, Stop Start Cluster, FAQ, K3S, Method, Restart (+8 more)
 
 ### Community 208 - "Community 208"
 Cohesion: 0.20
 Nodes (10): As Of June 2025, Copyright Ubiquity Authors, Distributed Under License Is, Values, Httpsgithubcomubiquityclusterubiquityblobmainlicense, System Operator-Lifecycle-Manager, Unless Required By Applicable, Without Warranties Or Conditions (+2 more)
 
 ### Community 209 - "Community 209"
-Cohesion: 0.20
-Nodes (10): Ansible, Aws, Azure, Deployment, Ghcr Setup, Helm, Opus, Opus Runner (+2 more)
+Cohesion: 0.06
+Nodes (34): Access Control, Ansible, Authentication for Local Push, Available Image Flavours, Aws, Azure, Best Practices, Building Images Locally (+26 more)
 
 ### Community 210 - "Community 210"
-Cohesion: 0.20
-Nodes (10): Ansible, Argocd, Aws, Azure, Readme, Helm, Opus, Security (+2 more)
+Cohesion: 0.18
+Nodes (10): Azure, Ansible, Argocd, Aws, Readme, Helm, Opus, Security (+2 more)
 
 ### Community 211 - "Community 211"
 Cohesion: 0.20
@@ -1743,28 +2013,28 @@ Cohesion: 0.20
 Nodes (10): Awx Postgres 13 Volume, Awx Projects Volume, Backup, Docs Admin-Guide, Pv, Persistentvolume, Policy, Postgres (+2 more)
 
 ### Community 230 - "Community 230"
-Cohesion: 0.20
-Nodes (10): Ansible, Argocd, Awxrestore, Backup, Docs Admin-Guide, Readme, Postgres, Restore (+2 more)
+Cohesion: 0.13
+Nodes (14): Ansible, Argocd, Awxrestore, Backup, Docs Admin-Guide, Readme, Instruction, Postgres (+6 more)
 
 ### Community 231 - "Community 231"
-Cohesion: 0.20
-Nodes (10): Backup, Docs Runbooks, Cloud Production Readiness Audit, Helm, Nvidia, Policy, Production, Required Evidence (+2 more)
+Cohesion: 0.12
+Nodes (15): Backup, Cloud readiness proof bundle, Commands, Docs Runbooks, Cloud Production Readiness Audit, Fail-closed boundaries, Helm, Live proof and approval boundary (+7 more)
 
 ### Community 232 - "Community 232"
 Cohesion: 0.20
 Nodes (10): Backup, Docs Runbooks, Cloud Readiness Validation, Harbor, Helm, Nvidia, Production, Restore (+2 more)
 
 ### Community 233 - "Community 233"
-Cohesion: 0.20
-Nodes (10): Deployment, Docs Admin-Guide, Documentation, Documentation Website, Features, Files, Github Pages Setup, Install Dependencies (+2 more)
+Cohesion: 0.19
+Nodes (12): Configuration Files, Deployment, Docs Admin-Guide, Documentation, Documentation (this website), Documentation Website, Features, Files (+4 more)
 
 ### Community 234 - "Community 234"
-Cohesion: 0.20
-Nodes (10): Argocd, Cert Manager, Docs Admin-Guide, Gitea, Grafana, Ingress, Longhorn, Monitoring (+2 more)
+Cohesion: 0.17
+Nodes (11): Argocd, Cert Manager, Docs Admin-Guide, Gitea, Grafana, Ingress, Longhorn, Monitoring (+3 more)
 
 ### Community 235 - "Community 235"
-Cohesion: 0.20
-Nodes (10): Cert Manager, Docs Admin-Guide, Onyxia, Gpu, Helm, Ingress, Longhorn, Monitoring (+2 more)
+Cohesion: 0.17
+Nodes (11): Cert Manager, Docs Admin-Guide, Gpu, Helm, Ingress, Longhorn, Monitoring, Onyxia (+3 more)
 
 ### Community 236 - "Community 236"
 Cohesion: 0.49
@@ -1955,16 +2225,16 @@ Cohesion: 0.20
 Nodes (10): Copyright Ubiquity Authors, Policies Test, Httpsgithubcomubiquityclusterubiquityblobmainlicense, Networkpolicy, Policy, Security, System Kyverno-Policies, Unless Required By Applicable (+2 more)
 
 ### Community 283 - "Community 283"
-Cohesion: 0.20
-Nodes (10): Create Baseconfigjson, Docs Admin-Guide, Dockerhub Rate Limit, K3S, Kustomize, Modify Basekustomizationyaml, Postgres, Procedure (+2 more)
+Cohesion: 0.11
+Nodes (18): Appendix: Apply Docker Hub Credential at Cluster Level, Appendix: Create Secret for ImagePullSecrets by Hand, Appendix: Modify ImagePullSecrets for the Specific Service Account, Create `base/config.json`, Create Baseconfigjson, Docs Admin-Guide, Dockerhub Rate Limit, K3S (+10 more)
 
 ### Community 284 - "Community 284"
-Cohesion: 0.20
-Nodes (10): Ansible, Backup, Docs Admin-Guide, Troubleshooting, Helm, Ingress, K3S, Policy (+2 more)
+Cohesion: 0.15
+Nodes (12): Nodes not booting from the network, PXE server logs, Troubleshooting, Ansible, Backup, Docs Admin-Guide, Helm, Ingress (+4 more)
 
 ### Community 285 - "Community 285"
-Cohesion: 0.20
-Nodes (10): Ansible, Docs Admin-Guide, Trust Custom Ca, Overview, Prepare Required Ca Certificatess, Table Of Contents, Trust Custom Certificate Authority, Works Der Format (+2 more)
+Cohesion: 0.16
+Nodes (14): Ansible, Apply configuration, Docs Admin-Guide, Trust Custom Ca, Modify `base/awx.yaml`, Modify `base/kustomization.yaml`, Overview, Prepare required CA certificatess (+6 more)
 
 ### Community 286 - "Community 286"
 Cohesion: 0.20
@@ -1975,8 +2245,8 @@ Cohesion: 0.20
 Nodes (10): Ansible, Awx Kerberos Config, Configmap, Docs Admin-Guide, Use Kerberos, Kuro Ad01.Kurokobo.Internal, Kurokobo.Internal, Pod (+2 more)
 
 ### Community 288 - "Community 288"
-Cohesion: 0.20
-Nodes (10): Bare Metal, Baremetalhost Provisioning Error Resolution, Docs Admin-Guide, Bmh Provisioning Error, Gpu, Metal3, Overview, Problem Description (+2 more)
+Cohesion: 0.09
+Nodes (24): Bare Metal, BareMetalHost Provisioning Error Resolution, Docs Admin-Guide, Bmh Provisioning Error, Gpu, Metal3, Overview, Prerequisites (+16 more)
 
 ### Community 289 - "Community 289"
 Cohesion: 0.20
@@ -1991,8 +2261,8 @@ Cohesion: 0.20
 Nodes (10): As Of June 2025, Copyright Ubiquity Authors, Distributed Under License Is, Package Installs, Httpsgithubcomubiquityclusterubiquityblobmainlicense, Tools Disk-Image, Unless Required By Applicable, Without Warranties Or Conditions (+2 more)
 
 ### Community 292 - "Community 292"
-Cohesion: 0.20
-Nodes (10): Compiling Local Modules Eessi, Docs User-Guide, Easybuild, Easybuild Via Eessi, Enable Debug Log Mode, Enable Info Log Mode, Enable Info Quietwarning Mode, General Usage (+2 more)
+Cohesion: 0.06
+Nodes (34): Active module naming scheme (`--module-naming-scheme`), Available configuration settings, Build path (`--buildpath`), Command line arguments, Compiling Local Modules Eessi, Compiling Local Modules from EESSI, DIRECT OPTIONS, Docs User-Guide (+26 more)
 
 ### Community 293 - "Community 293"
 Cohesion: 0.20
@@ -2063,8 +2333,8 @@ Cohesion: 0.22
 Nodes (9): Cert Manager, Kustomization, Ironic, Ironic Bmo Configmap, Ironic Inspector Htpasswd, Kustomize, Metal3, Storage (+1 more)
 
 ### Community 310 - "Community 310"
-Cohesion: 0.36
-Nodes (8): CloudCondition, CloudReadinessEvidence, CloudReadinessResult, CloudResourceEvidence, hasPositiveReadyCondition(), RenderCloudReadinessReport(), resourceID(), runCloudReadiness()
+Cohesion: 0.06
+Nodes (33): Abbreviations and Acronyms, Advanced Configurations, Available Custom Elements, Bare Metal Deployment, Build Issues, Built-in Image Builder, Cloud Deployment, Cloud-init Configuration (+25 more)
 
 ### Community 311 - "Community 311"
 Cohesion: 0.42
@@ -2075,8 +2345,8 @@ Cohesion: 0.42
 Nodes (7): defaultTenantVPC(), RenderTenantVPC(), TestRenderTenantVPCCreatesNamespaceQuotaNetworkIsolationAndMultusNAD(), TestRenderTenantVPCFailsClosedForInvalidTenantOrCIDR(), validateTenantVPC(), TenantVPCRequest, T
 
 ### Community 313 - "Community 313"
-Cohesion: 0.33
-Nodes (8): TestRenderAIReadinessStatusFailsClosed(), TestRenderAIReadinessStatusReady(), TestRenderAIStoreReadinessStatusReportsOptionalDataPlaneBoundary(), renderAIReadinessStatus(), renderAIStoreReadinessStatus(), T, renderVirtualMachinesReadinessStatus(), VMReadinessStatus
+Cohesion: 0.06
+Nodes (32): 1. Security, 2. Documentation & ADRs, 3. Architecture, 4. Ease of Use, 5. Testing, 6. Functionality, 7. Comparison: khuedoan/homelab — Deep Analysis, ADRs that should exist (minimum viable set) (+24 more)
 
 ### Community 314 - "Community 314"
 Cohesion: 0.22
@@ -2084,19 +2354,19 @@ Nodes (9): Ansible, Docs Reference, Opus Container, Helm, How It Works, How To O
 
 ### Community 315 - "Community 315"
 Cohesion: 0.22
-Nodes (9): Adr 005 Helm Chart Per, Argocd, Consequences, Context, Decision, Docs Reference, Adr 005 Helm, Helm (+1 more)
+Nodes (10): Adr 005 Helm Chart Per, ADR-005: Use Helm chart per component, Argocd, Consequences, Context, Decision, Docs Reference, Adr 005 Helm (+2 more)
 
 ### Community 316 - "Community 316"
 Cohesion: 0.22
-Nodes (9): Adr 006 Longhorn As Primary, Backup, Consequences, Context, Decision, Docs Reference, Adr 006 Longhorn, Longhorn (+1 more)
+Nodes (10): Adr 006 Longhorn As Primary, ADR-006: Use Longhorn as primary storage, Backup, Consequences, Context, Decision, Docs Reference, Adr 006 Longhorn (+2 more)
 
 ### Community 317 - "Community 317"
 Cohesion: 0.22
 Nodes (9): Alpine, Copyright Ubiquity Authors, Deployment, Privileged Deploy, K3S, Metal Roles, Security, You Not File Except (+1 more)
 
 ### Community 318 - "Community 318"
-Cohesion: 0.22
-Nodes (9): Argocd, Bare Metal, Docs Developers, Roadmap, Gitea, K3S, Monitoring, Pxe (+1 more)
+Cohesion: 0.14
+Nodes (13): Alpha requirements, Argocd, Bare Metal, Beta requirements, Docs Developers, Gitea, K3S, Monitoring (+5 more)
 
 ### Community 319 - "Community 319"
 Cohesion: 0.36
@@ -2139,12 +2409,12 @@ Cohesion: 0.22
 Nodes (9): Copyright Ubiquity Authors, Httpsgithubcomubiquityclusterubiquityblobmainlicense, Persistentvolumeclaim, Platform Hpc-Ubiq, Pvc Nfs, Storage, Unless Required By Applicable, You Not File Except (+1 more)
 
 ### Community 329 - "Community 329"
-Cohesion: 0.22
-Nodes (9): Cloud Init, Docs Reference, Host Config Drive, Ironic, Metal3, Motivation, Openstack, Status (+1 more)
+Cohesion: 0.09
+Nodes (24): Alternatives, Cloud Init, Dependencies, Design Details, Docs Reference, Host Config Drive, Drawbacks, Goals (+16 more)
 
 ### Community 330 - "Community 330"
-Cohesion: 0.22
-Nodes (9): Docs Reference, Reboot Interface, Goals, Ironic, Metal3, Motivation, Restore, Status (+1 more)
+Cohesion: 0.14
+Nodes (16): Alternatives, Defining a Formal User Interface, Docs Reference, Reboot Interface, Drawbacks, Future Enhancements, Goals, Ironic (+8 more)
 
 ### Community 331 - "Community 331"
 Cohesion: 0.22
@@ -2163,20 +2433,20 @@ Cohesion: 0.22
 Nodes (9): Copyright Ubiquity Authors, Distributed Under License Is, Configmap, Httpsgithubcomubiquityclusterubiquityblobmainlicense, Pebble, System Pebble, Unless Required By Applicable, You Not File Except (+1 more)
 
 ### Community 335 - "Community 335"
-Cohesion: 0.22
+Cohesion: 0.33
 Nodes (9): Awaiting Evidence, Docs Processes, Triage, New Issue Triage, Proposal, Stale Issues, Status, Summary (+1 more)
 
 ### Community 336 - "Community 336"
-Cohesion: 0.22
-Nodes (9): Aws, Backup, Create Credentials, Create Terraform Workspace, Docs Admin-Guide, External Resources, Production, Storage (+1 more)
+Cohesion: 0.17
+Nodes (12): Alternatives, Aws, Backup, Cloudflare, Create credentials, Create Terraform workspace, Docs Admin-Guide, External Resources (+4 more)
 
 ### Community 337 - "Community 337"
 Cohesion: 0.22
 Nodes (9): Argocd, Backup, Docs Admin-Guide, Post Installation, Gitea, Grafana, Production, Terraform (+1 more)
 
 ### Community 338 - "Community 338"
-Cohesion: 0.22
-Nodes (9): Docs Admin-Guide, Prerequisites, Fork Repository, Hardware Requirements, Initial Controller, Production, Pxe, Security (+1 more)
+Cohesion: 0.06
+Nodes (31): 1. Choose Your Cloud Provider, 2. Configure Your Deployment, 3. Deploy the Cluster, 4. Access Your Cluster, Ansible Integration, Architecture, Automated Validation, AWS (+23 more)
 
 ### Community 339 - "Community 339"
 Cohesion: 0.22
@@ -2187,16 +2457,16 @@ Cohesion: 0.22
 Nodes (9): Ansible, Awx Backup, Backup, Docs Admin-Guide, Sa, Restore, Role, Rolebinding (+1 more)
 
 ### Community 341 - "Community 341"
-Cohesion: 0.22
-Nodes (9): Backup, Docs Admin-Guide, Longhorn, Grafana, Monitoring, Production, Prometheus, Restore (+1 more)
+Cohesion: 0.05
+Nodes (43): Accessing Longhorn UI, Architecture, Backup, Backup Integration, Common Issues, Common Operations, Configuration, Creating Persistent Volumes (+35 more)
 
 ### Community 342 - "Community 342"
 Cohesion: 0.22
 Nodes (9): Bare Metal, Docs Admin-Guide, Osimages, Gpu, Ironic, Longhorn, Monitoring, Nvidia (+1 more)
 
 ### Community 343 - "Community 343"
-Cohesion: 0.22
-Nodes (9): Ansible, Docs Admin-Guide, Readme, Environment In Example, Examples Of Ansible Runner, Install, Invoke Ansible Runner, Prepare Required Files (+1 more)
+Cohesion: 0.25
+Nodes (10): Ansible, Docs Admin-Guide, Readme, Environment In Example, Environment in This Example, Examples of Ansible Runner, Install, Invoke Ansible Runner (+2 more)
 
 ### Community 344 - "Community 344"
 Cohesion: 0.22
@@ -2275,8 +2545,8 @@ Cohesion: 0.22
 Nodes (9): Clusterpolicy, Copyright Ubiquity Authors, Restricted Pod Security, Httpsgithubcomubiquityclusterubiquityblobmainlicense, Policy, Security, System Kyverno-Policies, You Not File Except (+1 more)
 
 ### Community 363 - "Community 363"
-Cohesion: 0.36
-Nodes (6): EvaluateAIStoreReadiness(), TestEvaluateAIStoreReadinessFailsClosedUntilAllEvidenceExists(), TestEvaluateAIStoreReadinessPassesWithCompleteEvidence(), AIStoreSnapshot, ReadinessStatus, T
+Cohesion: 0.22
+Nodes (10): EvaluateAIStoreReadiness(), TestEvaluateAIStoreReadinessFailsClosedUntilAllEvidenceExists(), TestEvaluateAIStoreReadinessPassesWithCompleteEvidence(), AIStoreSnapshot, TestRenderAIReadinessStatusFailsClosed(), TestRenderAIReadinessStatusReady(), TestRenderAIStoreReadinessStatusReportsOptionalDataPlaneBoundary(), T (+2 more)
 
 ### Community 364 - "Community 364"
 Cohesion: 0.25
@@ -2295,32 +2565,32 @@ Cohesion: 0.43
 Nodes (7): TestHelmHardeningChecksCoverUnitTestsAndDependencyFreshness(), TestKyvernoPolicyTestsCoverAllowAndDenyFixtures(), TestNetworkPolicyBehaviorScriptProvesDenyAndAllowTraffic(), TestProductionSecurityCIIncludesSBOMAndSigning(), TestRuntimeSecurityValidationIncludesFalcoAlertingAndDashboard(), TestScheduledDependencyFreshnessReportWorkflow(), T
 
 ### Community 368 - "Community 368"
-Cohesion: 0.25
-Nodes (8): An Alternate Cni, Calico Example, Deploy Following K3S Server, Docs Reference, Use An Alternat Cni, Helm, K3S, K3S Server Dont Deploy
+Cohesion: 0.20
+Nodes (9): An Alternate Cni, Calico example, Deploy Following K3S Server, Docs Reference, Use An Alternat Cni, Helm, K3S, K3S Server Dont Deploy (+1 more)
 
 ### Community 369 - "Community 369"
 Cohesion: 0.25
 Nodes (7): panels, refresh, schemaVersion, tags, title, uid, version
 
 ### Community 370 - "Community 370"
-Cohesion: 0.25
-Nodes (8): Adr 004 Kyverno Over Opagatekeeper, Consequences, Context, Decision, Docs Reference, Adr 004 Kyverno, Policy, Security
+Cohesion: 0.24
+Nodes (9): Adr 004 Kyverno Over Opagatekeeper, ADR-004: Use Kyverno over OPA/Gatekeeper, Consequences, Context, Decision, Docs Reference, Adr 004 Kyverno, Policy (+1 more)
 
 ### Community 371 - "Community 371"
-Cohesion: 0.25
-Nodes (8): Adr 011 Sops Secrets Management, Argocd, Consequences, Context, Decision, Docs Reference, Adr 011 Sops, Vault
+Cohesion: 0.24
+Nodes (9): Adr 011 Sops Secrets Management, ADR-011: Use SOPS for secrets management, Argocd, Consequences, Context, Decision, Docs Reference, Adr 011 Sops (+1 more)
 
 ### Community 372 - "Community 372"
-Cohesion: 0.25
-Nodes (8): Backup, Backup Restore, Docs How-To-Guides, Backup And Restore, Overview, Restore, Usage, Whats Included
+Cohesion: 0.20
+Nodes (10): Backup, Backup and Restore, Backup Restore, Docs How-To-Guides, Backup And Restore, Overview, Restore, Usage (+2 more)
 
 ### Community 373 - "Community 373"
-Cohesion: 0.25
-Nodes (8): Adding Tests, Directory Structure, Readme, Integration, K3S, Kuttl Integration Tests, Prerequisites, Running Tests
+Cohesion: 0.33
+Nodes (8): Adding Tests, Directory Structure, Readme, Integration, K3S, KUTTL Integration Tests, Prerequisites, Running Tests
 
 ### Community 374 - "Community 374"
-Cohesion: 0.25
-Nodes (8): Ansible, Ansible Role K3S, Docs Reference, Example Configurations Operations, K3S, Operations, Quickstart, Requirements
+Cohesion: 0.24
+Nodes (10): Ansible, ansible-role-k3s, Configuration, Docs Reference, Example configurations and operations, Example Configurations Operations, K3S, Operations (+2 more)
 
 ### Community 375 - "Community 375"
 Cohesion: 0.25
@@ -2335,8 +2605,8 @@ Cohesion: 0.25
 Nodes (8): Values, Gpu, Gpu Medium, Longhorn, Platform Platform-Ops-Policy, Policy, Restore, Tenant A Daily
 
 ### Community 378 - "Community 378"
-Cohesion: 0.25
-Nodes (8): attributes, cibaAuthRequestedUserHint, cibaBackchannelTokenDeliveryMode, cibaExpiresIn, cibaInterval, parRequestUriLifespan, oauth2DeviceCodeLifespan, oauth2DevicePollingInterval
+Cohesion: 0.20
+Nodes (10): attributes, cibaAuthRequestedUserHint, cibaBackchannelTokenDeliveryMode, cibaExpiresIn, cibaInterval, oauth2DeviceCodeLifespan, oauth2DevicePollingInterval, parRequestUriLifespan (+2 more)
 
 ### Community 379 - "Community 379"
 Cohesion: 0.25
@@ -2371,8 +2641,8 @@ Cohesion: 0.25
 Nodes (8): Smoke Test, External Secrets, Gitea, Platform Cloud-Operator-Bundles, Platform Cloud-Prerequisites, Platform Dex, Platform External-Secrets, Platform Gitea
 
 ### Community 387 - "Community 387"
-Cohesion: 0.25
-Nodes (8): Ansible, Argocd, Deploy Older Version Of, Docs Admin-Guide, Deploy Older Operator, Install Awx Operator, Monitor Logs Of Awx, Table Of Contents
+Cohesion: 0.20
+Nodes (10): Ansible, Argocd, Deploy Older Version Of, Deploy older version of AWX Operator, Docs Admin-Guide, Deploy Older Operator, Install AWX Operator, Monitor Logs Of Awx (+2 more)
 
 ### Community 388 - "Community 388"
 Cohesion: 0.29
@@ -2399,36 +2669,36 @@ Cohesion: 0.48
 Nodes (6): TestArchitectureADRAuditCoversRequiredDecisions(), TestArchitectureNetworkingDocHasNoTODOs(), TestCloudNVIDIAReadinessDocsUseEvidenceBoundaries(), TestHelmChartReferenceIsGeneratedAndCurrent(), TestKustomizeHelmRelationshipIsDocumented(), T
 
 ### Community 395 - "Community 395"
-Cohesion: 0.29
-Nodes (7): 2 Node Ha Control, Architecture, Docs Reference, 2 Node Ha Ext Datastore, K3S, Postgres, Required Components
+Cohesion: 0.22
+Nodes (9): 2 Node Ha Control, 2 Node HA Control Plane with external database, Architecture, Configuration, Docs Reference, 2 Node Ha Ext Datastore, K3S, Postgres (+1 more)
 
 ### Community 396 - "Community 396"
 Cohesion: 0.29
 Nodes (6): __inputs, panels, __requires, schemaVersion, title, uid
 
 ### Community 397 - "Community 397"
-Cohesion: 0.29
-Nodes (7): Adr 001 Go Cli Instead, Consequences, Context, Decision, Docs Reference, Adr 001 Go Cli, Sandbox
+Cohesion: 0.28
+Nodes (8): Adr 001 Go Cli Instead, ADR-001: Use Go CLI instead of Python, Consequences, Context, Decision, Docs Reference, Adr 001 Go Cli, Sandbox
 
 ### Community 398 - "Community 398"
-Cohesion: 0.29
-Nodes (7): Adr 002 K3S Instead Of, Consequences, Context, Decision, Docs Reference, Adr 002 K3S, K3S
+Cohesion: 0.28
+Nodes (8): Adr 002 K3S Instead Of, ADR-002: Use k3s instead of full Kubernetes, Consequences, Context, Decision, Docs Reference, Adr 002 K3S, K3S
 
 ### Community 399 - "Community 399"
-Cohesion: 0.29
-Nodes (7): Adr 007 Argocd Over Flux, Argocd, Consequences, Context, Decision, Docs Reference, Adr 007 Argocd
+Cohesion: 0.28
+Nodes (8): Adr 007 Argocd Over Flux, ADR-007: Use ArgoCD over Flux, Argocd, Consequences, Context, Decision, Docs Reference, Adr 007 Argocd
 
 ### Community 400 - "Community 400"
-Cohesion: 0.29
-Nodes (7): Adr 008 Bubbletea Tui Instead, Consequences, Context, Decision, Docs Reference, Adr 008 Bubbletea, Monitoring
+Cohesion: 0.28
+Nodes (8): Adr 008 Bubbletea Tui Instead, ADR-008: Use Bubbletea for TUI instead of plain text, Consequences, Context, Decision, Docs Reference, Adr 008 Bubbletea, Monitoring
 
 ### Community 401 - "Community 401"
-Cohesion: 0.29
-Nodes (7): Adr 010 Go Pxe Installer, Consequences, Context, Decision, Docs Reference, Adr 010 Installer, Pxe
+Cohesion: 0.28
+Nodes (8): Adr 010 Go Pxe Installer, ADR-010: Use Go PXE installer instead of Python/Docker, Consequences, Context, Decision, Docs Reference, Adr 010 Installer, Pxe
 
 ### Community 402 - "Community 402"
-Cohesion: 0.29
-Nodes (7): Adr 012 Devcontainer Reproducible Development, Consequences, Context, Decision, Docs Reference, Adr 012 Devcontainer, Helm
+Cohesion: 0.28
+Nodes (8): Adr 012 Devcontainer Reproducible Development, ADR-012: Use devcontainer for reproducible development environments, Consequences, Context, Decision, Docs Reference, Adr 012 Devcontainer, Helm
 
 ### Community 403 - "Community 403"
 Cohesion: 0.29
@@ -2439,8 +2709,8 @@ Cohesion: 0.29
 Nodes (7): K3S Default Version, K3S, K3S Image Ubiquity Dev Sandbox, Metal, Override K3Simage Environment Variable, Sandbox, See Docscompatibility Version Compatibility
 
 ### Community 405 - "Community 405"
-Cohesion: 0.52
-Nodes (6): allNICoServicesReady(), TestChartComponentNamesReturnsNewWrapperComponentNames(), TestEvaluateReadinessAllReadyMockMode(), TestEvaluateReadinessReportsMissingFoundations(), TestEvaluateReadinessRequiresSiteAndMachineOnlyForRealHardware(), T
+Cohesion: 0.07
+Nodes (28): Alternative solution (not recommended), Common issues and workarounds, Configure group or permissions for the domain user, Configure Job Template, Create ConfigMap for `krb5.conf`, Create Container Group, Create Credential, Create Inventory (+20 more)
 
 ### Community 406 - "Community 406"
 Cohesion: 0.29
@@ -2455,40 +2725,40 @@ Cohesion: 0.29
 Nodes (7): Cni Plugins Or Rdma, Values Sandbox, Nvidia, Nvidia Network Operator Control, Sandbox, Sandbox Mode Runs On, System Nvidia-Network-Operator
 
 ### Community 409 - "Community 409"
-Cohesion: 0.29
-Nodes (7): Ansible, Assumptions, Docs Reference, Extending A Cluster, Extending A, K3S, Method
+Cohesion: 0.25
+Nodes (8): Ansible, Assumptions, Docs Reference, Extending A Cluster, Extending A, Extending a cluster, K3S, Method
 
 ### Community 410 - "Community 410"
-Cohesion: 0.29
-Nodes (7): Ansible, Assumptions, Docs Reference, Shrinking A Cluster, K3S, Method, Shrinking A
+Cohesion: 0.25
+Nodes (8): Ansible, Assumptions, Docs Reference, Shrinking A Cluster, K3S, Method, Shrinking A, Shrinking a cluster
 
 ### Community 411 - "Community 411"
 Cohesion: 0.29
 Nodes (7): Ca Issuer, Cert Manager, Certificate, Mariadb Tls Ip, Issuer, Mariadb Cert, System Baremetal-Operator-System
 
 ### Community 412 - "Community 412"
-Cohesion: 0.33
-Nodes (6): clients, defaultRoles, enabled, realm, roles, users
+Cohesion: 0.29
+Nodes (7): clients, defaultRoles, enabled, realm, roles, realm, users
 
 ### Community 413 - "Community 413"
-Cohesion: 0.29
-Nodes (7): defaultRole, clientRole, composite, containerId, description, name, id
+Cohesion: 0.25
+Nodes (8): defaultRole, clientRole, composite, containerId, description, id, name, id
 
 ### Community 414 - "Community 414"
 Cohesion: 0.29
 Nodes (6): extends, labels, packageRules, rebaseWhen, schedule, $schema
 
 ### Community 415 - "Community 415"
-Cohesion: 0.29
-Nodes (7): Alerts, Docs Admin-Guide, Etcd Alerts, Etcddatabasehighfragmentationratio, Other Alerts, Prometheus, Storage
+Cohesion: 0.32
+Nodes (7): Alerts, Docs Admin-Guide, Etcd Alerts, etcdDatabaseHighFragmentationRatio, Other alerts, Prometheus, Storage
 
 ### Community 416 - "Community 416"
-Cohesion: 0.29
-Nodes (7): Bare Metal, Docs Admin-Guide, Nico Bootstrap, Metal3, Nico, Nvidia, Runbook Nico Bootstrap
+Cohesion: 0.25
+Nodes (7): Bare Metal, Docs Admin-Guide, Nico Bootstrap, Metal3, Nico, Nvidia, Runbook: NICo bootstrap
 
 ### Community 417 - "Community 417"
-Cohesion: 0.29
-Nodes (7): Docs Admin-Guide, Nico Gpu Validation, Gpu, Metal3, Nico, Nvidia, Runbook Nico Gpu Validation
+Cohesion: 0.25
+Nodes (7): Docs Admin-Guide, Nico Gpu Validation, Gpu, Metal3, Nico, Nvidia, Runbook: NICo GPU validation
 
 ### Community 418 - "Community 418"
 Cohesion: 0.29
@@ -2515,8 +2785,8 @@ Cohesion: 0.29
 Nodes (7): Smoke Test, Platform Kubevirt-Vms, Platform Managed-Service, Platform Nim-Operator, Platform Tenant-Kubernetes-Cluster, Platform Tenant-Vpc, Platform Trow
 
 ### Community 424 - "Community 424"
-Cohesion: 0.29
-Nodes (7): Concepts, Create Manual Type Project, Docs Admin-Guide, Manual Project, K3S, Procedure, Troubleshooting
+Cohesion: 0.36
+Nodes (7): Concepts, Create "Manual" type project, Docs Admin-Guide, Manual Project, K3S, Procedure, Troubleshooting
 
 ### Community 425 - "Community 425"
 Cohesion: 0.53
@@ -2555,12 +2825,12 @@ Cohesion: 0.33
 Nodes (6): Cvmfs, Pvc Cvmfs, Persistentvolumeclaim, Platform Hpc-Ubiq, Storage, Storageclass
 
 ### Community 434 - "Community 434"
-Cohesion: 0.33
-Nodes (6): Adr 013 Pre Commitci Automated Linting, Consequences, Context, Decision, Docs Reference, Adr 013 Precommit Ci
+Cohesion: 0.32
+Nodes (7): Adr 013 Pre Commitci Automated Linting, ADR-013: Use pre-commit.ci for automated linting, Consequences, Context, Decision, Docs Reference, Adr 013 Precommit Ci
 
 ### Community 435 - "Community 435"
-Cohesion: 0.33
-Nodes (6): Adr Nnn Title, Consequences, Context, Decision, Docs Reference, Template
+Cohesion: 0.43
+Nodes (6): ADR-NNN: [Title], Consequences, Context, Decision, Docs Reference, Template
 
 ### Community 436 - "Community 436"
 Cohesion: 0.47
@@ -2571,8 +2841,8 @@ Cohesion: 0.33
 Nodes (5): DIB_RELEASE, DIB_YUM_MINIMAL_CREATE_INTERFACES, DISTRO_NAME, EFI_BOOT_DIR, 10-01-rocky-distro-name.bash script
 
 ### Community 438 - "Community 438"
-Cohesion: 0.33
-Nodes (6): Configure Awx To Git, Deploy Private Git Repository, Docs Admin-Guide, Readme, Gitea, Table Of Contents
+Cohesion: 0.22
+Nodes (8): Configure Awx To Git, Configure AWX to use Git Repository with Self-Signed Certificate, Deploy Private Git Repository, Deploy Private Git Repository using Gitea, Docs Admin-Guide, Readme, Gitea, Table of Contents
 
 ### Community 439 - "Community 439"
 Cohesion: 0.33
@@ -2587,12 +2857,12 @@ Cohesion: 0.33
 Nodes (6): Pv Nfs, Nfs, Persistentvolume, Platform Hpc-Ubiq, Policy, Storage
 
 ### Community 442 - "Community 442"
-Cohesion: 0.33
-Nodes (6): Addtional Info, Building Images, Readme, Mkimage, Prepare Dev Environment, Tools Disk-Image
+Cohesion: 0.43
+Nodes (6): Addtional Info, Building Images, Readme, mkimage, Prepare Dev Environment, Tools Disk-Image
 
 ### Community 443 - "Community 443"
-Cohesion: 0.40
-Nodes (5): ChartComponentNames(), ReadinessOptions, ReadinessResult, ReadinessSnapshot, WorkloadStatus
+Cohesion: 0.07
+Nodes (28): Adding alert rules, Adding Grafana dashboards, Adding Kube Prometheus Stack to your cluster, Additional alertrules, Additional Grafana dashboards, Alerts, Cluster Capacity, Configuration (+20 more)
 
 ### Community 444 - "Community 444"
 Cohesion: 0.53
@@ -2619,24 +2889,24 @@ Cohesion: 0.53
 Nodes (5): T, TestExecutePhaseDispatchesCorrectly(), TestExecutePhaseUnknown(), TestMockProviderRecordsCalls(), TestRealProviderReturnsNoError()
 
 ### Community 450 - "Community 450"
-Cohesion: 0.33
-Nodes (6): Description, Docs Processes, Roadmap, Proposing A Feature, Ubiquity Roadmap, Updating Roadmap
+Cohesion: 0.32
+Nodes (7): Description, Docs Processes, Roadmap, Proposing a feature, Ubiquity Roadmap, Updating Roadmap, Updating the Roadmap
 
 ### Community 451 - "Community 451"
 Cohesion: 0.33
 Nodes (6): Ansible, Awxrestore 2021 06 06, Backup, Docs Admin-Guide, Awxrestore, Restore
 
 ### Community 452 - "Community 452"
-Cohesion: 0.33
-Nodes (6): Docs Admin-Guide, Nico Bmc Redfish, Metal3, Nico, Nvidia, Runbook Nico Bmc Redfish
+Cohesion: 0.29
+Nodes (6): Docs Admin-Guide, Nico Bmc Redfish, Metal3, Nico, Nvidia, Runbook: NICo BMC Redfish
 
 ### Community 453 - "Community 453"
-Cohesion: 0.33
-Nodes (6): Docs Admin-Guide, Nico Machine Provisioning, Metal3, Nico, Nvidia, Runbook Nico Machine Provisioning
+Cohesion: 0.29
+Nodes (6): Docs Admin-Guide, Nico Machine Provisioning, Metal3, Nico, Nvidia, Runbook: NICo machine provisioning
 
 ### Community 454 - "Community 454"
-Cohesion: 0.33
-Nodes (6): Docs Admin-Guide, Nico Prerequisites, Metal3, Nico, Nvidia, Runbook Nico Prerequisites
+Cohesion: 0.29
+Nodes (6): Docs Admin-Guide, Nico Prerequisites, Metal3, Nico, Nvidia, Runbook: NICo prerequisites
 
 ### Community 455 - "Community 455"
 Cohesion: 0.33
@@ -2668,7 +2938,7 @@ Nodes (6): Daemonset, Nodeplugin Daemonset, Host Sys, Policy, Security, System C
 
 ### Community 462 - "Community 462"
 Cohesion: 0.33
-Nodes (6): Appendix, Create User, Docs User-Guide, Onboarding, Install Companion Apps, Recommended Password Managers
+Nodes (6): Appendix, Create user, Docs User-Guide, Install companion apps, Onboarding, Recommended password managers
 
 ### Community 463 - "Community 463"
 Cohesion: 0.33
@@ -2687,8 +2957,8 @@ Cohesion: 0.80
 Nodes (4): mustRead(), TestNIMOperatorChartDefinesNGCSecretAndSampleServiceFlow(), TestNIMSmokeTestCreatesReadinessEvidenceConfigMap(), T
 
 ### Community 467 - "Community 467"
-Cohesion: 0.70
-Nodes (4): podList, podCondition, podItem, podStatus
+Cohesion: 0.24
+Nodes (11): ParseReadyPodCount(), TestParseReadyPodCountFailsClosedForEmptyList(), TestParseReadyPodCountRequiresReadyConditionAndRunningPhase(), podCondition, podItem, podList, podStatus, T (+3 more)
 
 ### Community 468 - "Community 468"
 Cohesion: 0.40
@@ -2711,8 +2981,8 @@ Cohesion: 0.40
 Nodes (5): Ansible, Cilium, Changelog, Helm, Metal Roles
 
 ### Community 473 - "Community 473"
-Cohesion: 0.70
-Nodes (4): RenderCloudProductionAuditChecklist(), TestCloudProductionAuditChecklistIncludesEveryManagedServiceResource(), TestRenderCloudProductionAuditChecklistCoversFailClosedEvidence(), T
+Cohesion: 0.08
+Nodes (25): 10. Rollback and recovery, 1. Prepare firmware and network, 1. Start from a clean local state, 2. Bring up sandbox, 2. Create the bare-metal inventory, 3. Configure SSH access, 3. Validate the core-services chart locally, 4. Apply the core-services Applications in sandbox (+17 more)
 
 ### Community 474 - "Community 474"
 Cohesion: 0.80
@@ -2731,8 +3001,8 @@ Cohesion: 0.40
 Nodes (5): Cert Manager, Docs Reference, Certificate Management, Foo, Ingress
 
 ### Community 478 - "Community 478"
-Cohesion: 0.40
-Nodes (5): Ansible, Architecture, Docs Reference, Multiple Standalone K3S Nodes, K3S
+Cohesion: 0.25
+Nodes (7): Ansible, Architecture, Configuration, Docs Reference, Multiple Standalone K3S Nodes, K3S, Multiple standalone K3s nodes
 
 ### Community 479 - "Community 479"
 Cohesion: 0.40
@@ -2863,16 +3133,16 @@ Cohesion: 0.40
 Nodes (4): additionalProperties, description, $schema, type
 
 ### Community 511 - "Community 511"
-Cohesion: 0.40
-Nodes (5): Accessing Argocd, Argocd, Argocd Application, Docs Admin-Guide, Scope
+Cohesion: 0.43
+Nodes (6): Accessing ArgoCD, ArgoCD, ArgoCD, ArgoCD application, Docs Admin-Guide, Scope
 
 ### Community 512 - "Community 512"
-Cohesion: 0.40
+Cohesion: 0.33
 Nodes (5): Disabling Proxy Mode, Dnsmasq, Docs Admin-Guide, Overview, Pxe
 
 ### Community 513 - "Community 513"
-Cohesion: 0.40
-Nodes (5): Docs Admin-Guide, Nico Node Reinstall, Nico, Nvidia, Runbook Nico Node Reinstall
+Cohesion: 0.33
+Nodes (5): Docs Admin-Guide, Nico Node Reinstall, Nico, Nvidia, Runbook: NICo node reinstall
 
 ### Community 514 - "Community 514"
 Cohesion: 0.40
@@ -2951,8 +3221,8 @@ Cohesion: 0.67
 Nodes (3): TestAICommandDescribesOllamaAsLocalDiagnosticsOnly(), TestOllamaChartIsDiagnosticsOnlyAndDisabledByDefault(), T
 
 ### Community 533 - "Community 533"
-Cohesion: 0.67
-Nodes (3): TestParseReadyPodCountFailsClosedForEmptyList(), TestParseReadyPodCountRequiresReadyConditionAndRunningPhase(), T
+Cohesion: 0.08
+Nodes (23): 1. Enforced HA Architecture, 2. Standardized k3s Networking, 3. Consistent Output Format, 4. Kubeconfig Retrieval, AWS (/cloud/aws/), Azure (/cloud/azure/), Cloud Provider Implementations, Common Design Module (/cloud/common/design/) (+15 more)
 
 ### Community 534 - "Community 534"
 Cohesion: 0.67
@@ -3039,16 +3309,16 @@ Cohesion: 0.83
 Nodes (3): require_cmd(), run_nico(), nico-mock-node-lifecycle.sh script
 
 ### Community 557 - "Community 557"
-Cohesion: 0.83
-Nodes (3): run_ubiquity(), stage(), nvidia-ai-platform.sh script
+Cohesion: 0.67
+Nodes (4): run_ubiquity(), stage(), nvidia-ai-platform-final-demo.sh script, nvidia-ai-platform.sh script
 
 ### Community 558 - "Community 558"
 Cohesion: 0.50
 Nodes (4): Chart, Falco Rules, Security, System Falco-Rules
 
 ### Community 559 - "Community 559"
-Cohesion: 0.50
-Nodes (4): Readme, Htcondor, Images In Directory, Platform Hpc-Ubiq
+Cohesion: 0.33
+Nodes (5): Readme, HTCONDOR, Images In Directory, Images in this directory:, Platform Hpc-Ubiq
 
 ### Community 560 - "Community 560"
 Cohesion: 0.67
@@ -3115,7 +3385,7 @@ Cohesion: 0.50
 Nodes (4): Deployment, Ironic Pvc Create, Ironic, System Baremetal-Operator-System
 
 ### Community 576 - "Community 576"
-Cohesion: 0.67
+Cohesion: 0.50
 Nodes (4): Opus Image Family, Opus Build, Release, Vulncheck
 
 ### Community 577 - "Community 577"
@@ -3199,7 +3469,7 @@ Cohesion: 0.50
 Nodes (4): Cilium, Cilium Test, Policy, System Cilium
 
 ### Community 598 - "Community 598"
-Cohesion: 0.50
+Cohesion: 0.40
 Nodes (4): Docs Admin-Guide, Readme, K3S, Tips
 
 ### Community 612 - "Community 612"
@@ -3215,12 +3485,16 @@ Cohesion: 0.67
 Nodes (3): Service, Metallb, Platform Awx
 
 ### Community 617 - "Community 617"
-Cohesion: 1.00
+Cohesion: 0.67
 Nodes (3): GCP Ubiquity deployment guide, OpenStack Ubiquity deployment guide, OVH Ubiquity deployment guide
 
 ### Community 618 - "Community 618"
 Cohesion: 0.67
 Nodes (3): Values, Platform Cloud-Governance, Tenant A Governance
+
+### Community 619 - "Community 619"
+Cohesion: 0.08
+Nodes (23): About, App, AppGroup, Bookmark, BookmarkGroup, Config, Contributing, Custom startpage setup (+15 more)
 
 ### Community 622 - "Community 622"
 Cohesion: 0.67
@@ -3247,8 +3521,8 @@ Cohesion: 0.67
 Nodes (3): Kuttl Test, Integration, Testsuite
 
 ### Community 632 - "Community 632"
-Cohesion: 0.67
-Nodes (3): Bug Report Template, Security Policy, Vulnerability Reporting and Disclosure Workflow
+Cohesion: 0.29
+Nodes (6): Bug Report Template, Disclosure Policy, Reporting a Vulnerability, Security Policy, Supported Versions, Vulnerability Reporting and Disclosure Workflow
 
 ### Community 633 - "Community 633"
 Cohesion: 0.67
@@ -3271,12 +3545,12 @@ Cohesion: 0.67
 Nodes (3): Docs Reference, Updating K3S, K3S
 
 ### Community 639 - "Community 639"
-Cohesion: 0.67
-Nodes (3): Docs Admin-Guide, Configuration, Production
+Cohesion: 0.50
+Nodes (3): Configuration, Docs Admin-Guide, Production
 
 ### Community 640 - "Community 640"
-Cohesion: 0.67
-Nodes (3): Docs Admin-Guide, Deployment, Production
+Cohesion: 0.50
+Nodes (3): Deployment, Docs Admin-Guide, Production
 
 ### Community 641 - "Community 641"
 Cohesion: 0.67
@@ -3331,32 +3605,980 @@ Cohesion: 0.67
 Nodes (3): Smoke Test, System Cvmfs-Csi, System Kyverno
 
 ### Community 661 - "Community 661"
-Cohesion: 0.67
+Cohesion: 0.50
 Nodes (3): Docs User-Guide, Index, User Guide
 
+### Community 797 - "Community 797"
+Cohesion: 0.09
+Nodes (22): From source, P0-1: Write ADR-001 through ADR-008, P0-2: Create shared app-template Helm chart, P0-3: Add gitleaks to pre-commit, P0 Items (must do), P1-1: Write Kyverno policy tests, P1-2: Add helm-diff CI pipeline, P1-3: Chain ubiquity init → configure (+14 more)
+
+### Community 798 - "Community 798"
+Cohesion: 0.09
+Nodes (22): Clone and build, Install pre-commit hooks, Kubernetes, P0-1: Create devcontainer for one-click development environment, P0-2: Enable pre-commit.ci for automatic PR linting, P0-3: Create GitHub issue templates, P0-4: Update CONTRIBUTING.md for Go CLI, P0-5: Create SECURITY.md (+14 more)
+
+### Community 799 - "Community 799"
+Cohesion: 0.09
+Nodes (21): 1. Infrastructure Standardization, 2. Documentation & Examples, 3. Validation Framework, 4. Standardized Features, Cluster Validation, ✅ Completed Tasks, Documentation, Examples (+13 more)
+
+### Community 800 - "Community 800"
+Cohesion: 0.10
+Nodes (20): Backporting, Backporting a Patch, Branches, Breaking Changes, Certificate of Origin, Codebase, Commands and Workflow, Contributing to Ubiquity (+12 more)
+
+### Community 801 - "Community 801"
+Cohesion: 0.10
+Nodes (20): Alerting, Backup, Checklist For Production, Database, DNS, General, General, Identity (+12 more)
+
+### Community 802 - "Community 802"
+Cohesion: 0.10
+Nodes (20): Design Tenets, Goal: Project Ubiquity Next — The HPC Cluster Lifecycle Platform, Implementation Phases, Phase 1: Foundation (Weeks 1-2), Phase 2: Standardization (Weeks 3-4), Phase 3: Security (Weeks 5-6), Phase 4: Testing & Reliability (Weeks 7-8), Phase 5: Polish (Weeks 9-10) (+12 more)
+
+### Community 803 - "Community 803"
+Cohesion: 0.11
+Nodes (21): minLength, type, minLength, type, minLength, type, curlImage, endpoint (+13 more)
+
+### Community 804 - "Community 804"
+Cohesion: 0.10
+Nodes (19): Acronyms, Additional Package Installation, Admin Guide, Backups and DR, Cluster Shell, Compiling Software, Adding Modules, Compute Node Frequency Control & Turbo, Document Format (+11 more)
+
+### Community 805 - "Community 805"
+Cohesion: 0.10
+Nodes (19): Applying changes, Auto apply, AWS, Azure, CloudFlare, Creating the workspace, Enable Ubiquity Autoscaling, Getting started with Terraform Cloud (+11 more)
+
+### Community 806 - "Community 806"
+Cohesion: 0.11
+Nodes (18): 10. Add ubiquity binary to .gitignore, 11. Update README to show the CLI, 12. Remove orphan scripts/test.py, 13. Add --json flag to version command, 14. Generate shell completion files, 15. Wire version ldflags into CI build, 1. Add version command with ldflags, 2. Fix .bak files in git (+10 more)
+
+### Community 807 - "Community 807"
+Cohesion: 0.11
+Nodes (17): How do I identify the current state, How ironic boots hardware, How ironic controls hardware, how-ironic-works, How ironic writes an operating system image to baremetal, How-to, How to add hardware to ironic, How to create the record of an active node (+9 more)
+
+### Community 808 - "Community 808"
+Cohesion: 0.11
+Nodes (18): type, minLength, type, minLength, type, minLength, type, enabled (+10 more)
+
+### Community 809 - "Community 809"
+Cohesion: 0.11
+Nodes (17): ai-platform, Commands, configure, down, health, info, init, Installation (+9 more)
+
+### Community 810 - "Community 810"
+Cohesion: 0.12
+Nodes (16): Bare-metal orchestration alternatives, How sandbox deploy works, KAI Scheduler usage, Live proof and approval boundary, Mental model, NGC credentials, NVIDIA AI Platform operations guide, Production deployment flow (+8 more)
+
+### Community 811 - "Community 811"
+Cohesion: 0.12
+Nodes (17): 4.10 nb_users (optional), 4.11 guest_passwd (optional), 4.12 sudoer_username (optional), 4.13.1. Encrypting hieradata secrets, 4.13 vars (optional), 4.14 firewall_rules (optional), 4.15 generate_ssh_key (optional), 4.16 software_stack (optional) (+9 more)
+
+### Community 812 - "Community 812"
+Cohesion: 0.12
+Nodes (16): Current state, P0-1: Create Dependabot configuration, P0-2: Upgrade Helm chart dependencies to pinned versions, P0-3: Fix Renovate YAML format, P0 Items (must do), P1-1: Add Go vulnerability audit to CI, P1-2: Add helm unittest to ALL system charts, P1-3: Add Go unit tests for provision* phase executors (+8 more)
+
+### Community 813 - "Community 813"
+Cohesion: 0.12
+Nodes (17): automatedCleaningMode, BareMetalHost spec, bmc, bootMACAddress, bootMode, consumerRef, customDeploy, description (+9 more)
+
+### Community 814 - "Community 814"
+Cohesion: 0.15
+Nodes (17): minLength, type, type, type, type, additionalProperties, properties, type (+9 more)
+
+### Community 815 - "Community 815"
+Cohesion: 0.12
+Nodes (16): First Step: Investigate your Situation, Investigate Logs of the Containers inside the Pods, Investigate Status and Events of the Pods, Job failed with no output, Provisioning Callback does not work, Reveal "censored" output in the AWX Operator's log, Table of Contents, The job failed and I got "ERROR! couldn't resolve module/action" or "Failed to import the required Python library" message (+8 more)
+
+### Community 816 - "Community 816"
+Cohesion: 0.12
+Nodes (16): Control plane:, Cordon workers, General Maintenance Procedures, Get bmh_host, Getting Support, MAINTENANCE PROCEDURES, Marking a Compute Node Down for maintenance, Power Down Procedures (+8 more)
+
+### Community 817 - "Community 817"
+Cohesion: 0.12
+Nodes (16): 5.1.1 region, 5.1.2 availability_zone (optional), 5.1 Amazon Web Services, 5.2.1 location, 5.2.2 azure_resource_group (optional), 5.2.3 plan (optional), 5.2 Microsoft Azure, 5.3.1 project (+8 more)
+
+### Community 818 - "Community 818"
+Cohesion: 0.12
+Nodes (15): 1. Declarative AI platform profiles, 2. Replace local/bespoke functionality when NVIDIA-maintained components are better, 3. AI serving plane, 4. GPU scheduler and multi-tenant workload readiness, 5. Observability and health, 6. Validation and CI, 7. Documentation and provenance, Acceptance criteria (+7 more)
+
+### Community 819 - "Community 819"
+Cohesion: 0.12
+Nodes (15): Background, Bare-Metal Service: HTCondor, Bare-Metal Service: Slurm, Draining Worker Nodes, How to shutdown a Ubiquity cluster, Requirements, Shutting down storage, Shutting down the control plane nodes (+7 more)
+
+### Community 820 - "Community 820"
+Cohesion: 0.16
+Nodes (14): size, storage, storageClass, volumeAccessMode, $schema, minLength, type, additionalProperties (+6 more)
+
+### Community 821 - "Community 821"
+Cohesion: 0.13
+Nodes (14): Adding Loki-Promtail to your cluster, Additional Alertrules, Additional Grafana dashboards, Delete StatefulSet (the PVC will remain), How can I access the logs?, Loki-Promtail, Loki & Promtail, Monitoring (+6 more)
+
+### Community 822 - "Community 822"
+Cohesion: 0.14
+Nodes (13): Accessing Ubiquity, Administrating Ubiquity, Configuring Ubiquity, Deploying Ubiquity, Integration with SLURM, Keycloak, Known issues, Logs/Monitoring (+5 more)
+
+### Community 823 - "Community 823"
+Cohesion: 0.14
+Nodes (13): Accessing Ubiquity, Administrating Ubiquity, Configuring Ubiquity, Deploying Ubiquity, Integration with SLURM, Keycloak, Known issues, Logs/Monitoring (+5 more)
+
+### Community 824 - "Community 824"
+Cohesion: 0.14
+Nodes (13): 1. Setup, 2. Where to start, 3. Ansible environment, 4.1 cloud-init, 4.2 SELinux, 4. Troubleshooting, 5. Release, Building the policy package file (.pp) from the enforcement file (.te) (+5 more)
+
+### Community 825 - "Community 825"
+Cohesion: 0.14
+Nodes (13): Feature A: Go-based PXE installer, Feature B: SOPS secrets management, P0-A1: Create the Go PXE installer binary, P0-A2: Create installer kickstart templates, P0-A3: Add SOPS secrets management, P0-A4: Write ADR-010 for Go PXE installer and ADR-011 for SOPS secrets, P0 Items (must do), P1-A1: Wire the PXE installer into ubiquity up (+5 more)
+
+### Community 826 - "Community 826"
+Cohesion: 0.14
+Nodes (13): Abbreviation, Change License, Disclaimer, Functional Source License, Version 1.0, Apache 2.0 Change License, License Grant, Licensor ("We"), Notice, Patents (+5 more)
+
+### Community 827 - "Community 827"
+Cohesion: 0.14
+Nodes (13): Back up and restore k8s objects, Back up and restore K8s objects in an on-premises environment, Backup, Change nodePort to 443 as shown below:, Change the nodePort in itom-nginx-ingress-svc to 443:, Download the minio images, Export an NFS directory, Install Velero on a control plane node (+5 more)
+
+### Community 828 - "Community 828"
+Cohesion: 0.15
+Nodes (12): 11. customise Ubiquity Terraform Files, 3.2.1 Terraform Modules Upgrade, 3.2 Terraform, 4.1 Main File, 4.2 Makefile, 7. Planning, 8.1 Deployment Customization, 8. Deployment (+4 more)
+
+### Community 829 - "Community 829"
+Cohesion: 0.15
+Nodes (12): ADR-001: Kyverno chart pinning, ADR-002: validate.forbid → validate.deny migration, ADR-003: nodeSelector master → control-plane, ADRs, Compatibility Matrix, How it works, How to Add a New K8s Version, How to Verify After a Chart Update (+4 more)
+
+### Community 830 - "Community 830"
+Cohesion: 0.15
+Nodes (12): 1. Wire Viper config framework, 2. Remove original Python configure scripts, 3. Add helm unittest tests to remaining security charts, 4. Eliminate 40 duplicate files, 5. Wire Terraform subprocess wrapper in external phase, 6. Add KUTTL integration test skeleton, 7. Add molecule test content, 8. Add Bubbletea TUI to status output (stretch goal) (+4 more)
+
+### Community 831 - "Community 831"
+Cohesion: 0.15
+Nodes (12): Acknowledgements, Contributing, Features, Get Started, Hardware, License, Overview, Quick Start with the CLI (+4 more)
+
+### Community 832 - "Community 832"
+Cohesion: 0.17
+Nodes (12): 10.10 Generate a new SSL certificate, 10.11 Set SELinux in permissive mode, 10.13 Generate and replace Ansible hieradata encryption keys, 10.14 Read and edit secret values generated at boot, 10.1 Disable Ansible, 10.2 Replace the Guest Account Password, 10.4 Increase the Number of Guest Accounts, 10.5 Restrict SSH Access (+4 more)
+
+### Community 833 - "Community 833"
+Cohesion: 0.17
+Nodes (11): Acceptance mapping, NVIDIA AI Platform Acceptance Completion Implementation Plan, Task 1: Plan artifact, Task 2: GPU substrate readiness granularity, Task 3: GitOps application render/apply path, Task 4: DCGM legacy demotion, Task 5: NIM and RDMA smoke scripts, Task 6: Ollama diagnostics-only default (+3 more)
+
+### Community 834 - "Community 834"
+Cohesion: 0.18
+Nodes (10): Backup, snapshots, and resource presets, CRD and operator provenance, Governance policy bundle, Managed services, Operator install-plan bundle, Production readiness gates, Tenant Kubernetes clusters, Tenant VPCs (+2 more)
+
+### Community 835 - "Community 835"
+Cohesion: 0.18
+Nodes (10): Appendix: Back up AWX using Ansible, Preparation, Prepare Backup Storage, Prepare Service Account and API Token, Requirements, Table of Contents, Use with Ansible, Use with Ansible Runner (+2 more)
+
+### Community 836 - "Community 836"
+Cohesion: 0.18
+Nodes (10): 1. Unified CLI (the biggest item), 2. Production CI/CD, 3. Clean up dead code and generated artifacts, 4. Standardize on Helm + Kustomize for all K8s manifests, 5. Security hardening baseline, 6. Comprehensive testing, 7. Provisioning state management, Execution approach (+2 more)
+
+### Community 837 - "Community 837"
+Cohesion: 0.18
+Nodes (10): Cilium + Hubble in Ubiquity, Migration from flannel + MetalLB, Rollback, Step 1: Configure k3s to disable flannel, Step 2: Install Cilium via Helm, Step 3: Apply Cilium resources, Step 4: Remove MetalLB, Step 5: Access Hubble UI (+2 more)
+
+### Community 838 - "Community 838"
+Cohesion: 0.18
+Nodes (10): API and Resource Definitions, Detaching hosts, HardwareData, HardwareData spec, Pausing reconciliation, PreprovisioningImage, PreprovisioningImage spec, PreprovisioningImage status (+2 more)
+
+### Community 839 - "Community 839"
+Cohesion: 0.18
+Nodes (10): NICo Day-2 Node Lifecycle Proof Implementation Plan, Task 1: Plan artifact and baseline discovery, Task 2: CLI surface for day-2 lifecycle verbs, Task 3: Long-term node status aggregation fields, Task 4: Multi-OS image compatibility and safe fallback, Task 5: Destructive-action safety gates at CLI boundary, Task 6: Gated live NICo controller validation script, Task 7: Virtual bare-metal validation tier hardening (+2 more)
+
+### Community 840 - "Community 840"
+Cohesion: 0.20
+Nodes (9): CLI usage, Components, GPU VM requirements, Helm usage, KubeVirt virtual machines on Ubiquity, Live proof and approval boundary, Network isolation requirements, Supported OS profiles (+1 more)
+
+### Community 841 - "Community 841"
+Cohesion: 0.20
+Nodes (10): BareMetalHost status, errorMessage, goodCredentials, hardware, hardwareProfile (status), lastUpdated, operationalStatus, poweredOn (+2 more)
+
+### Community 842 - "Community 842"
+Cohesion: 0.20
+Nodes (10): maximum, type, port, service, type, additionalProperties, properties, type (+2 more)
+
+### Community 843 - "Community 843"
+Cohesion: 0.20
+Nodes (9): Host prerequisites, Implementation shape in this repository, KVM/QEMU PXE Validation Lab for NVIDIA Infra Controller, Limitations, Proposed topology, Recommended emulator, Security rules, Ubiquity validation flow (+1 more)
+
+### Community 844 - "Community 844"
+Cohesion: 0.20
+Nodes (10): Implementation plan, Phase 0: Provenance and architectural reset, Phase 4: Wire `ubiquity up` to NICo, Phase 8: In-cluster live view, Task 0.1: Add NICo architecture ADR, Task 0.2: Deprecate BMO target docs/scripts, Task 4.1: Add deployment backend flags, Task 4.2: Add NICo readiness checks to `ubiquity health` (+2 more)
+
+### Community 845 - "Community 845"
+Cohesion: 0.20
+Nodes (9): Production CI Security Hardening Implementation Plan, Task 1: Add the plan, Task 2: SBOM and image-signing CI contracts, Task 3: Kyverno policy-test coverage, Task 4: Runtime security validation, Task 5: Network policy behavioral proof, Task 6: Helm unittest and dependency freshness, Task 7: Scheduled dependency freshness report (+1 more)
+
+### Community 846 - "Community 846"
+Cohesion: 0.20
+Nodes (9): Applying the key, Background, Create a valid SSL key, How to Change an SSL cert for your upstream git repository, OPUS actions, Requirements, Situation, Solution (+1 more)
+
+### Community 847 - "Community 847"
+Cohesion: 0.22
+Nodes (9): 6.1.2 Cloudflare API Token, 6.1 Cloudflare, 6.2 Google Cloud, 6.3.1 DNS Records, 6.3.2 SSL Certificates, 6.3 Unsupported providers, 6.4.1 How to Generate an ACME Account Private Key, 6.4 ACME Account Private Key (+1 more)
+
+### Community 848 - "Community 848"
+Cohesion: 0.22
+Nodes (9): cloud render VM disk primitive, KubeVirt GPU passthrough requirements, KubeVirt Multus network isolation, KubeVirt OS image profiles, KubeVirt VM layer, NVIDIA AI platform operations, NVIDIA AI profiles, NVIDIA component matrix (+1 more)
+
+### Community 849 - "Community 849"
+Cohesion: 0.22
+Nodes (8): Dual Network, Final Result, Hardening, Included roles, K3s Dependencies, K3s Deploy, K3s Lightweight Kubernetes made ready for production, Usage
+
+### Community 850 - "Community 850"
+Cohesion: 0.22
+Nodes (8): 1. K3s Version Upgrade & Smoke Test, 2. Multi-Version Test Harness, 3. Compatibility Matrix, 4. Templated Helm Chart Version Selection, Execution Approach, K3d Sandbox Upgrade & Chart Compatibility Goal, Success Criteria (all must be true), What To Build
+
+### Community 851 - "Community 851"
+Cohesion: 0.22
+Nodes (8): Dual Network, Final Result, Hardening, Included roles, K3s Dependencies, K3s Deploy, K3s Lightweight Kubernetes made ready for production, Usage
+
+### Community 852 - "Community 852"
+Cohesion: 0.22
+Nodes (8): Approval checklist, Definition, Example catalog entry, Failure handling, Image promotion states, Live proof and approval boundary, NVIDIA Infra Controller OS images, Required metadata
+
+### Community 853 - "Community 853"
+Cohesion: 0.22
+Nodes (8): Acceptance criteria, Correction to prior plan, Current-state assessment, Execution goal, Gaps to plug, NVIDIA Infra Controller Bare Metal Node Lifecycle Implementation Plan, Replacement map, What exists in Ubiquity today
+
+### Community 854 - "Community 854"
+Cohesion: 0.22
+Nodes (8): Cloud Live Readiness Proof Implementation Plan, Task 1: Commit the plan, Task 2: Add service-specific readiness contracts, Task 3: Require restore-drill completion/readability proof, Task 4: Add tenant cluster readiness evidence, Task 5: Add cloud readiness proof bundle script, Task 6: Integrate scripts/CI docs, Task 7: Final verification
+
+### Community 855 - "Community 855"
+Cohesion: 0.22
+Nodes (8): Configure AWX Token, Get AWX Password, Logon to AWX interface, Next-Steps, Post-installation: AWX, Setup an Inventory, Setup AWX project, Setup OAuth integration - Optional
+
+### Community 856 - "Community 856"
+Cohesion: 0.22
+Nodes (9): Authentication Problems, Common Issues, Database Recovery, Diagnostic Commands, Performance Issues, Pod Recovery, Recovery Procedures, Repository Clone Failures (+1 more)
+
+### Community 857 - "Community 857"
+Cohesion: 0.22
+Nodes (9): Authentication Problems, Common Issues, Configuration Recovery, Diagnostic Commands, Recovery Procedures, Resource Exhaustion, Service Deployment Failures, Service Recovery (+1 more)
+
+### Community 858 - "Community 858"
+Cohesion: 0.22
+Nodes (8): New Pod gets stuck in `Pending` state, Table of Contents, ✅ Take a backup of the old AWX instance, ❓ Troubleshooting, Upgrade AWX Operator and AWX, 📝 Upgrade from `0.12.0` or earlier (e.g. from `0.12.0` to `0.13.0`), 📝 Upgrade from `0.13.0` (e.g. from `0.13.0` to `0.14.0`), 📝 Upgrade from `0.14.0` or later (e.g. from `0.14.0` to `0.15.0`)
+
+### Community 859 - "Community 859"
+Cohesion: 0.25
+Nodes (8): BIOS Settings, Build sequence for HAWK systems from management node., Clone BIOS Settings from One Node to Another (post-install addition to SMG), Hardware RAID Card configuration, Hardware state, Initial System Build, Install basic image, Retrieve BIOS Settings from ASU
+
+### Community 860 - "Community 860"
+Cohesion: 0.25
+Nodes (8): Business as Usual Management, Customising Monitoring, Editing slurm.conf, Monitoring, Monitoring users, Slurm Accounting, Unbanning login node IPs (fail2ban), Work Load Management
+
+### Community 861 - "Community 861"
+Cohesion: 0.25
+Nodes (8): Disk Failure, Lustre Faults, Lustre Performance Tracking, Lustre Quota, NFS Faults, NFS/Lustre Storage Administration, NFS Quota, Pacemaker/Corosync troubleshooting
+
+### Community 862 - "Community 862"
+Cohesion: 0.43
+Nodes (7): ParseAvailableDeployments(), ParseReadyDaemonSets(), TestParseAvailableDeploymentsHandlesSingleDeploymentObject(), TestParseAvailableDeploymentsOnlyCountsAvailableReplicas(), TestParseReadyDaemonSetsHandlesSingleDaemonSetObject(), TestParseReadyDaemonSetsRequiresDesiredScheduledReadyAndAvailable(), T
+
+### Community 863 - "Community 863"
+Cohesion: 0.21
+Nodes (8): Standard_E48_v3, gpus, ram, vcpus, Standard_NC6, gpus, ram, vcpus
+
+### Community 864 - "Community 864"
+Cohesion: 0.25
+Nodes (7): App of Apps pattern, Best Practices for Deploying ArgoCD, Bootstrap, Example, Overview, Recommended Folder Structure, Single Tenancy Example
+
+### Community 865 - "Community 865"
+Cohesion: 0.25
+Nodes (8): Helm dependency freshness work, Helm plus Kustomize packaging standard, Helm unittest coverage gap, NVIDIA AI sandbox deploy, production CI/CD pipeline, security hardening baseline, ubiquity unified CLI, Project Ubiquity Next goal
+
+### Community 866 - "Community 866"
+Cohesion: 0.25
+Nodes (8): HostFirmwareSettings, HostFirmwareSettings Example, HostFirmwareSettings spec, HostFirmwareSettings status, spec settings, status conditions, status schema, status settings
+
+### Community 867 - "Community 867"
+Cohesion: 0.25
+Nodes (7): Architecture Documentation Maturity Implementation Plan, Task 1: ADR audit contract, Task 2: Networking architecture cleanup, Task 3: Helm chart reference generation, Task 4: Cloud/NVIDIA live-proof language, Task 5: Kustomize/Helm relationship docs, Task 6: Final verification
+
+### Community 868 - "Community 868"
+Cohesion: 0.25
+Nodes (7): Cloud readiness validation runbook, Fail-closed rules, Live proof and approval boundary, Live service-specific proof bundle, Readiness evidence evaluation, Required order, Script
+
+### Community 869 - "Community 869"
+Cohesion: 0.25
+Nodes (7): Creating a User in Keycloak, Creating Client in Keycloak, Creating Client Roles, Creating Realm in Keycloak, Creating Realm Roles, Creating Roles in Keycloak, Keycloak – Create Realm, Client, Roles, and User
+
+### Community 870 - "Community 870"
+Cohesion: 0.38
+Nodes (7): Alertmanager configuration, Grafana dashboard automation, Kube-Prometheus stack guide, Loki-Promtail guide, Loki volume scaling procedure, Prometheus volume scaling procedure, provisioning observability and state
+
+### Community 871 - "Community 871"
+Cohesion: 0.29
+Nodes (7): 4.7.1 tags, 4.7.2 Optional attributes, 4.7.3 Post build modification effect, 4.7 instances, AWS, Azure, GCP
+
+### Community 872 - "Community 872"
+Cohesion: 0.29
+Nodes (7): minimum, type, minimum, gpuLimit, replicas, minimum, type
+
+### Community 873 - "Community 873"
+Cohesion: 0.29
+Nodes (7): additionalProperties, properties, type, image, repository, minLength, type
+
+### Community 874 - "Community 874"
+Cohesion: 0.29
+Nodes (6): AIStore evaluation for NVIDIA AI platform profiles, AIStore readiness evidence, Implementation notes for Ubiquity, Recommended Ubiquity policy, What AIStore does not replace, Why AIStore is a better AI storage option than Longhorn for these paths
+
+### Community 875 - "Community 875"
+Cohesion: 0.29
+Nodes (6): Bootstrap to NICo boundary, Boundary definition, Handoff criteria, Ownership rule, Recommended handoff record, Rollback
+
+### Community 876 - "Community 876"
+Cohesion: 0.29
+Nodes (6): Components, Lifecycle flow, Migration posture, NVIDIA Infra Controller node lifecycle, Role in Ubiquity, Vocabulary mapping
+
+### Community 877 - "Community 877"
+Cohesion: 0.29
+Nodes (6): Core Services Capability Parity Implementation Plan, Task 1: Add executable capability contract, Task 2: Implement core-services GitOps orchestration chart, Task 3: Add CI-safe proof script, Task 4: Document local architecture and excluded capabilities, Task 5: Final verification and graph update
+
+### Community 878 - "Community 878"
+Cohesion: 0.29
+Nodes (6): Additional Containers, Air gapped Network Deployment, Default Configuration (Preferred), Mirroring containers, Supported Air Gapped Configurations, System Containers
+
+### Community 879 - "Community 879"
+Cohesion: 0.33
+Nodes (5): Backup safety, Core services architecture, Excluded capabilities, Included capabilities, Validation
+
+### Community 880 - "Community 880"
+Cohesion: 0.33
+Nodes (6): Ubiquity cloud services catalog, governance policy bundle, managed service catalog, operator/CRD readiness contract, operator install-plan bundle, tenant VPC primitive
+
+### Community 881 - "Community 881"
+Cohesion: 0.33
+Nodes (6): Cloudflare Tunnel ingress exposure, backup and restore-drill primitives, production readiness checklist, supported cloud provider access, Ubiquity documentation overview, Velero on-prem backup tutorial
+
+### Community 882 - "Community 882"
+Cohesion: 0.33
+Nodes (5): Alternatives, Cloudflare, Create credentials, Create Terraform workspace, External resources
+
+### Community 883 - "Community 883"
+Cohesion: 0.33
+Nodes (5): Configuration, Frequently Asked Questions, General, Installation, Troubleshooting
+
+### Community 884 - "Community 884"
+Cohesion: 0.33
+Nodes (6): FirmwareSchema, FirmwareSchema Example, FirmwareSchema spec, hardwareModel, hardwareVendor, spec schema
+
+### Community 885 - "Community 885"
+Cohesion: 0.33
+Nodes (5): Preconditions, Procedure, Rollback, Runbook: NICo bootstrap, Validation
+
+### Community 886 - "Community 886"
+Cohesion: 0.40
+Nodes (5): Ethernet port Allocation, Ethernet Port connections on physical nodes, IP Address Assignment, IP Numbering Scheme, Variable Subnet Definitions:
+
+### Community 887 - "Community 887"
+Cohesion: 0.40
+Nodes (4): An example, Resource per provider, Ubiquity Terraform Structure, Using reference design to extend for a new cloud provider
+
+### Community 888 - "Community 888"
+Cohesion: 0.40
+Nodes (5): 10.9.1 Define a list of ip addresses that can never be banned, 10.9.2 Remove fail2ban ssh-route jail, 10.9.3 Unban ip addresses, 10.9.4 Disable fail2ban, 10.9 Dealing with banned ip addresses (fail2ban)
+
+### Community 889 - "Community 889"
+Cohesion: 0.40
+Nodes (4): ADR-009: Use Cilium + Hubble for advanced networking and observability, Consequences, Context, Decision
+
+### Community 890 - "Community 890"
+Cohesion: 0.40
+Nodes (4): Admin credentials, Backup secrets, Next steps, Post-installation
+
+### Community 891 - "Community 891"
+Cohesion: 0.40
+Nodes (4): How it works, How to open it, Known issues, OPUS container
+
+### Community 892 - "Community 892"
+Cohesion: 0.40
+Nodes (4): Access Ubiquity, Configure Ubiquity, Getting started, Pick method of installation
+
+### Community 893 - "Community 893"
+Cohesion: 0.40
+Nodes (4): Features, Getting Started, Quick Links, Ubiquity
+
+### Community 894 - "Community 894"
+Cohesion: 0.40
+Nodes (4): How it works, How to open it, Known issues, Opus container
+
+### Community 895 - "Community 895"
+Cohesion: 0.40
+Nodes (4): NVIDIA Infra Controller prerequisites, Required services, Safety defaults, Validation
+
+### Community 896 - "Community 896"
+Cohesion: 0.40
+Nodes (5): Phase 10: Validation and CI, Task 10.1: Unit tests, Task 10.2: Render tests, Task 10.3: Mock NICo E2E, Task 10.4: Real hardware E2E
+
+### Community 897 - "Community 897"
+Cohesion: 0.40
+Nodes (5): Phase 6: Safe lifecycle operations, Task 6.1: Implement add/provision, Task 6.2: Implement remove/release, Task 6.3: Implement reinstall/reimage, Task 6.4: Implement power operations
+
+### Community 898 - "Community 898"
+Cohesion: 0.40
+Nodes (5): Phase 9: Documentation overhaul, Task 9.1: Create admin guide, Task 9.2: Create OS image guide, Task 9.3: Create lifecycle diagrams, Task 9.4: Create runbooks
+
+### Community 899 - "Community 899"
+Cohesion: 0.40
+Nodes (4): CNI Support for MPI over InfiniBand, Howto enable IPoIB in Ubiquity, Required 3rd party tools, Rootless applications and Memlock rlimit when Infiniband
+
+### Community 900 - "Community 900"
+Cohesion: 0.40
+Nodes (4): Admin credentials, Backup secrets, Next steps, Post-installation
+
+### Community 901 - "Community 901"
+Cohesion: 0.40
+Nodes (4): Helm Chart Reference, Kustomize composition roots, Platform charts, System charts
+
+### Community 902 - "Community 902"
+Cohesion: 0.40
+Nodes (5): Access Tokens, Automated Configuration, OAuth Applications, Organization Setup, Repository Migration
+
+### Community 903 - "Community 903"
+Cohesion: 0.40
+Nodes (5): HPC Integration, Integration with Ubiquity Components, Keycloak Authentication, Storage Integration, Vault Integration
+
+### Community 904 - "Community 904"
+Cohesion: 0.40
+Nodes (4): At your domain registrar (recommended), In your router, Manual DNS setup, Use [nip.io](https://nip.io)
+
+### Community 905 - "Community 905"
+Cohesion: 0.50
+Nodes (3): Managed hosting for research institutions, Support, Support and sponsored development
+
+### Community 906 - "Community 906"
+Cohesion: 0.50
+Nodes (4): Administrator users, The Lustre Storage Subsystem, The NFS Storage Subsystem, The Storage Scale Storage Subsystem
+
+### Community 907 - "Community 907"
+Cohesion: 0.50
+Nodes (3): Here is the explanation for the code above:, Ingress Steering and sticky sessions, To test the sticky session using the curl command. Here's the command that we're going to use:
+
+### Community 908 - "Community 908"
+Cohesion: 0.50
+Nodes (4): Standard_D11, gpus, ram, vcpus
+
+### Community 909 - "Community 909"
+Cohesion: 0.50
+Nodes (4): Standard_D11_v2, gpus, ram, vcpus
+
+### Community 910 - "Community 910"
+Cohesion: 0.50
+Nodes (4): Standard_D12, gpus, ram, vcpus
+
+### Community 911 - "Community 911"
+Cohesion: 0.50
+Nodes (4): Standard_D12_v2, gpus, ram, vcpus
+
+### Community 912 - "Community 912"
+Cohesion: 0.50
+Nodes (4): Standard_D13, gpus, ram, vcpus
+
+### Community 913 - "Community 913"
+Cohesion: 0.50
+Nodes (4): Standard_D14, gpus, ram, vcpus
+
+### Community 914 - "Community 914"
+Cohesion: 0.50
+Nodes (4): Standard_D14_v2, gpus, ram, vcpus
+
+### Community 915 - "Community 915"
+Cohesion: 0.50
+Nodes (4): Standard_D15_v2, gpus, ram, vcpus
+
+### Community 916 - "Community 916"
+Cohesion: 0.50
+Nodes (4): Standard_D16s_v3, gpus, ram, vcpus
+
+### Community 917 - "Community 917"
+Cohesion: 0.50
+Nodes (4): Standard_D1_v2, gpus, ram, vcpus
+
+### Community 918 - "Community 918"
+Cohesion: 0.50
+Nodes (4): Standard_D2, gpus, ram, vcpus
+
+### Community 919 - "Community 919"
+Cohesion: 0.50
+Nodes (4): Standard_D2_v2, gpus, ram, vcpus
+
+### Community 920 - "Community 920"
+Cohesion: 0.50
+Nodes (4): Standard_D3, gpus, ram, vcpus
+
+### Community 921 - "Community 921"
+Cohesion: 0.50
+Nodes (4): Standard_D32as_v4, gpus, ram, vcpus
+
+### Community 922 - "Community 922"
+Cohesion: 0.50
+Nodes (4): Standard_D32ds_v4, gpus, ram, vcpus
+
+### Community 923 - "Community 923"
+Cohesion: 0.50
+Nodes (4): Standard_D32s_v3, gpus, ram, vcpus
+
+### Community 924 - "Community 924"
+Cohesion: 0.50
+Nodes (4): Standard_D3_v2, gpus, ram, vcpus
+
+### Community 925 - "Community 925"
+Cohesion: 0.50
+Nodes (4): Standard_D48as_v4, gpus, ram, vcpus
+
+### Community 926 - "Community 926"
+Cohesion: 0.50
+Nodes (4): Standard_D4_v2, gpus, ram, vcpus
+
+### Community 927 - "Community 927"
+Cohesion: 0.50
+Nodes (4): Standard_D4_v3, gpus, ram, vcpus
+
+### Community 928 - "Community 928"
+Cohesion: 0.50
+Nodes (4): Standard_D4as_v4, gpus, ram, vcpus
+
+### Community 929 - "Community 929"
+Cohesion: 0.50
+Nodes (4): Standard_D4s_v3, gpus, ram, vcpus
+
+### Community 930 - "Community 930"
+Cohesion: 0.50
+Nodes (4): Standard_D64as_v4, gpus, ram, vcpus
+
+### Community 931 - "Community 931"
+Cohesion: 0.50
+Nodes (4): Standard_D64ds_v4, gpus, ram, vcpus
+
+### Community 932 - "Community 932"
+Cohesion: 0.50
+Nodes (4): Standard_D64s_v3, gpus, ram, vcpus
+
+### Community 933 - "Community 933"
+Cohesion: 0.50
+Nodes (4): Standard_D8_v3, gpus, ram, vcpus
+
+### Community 934 - "Community 934"
+Cohesion: 0.50
+Nodes (4): Standard_D8as_v4, gpus, ram, vcpus
+
+### Community 935 - "Community 935"
+Cohesion: 0.50
+Nodes (4): Standard_D8ds_v4, gpus, ram, vcpus
+
+### Community 936 - "Community 936"
+Cohesion: 0.50
+Nodes (4): Standard_D8s_v3, gpus, ram, vcpus
+
+### Community 937 - "Community 937"
+Cohesion: 0.50
+Nodes (4): Standard_DS11_v2, gpus, ram, vcpus
+
+### Community 938 - "Community 938"
+Cohesion: 0.50
+Nodes (4): Standard_DS12_v2, gpus, ram, vcpus
+
+### Community 939 - "Community 939"
+Cohesion: 0.50
+Nodes (4): Standard_DS13_v2, gpus, ram, vcpus
+
+### Community 940 - "Community 940"
+Cohesion: 0.50
+Nodes (4): Standard_DS14_v2, gpus, ram, vcpus
+
+### Community 941 - "Community 941"
+Cohesion: 0.50
+Nodes (4): Standard_DS15_v2, gpus, ram, vcpus
+
+### Community 942 - "Community 942"
+Cohesion: 0.50
+Nodes (4): Standard_DS1_v2, gpus, ram, vcpus
+
+### Community 943 - "Community 943"
+Cohesion: 0.50
+Nodes (4): Standard_DS2_v2, gpus, ram, vcpus
+
+### Community 944 - "Community 944"
+Cohesion: 0.50
+Nodes (4): Standard_DS3_v2, gpus, ram, vcpus
+
+### Community 945 - "Community 945"
+Cohesion: 0.50
+Nodes (4): Standard_DS4_v2, gpus, ram, vcpus
+
+### Community 946 - "Community 946"
+Cohesion: 0.50
+Nodes (4): Standard_DS5_v2, gpus, ram, vcpus
+
+### Community 947 - "Community 947"
+Cohesion: 0.50
+Nodes (4): Standard_E16a_v4, gpus, ram, vcpus
+
+### Community 948 - "Community 948"
+Cohesion: 0.50
+Nodes (4): Standard_E2_v3, gpus, ram, vcpus
+
+### Community 949 - "Community 949"
+Cohesion: 0.50
+Nodes (4): Standard_E2a_v4, gpus, ram, vcpus
+
+### Community 950 - "Community 950"
+Cohesion: 0.50
+Nodes (4): Standard_E32a_v4, gpus, ram, vcpus
+
+### Community 951 - "Community 951"
+Cohesion: 0.50
+Nodes (4): Standard_E32s_v3, gpus, ram, vcpus
+
+### Community 952 - "Community 952"
+Cohesion: 0.50
+Nodes (4): Standard_E48a_v4, gpus, ram, vcpus
+
+### Community 953 - "Community 953"
+Cohesion: 0.50
+Nodes (4): Standard_E48s_v3, gpus, ram, vcpus
+
+### Community 954 - "Community 954"
+Cohesion: 0.50
+Nodes (4): Standard_E4_v3, gpus, ram, vcpus
+
+### Community 955 - "Community 955"
+Cohesion: 0.50
+Nodes (4): Standard_E4a_v4, gpus, ram, vcpus
+
+### Community 956 - "Community 956"
+Cohesion: 0.50
+Nodes (4): Standard_E64_v3, gpus, ram, vcpus
+
+### Community 957 - "Community 957"
+Cohesion: 0.50
+Nodes (4): Standard_E64a_v4, gpus, ram, vcpus
+
+### Community 958 - "Community 958"
+Cohesion: 0.50
+Nodes (4): Standard_E64is_v3, gpus, ram, vcpus
+
+### Community 959 - "Community 959"
+Cohesion: 0.50
+Nodes (4): Standard_E64s_v3, gpus, ram, vcpus
+
+### Community 960 - "Community 960"
+Cohesion: 0.50
+Nodes (4): Standard_E80is_v4, gpus, ram, vcpus
+
+### Community 961 - "Community 961"
+Cohesion: 0.50
+Nodes (4): Standard_E8_v3, gpus, ram, vcpus
+
+### Community 962 - "Community 962"
+Cohesion: 0.50
+Nodes (4): Standard_E8s_v3, gpus, ram, vcpus
+
+### Community 963 - "Community 963"
+Cohesion: 0.50
+Nodes (4): Standard_E96a_v4, gpus, ram, vcpus
+
+### Community 964 - "Community 964"
+Cohesion: 0.50
+Nodes (4): Standard_F2s_v2, gpus, ram, vcpus
+
+### Community 965 - "Community 965"
+Cohesion: 0.50
+Nodes (4): Standard_F32s_v2, gpus, ram, vcpus
+
+### Community 966 - "Community 966"
+Cohesion: 0.50
+Nodes (4): Standard_F48s_v2, gpus, ram, vcpus
+
+### Community 967 - "Community 967"
+Cohesion: 0.50
+Nodes (4): Standard_F72s_v2, gpus, ram, vcpus
+
+### Community 968 - "Community 968"
+Cohesion: 0.50
+Nodes (4): Standard_F8s_v2, gpus, ram, vcpus
+
+### Community 969 - "Community 969"
+Cohesion: 0.50
+Nodes (4): Standard_H16m, gpus, ram, vcpus
+
+### Community 970 - "Community 970"
+Cohesion: 0.50
+Nodes (4): Standard_H16mr, gpus, ram, vcpus
+
+### Community 971 - "Community 971"
+Cohesion: 0.50
+Nodes (4): Standard_H16r, gpus, ram, vcpus
+
+### Community 972 - "Community 972"
+Cohesion: 0.50
+Nodes (4): Standard_H8, gpus, ram, vcpus
+
+### Community 973 - "Community 973"
+Cohesion: 0.50
+Nodes (4): Standard_HB120rs_v2, gpus, ram, vcpus
+
+### Community 974 - "Community 974"
+Cohesion: 0.50
+Nodes (4): Standard_M128, gpus, ram, vcpus
+
+### Community 975 - "Community 975"
+Cohesion: 0.50
+Nodes (4): Standard_M128m, gpus, ram, vcpus
+
+### Community 976 - "Community 976"
+Cohesion: 0.50
+Nodes (4): Standard_M128s, gpus, ram, vcpus
+
+### Community 977 - "Community 977"
+Cohesion: 0.50
+Nodes (4): Standard_M16ms, gpus, ram, vcpus
+
+### Community 978 - "Community 978"
+Cohesion: 0.50
+Nodes (4): Standard_M32ms, gpus, ram, vcpus
+
+### Community 979 - "Community 979"
+Cohesion: 0.50
+Nodes (4): Standard_M32ts, gpus, ram, vcpus
+
+### Community 980 - "Community 980"
+Cohesion: 0.50
+Nodes (4): Standard_M64m, gpus, ram, vcpus
+
+### Community 981 - "Community 981"
+Cohesion: 0.50
+Nodes (4): Standard_M64ms, gpus, ram, vcpus
+
+### Community 982 - "Community 982"
+Cohesion: 0.50
+Nodes (4): Standard_M64s, gpus, ram, vcpus
+
+### Community 983 - "Community 983"
+Cohesion: 0.50
+Nodes (4): Standard_M8ms, gpus, ram, vcpus
+
+### Community 984 - "Community 984"
+Cohesion: 0.50
+Nodes (4): Standard_NC12, gpus, ram, vcpus
+
+### Community 985 - "Community 985"
+Cohesion: 0.50
+Nodes (4): Standard_NC12_Promo, gpus, ram, vcpus
+
+### Community 986 - "Community 986"
+Cohesion: 0.50
+Nodes (4): Standard_NC12s_v3, gpus, ram, vcpus
+
+### Community 987 - "Community 987"
+Cohesion: 0.50
+Nodes (4): Standard_NC16as_T4_v3, gpus, ram, vcpus
+
+### Community 988 - "Community 988"
+Cohesion: 0.50
+Nodes (4): Standard_NC24, gpus, ram, vcpus
+
+### Community 989 - "Community 989"
+Cohesion: 0.50
+Nodes (4): Standard_NC24r_Promo, gpus, ram, vcpus
+
+### Community 990 - "Community 990"
+Cohesion: 0.50
+Nodes (4): Standard_NC24s_v3, gpus, ram, vcpus
+
+### Community 991 - "Community 991"
+Cohesion: 0.50
+Nodes (4): Standard_NC4as_T4_v3, gpus, ram, vcpus
+
+### Community 992 - "Community 992"
+Cohesion: 0.50
+Nodes (4): Standard_NC64as_T4_v3, gpus, ram, vcpus
+
+### Community 993 - "Community 993"
+Cohesion: 0.50
+Nodes (4): Standard_NC6_Promo, gpus, ram, vcpus
+
+### Community 994 - "Community 994"
+Cohesion: 0.50
+Nodes (4): Standard_NC8as_T4_v3, gpus, ram, vcpus
+
+### Community 995 - "Community 995"
+Cohesion: 0.50
+Nodes (4): Standard_NV24, gpus, ram, vcpus
+
+### Community 996 - "Community 996"
+Cohesion: 0.50
+Nodes (4): 10.12.1 Prepare the volume for cloning, 10.12.2 Create the image, 10.12.3 Configure Ubiquity Terraform code to use the new image, 10.12 Create a compute node image
+
+### Community 997 - "Community 997"
+Cohesion: 0.50
+Nodes (4): 10.3.1 hieradata, 10.3.2 Command-Line, 10.3.3 Mokey, 10.3 Add LDAP Users
+
+### Community 998 - "Community 998"
+Cohesion: 0.50
+Nodes (4): 4.6.1 AWS, 4.6.2 Microsoft Azure, 4.6.3 OpenStack, 4.6 image
+
+### Community 999 - "Community 999"
+Cohesion: 0.50
+Nodes (3): Devcontainer, Usage, What's included
+
+### Community 1000 - "Community 1000"
+Cohesion: 0.50
+Nodes (4): Bootstrap boundary, Day-2 lifecycle through NICo, Live node view, Target operating model
+
+### Community 1001 - "Community 1001"
+Cohesion: 0.50
+Nodes (4): Phase 1: Add NICo integration package, Task 1.1: Add NICo typed config, Task 1.2: Add NICo REST client interface, Task 1.3: Add `nicocli` adapter
+
+### Community 1002 - "Community 1002"
+Cohesion: 0.50
+Nodes (4): Phase 2: Package NICo through Ubiquity GitOps, Task 2.1: Add NICo Core Helm wrapper, Task 2.2: Add NICo REST Helm wrapper, Task 2.3: Add NICo prerequisites profile
+
+### Community 1003 - "Community 1003"
+Cohesion: 0.50
+Nodes (4): Phase 3: Declarative inventory and multi-OS image catalog, Task 3.1: Add Ubiquity NodeInventory and OSImage model, Task 3.2: Render NICo Operating System objects, Task 3.3: Generate bootstrap fallback inventory from same source
+
+### Community 1004 - "Community 1004"
+Cohesion: 0.50
+Nodes (4): Phase 5: Implement `ubiquity nodes` using NICo APIs, Task 5.1: Add node status aggregation model, Task 5.2: Add CLI commands, Task 5.3: Implement task polling
+
+### Community 1005 - "Community 1005"
+Cohesion: 0.50
+Nodes (4): Phase 7: NVIDIA AI integration after NICo provisioning, Task 7.1: Correlate NICo GPU stats with Kubernetes resources, Task 7.2: Use `NVIDIA/k8s-launch-kit` for network/RDMA discovery where available, Task 7.3: Add NIM/AI post-provision smoke hooks
+
+### Community 1006 - "Community 1006"
+Cohesion: 0.50
+Nodes (4): Access Control, Data Protection, Network Security, Security Considerations
+
+### Community 1007 - "Community 1007"
+Cohesion: 0.50
+Nodes (4): Accessing Gitea, Admin Credentials, Git Access, Web Interface
+
+### Community 1008 - "Community 1008"
+Cohesion: 0.50
+Nodes (4): Advanced Configuration, Custom Themes, Federation, Hook Scripts
+
+### Community 1009 - "Community 1009"
+Cohesion: 0.50
+Nodes (4): ArgoCD GitOps, CI/CD Integration, Integration with Ubiquity Components, Secret Management
+
+### Community 1010 - "Community 1010"
+Cohesion: 0.50
+Nodes (4): Backup and Recovery, Creating Repositories, Repository Management, Repository Permissions
+
+### Community 1011 - "Community 1011"
+Cohesion: 0.50
+Nodes (4): Backup Strategy, Best Practices, Performance Optimization, Repository Organization
+
+### Community 1012 - "Community 1012"
+Cohesion: 0.50
+Nodes (4): Configuration, Default Settings, Ingress Configuration, Storage Configuration
+
+### Community 1013 - "Community 1013"
+Cohesion: 0.50
+Nodes (4): Database Maintenance, Health Monitoring, Log Analysis, Monitoring and Maintenance
+
+### Community 1014 - "Community 1014"
+Cohesion: 0.50
+Nodes (4): Access Control, Container Security, Data Protection, Security Considerations
+
+### Community 1015 - "Community 1015"
+Cohesion: 0.50
+Nodes (4): Accessing Onyxia, Authentication Flow, User Dashboard Features, Web Interface
+
+### Community 1016 - "Community 1016"
+Cohesion: 0.50
+Nodes (4): Authentication Configuration, Configuration, Default Settings, Ingress Configuration
+
+### Community 1017 - "Community 1017"
+Cohesion: 0.50
+Nodes (4): Automatic Namespace Creation, Quota Configuration, Resource Isolation, User Namespace Management
+
+### Community 1018 - "Community 1018"
+Cohesion: 0.50
+Nodes (4): Best Practices, Performance Optimization, Service Management, User Training
+
+### Community 1019 - "Community 1019"
+Cohesion: 0.50
+Nodes (4): Integration Examples, Jupyter Notebook with SLURM, RStudio with Shared Storage, Spark Cluster
+
+### Community 1020 - "Community 1020"
+Cohesion: 0.50
+Nodes (4): Launching Services, Persistent Data, Service Deployment and Management, Service Lifecycle Management
+
+### Community 1021 - "Community 1021"
+Cohesion: 0.50
+Nodes (3): Appendix: Gather bundled AWX version from AWX Operator, Default version mapping between AWX Operator and AWX, Version Mapping between AWX Operator and AWX
+
+### Community 1022 - "Community 1022"
+Cohesion: 0.50
+Nodes (3): Add new nodes to control plane, Add or remove nodes, Remove a node
+
+### Community 1023 - "Community 1023"
+Cohesion: 0.50
+Nodes (3): Disable automatic upgrade for OS and k3s, Reduce Longhorn replica count, Single node cluster adjustments
+
+### Community 1024 - "Community 1024"
+Cohesion: 0.50
+Nodes (3): Deployment, Local development, Updating documentation (this website)
+
+### Community 1025 - "Community 1025"
+Cohesion: 0.67
+Nodes (3): Access methods, System management, Test/Dev
+
+### Community 1031 - "Community 1031"
+Cohesion: 0.67
+Nodes (3): Architecture, Core Components, High Availability Configuration
+
+### Community 1032 - "Community 1032"
+Cohesion: 0.67
+Nodes (3): ArgoCD Integration, Integration Examples, Webhook Configuration
+
+### Community 1033 - "Community 1033"
+Cohesion: 0.67
+Nodes (3): Exporting Data, Importing Existing Repositories, Migration Procedures
+
+### Community 1034 - "Community 1034"
+Cohesion: 0.67
+Nodes (3): Advanced Configuration, Custom Service Catalogs, Integration Extensions
+
+### Community 1035 - "Community 1035"
+Cohesion: 0.67
+Nodes (3): Architecture, Core Components, High Availability Configuration
+
+### Community 1036 - "Community 1036"
+Cohesion: 0.67
+Nodes (3): Available Catalogs, Common Applications, Service Catalogs
+
+### Community 1037 - "Community 1037"
+Cohesion: 0.67
+Nodes (3): Log Management, Monitoring and Administration, Service Monitoring
+
+### Community 1038 - "Community 1038"
+Cohesion: 0.67
+Nodes (3): Migration and Backup, Platform Migration, User Data Migration
+
 ## Ambiguous Edges - Review These
-- `Bug Report Template` → `Vulnerability Reporting and Disclosure Workflow`  [AMBIGUOUS]
+- `Vulnerability Reporting and Disclosure Workflow` → `Bug Report Template`  [AMBIGUOUS]
   .github/ISSUE_TEMPLATE/bug_report.md · relation: conceptually_related_to
 
 ## Knowledge Gaps
-- **4096 isolated node(s):** `name`, `image`, `ghcr.io/devcontainers/features/docker-in-docker:2`, `ghcr.io/devcontainers/features/kubectl:1`, `ghcr.io/devcontainers/features/helm:1` (+4091 more)
+- **5892 isolated node(s):** `name`, `image`, `ghcr.io/devcontainers/features/docker-in-docker:2`, `ghcr.io/devcontainers/features/kubectl:1`, `ghcr.io/devcontainers/features/helm:1` (+5887 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **150 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **181 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **What is the exact relationship between `Bug Report Template` and `Vulnerability Reporting and Disclosure Workflow`?**
+- **What is the exact relationship between `Vulnerability Reporting and Disclosure Workflow` and `Bug Report Template`?**
   _Edge tagged AMBIGUOUS (relation: conceptually_related_to) - confidence is low._
-- **Why does `collectLiveNodeStatuses()` connect `Community 2` to `Community 12`?**
-  _High betweenness centrality (0.000) - this node is a cross-community bridge._
+- **Why does `ParseKubernetesNodeEvidence()` connect `Community 67` to `Community 2`, `Community 389`, `Community 12`, `Community 76`, `Community 77`?**
+  _High betweenness centrality (0.004) - this node is a cross-community bridge._
+- **Why does `renderCloudResource()` connect `Community 41` to `Community 99`, `Community 5`, `Community 9`, `Community 311`, `Community 312`, `Community 57`, `Community 31`, `Community 95`?**
+  _High betweenness centrality (0.004) - this node is a cross-community bridge._
+- **Why does `atoi()` connect `Community 5` to `Community 67`, `Community 77`, `Community 389`?**
+  _High betweenness centrality (0.004) - this node is a cross-community bridge._
+- **Are the 33 inferred relationships involving `findCommand()` (e.g. with `TestAIPlatformApplyCanMutateWithServerSideApply()` and `TestAIPlatformCmdRegistered()`) actually correct?**
+  _`findCommand()` has 33 INFERRED edges - model-reasoned connections that need verification._
+- **Are the 13 inferred relationships involving `EvaluateReadiness()` (e.g. with `TestEvaluateReadinessPassesWithCompleteEvidence()` and `TestCloudReadinessPassesWhenRequiredSmokeTestsPass()`) actually correct?**
+  _`EvaluateReadiness()` has 13 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `name`, `image`, `ghcr.io/devcontainers/features/docker-in-docker:2` to the rest of the system?**
-  _4101 weakly-connected nodes found - possible documentation gaps or missing edges._
-- **Should `Community 0` be split into smaller, more focused modules?**
-  _Cohesion score 0.02127659574468085 - nodes in this community are weakly interconnected._
-- **Should `Community 1` be split into smaller, more focused modules?**
-  _Cohesion score 0.0576592082616179 - nodes in this community are weakly interconnected._
-- **Should `Community 2` be split into smaller, more focused modules?**
-  _Cohesion score 0.0675990675990676 - nodes in this community are weakly interconnected._
-- **Should `Community 3` be split into smaller, more focused modules?**
-  _Cohesion score 0.06050228310502283 - nodes in this community are weakly interconnected._
+  _5897 weakly-connected nodes found - possible documentation gaps or missing edges._
