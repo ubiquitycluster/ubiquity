@@ -6053,5 +6053,10 @@
     "mtime": 1781089628.1694791,
     "ast_hash": "c350bde783215e94f5f24e16bde926e6",
     "semantic_hash": ""
+  },
+  "cmd/ubiquity/main_test.go": {
+    "mtime": 1781089748.655416,
+    "ast_hash": "2bf58101689138a20a3561f7f72dc3f1",
+    "semantic_hash": ""
   }
 }
