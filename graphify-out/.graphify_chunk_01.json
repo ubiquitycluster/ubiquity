@@ -1,0 +1,822 @@
+{
+  "nodes": [
+    {
+      "id": "goreleaser_release_config",
+      "label": "GoReleaser Release Configuration",
+      "file_type": "code",
+      "source_file": ".goreleaser.yaml",
+      "source_location": "lines 1-34",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "goreleaser_cli_build",
+      "label": "Ubiquity CLI Release Build",
+      "file_type": "concept",
+      "source_file": ".goreleaser.yaml",
+      "source_location": "lines 6-19",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "pre_commit_config_quality_gates",
+      "label": "Pre-commit Quality Gates",
+      "file_type": "code",
+      "source_file": ".pre-commit-config.yaml",
+      "source_location": "lines 7-64",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "pre_commit_config_security_hooks",
+      "label": "Pre-commit Security Hooks",
+      "file_type": "concept",
+      "source_file": ".pre-commit-config.yaml",
+      "source_location": "lines 17,55-58",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "sops_sops_secret_policy",
+      "label": "SOPS Secret Encryption Policy",
+      "file_type": "code",
+      "source_file": ".sops.yaml",
+      "source_location": "lines 1-3",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "agents_graphify_usage_rules",
+      "label": "Graphify Usage Rules",
+      "file_type": "document",
+      "source_file": "AGENTS.md",
+      "source_location": "lines 1-13",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "cla_contributor_license_agreement",
+      "label": "Contributor License Agreement",
+      "file_type": "document",
+      "source_file": "CLA.md",
+      "source_location": "lines 1-31",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "cla_copyright_patent_grants",
+      "label": "Copyright and Patent License Grants",
+      "file_type": "concept",
+      "source_file": "CLA.md",
+      "source_location": "lines 13-19",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "contributing_contribution_workflow",
+      "label": "Contribution Workflow",
+      "file_type": "document",
+      "source_file": "CONTRIBUTING.md",
+      "source_location": "lines 1-285",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "contributing_dco_signoff",
+      "label": "Developer Certificate of Origin Sign-off",
+      "file_type": "concept",
+      "source_file": "CONTRIBUTING.md",
+      "source_location": "lines 68-185",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "contributing_versioning_policy",
+      "label": "Ubiquity Versioning and Branching Policy",
+      "file_type": "concept",
+      "source_file": "CONTRIBUTING.md",
+      "source_location": "lines 84-126,212-281",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "deep_assessment_deep_assessment",
+      "label": "Deep Assessment of Ubiquity Cluster",
+      "file_type": "document",
+      "source_file": "DEEP-ASSESSMENT.md",
+      "source_location": "lines 1-282",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "deep_assessment_security_gaps",
+      "label": "Security Gaps and Fixes",
+      "file_type": "rationale",
+      "source_file": "DEEP-ASSESSMENT.md",
+      "source_location": "lines 15-43",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "deep_assessment_documentation_adrs",
+      "label": "Documentation and ADR Gaps",
+      "file_type": "rationale",
+      "source_file": "DEEP-ASSESSMENT.md",
+      "source_location": "lines 46-87",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "deep_assessment_architecture_gaps",
+      "label": "Architecture Gaps and App Template Recommendation",
+      "file_type": "rationale",
+      "source_file": "DEEP-ASSESSMENT.md",
+      "source_location": "lines 90-116",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "previous_license_functional_source_license",
+      "label": "Functional Source License Previous License",
+      "file_type": "document",
+      "source_file": "PREVIOUS_LICENSE.md",
+      "source_location": "lines 1-110",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "previous_license_apache_change_license",
+      "label": "Apache 2.0 Change License Mechanism",
+      "file_type": "concept",
+      "source_file": "PREVIOUS_LICENSE.md",
+      "source_location": "lines 93-110",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "readme_ubiquity_project",
+      "label": "Ubiquity Project",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "lines 1-312",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "readme_hpc_cluster_framework",
+      "label": "HPC Cluster Framework",
+      "file_type": "concept",
+      "source_file": "README.md",
+      "source_location": "lines 12-21,62-93",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "readme_gitops_iac",
+      "label": "GitOps and Infrastructure as Code Automation",
+      "file_type": "concept",
+      "source_file": "README.md",
+      "source_location": "line 12",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "readme_cli_quick_start",
+      "label": "CLI Quick Start Workflow",
+      "file_type": "concept",
+      "source_file": "README.md",
+      "source_location": "lines 248-260",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "readme_technology_stack",
+      "label": "Ubiquity Technology Stack",
+      "file_type": "concept",
+      "source_file": "README.md",
+      "source_location": "lines 128-246",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "security_security_policy",
+      "label": "Security Policy",
+      "file_type": "document",
+      "source_file": "SECURITY.md",
+      "source_location": "lines 1-20",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "security_vulnerability_disclosure",
+      "label": "Vulnerability Reporting and Disclosure Workflow",
+      "file_type": "concept",
+      "source_file": "SECURITY.md",
+      "source_location": "lines 9-20",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "addworkers_k3s_worker_join_playbook",
+      "label": "K3s Worker Join Playbook",
+      "file_type": "code",
+      "source_file": "addworkers.yaml",
+      "source_location": "lines 1-39",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "addworkers_k3s_agent_installation",
+      "label": "K3s Agent Installation Task",
+      "file_type": "concept",
+      "source_file": "addworkers.yaml",
+      "source_location": "lines 14-38",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "mkdocs_documentation_site",
+      "label": "MkDocs Documentation Site",
+      "file_type": "code",
+      "source_file": "mkdocs.yml",
+      "source_location": "lines 19-161",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "mkdocs_admin_guide_navigation",
+      "label": "Admin Guide Navigation",
+      "file_type": "concept",
+      "source_file": "mkdocs.yml",
+      "source_location": "lines 67-143",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "requirements_docs_python_dependencies",
+      "label": "Documentation Python Dependencies",
+      "file_type": "code",
+      "source_file": "requirements.txt",
+      "source_location": "lines 1-3",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "devcontainer_readme_devcontainer_environment",
+      "label": "Devcontainer Development Environment",
+      "file_type": "document",
+      "source_file": ".devcontainer/README.md",
+      "source_location": "lines 1-22",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "github_dependabot_dependency_updates",
+      "label": "Dependabot Dependency Updates",
+      "file_type": "code",
+      "source_file": ".github/dependabot.yml",
+      "source_location": "lines 1-47",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "github_pull_request_template_pr_summary",
+      "label": "Pull Request Summary Template",
+      "file_type": "document",
+      "source_file": ".github/pull_request_template.md",
+      "source_location": "lines 1-12",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "issue_template_bug_report_template",
+      "label": "Bug Report Template",
+      "file_type": "document",
+      "source_file": ".github/ISSUE_TEMPLATE/bug_report.md",
+      "source_location": "lines 1-27",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "issue_template_feature_request_template",
+      "label": "Feature Request Template",
+      "file_type": "document",
+      "source_file": ".github/ISSUE_TEMPLATE/feature_request.md",
+      "source_location": "lines 1-19",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "workflows_ci_ci_pipeline",
+      "label": "GitHub Actions CI Pipeline",
+      "file_type": "code",
+      "source_file": ".github/workflows/ci.yaml",
+      "source_location": "lines 1-269",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "workflows_ci_security_scan_job",
+      "label": "CI Security Scan Job",
+      "file_type": "concept",
+      "source_file": ".github/workflows/ci.yaml",
+      "source_location": "lines 120-135,156-199",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "workflows_ci_test_validation_jobs",
+      "label": "CI Test and Validation Jobs",
+      "file_type": "concept",
+      "source_file": ".github/workflows/ci.yaml",
+      "source_location": "lines 82-119,137-216",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "workflows_dependency_freshness_dependency_freshness_report",
+      "label": "Dependency Freshness Report Workflow",
+      "file_type": "code",
+      "source_file": ".github/workflows/dependency-freshness.yml",
+      "source_location": "lines 1-33",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "workflows_deps_report_outdated_dependency_report",
+      "label": "Outdated Dependency Report Workflow",
+      "file_type": "code",
+      "source_file": ".github/workflows/deps-report.yaml",
+      "source_location": "lines 1-17",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "workflows_docs_docs_deploy_workflow",
+      "label": "Documentation Deployment Workflow",
+      "file_type": "code",
+      "source_file": ".github/workflows/docs.yml",
+      "source_location": "lines 1-96",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "goreleaser_release_config",
+      "target": "goreleaser_cli_build",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": ".goreleaser.yaml",
+      "source_location": "lines 6-19",
+      "weight": 1.0
+    },
+    {
+      "source": "pre_commit_config_quality_gates",
+      "target": "pre_commit_config_security_hooks",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": ".pre-commit-config.yaml",
+      "source_location": "lines 17,55-58",
+      "weight": 1.0
+    },
+    {
+      "source": "contributing_contribution_workflow",
+      "target": "cla_contributor_license_agreement",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "CONTRIBUTING.md",
+      "source_location": "lines 55-57",
+      "weight": 1.0
+    },
+    {
+      "source": "cla_contributor_license_agreement",
+      "target": "cla_copyright_patent_grants",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "CLA.md",
+      "source_location": "lines 13-19",
+      "weight": 1.0
+    },
+    {
+      "source": "contributing_contribution_workflow",
+      "target": "contributing_dco_signoff",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "CONTRIBUTING.md",
+      "source_location": "lines 68-185",
+      "weight": 1.0
+    },
+    {
+      "source": "contributing_contribution_workflow",
+      "target": "contributing_versioning_policy",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "CONTRIBUTING.md",
+      "source_location": "lines 84-126,212-281",
+      "weight": 1.0
+    },
+    {
+      "source": "readme_ubiquity_project",
+      "target": "readme_hpc_cluster_framework",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": "lines 12-21,62-93",
+      "weight": 1.0
+    },
+    {
+      "source": "readme_ubiquity_project",
+      "target": "readme_gitops_iac",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": "line 12",
+      "weight": 1.0
+    },
+    {
+      "source": "readme_ubiquity_project",
+      "target": "readme_cli_quick_start",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": "lines 248-260",
+      "weight": 1.0
+    },
+    {
+      "source": "readme_ubiquity_project",
+      "target": "readme_technology_stack",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": "lines 128-246",
+      "weight": 1.0
+    },
+    {
+      "source": "readme_ubiquity_project",
+      "target": "contributing_contribution_workflow",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": "lines 265-269",
+      "weight": 1.0
+    },
+    {
+      "source": "readme_ubiquity_project",
+      "target": "previous_license_functional_source_license",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": "lines 9,271-276",
+      "weight": 1.0
+    },
+    {
+      "source": "previous_license_functional_source_license",
+      "target": "previous_license_apache_change_license",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "PREVIOUS_LICENSE.md",
+      "source_location": "lines 93-110",
+      "weight": 1.0
+    },
+    {
+      "source": "security_security_policy",
+      "target": "security_vulnerability_disclosure",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "SECURITY.md",
+      "source_location": "lines 9-20",
+      "weight": 1.0
+    },
+    {
+      "source": "addworkers_k3s_worker_join_playbook",
+      "target": "addworkers_k3s_agent_installation",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "addworkers.yaml",
+      "source_location": "lines 14-38",
+      "weight": 1.0
+    },
+    {
+      "source": "mkdocs_documentation_site",
+      "target": "mkdocs_admin_guide_navigation",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mkdocs.yml",
+      "source_location": "lines 67-143",
+      "weight": 1.0
+    },
+    {
+      "source": "workflows_docs_docs_deploy_workflow",
+      "target": "requirements_docs_python_dependencies",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": ".github/workflows/docs.yml",
+      "source_location": "lines 64,68-78",
+      "weight": 1.0
+    },
+    {
+      "source": "workflows_docs_docs_deploy_workflow",
+      "target": "mkdocs_documentation_site",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": ".github/workflows/docs.yml",
+      "source_location": "lines 25-34,77-78",
+      "weight": 1.0
+    },
+    {
+      "source": "devcontainer_readme_devcontainer_environment",
+      "target": "pre_commit_config_quality_gates",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": ".devcontainer/README.md",
+      "source_location": "lines 16-22",
+      "weight": 1.0
+    },
+    {
+      "source": "devcontainer_readme_devcontainer_environment",
+      "target": "goreleaser_release_config",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": ".devcontainer/README.md",
+      "source_location": "lines 16-22",
+      "weight": 1.0
+    },
+    {
+      "source": "github_dependabot_dependency_updates",
+      "target": "workflows_dependency_freshness_dependency_freshness_report",
+      "relation": "semantically_similar_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": ".github/dependabot.yml",
+      "source_location": "lines 1-47",
+      "weight": 1.0
+    },
+    {
+      "source": "workflows_dependency_freshness_dependency_freshness_report",
+      "target": "workflows_deps_report_outdated_dependency_report",
+      "relation": "semantically_similar_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": ".github/workflows/dependency-freshness.yml",
+      "source_location": "lines 1-33",
+      "weight": 1.0
+    },
+    {
+      "source": "workflows_ci_ci_pipeline",
+      "target": "pre_commit_config_quality_gates",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": ".github/workflows/ci.yaml",
+      "source_location": "lines 37-53",
+      "weight": 1.0
+    },
+    {
+      "source": "workflows_ci_ci_pipeline",
+      "target": "workflows_ci_security_scan_job",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": ".github/workflows/ci.yaml",
+      "source_location": "lines 120-135,156-199",
+      "weight": 1.0
+    },
+    {
+      "source": "workflows_ci_ci_pipeline",
+      "target": "workflows_ci_test_validation_jobs",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": ".github/workflows/ci.yaml",
+      "source_location": "lines 82-119,137-216",
+      "weight": 1.0
+    },
+    {
+      "source": "workflows_ci_security_scan_job",
+      "target": "deep_assessment_security_gaps",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": ".github/workflows/ci.yaml",
+      "source_location": "lines 65-66,126-199",
+      "weight": 1.0
+    },
+    {
+      "source": "pre_commit_config_security_hooks",
+      "target": "deep_assessment_security_gaps",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": ".pre-commit-config.yaml",
+      "source_location": "lines 55-58",
+      "weight": 1.0
+    },
+    {
+      "source": "deep_assessment_documentation_adrs",
+      "target": "mkdocs_documentation_site",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "DEEP-ASSESSMENT.md",
+      "source_location": "lines 46-87",
+      "weight": 1.0
+    },
+    {
+      "source": "deep_assessment_architecture_gaps",
+      "target": "readme_hpc_cluster_framework",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "DEEP-ASSESSMENT.md",
+      "source_location": "lines 90-116",
+      "weight": 1.0
+    },
+    {
+      "source": "readme_cli_quick_start",
+      "target": "goreleaser_cli_build",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "README.md",
+      "source_location": "lines 250-256",
+      "weight": 1.0
+    },
+    {
+      "source": "github_pull_request_template_pr_summary",
+      "target": "issue_template_feature_request_template",
+      "relation": "semantically_similar_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": ".github/pull_request_template.md",
+      "source_location": "lines 1-12",
+      "weight": 1.0
+    },
+    {
+      "source": "issue_template_bug_report_template",
+      "target": "security_vulnerability_disclosure",
+      "relation": "conceptually_related_to",
+      "confidence": "AMBIGUOUS",
+      "confidence_score": 0.2,
+      "source_file": ".github/ISSUE_TEMPLATE/bug_report.md",
+      "source_location": "lines 9-27",
+      "weight": 1.0
+    },
+    {
+      "source": "sops_sops_secret_policy",
+      "target": "readme_technology_stack",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.65,
+      "source_file": ".sops.yaml",
+      "source_location": "lines 1-3",
+      "weight": 1.0
+    }
+  ],
+  "hyperedges": [
+    {
+      "id": "quality_and_security_automation",
+      "label": "Quality and Security Automation",
+      "nodes": [
+        "pre_commit_config_quality_gates",
+        "workflows_ci_ci_pipeline",
+        "workflows_ci_security_scan_job",
+        "deep_assessment_security_gaps"
+      ],
+      "relation": "participate_in",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": ".github/workflows/ci.yaml"
+    },
+    {
+      "id": "documentation_system",
+      "label": "Documentation System",
+      "nodes": [
+        "mkdocs_documentation_site",
+        "requirements_docs_python_dependencies",
+        "workflows_docs_docs_deploy_workflow",
+        "deep_assessment_documentation_adrs"
+      ],
+      "relation": "form",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "mkdocs.yml"
+    },
+    {
+      "id": "contribution_governance",
+      "label": "Contribution Governance",
+      "nodes": [
+        "contributing_contribution_workflow",
+        "cla_contributor_license_agreement",
+        "contributing_dco_signoff",
+        "github_pull_request_template_pr_summary"
+      ],
+      "relation": "form",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "CONTRIBUTING.md"
+    }
+  ],
+  "input_tokens": 0,
+  "output_tokens": 0
+}

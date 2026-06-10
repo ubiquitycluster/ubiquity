@@ -1,0 +1,991 @@
+{
+  "nodes": [
+    {
+      "id": "manual_dns_setup",
+      "label": "manual DNS setup options",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/administration/tutorials/manual-dns-setup.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "router_wildcard_dns",
+      "label": "router wildcard DNS records",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/administration/tutorials/manual-dns-setup.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "nipio_test_dns",
+      "label": "nip.io test DNS",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/administration/tutorials/manual-dns-setup.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "ansible_console_multi_node_ops",
+      "label": "ansible-console multi-node operations",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/administration/tutorials/run-commands-on-multiple-nodes.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "cluster_shutdown_runbook",
+      "label": "cluster shutdown and startup runbook",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/administration/tutorials/shutdown.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "slurm_shutdown_sequence",
+      "label": "Slurm shutdown sequence",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/administration/tutorials/shutdown.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "kubernetes_node_shutdown_order",
+      "label": "Kubernetes node shutdown order",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/administration/tutorials/shutdown.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "single_node_cluster_adjustments",
+      "label": "single-node cluster adjustments",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/administration/tutorials/single-node-cluster-adjustments.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "git_repository_ssl_cert_change",
+      "label": "Git repository SSL certificate change",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/administration/tutorials/ssl-cert-change-git.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "argocd_tls_certs_configmap",
+      "label": "ArgoCD TLS certificates ConfigMap",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/administration/tutorials/ssl-cert-change-git.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "documentation_site_workflow",
+      "label": "documentation site workflow",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/administration/tutorials/updating-documentation.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "dual_github_gitea_push",
+      "label": "dual GitHub and Gitea push remote",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/administration/tutorials/use-both-github-and-gitea.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "keycloak_identity_management",
+      "label": "Keycloak identity management",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/administration/tutorials/user-accounts.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "keycloak_realm_client_user_flow",
+      "label": "Keycloak realm/client/user setup flow",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/administration/tutorials/user-accounts.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "cert_manager_certificate_lifecycle",
+      "label": "cert-manager certificate lifecycle",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/concepts/certificate-management.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "acme_dns01_challenge",
+      "label": "ACME DNS-01 challenge",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/concepts/certificate-management.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "opus_container_environment",
+      "label": "OPUS tools container",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/concepts/opus-container.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "pxe_boot_provisioning_flow",
+      "label": "PXE boot provisioning flow",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/concepts/pxe-boot.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "configure_script_contract",
+      "label": "scripts/configure contract",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/deployment/configure.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "deployment_configuration_inputs",
+      "label": "deployment configuration inputs",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/deployment/configure.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "external_resources_prerequisites",
+      "label": "external resources prerequisites",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/deployment/external-resources.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "onprem_production_deployment",
+      "label": "on-premises production deployment",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/deployment/on-prem.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "onprem_bootstrap_components",
+      "label": "on-prem bootstrap components",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/deployment/on-prem.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "slurm_integration_path",
+      "label": "Slurm integration path",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/deployment/on-prem.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "post_installation_secret_backup",
+      "label": "post-installation secret backup",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/deployment/post-installation.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "deployment_prerequisites",
+      "label": "deployment prerequisites",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/deployment/prerequisites.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "hardware_bios_network_requirements",
+      "label": "hardware BIOS and network requirements",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/deployment/prerequisites.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "sandbox_deployment",
+      "label": "sandbox deployment",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/deployment/sandbox.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "core_services_bundle",
+      "label": "core-services bundle",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/deployment/thinkcentre-core-services.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "thinkcentre_production_profile",
+      "label": "ThinkCentre production profile",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/deployment/thinkcentre-core-services.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "core_services_readiness_proofs",
+      "label": "core-services readiness proofs",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/deployment/thinkcentre-core-services.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "cloud_deployment_terraform_workshop",
+      "label": "cloud deployment Terraform workshop",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/deployment/cloud/index.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "cloud_terraform_configuration_model",
+      "label": "cloud Terraform configuration model",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/deployment/cloud/index.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "cloud_dns_ssl_configuration",
+      "label": "cloud DNS and SSL configuration",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/deployment/cloud/index.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "terraform_cloud_management",
+      "label": "Terraform Cloud management",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/deployment/cloud/terraform_cloud.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "terraform_cloud_autoscaling",
+      "label": "Terraform Cloud Slurm autoscaling",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/deployment/cloud/terraform_cloud.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "airgapped_deployment_model",
+      "label": "air-gapped deployment model",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/deployment/production/airgapping.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "airgapped_container_mirroring",
+      "label": "air-gapped container mirroring",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/deployment/production/airgapping.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "awx_postinstall_setup",
+      "label": "AWX post-installation setup",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/deployment/production/awx-postinstall.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "manual_dns_setup",
+      "target": "router_wildcard_dns",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/administration/tutorials/manual-dns-setup.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "manual_dns_setup",
+      "target": "nipio_test_dns",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/administration/tutorials/manual-dns-setup.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "external_resources_prerequisites",
+      "target": "manual_dns_setup",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/deployment/external-resources.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "deployment_prerequisites",
+      "target": "manual_dns_setup",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/deployment/prerequisites.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "ansible_console_multi_node_ops",
+      "target": "opus_container_environment",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/administration/tutorials/run-commands-on-multiple-nodes.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "cluster_shutdown_runbook",
+      "target": "slurm_shutdown_sequence",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/administration/tutorials/shutdown.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "cluster_shutdown_runbook",
+      "target": "kubernetes_node_shutdown_order",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/administration/tutorials/shutdown.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "cluster_shutdown_runbook",
+      "target": "post_installation_secret_backup",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/administration/tutorials/shutdown.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "single_node_cluster_adjustments",
+      "target": "core_services_bundle",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/administration/tutorials/single-node-cluster-adjustments.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "git_repository_ssl_cert_change",
+      "target": "argocd_tls_certs_configmap",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/administration/tutorials/ssl-cert-change-git.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "git_repository_ssl_cert_change",
+      "target": "opus_container_environment",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/administration/tutorials/ssl-cert-change-git.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "git_repository_ssl_cert_change",
+      "target": "core_services_bundle",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/administration/tutorials/ssl-cert-change-git.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "documentation_site_workflow",
+      "target": "dual_github_gitea_push",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/administration/tutorials/updating-documentation.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "keycloak_identity_management",
+      "target": "keycloak_realm_client_user_flow",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/administration/tutorials/user-accounts.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "onprem_production_deployment",
+      "target": "keycloak_identity_management",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/deployment/on-prem.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "sandbox_deployment",
+      "target": "keycloak_identity_management",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/deployment/sandbox.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "cert_manager_certificate_lifecycle",
+      "target": "acme_dns01_challenge",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/concepts/certificate-management.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "cert_manager_certificate_lifecycle",
+      "target": "external_resources_prerequisites",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/concepts/certificate-management.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "cloud_dns_ssl_configuration",
+      "target": "cert_manager_certificate_lifecycle",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/deployment/cloud/index.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "opus_container_environment",
+      "target": "configure_script_contract",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/concepts/opus-container.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "pxe_boot_provisioning_flow",
+      "target": "deployment_prerequisites",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/concepts/pxe-boot.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "configure_script_contract",
+      "target": "deployment_configuration_inputs",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/deployment/configure.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "configure_script_contract",
+      "target": "external_resources_prerequisites",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/deployment/configure.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "onprem_production_deployment",
+      "target": "configure_script_contract",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/deployment/on-prem.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "sandbox_deployment",
+      "target": "configure_script_contract",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/deployment/sandbox.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "onprem_production_deployment",
+      "target": "onprem_bootstrap_components",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/deployment/on-prem.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "onprem_bootstrap_components",
+      "target": "pxe_boot_provisioning_flow",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/deployment/on-prem.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "onprem_bootstrap_components",
+      "target": "cert_manager_certificate_lifecycle",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/deployment/on-prem.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "onprem_production_deployment",
+      "target": "slurm_integration_path",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/deployment/on-prem.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "sandbox_deployment",
+      "target": "slurm_integration_path",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/deployment/sandbox.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "post_installation_secret_backup",
+      "target": "opus_container_environment",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/deployment/post-installation.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "deployment_prerequisites",
+      "target": "hardware_bios_network_requirements",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/deployment/prerequisites.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "deployment_prerequisites",
+      "target": "single_node_cluster_adjustments",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/deployment/prerequisites.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "sandbox_deployment",
+      "target": "nipio_test_dns",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/deployment/sandbox.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "core_services_bundle",
+      "target": "cert_manager_certificate_lifecycle",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/deployment/thinkcentre-core-services.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "thinkcentre_production_profile",
+      "target": "core_services_bundle",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/deployment/thinkcentre-core-services.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "thinkcentre_production_profile",
+      "target": "hardware_bios_network_requirements",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/deployment/thinkcentre-core-services.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "core_services_readiness_proofs",
+      "target": "core_services_bundle",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/deployment/thinkcentre-core-services.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "thinkcentre_production_profile",
+      "target": "core_services_readiness_proofs",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/deployment/thinkcentre-core-services.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "cloud_deployment_terraform_workshop",
+      "target": "cloud_terraform_configuration_model",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/deployment/cloud/index.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "cloud_deployment_terraform_workshop",
+      "target": "cloud_dns_ssl_configuration",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/deployment/cloud/index.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "cloud_terraform_configuration_model",
+      "target": "terraform_cloud_management",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/deployment/cloud/terraform_cloud.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "terraform_cloud_management",
+      "target": "terraform_cloud_autoscaling",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/deployment/cloud/terraform_cloud.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "terraform_cloud_autoscaling",
+      "target": "slurm_integration_path",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/deployment/cloud/terraform_cloud.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "airgapped_deployment_model",
+      "target": "airgapped_container_mirroring",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/deployment/production/airgapping.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "airgapped_deployment_model",
+      "target": "external_resources_prerequisites",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/deployment/production/airgapping.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "airgapped_deployment_model",
+      "target": "core_services_bundle",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/deployment/production/airgapping.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "awx_postinstall_setup",
+      "target": "opus_container_environment",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/deployment/production/awx-postinstall.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "awx_postinstall_setup",
+      "target": "keycloak_identity_management",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/deployment/production/awx-postinstall.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "awx_postinstall_setup",
+      "target": "ansible_console_multi_node_ops",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/deployment/production/awx-postinstall.md",
+      "source_location": null,
+      "weight": 1.0
+    }
+  ],
+  "hyperedges": [
+    {
+      "id": "dns_tls_access_bundle",
+      "label": "Dns Tls Access Bundle",
+      "nodes": [
+        "manual_dns_setup",
+        "router_wildcard_dns",
+        "nipio_test_dns",
+        "external_resources_prerequisites",
+        "cert_manager_certificate_lifecycle",
+        "acme_dns01_challenge",
+        "cloud_dns_ssl_configuration"
+      ],
+      "relation": "participate_in",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/concepts/certificate-management.md"
+    },
+    {
+      "id": "operator_gitops_tooling_bundle",
+      "label": "Operator Gitops Tooling Bundle",
+      "nodes": [
+        "opus_container_environment",
+        "configure_script_contract",
+        "deployment_configuration_inputs",
+        "dual_github_gitea_push",
+        "documentation_site_workflow",
+        "git_repository_ssl_cert_change",
+        "argocd_tls_certs_configmap"
+      ],
+      "relation": "participate_in",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/concepts/opus-container.md"
+    },
+    {
+      "id": "baremetal_lifecycle_operations_bundle",
+      "label": "Baremetal Lifecycle Operations Bundle",
+      "nodes": [
+        "deployment_prerequisites",
+        "hardware_bios_network_requirements",
+        "pxe_boot_provisioning_flow",
+        "onprem_production_deployment",
+        "onprem_bootstrap_components",
+        "cluster_shutdown_runbook",
+        "kubernetes_node_shutdown_order",
+        "slurm_shutdown_sequence"
+      ],
+      "relation": "participate_in",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/deployment/on-prem.md"
+    }
+  ],
+  "input_tokens": 39600,
+  "output_tokens": 24200
+}

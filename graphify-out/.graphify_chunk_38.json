@@ -1,0 +1,41 @@
+{
+  "nodes": [
+    {
+      "id": "assets_kc_add_user_document",
+      "label": "Kc Add User",
+      "file_type": "image",
+      "source_file": "docs/admin-guide/administration/assets/kc-add-user.png",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "assets_kc_add_user_docs_admin_guide",
+      "label": "Docs Admin-Guide",
+      "file_type": "concept",
+      "source_file": "docs/admin-guide/administration/assets/kc-add-user.png",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "assets_kc_add_user_document",
+      "target": "assets_kc_add_user_docs_admin_guide",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.65,
+      "source_file": "docs/admin-guide/administration/assets/kc-add-user.png",
+      "source_location": null,
+      "weight": 1.0
+    }
+  ],
+  "hyperedges": [],
+  "input_tokens": 0,
+  "output_tokens": 0
+}

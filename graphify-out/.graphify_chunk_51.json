@@ -1,0 +1,146 @@
+{
+  "nodes": [
+    {
+      "id": "production_secure_env_document",
+      "label": "Secure Env",
+      "file_type": "image",
+      "source_file": "docs/admin-guide/deployment/production/secure_env.svg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "production_secure_env_k3s",
+      "label": "K3S",
+      "file_type": "concept",
+      "source_file": "docs/admin-guide/deployment/production/secure_env.svg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "production_secure_env_pxe",
+      "label": "Pxe",
+      "file_type": "concept",
+      "source_file": "docs/admin-guide/deployment/production/secure_env.svg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "production_secure_env_gcp",
+      "label": "Gcp",
+      "file_type": "concept",
+      "source_file": "docs/admin-guide/deployment/production/secure_env.svg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "production_secure_env_ovh",
+      "label": "Ovh",
+      "file_type": "concept",
+      "source_file": "docs/admin-guide/deployment/production/secure_env.svg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "production_secure_env_production",
+      "label": "Production",
+      "file_type": "concept",
+      "source_file": "docs/admin-guide/deployment/production/secure_env.svg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "production_secure_env_docs_admin_guide",
+      "label": "Docs Admin-Guide",
+      "file_type": "concept",
+      "source_file": "docs/admin-guide/deployment/production/secure_env.svg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "production_secure_env_document",
+      "target": "production_secure_env_k3s",
+      "relation": "implements",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/deployment/production/secure_env.svg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "production_secure_env_document",
+      "target": "production_secure_env_pxe",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/deployment/production/secure_env.svg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "production_secure_env_document",
+      "target": "production_secure_env_gcp",
+      "relation": "references",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/deployment/production/secure_env.svg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "production_secure_env_document",
+      "target": "production_secure_env_ovh",
+      "relation": "references",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/deployment/production/secure_env.svg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "production_secure_env_document",
+      "target": "production_secure_env_production",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/deployment/production/secure_env.svg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "production_secure_env_document",
+      "target": "production_secure_env_docs_admin_guide",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.65,
+      "source_file": "docs/admin-guide/deployment/production/secure_env.svg",
+      "source_location": null,
+      "weight": 1.0
+    }
+  ],
+  "hyperedges": [],
+  "input_tokens": 0,
+  "output_tokens": 0
+}

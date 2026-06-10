@@ -1,0 +1,908 @@
+{
+  "nodes": [
+    {
+      "id": "ubiquity_next_goal",
+      "label": "Project Ubiquity Next goal",
+      "file_type": "document",
+      "source_file": "docs/GOAL-UBIQUITY-NEXT.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "ubiquity_cli",
+      "label": "ubiquity unified CLI",
+      "file_type": "document",
+      "source_file": "docs/GOAL-UBIQUITY-NEXT.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "production_cicd_pipeline",
+      "label": "production CI/CD pipeline",
+      "file_type": "document",
+      "source_file": "docs/GOAL-UBIQUITY-NEXT.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "helm_kustomize_standard",
+      "label": "Helm plus Kustomize packaging standard",
+      "file_type": "document",
+      "source_file": "docs/GOAL-UBIQUITY-NEXT.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "security_hardening_baseline",
+      "label": "security hardening baseline",
+      "file_type": "document",
+      "source_file": "docs/GOAL-UBIQUITY-NEXT.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "provisioning_observability",
+      "label": "provisioning observability and state",
+      "file_type": "document",
+      "source_file": "docs/GOAL-UBIQUITY-NEXT.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "helm_dependency_freshness_work",
+      "label": "Helm dependency freshness work",
+      "file_type": "document",
+      "source_file": "docs/GOAL-UPDATES.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "helm_unittest_gap",
+      "label": "Helm unittest coverage gap",
+      "file_type": "document",
+      "source_file": "docs/GOAL-UPDATES.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "ubiquity_docs_overview",
+      "label": "Ubiquity documentation overview",
+      "file_type": "document",
+      "source_file": "docs/README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "supported_cloud_provider_access",
+      "label": "supported cloud provider access",
+      "file_type": "document",
+      "source_file": "docs/README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "production_checklist",
+      "label": "production readiness checklist",
+      "file_type": "document",
+      "source_file": "docs/checklist-for-production.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "cloud_services_catalog",
+      "label": "Ubiquity cloud services catalog",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/cloud-services.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "operator_crd_readiness_contract",
+      "label": "operator/CRD readiness contract",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/cloud-services.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "cloud_vm_disk_primitive",
+      "label": "cloud render VM disk primitive",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/cloud-services.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "tenant_vpc_primitive",
+      "label": "tenant VPC primitive",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/cloud-services.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "managed_service_catalog",
+      "label": "managed service catalog",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/cloud-services.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "platform_backup_policy_primitives",
+      "label": "backup and restore-drill primitives",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/cloud-services.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "governance_policy_bundle",
+      "label": "governance policy bundle",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/cloud-services.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "operator_install_plan_bundle",
+      "label": "operator install-plan bundle",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/cloud-services.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "admin_guide_baremetal_ops",
+      "label": "admin guide bare-metal operations",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/index.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "kubevirt_vm_layer",
+      "label": "KubeVirt VM layer",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/kubevirt-virtual-machines.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "kubevirt_os_profiles",
+      "label": "KubeVirt OS image profiles",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/kubevirt-virtual-machines.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "kubevirt_gpu_requirements",
+      "label": "KubeVirt GPU passthrough requirements",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/kubevirt-virtual-machines.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "kubevirt_multus_isolation",
+      "label": "KubeVirt Multus network isolation",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/kubevirt-virtual-machines.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "nvidia_ai_platform",
+      "label": "NVIDIA AI platform operations",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/nvidia-ai-platform.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "nvidia_component_matrix",
+      "label": "NVIDIA component matrix",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/nvidia-ai-platform.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "nvidia_ai_profiles",
+      "label": "NVIDIA AI profiles",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/nvidia-ai-platform.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "nvidia_sandbox_deploy",
+      "label": "NVIDIA AI sandbox deploy",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/nvidia-ai-platform.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "nvidia_fail_closed_readiness",
+      "label": "NVIDIA fail-closed readiness",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/nvidia-ai-platform.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "nico_node_management",
+      "label": "NVIDIA Infra Controller node management",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/nvidia-infra-controller-node-management.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "nico_gitops_charts",
+      "label": "NICo GitOps wrapper charts",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/nvidia-infra-controller-node-management.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "node_add_remove_tutorial",
+      "label": "add/remove nodes tutorial",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/administration/tutorials/add-or-remove-nodes.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "velero_onprem_backup_tutorial",
+      "label": "Velero on-prem backup tutorial",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/administration/tutorials/backup-cluster.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "cloudflare_tunnel_ingress",
+      "label": "Cloudflare Tunnel ingress exposure",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/administration/tutorials/expose-services-to-the-internet.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "kube_prometheus_stack_guide",
+      "label": "Kube-Prometheus stack guide",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/administration/tutorials/kube-prometheus-stack.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "alertmanager_configuration",
+      "label": "Alertmanager configuration",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/administration/tutorials/kube-prometheus-stack.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "grafana_dashboard_automation",
+      "label": "Grafana dashboard automation",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/administration/tutorials/kube-prometheus-stack.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "prometheus_volume_scaling",
+      "label": "Prometheus volume scaling procedure",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/administration/tutorials/kube-prometheus-stack.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "loki_promtail_guide",
+      "label": "Loki-Promtail guide",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/administration/tutorials/loki-promtail.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "loki_volume_scaling",
+      "label": "Loki volume scaling procedure",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/administration/tutorials/loki-promtail.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "ubiquity_next_goal",
+      "target": "ubiquity_cli",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/GOAL-UBIQUITY-NEXT.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "ubiquity_next_goal",
+      "target": "production_cicd_pipeline",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/GOAL-UBIQUITY-NEXT.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "ubiquity_next_goal",
+      "target": "helm_kustomize_standard",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/GOAL-UBIQUITY-NEXT.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "ubiquity_next_goal",
+      "target": "security_hardening_baseline",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/GOAL-UBIQUITY-NEXT.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "ubiquity_next_goal",
+      "target": "provisioning_observability",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/GOAL-UBIQUITY-NEXT.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "provisioning_observability",
+      "target": "loki_promtail_guide",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/GOAL-UBIQUITY-NEXT.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "provisioning_observability",
+      "target": "kube_prometheus_stack_guide",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/GOAL-UBIQUITY-NEXT.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "helm_dependency_freshness_work",
+      "target": "production_cicd_pipeline",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/GOAL-UPDATES.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "helm_unittest_gap",
+      "target": "helm_kustomize_standard",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/GOAL-UPDATES.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "ubiquity_docs_overview",
+      "target": "supported_cloud_provider_access",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/README.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "production_checklist",
+      "target": "cloudflare_tunnel_ingress",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/checklist-for-production.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "production_checklist",
+      "target": "velero_onprem_backup_tutorial",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/checklist-for-production.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "cloud_services_catalog",
+      "target": "operator_crd_readiness_contract",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/cloud-services.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "cloud_services_catalog",
+      "target": "cloud_vm_disk_primitive",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/cloud-services.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "cloud_services_catalog",
+      "target": "tenant_vpc_primitive",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/cloud-services.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "cloud_services_catalog",
+      "target": "managed_service_catalog",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/cloud-services.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "cloud_services_catalog",
+      "target": "platform_backup_policy_primitives",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/cloud-services.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "cloud_services_catalog",
+      "target": "governance_policy_bundle",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/cloud-services.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "cloud_services_catalog",
+      "target": "operator_install_plan_bundle",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/cloud-services.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "cloud_vm_disk_primitive",
+      "target": "kubevirt_vm_layer",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/cloud-services.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "admin_guide_baremetal_ops",
+      "target": "nico_node_management",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/index.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "kubevirt_vm_layer",
+      "target": "kubevirt_os_profiles",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/kubevirt-virtual-machines.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "kubevirt_vm_layer",
+      "target": "kubevirt_gpu_requirements",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/kubevirt-virtual-machines.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "kubevirt_vm_layer",
+      "target": "kubevirt_multus_isolation",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/kubevirt-virtual-machines.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "kubevirt_gpu_requirements",
+      "target": "nvidia_ai_platform",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/kubevirt-virtual-machines.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "nvidia_ai_platform",
+      "target": "nvidia_component_matrix",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/nvidia-ai-platform.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "nvidia_ai_platform",
+      "target": "nvidia_ai_profiles",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/nvidia-ai-platform.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "nvidia_ai_platform",
+      "target": "nvidia_sandbox_deploy",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/nvidia-ai-platform.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "nvidia_ai_platform",
+      "target": "nvidia_fail_closed_readiness",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/nvidia-ai-platform.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "nvidia_sandbox_deploy",
+      "target": "helm_kustomize_standard",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/nvidia-ai-platform.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "nvidia_component_matrix",
+      "target": "nico_node_management",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/nvidia-ai-platform.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "nico_node_management",
+      "target": "nico_gitops_charts",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/nvidia-infra-controller-node-management.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "node_add_remove_tutorial",
+      "target": "nico_node_management",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/administration/tutorials/add-or-remove-nodes.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "velero_onprem_backup_tutorial",
+      "target": "platform_backup_policy_primitives",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/administration/tutorials/backup-cluster.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "cloudflare_tunnel_ingress",
+      "target": "supported_cloud_provider_access",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/administration/tutorials/expose-services-to-the-internet.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "kube_prometheus_stack_guide",
+      "target": "alertmanager_configuration",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/administration/tutorials/kube-prometheus-stack.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "kube_prometheus_stack_guide",
+      "target": "grafana_dashboard_automation",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/administration/tutorials/kube-prometheus-stack.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "kube_prometheus_stack_guide",
+      "target": "prometheus_volume_scaling",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/administration/tutorials/kube-prometheus-stack.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "grafana_dashboard_automation",
+      "target": "loki_promtail_guide",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/administration/tutorials/loki-promtail.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "loki_promtail_guide",
+      "target": "loki_volume_scaling",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/administration/tutorials/loki-promtail.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "loki_promtail_guide",
+      "target": "kube_prometheus_stack_guide",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/administration/tutorials/loki-promtail.md",
+      "source_location": null,
+      "weight": 1.0
+    }
+  ],
+  "hyperedges": [
+    {
+      "id": "ubiquity_next_program",
+      "label": "Ubiquity Next Program",
+      "nodes": [
+        "ubiquity_next_goal",
+        "ubiquity_cli",
+        "production_cicd_pipeline",
+        "helm_kustomize_standard",
+        "security_hardening_baseline",
+        "provisioning_observability"
+      ],
+      "relation": "participate_in",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/GOAL-UBIQUITY-NEXT.md"
+    },
+    {
+      "id": "chart_quality_maintenance_loop",
+      "label": "Chart Quality Maintenance Loop",
+      "nodes": [
+        "helm_dependency_freshness_work",
+        "helm_unittest_gap",
+        "production_cicd_pipeline",
+        "helm_kustomize_standard"
+      ],
+      "relation": "participate_in",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/GOAL-UPDATES.md"
+    },
+    {
+      "id": "cloud_render_primitive_catalog",
+      "label": "Cloud Render Primitive Catalog",
+      "nodes": [
+        "cloud_services_catalog",
+        "operator_crd_readiness_contract",
+        "cloud_vm_disk_primitive",
+        "tenant_vpc_primitive",
+        "managed_service_catalog",
+        "platform_backup_policy_primitives",
+        "governance_policy_bundle",
+        "operator_install_plan_bundle"
+      ],
+      "relation": "participate_in",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/admin-guide/cloud-services.md"
+    }
+  ],
+  "input_tokens": 17100,
+  "output_tokens": 12700
+}

@@ -1,0 +1,883 @@
+{
+  "nodes": [
+    {
+      "id": "mofed_package_installs_document",
+      "label": "Package Installs",
+      "file_type": "document",
+      "source_file": "tools/disk-image/mkimage/custom-elements/mofed/package-installs.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "mofed_package_installs_copyright_ubiquity_authors",
+      "label": "Copyright Ubiquity Authors",
+      "file_type": "concept",
+      "source_file": "tools/disk-image/mkimage/custom-elements/mofed/package-installs.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "mofed_package_installs_you_not_file_except",
+      "label": "You Not File Except",
+      "file_type": "concept",
+      "source_file": "tools/disk-image/mkimage/custom-elements/mofed/package-installs.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "mofed_package_installs_you_obtain_a_copy",
+      "label": "You Obtain A Copy",
+      "file_type": "concept",
+      "source_file": "tools/disk-image/mkimage/custom-elements/mofed/package-installs.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "mofed_package_installs_httpsgithubcomubiquityclusterubiquityblobmainlicense",
+      "label": "Httpsgithubcomubiquityclusterubiquityblobmainlicense",
+      "file_type": "concept",
+      "source_file": "tools/disk-image/mkimage/custom-elements/mofed/package-installs.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "mofed_package_installs_unless_required_by_applicable",
+      "label": "Unless Required By Applicable",
+      "file_type": "concept",
+      "source_file": "tools/disk-image/mkimage/custom-elements/mofed/package-installs.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "mofed_package_installs_distributed_under_license_is",
+      "label": "Distributed Under License Is",
+      "file_type": "concept",
+      "source_file": "tools/disk-image/mkimage/custom-elements/mofed/package-installs.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "mofed_package_installs_without_warranties_or_conditions",
+      "label": "Without Warranties Or Conditions",
+      "file_type": "concept",
+      "source_file": "tools/disk-image/mkimage/custom-elements/mofed/package-installs.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "mofed_package_installs_as_of_june_2025",
+      "label": "As Of June 2025",
+      "file_type": "concept",
+      "source_file": "tools/disk-image/mkimage/custom-elements/mofed/package-installs.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "mofed_package_installs_tools_disk_image",
+      "label": "Tools Disk-Image",
+      "file_type": "concept",
+      "source_file": "tools/disk-image/mkimage/custom-elements/mofed/package-installs.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "motd_readme_document",
+      "label": "Readme",
+      "file_type": "document",
+      "source_file": "tools/disk-image/mkimage/custom-elements/motd/README.rst",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "motd_readme_tools_disk_image",
+      "label": "Tools Disk-Image",
+      "file_type": "concept",
+      "source_file": "tools/disk-image/mkimage/custom-elements/motd/README.rst",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "ubiquity_package_installs_document",
+      "label": "Package Installs",
+      "file_type": "document",
+      "source_file": "tools/disk-image/mkimage/custom-elements/ubiquity/package-installs.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "ubiquity_package_installs_copyright_ubiquity_authors",
+      "label": "Copyright Ubiquity Authors",
+      "file_type": "concept",
+      "source_file": "tools/disk-image/mkimage/custom-elements/ubiquity/package-installs.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "ubiquity_package_installs_you_not_file_except",
+      "label": "You Not File Except",
+      "file_type": "concept",
+      "source_file": "tools/disk-image/mkimage/custom-elements/ubiquity/package-installs.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "ubiquity_package_installs_you_obtain_a_copy",
+      "label": "You Obtain A Copy",
+      "file_type": "concept",
+      "source_file": "tools/disk-image/mkimage/custom-elements/ubiquity/package-installs.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "ubiquity_package_installs_httpsgithubcomubiquityclusterubiquityblobmainlicense",
+      "label": "Httpsgithubcomubiquityclusterubiquityblobmainlicense",
+      "file_type": "concept",
+      "source_file": "tools/disk-image/mkimage/custom-elements/ubiquity/package-installs.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "ubiquity_package_installs_unless_required_by_applicable",
+      "label": "Unless Required By Applicable",
+      "file_type": "concept",
+      "source_file": "tools/disk-image/mkimage/custom-elements/ubiquity/package-installs.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "ubiquity_package_installs_distributed_under_license_is",
+      "label": "Distributed Under License Is",
+      "file_type": "concept",
+      "source_file": "tools/disk-image/mkimage/custom-elements/ubiquity/package-installs.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "ubiquity_package_installs_without_warranties_or_conditions",
+      "label": "Without Warranties Or Conditions",
+      "file_type": "concept",
+      "source_file": "tools/disk-image/mkimage/custom-elements/ubiquity/package-installs.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "ubiquity_package_installs_as_of_june_2025",
+      "label": "As Of June 2025",
+      "file_type": "concept",
+      "source_file": "tools/disk-image/mkimage/custom-elements/ubiquity/package-installs.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "ubiquity_package_installs_tools_disk_image",
+      "label": "Tools Disk-Image",
+      "file_type": "concept",
+      "source_file": "tools/disk-image/mkimage/custom-elements/ubiquity/package-installs.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "ansible_awx_callback_readme_document",
+      "label": "Readme",
+      "file_type": "document",
+      "source_file": "tools/disk-image/mkimage/elements/ansible-awx-callback/README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "ansible_awx_callback_readme_ansible",
+      "label": "Ansible",
+      "file_type": "concept",
+      "source_file": "tools/disk-image/mkimage/elements/ansible-awx-callback/README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "ansible_awx_callback_readme_ansible_awx_callback_installation_rocky_87",
+      "label": "Ansible Awx Callback Installation Rocky 87",
+      "file_type": "concept",
+      "source_file": "tools/disk-image/mkimage/elements/ansible-awx-callback/README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "ansible_awx_callback_readme_tools_disk_image",
+      "label": "Tools Disk-Image",
+      "file_type": "concept",
+      "source_file": "tools/disk-image/mkimage/elements/ansible-awx-callback/README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "ansible_awx_callback_package_installs_document",
+      "label": "Package Installs",
+      "file_type": "document",
+      "source_file": "tools/disk-image/mkimage/elements/ansible-awx-callback/package-installs.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "ansible_awx_callback_package_installs_ansible",
+      "label": "Ansible",
+      "file_type": "concept",
+      "source_file": "tools/disk-image/mkimage/elements/ansible-awx-callback/package-installs.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "ansible_awx_callback_package_installs_cloud_init",
+      "label": "Cloud Init",
+      "file_type": "concept",
+      "source_file": "tools/disk-image/mkimage/elements/ansible-awx-callback/package-installs.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "ansible_awx_callback_package_installs_copyright_ubiquity_authors",
+      "label": "Copyright Ubiquity Authors",
+      "file_type": "concept",
+      "source_file": "tools/disk-image/mkimage/elements/ansible-awx-callback/package-installs.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "ansible_awx_callback_package_installs_you_not_file_except",
+      "label": "You Not File Except",
+      "file_type": "concept",
+      "source_file": "tools/disk-image/mkimage/elements/ansible-awx-callback/package-installs.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "ansible_awx_callback_package_installs_you_obtain_a_copy",
+      "label": "You Obtain A Copy",
+      "file_type": "concept",
+      "source_file": "tools/disk-image/mkimage/elements/ansible-awx-callback/package-installs.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "ansible_awx_callback_package_installs_httpsgithubcomubiquityclusterubiquityblobmainlicense",
+      "label": "Httpsgithubcomubiquityclusterubiquityblobmainlicense",
+      "file_type": "concept",
+      "source_file": "tools/disk-image/mkimage/elements/ansible-awx-callback/package-installs.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "ansible_awx_callback_package_installs_unless_required_by_applicable",
+      "label": "Unless Required By Applicable",
+      "file_type": "concept",
+      "source_file": "tools/disk-image/mkimage/elements/ansible-awx-callback/package-installs.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "ansible_awx_callback_package_installs_distributed_under_license_is",
+      "label": "Distributed Under License Is",
+      "file_type": "concept",
+      "source_file": "tools/disk-image/mkimage/elements/ansible-awx-callback/package-installs.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "ansible_awx_callback_package_installs_tools_disk_image",
+      "label": "Tools Disk-Image",
+      "file_type": "concept",
+      "source_file": "tools/disk-image/mkimage/elements/ansible-awx-callback/package-installs.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "rocky_container_readme_document",
+      "label": "Readme",
+      "file_type": "document",
+      "source_file": "tools/disk-image/mkimage/elements/rocky-container/README.rst",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "rocky_container_readme_tools_disk_image",
+      "label": "Tools Disk-Image",
+      "file_type": "concept",
+      "source_file": "tools/disk-image/mkimage/elements/rocky-container/README.rst",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "rocky_container_package_installs_document",
+      "label": "Package Installs",
+      "file_type": "document",
+      "source_file": "tools/disk-image/mkimage/elements/rocky-container/package-installs.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "rocky_container_package_installs_tools_disk_image",
+      "label": "Tools Disk-Image",
+      "file_type": "concept",
+      "source_file": "tools/disk-image/mkimage/elements/rocky-container/package-installs.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "build_succeeds_readme_document",
+      "label": "Readme",
+      "file_type": "document",
+      "source_file": "tools/disk-image/mkimage/elements/rocky-container/test-elements/build-succeeds/README.rst",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "build_succeeds_readme_tools_disk_image",
+      "label": "Tools Disk-Image",
+      "file_type": "concept",
+      "source_file": "tools/disk-image/mkimage/elements/rocky-container/test-elements/build-succeeds/README.rst",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "rocky_9_aarch64_build_succeeds_readme_document",
+      "label": "Readme",
+      "file_type": "document",
+      "source_file": "tools/disk-image/mkimage/elements/rocky-container/test-elements/rocky-9-aarch64-build-succeeds/README.rst",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "rocky_9_aarch64_build_succeeds_readme_tools_disk_image",
+      "label": "Tools Disk-Image",
+      "file_type": "concept",
+      "source_file": "tools/disk-image/mkimage/elements/rocky-container/test-elements/rocky-9-aarch64-build-succeeds/README.rst",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "mofed_package_installs_document",
+      "target": "mofed_package_installs_copyright_ubiquity_authors",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.65,
+      "source_file": "tools/disk-image/mkimage/custom-elements/mofed/package-installs.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "mofed_package_installs_document",
+      "target": "mofed_package_installs_you_not_file_except",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.65,
+      "source_file": "tools/disk-image/mkimage/custom-elements/mofed/package-installs.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "mofed_package_installs_document",
+      "target": "mofed_package_installs_you_obtain_a_copy",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.65,
+      "source_file": "tools/disk-image/mkimage/custom-elements/mofed/package-installs.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "mofed_package_installs_document",
+      "target": "mofed_package_installs_httpsgithubcomubiquityclusterubiquityblobmainlicense",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.65,
+      "source_file": "tools/disk-image/mkimage/custom-elements/mofed/package-installs.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "mofed_package_installs_document",
+      "target": "mofed_package_installs_unless_required_by_applicable",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.65,
+      "source_file": "tools/disk-image/mkimage/custom-elements/mofed/package-installs.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "mofed_package_installs_document",
+      "target": "mofed_package_installs_distributed_under_license_is",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.65,
+      "source_file": "tools/disk-image/mkimage/custom-elements/mofed/package-installs.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "mofed_package_installs_document",
+      "target": "mofed_package_installs_without_warranties_or_conditions",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.65,
+      "source_file": "tools/disk-image/mkimage/custom-elements/mofed/package-installs.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "mofed_package_installs_document",
+      "target": "mofed_package_installs_as_of_june_2025",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.65,
+      "source_file": "tools/disk-image/mkimage/custom-elements/mofed/package-installs.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "mofed_package_installs_document",
+      "target": "mofed_package_installs_tools_disk_image",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.65,
+      "source_file": "tools/disk-image/mkimage/custom-elements/mofed/package-installs.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "motd_readme_document",
+      "target": "motd_readme_tools_disk_image",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.65,
+      "source_file": "tools/disk-image/mkimage/custom-elements/motd/README.rst",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "ubiquity_package_installs_document",
+      "target": "ubiquity_package_installs_copyright_ubiquity_authors",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.65,
+      "source_file": "tools/disk-image/mkimage/custom-elements/ubiquity/package-installs.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "ubiquity_package_installs_document",
+      "target": "ubiquity_package_installs_you_not_file_except",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.65,
+      "source_file": "tools/disk-image/mkimage/custom-elements/ubiquity/package-installs.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "ubiquity_package_installs_document",
+      "target": "ubiquity_package_installs_you_obtain_a_copy",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.65,
+      "source_file": "tools/disk-image/mkimage/custom-elements/ubiquity/package-installs.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "ubiquity_package_installs_document",
+      "target": "ubiquity_package_installs_httpsgithubcomubiquityclusterubiquityblobmainlicense",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.65,
+      "source_file": "tools/disk-image/mkimage/custom-elements/ubiquity/package-installs.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "ubiquity_package_installs_document",
+      "target": "ubiquity_package_installs_unless_required_by_applicable",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.65,
+      "source_file": "tools/disk-image/mkimage/custom-elements/ubiquity/package-installs.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "ubiquity_package_installs_document",
+      "target": "ubiquity_package_installs_distributed_under_license_is",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.65,
+      "source_file": "tools/disk-image/mkimage/custom-elements/ubiquity/package-installs.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "ubiquity_package_installs_document",
+      "target": "ubiquity_package_installs_without_warranties_or_conditions",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.65,
+      "source_file": "tools/disk-image/mkimage/custom-elements/ubiquity/package-installs.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "ubiquity_package_installs_document",
+      "target": "ubiquity_package_installs_as_of_june_2025",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.65,
+      "source_file": "tools/disk-image/mkimage/custom-elements/ubiquity/package-installs.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "ubiquity_package_installs_document",
+      "target": "ubiquity_package_installs_tools_disk_image",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.65,
+      "source_file": "tools/disk-image/mkimage/custom-elements/ubiquity/package-installs.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "ansible_awx_callback_readme_document",
+      "target": "ansible_awx_callback_readme_ansible",
+      "relation": "implements",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "tools/disk-image/mkimage/elements/ansible-awx-callback/README.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "ansible_awx_callback_readme_document",
+      "target": "ansible_awx_callback_readme_ansible_awx_callback_installation_rocky_87",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.65,
+      "source_file": "tools/disk-image/mkimage/elements/ansible-awx-callback/README.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "ansible_awx_callback_readme_document",
+      "target": "ansible_awx_callback_readme_tools_disk_image",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.65,
+      "source_file": "tools/disk-image/mkimage/elements/ansible-awx-callback/README.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "ansible_awx_callback_package_installs_document",
+      "target": "ansible_awx_callback_package_installs_ansible",
+      "relation": "implements",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "tools/disk-image/mkimage/elements/ansible-awx-callback/package-installs.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "ansible_awx_callback_package_installs_document",
+      "target": "ansible_awx_callback_package_installs_cloud_init",
+      "relation": "implements",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "tools/disk-image/mkimage/elements/ansible-awx-callback/package-installs.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "ansible_awx_callback_package_installs_document",
+      "target": "ansible_awx_callback_package_installs_copyright_ubiquity_authors",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.65,
+      "source_file": "tools/disk-image/mkimage/elements/ansible-awx-callback/package-installs.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "ansible_awx_callback_package_installs_document",
+      "target": "ansible_awx_callback_package_installs_you_not_file_except",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.65,
+      "source_file": "tools/disk-image/mkimage/elements/ansible-awx-callback/package-installs.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "ansible_awx_callback_package_installs_document",
+      "target": "ansible_awx_callback_package_installs_you_obtain_a_copy",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.65,
+      "source_file": "tools/disk-image/mkimage/elements/ansible-awx-callback/package-installs.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "ansible_awx_callback_package_installs_document",
+      "target": "ansible_awx_callback_package_installs_httpsgithubcomubiquityclusterubiquityblobmainlicense",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.65,
+      "source_file": "tools/disk-image/mkimage/elements/ansible-awx-callback/package-installs.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "ansible_awx_callback_package_installs_document",
+      "target": "ansible_awx_callback_package_installs_unless_required_by_applicable",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.65,
+      "source_file": "tools/disk-image/mkimage/elements/ansible-awx-callback/package-installs.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "ansible_awx_callback_package_installs_document",
+      "target": "ansible_awx_callback_package_installs_distributed_under_license_is",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.65,
+      "source_file": "tools/disk-image/mkimage/elements/ansible-awx-callback/package-installs.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "ansible_awx_callback_package_installs_document",
+      "target": "ansible_awx_callback_package_installs_tools_disk_image",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.65,
+      "source_file": "tools/disk-image/mkimage/elements/ansible-awx-callback/package-installs.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "rocky_container_readme_document",
+      "target": "rocky_container_readme_tools_disk_image",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.65,
+      "source_file": "tools/disk-image/mkimage/elements/rocky-container/README.rst",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "rocky_container_package_installs_document",
+      "target": "rocky_container_package_installs_tools_disk_image",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.65,
+      "source_file": "tools/disk-image/mkimage/elements/rocky-container/package-installs.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "build_succeeds_readme_document",
+      "target": "build_succeeds_readme_tools_disk_image",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.65,
+      "source_file": "tools/disk-image/mkimage/elements/rocky-container/test-elements/build-succeeds/README.rst",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "rocky_9_aarch64_build_succeeds_readme_document",
+      "target": "rocky_9_aarch64_build_succeeds_readme_tools_disk_image",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.65,
+      "source_file": "tools/disk-image/mkimage/elements/rocky-container/test-elements/rocky-9-aarch64-build-succeeds/README.rst",
+      "source_location": null,
+      "weight": 1.0
+    }
+  ],
+  "hyperedges": [
+    {
+      "id": "chunk_35_copyright_ubiquity_authors_shared_concept",
+      "label": "Shared Copyright Ubiquity Authors Concept",
+      "nodes": [
+        "mofed_package_installs_copyright_ubiquity_authors",
+        "ubiquity_package_installs_copyright_ubiquity_authors",
+        "ansible_awx_callback_package_installs_copyright_ubiquity_authors"
+      ],
+      "relation": "participate_in",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "tools/disk-image/mkimage/custom-elements/mofed/package-installs.yaml"
+    },
+    {
+      "id": "chunk_35_you_not_file_except_shared_concept",
+      "label": "Shared You Not File Except Concept",
+      "nodes": [
+        "mofed_package_installs_you_not_file_except",
+        "ubiquity_package_installs_you_not_file_except",
+        "ansible_awx_callback_package_installs_you_not_file_except"
+      ],
+      "relation": "participate_in",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "tools/disk-image/mkimage/custom-elements/mofed/package-installs.yaml"
+    },
+    {
+      "id": "chunk_35_you_obtain_a_copy_shared_concept",
+      "label": "Shared You Obtain A Copy Concept",
+      "nodes": [
+        "mofed_package_installs_you_obtain_a_copy",
+        "ubiquity_package_installs_you_obtain_a_copy",
+        "ansible_awx_callback_package_installs_you_obtain_a_copy"
+      ],
+      "relation": "participate_in",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "tools/disk-image/mkimage/custom-elements/mofed/package-installs.yaml"
+    }
+  ],
+  "input_tokens": 0,
+  "output_tokens": 0
+}
