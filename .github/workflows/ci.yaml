@@ -13,9 +13,9 @@ on:
     branches: [main]
 
 env:
-  GO_VERSION: "1.23"
+  GO_VERSION: "1.25.8"
   K3D_VERSION: "v5.8.3"
-  HELM_VERSION: "v3.16"
+  HELM_VERSION: "v3.16.4"
 
 jobs:
   lint:
@@ -109,13 +109,21 @@ jobs:
             helm lint "$dir" || echo "WARNING: $dir lint failed"
           done
 
+      - name: Install kubeconform
+        run: |
+          curl -sSfL https://github.com/yannh/kubeconform/releases/latest/download/kubeconform-linux-amd64.tar.gz \
+            | sudo tar -xz -C /usr/local/bin kubeconform
+          kubeconform -v
+
       - name: Kubeconform validation
-        uses: yannh/kubernetes-actions/kubeconform@v3
-        with:
-          directory: system/,platform/,bootstrap/
-          ignore-filenames-pattern: kustomization.yaml
-          schema-location:
-            https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/{{ .NormalizedKubernetesVersion }}-standalone{{ .StrictSuffix }}/{{ .ResourceKind }}{{ .KindSuffix }}.json
+        run: |
+          for dir in system platform bootstrap; do
+            [ -d "$dir" ] || continue
+            find "$dir" -type f \( -name '*.yaml' -o -name '*.yml' \) ! -name kustomization.yaml -print0 \
+              | xargs -0 -r kubeconform \
+                  -ignore-missing-schemas \
+                  -schema-location 'https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/{{ .NormalizedKubernetesVersion }}-standalone{{ .StrictSuffix }}/{{ .ResourceKind }}{{ .KindSuffix }}.json'
+          done
 
   scan:
     name: Security Scan
