@@ -6085,8 +6085,8 @@
     "semantic_hash": ""
   },
   "scripts/check-graphify-freshness.sh": {
-    "mtime": 1781091390.4997144,
-    "ast_hash": "3bdd7fe90f1f51ae1ad6d2fae7cab453",
+    "mtime": 1781091720.2683058,
+    "ast_hash": "fbd9cbb4ab4589e769fb745d0a6b6030",
     "semantic_hash": ""
   },
   "docs/developers/graphify-workflow.md": {

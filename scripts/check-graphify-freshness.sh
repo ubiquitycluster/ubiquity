@@ -12,8 +12,8 @@ for arg in "$@"; do
 Usage: scripts/check-graphify-freshness.sh [--strict]
 
 Checks that graphify-out/graph.json and graphify-out/GRAPH_REPORT.md exist and
-reports whether their last committed update is older than HEAD. This script does
-not run graph extraction.
+reports whether the latest committed graphify-out update is older than HEAD. This
+script does not run graph extraction.
 
 Set GRAPHIFY_FRESHNESS_STRICT=true or pass --strict to exit non-zero when graph
 artifacts appear stale.
@@ -46,7 +46,7 @@ require_file graphify-out/graph.json
 require_file graphify-out/GRAPH_REPORT.md
 
 head_commit="$(git rev-parse HEAD)"
-graph_commit="$(git log -1 --format=%H -- graphify-out/graph.json graphify-out/GRAPH_REPORT.md 2>/dev/null || true)"
+graph_commit="$(git log -1 --format=%H -- graphify-out 2>/dev/null || true)"
 
 if [[ -z "$graph_commit" ]]; then
   fail "graphify-out artifacts have no committed history; run graphify update . and commit them"
