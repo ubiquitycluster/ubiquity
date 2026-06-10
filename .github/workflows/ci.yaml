@@ -76,7 +76,11 @@ jobs:
           done
 
       - name: Run gitleaks
-        run: gitleaks detect --source . -v --no-git
+        run: |
+          if ! command -v gitleaks >/dev/null 2>&1; then
+            go install github.com/gitleaks/gitleaks/v8@latest
+          fi
+          gitleaks detect --source . -v --no-git
 
       - name: Check sops tools
         run: |
