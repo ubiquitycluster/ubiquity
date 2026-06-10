@@ -2,6 +2,7 @@ package cloud
 
 import (
 	"os"
+	"os/exec"
 	"path/filepath"
 	"strings"
 	"testing"
@@ -64,6 +65,12 @@ func TestHelmChartReferenceIsGeneratedAndCurrent(t *testing.T) {
 		if !strings.Contains(reference, chart) {
 			t.Fatalf("helm chart reference missing %s", chart)
 		}
+	}
+
+	cmd := exec.Command("bash", "scripts/generate-helm-chart-reference.sh", "--check")
+	cmd.Dir = "../.."
+	if out, err := cmd.CombinedOutput(); err != nil {
+		t.Fatalf("helm chart reference is stale: %v\n%s", err, out)
 	}
 }
 

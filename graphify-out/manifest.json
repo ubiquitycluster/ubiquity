@@ -1010,8 +1010,8 @@
     "semantic_hash": ""
   },
   "pkg/cloud/architecture_docs_test.go": {
-    "mtime": 1781009039.778264,
-    "ast_hash": "a84a2840bf46f6a23f08b055b022af4a",
+    "mtime": 1781091525.406497,
+    "ast_hash": "045986406866752894a66626a26d7964",
     "semantic_hash": ""
   },
   "pkg/cloud/audit_checklist.go": {

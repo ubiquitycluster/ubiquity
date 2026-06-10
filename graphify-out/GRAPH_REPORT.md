@@ -1,7 +1,7 @@
 # Graph Report - ubiquity  (2026-06-10)
 
 ## Corpus Check
-- 638 files · ~556,968 words
+- 638 files · ~556,995 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
@@ -10,7 +10,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `aeb0a058`
+- Built from commit: `e266b049`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -1263,7 +1263,7 @@ Nodes (30): additionalProperties, additionalProperties, properties, required, ty
 
 ### Community 37 - "Community 37"
 Cohesion: 0.05
-Nodes (36): Standard_D13, gpus, ram, vcpus, Standard_D16as_v4, gpus, ram, vcpus (+28 more)
+Nodes (36): Standard_D13_v2, gpus, ram, vcpus, Standard_D16as_v4, gpus, ram, vcpus (+28 more)
 
 ### Community 38 - "Community 38"
 Cohesion: 0.18
@@ -4651,7 +4651,7 @@ Nodes (6): loadNICoOperatingSystemsFromInventory(), loadNodeInventory(), nicoOpe
 
 ### Community 1091 - "Community 1091"
 Cohesion: 0.50
-Nodes (4): Standard_D13_v2, gpus, ram, vcpus
+Nodes (4): Standard_D13, gpus, ram, vcpus
 
 ### Community 1092 - "Community 1092"
 Cohesion: 1.00

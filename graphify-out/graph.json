@@ -614,7 +614,7 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_d13",
-      "community": 37,
+      "community": 1091,
       "norm_label": "standard_d13"
     },
     {
@@ -624,7 +624,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_d13_vcpus",
-      "community": 37,
+      "community": 1091,
       "norm_label": "vcpus"
     },
     {
@@ -634,7 +634,7 @@
       "source_location": "L29",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_d13_ram",
-      "community": 37,
+      "community": 1091,
       "norm_label": "ram"
     },
     {
@@ -644,7 +644,7 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_d13_gpus",
-      "community": 37,
+      "community": 1091,
       "norm_label": "gpus"
     },
     {
@@ -654,7 +654,7 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_d13_v2",
-      "community": 1091,
+      "community": 37,
       "norm_label": "standard_d13_v2"
     },
     {
@@ -664,7 +664,7 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_d13_v2_vcpus",
-      "community": 1091,
+      "community": 37,
       "norm_label": "vcpus"
     },
     {
@@ -674,7 +674,7 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_d13_v2_ram",
-      "community": 1091,
+      "community": 37,
       "norm_label": "ram"
     },
     {
@@ -684,7 +684,7 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_d13_v2_gpus",
-      "community": 1091,
+      "community": 37,
       "norm_label": "gpus"
     },
     {
@@ -13027,7 +13027,7 @@
       "label": "TestArchitectureADRAuditCoversRequiredDecisions()",
       "file_type": "code",
       "source_file": "pkg/cloud/architecture_docs_test.go",
-      "source_location": "L10",
+      "source_location": "L11",
       "_origin": "ast",
       "id": "cloud_architecture_docs_test_testarchitectureadrauditcoversrequireddecisions",
       "community": 393,
@@ -13037,7 +13037,7 @@
       "label": "T",
       "file_type": "code",
       "source_file": "pkg/cloud/architecture_docs_test.go",
-      "source_location": "L10",
+      "source_location": "L11",
       "_origin": "ast",
       "id": "pkg_cloud_architecture_docs_test_go_t",
       "community": 393,
@@ -13047,7 +13047,7 @@
       "label": "TestArchitectureNetworkingDocHasNoTODOs()",
       "file_type": "code",
       "source_file": "pkg/cloud/architecture_docs_test.go",
-      "source_location": "L41",
+      "source_location": "L42",
       "_origin": "ast",
       "id": "cloud_architecture_docs_test_testarchitecturenetworkingdochasnotodos",
       "community": 393,
@@ -13057,7 +13057,7 @@
       "label": "TestHelmChartReferenceIsGeneratedAndCurrent()",
       "file_type": "code",
       "source_file": "pkg/cloud/architecture_docs_test.go",
-      "source_location": "L55",
+      "source_location": "L56",
       "_origin": "ast",
       "id": "cloud_architecture_docs_test_testhelmchartreferenceisgeneratedandcurrent",
       "community": 393,
@@ -13067,7 +13067,7 @@
       "label": "TestCloudNVIDIAReadinessDocsUseEvidenceBoundaries()",
       "file_type": "code",
       "source_file": "pkg/cloud/architecture_docs_test.go",
-      "source_location": "L70",
+      "source_location": "L77",
       "_origin": "ast",
       "id": "cloud_architecture_docs_test_testcloudnvidiareadinessdocsuseevidenceboundaries",
       "community": 393,
@@ -13077,7 +13077,7 @@
       "label": "TestKustomizeHelmRelationshipIsDocumented()",
       "file_type": "code",
       "source_file": "pkg/cloud/architecture_docs_test.go",
-      "source_location": "L104",
+      "source_location": "L111",
       "_origin": "ast",
       "id": "cloud_architecture_docs_test_testkustomizehelmrelationshipisdocumented",
       "community": 393,
@@ -128617,9 +128617,9 @@
       "source_file": "pkg/cloud/graphify_workflow_test.go",
       "source_location": "L9",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cloud_graphify_workflow_test",
-      "target": "cloud_graphify_workflow_test_testgraphifyworkflowdocumentationandfreshnesscheck",
-      "confidence_score": 1.0
+      "target": "cloud_graphify_workflow_test_testgraphifyworkflowdocumentationandfreshnesscheck"
     },
     {
       "relation": "references",
@@ -128628,9 +128628,9 @@
       "source_location": "L9",
       "weight": 1.0,
       "context": "parameter_type",
+      "confidence_score": 1.0,
       "source": "cloud_graphify_workflow_test_testgraphifyworkflowdocumentationandfreshnesscheck",
-      "target": "pkg_cloud_graphify_workflow_test_go_t",
-      "confidence_score": 1.0
+      "target": "pkg_cloud_graphify_workflow_test_go_t"
     },
     {
       "relation": "contains",
@@ -150167,9 +150167,9 @@
       "source_file": "scripts/check-graphify-freshness.sh",
       "source_location": "L30",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_check_graphify_freshness",
-      "target": "scripts_check_graphify_freshness_fail",
-      "confidence_score": 1.0
+      "target": "scripts_check_graphify_freshness_fail"
     },
     {
       "relation": "defines",
@@ -150177,9 +150177,9 @@
       "source_file": "scripts/check-graphify-freshness.sh",
       "source_location": "L38",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_check_graphify_freshness",
-      "target": "scripts_check_graphify_freshness_require_file",
-      "confidence_score": 1.0
+      "target": "scripts_check_graphify_freshness_require_file"
     },
     {
       "relation": "contains",
@@ -150187,9 +150187,9 @@
       "source_file": "scripts/check-graphify-freshness.sh",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_check_graphify_freshness",
-      "target": "users_ccoates_documents_ubiquity_scripts_check_graphify_freshness_sh__entry",
-      "confidence_score": 1.0
+      "target": "users_ccoates_documents_ubiquity_scripts_check_graphify_freshness_sh__entry"
     },
     {
       "relation": "calls",
@@ -150198,9 +150198,9 @@
       "source_location": "L52",
       "weight": 1.0,
       "context": "call",
+      "confidence_score": 1.0,
       "source": "users_ccoates_documents_ubiquity_scripts_check_graphify_freshness_sh__entry",
-      "target": "scripts_check_graphify_freshness_fail",
-      "confidence_score": 1.0
+      "target": "scripts_check_graphify_freshness_fail"
     },
     {
       "relation": "calls",
@@ -150209,9 +150209,9 @@
       "source_location": "L45",
       "weight": 1.0,
       "context": "call",
+      "confidence_score": 1.0,
       "source": "users_ccoates_documents_ubiquity_scripts_check_graphify_freshness_sh__entry",
-      "target": "scripts_check_graphify_freshness_require_file",
-      "confidence_score": 1.0
+      "target": "scripts_check_graphify_freshness_require_file"
     },
     {
       "relation": "calls",
@@ -150220,9 +150220,9 @@
       "source_location": "L41",
       "weight": 1.0,
       "context": "call",
+      "confidence_score": 1.0,
       "source": "scripts_check_graphify_freshness_require_file",
-      "target": "scripts_check_graphify_freshness_fail",
-      "confidence_score": 1.0
+      "target": "scripts_check_graphify_freshness_fail"
     },
     {
       "relation": "contains",
@@ -169251,9 +169251,9 @@
       "source_file": "docs/developers/graphify-workflow.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "developers_graphify_workflow",
-      "target": "developers_graphify_workflow_graphify_workflow",
-      "confidence_score": 1.0
+      "target": "developers_graphify_workflow_graphify_workflow"
     },
     {
       "relation": "contains",
@@ -169261,9 +169261,9 @@
       "source_file": "docs/developers/graphify-workflow.md",
       "source_location": "L53",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "developers_graphify_workflow_graphify_workflow",
-      "target": "developers_graphify_workflow_freshness_check",
-      "confidence_score": 1.0
+      "target": "developers_graphify_workflow_freshness_check"
     },
     {
       "relation": "contains",
@@ -169271,9 +169271,9 @@
       "source_file": "docs/developers/graphify-workflow.md",
       "source_location": "L46",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "developers_graphify_workflow_graphify_workflow",
-      "target": "developers_graphify_workflow_token_cost_reporting",
-      "confidence_score": 1.0
+      "target": "developers_graphify_workflow_token_cost_reporting"
     },
     {
       "relation": "contains",
@@ -169281,9 +169281,9 @@
       "source_file": "docs/developers/graphify-workflow.md",
       "source_location": "L26",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "developers_graphify_workflow_graphify_workflow",
-      "target": "developers_graphify_workflow_updating_the_graph",
-      "confidence_score": 1.0
+      "target": "developers_graphify_workflow_updating_the_graph"
     },
     {
       "relation": "contains",
@@ -169291,9 +169291,9 @@
       "source_file": "docs/developers/graphify-workflow.md",
       "source_location": "L39",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "developers_graphify_workflow_graphify_workflow",
-      "target": "developers_graphify_workflow_visualization_and_size_limits",
-      "confidence_score": 1.0
+      "target": "developers_graphify_workflow_visualization_and_size_limits"
     },
     {
       "relation": "contains",
@@ -169301,9 +169301,9 @@
       "source_file": "docs/developers/graphify-workflow.md",
       "source_location": "L7",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "developers_graphify_workflow_graphify_workflow",
-      "target": "developers_graphify_workflow_when_to_query_the_graph",
-      "confidence_score": 1.0
+      "target": "developers_graphify_workflow_when_to_query_the_graph"
     },
     {
       "relation": "contains",
@@ -212787,5 +212787,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "aeb0a0589fcadabc698b6b0c6d048a560b3f3211"
+  "built_at_commit": "e266b049b95d3363e8426d74489dfb49d34fb7f3"
 }
