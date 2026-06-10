@@ -80,7 +80,12 @@ jobs:
           if ! command -v gitleaks >/dev/null 2>&1; then
             go install github.com/zricethezav/gitleaks/v8@latest
           fi
-          gitleaks detect --source . -v --no-git
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            git fetch origin "${{ github.event.pull_request.base.sha }}" "${{ github.event.pull_request.head.sha }}" --depth=1
+            gitleaks git --log-opts="${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }}" -v
+          else
+            gitleaks detect --source . -v --no-git
+          fi
 
       - name: Check sops tools
         run: |
