@@ -934,7 +934,7 @@
       "source_location": "L67",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_d16_v3",
-      "community": 993,
+      "community": 6,
       "norm_label": "standard_d16_v3"
     },
     {
@@ -944,7 +944,7 @@
       "source_location": "L68",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_d16_v3_vcpus",
-      "community": 993,
+      "community": 6,
       "norm_label": "vcpus"
     },
     {
@@ -954,7 +954,7 @@
       "source_location": "L69",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_d16_v3_ram",
-      "community": 993,
+      "community": 6,
       "norm_label": "ram"
     },
     {
@@ -964,7 +964,7 @@
       "source_location": "L70",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_d16_v3_gpus",
-      "community": 993,
+      "community": 6,
       "norm_label": "gpus"
     },
     {
@@ -2094,7 +2094,7 @@
       "source_location": "L212",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_d8_v3",
-      "community": 6,
+      "community": 1084,
       "norm_label": "standard_d8_v3"
     },
     {
@@ -2104,7 +2104,7 @@
       "source_location": "L213",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_d8_v3_vcpus",
-      "community": 6,
+      "community": 1084,
       "norm_label": "vcpus"
     },
     {
@@ -2114,7 +2114,7 @@
       "source_location": "L214",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_d8_v3_ram",
-      "community": 6,
+      "community": 1084,
       "norm_label": "ram"
     },
     {
@@ -2124,7 +2124,7 @@
       "source_location": "L215",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_d8_v3_gpus",
-      "community": 6,
+      "community": 1084,
       "norm_label": "gpus"
     },
     {
@@ -3014,7 +3014,7 @@
       "source_location": "L327",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_e48_v3",
-      "community": 863,
+      "community": 6,
       "norm_label": "standard_e48_v3"
     },
     {
@@ -3024,7 +3024,7 @@
       "source_location": "L328",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_e48_v3_vcpus",
-      "community": 863,
+      "community": 6,
       "norm_label": "vcpus"
     },
     {
@@ -3034,7 +3034,7 @@
       "source_location": "L329",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_e48_v3_ram",
-      "community": 863,
+      "community": 6,
       "norm_label": "ram"
     },
     {
@@ -3044,7 +3044,7 @@
       "source_location": "L330",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_e48_v3_gpus",
-      "community": 863,
+      "community": 6,
       "norm_label": "gpus"
     },
     {
@@ -3174,7 +3174,7 @@
       "source_location": "L347",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_e64a_v4",
-      "community": 6,
+      "community": 1085,
       "norm_label": "standard_e64a_v4"
     },
     {
@@ -3184,7 +3184,7 @@
       "source_location": "L348",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_e64a_v4_vcpus",
-      "community": 6,
+      "community": 1085,
       "norm_label": "vcpus"
     },
     {
@@ -3194,7 +3194,7 @@
       "source_location": "L349",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_e64a_v4_ram",
-      "community": 6,
+      "community": 1085,
       "norm_label": "ram"
     },
     {
@@ -3204,7 +3204,7 @@
       "source_location": "L350",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_e64a_v4_gpus",
-      "community": 6,
+      "community": 1085,
       "norm_label": "gpus"
     },
     {
@@ -5094,7 +5094,7 @@
       "source_location": "L587",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_nc6_promo",
-      "community": 6,
+      "community": 993,
       "norm_label": "standard_nc6_promo"
     },
     {
@@ -5104,7 +5104,7 @@
       "source_location": "L588",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_nc6_promo_vcpus",
-      "community": 6,
+      "community": 993,
       "norm_label": "vcpus"
     },
     {
@@ -5114,7 +5114,7 @@
       "source_location": "L589",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_nc6_promo_ram",
-      "community": 6,
+      "community": 993,
       "norm_label": "ram"
     },
     {
@@ -5124,7 +5124,7 @@
       "source_location": "L590",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_nc6_promo_gpus",
-      "community": 6,
+      "community": 993,
       "norm_label": "gpus"
     },
     {
@@ -7172,7 +7172,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "cmd_kai_scheduler_sandbox_test",
-      "community": 957,
+      "community": 1,
       "norm_label": "kai_scheduler_sandbox_test.go"
     },
     {
@@ -7182,7 +7182,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "cmd_kai_scheduler_sandbox_test_testsandboxdeploytargetsincludekaischeduler",
-      "community": 957,
+      "community": 1,
       "norm_label": "testsandboxdeploytargetsincludekaischeduler()"
     },
     {
@@ -7192,7 +7192,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "cmd_ubiquity_cmd_kai_scheduler_sandbox_test_go_t",
-      "community": 957,
+      "community": 1,
       "norm_label": "t"
     },
     {
@@ -7252,7 +7252,7 @@
       "source_location": "L58",
       "_origin": "ast",
       "id": "cmd_nodes_newnodesnicoclientforconfig",
-      "community": 2,
+      "community": 957,
       "norm_label": "newnodesnicoclientforconfig()"
     },
     {
@@ -7262,7 +7262,7 @@
       "source_location": "L58",
       "_origin": "ast",
       "id": "cmd_ubiquity_cmd_nodes_go_config",
-      "community": 2,
+      "community": 957,
       "norm_label": "config"
     },
     {
@@ -7272,7 +7272,7 @@
       "source_location": "L77",
       "_origin": "ast",
       "id": "cmd_nodes_init",
-      "community": 2,
+      "community": 957,
       "norm_label": "init()"
     },
     {
@@ -7282,7 +7282,7 @@
       "source_location": "L127",
       "_origin": "ast",
       "id": "cmd_nodes_validatepowerargs",
-      "community": 2,
+      "community": 957,
       "norm_label": "validatepowerargs()"
     },
     {
@@ -7292,7 +7292,7 @@
       "source_location": "L127",
       "_origin": "ast",
       "id": "cmd_ubiquity_cmd_nodes_go_command",
-      "community": 2,
+      "community": 957,
       "norm_label": "command"
     },
     {
@@ -7302,7 +7302,7 @@
       "source_location": "L139",
       "_origin": "ast",
       "id": "cmd_nodes_runnodeslist",
-      "community": 2,
+      "community": 957,
       "norm_label": "runnodeslist()"
     },
     {
@@ -7312,7 +7312,7 @@
       "source_location": "L164",
       "_origin": "ast",
       "id": "cmd_nodes_runnodesstatus",
-      "community": 2,
+      "community": 957,
       "norm_label": "runnodesstatus()"
     },
     {
@@ -7322,7 +7322,7 @@
       "source_location": "L167",
       "_origin": "ast",
       "id": "cmd_nodes_runnodestask",
-      "community": 2,
+      "community": 957,
       "norm_label": "runnodestask()"
     },
     {
@@ -7332,7 +7332,7 @@
       "source_location": "L171",
       "_origin": "ast",
       "id": "cmd_nodes_runnodesoslist",
-      "community": 2,
+      "community": 957,
       "norm_label": "runnodesoslist()"
     },
     {
@@ -7342,7 +7342,7 @@
       "source_location": "L196",
       "_origin": "ast",
       "id": "cmd_nodes_runnodesaction",
-      "community": 2,
+      "community": 957,
       "norm_label": "runnodesaction()"
     },
     {
@@ -7352,7 +7352,7 @@
       "source_location": "L246",
       "_origin": "ast",
       "id": "cmd_nodes_canonicalnodeaction",
-      "community": 2,
+      "community": 957,
       "norm_label": "canonicalnodeaction()"
     },
     {
@@ -7362,7 +7362,7 @@
       "source_location": "L263",
       "_origin": "ast",
       "id": "cmd_nodes_evaluatenodeactionsafety",
-      "community": 2,
+      "community": 1079,
       "norm_label": "evaluatenodeactionsafety()"
     },
     {
@@ -7372,7 +7372,7 @@
       "source_location": "L263",
       "_origin": "ast",
       "id": "cmd_ubiquity_cmd_nodes_go_nodestatus",
-      "community": 2,
+      "community": 1079,
       "norm_label": "nodestatus"
     },
     {
@@ -7572,7 +7572,7 @@
       "source_location": "L640",
       "_origin": "ast",
       "id": "cmd_nodestoragesafety",
-      "community": 2,
+      "community": 1079,
       "norm_label": "nodestoragesafety"
     },
     {
@@ -7582,7 +7582,7 @@
       "source_location": "L645",
       "_origin": "ast",
       "id": "cmd_nodes_collectnodestoragesafety",
-      "community": 2,
+      "community": 1079,
       "norm_label": "collectnodestoragesafety()"
     },
     {
@@ -7592,7 +7592,7 @@
       "source_location": "L661",
       "_origin": "ast",
       "id": "cmd_nodes_resolvenodetargetstatus",
-      "community": 2,
+      "community": 1079,
       "norm_label": "resolvenodetargetstatus()"
     },
     {
@@ -7602,7 +7602,7 @@
       "source_location": "L677",
       "_origin": "ast",
       "id": "cmd_nodes_controlplanecounts",
-      "community": 2,
+      "community": 1079,
       "norm_label": "controlplanecounts()"
     },
     {
@@ -7612,7 +7612,7 @@
       "source_location": "L690",
       "_origin": "ast",
       "id": "cmd_nodes_nodehascontrolplanerole",
-      "community": 2,
+      "community": 1079,
       "norm_label": "nodehascontrolplanerole()"
     },
     {
@@ -7642,7 +7642,7 @@
       "source_location": "L713",
       "_origin": "ast",
       "id": "cmd_nodes_requirenodebackend",
-      "community": 2,
+      "community": 957,
       "norm_label": "requirenodebackend()"
     },
     {
@@ -7652,7 +7652,7 @@
       "source_location": "L730",
       "_origin": "ast",
       "id": "cmd_nodes_nicoconfigfromenv",
-      "community": 2,
+      "community": 957,
       "norm_label": "nicoconfigfromenv()"
     },
     {
@@ -7662,7 +7662,7 @@
       "source_location": "L738",
       "_origin": "ast",
       "id": "cmd_nodes_usenicoclitransport",
-      "community": 2,
+      "community": 957,
       "norm_label": "usenicoclitransport()"
     },
     {
@@ -7672,7 +7672,7 @@
       "source_location": "L743",
       "_origin": "ast",
       "id": "cmd_nodes_rendernoderows",
-      "community": 2,
+      "community": 957,
       "norm_label": "rendernoderows()"
     },
     {
@@ -7682,7 +7682,7 @@
       "source_location": "L761",
       "_origin": "ast",
       "id": "cmd_nodes_redactnodeoutput",
-      "community": 2,
+      "community": 957,
       "norm_label": "redactnodeoutput()"
     },
     {
@@ -7692,7 +7692,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "cmd_nodes_blockers_test",
-      "community": 2,
+      "community": 933,
       "norm_label": "nodes_blockers_test.go"
     },
     {
@@ -7702,7 +7702,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "cmd_fakenodesnicoclient",
-      "community": 8,
+      "community": 3,
       "norm_label": "fakenodesnicoclient"
     },
     {
@@ -7712,7 +7712,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "cmd_ubiquity_cmd_nodes_blockers_test_go_operatingsystem",
-      "community": 8,
+      "community": 3,
       "norm_label": "operatingsystem"
     },
     {
@@ -7722,7 +7722,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "cmd_ubiquity_cmd_nodes_blockers_test_go_instance",
-      "community": 8,
+      "community": 3,
       "norm_label": "instance"
     },
     {
@@ -7732,7 +7732,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "powerrequest",
-      "community": 8,
+      "community": 3,
       "norm_label": "powerrequest"
     },
     {
@@ -7742,7 +7742,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "cmd_ubiquity_cmd_nodes_blockers_test_go_site",
-      "community": 8,
+      "community": 3,
       "norm_label": "site"
     },
     {
@@ -7752,7 +7752,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "cmd_ubiquity_cmd_nodes_blockers_test_go_machine",
-      "community": 8,
+      "community": 3,
       "norm_label": "machine"
     },
     {
@@ -7762,7 +7762,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "cmd_ubiquity_cmd_nodes_blockers_test_go_task",
-      "community": 8,
+      "community": 3,
       "norm_label": "task"
     },
     {
@@ -7772,7 +7772,7 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "cmd_ubiquity_cmd_nodes_blockers_test_go_machinegpustats",
-      "community": 8,
+      "community": 3,
       "norm_label": "machinegpustats"
     },
     {
@@ -7782,7 +7782,7 @@
       "source_location": "L29",
       "_origin": "ast",
       "id": "cmd_fakenodesnicoclient_getmachine",
-      "community": 8,
+      "community": 3,
       "norm_label": ".getmachine()"
     },
     {
@@ -7792,7 +7792,7 @@
       "source_location": "L29",
       "_origin": "ast",
       "id": "cmd_ubiquity_cmd_nodes_blockers_test_go_context",
-      "community": 8,
+      "community": 3,
       "norm_label": "context"
     },
     {
@@ -7802,7 +7802,7 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "cmd_fakenodesnicoclient_createoperatingsystem",
-      "community": 8,
+      "community": 3,
       "norm_label": ".createoperatingsystem()"
     },
     {
@@ -7812,7 +7812,7 @@
       "source_location": "L40",
       "_origin": "ast",
       "id": "cmd_fakenodesnicoclient_createinstance",
-      "community": 8,
+      "community": 3,
       "norm_label": ".createinstance()"
     },
     {
@@ -7822,7 +7822,7 @@
       "source_location": "L48",
       "_origin": "ast",
       "id": "cmd_fakenodesnicoclient_deleteinstance",
-      "community": 8,
+      "community": 3,
       "norm_label": ".deleteinstance()"
     },
     {
@@ -7832,7 +7832,7 @@
       "source_location": "L59",
       "_origin": "ast",
       "id": "cmd_fakenodesnicoclient_powermachine",
-      "community": 8,
+      "community": 3,
       "norm_label": ".powermachine()"
     },
     {
@@ -7842,7 +7842,7 @@
       "source_location": "L67",
       "_origin": "ast",
       "id": "cmd_fakenodesnicoclient_listsites",
-      "community": 8,
+      "community": 3,
       "norm_label": ".listsites()"
     },
     {
@@ -7852,7 +7852,7 @@
       "source_location": "L73",
       "_origin": "ast",
       "id": "cmd_fakenodesnicoclient_listmachines",
-      "community": 8,
+      "community": 3,
       "norm_label": ".listmachines()"
     },
     {
@@ -7862,7 +7862,7 @@
       "source_location": "L79",
       "_origin": "ast",
       "id": "cmd_fakenodesnicoclient_listinstances",
-      "community": 8,
+      "community": 3,
       "norm_label": ".listinstances()"
     },
     {
@@ -7872,7 +7872,7 @@
       "source_location": "L82",
       "_origin": "ast",
       "id": "cmd_fakenodesnicoclient_listtasks",
-      "community": 8,
+      "community": 3,
       "norm_label": ".listtasks()"
     },
     {
@@ -7882,7 +7882,7 @@
       "source_location": "L85",
       "_origin": "ast",
       "id": "cmd_fakenodesnicoclient_listmachinegpustats",
-      "community": 8,
+      "community": 3,
       "norm_label": ".listmachinegpustats()"
     },
     {
@@ -7892,7 +7892,7 @@
       "source_location": "L88",
       "_origin": "ast",
       "id": "cmd_fakenodesnicoclient_gettask",
-      "community": 8,
+      "community": 3,
       "norm_label": ".gettask()"
     },
     {
@@ -7902,7 +7902,7 @@
       "source_location": "L101",
       "_origin": "ast",
       "id": "cmd_nodes_blockers_test_capturenodesoutput",
-      "community": 2,
+      "community": 933,
       "norm_label": "capturenodesoutput()"
     },
     {
@@ -7912,7 +7912,7 @@
       "source_location": "L101",
       "_origin": "ast",
       "id": "cmd_ubiquity_cmd_nodes_blockers_test_go_t",
-      "community": 2,
+      "community": 933,
       "norm_label": "t"
     },
     {
@@ -7922,7 +7922,7 @@
       "source_location": "L117",
       "_origin": "ast",
       "id": "cmd_nodes_blockers_test_testnodesflagsconfirmstringosimagealiasandsafetyflags",
-      "community": 2,
+      "community": 933,
       "norm_label": "testnodesflagsconfirmstringosimagealiasandsafetyflags()"
     },
     {
@@ -7932,7 +7932,7 @@
       "source_location": "L129",
       "_origin": "ast",
       "id": "cmd_nodes_blockers_test_testnodesexactargsandpowersyntax",
-      "community": 2,
+      "community": 933,
       "norm_label": "testnodesexactargsandpowersyntax()"
     },
     {
@@ -7942,7 +7942,7 @@
       "source_location": "L142",
       "_origin": "ast",
       "id": "cmd_nodes_blockers_test_testnodessafetyrequiresexactconfirmation",
-      "community": 2,
+      "community": 933,
       "norm_label": "testnodessafetyrequiresexactconfirmation()"
     },
     {
@@ -7952,7 +7952,7 @@
       "source_location": "L152",
       "_origin": "ast",
       "id": "cmd_nodes_blockers_test_testnodeslivemutatingoperationcallsfakeableclient",
-      "community": 2,
+      "community": 933,
       "norm_label": "testnodeslivemutatingoperationcallsfakeableclient()"
     },
     {
@@ -7962,7 +7962,7 @@
       "source_location": "L174",
       "_origin": "ast",
       "id": "cmd_nodes_blockers_test_testnodeslivedraincordonsanddrainskubernetesnode",
-      "community": 2,
+      "community": 933,
       "norm_label": "testnodeslivedraincordonsanddrainskubernetesnode()"
     },
     {
@@ -7972,7 +7972,7 @@
       "source_location": "L212",
       "_origin": "ast",
       "id": "cmd_nodes_blockers_test_testnodesliveremovepollsdeletiontaskandverifiesinstanceabsent",
-      "community": 2,
+      "community": 933,
       "norm_label": "testnodesliveremovepollsdeletiontaskandverifiesinstanceabsent()"
     },
     {
@@ -7982,7 +7982,7 @@
       "source_location": "L242",
       "_origin": "ast",
       "id": "cmd_nodes_blockers_test_testnodeslivereinstallinventorypinsreplacementtosamemachine",
-      "community": 2,
+      "community": 933,
       "norm_label": "testnodeslivereinstallinventorypinsreplacementtosamemachine()"
     },
     {
@@ -7992,7 +7992,7 @@
       "source_location": "L279",
       "_origin": "ast",
       "id": "cmd_nodes_blockers_test_testnodesnicoclitransportdoesnotrequirerestbaseurl",
-      "community": 2,
+      "community": 933,
       "norm_label": "testnodesnicoclitransportdoesnotrequirerestbaseurl()"
     },
     {
@@ -8002,7 +8002,7 @@
       "source_location": "L293",
       "_origin": "ast",
       "id": "cmd_nodes_blockers_test_testnodeslivepowercallsnicomachinepowertask",
-      "community": 2,
+      "community": 933,
       "norm_label": "testnodeslivepowercallsnicomachinepowertask()"
     },
     {
@@ -8012,7 +8012,7 @@
       "source_location": "L322",
       "_origin": "ast",
       "id": "cmd_nodes_blockers_test_testnodeslivetaskcallsfakeableclientandrenderstask",
-      "community": 2,
+      "community": 933,
       "norm_label": "testnodeslivetaskcallsfakeableclientandrenderstask()"
     },
     {
@@ -8022,7 +8022,7 @@
       "source_location": "L345",
       "_origin": "ast",
       "id": "cmd_nodes_blockers_test_testnodeslivestatuscollectsnicofilterstargetandusesdeadline",
-      "community": 2,
+      "community": 933,
       "norm_label": "testnodeslivestatuscollectsnicofilterstargetandusesdeadline()"
     },
     {
@@ -8032,7 +8032,7 @@
       "source_location": "L373",
       "_origin": "ast",
       "id": "cmd_nodes_blockers_test_testnodeslivecreateactionsrendercreatedpayloads",
-      "community": 2,
+      "community": 933,
       "norm_label": "testnodeslivecreateactionsrendercreatedpayloads()"
     },
     {
@@ -8042,7 +8042,7 @@
       "source_location": "L400",
       "_origin": "ast",
       "id": "cmd_nodes_blockers_test_testnodesosapplyinventorycreatesrenderednicooperatingsystems",
-      "community": 2,
+      "community": 933,
       "norm_label": "testnodesosapplyinventorycreatesrenderednicooperatingsystems()"
     },
     {
@@ -8052,7 +8052,7 @@
       "source_location": "L424",
       "_origin": "ast",
       "id": "cmd_nodes_blockers_test_testnodesaddinventorycreatesosandinstancefortargetnode",
-      "community": 2,
+      "community": 933,
       "norm_label": "testnodesaddinventorycreatesosandinstancefortargetnode()"
     },
     {
@@ -8062,7 +8062,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "cmd_nodes_live_evidence_test",
-      "community": 2,
+      "community": 1079,
       "norm_label": "nodes_live_evidence_test.go"
     },
     {
@@ -8072,7 +8072,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "cmd_nodes_live_evidence_test_testcollectnodekubernetesevidenceuseskubectlnodesjson",
-      "community": 2,
+      "community": 1079,
       "norm_label": "testcollectnodekubernetesevidenceuseskubectlnodesjson()"
     },
     {
@@ -8082,7 +8082,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "cmd_ubiquity_cmd_nodes_live_evidence_test_go_t",
-      "community": 2,
+      "community": 1079,
       "norm_label": "t"
     },
     {
@@ -8092,7 +8092,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "cmd_nodes_live_evidence_test_testcollectnodekubernetesevidencefailsclosedwhenkubectlunavailable",
-      "community": 2,
+      "community": 1079,
       "norm_label": "testcollectnodekubernetesevidencefailsclosedwhenkubectlunavailable()"
     },
     {
@@ -8102,7 +8102,7 @@
       "source_location": "L40",
       "_origin": "ast",
       "id": "cmd_nodes_live_evidence_test_testresolvenodetargetstatusfailsclosedforambiguousormissingtargets",
-      "community": 2,
+      "community": 1079,
       "norm_label": "testresolvenodetargetstatusfailsclosedforambiguousormissingtargets()"
     },
     {
@@ -8112,7 +8112,7 @@
       "source_location": "L50",
       "_origin": "ast",
       "id": "cmd_nodes_live_evidence_test_testrunliveremoveresolvesnodenametoinstanceid",
-      "community": 2,
+      "community": 1079,
       "norm_label": "testrunliveremoveresolvesnodenametoinstanceid()"
     },
     {
@@ -8122,7 +8122,7 @@
       "source_location": "L69",
       "_origin": "ast",
       "id": "cmd_nodes_live_evidence_test_testcontrolplanecountsuseliverolesandreadyevidence",
-      "community": 2,
+      "community": 1079,
       "norm_label": "testcontrolplanecountsuseliverolesandreadyevidence()"
     },
     {
@@ -8132,7 +8132,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "cmd_nodes_test",
-      "community": 2,
+      "community": 1081,
       "norm_label": "nodes_test.go"
     },
     {
@@ -8142,7 +8142,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "cmd_nodes_test_testnodescommandregisteredwithsubcommands",
-      "community": 2,
+      "community": 1081,
       "norm_label": "testnodescommandregisteredwithsubcommands()"
     },
     {
@@ -8152,7 +8152,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "cmd_ubiquity_cmd_nodes_test_go_t",
-      "community": 2,
+      "community": 1081,
       "norm_label": "t"
     },
     {
@@ -8162,7 +8162,7 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "cmd_nodes_test_testnodesdefaultbackendnicoandabsentconfigfailsclosed",
-      "community": 2,
+      "community": 1081,
       "norm_label": "testnodesdefaultbackendnicoandabsentconfigfailsclosed()"
     },
     {
@@ -8172,7 +8172,7 @@
       "source_location": "L47",
       "_origin": "ast",
       "id": "cmd_nodes_test_testnodesdestructiverequiresconfirm",
-      "community": 2,
+      "community": 1081,
       "norm_label": "testnodesdestructiverequiresconfirm()"
     },
     {
@@ -8182,7 +8182,7 @@
       "source_location": "L57",
       "_origin": "ast",
       "id": "cmd_nodes_test_testnodesjsonredactssecrets",
-      "community": 2,
+      "community": 1081,
       "norm_label": "testnodesjsonredactssecrets()"
     },
     {
@@ -8192,7 +8192,7 @@
       "source_location": "L65",
       "_origin": "ast",
       "id": "cmd_nodes_test_testnicohealthrendererfailsclosed",
-      "community": 2,
+      "community": 1081,
       "norm_label": "testnicohealthrendererfailsclosed()"
     },
     {
@@ -8442,7 +8442,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "cmd_sandbox_deploy_test",
-      "community": 957,
+      "community": 1,
       "norm_label": "sandbox_deploy_test.go"
     },
     {
@@ -8452,7 +8452,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "cmd_sandbox_deploy_test_testsandboxdeploytargetsincludenvidiaaicomponents",
-      "community": 957,
+      "community": 1,
       "norm_label": "testsandboxdeploytargetsincludenvidiaaicomponents()"
     },
     {
@@ -8462,7 +8462,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "cmd_ubiquity_cmd_sandbox_deploy_test_go_t",
-      "community": 957,
+      "community": 1,
       "norm_label": "t"
     },
     {
@@ -8472,7 +8472,7 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "cmd_sandbox_deploy_test_testvalidatenvidiaaisandboxchartsrenderwithoutdevices",
-      "community": 957,
+      "community": 1,
       "norm_label": "testvalidatenvidiaaisandboxchartsrenderwithoutdevices()"
     },
     {
@@ -8482,7 +8482,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "cmd_server_side_apply_test",
-      "community": 1089,
+      "community": 1,
       "norm_label": "server_side_apply_test.go"
     },
     {
@@ -8492,7 +8492,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "cmd_server_side_apply_test_testkaischedulerusesserversideapplyforlargecrds",
-      "community": 1089,
+      "community": 1,
       "norm_label": "testkaischedulerusesserversideapplyforlargecrds()"
     },
     {
@@ -8502,7 +8502,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "cmd_ubiquity_cmd_server_side_apply_test_go_t",
-      "community": 1089,
+      "community": 1,
       "norm_label": "t"
     },
     {
@@ -8512,7 +8512,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "cmd_status",
-      "community": 1084,
+      "community": 3,
       "norm_label": "status.go"
     },
     {
@@ -8522,7 +8522,7 @@
       "source_location": "L57",
       "_origin": "ast",
       "id": "cmd_status_init",
-      "community": 1084,
+      "community": 3,
       "norm_label": "init()"
     },
     {
@@ -8532,7 +8532,7 @@
       "source_location": "L63",
       "_origin": "ast",
       "id": "cmd_status_checkinstallerstatus",
-      "community": 1084,
+      "community": 3,
       "norm_label": "checkinstallerstatus()"
     },
     {
@@ -8672,7 +8672,7 @@
       "source_location": "L161",
       "_origin": "ast",
       "id": "cmd_up_provisionmetal",
-      "community": 933,
+      "community": 1,
       "norm_label": "provisionmetal()"
     },
     {
@@ -8682,7 +8682,7 @@
       "source_location": "L177",
       "_origin": "ast",
       "id": "cmd_up_applylifecycledefaults",
-      "community": 933,
+      "community": 1,
       "norm_label": "applylifecycledefaults()"
     },
     {
@@ -8692,7 +8692,7 @@
       "source_location": "L194",
       "_origin": "ast",
       "id": "cmd_up_validatelifecyclebackends",
-      "community": 933,
+      "community": 1,
       "norm_label": "validatelifecyclebackends()"
     },
     {
@@ -8702,7 +8702,7 @@
       "source_location": "L212",
       "_origin": "ast",
       "id": "cmd_up_describenicoinstallpath",
-      "community": 933,
+      "community": 1,
       "norm_label": "describenicoinstallpath()"
     },
     {
@@ -8752,7 +8752,7 @@
       "source_location": "L380",
       "_origin": "ast",
       "id": "cmd_sandboxdeploytarget",
-      "community": 957,
+      "community": 1,
       "norm_label": "sandboxdeploytarget"
     },
     {
@@ -8762,7 +8762,7 @@
       "source_location": "L389",
       "_origin": "ast",
       "id": "cmd_up_collectsandboxdeploytargets",
-      "community": 957,
+      "community": 1,
       "norm_label": "collectsandboxdeploytargets()"
     },
     {
@@ -8772,7 +8772,7 @@
       "source_location": "L460",
       "_origin": "ast",
       "id": "cmd_up_validatesandboxdeploytargets",
-      "community": 957,
+      "community": 1,
       "norm_label": "validatesandboxdeploytargets()"
     },
     {
@@ -8782,7 +8782,7 @@
       "source_location": "L472",
       "_origin": "ast",
       "id": "cmd_up_validatesandboxdeploytargetsforcli",
-      "community": 957,
+      "community": 1,
       "norm_label": "validatesandboxdeploytargetsforcli()"
     },
     {
@@ -8792,7 +8792,7 @@
       "source_location": "L483",
       "_origin": "ast",
       "id": "cmd_up_validatenvidiaaisandboxdeploytargetsforcli",
-      "community": 957,
+      "community": 1,
       "norm_label": "validatenvidiaaisandboxdeploytargetsforcli()"
     },
     {
@@ -8802,7 +8802,7 @@
       "source_location": "L495",
       "_origin": "ast",
       "id": "cmd_up_filternvidiaaisandboxdeploytargets",
-      "community": 957,
+      "community": 1,
       "norm_label": "filternvidiaaisandboxdeploytargets()"
     },
     {
@@ -8812,7 +8812,7 @@
       "source_location": "L505",
       "_origin": "ast",
       "id": "cmd_up_isnvidiaaisandboxdeploytarget",
-      "community": 957,
+      "community": 1,
       "norm_label": "isnvidiaaisandboxdeploytarget()"
     },
     {
@@ -8822,7 +8822,7 @@
       "source_location": "L516",
       "_origin": "ast",
       "id": "cmd_up_rendersandboxhelmtarget",
-      "community": 957,
+      "community": 1,
       "norm_label": "rendersandboxhelmtarget()"
     },
     {
@@ -8882,7 +8882,7 @@
       "source_location": "L609",
       "_origin": "ast",
       "id": "cmd_up_cleanupsandboxdependencyarchives",
-      "community": 957,
+      "community": 1,
       "norm_label": "cleanupsandboxdependencyarchives()"
     },
     {
@@ -8892,7 +8892,7 @@
       "source_location": "L623",
       "_origin": "ast",
       "id": "cmd_up_fileexists",
-      "community": 957,
+      "community": 1,
       "norm_label": "fileexists()"
     },
     {
@@ -8932,7 +8932,7 @@
       "source_location": "L721",
       "_origin": "ast",
       "id": "cmd_up_provisionpostinstall",
-      "community": 933,
+      "community": 1,
       "norm_label": "provisionpostinstall()"
     },
     {
@@ -9062,7 +9062,7 @@
       "source_location": "L1021",
       "_origin": "ast",
       "id": "cmd_up_shouldserversideapply",
-      "community": 1089,
+      "community": 1,
       "norm_label": "shouldserversideapply()"
     },
     {
@@ -9072,7 +9072,7 @@
       "source_location": "L1025",
       "_origin": "ast",
       "id": "cmd_up_helmtemplateargs",
-      "community": 957,
+      "community": 1,
       "norm_label": "helmtemplateargs()"
     },
     {
@@ -9152,7 +9152,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "cmd_up_test",
-      "community": 933,
+      "community": 1,
       "norm_label": "up_test.go"
     },
     {
@@ -9162,7 +9162,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "cmd_up_test_isolatehome",
-      "community": 933,
+      "community": 1,
       "norm_label": "isolatehome()"
     },
     {
@@ -9172,7 +9172,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "cmd_ubiquity_cmd_up_test_go_t",
-      "community": 933,
+      "community": 1,
       "norm_label": "t"
     },
     {
@@ -9182,7 +9182,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "cmd_up_test_requireliveintegration",
-      "community": 933,
+      "community": 1,
       "norm_label": "requireliveintegration()"
     },
     {
@@ -9192,7 +9192,7 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "cmd_up_test_testupusesproviderinterface",
-      "community": 933,
+      "community": 1,
       "norm_label": "testupusesproviderinterface()"
     },
     {
@@ -9202,7 +9202,7 @@
       "source_location": "L59",
       "_origin": "ast",
       "id": "cmd_up_test_testupsandboxflagsetsenv",
-      "community": 933,
+      "community": 1,
       "norm_label": "testupsandboxflagsetsenv()"
     },
     {
@@ -9212,7 +9212,7 @@
       "source_location": "L83",
       "_origin": "ast",
       "id": "cmd_up_test_testprovisionmetalsandbox",
-      "community": 933,
+      "community": 1,
       "norm_label": "testprovisionmetalsandbox()"
     },
     {
@@ -9222,7 +9222,7 @@
       "source_location": "L96",
       "_origin": "ast",
       "id": "cmd_up_test_testreadk3simage",
-      "community": 933,
+      "community": 1,
       "norm_label": "testreadk3simage()"
     },
     {
@@ -9232,7 +9232,7 @@
       "source_location": "L138",
       "_origin": "ast",
       "id": "cmd_up_test_testprovisionmetalprod",
-      "community": 933,
+      "community": 1,
       "norm_label": "testprovisionmetalprod()"
     },
     {
@@ -9242,7 +9242,7 @@
       "source_location": "L151",
       "_origin": "ast",
       "id": "cmd_up_test_testlifecycledefaultssandboxnoneprodnico",
-      "community": 933,
+      "community": 1,
       "norm_label": "testlifecycledefaultssandboxnoneprodnico()"
     },
     {
@@ -9252,7 +9252,7 @@
       "source_location": "L166",
       "_origin": "ast",
       "id": "cmd_up_test_testdescribenicoinstallpathisgitopsonly",
-      "community": 933,
+      "community": 1,
       "norm_label": "testdescribenicoinstallpathisgitopsonly()"
     },
     {
@@ -9262,7 +9262,7 @@
       "source_location": "L178",
       "_origin": "ast",
       "id": "cmd_up_test_testvalidatelifecyclebackendsrejectsbmowithoutmigrationacknowledgement",
-      "community": 933,
+      "community": 1,
       "norm_label": "testvalidatelifecyclebackendsrejectsbmowithoutmigrationacknowledgement()"
     },
     {
@@ -9272,7 +9272,7 @@
       "source_location": "L188",
       "_origin": "ast",
       "id": "cmd_up_test_testvalidatelifecyclebackendsallowsbmowithmigrationacknowledgement",
-      "community": 933,
+      "community": 1,
       "norm_label": "testvalidatelifecyclebackendsallowsbmowithmigrationacknowledgement()"
     },
     {
@@ -9282,7 +9282,7 @@
       "source_location": "L198",
       "_origin": "ast",
       "id": "cmd_up_test_testprovisionbootstrapsandbox",
-      "community": 933,
+      "community": 1,
       "norm_label": "testprovisionbootstrapsandbox()"
     },
     {
@@ -9292,7 +9292,7 @@
       "source_location": "L211",
       "_origin": "ast",
       "id": "cmd_up_test_testapplysandboxcharts",
-      "community": 933,
+      "community": 1,
       "norm_label": "testapplysandboxcharts()"
     },
     {
@@ -9302,7 +9302,7 @@
       "source_location": "L224",
       "_origin": "ast",
       "id": "cmd_up_test_testdecryptsopssecrets",
-      "community": 933,
+      "community": 1,
       "norm_label": "testdecryptsopssecrets()"
     },
     {
@@ -9312,7 +9312,7 @@
       "source_location": "L231",
       "_origin": "ast",
       "id": "cmd_up_test_testprovisionsecurity",
-      "community": 933,
+      "community": 1,
       "norm_label": "testprovisionsecurity()"
     },
     {
@@ -9322,7 +9322,7 @@
       "source_location": "L240",
       "_origin": "ast",
       "id": "cmd_up_test_testprovisionexternal",
-      "community": 933,
+      "community": 1,
       "norm_label": "testprovisionexternal()"
     },
     {
@@ -9332,7 +9332,7 @@
       "source_location": "L248",
       "_origin": "ast",
       "id": "cmd_up_test_testprovisionwait",
-      "community": 933,
+      "community": 1,
       "norm_label": "testprovisionwait()"
     },
     {
@@ -9342,7 +9342,7 @@
       "source_location": "L257",
       "_origin": "ast",
       "id": "cmd_up_test_testprovisionpostinstallsandboxdoesnotinstallnico",
-      "community": 933,
+      "community": 1,
       "norm_label": "testprovisionpostinstallsandboxdoesnotinstallnico()"
     },
     {
@@ -9352,7 +9352,7 @@
       "source_location": "L280",
       "_origin": "ast",
       "id": "cmd_up_test_testprovisionpostinstallprodinstallsnicogitopswrappers",
-      "community": 933,
+      "community": 1,
       "norm_label": "testprovisionpostinstallprodinstallsnicogitopswrappers()"
     },
     {
@@ -9362,7 +9362,7 @@
       "source_location": "L324",
       "_origin": "ast",
       "id": "cmd_up_test_testprovisionpostinstallbmorequiresacknowledgementandwarnsfallbackonly",
-      "community": 933,
+      "community": 1,
       "norm_label": "testprovisionpostinstallbmorequiresacknowledgementandwarnsfallbackonly()"
     },
     {
@@ -10204,7 +10204,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "disabled_platform_vault_files_generate_secrets_main_go_generate_secrets_main",
-      "community": 1079,
+      "community": 1076,
       "norm_label": "main.go"
     },
     {
@@ -10214,7 +10214,7 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "disabled_platform_vault_files_generate_secrets_main_go_generate_secrets_randompassword",
-      "community": 1079,
+      "community": 1076,
       "norm_label": "randompassword"
     },
     {
@@ -10224,7 +10224,7 @@
       "source_location": "L41",
       "_origin": "ast",
       "id": "disabled_platform_vault_files_generate_secrets_main_go_generate_secrets_main_main",
-      "community": 1079,
+      "community": 1076,
       "norm_label": "main()"
     },
     {
@@ -12050,7 +12050,7 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "aiplatform_pod_parser_parsereadypodcount",
-      "community": 48,
+      "community": 467,
       "norm_label": "parsereadypodcount()"
     },
     {
@@ -12060,7 +12060,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "aiplatform_pod_parser_test",
-      "community": 1088,
+      "community": 467,
       "norm_label": "pod_parser_test.go"
     },
     {
@@ -12070,7 +12070,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "aiplatform_pod_parser_test_testparsereadypodcountfailsclosedforemptylist",
-      "community": 1088,
+      "community": 467,
       "norm_label": "testparsereadypodcountfailsclosedforemptylist()"
     },
     {
@@ -12080,7 +12080,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "pkg_aiplatform_pod_parser_test_go_t",
-      "community": 1088,
+      "community": 467,
       "norm_label": "t"
     },
     {
@@ -12090,7 +12090,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "aiplatform_pod_parser_test_testparsereadypodcountrequiresreadyconditionandrunningphase",
-      "community": 1088,
+      "community": 467,
       "norm_label": "testparsereadypodcountrequiresreadyconditionandrunningphase()"
     },
     {
@@ -13150,7 +13150,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "cloud_backup_policy",
-      "community": 1085,
+      "community": 5,
       "norm_label": "backup_policy.go"
     },
     {
@@ -13160,7 +13160,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "cloud_backuppolicyrequest",
-      "community": 1085,
+      "community": 5,
       "norm_label": "backuppolicyrequest"
     },
     {
@@ -13170,7 +13170,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "cloud_backuprestoredrillrequest",
-      "community": 1085,
+      "community": 5,
       "norm_label": "backuprestoredrillrequest"
     },
     {
@@ -13180,7 +13180,7 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "cloud_backup_policy_renderbackuppolicy",
-      "community": 1085,
+      "community": 5,
       "norm_label": "renderbackuppolicy()"
     },
     {
@@ -13190,7 +13190,7 @@
       "source_location": "L93",
       "_origin": "ast",
       "id": "cloud_backup_policy_defaultbackuppolicy",
-      "community": 1085,
+      "community": 5,
       "norm_label": "defaultbackuppolicy()"
     },
     {
@@ -13200,7 +13200,7 @@
       "source_location": "L121",
       "_origin": "ast",
       "id": "cloud_backup_policy_validatebackuppolicy",
-      "community": 1085,
+      "community": 5,
       "norm_label": "validatebackuppolicy()"
     },
     {
@@ -13210,7 +13210,7 @@
       "source_location": "L143",
       "_origin": "ast",
       "id": "cloud_backup_policy_renderbackuprestoredrill",
-      "community": 1085,
+      "community": 5,
       "norm_label": "renderbackuprestoredrill()"
     },
     {
@@ -13220,7 +13220,7 @@
       "source_location": "L190",
       "_origin": "ast",
       "id": "cloud_backup_policy_defaultbackuprestoredrill",
-      "community": 1085,
+      "community": 5,
       "norm_label": "defaultbackuprestoredrill()"
     },
     {
@@ -13230,7 +13230,7 @@
       "source_location": "L209",
       "_origin": "ast",
       "id": "cloud_backup_policy_validatebackuprestoredrill",
-      "community": 1085,
+      "community": 5,
       "norm_label": "validatebackuprestoredrill()"
     },
     {
@@ -13240,7 +13240,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "cloud_backup_policy_test",
-      "community": 1085,
+      "community": 5,
       "norm_label": "backup_policy_test.go"
     },
     {
@@ -13250,7 +13250,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "cloud_backup_policy_test_testrenderbackuppolicycreatesk8upschedulesnapshotclassandresourcepreset",
-      "community": 1085,
+      "community": 5,
       "norm_label": "testrenderbackuppolicycreatesk8upschedulesnapshotclassandresourcepreset()"
     },
     {
@@ -13260,7 +13260,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "pkg_cloud_backup_policy_test_go_t",
-      "community": 1085,
+      "community": 5,
       "norm_label": "t"
     },
     {
@@ -13270,7 +13270,7 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "cloud_backup_policy_test_testrenderbackuppolicyfailsclosedforunsafescheduleorretention",
-      "community": 1085,
+      "community": 5,
       "norm_label": "testrenderbackuppolicyfailsclosedforunsafescheduleorretention()"
     },
     {
@@ -13310,7 +13310,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "cloud_backup_restore_drill_test",
-      "community": 1085,
+      "community": 5,
       "norm_label": "backup_restore_drill_test.go"
     },
     {
@@ -13320,7 +13320,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "cloud_backup_restore_drill_test_testrenderbackuprestoredrillcreatesisolatedk8uprestoreandchecklist",
-      "community": 1085,
+      "community": 5,
       "norm_label": "testrenderbackuprestoredrillcreatesisolatedk8uprestoreandchecklist()"
     },
     {
@@ -13330,7 +13330,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "pkg_cloud_backup_restore_drill_test_go_t",
-      "community": 1085,
+      "community": 5,
       "norm_label": "t"
     },
     {
@@ -13340,7 +13340,7 @@
       "source_location": "L38",
       "_origin": "ast",
       "id": "cloud_backup_restore_drill_test_testrenderbackuprestoredrillrejectsproductionnamespace",
-      "community": 1085,
+      "community": 5,
       "norm_label": "testrenderbackuprestoredrillrejectsproductionnamespace()"
     },
     {
@@ -13532,6 +13532,36 @@
       "id": "cloud_core_services_contract_test_testcoreservicesdoesnotmentionforbiddenvendorname",
       "community": 541,
       "norm_label": "testcoreservicesdoesnotmentionforbiddenvendorname()"
+    },
+    {
+      "label": "deployment_docs_test.go",
+      "file_type": "code",
+      "source_file": "pkg/cloud/deployment_docs_test.go",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "cloud_deployment_docs_test",
+      "community": 1086,
+      "norm_label": "deployment_docs_test.go"
+    },
+    {
+      "label": "TestDeploymentProductionDocsAreActionable()",
+      "file_type": "code",
+      "source_file": "pkg/cloud/deployment_docs_test.go",
+      "source_location": "L9",
+      "_origin": "ast",
+      "id": "cloud_deployment_docs_test_testdeploymentproductiondocsareactionable",
+      "community": 1086,
+      "norm_label": "testdeploymentproductiondocsareactionable()"
+    },
+    {
+      "label": "T",
+      "file_type": "code",
+      "source_file": "pkg/cloud/deployment_docs_test.go",
+      "source_location": "L9",
+      "_origin": "ast",
+      "id": "pkg_cloud_deployment_docs_test_go_t",
+      "community": 1086,
+      "norm_label": "t"
     },
     {
       "label": "doc.go",
@@ -14860,7 +14890,7 @@
       "source_location": "L138",
       "_origin": "ast",
       "id": "config_config_defaultconfig",
-      "community": 1079,
+      "community": 5,
       "norm_label": "defaultconfig()"
     },
     {
@@ -14880,7 +14910,7 @@
       "source_location": "L203",
       "_origin": "ast",
       "id": "config_config_load",
-      "community": 1086,
+      "community": 5,
       "norm_label": "load()"
     },
     {
@@ -14960,7 +14990,7 @@
       "source_location": "L433",
       "_origin": "ast",
       "id": "config_config_parseenvfile",
-      "community": 1086,
+      "community": 5,
       "norm_label": "parseenvfile()"
     },
     {
@@ -14970,7 +15000,7 @@
       "source_location": "L449",
       "_origin": "ast",
       "id": "config_config_setfieldsfromenv",
-      "community": 1086,
+      "community": 5,
       "norm_label": "setfieldsfromenv()"
     },
     {
@@ -15070,7 +15100,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "config_config_test",
-      "community": 1086,
+      "community": 5,
       "norm_label": "config_test.go"
     },
     {
@@ -15080,7 +15110,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "config_config_test_testloadnonexistent",
-      "community": 1086,
+      "community": 5,
       "norm_label": "testloadnonexistent()"
     },
     {
@@ -15090,7 +15120,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "pkg_config_config_test_go_t",
-      "community": 1086,
+      "community": 5,
       "norm_label": "t"
     },
     {
@@ -15100,7 +15130,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "config_config_test_testsaveandload",
-      "community": 1086,
+      "community": 5,
       "norm_label": "testsaveandload()"
     },
     {
@@ -15110,7 +15140,7 @@
       "source_location": "L50",
       "_origin": "ast",
       "id": "config_config_test_testparseenvfile",
-      "community": 1086,
+      "community": 5,
       "norm_label": "testparseenvfile()"
     },
     {
@@ -15120,7 +15150,7 @@
       "source_location": "L72",
       "_origin": "ast",
       "id": "config_config_test_testpatchvalues",
-      "community": 1086,
+      "community": 5,
       "norm_label": "testpatchvalues()"
     },
     {
@@ -15130,7 +15160,7 @@
       "source_location": "L98",
       "_origin": "ast",
       "id": "config_config_test_testisvalidcidr",
-      "community": 1086,
+      "community": 5,
       "norm_label": "testisvalidcidr()"
     },
     {
@@ -15140,7 +15170,7 @@
       "source_location": "L118",
       "_origin": "ast",
       "id": "config_config_test_testconfigfilepath",
-      "community": 1086,
+      "community": 5,
       "norm_label": "testconfigfilepath()"
     },
     {
@@ -15150,7 +15180,7 @@
       "source_location": "L125",
       "_origin": "ast",
       "id": "config_config_test_contains",
-      "community": 1086,
+      "community": 5,
       "norm_label": "contains()"
     },
     {
@@ -15420,7 +15450,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "nico_clientoption",
-      "community": 1081,
+      "community": 3,
       "norm_label": "clientoption"
     },
     {
@@ -15430,7 +15460,7 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "nico_client_withhttpclient",
-      "community": 1081,
+      "community": 3,
       "norm_label": "withhttpclient()"
     },
     {
@@ -15570,7 +15600,7 @@
       "source_location": "L126",
       "_origin": "ast",
       "id": "nico_client_listmachines",
-      "community": 8,
+      "community": 3,
       "norm_label": ".listmachines()"
     },
     {
@@ -15740,7 +15770,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "nico_client_blockers_test",
-      "community": 1081,
+      "community": 1076,
       "norm_label": "client_blockers_test.go"
     },
     {
@@ -15750,7 +15780,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "nico_client_blockers_test_testclientdefaulthttptimeout",
-      "community": 1081,
+      "community": 1076,
       "norm_label": "testclientdefaulthttptimeout()"
     },
     {
@@ -15760,7 +15790,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "pkg_nico_client_blockers_test_go_t",
-      "community": 1081,
+      "community": 1076,
       "norm_label": "t"
     },
     {
@@ -15770,7 +15800,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "nico_client_blockers_test_testclientlivemethodsuseexpectedhttpverbsandpaths",
-      "community": 1081,
+      "community": 1076,
       "norm_label": "testclientlivemethodsuseexpectedhttpverbsandpaths()"
     },
     {
@@ -17860,7 +17890,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "nodestatus_safety",
-      "community": 2,
+      "community": 8,
       "norm_label": "safety.go"
     },
     {
@@ -17870,7 +17900,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "nodestatus_operation",
-      "community": 2,
+      "community": 8,
       "norm_label": "operation"
     },
     {
@@ -17880,7 +17910,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "nodestatus_safetyrequest",
-      "community": 2,
+      "community": 8,
       "norm_label": "safetyrequest"
     },
     {
@@ -17890,7 +17920,7 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "nodestatus_safetyclusterstate",
-      "community": 2,
+      "community": 8,
       "norm_label": "safetyclusterstate"
     },
     {
@@ -17900,7 +17930,7 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "pkg_nodestatus_safety_go_nodestatus",
-      "community": 2,
+      "community": 8,
       "norm_label": "nodestatus"
     },
     {
@@ -17910,7 +17940,7 @@
       "source_location": "L41",
       "_origin": "ast",
       "id": "nodestatus_safetydecision",
-      "community": 2,
+      "community": 8,
       "norm_label": "safetydecision"
     },
     {
@@ -17920,7 +17950,7 @@
       "source_location": "L48",
       "_origin": "ast",
       "id": "nodestatus_safety_evaluatesafety",
-      "community": 2,
+      "community": 8,
       "norm_label": "evaluatesafety()"
     },
     {
@@ -17930,7 +17960,7 @@
       "source_location": "L81",
       "_origin": "ast",
       "id": "nodestatus_safety_requiresconfirmation",
-      "community": 2,
+      "community": 8,
       "norm_label": "requiresconfirmation()"
     },
     {
@@ -17940,7 +17970,7 @@
       "source_location": "L90",
       "_origin": "ast",
       "id": "nodestatus_safety_requiresdrain",
-      "community": 2,
+      "community": 8,
       "norm_label": "requiresdrain()"
     },
     {
@@ -17950,7 +17980,7 @@
       "source_location": "L99",
       "_origin": "ast",
       "id": "nodestatus_safety_iscontrolplane",
-      "community": 2,
+      "community": 8,
       "norm_label": "iscontrolplane()"
     },
     {
@@ -17960,7 +17990,7 @@
       "source_location": "L109",
       "_origin": "ast",
       "id": "nodestatus_safety_quorumsafeafteroneloss",
-      "community": 2,
+      "community": 8,
       "norm_label": "quorumsafeafteroneloss()"
     },
     {
@@ -17970,7 +18000,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "nodestatus_safety_test",
-      "community": 2,
+      "community": 8,
       "norm_label": "safety_test.go"
     },
     {
@@ -17980,7 +18010,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "nodestatus_safety_test_testsafetyrequiresexactconfirmation",
-      "community": 2,
+      "community": 8,
       "norm_label": "testsafetyrequiresexactconfirmation()"
     },
     {
@@ -17990,7 +18020,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "pkg_nodestatus_safety_test_go_t",
-      "community": 2,
+      "community": 8,
       "norm_label": "t"
     },
     {
@@ -18000,7 +18030,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "nodestatus_safety_test_testsafetyblockscontrolplanequorumloss",
-      "community": 2,
+      "community": 8,
       "norm_label": "testsafetyblockscontrolplanequorumloss()"
     },
     {
@@ -18010,7 +18040,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "nodestatus_safety_test_testsafetyrequiresdrainforreadynodesunlessforcedwithreason",
-      "community": 2,
+      "community": 8,
       "norm_label": "testsafetyrequiresdrainforreadynodesunlessforcedwithreason()"
     },
     {
@@ -18020,7 +18050,7 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "nodestatus_safety_test_testsafetyrequiresstorageandaistoreacknowledgement",
-      "community": 2,
+      "community": 8,
       "norm_label": "testsafetyrequiresstorageandaistoreacknowledgement()"
     },
     {
@@ -18030,7 +18060,7 @@
       "source_location": "L48",
       "_origin": "ast",
       "id": "nodestatus_safety_test_testsafetygatescoverrebootreimagedrainevictandmaintenance",
-      "community": 2,
+      "community": 8,
       "norm_label": "testsafetygatescoverrebootreimagedrainevictandmaintenance()"
     },
     {
@@ -24178,7 +24208,7 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "nim_operator_values_schema_properties_name",
-      "community": 808,
+      "community": 873,
       "norm_label": "name"
     },
     {
@@ -24188,7 +24218,7 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "nim_operator_values_schema_name_type",
-      "community": 808,
+      "community": 873,
       "norm_label": "type"
     },
     {
@@ -24198,7 +24228,7 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "nim_operator_values_schema_name_minlength",
-      "community": 808,
+      "community": 873,
       "norm_label": "minlength"
     },
     {
@@ -24208,7 +24238,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "nim_operator_values_schema_properties_image",
-      "community": 873,
+      "community": 450,
       "norm_label": "image"
     },
     {
@@ -24218,7 +24248,7 @@
       "source_location": "L29",
       "_origin": "ast",
       "id": "nim_operator_values_schema_image_type",
-      "community": 873,
+      "community": 450,
       "norm_label": "type"
     },
     {
@@ -24228,7 +24258,7 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "nim_operator_values_schema_image_additionalproperties",
-      "community": 873,
+      "community": 450,
       "norm_label": "additionalproperties"
     },
     {
@@ -24278,7 +24308,7 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "nim_operator_values_schema_properties_tag",
-      "community": 803,
+      "community": 873,
       "norm_label": "tag"
     },
     {
@@ -24288,7 +24318,7 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "nim_operator_values_schema_tag_type",
-      "community": 803,
+      "community": 873,
       "norm_label": "type"
     },
     {
@@ -24298,7 +24328,7 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "nim_operator_values_schema_tag_minlength",
-      "community": 803,
+      "community": 873,
       "norm_label": "minlength"
     },
     {
@@ -24808,7 +24838,7 @@
       "source_location": "L68",
       "_origin": "ast",
       "id": "nim_operator_values_schema_properties_curlimage",
-      "community": 803,
+      "community": 873,
       "norm_label": "curlimage"
     },
     {
@@ -24818,7 +24848,7 @@
       "source_location": "L68",
       "_origin": "ast",
       "id": "nim_operator_values_schema_curlimage_type",
-      "community": 803,
+      "community": 873,
       "norm_label": "type"
     },
     {
@@ -24828,7 +24858,7 @@
       "source_location": "L68",
       "_origin": "ast",
       "id": "nim_operator_values_schema_curlimage_minlength",
-      "community": 803,
+      "community": 873,
       "norm_label": "minlength"
     },
     {
@@ -27784,7 +27814,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "system_vault_files_generate_secrets_main_go_generate_secrets_main",
-      "community": 1079,
+      "community": 1076,
       "norm_label": "main.go"
     },
     {
@@ -27794,7 +27824,7 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "system_vault_files_generate_secrets_main_go_generate_secrets_randompassword",
-      "community": 1079,
+      "community": 1076,
       "norm_label": "randompassword"
     },
     {
@@ -27804,7 +27834,7 @@
       "source_location": "L41",
       "_origin": "ast",
       "id": "system_vault_files_generate_secrets_main_go_generate_secrets_main_main",
-      "community": 1079,
+      "community": 1076,
       "norm_label": "main()"
     },
     {
@@ -37353,37 +37383,57 @@
       "label": "Create credentials",
       "file_type": "document",
       "source_file": "docs/admin-guide/deployment/external-resources.md",
-      "source_location": "L18",
+      "source_location": "L20",
       "_origin": "ast",
       "id": "deployment_external_resources_create_credentials",
       "community": 882,
       "norm_label": "create credentials"
     },
     {
-      "label": "Create Terraform workspace",
+      "label": "Terraform workspace",
       "file_type": "document",
       "source_file": "docs/admin-guide/deployment/external-resources.md",
-      "source_location": "L22",
+      "source_location": "L26",
       "_origin": "ast",
-      "id": "deployment_external_resources_create_terraform_workspace",
+      "id": "deployment_external_resources_terraform_workspace",
       "community": 882,
-      "norm_label": "create terraform workspace"
+      "norm_label": "terraform workspace"
     },
     {
-      "label": "Cloudflare",
+      "label": "DNS and certificate provider",
       "file_type": "document",
       "source_file": "docs/admin-guide/deployment/external-resources.md",
-      "source_location": "L32",
+      "source_location": "L39",
       "_origin": "ast",
-      "id": "deployment_external_resources_cloudflare",
+      "id": "deployment_external_resources_dns_and_certificate_provider",
       "community": 882,
-      "norm_label": "cloudflare"
+      "norm_label": "dns and certificate provider"
+    },
+    {
+      "label": "Load balancer and ingress path",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/deployment/external-resources.md",
+      "source_location": "L60",
+      "_origin": "ast",
+      "id": "deployment_external_resources_load_balancer_and_ingress_path",
+      "community": 882,
+      "norm_label": "load balancer and ingress path"
+    },
+    {
+      "label": "Backup target",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/deployment/external-resources.md",
+      "source_location": "L72",
+      "_origin": "ast",
+      "id": "deployment_external_resources_backup_target",
+      "community": 882,
+      "norm_label": "backup target"
     },
     {
       "label": "Alternatives",
       "file_type": "document",
       "source_file": "docs/admin-guide/deployment/external-resources.md",
-      "source_location": "L60",
+      "source_location": "L83",
       "_origin": "ast",
       "id": "deployment_external_resources_alternatives",
       "community": 882,
@@ -37550,30 +37600,70 @@
       "norm_label": "post-installation"
     },
     {
-      "label": "Backup secrets",
+      "label": "Credential ownership and rotation",
       "file_type": "document",
       "source_file": "docs/admin-guide/deployment/post-installation.md",
       "source_location": "L3",
       "_origin": "ast",
-      "id": "deployment_post_installation_backup_secrets",
+      "id": "deployment_post_installation_credential_ownership_and_rotation",
       "community": 890,
-      "norm_label": "backup secrets"
+      "norm_label": "credential ownership and rotation"
     },
     {
       "label": "Admin credentials",
       "file_type": "document",
       "source_file": "docs/admin-guide/deployment/post-installation.md",
-      "source_location": "L15",
+      "source_location": "L28",
       "_origin": "ast",
       "id": "deployment_post_installation_admin_credentials",
       "community": 890,
       "norm_label": "admin credentials"
     },
     {
+      "label": "Post-install health checks",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/deployment/post-installation.md",
+      "source_location": "L46",
+      "_origin": "ast",
+      "id": "deployment_post_installation_post_install_health_checks",
+      "community": 890,
+      "norm_label": "post-install health checks"
+    },
+    {
+      "label": "Backup and restore",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/deployment/post-installation.md",
+      "source_location": "L64",
+      "_origin": "ast",
+      "id": "deployment_post_installation_backup_and_restore",
+      "community": 890,
+      "norm_label": "backup and restore"
+    },
+    {
+      "label": "Upgrade and rollback",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/deployment/post-installation.md",
+      "source_location": "L77",
+      "_origin": "ast",
+      "id": "deployment_post_installation_upgrade_and_rollback",
+      "community": 890,
+      "norm_label": "upgrade and rollback"
+    },
+    {
+      "label": "Proof boundary",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/deployment/post-installation.md",
+      "source_location": "L88",
+      "_origin": "ast",
+      "id": "deployment_post_installation_proof_boundary",
+      "community": 890,
+      "norm_label": "proof boundary"
+    },
+    {
       "label": "Next steps",
       "file_type": "document",
       "source_file": "docs/admin-guide/deployment/post-installation.md",
-      "source_location": "L29",
+      "source_location": "L95",
       "_origin": "ast",
       "id": "deployment_post_installation_next_steps",
       "community": 890,
@@ -37860,6 +37950,26 @@
       "norm_label": "configuration"
     },
     {
+      "label": "Production-lite caveats",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/deployment/production/configuration.md",
+      "source_location": "L63",
+      "_origin": "ast",
+      "id": "production_configuration_production_lite_caveats",
+      "community": 639,
+      "norm_label": "production-lite caveats"
+    },
+    {
+      "label": "Proof boundary",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/deployment/production/configuration.md",
+      "source_location": "L71",
+      "_origin": "ast",
+      "id": "production_configuration_proof_boundary",
+      "community": 639,
+      "norm_label": "proof boundary"
+    },
+    {
       "label": "deployment.md",
       "file_type": "document",
       "source_file": "docs/admin-guide/deployment/production/deployment.md",
@@ -37903,37 +38013,57 @@
       "label": "Create credentials",
       "file_type": "document",
       "source_file": "docs/admin-guide/deployment/production/external-resources.md",
-      "source_location": "L18",
+      "source_location": "L20",
       "_origin": "ast",
       "id": "production_external_resources_create_credentials",
       "community": 336,
       "norm_label": "create credentials"
     },
     {
-      "label": "Create Terraform workspace",
+      "label": "Terraform workspace",
       "file_type": "document",
       "source_file": "docs/admin-guide/deployment/production/external-resources.md",
-      "source_location": "L22",
+      "source_location": "L26",
       "_origin": "ast",
-      "id": "production_external_resources_create_terraform_workspace",
+      "id": "production_external_resources_terraform_workspace",
       "community": 336,
-      "norm_label": "create terraform workspace"
+      "norm_label": "terraform workspace"
     },
     {
-      "label": "Cloudflare",
+      "label": "DNS and certificate provider",
       "file_type": "document",
       "source_file": "docs/admin-guide/deployment/production/external-resources.md",
-      "source_location": "L32",
+      "source_location": "L39",
       "_origin": "ast",
-      "id": "production_external_resources_cloudflare",
+      "id": "production_external_resources_dns_and_certificate_provider",
       "community": 336,
-      "norm_label": "cloudflare"
+      "norm_label": "dns and certificate provider"
+    },
+    {
+      "label": "Load balancer and ingress path",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/deployment/production/external-resources.md",
+      "source_location": "L60",
+      "_origin": "ast",
+      "id": "production_external_resources_load_balancer_and_ingress_path",
+      "community": 336,
+      "norm_label": "load balancer and ingress path"
+    },
+    {
+      "label": "Backup target",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/deployment/production/external-resources.md",
+      "source_location": "L72",
+      "_origin": "ast",
+      "id": "production_external_resources_backup_target",
+      "community": 336,
+      "norm_label": "backup target"
     },
     {
       "label": "Alternatives",
       "file_type": "document",
       "source_file": "docs/admin-guide/deployment/production/external-resources.md",
-      "source_location": "L60",
+      "source_location": "L83",
       "_origin": "ast",
       "id": "production_external_resources_alternatives",
       "community": 336,
@@ -38010,30 +38140,70 @@
       "norm_label": "post-installation"
     },
     {
-      "label": "Backup secrets",
+      "label": "Credential ownership and rotation",
       "file_type": "document",
       "source_file": "docs/admin-guide/deployment/production/post-installation.md",
       "source_location": "L3",
       "_origin": "ast",
-      "id": "production_post_installation_backup_secrets",
+      "id": "production_post_installation_credential_ownership_and_rotation",
       "community": 900,
-      "norm_label": "backup secrets"
+      "norm_label": "credential ownership and rotation"
     },
     {
       "label": "Admin credentials",
       "file_type": "document",
       "source_file": "docs/admin-guide/deployment/production/post-installation.md",
-      "source_location": "L15",
+      "source_location": "L28",
       "_origin": "ast",
       "id": "production_post_installation_admin_credentials",
       "community": 900,
       "norm_label": "admin credentials"
     },
     {
+      "label": "Post-install health checks",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/deployment/production/post-installation.md",
+      "source_location": "L46",
+      "_origin": "ast",
+      "id": "production_post_installation_post_install_health_checks",
+      "community": 900,
+      "norm_label": "post-install health checks"
+    },
+    {
+      "label": "Backup and restore",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/deployment/production/post-installation.md",
+      "source_location": "L64",
+      "_origin": "ast",
+      "id": "production_post_installation_backup_and_restore",
+      "community": 900,
+      "norm_label": "backup and restore"
+    },
+    {
+      "label": "Upgrade and rollback",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/deployment/production/post-installation.md",
+      "source_location": "L77",
+      "_origin": "ast",
+      "id": "production_post_installation_upgrade_and_rollback",
+      "community": 900,
+      "norm_label": "upgrade and rollback"
+    },
+    {
+      "label": "Proof boundary",
+      "file_type": "document",
+      "source_file": "docs/admin-guide/deployment/production/post-installation.md",
+      "source_location": "L88",
+      "_origin": "ast",
+      "id": "production_post_installation_proof_boundary",
+      "community": 900,
+      "norm_label": "proof boundary"
+    },
+    {
       "label": "Next steps",
       "file_type": "document",
       "source_file": "docs/admin-guide/deployment/production/post-installation.md",
-      "source_location": "L29",
+      "source_location": "L95",
       "_origin": "ast",
       "id": "production_post_installation_next_steps",
       "community": 900,
@@ -38806,7 +38976,7 @@
       "source_location": "L177",
       "_origin": "ast",
       "id": "admin_guide_index_maintenance_procedures",
-      "community": 1087,
+      "community": 816,
       "norm_label": "maintenance procedures"
     },
     {
@@ -38816,7 +38986,7 @@
       "source_location": "L179",
       "_origin": "ast",
       "id": "admin_guide_index_getting_support",
-      "community": 1087,
+      "community": 816,
       "norm_label": "getting support"
     },
     {
@@ -38826,7 +38996,7 @@
       "source_location": "L182",
       "_origin": "ast",
       "id": "admin_guide_index_general_maintenance_procedures",
-      "community": 1087,
+      "community": 816,
       "norm_label": "general maintenance procedures"
     },
     {
@@ -38836,7 +39006,7 @@
       "source_location": "L183",
       "_origin": "ast",
       "id": "admin_guide_index_power_up_procedures",
-      "community": 1087,
+      "community": 816,
       "norm_label": "power up procedures"
     },
     {
@@ -128002,9 +128172,9 @@
       "source_file": "pkg/cloud/core_operations_runbooks_test.go",
       "source_location": "L9",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cloud_core_operations_runbooks_test",
-      "target": "cloud_core_operations_runbooks_test_testcoreoperationsrunbooksareactionable",
-      "confidence_score": 1.0
+      "target": "cloud_core_operations_runbooks_test_testcoreoperationsrunbooksareactionable"
     },
     {
       "relation": "references",
@@ -128013,9 +128183,9 @@
       "source_location": "L9",
       "weight": 1.0,
       "context": "parameter_type",
+      "confidence_score": 1.0,
       "source": "cloud_core_operations_runbooks_test_testcoreoperationsrunbooksareactionable",
-      "target": "pkg_cloud_core_operations_runbooks_test_go_t",
-      "confidence_score": 1.0
+      "target": "pkg_cloud_core_operations_runbooks_test_go_t"
     },
     {
       "relation": "contains",
@@ -128058,6 +128228,27 @@
       "confidence_score": 1.0,
       "source": "cloud_core_services_contract_test_testcoreservicesdoesnotmentionforbiddenvendorname",
       "target": "pkg_cloud_core_services_contract_test_go_t"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "pkg/cloud/deployment_docs_test.go",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "cloud_deployment_docs_test",
+      "target": "cloud_deployment_docs_test_testdeploymentproductiondocsareactionable",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "pkg/cloud/deployment_docs_test.go",
+      "source_location": "L9",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "cloud_deployment_docs_test_testdeploymentproductiondocsareactionable",
+      "target": "pkg_cloud_deployment_docs_test_go_t",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -160087,6 +160278,16 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/admin-guide/deployment/external-resources.md",
+      "source_location": "L72",
+      "weight": 1.0,
+      "source": "deployment_external_resources_external_resources",
+      "target": "deployment_external_resources_backup_target",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/admin-guide/deployment/external-resources.md",
       "source_location": "L18",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -160097,21 +160298,31 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/admin-guide/deployment/external-resources.md",
-      "source_location": "L32",
+      "source_location": "L39",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "deployment_external_resources_create_credentials",
-      "target": "deployment_external_resources_cloudflare"
+      "source": "deployment_external_resources_external_resources",
+      "target": "deployment_external_resources_dns_and_certificate_provider",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/admin-guide/deployment/external-resources.md",
-      "source_location": "L22",
+      "source_location": "L60",
       "weight": 1.0,
-      "confidence_score": 1.0,
+      "source": "deployment_external_resources_external_resources",
+      "target": "deployment_external_resources_load_balancer_and_ingress_path",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/admin-guide/deployment/external-resources.md",
+      "source_location": "L26",
+      "weight": 1.0,
       "source": "deployment_external_resources_create_credentials",
-      "target": "deployment_external_resources_create_terraform_workspace"
+      "target": "deployment_external_resources_terraform_workspace",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -160267,11 +160478,21 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/admin-guide/deployment/post-installation.md",
+      "source_location": "L64",
+      "weight": 1.0,
+      "source": "deployment_post_installation_post_installation",
+      "target": "deployment_post_installation_backup_and_restore",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/admin-guide/deployment/post-installation.md",
       "source_location": "L3",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "deployment_post_installation_post_installation",
-      "target": "deployment_post_installation_backup_secrets"
+      "target": "deployment_post_installation_credential_ownership_and_rotation",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -160282,6 +160503,36 @@
       "confidence_score": 1.0,
       "source": "deployment_post_installation_post_installation",
       "target": "deployment_post_installation_next_steps"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/admin-guide/deployment/post-installation.md",
+      "source_location": "L46",
+      "weight": 1.0,
+      "source": "deployment_post_installation_post_installation",
+      "target": "deployment_post_installation_post_install_health_checks",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/admin-guide/deployment/post-installation.md",
+      "source_location": "L88",
+      "weight": 1.0,
+      "source": "deployment_post_installation_post_installation",
+      "target": "deployment_post_installation_proof_boundary",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/admin-guide/deployment/post-installation.md",
+      "source_location": "L77",
+      "weight": 1.0,
+      "source": "deployment_post_installation_post_installation",
+      "target": "deployment_post_installation_upgrade_and_rollback",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -160666,6 +160917,26 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "docs/admin-guide/deployment/production/configuration.md",
+      "source_location": "L63",
+      "weight": 1.0,
+      "source": "production_configuration_configuration",
+      "target": "production_configuration_production_lite_caveats",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/admin-guide/deployment/production/configuration.md",
+      "source_location": "L71",
+      "weight": 1.0,
+      "source": "production_configuration_configuration",
+      "target": "production_configuration_proof_boundary",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "docs/admin-guide/deployment/production/deployment.md",
       "source_location": "L1",
       "weight": 1.0,
@@ -160717,6 +160988,16 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/admin-guide/deployment/production/external-resources.md",
+      "source_location": "L72",
+      "weight": 1.0,
+      "source": "production_external_resources_external_resources",
+      "target": "production_external_resources_backup_target",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/admin-guide/deployment/production/external-resources.md",
       "source_location": "L18",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -160727,21 +161008,31 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/admin-guide/deployment/production/external-resources.md",
-      "source_location": "L32",
+      "source_location": "L39",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "production_external_resources_create_credentials",
-      "target": "production_external_resources_cloudflare"
+      "source": "production_external_resources_external_resources",
+      "target": "production_external_resources_dns_and_certificate_provider",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/admin-guide/deployment/production/external-resources.md",
-      "source_location": "L22",
+      "source_location": "L60",
       "weight": 1.0,
-      "confidence_score": 1.0,
+      "source": "production_external_resources_external_resources",
+      "target": "production_external_resources_load_balancer_and_ingress_path",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/admin-guide/deployment/production/external-resources.md",
+      "source_location": "L26",
+      "weight": 1.0,
       "source": "production_external_resources_create_credentials",
-      "target": "production_external_resources_create_terraform_workspace"
+      "target": "production_external_resources_terraform_workspace",
+      "confidence_score": 1.0
     },
     {
       "relation": "conceptually_related_to",
@@ -160752,16 +161043,6 @@
       "weight": 1.0,
       "source": "production_external_resources_document",
       "target": "production_external_resources_create_credentials"
-    },
-    {
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "docs/admin-guide/deployment/production/external-resources.md",
-      "source_location": null,
-      "weight": 1.0,
-      "source": "production_external_resources_document",
-      "target": "production_external_resources_create_terraform_workspace"
     },
     {
       "relation": "contains",
@@ -160827,11 +161108,21 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/admin-guide/deployment/production/post-installation.md",
+      "source_location": "L64",
+      "weight": 1.0,
+      "source": "production_post_installation_post_installation",
+      "target": "production_post_installation_backup_and_restore",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/admin-guide/deployment/production/post-installation.md",
       "source_location": "L3",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "production_post_installation_post_installation",
-      "target": "production_post_installation_backup_secrets"
+      "target": "production_post_installation_credential_ownership_and_rotation",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -160842,6 +161133,36 @@
       "confidence_score": 1.0,
       "source": "production_post_installation_post_installation",
       "target": "production_post_installation_next_steps"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/admin-guide/deployment/production/post-installation.md",
+      "source_location": "L46",
+      "weight": 1.0,
+      "source": "production_post_installation_post_installation",
+      "target": "production_post_installation_post_install_health_checks",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/admin-guide/deployment/production/post-installation.md",
+      "source_location": "L88",
+      "weight": 1.0,
+      "source": "production_post_installation_post_installation",
+      "target": "production_post_installation_proof_boundary",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/admin-guide/deployment/production/post-installation.md",
+      "source_location": "L77",
+      "weight": 1.0,
+      "source": "production_post_installation_post_installation",
+      "target": "production_post_installation_upgrade_and_rollback",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -164099,9 +164420,9 @@
       "source_file": "docs/admin-guide/runbooks/cert-manager.md",
       "source_location": "L33",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "runbooks_cert_manager_cert_manager",
-      "target": "runbooks_cert_manager_certificate_renewal_and_failure_response",
-      "confidence_score": 1.0
+      "target": "runbooks_cert_manager_certificate_renewal_and_failure_response"
     },
     {
       "relation": "contains",
@@ -164109,9 +164430,9 @@
       "source_file": "docs/admin-guide/runbooks/cert-manager.md",
       "source_location": "L104",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "runbooks_cert_manager_cert_manager",
-      "target": "runbooks_cert_manager_escalation_and_evidence",
-      "confidence_score": 1.0
+      "target": "runbooks_cert_manager_escalation_and_evidence"
     },
     {
       "relation": "contains",
@@ -164119,9 +164440,9 @@
       "source_file": "docs/admin-guide/runbooks/cert-manager.md",
       "source_location": "L11",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "runbooks_cert_manager_cert_manager",
-      "target": "runbooks_cert_manager_health_checks",
-      "confidence_score": 1.0
+      "target": "runbooks_cert_manager_health_checks"
     },
     {
       "relation": "contains",
@@ -164129,9 +164450,9 @@
       "source_file": "docs/admin-guide/runbooks/cert-manager.md",
       "source_location": "L73",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "runbooks_cert_manager_cert_manager",
-      "target": "runbooks_cert_manager_recovery_procedure",
-      "confidence_score": 1.0
+      "target": "runbooks_cert_manager_recovery_procedure"
     },
     {
       "relation": "contains",
@@ -164139,9 +164460,9 @@
       "source_file": "docs/admin-guide/runbooks/cert-manager.md",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "runbooks_cert_manager_cert_manager",
-      "target": "runbooks_cert_manager_scope",
-      "confidence_score": 1.0
+      "target": "runbooks_cert_manager_scope"
     },
     {
       "relation": "contains",
@@ -167169,9 +167490,9 @@
       "source_file": "docs/admin-guide/runbooks/vault.md",
       "source_location": "L93",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "runbooks_vault_vault",
-      "target": "runbooks_vault_backup_and_restore",
-      "confidence_score": 1.0
+      "target": "runbooks_vault_backup_and_restore"
     },
     {
       "relation": "contains",
@@ -167179,9 +167500,9 @@
       "source_file": "docs/admin-guide/runbooks/vault.md",
       "source_location": "L64",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "runbooks_vault_vault",
-      "target": "runbooks_vault_credential_rotation",
-      "confidence_score": 1.0
+      "target": "runbooks_vault_credential_rotation"
     },
     {
       "relation": "conceptually_related_to",
@@ -167199,9 +167520,9 @@
       "source_file": "docs/admin-guide/runbooks/vault.md",
       "source_location": "L124",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "runbooks_vault_vault",
-      "target": "runbooks_vault_escalation_and_evidence",
-      "confidence_score": 1.0
+      "target": "runbooks_vault_escalation_and_evidence"
     },
     {
       "relation": "contains",
@@ -167209,9 +167530,9 @@
       "source_file": "docs/admin-guide/runbooks/vault.md",
       "source_location": "L11",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "runbooks_vault_vault",
-      "target": "runbooks_vault_health_checks",
-      "confidence_score": 1.0
+      "target": "runbooks_vault_health_checks"
     },
     {
       "relation": "contains",
@@ -167219,9 +167540,9 @@
       "source_file": "docs/admin-guide/runbooks/vault.md",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "runbooks_vault_vault",
-      "target": "runbooks_vault_scope",
-      "confidence_score": 1.0
+      "target": "runbooks_vault_scope"
     },
     {
       "relation": "contains",
@@ -167229,9 +167550,9 @@
       "source_file": "docs/admin-guide/runbooks/vault.md",
       "source_location": "L34",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "runbooks_vault_vault",
-      "target": "runbooks_vault_unseal_and_recovery",
-      "confidence_score": 1.0
+      "target": "runbooks_vault_unseal_and_recovery"
     },
     {
       "relation": "contains",
@@ -211975,5 +212296,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "e96eb99024e90c61201a9adf50d8575cf61b3061"
+  "built_at_commit": "c813743cb815f835c9932c78358acd984b9f34ec"
 }

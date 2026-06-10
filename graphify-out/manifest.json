@@ -2725,8 +2725,8 @@
     "semantic_hash": ""
   },
   "docs/admin-guide/deployment/external-resources.md": {
-    "mtime": 1780566623.0,
-    "ast_hash": "366b12afe55a5e40da75f57bab4cb6e6",
+    "mtime": 1781090992.7881029,
+    "ast_hash": "286329d11049c54daa7635baa2abf1c1",
     "semantic_hash": ""
   },
   "docs/admin-guide/deployment/on-prem.md": {
@@ -2735,8 +2735,8 @@
     "semantic_hash": ""
   },
   "docs/admin-guide/deployment/post-installation.md": {
-    "mtime": 1780566623.0,
-    "ast_hash": "87fde0def5398b2c2c42777a20973a81",
+    "mtime": 1781091032.785807,
+    "ast_hash": "fd6e35c87a93c1a8fa6c7461dd341c8e",
     "semantic_hash": ""
   },
   "docs/admin-guide/deployment/prerequisites.md": {
@@ -2755,8 +2755,8 @@
     "semantic_hash": ""
   },
   "docs/admin-guide/deployment/production/configuration.md": {
-    "mtime": 1780566623.0,
-    "ast_hash": "b6e5ca3e670324fb4fd3738f9cb0b170",
+    "mtime": 1781091067.2831326,
+    "ast_hash": "1212ef634d3b9a2b2deac702bd1c9511",
     "semantic_hash": ""
   },
   "docs/admin-guide/deployment/production/deployment.md": {
@@ -2765,8 +2765,8 @@
     "semantic_hash": ""
   },
   "docs/admin-guide/deployment/production/external-resources.md": {
-    "mtime": 1780566623.0,
-    "ast_hash": "366b12afe55a5e40da75f57bab4cb6e6",
+    "mtime": 1781091012.9493978,
+    "ast_hash": "286329d11049c54daa7635baa2abf1c1",
     "semantic_hash": ""
   },
   "docs/admin-guide/deployment/production/hfi-infiniband.md": {
@@ -2775,8 +2775,8 @@
     "semantic_hash": ""
   },
   "docs/admin-guide/deployment/production/post-installation.md": {
-    "mtime": 1780566623.0,
-    "ast_hash": "8fe4e1ce7e688dafd1cc20e9b6a0be45",
+    "mtime": 1781091051.5914211,
+    "ast_hash": "3dec04574a8bfb4dbe2a911c62a48daf",
     "semantic_hash": ""
   },
   "docs/admin-guide/deployment/production/prerequisites.md": {
@@ -6067,6 +6067,11 @@
   "pkg/cloud/core_operations_runbooks_test.go": {
     "mtime": 1781090359.252281,
     "ast_hash": "b99952a43a1d31a32f08c377bd97068c",
+    "semantic_hash": ""
+  },
+  "pkg/cloud/deployment_docs_test.go": {
+    "mtime": 1781090957.0030038,
+    "ast_hash": "a31201b2a775f7fd7a6e2e182b0e32f5",
     "semantic_hash": ""
   }
 }

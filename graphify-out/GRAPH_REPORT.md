@@ -1,16 +1,16 @@
 # Graph Report - ubiquity  (2026-06-10)
 
 ## Corpus Check
-- 633 files · ~554,342 words
+- 634 files · ~555,612 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 9257 nodes · 10423 edges · 1091 communities (909 shown, 182 thin omitted)
-- Extraction: 59% EXTRACTED · 41% INFERRED · 0% AMBIGUOUS · INFERRED: 4222 edges (avg confidence: 0.7)
+- 9274 nodes · 10438 edges · 1088 communities (906 shown, 182 thin omitted)
+- Extraction: 60% EXTRACTED · 40% INFERRED · 0% AMBIGUOUS · INFERRED: 4221 edges (avg confidence: 0.7)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `e96eb990`
+- Built from commit: `c813743c`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -1076,9 +1076,6 @@
 - [[_COMMUNITY_Community 1084|Community 1084]]
 - [[_COMMUNITY_Community 1085|Community 1085]]
 - [[_COMMUNITY_Community 1086|Community 1086]]
-- [[_COMMUNITY_Community 1087|Community 1087]]
-- [[_COMMUNITY_Community 1088|Community 1088]]
-- [[_COMMUNITY_Community 1089|Community 1089]]
 - [[_COMMUNITY_Community 1090|Community 1090]]
 
 ## God Nodes (most connected - your core abstractions)
@@ -1108,43 +1105,43 @@
 ## Import Cycles
 - None detected.
 
-## Communities (1091 total, 182 thin omitted)
+## Communities (1088 total, 182 thin omitted)
 
 ### Community 0 - "Community 0"
 Cohesion: 0.02
 Nodes (94): accessCodeLifespan, accessCodeLifespanLogin, accessCodeLifespanUserAction, accessTokenLifespan, accessTokenLifespanForImplicitFlow, actionTokenGeneratedByAdminLifespan, actionTokenGeneratedByUserLifespan, adminEventsDetailsEnabled (+86 more)
 
 ### Community 1 - "Community 1"
-Cohesion: 0.12
-Nodes (31): nicoGitOpsTarget, applySandboxCharts(), chartRepositoryURLs(), containsStr(), decryptSopsSecrets(), ensureHelmRepo(), ensureHelmReposForChart(), executePhase() (+23 more)
+Cohesion: 0.06
+Nodes (76): TestSandboxDeployTargetsIncludeKAIScheduler(), nicoGitOpsTarget, TestSandboxDeployTargetsIncludeNvidiaAIComponents(), TestValidateNvidiaAISandboxChartsRenderWithoutDevices(), sandboxDeployTarget, TestKAISchedulerUsesServerSideApplyForLargeCRDs(), T, T (+68 more)
 
 ### Community 2 - "Community 2"
-Cohesion: 0.05
-Nodes (90): nodeCommandOptions, captureNodesOutput(), TestNodesAddInventoryCreatesOSAndInstanceForTargetNode(), TestNodesExactArgsAndPowerSyntax(), TestNodesFlagsConfirmStringOSImageAliasAndSafetyFlags(), TestNodesLiveCreateActionsRenderCreatedPayloads(), TestNodesLiveDrainCordonsAndDrainsKubernetesNode(), TestNodesLiveMutatingOperationCallsFakeableClient() (+82 more)
+Cohesion: 0.21
+Nodes (23): nodeCommandOptions, collectLiveNodeStatuses(), collectNodeKubernetesEvidence(), createInstanceFromInventory(), createInstanceFromInventoryWithOverrides(), drainKubernetesNode(), firstNonEmptyString(), instanceNodeRow() (+15 more)
 
 ### Community 3 - "Community 3"
-Cohesion: 0.18
-Nodes (15): decodeNICOResponse(), isPointerToSlice(), Instance, Machine, MachineGPUStats, ObjectMetadata, OperatingSystem, OperatingSystemSpec (+7 more)
+Cohesion: 0.09
+Nodes (27): fakeNodesNICOClient, checkInstallerStatus(), Context, Instance, Machine, MachineGPUStats, OperatingSystem, Site (+19 more)
 
 ### Community 4 - "Community 4"
 Cohesion: 0.06
 Nodes (58): Builder, T, Command, Context, collectVirtualMachinesReadinessEvidence(), defaultName(), TestParseDiskAttachmentsAcceptsNamePVCList(), TestParseDiskAttachmentsRejectsMalformedInput() (+50 more)
 
 ### Community 5 - "Community 5"
-Cohesion: 0.14
-Nodes (18): ChartCompat, detectKubeVersion(), lookupChartVersion(), atoi(), countLeadingSpaces(), isNumeric(), IsValidCIDR(), NewScanner() (+10 more)
+Cohesion: 0.07
+Nodes (44): defaultBackupPolicy(), defaultBackupRestoreDrill(), RenderBackupPolicy(), RenderBackupRestoreDrill(), TestRenderBackupPolicyCreatesK8upScheduleSnapshotClassAndResourcePreset(), TestRenderBackupPolicyFailsClosedForUnsafeScheduleOrRetention(), validateBackupPolicy(), validateBackupRestoreDrill() (+36 more)
 
 ### Community 6 - "Community 6"
 Cohesion: 0.03
-Nodes (112): Standard_D1, Standard_D16ds_v4, gpus, ram, vcpus, gpus, ram, vcpus (+104 more)
+Nodes (108): Standard_D1, Standard_D16_v3, gpus, ram, vcpus, Standard_D16ds_v4, gpus, ram (+100 more)
 
 ### Community 7 - "Community 7"
 Cohesion: 0.08
 Nodes (23): admin guide bare-metal operations, Add a node, Components and namespaces, Node lifecycle workflow, NVIDIA Infra Controller node management, Operational safety, Prerequisites, Readiness checks (+15 more)
 
 ### Community 8 - "Community 8"
-Cohesion: 0.20
-Nodes (9): fakeNodesNICOClient, Context, Instance, Machine, MachineGPUStats, OperatingSystem, Site, Task (+1 more)
+Cohesion: 0.24
+Nodes (16): Operation, EvaluateSafety(), isControlPlane(), quorumSafeAfterOneLoss(), requiresConfirmation(), requiresDrain(), TestSafetyBlocksControlPlaneQuorumLoss(), TestSafetyGatesCoverRebootReimageDrainEvictAndMaintenance() (+8 more)
 
 ### Community 9 - "Community 9"
 Cohesion: 0.05
@@ -1303,8 +1300,8 @@ Cohesion: 0.11
 Nodes (28): additionalProperties, additionalProperties, properties, required, type, minLength, type, pattern (+20 more)
 
 ### Community 48 - "Community 48"
-Cohesion: 0.22
-Nodes (17): ParseReadyPodCount(), collectAIReadinessSnapshot(), collectAIStoreReadinessSnapshot(), collectNICOReadinessSnapshot(), daemonSetsReady(), deploymentComponentReady(), deploymentsAvailable(), readyPodCount() (+9 more)
+Cohesion: 0.23
+Nodes (16): collectAIReadinessSnapshot(), collectAIStoreReadinessSnapshot(), collectNICOReadinessSnapshot(), daemonSetsReady(), deploymentComponentReady(), deploymentsAvailable(), readyPodCount(), readyPodCountAllNamespaces() (+8 more)
 
 ### Community 49 - "Community 49"
 Cohesion: 0.14
@@ -2455,8 +2452,8 @@ Cohesion: 0.33
 Nodes (9): Awaiting Evidence, Docs Processes, Triage, New Issue Triage, Proposal, Stale Issues, Status, Summary (+1 more)
 
 ### Community 336 - "Community 336"
-Cohesion: 0.17
-Nodes (12): Alternatives, Aws, Backup, Cloudflare, Create credentials, Create Terraform workspace, Docs Admin-Guide, External Resources (+4 more)
+Cohesion: 0.13
+Nodes (14): Alternatives, Aws, Backup, Backup target, Create credentials, DNS and certificate provider, Docs Admin-Guide, External Resources (+6 more)
 
 ### Community 337 - "Community 337"
 Cohesion: 0.22
@@ -2907,8 +2904,8 @@ Cohesion: 0.53
 Nodes (5): T, TestExecutePhaseDispatchesCorrectly(), TestExecutePhaseUnknown(), TestMockProviderRecordsCalls(), TestRealProviderReturnsNoError()
 
 ### Community 450 - "Community 450"
-Cohesion: 0.12
-Nodes (16): additionalProperties, additionalProperties, type, k8s-nim-operator, smokeTest, additionalProperties, type, Sample Nimservice (+8 more)
+Cohesion: 0.11
+Nodes (19): additionalProperties, additionalProperties, type, additionalProperties, type, image, k8s-nim-operator, smokeTest (+11 more)
 
 ### Community 451 - "Community 451"
 Cohesion: 0.33
@@ -2975,8 +2972,8 @@ Cohesion: 0.80
 Nodes (4): mustRead(), TestNIMOperatorChartDefinesNGCSecretAndSampleServiceFlow(), TestNIMSmokeTestCreatesReadinessEvidenceConfigMap(), T
 
 ### Community 467 - "Community 467"
-Cohesion: 0.43
-Nodes (7): podCondition, podItem, podList, podStatus, podCondition, podItem, podStatus
+Cohesion: 0.24
+Nodes (11): ParseReadyPodCount(), TestParseReadyPodCountFailsClosedForEmptyList(), TestParseReadyPodCountRequiresReadyConditionAndRunningPhase(), podCondition, podItem, podList, podStatus, T (+3 more)
 
 ### Community 468 - "Community 468"
 Cohesion: 0.40
@@ -3563,8 +3560,8 @@ Cohesion: 0.67
 Nodes (3): Docs Reference, Updating K3S, K3S
 
 ### Community 639 - "Community 639"
-Cohesion: 0.50
-Nodes (3): Configuration, Docs Admin-Guide, Production
+Cohesion: 0.33
+Nodes (5): Configuration, Docs Admin-Guide, Production, Production-lite caveats, Proof boundary
 
 ### Community 640 - "Community 640"
 Cohesion: 0.50
@@ -3655,8 +3652,8 @@ Cohesion: 0.10
 Nodes (20): Design Tenets, Goal: Project Ubiquity Next — The HPC Cluster Lifecycle Platform, Implementation Phases, Phase 1: Foundation (Weeks 1-2), Phase 2: Standardization (Weeks 3-4), Phase 3: Security (Weeks 5-6), Phase 4: Testing & Reliability (Weeks 7-8), Phase 5: Polish (Weeks 9-10) (+12 more)
 
 ### Community 803 - "Community 803"
-Cohesion: 0.11
-Nodes (21): minLength, type, minLength, type, minLength, type, curlImage, endpoint (+13 more)
+Cohesion: 0.13
+Nodes (15): minLength, type, minLength, type, endpoint, kubectlImage, serviceAccountName, successConfigMapName (+7 more)
 
 ### Community 804 - "Community 804"
 Cohesion: 0.10
@@ -3675,8 +3672,8 @@ Cohesion: 0.11
 Nodes (17): How do I identify the current state, How ironic boots hardware, How ironic controls hardware, how-ironic-works, How ironic writes an operating system image to baremetal, How-to, How to add hardware to ironic, How to create the record of an active node (+9 more)
 
 ### Community 808 - "Community 808"
-Cohesion: 0.11
-Nodes (18): type, minLength, type, minLength, type, minLength, type, enabled (+10 more)
+Cohesion: 0.13
+Nodes (15): type, minLength, type, minLength, type, enabled, modelPuller, namespace (+7 more)
 
 ### Community 809 - "Community 809"
 Cohesion: 0.11
@@ -3707,8 +3704,8 @@ Cohesion: 0.12
 Nodes (16): First Step: Investigate your Situation, Investigate Logs of the Containers inside the Pods, Investigate Status and Events of the Pods, Job failed with no output, Provisioning Callback does not work, Reveal "censored" output in the AWX Operator's log, Table of Contents, The job failed and I got "ERROR! couldn't resolve module/action" or "Failed to import the required Python library" message (+8 more)
 
 ### Community 816 - "Community 816"
-Cohesion: 0.17
-Nodes (12): Control plane:, Cordon workers, Get bmh_host, Marking a Compute Node Down for maintenance, Power Down Procedures, Powering on a Compute Node, poweroff, reboot (+4 more)
+Cohesion: 0.12
+Nodes (16): Control plane:, Cordon workers, General Maintenance Procedures, Get bmh_host, Getting Support, MAINTENANCE PROCEDURES, Marking a Compute Node Down for maintenance, Power Down Procedures (+8 more)
 
 ### Community 817 - "Community 817"
 Cohesion: 0.12
@@ -3895,8 +3892,8 @@ Cohesion: 0.43
 Nodes (7): ParseAvailableDeployments(), ParseReadyDaemonSets(), TestParseAvailableDeploymentsHandlesSingleDeploymentObject(), TestParseAvailableDeploymentsOnlyCountsAvailableReplicas(), TestParseReadyDaemonSetsHandlesSingleDaemonSetObject(), TestParseReadyDaemonSetsRequiresDesiredScheduledReadyAndAvailable(), T
 
 ### Community 863 - "Community 863"
-Cohesion: 0.14
-Nodes (12): Standard_D64_v3, gpus, ram, vcpus, Standard_E48_v3, gpus, ram, vcpus (+4 more)
+Cohesion: 0.21
+Nodes (8): Standard_D64_v3, gpus, ram, vcpus, Standard_NV6, gpus, ram, vcpus
 
 ### Community 864 - "Community 864"
 Cohesion: 0.25
@@ -3935,8 +3932,8 @@ Cohesion: 0.29
 Nodes (7): minimum, type, minimum, gpuLimit, replicas, minimum, type
 
 ### Community 873 - "Community 873"
-Cohesion: 0.29
-Nodes (7): additionalProperties, properties, type, image, repository, minLength, type
+Cohesion: 0.17
+Nodes (13): minLength, type, properties, minLength, type, curlImage, name, repository (+5 more)
 
 ### Community 874 - "Community 874"
 Cohesion: 0.29
@@ -3971,8 +3968,8 @@ Cohesion: 0.33
 Nodes (6): Cloudflare Tunnel ingress exposure, backup and restore-drill primitives, production readiness checklist, supported cloud provider access, Ubiquity documentation overview, Velero on-prem backup tutorial
 
 ### Community 882 - "Community 882"
-Cohesion: 0.33
-Nodes (5): Alternatives, Cloudflare, Create credentials, Create Terraform workspace, External resources
+Cohesion: 0.25
+Nodes (7): Alternatives, Backup target, Create credentials, DNS and certificate provider, External resources, Load balancer and ingress path, Terraform workspace
 
 ### Community 883 - "Community 883"
 Cohesion: 0.33
@@ -4003,8 +4000,8 @@ Cohesion: 0.40
 Nodes (4): ADR-009: Use Cilium + Hubble for advanced networking and observability, Consequences, Context, Decision
 
 ### Community 890 - "Community 890"
-Cohesion: 0.40
-Nodes (4): Admin credentials, Backup secrets, Next steps, Post-installation
+Cohesion: 0.22
+Nodes (8): Admin credentials, Backup and restore, Credential ownership and rotation, Next steps, Post-install health checks, Post-installation, Proof boundary, Upgrade and rollback
 
 ### Community 891 - "Community 891"
 Cohesion: 0.40
@@ -4043,8 +4040,8 @@ Cohesion: 0.40
 Nodes (4): CNI Support for MPI over InfiniBand, Howto enable IPoIB in Ubiquity, Required 3rd party tools, Rootless applications and Memlock rlimit when Infiniband
 
 ### Community 900 - "Community 900"
-Cohesion: 0.40
-Nodes (4): Admin credentials, Backup secrets, Next steps, Post-installation
+Cohesion: 0.22
+Nodes (8): Admin credentials, Backup and restore, Credential ownership and rotation, Next steps, Post-install health checks, Post-installation, Proof boundary, Upgrade and rollback
 
 ### Community 901 - "Community 901"
 Cohesion: 0.40
@@ -4175,8 +4172,8 @@ Cohesion: 0.50
 Nodes (4): Standard_D64s_v3, gpus, ram, vcpus
 
 ### Community 933 - "Community 933"
-Cohesion: 0.19
-Nodes (26): T, applyLifecycleDefaults(), describeNICOInstallPath(), provisionMetal(), provisionPostInstall(), isolateHome(), requireLiveIntegration(), TestApplySandboxCharts() (+18 more)
+Cohesion: 0.29
+Nodes (16): captureNodesOutput(), TestNodesAddInventoryCreatesOSAndInstanceForTargetNode(), TestNodesExactArgsAndPowerSyntax(), TestNodesFlagsConfirmStringOSImageAliasAndSafetyFlags(), TestNodesLiveCreateActionsRenderCreatedPayloads(), TestNodesLiveDrainCordonsAndDrainsKubernetesNode(), TestNodesLiveMutatingOperationCallsFakeableClient(), TestNodesLivePowerCallsNICoMachinePowerTask() (+8 more)
 
 ### Community 934 - "Community 934"
 Cohesion: 0.50
@@ -4271,8 +4268,8 @@ Cohesion: 0.50
 Nodes (4): Standard_E64_v3, gpus, ram, vcpus
 
 ### Community 957 - "Community 957"
-Cohesion: 0.18
-Nodes (16): TestSandboxDeployTargetsIncludeKAIScheduler(), TestSandboxDeployTargetsIncludeNvidiaAIComponents(), TestValidateNvidiaAISandboxChartsRenderWithoutDevices(), sandboxDeployTarget, T, T, cleanupSandboxDependencyArchives(), collectSandboxDeployTargets() (+8 more)
+Cohesion: 0.21
+Nodes (16): canonicalNodeAction(), init(), newNodesNICOClientForConfig(), nicoConfigFromEnv(), redactNodeOutput(), renderNodeRows(), requireNodeBackend(), runNodesAction() (+8 more)
 
 ### Community 958 - "Community 958"
 Cohesion: 0.50
@@ -4416,7 +4413,7 @@ Nodes (4): Standard_NC64as_T4_v3, gpus, ram, vcpus
 
 ### Community 993 - "Community 993"
 Cohesion: 0.14
-Nodes (12): Standard_D16_v3, gpus, ram, vcpus, Standard_D2s_v3, gpus, ram, vcpus (+4 more)
+Nodes (12): Standard_D2s_v3, gpus, ram, vcpus, Standard_D48ds_v4, gpus, ram, vcpus (+4 more)
 
 ### Community 994 - "Community 994"
 Cohesion: 0.50
@@ -4595,24 +4592,24 @@ Cohesion: 0.28
 Nodes (9): scripts/configure contract, deployment configuration inputs, Keycloak identity management, Keycloak realm/client/user setup flow, nip.io test DNS, on-premises production deployment, sandbox deployment, Slurm integration path (+1 more)
 
 ### Community 1076 - "Community 1076"
-Cohesion: 0.28
-Nodes (11): NewClient(), TestClientBuildsOpenAPIResourcePaths(), TestClientErrorsRedactResponseBodyAndTokenCommand(), TestClientEscapesOrgAPIAndResourceID(), TestClientListMethodsDecodeBareArraysAndItemsEnvelope(), TestPollTaskFailsOnTerminalFailedOrCancelled(), TestPollTaskSucceedsAfterPendingStates(), TestPollTaskTimesOut() (+3 more)
+Cohesion: 0.13
+Nodes (18): main(), RandomPassword, TestClientDefaultHTTPTimeout(), TestClientLiveMethodsUseExpectedHTTPVerbsAndPaths(), NewClient(), TestClientBuildsOpenAPIResourcePaths(), TestClientErrorsRedactResponseBodyAndTokenCommand(), TestClientEscapesOrgAPIAndResourceID() (+10 more)
 
 ### Community 1077 - "Community 1077"
 Cohesion: 0.33
 Nodes (5): Active Goal: Ubiquity Project Completion, Current next slice, Execute in this order, Goal, Required execution discipline
 
 ### Community 1079 - "Community 1079"
-Cohesion: 0.29
-Nodes (5): DefaultConfig(), main(), RandomPassword, main(), RandomPassword
+Cohesion: 0.22
+Nodes (13): collectNodeStorageSafety(), controlPlaneCounts(), evaluateNodeActionSafety(), TestCollectNodeKubernetesEvidenceFailsClosedWhenKubectlUnavailable(), TestCollectNodeKubernetesEvidenceUsesKubectlNodesJSON(), TestControlPlaneCountsUseLiveRolesAndReadyEvidence(), TestResolveNodeTargetStatusFailsClosedForAmbiguousOrMissingTargets(), TestRunLiveRemoveResolvesNodeNameToInstanceID() (+5 more)
 
 ### Community 1080 - "Community 1080"
 Cohesion: 0.80
 Nodes (5): configRepoRoot(), readConfigTestFile(), TestK3SEncryptionSecretFailsClosedBeforeTemplateDeployment(), TestK3SEncryptionSecretIsNotCommittedAsLiteral(), T
 
 ### Community 1081 - "Community 1081"
-Cohesion: 0.40
-Nodes (5): TestClientDefaultHTTPTimeout(), TestClientLiveMethodsUseExpectedHTTPVerbsAndPaths(), WithHTTPClient(), ClientOption, T
+Cohesion: 0.48
+Nodes (6): TestNICOHealthRendererFailsClosed(), TestNodesCommandRegisteredWithSubcommands(), TestNodesDefaultBackendNICOAndAbsentConfigFailsClosed(), TestNodesDestructiveRequiresConfirm(), TestNodesJSONRedactsSecrets(), T
 
 ### Community 1082 - "Community 1082"
 Cohesion: 0.50
@@ -4622,32 +4619,20 @@ Nodes (4): cloud deployment Terraform workshop, cloud DNS and SSL configuration,
 Cohesion: 0.60
 Nodes (4): main(), Organization, Repository, Config
 
+### Community 1084 - "Community 1084"
+Cohesion: 0.50
+Nodes (4): Standard_D8_v3, gpus, ram, vcpus
+
 ### Community 1085 - "Community 1085"
-Cohesion: 0.22
-Nodes (14): defaultBackupPolicy(), defaultBackupRestoreDrill(), RenderBackupPolicy(), RenderBackupRestoreDrill(), TestRenderBackupPolicyCreatesK8upScheduleSnapshotClassAndResourcePreset(), TestRenderBackupPolicyFailsClosedForUnsafeScheduleOrRetention(), validateBackupPolicy(), validateBackupRestoreDrill() (+6 more)
-
-### Community 1086 - "Community 1086"
-Cohesion: 0.30
-Nodes (11): Load(), parseEnvFile(), setFieldsFromEnv(), contains(), TestConfigFilePath(), TestIsValidCIDR(), TestLoadNonExistent(), TestParseEnvFile() (+3 more)
-
-### Community 1087 - "Community 1087"
 Cohesion: 0.50
-Nodes (4): General Maintenance Procedures, Getting Support, MAINTENANCE PROCEDURES, Power Up Procedures
-
-### Community 1088 - "Community 1088"
-Cohesion: 0.67
-Nodes (3): TestParseReadyPodCountFailsClosedForEmptyList(), TestParseReadyPodCountRequiresReadyConditionAndRunningPhase(), T
-
-### Community 1089 - "Community 1089"
-Cohesion: 0.50
-Nodes (3): TestKAISchedulerUsesServerSideApplyForLargeCRDs(), T, shouldServerSideApply()
+Nodes (4): Standard_E64a_v4, gpus, ram, vcpus
 
 ## Ambiguous Edges - Review These
 - `Vulnerability Reporting and Disclosure Workflow` → `Bug Report Template`  [AMBIGUOUS]
   .github/ISSUE_TEMPLATE/bug_report.md · relation: conceptually_related_to
 
 ## Knowledge Gaps
-- **5919 isolated node(s):** `name`, `image`, `ghcr.io/devcontainers/features/docker-in-docker:2`, `ghcr.io/devcontainers/features/kubectl:1`, `ghcr.io/devcontainers/features/helm:1` (+5914 more)
+- **5935 isolated node(s):** `name`, `image`, `ghcr.io/devcontainers/features/docker-in-docker:2`, `ghcr.io/devcontainers/features/kubectl:1`, `ghcr.io/devcontainers/features/helm:1` (+5930 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **182 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
@@ -4658,13 +4643,13 @@ _Questions this graph is uniquely positioned to answer:_
   _Edge tagged AMBIGUOUS (relation: conceptually_related_to) - confidence is low._
 - **Why does `ParseKubernetesNodeEvidence()` connect `Community 67` to `Community 2`, `Community 389`, `Community 12`, `Community 76`, `Community 77`?**
   _High betweenness centrality (0.003) - this node is a cross-community bridge._
-- **Why does `collectNodeKubernetesEvidence()` connect `Community 2` to `Community 67`?**
+- **Why does `collectNodeKubernetesEvidence()` connect `Community 2` to `Community 67`, `Community 1079`?**
   _High betweenness centrality (0.003) - this node is a cross-community bridge._
-- **Why does `atoi()` connect `Community 5` to `Community 67`, `Community 1085`, `Community 77`, `Community 389`?**
-  _High betweenness centrality (0.002) - this node is a cross-community bridge._
+- **Why does `atoi()` connect `Community 5` to `Community 67`, `Community 77`, `Community 389`?**
+  _High betweenness centrality (0.003) - this node is a cross-community bridge._
 - **Are the 33 inferred relationships involving `findCommand()` (e.g. with `TestAIPlatformApplyCanMutateWithServerSideApply()` and `TestAIPlatformCmdRegistered()`) actually correct?**
   _`findCommand()` has 33 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 13 inferred relationships involving `EvaluateReadiness()` (e.g. with `TestEvaluateReadinessPassesWithCompleteEvidence()` and `TestCloudReadinessPassesWhenRequiredSmokeTestsPass()`) actually correct?**
   _`EvaluateReadiness()` has 13 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `name`, `image`, `ghcr.io/devcontainers/features/docker-in-docker:2` to the rest of the system?**
-  _5924 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _5940 weakly-connected nodes found - possible documentation gaps or missing edges._
