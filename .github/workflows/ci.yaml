@@ -53,7 +53,9 @@ jobs:
         run: |
           if [ "${{ github.event_name }}" = "pull_request" ]; then
             git fetch origin "${{ github.event.pull_request.head.sha }}" --depth=1
-            git show --name-only --pretty=format: "${{ github.event.pull_request.head.sha }}" > /tmp/pre-commit-files.txt
+            git diff-tree --no-commit-id --name-only -r "${{ github.event.pull_request.head.sha }}" > /tmp/pre-commit-files.txt
+            sed -i '/^$/d' /tmp/pre-commit-files.txt
+            cat /tmp/pre-commit-files.txt
             if [ -s /tmp/pre-commit-files.txt ]; then
               xargs env SKIP=ansible-lint,yamllint pre-commit run --show-diff-on-failure --files < /tmp/pre-commit-files.txt
             else
