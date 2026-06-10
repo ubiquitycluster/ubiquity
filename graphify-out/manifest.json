@@ -2635,8 +2635,8 @@
     "semantic_hash": ""
   },
   "docs/admin-guide/administration/tutorials/install-pre-commit-hooks.md": {
-    "mtime": 1780566623.0,
-    "ast_hash": "b11fab0f4992bbb95ddfd300a0ac3c7d",
+    "mtime": 1781091183.328001,
+    "ast_hash": "c3210fe1c00c059d326221ded632c5a0",
     "semantic_hash": ""
   },
   "docs/admin-guide/administration/tutorials/kube-prometheus-stack.md": {
@@ -2675,8 +2675,8 @@
     "semantic_hash": ""
   },
   "docs/admin-guide/administration/tutorials/updating-documentation.md": {
-    "mtime": 1780566623.0,
-    "ast_hash": "d47b14f337c3bbef4a90031d3c6de6e7",
+    "mtime": 1781091228.4366765,
+    "ast_hash": "604438955c9a5152d1a9ef2ac4c6b126",
     "semantic_hash": ""
   },
   "docs/admin-guide/administration/tutorials/use-both-github-and-gitea.md": {
@@ -2705,8 +2705,8 @@
     "semantic_hash": ""
   },
   "docs/admin-guide/concepts/pxe-boot.md": {
-    "mtime": 1780566623.0,
-    "ast_hash": "fd96dc4a4721f0f7c5286fbebff7db80",
+    "mtime": 1781091170.2126374,
+    "ast_hash": "e2bbe23e731c724bd3f753933208b2be",
     "semantic_hash": ""
   },
   "docs/admin-guide/deployment/cloud/index.md": {
@@ -6072,6 +6072,11 @@
   "pkg/cloud/deployment_docs_test.go": {
     "mtime": 1781090957.0030038,
     "ast_hash": "a31201b2a775f7fd7a6e2e182b0e32f5",
+    "semantic_hash": ""
+  },
+  "pkg/cloud/setup_tutorial_docs_test.go": {
+    "mtime": 1781091139.4045982,
+    "ast_hash": "447fadec962c1d70cfcc1f8ae266f23e",
     "semantic_hash": ""
   }
 }
