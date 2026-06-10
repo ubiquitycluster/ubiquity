@@ -53,7 +53,7 @@ jobs:
         run: |
           if [ "${{ github.event_name }}" = "pull_request" ]; then
             git fetch origin "${{ github.event.pull_request.base.ref }}" --depth=1
-            git diff --name-only --diff-filter=ACMR HEAD^ HEAD > /tmp/pre-commit-files.txt
+            git show --name-only --format= HEAD > /tmp/pre-commit-files.txt
             if [ -s /tmp/pre-commit-files.txt ]; then
               xargs env SKIP=ansible-lint,yamllint pre-commit run --files --show-diff-on-failure < /tmp/pre-commit-files.txt
             else
@@ -200,6 +200,7 @@ jobs:
       - name: Kyverno policy tests
         run: |
           set -euo pipefail
+          echo "Rendering Helm templates for kyverno test system/kyverno-policies/kyverno-test"
           tmpdir=$(mktemp -d)
           mkdir -p "$tmpdir/resources"
           cp system/kyverno-policies/kyverno-test/resources/*.yaml "$tmpdir/resources/"
