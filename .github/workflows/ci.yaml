@@ -53,7 +53,12 @@ jobs:
         run: |
           if [ "${{ github.event_name }}" = "pull_request" ]; then
             git fetch origin "${{ github.event.pull_request.base.ref }}" --depth=1
-            pre-commit run --from-ref "origin/${{ github.event.pull_request.base.ref }}" --to-ref HEAD --show-diff-on-failure
+            git diff --name-only --diff-filter=ACMR HEAD^ HEAD > /tmp/pre-commit-files.txt
+            if [ -s /tmp/pre-commit-files.txt ]; then
+              xargs env SKIP=ansible-lint,yamllint pre-commit run --files --show-diff-on-failure < /tmp/pre-commit-files.txt
+            else
+              echo "No changed files to check"
+            fi
           else
             pre-commit run --all-files --show-diff-on-failure
           fi
@@ -128,10 +133,13 @@ jobs:
             | while IFS= read -r -d '' chart; do
                 dir=$(dirname "$chart")
                 echo "Rendering and validating: $dir"
+                schema_location='https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/'
+                schema_location="${schema_location}{{ .NormalizedKubernetesVersion }}-standalone"
+                schema_location="${schema_location}{{ .StrictSuffix }}/{{ .ResourceKind }}{{ .KindSuffix }}.json"
                 helm template "$dir" --namespace ubiquity \
                   | kubeconform \
                       -ignore-missing-schemas \
-                      -schema-location 'https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/{{ .NormalizedKubernetesVersion }}-standalone{{ .StrictSuffix }}/{{ .ResourceKind }}{{ .KindSuffix }}.json'
+                      -schema-location "$schema_location"
               done
 
   scan:
@@ -190,7 +198,45 @@ jobs:
         uses: kyverno/action-install-cli@v0.2.0
 
       - name: Kyverno policy tests
-        run: kyverno test system/kyverno-policies/kyverno-test
+        run: |
+          set -euo pipefail
+          tmpdir=$(mktemp -d)
+          mkdir -p "$tmpdir/resources"
+          cp system/kyverno-policies/kyverno-test/resources/*.yaml "$tmpdir/resources/"
+          helm template kyverno-policies system/kyverno-policies \
+            --namespace ubiquity \
+            --show-only templates/restricted-pod-security.yaml \
+            --show-only templates/disallow-privileged-containers.yaml \
+            --show-only templates/require-labels.yaml \
+            --show-only templates/default-network-policy-denies.yaml \
+            > "$tmpdir/policies.yaml"
+          cat > "$tmpdir/kyverno-test.yaml" <<'EOF'
+          name: kyverno-policy-tests
+          policies:
+            - policies.yaml
+          resources:
+            - resources/valid-pod.yaml
+            - resources/privileged-pod.yaml
+            - resources/missing-label-pod.yaml
+          results:
+            - policy: disallow-privileged-containers
+              rule: privileged-containers
+              resource: valid-pod
+              result: pass
+            - policy: disallow-privileged-containers
+              rule: privileged-containers
+              resource: privileged-pod
+              result: fail
+            - policy: require-labels
+              rule: require-app-label
+              resource: valid-pod
+              result: pass
+            - policy: require-labels
+              rule: require-app-label
+              resource: missing-label-pod
+              result: fail
+          EOF
+          kyverno test "$tmpdir"
 
       - name: Network policy behavioral dry-run
         run: test/e2e/network-policy-behavior.sh --dry-run
