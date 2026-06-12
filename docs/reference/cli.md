@@ -72,7 +72,9 @@ ubiquity ai-platform --profile gpu-mig
 ubiquity ai-platform --profile ai-production
 ```
 
-Use `ai-production` when reviewing the full target platform: GPU Operator, NVIDIA Network Operator, NIM Operator, KAI Scheduler, AI workload tenancy, telemetry, and validation.
+Use `ai-production` when reviewing the full target platform: GPU Operator, NVIDIA Network Operator, NIM Operator, KAI Scheduler, Stallscope GPU workload telemetry, AI workload tenancy, telemetry, and validation.
+
+Stallscope integration is delivered as `platform/stallscope`. It runs on GPU nodes, writes Prometheus textfile metrics for node-exporter, and alerts when workloads are classified as SLOW or FAIL_RISK from GPU, host, RDMA, PFC, and network evidence. Production deployments should pin a scanned internal Stallscope image or retain the chart's pinned upstream archive commit.
 
 ### nodes
 Operate NVIDIA Infra Controller-backed bare-metal node lifecycle. Commands default to dry-run/mock safe output unless live NICo configuration is provided with `UBIQUITY_NICO_MODE=live`, `UBIQUITY_NICO_BASE_URL`, `UBIQUITY_NICO_ORG`, and credentials.
