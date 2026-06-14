@@ -127,12 +127,9 @@ COPY --from=builder /usr/local/bin/ansible-pull /usr/local/bin/ansible-pull
 COPY --from=builder /usr/local/bin/ansible-test /usr/local/bin/ansible-test
 COPY --from=builder /usr/local/bin/ansible-vault /usr/local/bin/ansible-vault
 
-# Update symlinks to use Python 3.12
-RUN set -eux \
-	&& ln -sf /usr/local/bin/python3.12 /usr/bin/python3 \
-	&& ln -sf /usr/local/bin/python3.12 /usr/bin/python \
-	&& ln -sf /usr/local/bin/pip3.12 /usr/bin/pip3 \
-	&& ln -sf /usr/local/bin/pip3.12 /usr/bin/pip
+# /usr/local/bin is before /usr/bin in PATH, so the builder's python3/pip3
+# binaries take precedence without overriding /usr/bin/python3, which keeps
+# system tools like dnf functional in child images.
 
 # Pre-compile Python for better performance
 RUN set -eux \
