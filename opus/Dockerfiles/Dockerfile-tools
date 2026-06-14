@@ -1,4 +1,4 @@
-ARG VERSION
+ARG VERSION=latest
 
 # --------------------------------------------------------------------------------------------------
 # Builder Image
@@ -45,17 +45,17 @@ ENV \
 # Python packages (copied to final image)
 RUN set -eux \
 	&& if [ "${VERSION}" = "2.5" ]; then \
-		pip3.9 install --no-cache-dir --no-compile dnspython mitogen==0.2.10; \
+		pip3 install --no-cache-dir --no-compile dnspython mitogen==0.2.10; \
 	elif [ "${VERSION}" = "2.6" ]; then \
-		pip3.9 install --no-cache-dir --no-compile dnspython mitogen==0.2.10; \
+		pip3 install --no-cache-dir --no-compile dnspython mitogen==0.2.10; \
 	elif [ "${VERSION}" = "2.7" ]; then \
-		pip3.9 install --no-cache-dir --no-compile dnspython mitogen==0.2.10; \
+		pip3 install --no-cache-dir --no-compile dnspython mitogen==0.2.10; \
 	elif [ "${VERSION}" = "2.8" ]; then \
-		pip3.9 install --no-cache-dir --no-compile dnspython mitogen==0.2.10; \
+		pip3 install --no-cache-dir --no-compile dnspython mitogen==0.2.10; \
 	elif [ "${VERSION}" = "2.9" ]; then \
-		pip3.9 install --no-cache-dir --no-compile dnspython mitogen==0.2.10; \
+		pip3 install --no-cache-dir --no-compile dnspython mitogen==0.2.10; \
 	else \
-		pip3.9 install --no-cache-dir --no-compile dnspython mitogen; \
+		pip3 install --no-cache-dir --no-compile dnspython mitogen; \
 	fi
 
 # Add user and group
@@ -91,11 +91,11 @@ COPY ./data/docker-entrypoint.sh /docker-entrypoint.sh
 
 # Fix mitogen compat issues with 3.x - See https://github.com/mitogen-hq/mitogen/issues/659 - Still not fixed since 2019! Terrible.
 RUN set -eux \
-    && rm -rf /usr/local/lib64/python3/site-packages/ansible_mitogen/compat/simplejson 
+    && rm -rf /usr/local/lib/python3.12/site-packages/ansible_mitogen/compat/simplejson
 
 RUN set -eux \
-    && python -m compileall /usr/local/lib64/python3/site-packages/ansible_mitogen \
-	&& python -m compileall /usr/local/lib64/python3/site-packages/dns
+    && python -m compileall /usr/local/lib/python3.12/site-packages/ansible_mitogen \
+	&& python -m compileall /usr/local/lib/python3.12/site-packages/dns
 
 WORKDIR /data
 ENTRYPOINT ["/docker-entrypoint.sh"]
