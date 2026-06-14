@@ -1494,7 +1494,7 @@
       "source_location": "L137",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_d4",
-      "community": 957,
+      "community": 37,
       "norm_label": "standard_d4"
     },
     {
@@ -1504,7 +1504,7 @@
       "source_location": "L138",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_d4_vcpus",
-      "community": 957,
+      "community": 37,
       "norm_label": "vcpus"
     },
     {
@@ -1514,7 +1514,7 @@
       "source_location": "L139",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_d4_ram",
-      "community": 957,
+      "community": 37,
       "norm_label": "ram"
     },
     {
@@ -1524,7 +1524,7 @@
       "source_location": "L140",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_d4_gpus",
-      "community": 957,
+      "community": 37,
       "norm_label": "gpus"
     },
     {
@@ -1534,7 +1534,7 @@
       "source_location": "L142",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_d48as_v4",
-      "community": 37,
+      "community": 921,
       "norm_label": "standard_d48as_v4"
     },
     {
@@ -1544,7 +1544,7 @@
       "source_location": "L143",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_d48as_v4_vcpus",
-      "community": 37,
+      "community": 921,
       "norm_label": "vcpus"
     },
     {
@@ -1554,7 +1554,7 @@
       "source_location": "L144",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_d48as_v4_ram",
-      "community": 37,
+      "community": 921,
       "norm_label": "ram"
     },
     {
@@ -1564,7 +1564,7 @@
       "source_location": "L145",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_d48as_v4_gpus",
-      "community": 37,
+      "community": 921,
       "norm_label": "gpus"
     },
     {
@@ -1574,7 +1574,7 @@
       "source_location": "L147",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_d48ds_v4",
-      "community": 6,
+      "community": 993,
       "norm_label": "standard_d48ds_v4"
     },
     {
@@ -1584,7 +1584,7 @@
       "source_location": "L148",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_d48ds_v4_vcpus",
-      "community": 6,
+      "community": 993,
       "norm_label": "vcpus"
     },
     {
@@ -1594,7 +1594,7 @@
       "source_location": "L149",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_d48ds_v4_ram",
-      "community": 6,
+      "community": 993,
       "norm_label": "ram"
     },
     {
@@ -1604,7 +1604,7 @@
       "source_location": "L150",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_d48ds_v4_gpus",
-      "community": 6,
+      "community": 993,
       "norm_label": "gpus"
     },
     {
@@ -2894,7 +2894,7 @@
       "source_location": "L312",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_e32_v3",
-      "community": 863,
+      "community": 6,
       "norm_label": "standard_e32_v3"
     },
     {
@@ -2904,7 +2904,7 @@
       "source_location": "L313",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_e32_v3_vcpus",
-      "community": 863,
+      "community": 6,
       "norm_label": "vcpus"
     },
     {
@@ -2914,7 +2914,7 @@
       "source_location": "L314",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_e32_v3_ram",
-      "community": 863,
+      "community": 6,
       "norm_label": "ram"
     },
     {
@@ -2924,7 +2924,7 @@
       "source_location": "L315",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_e32_v3_gpus",
-      "community": 863,
+      "community": 6,
       "norm_label": "gpus"
     },
     {
@@ -3014,7 +3014,7 @@
       "source_location": "L327",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_e48_v3",
-      "community": 863,
+      "community": 6,
       "norm_label": "standard_e48_v3"
     },
     {
@@ -3024,7 +3024,7 @@
       "source_location": "L328",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_e48_v3_vcpus",
-      "community": 863,
+      "community": 6,
       "norm_label": "vcpus"
     },
     {
@@ -3034,7 +3034,7 @@
       "source_location": "L329",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_e48_v3_ram",
-      "community": 863,
+      "community": 6,
       "norm_label": "ram"
     },
     {
@@ -3044,7 +3044,7 @@
       "source_location": "L330",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_e48_v3_gpus",
-      "community": 863,
+      "community": 6,
       "norm_label": "gpus"
     },
     {
@@ -5094,7 +5094,7 @@
       "source_location": "L587",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_nc6_promo",
-      "community": 6,
+      "community": 993,
       "norm_label": "standard_nc6_promo"
     },
     {
@@ -5104,7 +5104,7 @@
       "source_location": "L588",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_nc6_promo_vcpus",
-      "community": 6,
+      "community": 993,
       "norm_label": "vcpus"
     },
     {
@@ -5114,7 +5114,7 @@
       "source_location": "L589",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_nc6_promo_ram",
-      "community": 6,
+      "community": 993,
       "norm_label": "ram"
     },
     {
@@ -5124,7 +5124,7 @@
       "source_location": "L590",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_nc6_promo_gpus",
-      "community": 6,
+      "community": 993,
       "norm_label": "gpus"
     },
     {
@@ -5254,7 +5254,7 @@
       "source_location": "L607",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_nv6",
-      "community": 993,
+      "community": 863,
       "norm_label": "standard_nv6"
     },
     {
@@ -5264,7 +5264,7 @@
       "source_location": "L608",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_nv6_vcpus",
-      "community": 993,
+      "community": 863,
       "norm_label": "vcpus"
     },
     {
@@ -5274,7 +5274,7 @@
       "source_location": "L609",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_nv6_ram",
-      "community": 993,
+      "community": 863,
       "norm_label": "ram"
     },
     {
@@ -5284,7 +5284,7 @@
       "source_location": "L610",
       "_origin": "ast",
       "id": "azure_vmsizes_standard_nv6_gpus",
-      "community": 993,
+      "community": 863,
       "norm_label": "gpus"
     },
     {
@@ -7052,7 +7052,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "cmd_health_nico_test",
-      "community": 20,
+      "community": 872,
       "norm_label": "health_nico_test.go"
     },
     {
@@ -7062,7 +7062,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "cmd_health_nico_test_testhealthnicoflagregisteredinhelpandparses",
-      "community": 20,
+      "community": 872,
       "norm_label": "testhealthnicoflagregisteredinhelpandparses()"
     },
     {
@@ -7072,7 +7072,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "cmd_ubiquity_cmd_health_nico_test_go_t",
-      "community": 20,
+      "community": 872,
       "norm_label": "t"
     },
     {
@@ -7082,7 +7082,7 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "cmd_health_nico_test_testhealthnicoonlyrendersnicoreadiness",
-      "community": 20,
+      "community": 872,
       "norm_label": "testhealthnicoonlyrendersnicoreadiness()"
     },
     {
@@ -7092,7 +7092,7 @@
       "source_location": "L79",
       "_origin": "ast",
       "id": "cmd_health_nico_test_installfailingkubectl",
-      "community": 20,
+      "community": 872,
       "norm_label": "installfailingkubectl()"
     },
     {
@@ -7242,7 +7242,7 @@
       "source_location": "L42",
       "_origin": "ast",
       "id": "cmd_nodesnicoclient",
-      "community": 921,
+      "community": 2,
       "norm_label": "nodesnicoclient"
     },
     {
@@ -7382,7 +7382,7 @@
       "source_location": "L290",
       "_origin": "ast",
       "id": "cmd_nodes_runlivenodesaction",
-      "community": 921,
+      "community": 2,
       "norm_label": "runlivenodesaction()"
     },
     {
@@ -7392,7 +7392,7 @@
       "source_location": "L290",
       "_origin": "ast",
       "id": "cmd_ubiquity_cmd_nodes_go_context",
-      "community": 921,
+      "community": 2,
       "norm_label": "context"
     },
     {
@@ -7402,7 +7402,7 @@
       "source_location": "L466",
       "_origin": "ast",
       "id": "cmd_nodes_collectlivenodestatuses",
-      "community": 921,
+      "community": 2,
       "norm_label": "collectlivenodestatuses()"
     },
     {
@@ -7412,7 +7412,7 @@
       "source_location": "L470",
       "_origin": "ast",
       "id": "cmd_nodes_loadnicooperatingsystemsfrominventory",
-      "community": 1089,
+      "community": 2,
       "norm_label": "loadnicooperatingsystemsfrominventory()"
     },
     {
@@ -7422,7 +7422,7 @@
       "source_location": "L470",
       "_origin": "ast",
       "id": "cmd_ubiquity_cmd_nodes_go_operatingsystem",
-      "community": 1089,
+      "community": 2,
       "norm_label": "operatingsystem"
     },
     {
@@ -7432,7 +7432,7 @@
       "source_location": "L486",
       "_origin": "ast",
       "id": "cmd_nodes_loadnodeinventory",
-      "community": 1089,
+      "community": 2,
       "norm_label": "loadnodeinventory()"
     },
     {
@@ -7442,7 +7442,7 @@
       "source_location": "L486",
       "_origin": "ast",
       "id": "cmd_ubiquity_cmd_nodes_go_nodeinventory",
-      "community": 1089,
+      "community": 2,
       "norm_label": "nodeinventory"
     },
     {
@@ -7452,7 +7452,7 @@
       "source_location": "L501",
       "_origin": "ast",
       "id": "cmd_nodes_nicooperatingsystemfromrendered",
-      "community": 1089,
+      "community": 2,
       "norm_label": "nicooperatingsystemfromrendered()"
     },
     {
@@ -7462,7 +7462,7 @@
       "source_location": "L501",
       "_origin": "ast",
       "id": "nicooperatingsystem",
-      "community": 1089,
+      "community": 2,
       "norm_label": "nicooperatingsystem"
     },
     {
@@ -7472,7 +7472,7 @@
       "source_location": "L524",
       "_origin": "ast",
       "id": "cmd_nodes_createinstancefrominventory",
-      "community": 921,
+      "community": 2,
       "norm_label": "createinstancefrominventory()"
     },
     {
@@ -7482,7 +7482,7 @@
       "source_location": "L524",
       "_origin": "ast",
       "id": "cmd_ubiquity_cmd_nodes_go_instance",
-      "community": 921,
+      "community": 2,
       "norm_label": "instance"
     },
     {
@@ -7492,7 +7492,7 @@
       "source_location": "L528",
       "_origin": "ast",
       "id": "cmd_nodes_createinstancefrominventorywithoverrides",
-      "community": 921,
+      "community": 2,
       "norm_label": "createinstancefrominventorywithoverrides()"
     },
     {
@@ -7502,7 +7502,7 @@
       "source_location": "L557",
       "_origin": "ast",
       "id": "cmd_nodes_pollrelatednicotask",
-      "community": 921,
+      "community": 2,
       "norm_label": "pollrelatednicotask()"
     },
     {
@@ -7512,7 +7512,7 @@
       "source_location": "L557",
       "_origin": "ast",
       "id": "cmd_ubiquity_cmd_nodes_go_task",
-      "community": 921,
+      "community": 2,
       "norm_label": "task"
     },
     {
@@ -7522,7 +7522,7 @@
       "source_location": "L575",
       "_origin": "ast",
       "id": "cmd_nodes_pollnicotask",
-      "community": 921,
+      "community": 2,
       "norm_label": "pollnicotask()"
     },
     {
@@ -7532,7 +7532,7 @@
       "source_location": "L602",
       "_origin": "ast",
       "id": "cmd_nodes_verifyinstanceabsent",
-      "community": 921,
+      "community": 2,
       "norm_label": "verifyinstanceabsent()"
     },
     {
@@ -7542,7 +7542,7 @@
       "source_location": "L615",
       "_origin": "ast",
       "id": "cmd_nodes_collectnodekubernetesevidence",
-      "community": 921,
+      "community": 2,
       "norm_label": "collectnodekubernetesevidence()"
     },
     {
@@ -7552,7 +7552,7 @@
       "source_location": "L615",
       "_origin": "ast",
       "id": "evidence",
-      "community": 921,
+      "community": 2,
       "norm_label": "evidence"
     },
     {
@@ -7562,7 +7562,7 @@
       "source_location": "L627",
       "_origin": "ast",
       "id": "cmd_nodes_drainkubernetesnode",
-      "community": 921,
+      "community": 2,
       "norm_label": "drainkubernetesnode()"
     },
     {
@@ -7622,7 +7622,7 @@
       "source_location": "L700",
       "_origin": "ast",
       "id": "cmd_nodes_instancenoderow",
-      "community": 921,
+      "community": 2,
       "norm_label": "instancenoderow()"
     },
     {
@@ -7632,7 +7632,7 @@
       "source_location": "L704",
       "_origin": "ast",
       "id": "cmd_nodes_firstnonemptystring",
-      "community": 921,
+      "community": 2,
       "norm_label": "firstnonemptystring()"
     },
     {
@@ -7692,7 +7692,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "cmd_nodes_blockers_test",
-      "community": 862,
+      "community": 2,
       "norm_label": "nodes_blockers_test.go"
     },
     {
@@ -7902,7 +7902,7 @@
       "source_location": "L101",
       "_origin": "ast",
       "id": "cmd_nodes_blockers_test_capturenodesoutput",
-      "community": 862,
+      "community": 2,
       "norm_label": "capturenodesoutput()"
     },
     {
@@ -7912,7 +7912,7 @@
       "source_location": "L101",
       "_origin": "ast",
       "id": "cmd_ubiquity_cmd_nodes_blockers_test_go_t",
-      "community": 862,
+      "community": 2,
       "norm_label": "t"
     },
     {
@@ -7922,7 +7922,7 @@
       "source_location": "L117",
       "_origin": "ast",
       "id": "cmd_nodes_blockers_test_testnodesflagsconfirmstringosimagealiasandsafetyflags",
-      "community": 862,
+      "community": 2,
       "norm_label": "testnodesflagsconfirmstringosimagealiasandsafetyflags()"
     },
     {
@@ -7932,7 +7932,7 @@
       "source_location": "L129",
       "_origin": "ast",
       "id": "cmd_nodes_blockers_test_testnodesexactargsandpowersyntax",
-      "community": 862,
+      "community": 2,
       "norm_label": "testnodesexactargsandpowersyntax()"
     },
     {
@@ -7942,7 +7942,7 @@
       "source_location": "L142",
       "_origin": "ast",
       "id": "cmd_nodes_blockers_test_testnodessafetyrequiresexactconfirmation",
-      "community": 862,
+      "community": 2,
       "norm_label": "testnodessafetyrequiresexactconfirmation()"
     },
     {
@@ -7952,7 +7952,7 @@
       "source_location": "L152",
       "_origin": "ast",
       "id": "cmd_nodes_blockers_test_testnodeslivemutatingoperationcallsfakeableclient",
-      "community": 862,
+      "community": 2,
       "norm_label": "testnodeslivemutatingoperationcallsfakeableclient()"
     },
     {
@@ -7962,7 +7962,7 @@
       "source_location": "L174",
       "_origin": "ast",
       "id": "cmd_nodes_blockers_test_testnodeslivedraincordonsanddrainskubernetesnode",
-      "community": 862,
+      "community": 2,
       "norm_label": "testnodeslivedraincordonsanddrainskubernetesnode()"
     },
     {
@@ -7972,7 +7972,7 @@
       "source_location": "L212",
       "_origin": "ast",
       "id": "cmd_nodes_blockers_test_testnodesliveremovepollsdeletiontaskandverifiesinstanceabsent",
-      "community": 862,
+      "community": 2,
       "norm_label": "testnodesliveremovepollsdeletiontaskandverifiesinstanceabsent()"
     },
     {
@@ -7982,7 +7982,7 @@
       "source_location": "L242",
       "_origin": "ast",
       "id": "cmd_nodes_blockers_test_testnodeslivereinstallinventorypinsreplacementtosamemachine",
-      "community": 862,
+      "community": 2,
       "norm_label": "testnodeslivereinstallinventorypinsreplacementtosamemachine()"
     },
     {
@@ -7992,7 +7992,7 @@
       "source_location": "L279",
       "_origin": "ast",
       "id": "cmd_nodes_blockers_test_testnodesnicoclitransportdoesnotrequirerestbaseurl",
-      "community": 862,
+      "community": 2,
       "norm_label": "testnodesnicoclitransportdoesnotrequirerestbaseurl()"
     },
     {
@@ -8002,7 +8002,7 @@
       "source_location": "L293",
       "_origin": "ast",
       "id": "cmd_nodes_blockers_test_testnodeslivepowercallsnicomachinepowertask",
-      "community": 862,
+      "community": 2,
       "norm_label": "testnodeslivepowercallsnicomachinepowertask()"
     },
     {
@@ -8012,7 +8012,7 @@
       "source_location": "L322",
       "_origin": "ast",
       "id": "cmd_nodes_blockers_test_testnodeslivetaskcallsfakeableclientandrenderstask",
-      "community": 862,
+      "community": 2,
       "norm_label": "testnodeslivetaskcallsfakeableclientandrenderstask()"
     },
     {
@@ -8022,7 +8022,7 @@
       "source_location": "L345",
       "_origin": "ast",
       "id": "cmd_nodes_blockers_test_testnodeslivestatuscollectsnicofilterstargetandusesdeadline",
-      "community": 862,
+      "community": 2,
       "norm_label": "testnodeslivestatuscollectsnicofilterstargetandusesdeadline()"
     },
     {
@@ -8032,7 +8032,7 @@
       "source_location": "L373",
       "_origin": "ast",
       "id": "cmd_nodes_blockers_test_testnodeslivecreateactionsrendercreatedpayloads",
-      "community": 862,
+      "community": 2,
       "norm_label": "testnodeslivecreateactionsrendercreatedpayloads()"
     },
     {
@@ -8042,7 +8042,7 @@
       "source_location": "L400",
       "_origin": "ast",
       "id": "cmd_nodes_blockers_test_testnodesosapplyinventorycreatesrenderednicooperatingsystems",
-      "community": 862,
+      "community": 2,
       "norm_label": "testnodesosapplyinventorycreatesrenderednicooperatingsystems()"
     },
     {
@@ -8052,7 +8052,7 @@
       "source_location": "L424",
       "_origin": "ast",
       "id": "cmd_nodes_blockers_test_testnodesaddinventorycreatesosandinstancefortargetnode",
-      "community": 862,
+      "community": 2,
       "norm_label": "testnodesaddinventorycreatesosandinstancefortargetnode()"
     },
     {
@@ -8062,7 +8062,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "cmd_nodes_live_evidence_test",
-      "community": 987,
+      "community": 2,
       "norm_label": "nodes_live_evidence_test.go"
     },
     {
@@ -8072,7 +8072,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "cmd_nodes_live_evidence_test_testcollectnodekubernetesevidenceuseskubectlnodesjson",
-      "community": 987,
+      "community": 2,
       "norm_label": "testcollectnodekubernetesevidenceuseskubectlnodesjson()"
     },
     {
@@ -8082,7 +8082,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "cmd_ubiquity_cmd_nodes_live_evidence_test_go_t",
-      "community": 987,
+      "community": 2,
       "norm_label": "t"
     },
     {
@@ -8092,7 +8092,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "cmd_nodes_live_evidence_test_testcollectnodekubernetesevidencefailsclosedwhenkubectlunavailable",
-      "community": 987,
+      "community": 2,
       "norm_label": "testcollectnodekubernetesevidencefailsclosedwhenkubectlunavailable()"
     },
     {
@@ -8102,7 +8102,7 @@
       "source_location": "L40",
       "_origin": "ast",
       "id": "cmd_nodes_live_evidence_test_testresolvenodetargetstatusfailsclosedforambiguousormissingtargets",
-      "community": 987,
+      "community": 2,
       "norm_label": "testresolvenodetargetstatusfailsclosedforambiguousormissingtargets()"
     },
     {
@@ -8112,7 +8112,7 @@
       "source_location": "L50",
       "_origin": "ast",
       "id": "cmd_nodes_live_evidence_test_testrunliveremoveresolvesnodenametoinstanceid",
-      "community": 987,
+      "community": 2,
       "norm_label": "testrunliveremoveresolvesnodenametoinstanceid()"
     },
     {
@@ -8122,7 +8122,7 @@
       "source_location": "L69",
       "_origin": "ast",
       "id": "cmd_nodes_live_evidence_test_testcontrolplanecountsuseliverolesandreadyevidence",
-      "community": 987,
+      "community": 2,
       "norm_label": "testcontrolplanecountsuseliverolesandreadyevidence()"
     },
     {
@@ -8132,7 +8132,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "cmd_nodes_test",
-      "community": 1081,
+      "community": 2,
       "norm_label": "nodes_test.go"
     },
     {
@@ -8142,7 +8142,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "cmd_nodes_test_testnodescommandregisteredwithsubcommands",
-      "community": 1081,
+      "community": 2,
       "norm_label": "testnodescommandregisteredwithsubcommands()"
     },
     {
@@ -8152,7 +8152,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "cmd_ubiquity_cmd_nodes_test_go_t",
-      "community": 1081,
+      "community": 2,
       "norm_label": "t"
     },
     {
@@ -8162,7 +8162,7 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "cmd_nodes_test_testnodesdefaultbackendnicoandabsentconfigfailsclosed",
-      "community": 1081,
+      "community": 2,
       "norm_label": "testnodesdefaultbackendnicoandabsentconfigfailsclosed()"
     },
     {
@@ -8172,7 +8172,7 @@
       "source_location": "L47",
       "_origin": "ast",
       "id": "cmd_nodes_test_testnodesdestructiverequiresconfirm",
-      "community": 1081,
+      "community": 2,
       "norm_label": "testnodesdestructiverequiresconfirm()"
     },
     {
@@ -8182,7 +8182,7 @@
       "source_location": "L57",
       "_origin": "ast",
       "id": "cmd_nodes_test_testnodesjsonredactssecrets",
-      "community": 1081,
+      "community": 2,
       "norm_label": "testnodesjsonredactssecrets()"
     },
     {
@@ -8192,7 +8192,7 @@
       "source_location": "L65",
       "_origin": "ast",
       "id": "cmd_nodes_test_testnicohealthrendererfailsclosed",
-      "community": 1081,
+      "community": 2,
       "norm_label": "testnicohealthrendererfailsclosed()"
     },
     {
@@ -9572,7 +9572,7 @@
       "source_location": "L191",
       "_origin": "ast",
       "id": "cmd_virtual_machines_parsediskattachments",
-      "community": 872,
+      "community": 4,
       "norm_label": "parsediskattachments()"
     },
     {
@@ -9592,7 +9592,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "cmd_virtual_machines_disk_test",
-      "community": 872,
+      "community": 4,
       "norm_label": "virtual_machines_disk_test.go"
     },
     {
@@ -9602,7 +9602,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "cmd_virtual_machines_disk_test_testparsediskattachmentsacceptsnamepvclist",
-      "community": 872,
+      "community": 4,
       "norm_label": "testparsediskattachmentsacceptsnamepvclist()"
     },
     {
@@ -9612,7 +9612,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "cmd_ubiquity_cmd_virtual_machines_disk_test_go_t",
-      "community": 872,
+      "community": 4,
       "norm_label": "t"
     },
     {
@@ -9622,7 +9622,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "cmd_virtual_machines_disk_test_testparsediskattachmentsrejectsmalformedinput",
-      "community": 872,
+      "community": 4,
       "norm_label": "testparsediskattachmentsrejectsmalformedinput()"
     },
     {
@@ -9632,7 +9632,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "cmd_virtual_machines_test",
-      "community": 872,
+      "community": 20,
       "norm_label": "virtual_machines_test.go"
     },
     {
@@ -9642,7 +9642,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "cmd_virtual_machines_test_testvirtualmachinesrenderproduceskubevirtmanifest",
-      "community": 872,
+      "community": 20,
       "norm_label": "testvirtualmachinesrenderproduceskubevirtmanifest()"
     },
     {
@@ -9652,7 +9652,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "cmd_ubiquity_cmd_virtual_machines_test_go_t",
-      "community": 872,
+      "community": 20,
       "norm_label": "t"
     },
     {
@@ -9662,7 +9662,7 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "cmd_virtual_machines_test_testvirtualmachinesrenderimagecatalogproducesprofiles",
-      "community": 872,
+      "community": 20,
       "norm_label": "testvirtualmachinesrenderimagecatalogproducesprofiles()"
     },
     {
@@ -9672,7 +9672,7 @@
       "source_location": "L52",
       "_origin": "ast",
       "id": "cmd_virtual_machines_test_testvirtualmachinesapplyusesserversidedryrun",
-      "community": 872,
+      "community": 20,
       "norm_label": "testvirtualmachinesapplyusesserversidedryrun()"
     },
     {
@@ -9682,7 +9682,7 @@
       "source_location": "L80",
       "_origin": "ast",
       "id": "cmd_virtual_machines_test_testvirtualmachinesreadinesscollectscdipvcvmandguestevidence",
-      "community": 872,
+      "community": 20,
       "norm_label": "testvirtualmachinesreadinesscollectscdipvcvmandguestevidence()"
     },
     {
@@ -13644,6 +13644,56 @@
       "norm_label": "testrendercloudgovernancefailsclosedforbadnames()"
     },
     {
+      "label": "graphify_portability_test.go",
+      "file_type": "code",
+      "source_file": "pkg/cloud/graphify_portability_test.go",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "cloud_graphify_portability_test",
+      "community": 862,
+      "norm_label": "graphify_portability_test.go"
+    },
+    {
+      "label": "TestGraphifyArtifactsAreRepoPortable()",
+      "file_type": "code",
+      "source_file": "pkg/cloud/graphify_portability_test.go",
+      "source_location": "L12",
+      "_origin": "ast",
+      "id": "cloud_graphify_portability_test_testgraphifyartifactsarerepoportable",
+      "community": 862,
+      "norm_label": "testgraphifyartifactsarerepoportable()"
+    },
+    {
+      "label": "T",
+      "file_type": "code",
+      "source_file": "pkg/cloud/graphify_portability_test.go",
+      "source_location": "L12",
+      "_origin": "ast",
+      "id": "pkg_cloud_graphify_portability_test_go_t",
+      "community": 862,
+      "norm_label": "t"
+    },
+    {
+      "label": "TestGraphifyWorkflowUsesPortableOKFBundle()",
+      "file_type": "code",
+      "source_file": "pkg/cloud/graphify_portability_test.go",
+      "source_location": "L37",
+      "_origin": "ast",
+      "id": "cloud_graphify_portability_test_testgraphifyworkflowusesportableokfbundle",
+      "community": 862,
+      "norm_label": "testgraphifyworkflowusesportableokfbundle()"
+    },
+    {
+      "label": "gitLsFiles()",
+      "file_type": "code",
+      "source_file": "pkg/cloud/graphify_portability_test.go",
+      "source_location": "L81",
+      "_origin": "ast",
+      "id": "cloud_graphify_portability_test_gitlsfiles",
+      "community": 862,
+      "norm_label": "gitlsfiles()"
+    },
+    {
       "label": "graphify_workflow_test.go",
       "file_type": "code",
       "source_file": "pkg/cloud/graphify_workflow_test.go",
@@ -15500,7 +15550,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "pkg_nico_client_go_config",
-      "community": 1076,
+      "community": 3,
       "norm_label": "config"
     },
     {
@@ -15530,7 +15580,7 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "nico_client_newclient",
-      "community": 1076,
+      "community": 3,
       "norm_label": "newclient()"
     },
     {
@@ -15830,7 +15880,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "nico_client_blockers_test",
-      "community": 1076,
+      "community": 3,
       "norm_label": "client_blockers_test.go"
     },
     {
@@ -15840,7 +15890,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "nico_client_blockers_test_testclientdefaulthttptimeout",
-      "community": 1076,
+      "community": 3,
       "norm_label": "testclientdefaulthttptimeout()"
     },
     {
@@ -15850,7 +15900,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "pkg_nico_client_blockers_test_go_t",
-      "community": 1076,
+      "community": 3,
       "norm_label": "t"
     },
     {
@@ -15860,7 +15910,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "nico_client_blockers_test_testclientlivemethodsuseexpectedhttpverbsandpaths",
-      "community": 1076,
+      "community": 3,
       "norm_label": "testclientlivemethodsuseexpectedhttpverbsandpaths()"
     },
     {
@@ -15870,7 +15920,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "nico_client_test",
-      "community": 1076,
+      "community": 3,
       "norm_label": "client_test.go"
     },
     {
@@ -15880,7 +15930,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "nico_client_test_testclientbuildsopenapiresourcepaths",
-      "community": 1076,
+      "community": 3,
       "norm_label": "testclientbuildsopenapiresourcepaths()"
     },
     {
@@ -15890,7 +15940,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "pkg_nico_client_test_go_t",
-      "community": 1076,
+      "community": 3,
       "norm_label": "t"
     },
     {
@@ -15900,7 +15950,7 @@
       "source_location": "L53",
       "_origin": "ast",
       "id": "nico_client_test_testclientescapesorgapiandresourceid",
-      "community": 1076,
+      "community": 3,
       "norm_label": "testclientescapesorgapiandresourceid()"
     },
     {
@@ -15910,7 +15960,7 @@
       "source_location": "L72",
       "_origin": "ast",
       "id": "nico_client_test_testclientlistmethodsdecodebarearraysanditemsenvelope",
-      "community": 1076,
+      "community": 3,
       "norm_label": "testclientlistmethodsdecodebarearraysanditemsenvelope()"
     },
     {
@@ -15920,7 +15970,7 @@
       "source_location": "L115",
       "_origin": "ast",
       "id": "nico_client_test_testclienterrorsredactresponsebodyandtokencommand",
-      "community": 1076,
+      "community": 3,
       "norm_label": "testclienterrorsredactresponsebodyandtokencommand()"
     },
     {
@@ -16820,7 +16870,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "nico_tasks_test",
-      "community": 1076,
+      "community": 3,
       "norm_label": "tasks_test.go"
     },
     {
@@ -16830,7 +16880,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "nico_tasks_test_testpolltasksucceedsafterpendingstates",
-      "community": 1076,
+      "community": 3,
       "norm_label": "testpolltasksucceedsafterpendingstates()"
     },
     {
@@ -16840,7 +16890,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "pkg_nico_tasks_test_go_t",
-      "community": 1076,
+      "community": 3,
       "norm_label": "t"
     },
     {
@@ -16850,7 +16900,7 @@
       "source_location": "L38",
       "_origin": "ast",
       "id": "nico_tasks_test_testpolltaskfailsonterminalfailedorcancelled",
-      "community": 1076,
+      "community": 3,
       "norm_label": "testpolltaskfailsonterminalfailedorcancelled()"
     },
     {
@@ -16860,7 +16910,7 @@
       "source_location": "L57",
       "_origin": "ast",
       "id": "nico_tasks_test_testpolltasktimesout",
-      "community": 1076,
+      "community": 3,
       "norm_label": "testpolltasktimesout()"
     },
     {
@@ -17950,7 +18000,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "nodestatus_safety",
-      "community": 8,
+      "community": 2,
       "norm_label": "safety.go"
     },
     {
@@ -17960,7 +18010,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "nodestatus_operation",
-      "community": 8,
+      "community": 2,
       "norm_label": "operation"
     },
     {
@@ -17970,7 +18020,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "nodestatus_safetyrequest",
-      "community": 8,
+      "community": 2,
       "norm_label": "safetyrequest"
     },
     {
@@ -17980,7 +18030,7 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "nodestatus_safetyclusterstate",
-      "community": 8,
+      "community": 2,
       "norm_label": "safetyclusterstate"
     },
     {
@@ -17990,7 +18040,7 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "pkg_nodestatus_safety_go_nodestatus",
-      "community": 8,
+      "community": 2,
       "norm_label": "nodestatus"
     },
     {
@@ -18000,7 +18050,7 @@
       "source_location": "L41",
       "_origin": "ast",
       "id": "nodestatus_safetydecision",
-      "community": 8,
+      "community": 2,
       "norm_label": "safetydecision"
     },
     {
@@ -18010,7 +18060,7 @@
       "source_location": "L48",
       "_origin": "ast",
       "id": "nodestatus_safety_evaluatesafety",
-      "community": 8,
+      "community": 2,
       "norm_label": "evaluatesafety()"
     },
     {
@@ -18020,7 +18070,7 @@
       "source_location": "L81",
       "_origin": "ast",
       "id": "nodestatus_safety_requiresconfirmation",
-      "community": 8,
+      "community": 2,
       "norm_label": "requiresconfirmation()"
     },
     {
@@ -18030,7 +18080,7 @@
       "source_location": "L90",
       "_origin": "ast",
       "id": "nodestatus_safety_requiresdrain",
-      "community": 8,
+      "community": 2,
       "norm_label": "requiresdrain()"
     },
     {
@@ -18040,7 +18090,7 @@
       "source_location": "L99",
       "_origin": "ast",
       "id": "nodestatus_safety_iscontrolplane",
-      "community": 8,
+      "community": 2,
       "norm_label": "iscontrolplane()"
     },
     {
@@ -18050,7 +18100,7 @@
       "source_location": "L109",
       "_origin": "ast",
       "id": "nodestatus_safety_quorumsafeafteroneloss",
-      "community": 8,
+      "community": 2,
       "norm_label": "quorumsafeafteroneloss()"
     },
     {
@@ -18060,7 +18110,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "nodestatus_safety_test",
-      "community": 8,
+      "community": 2,
       "norm_label": "safety_test.go"
     },
     {
@@ -18070,7 +18120,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "nodestatus_safety_test_testsafetyrequiresexactconfirmation",
-      "community": 8,
+      "community": 2,
       "norm_label": "testsafetyrequiresexactconfirmation()"
     },
     {
@@ -18080,7 +18130,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "pkg_nodestatus_safety_test_go_t",
-      "community": 8,
+      "community": 2,
       "norm_label": "t"
     },
     {
@@ -18090,7 +18140,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "nodestatus_safety_test_testsafetyblockscontrolplanequorumloss",
-      "community": 8,
+      "community": 2,
       "norm_label": "testsafetyblockscontrolplanequorumloss()"
     },
     {
@@ -18100,7 +18150,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "nodestatus_safety_test_testsafetyrequiresdrainforreadynodesunlessforcedwithreason",
-      "community": 8,
+      "community": 2,
       "norm_label": "testsafetyrequiresdrainforreadynodesunlessforcedwithreason()"
     },
     {
@@ -18110,7 +18160,7 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "nodestatus_safety_test_testsafetyrequiresstorageandaistoreacknowledgement",
-      "community": 8,
+      "community": 2,
       "norm_label": "testsafetyrequiresstorageandaistoreacknowledgement()"
     },
     {
@@ -18120,7 +18170,7 @@
       "source_location": "L48",
       "_origin": "ast",
       "id": "nodestatus_safety_test_testsafetygatescoverrebootreimagedrainevictandmaintenance",
-      "community": 8,
+      "community": 2,
       "norm_label": "testsafetygatescoverrebootreimagedrainevictandmaintenance()"
     },
     {
@@ -20610,7 +20660,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "config_main",
-      "community": 1083,
+      "community": 3,
       "norm_label": "main.go"
     },
     {
@@ -20620,7 +20670,7 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "config_organization",
-      "community": 1083,
+      "community": 3,
       "norm_label": "organization"
     },
     {
@@ -20630,7 +20680,7 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "config_repository",
-      "community": 1083,
+      "community": 3,
       "norm_label": "repository"
     },
     {
@@ -20640,7 +20690,7 @@
       "source_location": "L45",
       "_origin": "ast",
       "id": "platform_gitea_files_config_main_go_config_config",
-      "community": 1083,
+      "community": 3,
       "norm_label": "config"
     },
     {
@@ -20650,7 +20700,7 @@
       "source_location": "L50",
       "_origin": "ast",
       "id": "config_main_main",
-      "community": 1083,
+      "community": 3,
       "norm_label": "main()"
     },
     {
@@ -23938,7 +23988,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "nim_operator_values_schema",
-      "community": 820,
+      "community": 803,
       "norm_label": "values.schema.json"
     },
     {
@@ -23948,7 +23998,7 @@
       "source_location": "L2",
       "_origin": "ast",
       "id": "nim_operator_values_schema_schema",
-      "community": 820,
+      "community": 803,
       "norm_label": "$schema"
     },
     {
@@ -23958,7 +24008,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "nim_operator_values_schema_type",
-      "community": 820,
+      "community": 803,
       "norm_label": "type"
     },
     {
@@ -24218,7 +24268,7 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "nim_operator_values_schema_properties_enabled",
-      "community": 808,
+      "community": 803,
       "norm_label": "enabled"
     },
     {
@@ -24228,7 +24278,7 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "nim_operator_values_schema_enabled_type",
-      "community": 808,
+      "community": 803,
       "norm_label": "type"
     },
     {
@@ -24368,7 +24418,7 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "nim_operator_values_schema_properties_tag",
-      "community": 803,
+      "community": 873,
       "norm_label": "tag"
     },
     {
@@ -24378,7 +24428,7 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "nim_operator_values_schema_tag_type",
-      "community": 803,
+      "community": 873,
       "norm_label": "type"
     },
     {
@@ -24388,7 +24438,7 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "nim_operator_values_schema_tag_minlength",
-      "community": 803,
+      "community": 873,
       "norm_label": "minlength"
     },
     {
@@ -24398,7 +24448,7 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "nim_operator_values_schema_properties_modelpuller",
-      "community": 808,
+      "community": 873,
       "norm_label": "modelpuller"
     },
     {
@@ -24408,7 +24458,7 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "nim_operator_values_schema_modelpuller_type",
-      "community": 808,
+      "community": 873,
       "norm_label": "type"
     },
     {
@@ -24418,7 +24468,7 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "nim_operator_values_schema_modelpuller_minlength",
-      "community": 808,
+      "community": 873,
       "norm_label": "minlength"
     },
     {
@@ -24428,7 +24478,7 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "nim_operator_values_schema_properties_tensorparallelism",
-      "community": 808,
+      "community": 957,
       "norm_label": "tensorparallelism"
     },
     {
@@ -24438,7 +24488,7 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "nim_operator_values_schema_tensorparallelism_type",
-      "community": 808,
+      "community": 957,
       "norm_label": "type"
     },
     {
@@ -24448,7 +24498,7 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "nim_operator_values_schema_tensorparallelism_minlength",
-      "community": 808,
+      "community": 957,
       "norm_label": "minlength"
     },
     {
@@ -24458,7 +24508,7 @@
       "source_location": "L38",
       "_origin": "ast",
       "id": "nim_operator_values_schema_properties_gpulimit",
-      "community": 1088,
+      "community": 808,
       "norm_label": "gpulimit"
     },
     {
@@ -24468,7 +24518,7 @@
       "source_location": "L38",
       "_origin": "ast",
       "id": "nim_operator_values_schema_gpulimit_type",
-      "community": 1088,
+      "community": 808,
       "norm_label": "type"
     },
     {
@@ -24478,7 +24528,7 @@
       "source_location": "L38",
       "_origin": "ast",
       "id": "nim_operator_values_schema_gpulimit_minimum",
-      "community": 1088,
+      "community": 808,
       "norm_label": "minimum"
     },
     {
@@ -24488,7 +24538,7 @@
       "source_location": "L39",
       "_origin": "ast",
       "id": "nim_operator_values_schema_properties_replicas",
-      "community": 1088,
+      "community": 808,
       "norm_label": "replicas"
     },
     {
@@ -24498,7 +24548,7 @@
       "source_location": "L39",
       "_origin": "ast",
       "id": "nim_operator_values_schema_replicas_type",
-      "community": 1088,
+      "community": 808,
       "norm_label": "type"
     },
     {
@@ -24508,7 +24558,7 @@
       "source_location": "L39",
       "_origin": "ast",
       "id": "nim_operator_values_schema_replicas_minimum",
-      "community": 1088,
+      "community": 808,
       "norm_label": "minimum"
     },
     {
@@ -24728,7 +24778,7 @@
       "source_location": "L54",
       "_origin": "ast",
       "id": "nim_operator_values_schema_port_minimum",
-      "community": 1088,
+      "community": 808,
       "norm_label": "minimum"
     },
     {
@@ -26615,7 +26665,7 @@
       "label": "fail()",
       "file_type": "code",
       "source_file": "scripts/check-graphify-freshness.sh",
-      "source_location": "L30",
+      "source_location": "L31",
       "metadata": {
         "language": "bash",
         "kind": "bash_function"
@@ -26629,7 +26679,7 @@
       "label": "require_file()",
       "file_type": "code",
       "source_file": "scripts/check-graphify-freshness.sh",
-      "source_location": "L38",
+      "source_location": "L39",
       "metadata": {
         "language": "bash",
         "kind": "bash_function"
@@ -27002,6 +27052,106 @@
       "id": "scripts_get_docker_do_install",
       "community": 60,
       "norm_label": "do_install()"
+    },
+    {
+      "label": "normalize-graphify-artifacts.py",
+      "file_type": "code",
+      "source_file": "scripts/normalize-graphify-artifacts.py",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "scripts_normalize_graphify_artifacts",
+      "community": 8,
+      "norm_label": "normalize-graphify-artifacts.py"
+    },
+    {
+      "label": "git_root()",
+      "file_type": "code",
+      "source_file": "scripts/normalize-graphify-artifacts.py",
+      "source_location": "L32",
+      "_origin": "ast",
+      "id": "scripts_normalize_graphify_artifacts_git_root",
+      "community": 8,
+      "norm_label": "git_root()"
+    },
+    {
+      "label": "Path",
+      "file_type": "code",
+      "source_file": "scripts/normalize-graphify-artifacts.py",
+      "source_location": "L32",
+      "_origin": "ast",
+      "id": "path",
+      "community": 8,
+      "norm_label": "path"
+    },
+    {
+      "label": "git_ls_files()",
+      "file_type": "code",
+      "source_file": "scripts/normalize-graphify-artifacts.py",
+      "source_location": "L39",
+      "_origin": "ast",
+      "id": "scripts_normalize_graphify_artifacts_git_ls_files",
+      "community": 8,
+      "norm_label": "git_ls_files()"
+    },
+    {
+      "label": "normalize_string()",
+      "file_type": "code",
+      "source_file": "scripts/normalize-graphify-artifacts.py",
+      "source_location": "L44",
+      "_origin": "ast",
+      "id": "scripts_normalize_graphify_artifacts_normalize_string",
+      "community": 8,
+      "norm_label": "normalize_string()"
+    },
+    {
+      "label": "normalize_json()",
+      "file_type": "code",
+      "source_file": "scripts/normalize-graphify-artifacts.py",
+      "source_location": "L66",
+      "_origin": "ast",
+      "id": "scripts_normalize_graphify_artifacts_normalize_json",
+      "community": 8,
+      "norm_label": "normalize_json()"
+    },
+    {
+      "label": "Any",
+      "file_type": "code",
+      "source_file": "scripts/normalize-graphify-artifacts.py",
+      "source_location": "L66",
+      "_origin": "ast",
+      "id": "any",
+      "community": 8,
+      "norm_label": "any"
+    },
+    {
+      "label": "normalize_file()",
+      "file_type": "code",
+      "source_file": "scripts/normalize-graphify-artifacts.py",
+      "source_location": "L80",
+      "_origin": "ast",
+      "id": "scripts_normalize_graphify_artifacts_normalize_file",
+      "community": 8,
+      "norm_label": "normalize_file()"
+    },
+    {
+      "label": "write_okf_bundle()",
+      "file_type": "code",
+      "source_file": "scripts/normalize-graphify-artifacts.py",
+      "source_location": "L110",
+      "_origin": "ast",
+      "id": "scripts_normalize_graphify_artifacts_write_okf_bundle",
+      "community": 8,
+      "norm_label": "write_okf_bundle()"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "scripts/normalize-graphify-artifacts.py",
+      "source_location": "L209",
+      "_origin": "ast",
+      "id": "scripts_normalize_graphify_artifacts_main",
+      "community": 8,
+      "norm_label": "main()"
     },
     {
       "label": "ssh-key-setup.sh",
@@ -45359,7 +45509,7 @@
       "label": "When to query the graph",
       "file_type": "document",
       "source_file": "docs/developers/graphify-workflow.md",
-      "source_location": "L7",
+      "source_location": "L10",
       "_origin": "ast",
       "id": "developers_graphify_workflow_when_to_query_the_graph",
       "community": 1087,
@@ -45369,7 +45519,7 @@
       "label": "Updating the graph",
       "file_type": "document",
       "source_file": "docs/developers/graphify-workflow.md",
-      "source_location": "L26",
+      "source_location": "L29",
       "_origin": "ast",
       "id": "developers_graphify_workflow_updating_the_graph",
       "community": 1087,
@@ -45379,7 +45529,7 @@
       "label": "Visualization and size limits",
       "file_type": "document",
       "source_file": "docs/developers/graphify-workflow.md",
-      "source_location": "L39",
+      "source_location": "L48",
       "_origin": "ast",
       "id": "developers_graphify_workflow_visualization_and_size_limits",
       "community": 1087,
@@ -45389,21 +45539,31 @@
       "label": "Token cost reporting",
       "file_type": "document",
       "source_file": "docs/developers/graphify-workflow.md",
-      "source_location": "L46",
+      "source_location": "L55",
       "_origin": "ast",
       "id": "developers_graphify_workflow_token_cost_reporting",
       "community": 1087,
       "norm_label": "token cost reporting"
     },
     {
-      "label": "Freshness check",
+      "label": "Freshness and portability checks",
       "file_type": "document",
       "source_file": "docs/developers/graphify-workflow.md",
-      "source_location": "L53",
+      "source_location": "L62",
       "_origin": "ast",
-      "id": "developers_graphify_workflow_freshness_check",
+      "id": "developers_graphify_workflow_freshness_and_portability_checks",
       "community": 1087,
-      "norm_label": "freshness check"
+      "norm_label": "freshness and portability checks"
+    },
+    {
+      "label": "OKF compatibility",
+      "file_type": "document",
+      "source_file": "docs/developers/graphify-workflow.md",
+      "source_location": "L79",
+      "_origin": "ast",
+      "id": "developers_graphify_workflow_okf_compatibility",
+      "community": 1087,
+      "norm_label": "okf compatibility"
     },
     {
       "label": "releasing.md",
@@ -128614,6 +128774,80 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "pkg/cloud/graphify_portability_test.go",
+      "source_location": "L81",
+      "weight": 1.0,
+      "source": "cloud_graphify_portability_test",
+      "target": "cloud_graphify_portability_test_gitlsfiles",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "pkg/cloud/graphify_portability_test.go",
+      "source_location": "L12",
+      "weight": 1.0,
+      "source": "cloud_graphify_portability_test",
+      "target": "cloud_graphify_portability_test_testgraphifyartifactsarerepoportable",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "pkg/cloud/graphify_portability_test.go",
+      "source_location": "L37",
+      "weight": 1.0,
+      "source": "cloud_graphify_portability_test",
+      "target": "cloud_graphify_portability_test_testgraphifyworkflowusesportableokfbundle",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "pkg/cloud/graphify_portability_test.go",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "cloud_graphify_portability_test_testgraphifyartifactsarerepoportable",
+      "target": "cloud_graphify_portability_test_gitlsfiles",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "pkg/cloud/graphify_portability_test.go",
+      "source_location": "L12",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "cloud_graphify_portability_test_testgraphifyartifactsarerepoportable",
+      "target": "pkg_cloud_graphify_portability_test_go_t",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "pkg/cloud/graphify_portability_test.go",
+      "source_location": "L81",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "cloud_graphify_portability_test_gitlsfiles",
+      "target": "pkg_cloud_graphify_portability_test_go_t",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "pkg/cloud/graphify_portability_test.go",
+      "source_location": "L37",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "cloud_graphify_portability_test_testgraphifyworkflowusesportableokfbundle",
+      "target": "pkg_cloud_graphify_portability_test_go_t",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "pkg/cloud/graphify_workflow_test.go",
       "source_location": "L9",
       "weight": 1.0,
@@ -150579,6 +150813,219 @@
       "target": "scripts_get_docker_check_forked"
     },
     {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/normalize-graphify-artifacts.py",
+      "source_location": "L39",
+      "weight": 1.0,
+      "source": "scripts_normalize_graphify_artifacts",
+      "target": "scripts_normalize_graphify_artifacts_git_ls_files",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/normalize-graphify-artifacts.py",
+      "source_location": "L32",
+      "weight": 1.0,
+      "source": "scripts_normalize_graphify_artifacts",
+      "target": "scripts_normalize_graphify_artifacts_git_root",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/normalize-graphify-artifacts.py",
+      "source_location": "L209",
+      "weight": 1.0,
+      "source": "scripts_normalize_graphify_artifacts",
+      "target": "scripts_normalize_graphify_artifacts_main",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/normalize-graphify-artifacts.py",
+      "source_location": "L80",
+      "weight": 1.0,
+      "source": "scripts_normalize_graphify_artifacts",
+      "target": "scripts_normalize_graphify_artifacts_normalize_file",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/normalize-graphify-artifacts.py",
+      "source_location": "L66",
+      "weight": 1.0,
+      "source": "scripts_normalize_graphify_artifacts",
+      "target": "scripts_normalize_graphify_artifacts_normalize_json",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/normalize-graphify-artifacts.py",
+      "source_location": "L44",
+      "weight": 1.0,
+      "source": "scripts_normalize_graphify_artifacts",
+      "target": "scripts_normalize_graphify_artifacts_normalize_string",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/normalize-graphify-artifacts.py",
+      "source_location": "L110",
+      "weight": 1.0,
+      "source": "scripts_normalize_graphify_artifacts",
+      "target": "scripts_normalize_graphify_artifacts_write_okf_bundle",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/normalize-graphify-artifacts.py",
+      "source_location": "L32",
+      "weight": 1.0,
+      "source": "scripts_normalize_graphify_artifacts_git_root",
+      "target": "path",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/normalize-graphify-artifacts.py",
+      "source_location": "L218",
+      "weight": 1.0,
+      "source": "scripts_normalize_graphify_artifacts_main",
+      "target": "scripts_normalize_graphify_artifacts_git_root",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "generic_arg",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/normalize-graphify-artifacts.py",
+      "source_location": "L39",
+      "weight": 1.0,
+      "source": "scripts_normalize_graphify_artifacts_git_ls_files",
+      "target": "path",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/normalize-graphify-artifacts.py",
+      "source_location": "L80",
+      "weight": 1.0,
+      "source": "scripts_normalize_graphify_artifacts_normalize_file",
+      "target": "path",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/normalize-graphify-artifacts.py",
+      "source_location": "L66",
+      "weight": 1.0,
+      "source": "scripts_normalize_graphify_artifacts_normalize_json",
+      "target": "path",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/normalize-graphify-artifacts.py",
+      "source_location": "L44",
+      "weight": 1.0,
+      "source": "scripts_normalize_graphify_artifacts_normalize_string",
+      "target": "path",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "generic_arg",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/normalize-graphify-artifacts.py",
+      "source_location": "L110",
+      "weight": 1.0,
+      "source": "scripts_normalize_graphify_artifacts_write_okf_bundle",
+      "target": "path",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/normalize-graphify-artifacts.py",
+      "source_location": "L220",
+      "weight": 1.0,
+      "source": "scripts_normalize_graphify_artifacts_main",
+      "target": "scripts_normalize_graphify_artifacts_git_ls_files",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/normalize-graphify-artifacts.py",
+      "source_location": "L96",
+      "weight": 1.0,
+      "source": "scripts_normalize_graphify_artifacts_normalize_file",
+      "target": "scripts_normalize_graphify_artifacts_normalize_string",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/normalize-graphify-artifacts.py",
+      "source_location": "L68",
+      "weight": 1.0,
+      "source": "scripts_normalize_graphify_artifacts_normalize_json",
+      "target": "scripts_normalize_graphify_artifacts_normalize_string",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/normalize-graphify-artifacts.py",
+      "source_location": "L66",
+      "weight": 1.0,
+      "source": "scripts_normalize_graphify_artifacts_normalize_json",
+      "target": "any",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/normalize-graphify-artifacts.py",
+      "source_location": "L221",
+      "weight": 1.0,
+      "source": "scripts_normalize_graphify_artifacts_main",
+      "target": "scripts_normalize_graphify_artifacts_normalize_file",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/normalize-graphify-artifacts.py",
+      "source_location": "L224",
+      "weight": 1.0,
+      "source": "scripts_normalize_graphify_artifacts_main",
+      "target": "scripts_normalize_graphify_artifacts_write_okf_bundle",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "scripts/ssh-key-setup.sh",
@@ -169259,11 +169706,21 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/developers/graphify-workflow.md",
-      "source_location": "L53",
+      "source_location": "L62",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "developers_graphify_workflow_graphify_workflow",
-      "target": "developers_graphify_workflow_freshness_check"
+      "target": "developers_graphify_workflow_freshness_and_portability_checks",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/developers/graphify-workflow.md",
+      "source_location": "L79",
+      "weight": 1.0,
+      "source": "developers_graphify_workflow_graphify_workflow",
+      "target": "developers_graphify_workflow_okf_compatibility",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -212787,5 +213244,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "e266b049b95d3363e8426d74489dfb49d34fb7f3"
+  "built_at_commit": "43fdb85cbf35ec1325c07de0ed314ff3f3e57e17"
 }

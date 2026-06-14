@@ -2,7 +2,7 @@ import json
 import re
 from pathlib import Path
 
-ROOT = Path('/Users/ccoates/Documents/ubiquity')
+ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / 'graphify-out'
 MANIFEST = json.loads((OUT / '.graphify_chunks_manifest.json').read_text(encoding='utf-8'))
 

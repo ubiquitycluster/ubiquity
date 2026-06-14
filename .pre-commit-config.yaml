@@ -56,6 +56,7 @@ repos:
     rev: v8.18.0
     hooks:
       - id: gitleaks
+        exclude: ^graphify-out/
 
   - repo: https://github.com/tekwizely/pre-commit-golang
     rev: v1.0.0-rc.1

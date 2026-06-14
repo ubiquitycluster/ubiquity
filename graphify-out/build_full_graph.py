@@ -3,7 +3,7 @@ from pathlib import Path
 import networkx as nx
 from graphify.build import build, validate_extraction
 
-ROOT = Path('/Users/ccoates/Documents/ubiquity')
+ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / 'graphify-out'
 
 extractions = []

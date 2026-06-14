@@ -1,0 +1,7 @@
+title = "Ubiquity gitleaks configuration"
+
+[allowlist]
+description = "Generated Graphify artifacts are derived from already-scanned repository sources and can contain secret-pattern-looking symbol names."
+paths = [
+  '''^graphify-out/''',
+]

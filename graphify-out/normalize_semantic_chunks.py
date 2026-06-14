@@ -2,7 +2,7 @@ import json
 import re
 from pathlib import Path
 
-ROOT = Path('/Users/ccoates/Documents/ubiquity')
+ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / 'graphify-out'
 VALID_FILE_TYPES = {'code','document','paper','image','rationale','concept'}
 VALID_EDGE_RELATIONS = {'calls','implements','references','cites','conceptually_related_to','shares_data_with','semantically_similar_to','rationale_for'}
