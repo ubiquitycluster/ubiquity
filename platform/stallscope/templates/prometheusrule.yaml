@@ -29,7 +29,7 @@ spec:
             summary: Stallscope detected GPU workload fail risk
             description: Stallscope classified the GPU workload as FAIL_RISK. Investigate GPU throttling, RDMA transport errors, PFC congestion, and host pressure immediately.
         - alert: StallscopeTelemetryUnavailable
-          expr: monitoring_active_alerts > 0 and absent(monitoring_gpu_utilization_avg)
+          expr: (monitoring_active_alerts > 0) and on() absent(monitoring_gpu_utilization_avg)
           for: 10m
           labels:
             severity: warning
