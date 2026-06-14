@@ -406,6 +406,7 @@ func collectSandboxDeployTargets() ([]sandboxDeployTarget, error) {
 		"nim-operator":            "nim-operator",
 		"kai-scheduler":           "kai-scheduler",
 		"ai-workload-tenancy":     "ai-workload-tenancy",
+		"stallscope":              "gpu-telemetry",
 		"nvidia-network-operator": "nvidia-network-operator",
 	}
 
@@ -509,6 +510,7 @@ func isNvidiaAISandboxDeployTarget(target sandboxDeployTarget) bool {
 		"platform/nim-operator":          true,
 		"platform/kai-scheduler":         true,
 		"platform/ai-workload-tenancy":   true,
+		"platform/stallscope":            true,
 	}
 	return included[target.ChartDir]
 }

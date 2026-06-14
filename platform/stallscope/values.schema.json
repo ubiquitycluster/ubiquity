@@ -1,0 +1,6 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": true,
+  "description": "Permissive schema for the Stallscope GPU workload telemetry wrapper. Local fields are intentionally configurable so operators can pin an internal image or upstream archive while retaining upstream compatibility."
+}

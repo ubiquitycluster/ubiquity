@@ -209,6 +209,7 @@ func aiPlatformGitOpsTargets(profile aiplatform.Profile) []aiPlatformGitOpsTarge
 	add("nvidia-network-operator", "nvidia-network-operator", "system/nvidia-network-operator", "nvidia-network-operator")
 	add("nim-operator", "nim-operator", "platform/nim-operator", "nim-operator")
 	add("kai-scheduler", "kai-scheduler", "platform/kai-scheduler", "kai-scheduler")
+	add("stallscope", "stallscope", "platform/stallscope", "gpu-telemetry")
 	if profile.HasCapability(aiplatform.CapabilityServing) || profile.HasCapability(aiplatform.CapabilityScheduler) {
 		targets = append(targets, aiPlatformGitOpsTarget{Name: "ai-workload-tenancy", Path: "platform/ai-workload-tenancy", Namespace: "ai-workloads"})
 	}

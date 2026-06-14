@@ -10,6 +10,7 @@ func TestNvidiaAIWrapperChartsIncludeValuesSchemas(t *testing.T) {
 	charts := []string{
 		"platform/kai-scheduler",
 		"platform/nim-operator",
+		"platform/stallscope",
 		"system/nvidia-gpu-operator",
 		"system/nvidia-network-operator",
 	}

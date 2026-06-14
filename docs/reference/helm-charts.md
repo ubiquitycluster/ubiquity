@@ -65,6 +65,7 @@ scripts/generate-helm-chart-reference.sh --check
 | `platform/openldap` | `openldap` | `4.2.2` | `n/a` | yes | yes |
 | `platform/platform-ops-policy` | `platform-ops-policy` | `0.1.0` | `0.1.0` | yes | yes |
 | `platform/renovate` | `renovate` | `31.97.3` | `n/a` | yes | yes |
+| `platform/stallscope` | `stallscope` | `0.1.0` | `0.1.0` | yes | yes |
 | `platform/tenant-kubernetes-cluster` | `tenant-kubernetes-cluster` | `0.1.0` | `0.1.0` | yes | yes |
 | `platform/tenant-vpc` | `tenant-vpc` | `0.1.0` | `0.1.0` | yes | yes |
 | `platform/trow` | `trow` | `0.3.5` | `n/a` | yes | yes |

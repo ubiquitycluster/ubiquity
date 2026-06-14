@@ -12,6 +12,7 @@ func TestSandboxDeployTargetsIncludeNvidiaAIComponents(t *testing.T) {
 		"system/nvidia-gpu-operator":     "gpu-operator",
 		"platform/nim-operator":          "nim-operator",
 		"platform/ai-workload-tenancy":   "ai-workload-tenancy",
+		"platform/stallscope":            "gpu-telemetry",
 		"system/nvidia-network-operator": "nvidia-network-operator",
 	}
 	got := map[string]sandboxDeployTarget{}
@@ -34,6 +35,7 @@ func TestValidateNvidiaAISandboxChartsRenderWithoutDevices(t *testing.T) {
 		{Stack: "system", Name: "nvidia-gpu-operator", ChartDir: "system/nvidia-gpu-operator", Namespace: "gpu-operator"},
 		{Stack: "platform", Name: "nim-operator", ChartDir: "platform/nim-operator", Namespace: "nim-operator"},
 		{Stack: "platform", Name: "ai-workload-tenancy", ChartDir: "platform/ai-workload-tenancy", Namespace: "ai-workload-tenancy"},
+		{Stack: "platform", Name: "stallscope", ChartDir: "platform/stallscope", Namespace: "gpu-telemetry"},
 	}); err != nil {
 		t.Fatalf("NVIDIA AI sandbox charts should render without NVIDIA devices: %v", err)
 	}

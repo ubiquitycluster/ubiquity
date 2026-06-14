@@ -165,6 +165,18 @@ var aiStore = Component{
 	Notes:             "Optional NVIDIA-maintained high-performance AI object store/cache via NVIDIA/ais-k8s; preferred over Longhorn for AI dataset/checkpoint/model artifact/cache paths when object/S3 semantics fit, but not a generic PVC/POSIX replacement.",
 }
 
+var stallscope = Component{
+	Name:              "stallscope",
+	SourceRepo:        "https://github.com/nshinde/stallscope",
+	ChartName:         "stallscope",
+	ChartRepository:   "file://platform/stallscope",
+	Version:           "84b17513b9230ce66c2838bb4e6fe95f196a044c",
+	Namespace:         "gpu-telemetry",
+	ReplacesLocal:     false,
+	ProductionDefault: true,
+	Notes:             "GPU workload performance telemetry and stall classification from nvidia-smi, host /proc, RDMA counters, PFC pause counters, NCCL smoke tests, and Prometheus textfile metrics for slow/fail-risk diagnostics.",
+}
+
 var ollama = Component{
 	Name:              "ollama",
 	SourceRepo:        "https://github.com/ollama/ollama",
@@ -219,26 +231,26 @@ var profiles = map[string]Profile{
 	},
 	"gpu-basic": {
 		Name:         "gpu-basic",
-		Description:  "GPU Operator, DCGM telemetry, NIM sample serving, and fail-closed health checks.",
+		Description:  "GPU Operator, DCGM telemetry, Stallscope workload stall telemetry, NIM sample serving, and fail-closed health checks.",
 		Capabilities: []Capability{CapabilityGPU, CapabilityServing, CapabilityTelemetry, CapabilityValidation},
-		Components:   []Component{gpuOperator, dcgmExporter, nimOperator, aicr, ollama},
+		Components:   []Component{gpuOperator, dcgmExporter, stallscope, nimOperator, aicr, ollama},
 	},
 	"gpu-rdma": {
 		Name:         "gpu-rdma",
-		Description:  "GPU Operator plus NVIDIA Network Operator/RDMA validation.",
+		Description:  "GPU Operator plus NVIDIA Network Operator/RDMA validation and Stallscope fabric stall telemetry.",
 		Capabilities: []Capability{CapabilityGPU, CapabilityRDMA, CapabilityServing, CapabilityTelemetry, CapabilityValidation},
-		Components:   []Component{gpuOperator, dcgmExporter, nvidiaNetworkOperator, nimOperator, aicr, ollama},
+		Components:   []Component{gpuOperator, dcgmExporter, stallscope, nvidiaNetworkOperator, nimOperator, aicr, ollama},
 	},
 	"gpu-mig": {
 		Name:         "gpu-mig",
-		Description:  "GPU Operator with MIG profiles and scheduling validation.",
+		Description:  "GPU Operator with MIG profiles, scheduling validation, and Stallscope workload stall telemetry.",
 		Capabilities: []Capability{CapabilityGPU, CapabilityServing, CapabilityTelemetry, CapabilityValidation, CapabilityScheduler},
-		Components:   []Component{gpuOperator, dcgmExporter, nimOperator, kaiScheduler, aicr, ollama},
+		Components:   []Component{gpuOperator, dcgmExporter, stallscope, nimOperator, kaiScheduler, aicr, ollama},
 	},
 	"ai-production": {
 		Name:         "ai-production",
-		Description:  "Full NVIDIA-backed AI workload platform profile with GPU, RDMA, serving, observability, storage/data-plane evaluation, KubeVirt virtualization, security, and E2E validation.",
+		Description:  "Full NVIDIA-backed AI workload platform profile with GPU, RDMA, serving, observability, workload stall telemetry, storage/data-plane evaluation, KubeVirt virtualization, security, and E2E validation.",
 		Capabilities: []Capability{CapabilityGPU, CapabilityRDMA, CapabilityServing, CapabilityTelemetry, CapabilityValidation, CapabilityStorage, CapabilityScheduler, CapabilityBareMetalOrchestration, CapabilityVirtualization},
-		Components:   []Component{gpuOperator, dcgmExporter, nvidiaNetworkOperator, nimOperator, kaiScheduler, kubevirt, cdi, multusCNI, aicr, aiStore, ollama},
+		Components:   []Component{gpuOperator, dcgmExporter, stallscope, nvidiaNetworkOperator, nimOperator, kaiScheduler, kubevirt, cdi, multusCNI, aicr, aiStore, ollama},
 	},
 }
