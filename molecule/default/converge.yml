@@ -1,0 +1,13 @@
+---
+- name: Converge
+  hosts: all
+  gather_facts: true
+  tasks:
+    - name: Include tune role
+      ansible.builtin.include_role:
+        name: tune
+
+    - name: Reboot to apply kernel params
+      ansible.builtin.reboot:
+        reboot_timeout: 120
+      when: ansible_virtualization_type != "docker"

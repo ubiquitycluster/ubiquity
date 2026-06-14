@@ -1,0 +1,28 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+platforms:
+  - name: ubuntu-22.04
+    image: ubuntu:22.04
+    pre_build_image: true
+    command: /lib/systemd/systemd
+    tmpfs:
+      - /run
+      - /tmp
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    privileged: true
+provisioner:
+  name: ansible
+  role-path: ../../metal/roles
+  config_options:
+    defaults:
+      stdout_callback: yaml
+      bin_ansible_callbacks: true
+  inventory:
+    group_vars:
+      all: {}
+verifier:
+  name: ansible

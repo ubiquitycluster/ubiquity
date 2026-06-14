@@ -1,0 +1,13 @@
+{{- if .Values.checks.renderPrerequisiteReport }}
+NVIDIA Infra Controller prerequisites report rendered.
+
+This chart is render/report-only. It records the expected prerequisite owners and
+safety settings in a ConfigMap so GitOps reviewers can verify the NICo contract.
+It does not install, upgrade, or configure MetalLB, cert-manager, Vault,
+External Secrets Operator, PostgreSQL, StorageClasses, or Kubernetes Secrets.
+
+Review the rendered ConfigMap before syncing NICo Core or REST wrappers:
+  kubectl -n {{ .Release.Namespace }} get configmap {{ include "nicoPrereqs.fullname" . }}-report -o yaml
+{{- else }}
+NVIDIA Infra Controller prerequisites report rendering is disabled.
+{{- end }}

@@ -126,7 +126,7 @@ sudo pip3 install diskimage-builder
 
 # Clone Ubiquity repository
 git clone https://github.com/ubiquitycluster/ubiquity.git
-cd ubiquity-open/tools/disk-image/mkimage
+cd ubiquity/tools/disk-image/mkimage
 
 # Initialize build environment
 ./prep.sh
@@ -141,7 +141,7 @@ sudo pip3 install diskimage-builder
 
 # Setup Ubiquity build environment
 git clone https://github.com/ubiquitycluster/ubiquity.git
-cd ubiquity-open/tools/disk-image/mkimage
+cd ubiquity/tools/disk-image/mkimage
 ./prep.sh
 ```
 

@@ -1,0 +1,30 @@
+suite: test nvidia-infra-controller-prereqs wrapper
+templates:
+  - "*.yaml"
+tests:
+  - it: renders prerequisite documentation as a ConfigMap
+    asserts:
+      - hasDocuments:
+          count: 1
+      - containsDocument:
+          kind: ConfigMap
+          apiVersion: v1
+          name: RELEASE-NAME-report
+      - matchRegex:
+          path: data["README.md"]
+          pattern: MetalLB|cert-manager|Vault|External Secrets|PostgreSQL
+      - matchRegex:
+          path: data["README.md"]
+          pattern: render/report-only|does not install|intentionally renders no Secret objects
+  - it: fails rather than taking over the default StorageClass implicitly
+    set:
+      storageClass.setDefault: true
+      storageClass.explicitName: ""
+    asserts:
+      - failedTemplate:
+          errorMessage: storageClass.setDefault=true requires storageClass.explicitName; NICo prereqs will not take over the default StorageClass implicitly
+  - it: carries provenance annotations
+    asserts:
+      - equal:
+          path: metadata.annotations["ubiquity.dev/source-component"]
+          value: nico-prereqs

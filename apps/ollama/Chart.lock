@@ -1,0 +1,6 @@
+dependencies:
+- name: app-template
+  repository: file://../../charts/app-template
+  version: 0.1.0
+digest: sha256:6744acf4a818badcd7244aef5681f51b459dcca5cc659f93b3b9d567928d769c
+generated: "2026-05-26T12:30:45.438181475+02:00"

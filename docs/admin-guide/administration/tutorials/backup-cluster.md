@@ -130,7 +130,7 @@ Create a Velero-specific credentials file in your local directory. For example, 
 cat <<ENDFILE > ./credentials-velero
 [default]
 aws_access_key_id = minio
-aws_secret_access_key = minio123
+aws_secret_access_key = <MINIO_SECRET_ACCESS_KEY>
 ENDFILE
 ```
 

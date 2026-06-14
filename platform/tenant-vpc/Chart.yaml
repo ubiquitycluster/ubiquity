@@ -1,0 +1,7 @@
+apiVersion: v2
+name: tenant-vpc
+description: Ubiquity tenant namespace, quota, Multus VPC, and NetworkPolicy isolation primitives
+type: application
+version: 0.1.0
+appVersion: "0.1.0"
+keywords: [tenant, vpc, multus, networkpolicy]

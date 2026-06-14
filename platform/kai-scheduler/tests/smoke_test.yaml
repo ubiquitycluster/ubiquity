@@ -1,0 +1,8 @@
+suite: chart smoke coverage
+templates:
+  - charts/kai-scheduler/templates/priorityclasses/build-preemptible.yaml
+tests:
+  - it: renders charts/kai-scheduler/templates/priorityclasses/build-preemptible.yaml
+    asserts:
+      - hasDocuments:
+          count: 1

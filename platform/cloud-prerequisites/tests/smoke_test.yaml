@@ -1,0 +1,8 @@
+suite: chart smoke coverage
+templates:
+  - templates/prerequisites.yaml
+tests:
+  - it: renders templates/prerequisites.yaml
+    asserts:
+      - hasDocuments:
+          count: 1

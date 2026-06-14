@@ -1,0 +1,8 @@
+suite: chart smoke coverage
+templates:
+  - charts/gitea/charts/memcached/templates/serviceaccount.yaml
+tests:
+  - it: renders charts/gitea/charts/memcached/templates/serviceaccount.yaml
+    asserts:
+      - hasDocuments:
+          count: 1

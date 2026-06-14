@@ -1,0 +1,24 @@
+{{- if and .Values.vm.enabled (not .Values.vm.bootDisk) }}
+{{- $profile := index .Values.vm.osProfiles .Values.vm.os }}
+{{- if not $profile }}{{ fail (printf "unknown vm.os %q" .Values.vm.os) }}{{- end }}
+apiVersion: cdi.kubevirt.io/v1beta1
+kind: DataVolume
+metadata:
+  name: {{ .Values.vm.name }}-rootdisk
+  namespace: {{ .Values.vm.namespace }}
+  labels:
+    {{- include "kubevirt-vms.labels" . | nindent 4 }}
+spec:
+  source:
+    http:
+      url: {{ $profile.sourceURL | quote }}
+  pvc:
+    accessModes:
+      - ReadWriteOnce
+    resources:
+      requests:
+        storage: {{ .Values.vm.diskSize }}
+    {{- if .Values.vm.storageClassName }}
+    storageClassName: {{ .Values.vm.storageClassName | quote }}
+    {{- end }}
+{{- end }}

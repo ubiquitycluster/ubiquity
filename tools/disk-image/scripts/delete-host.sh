@@ -15,6 +15,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# NVIDIA Infra Controller reset: this legacy BareMetalHost delete helper is
+# fallback/migration-only for sites that have not moved day-2 bare-metal
+# lifecycle ownership to NVIDIA Infra Controller. This is fallback/migration-only;
+# do not use for new day-2 lifecycle automation. Prefer NVIDIA Infra Controller
+# Task workflows.
+
 BMHOST=$1
 
 if [ -z "${BMHOST}" ] ; then

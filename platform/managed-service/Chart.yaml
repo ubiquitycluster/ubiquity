@@ -1,0 +1,7 @@
+apiVersion: v2
+name: managed-service
+description: Ubiquity operator-backed managed service catalog primitive
+type: application
+version: 0.1.0
+appVersion: "0.1.0"
+keywords: [service-catalog, bucket, postgres, redis, kafka, registry]

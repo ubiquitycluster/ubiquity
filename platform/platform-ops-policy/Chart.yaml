@@ -1,0 +1,7 @@
+apiVersion: v2
+name: platform-ops-policy
+description: Ubiquity backup, snapshot, and resource preset primitives
+type: application
+version: 0.1.0
+appVersion: "0.1.0"
+keywords: [backup, k8up, snapshot, resource-preset]

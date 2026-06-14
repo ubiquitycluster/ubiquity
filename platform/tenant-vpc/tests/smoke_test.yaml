@@ -1,0 +1,8 @@
+suite: chart smoke coverage
+templates:
+  - templates/vpc.yaml
+tests:
+  - it: renders templates/vpc.yaml
+    asserts:
+      - hasDocuments:
+          count: 5

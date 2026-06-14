@@ -1,0 +1,60 @@
+{{- $root := . -}}
+{{- range $name, $app := .Values.applications }}
+{{- if $app.enabled }}
+{{- if and (eq $name "velero") (not $app.backupBucket) }}
+{{- fail "velero.backupBucket is required when applications.velero.enabled=true" }}
+{{- end }}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ $name | quote }}
+  namespace: {{ $root.Values.global.argocdNamespace | quote }}
+  labels:
+    {{- include "core-services.labels" $root | nindent 4 }}
+    ubiquity.dev/core-capability: {{ $name | quote }}
+  annotations:
+    argocd.argoproj.io/sync-wave: {{ default "0" $app.syncWave | quote }}
+spec:
+  project: {{ $root.Values.global.project | quote }}
+  source:
+    {{- if $app.path }}
+    repoURL: {{ $root.Values.global.repoURL | quote }}
+    targetRevision: {{ $root.Values.global.targetRevision | quote }}
+    path: {{ $app.path | quote }}
+    {{- else }}
+    repoURL: {{ $app.repoURL | quote }}
+    targetRevision: {{ $app.targetRevision | quote }}
+    chart: {{ $app.chart | quote }}
+    {{- end }}
+    {{- if eq $name "velero" }}
+    helm:
+      valuesObject:
+        configuration:
+          backupStorageLocation:
+            - name: default
+              provider: {{ $app.backupProvider | quote }}
+              bucket: {{ required "velero.backupBucket is required" $app.backupBucket | quote }}
+              {{- if $app.backupS3Url }}
+              config:
+                region: {{ $app.backupRegion | quote }}
+                s3Url: {{ $app.backupS3Url | quote }}
+                s3ForcePathStyle: "true"
+              {{- else }}
+              config:
+                region: {{ $app.backupRegion | quote }}
+              {{- end }}
+        snapshotsEnabled: true
+        deployNodeAgent: true
+    {{- end }}
+  destination:
+    server: {{ $root.Values.global.destinationServer | quote }}
+    namespace: {{ $app.namespace | quote }}
+  syncPolicy:
+    automated:
+      prune: {{ $root.Values.global.automated.prune }}
+      selfHeal: {{ $root.Values.global.automated.selfHeal }}
+    syncOptions:
+      - CreateNamespace={{ $root.Values.global.createNamespace }}
+{{- end }}
+{{- end }}

@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "aiPlatformProfile": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "name": { "type": "string", "minLength": 1 },
+        "source": { "type": "string", "minLength": 1 },
+        "rdma": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "enabled": { "type": "boolean" },
+            "resourceName": { "type": "string", "minLength": 1 },
+            "ifNames": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+            "networkAttachment": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "name": { "type": "string", "minLength": 1 },
+                "namespace": { "type": "string", "minLength": 1 },
+                "cniType": { "type": "string", "minLength": 1 },
+                "ipam": { "type": "string", "minLength": 1 }
+              }
+            }
+          }
+        },
+        "validation": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "failClosed": { "type": "boolean" },
+            "requireRdmaResource": { "type": "boolean" },
+            "requireNetworkAttachment": { "type": "boolean" },
+            "tools": { "type": "array", "items": { "type": "string", "minLength": 1 } }
+          }
+        }
+      }
+    },
+    "network-operator": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "rke2-multus": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  }
+}

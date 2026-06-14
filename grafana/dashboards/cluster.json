@@ -1,0 +1,42 @@
+{
+  "__inputs": [],
+  "__requires": [],
+  "title": "Ubiquity Cluster",
+  "uid": "ubiquity-cluster",
+  "panels": [
+    {
+      "title": "Cluster Status",
+      "type": "stat",
+      "datasource": "Prometheus",
+      "description": "Overall cluster health"
+    },
+    {
+      "title": "CPU Usage",
+      "type": "gauge",
+      "datasource": "Prometheus"
+    },
+    {
+      "title": "Memory Usage",
+      "type": "gauge",
+      "datasource": "Prometheus"
+    },
+    {
+      "title": "Nodes",
+      "type": "table",
+      "datasource": "Prometheus"
+    },
+    {
+      "title": "Falco Runtime Security Events",
+      "type": "timeseries",
+      "datasource": "Prometheus",
+      "description": "Falco event rate delivered through the Falcosidekick to Alertmanager alerting path.",
+      "targets": [
+        {
+          "expr": "sum(rate(falco_events_total[5m])) by (priority, rule)",
+          "legendFormat": "{{priority}} {{rule}}"
+        }
+      ]
+    }
+  ],
+  "schemaVersion": 38
+}

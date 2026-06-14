@@ -5,7 +5,7 @@
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#     https://github.com/ubiquitycluster/ubiquity-open/blob/main/LICENSE
+#     https://github.com/ubiquitycluster/ubiquity/blob/main/LICENSE
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -18,7 +18,7 @@
 apiVersion: v2
 name: argocd
 appVersion: v2.10.8
-version: 0.0.0
+version: 6.7.17
 dependencies:
   - name: argo-cd
     version: 6.7.17

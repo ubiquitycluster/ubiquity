@@ -1,0 +1,26 @@
+#!/bin/bash
+set -euo pipefail
+REPO=""
+SOURCE=""
+TARGET="main"
+SUBPATH="."
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    --repository) REPO="$2"; shift 2 ;;
+    --source) SOURCE="$2"; shift 2 ;;
+    --target) TARGET="$2"; shift 2 ;;
+    --subpath) SUBPATH="$2"; shift 2 ;;
+    *) echo "Unknown: $1"; exit 1 ;;
+  esac
+done
+echo "Helm diff between $SOURCE and $TARGET in $SUBPATH"
+cd "$(mktemp -d)"
+git clone --depth=1 --branch "$SOURCE" "$REPO" source 2>/dev/null || { echo "Failed to clone source"; exit 1; }
+git clone --depth=1 --branch "$TARGET" "$REPO" target 2>/dev/null || { echo "Failed to clone target"; exit 1; }
+find "source/$SUBPATH" -name "values.yaml" | while read f; do
+  rel="${f#source/}"
+  if [ -f "target/$rel" ]; then
+    echo "--- $rel ---"
+    diff "target/$rel" "$f" || true
+  fi
+done

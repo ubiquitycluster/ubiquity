@@ -1,0 +1,111 @@
+---
+# Copyright The Ubiquity Authors.
+#
+# Licensed under the Apache License, Version 2.0. Previously licensed under the Functional Source License (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://github.com/ubiquitycluster/ubiquity/blob/main/LICENSE
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# This software was previously licensed under the Functional Source License but has now transitioned to an Apache 2.0 License
+# as of June 2025.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+{{- if .Values.enabled }}
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ include "kube-bench.fullname" . }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    app.kubernetes.io/name: {{ include "kube-bench.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+  annotations:
+    description: "Runs kube-bench CIS benchmark scans on a schedule"
+spec:
+  schedule: "{{ .Values.schedule }}"
+  successfulJobsHistoryLimit: {{ .Values.successfulJobsHistoryLimit }}
+  failedJobsHistoryLimit: {{ .Values.failedJobsHistoryLimit }}
+  startingDeadlineSeconds: {{ .Values.startingDeadlineSeconds }}
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      activeDeadlineSeconds: {{ .Values.activeDeadlineSeconds }}
+      backoffLimit: 2
+      template:
+        metadata:
+          {{- if .Values.podAnnotations }}
+          annotations:
+            {{- toYaml .Values.podAnnotations | nindent 12 }}
+          {{- end }}
+          labels:
+            app.kubernetes.io/name: {{ include "kube-bench.name" . }}
+            app.kubernetes.io/instance: {{ .Release.Name }}
+            app.kubernetes.io/managed-by: {{ .Release.Service }}
+            {{- if .Values.podLabels }}
+            {{- toYaml .Values.podLabels | nindent 12 }}
+            {{- end }}
+        spec:
+          serviceAccountName: {{ include "kube-bench.serviceAccountName" . }}
+          restartPolicy: OnFailure
+          {{- if .Values.nodeSelector }}
+          nodeSelector:
+            {{- toYaml .Values.nodeSelector | nindent 12 }}
+          {{- end }}
+          {{- if .Values.tolerations }}
+          tolerations:
+            {{- toYaml .Values.tolerations | nindent 12 }}
+          {{- end }}
+          volumes:
+            - name: results
+              persistentVolumeClaim:
+                claimName: {{ include "kube-bench.fullname" . }}-results
+            - name: config
+              configMap:
+                name: {{ include "kube-bench.fullname" . }}-config
+          containers:
+            - name: kube-bench
+              image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+              imagePullPolicy: {{ .Values.image.pullPolicy }}
+              args:
+                - "--benchmark"
+                - "{{ .Values.benchmark }}"
+                - "--json"
+                - "--outputfile"
+                - "/results/scan-result.json"
+                {{- range .Values.extraArgs }}
+                - {{ . }}
+                {{- end }}
+              volumeMounts:
+                - name: results
+                  mountPath: /results
+                - name: config
+                  mountPath: /opt/kube-bench/cfg/config.yaml
+                  subPath: config.yaml
+              resources:
+                {{- toYaml .Values.resources | nindent 16 }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "kube-bench.fullname" . }}-results
+  namespace: {{ .Values.namespace }}
+  labels:
+    app.kubernetes.io/name: {{ include "kube-bench.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  {{- if .Values.resultsStorageClass }}
+  storageClassName: {{ .Values.resultsStorageClass }}
+  {{- end }}
+  resources:
+    requests:
+      storage: {{ .Values.resultsVolumeSize }}
+{{- end }}

@@ -1,4 +1,0 @@
----
-process_isolation: true
-process_isolation_executable: docker
-container_image: quay.io/ansible/awx-ee:latest

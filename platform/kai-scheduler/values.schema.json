@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "global": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "gpuSharing": { "type": "boolean" },
+        "clusterAutoscaling": { "type": "boolean" },
+        "leaderElection": { "type": "boolean" }
+      }
+    },
+    "defaultQueue": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "createDefaultQueue": { "type": "boolean" }
+      }
+    }
+  }
+}

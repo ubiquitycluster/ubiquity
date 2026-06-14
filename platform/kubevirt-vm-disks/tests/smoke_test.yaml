@@ -1,0 +1,8 @@
+suite: chart smoke coverage
+templates:
+  - templates/disk.yaml
+tests:
+  - it: renders templates/disk.yaml
+    asserts:
+      - hasDocuments:
+          count: 1

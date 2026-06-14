@@ -1,0 +1,6 @@
+dependencies:
+- name: kai-scheduler
+  repository: oci://ghcr.io/kai-scheduler/kai-scheduler
+  version: v0.10.2
+digest: sha256:0b1f95697e2e47138f472be4df002cdb9cac426d2b7353b185831147ec170367
+generated: "2026-06-05T19:55:03.318706+01:00"

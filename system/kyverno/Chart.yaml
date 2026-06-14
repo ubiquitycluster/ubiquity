@@ -1,0 +1,29 @@
+---
+# Copyright The Ubiquity Authors.
+#
+# Licensed under the Apache License, Version 2.0.
+# See https://github.com/ubiquitycluster/ubiquity/blob/main/LICENSE
+#
+# Thin wrapper chart for the upstream Kyverno operator.
+# Installs the Kyverno admission controller (CRDs + controllers) that
+# the kyverno-policies chart depends on.
+#
+# Uses latest upstream chart. K8s >= 1.28 required for ValidatingAdmissionPolicy.
+# K8s >= 1.29 required for selectableFields in CRDs. Both are available on
+# the sandbox target (k3s v1.32+).
+apiVersion: v2
+name: kyverno
+version: 0.1.0
+appVersion: v1.18.1
+description: Kyverno admission controller (upstream wrapper)
+keywords:
+  - security
+  - kyverno
+  - policy
+home: https://kyverno.io
+sources:
+  - https://github.com/kyverno/kyverno
+dependencies:
+  - name: kyverno
+    version: "3.8.1"
+    repository: https://kyverno.github.io/kyverno

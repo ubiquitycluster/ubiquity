@@ -1,0 +1,8 @@
+suite: chart smoke coverage
+templates:
+  - templates/namespace.yaml
+tests:
+  - it: renders templates/namespace.yaml
+    asserts:
+      - hasDocuments:
+          count: 1

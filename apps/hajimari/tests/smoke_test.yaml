@@ -1,0 +1,25 @@
+suite: hajimari smoke coverage
+templates:
+  - charts/hajimari/templates/common.yaml
+  - charts/hajimari/templates/configmap.yaml
+  - charts/app-template/templates/deployment.yaml
+tests:
+  - it: renders Hajimari application resources
+    template: charts/hajimari/templates/common.yaml
+    asserts:
+      - hasDocuments:
+          count: 4
+  - it: renders Hajimari settings
+    template: charts/hajimari/templates/configmap.yaml
+    asserts:
+      - hasDocuments:
+          count: 1
+      - isKind:
+          of: ConfigMap
+  - it: renders the local app-template deployment
+    template: charts/app-template/templates/deployment.yaml
+    asserts:
+      - hasDocuments:
+          count: 1
+      - isKind:
+          of: Deployment

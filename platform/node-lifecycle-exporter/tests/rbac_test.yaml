@@ -1,0 +1,67 @@
+suite: test node-lifecycle-exporter rbac
+# RBAC is intentionally read-only and excludes Secret access.
+templates:
+  - rbac.yaml
+tests:
+  - it: grants read-only access to node lifecycle discovery resources
+    asserts:
+      - isKind:
+          of: ClusterRole
+        documentIndex: 0
+      - equal:
+          path: metadata.name
+          value: RELEASE-NAME-node-lifecycle-exporter
+        documentIndex: 0
+      - equal:
+          path: rules[0].apiGroups[0]
+          value: ""
+        documentIndex: 0
+      - contains:
+          path: rules[0].resources
+          content: nodes
+        documentIndex: 0
+      - contains:
+          path: rules[0].resources
+          content: pods
+        documentIndex: 0
+      - contains:
+          path: rules[0].resources
+          content: services
+        documentIndex: 0
+      - contains:
+          path: rules[0].resources
+          content: endpoints
+        documentIndex: 0
+      - contains:
+          path: rules[0].resources
+          content: configmaps
+        documentIndex: 0
+      - notContains:
+          path: rules[0].resources
+          content: secrets
+        documentIndex: 0
+      - equal:
+          path: rules[0].verbs
+          value:
+            - get
+            - list
+            - watch
+        documentIndex: 0
+
+  - it: binds the read-only ClusterRole to the exporter ServiceAccount
+    asserts:
+      - isKind:
+          of: ClusterRoleBinding
+        documentIndex: 1
+      - equal:
+          path: metadata.name
+          value: RELEASE-NAME-node-lifecycle-exporter
+        documentIndex: 1
+      - equal:
+          path: roleRef.kind
+          value: ClusterRole
+        documentIndex: 1
+      - equal:
+          path: subjects[0].kind
+          value: ServiceAccount
+        documentIndex: 1

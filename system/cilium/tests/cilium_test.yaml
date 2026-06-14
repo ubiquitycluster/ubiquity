@@ -1,0 +1,44 @@
+suite: test cilium chart rendering
+templates:
+  - configmap.yaml
+  - ippool.yaml
+  - l2announcement.yaml
+tests:
+  - it: should render ConfigMap with install notes
+    template: configmap.yaml
+    asserts:
+      - isKind:
+          of: ConfigMap
+
+  - it: should render IPPool when enabled
+    template: ippool.yaml
+    asserts:
+      - isKind:
+          of: CiliumLoadBalancerIPPool
+      - exists:
+          path: spec.blocks
+
+  - it: should render L2 announcement when enabled
+    template: l2announcement.yaml
+    asserts:
+      - isKind:
+          of: CiliumL2AnnouncementPolicy
+      - equal:
+          path: spec.loadBalancerIPs
+          value: true
+
+  - it: should not render IPPool when disabled
+    set:
+      loadBalancerIPPool.enabled: false
+    template: ippool.yaml
+    asserts:
+      - hasDocuments:
+          count: 0
+
+  - it: should not render L2 announcement when disabled
+    set:
+      l2Announcement.enabled: false
+    template: l2announcement.yaml
+    asserts:
+      - hasDocuments:
+          count: 0

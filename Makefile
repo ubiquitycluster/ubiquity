@@ -1,3 +1,4 @@
+# The ubiquity CLI is the recommended entry point. Run 'ubiquity up' instead.
 # Copyright The Ubiquity Authors.
 #
 # Licensed under the Apache License, Version 2.0. Previously licensed under the Functional Source License (the "License");
@@ -36,19 +37,6 @@ NO_CACHE =
 BUILDVER = latest
 FLAVOUR = slurm
 
-# --------------------------------------
-# Docker Targets
-# --------------------------------------
-
-#.PHONY: docker-build
-#docker-build: generate manifests ## Build the docker image
-#	docker build . -t ${IMG} --build-arg http_proxy=$(http_proxy) --build-arg https_proxy=$(https_proxy)
-
-# Push the docker image
-#.PHONY: docker-push
-#docker-push:
-#	docker push ${IMG}
-
 # -------------------------------------------------------------------------------------------------
 # Default Target
 # -------------------------------------------------------------------------------------------------
@@ -57,7 +45,13 @@ KUBECONFIG = $(shell pwd)/metal/kubeconfig.yaml
 KUBE_CONFIG_PATH = $(KUBECONFIG)
 
 test1: metal bootstrap wait post-install
-default: metal bootstrap external wait post-install
+default:
+	@echo "============================================"
+	@echo "  Ubiquity - HPC Cluster Lifecycle Platform"
+	@echo "  The CLI is the recommended entry point."
+	@echo "  Run: ubiquity up --sandbox"
+	@echo "============================================"
+	@exit 0
 ucl: cluster bootstrap external wait post-install
 demo_onprem: metal bootstrap external wait post-install
 demo_azure: azure cluster bootstrap external wait post-install
@@ -76,11 +70,13 @@ azure:
 azure-clean:
 	make -C cloud azureclean
 
+# configure: delegates to 'ubiquity configure' (Go CLI)
 configure-sandbox:
-	./scripts/configure-sandbox
+	./scripts/configure-sandbox.py.bak
 
+# configure: delegates to 'ubiquity configure' (Go CLI)
 configure:
-	./scripts/configure
+	./scripts/configure.py.bak
 
 sandbox-boot:
 	make -C metal sandbox
@@ -109,10 +105,6 @@ wait:
 post-install:
 	./scripts/hacks
 	./scripts/bmo/bmo-create.sh
-
-docker:
-#	./scripts/get-docker.sh
-#	./scripts/docker-perms.sh
 
 podman:
 	sudo yum -y install podman
@@ -180,7 +172,12 @@ nixos:
 test:
 	make -C test
 
-dev: metal bootstrap wait post-install
+# Development workflow
+dev: cli
+	@echo "============================================"
+	@echo "  Development environment ready"
+	@echo "  Run: ./ubiquity-cli up --sandbox"
+	@echo "============================================"
 
 docs:
 	docker run \
@@ -199,12 +196,25 @@ clean:
 
 clean-sandbox:
 	make -C metal clean-sandbox
+
+# -------------------------------------------------------------------------------------------------
+# CLI Targets
+# -------------------------------------------------------------------------------------------------
+
+# Build the ubiquity CLI binary with version info
+cli:
+	go build -ldflags "-X github.com/ubiquitycluster/ubiquity/cmd/ubiquity/cmd.Version=latest -X github.com/ubiquitycluster/ubiquity/cmd/ubiquity/cmd.Commit=$$(git rev-parse --short HEAD 2>/dev/null) -X github.com/ubiquitycluster/ubiquity/cmd/ubiquity/cmd.Date=$$(date -u +%Y-%m-%d)" -o ubiquity-cli ./cmd/ubiquity/
+	@echo "Built: ubiquity-cli"
+
+install: cli
+	install -m 755 ubiquity-cli /usr/local/bin/ubiquity
 # -------------------------------------------------------------------------------------------------
 # Build Targets
 # -------------------------------------------------------------------------------------------------
 
 build:
-	@ \
+	@VERSION=$(BUILDVER) COMMIT=$$(git rev-parse --short HEAD 2>/dev/null || echo "none") DATE=$$(date --rfc-3339=s 2>/dev/null || date -u +%Y-%m-%dT%H:%M:%SZ); \
+	export VERSION COMMIT DATE; \
 	if [ "$(FLAVOUR)" = "slurm" ]; then \
 		docker build \
 			$(NO_CACHE) \
@@ -285,3 +295,46 @@ build:
 rebuild: NO_CACHE=--no-cache
 rebuild: pull-base-image
 rebuild: build
+
+# Build the PXE installer binary
+installer:
+	cd tools && go build -o ../ubiquity-installer ./cmd/ubiquity-install/
+
+# Record a demo asciicast
+demo:
+	@echo "Recording demo... Press Ctrl+D when done."
+	asciinema rec ubiquity-demo.cast -c "./ubiquity-cli up --sandbox --skip-security 2>&1 | head -20"
+	@echo "Demo saved to ubiquity-demo.cast"
+	@echo "Upload to https://asciinema.org or replay locally with 'asciinema play ubiquity-demo.cast'"
+
+# ── Multi-version k3s test matrix ──────────────────────────────────────────
+.PHONY: test-k3d-matrix test-k3d-v1.30 test-k3d-v1.31 test-k3d-v1.32
+
+# Run the full k3s version matrix test
+test-k3d-matrix:
+	bash test/k3d-matrix.sh
+
+# Test a specific k3s version
+test-k3d-v1.30:
+	K3S_IMAGE=rancher/k3s:v1.30.14-k3s2 bash test/k3d-matrix.sh
+
+test-k3d-v1.31:
+	K3S_IMAGE=rancher/k3s:v1.31.14-k3s1 bash test/k3d-matrix.sh
+
+test-k3d-v1.32:
+	K3S_IMAGE=rancher/k3s:v1.32.13-k3s1 bash test/k3d-matrix.sh
+
+# Run the opt-in NICo KVM/QEMU PXE virtual bare-metal lab.
+nico-kvm-pxe-lab:
+	bash test/e2e/nico-kvm-pxe-lab.sh
+
+# Show available targets
+help:
+	@echo "Available targets:"
+	@echo "  cli              Build the ubiquity CLI binary"
+	@echo "  installer        Build the PXE installer binary"
+	@echo "  completions      Generate shell completion files"
+	@echo "  test             Run tests"
+	@echo "  nico-kvm-pxe-lab Run opt-in NICo KVM/QEMU PXE virtual bare-metal lab"
+	@echo "  dev              Prepare development environment"
+	@echo "  install          Install CLI to /usr/local/bin"

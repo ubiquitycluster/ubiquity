@@ -1,0 +1,6 @@
+dependencies:
+- name: trow
+  repository: https://trow.io
+  version: 0.3.5
+digest: sha256:a1a935250af0e09086256dd4949c8d5883d5de59b26066c86279cb2707c9f0d4
+generated: "2026-06-04T13:46:55.712504+01:00"

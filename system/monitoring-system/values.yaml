@@ -1,3 +1,8 @@
+legacyDcgmExporter:
+  enabled: false
+  replacement: nvidia-gpu-operator.dcgmExporter
+  source: https://github.com/NVIDIA/dcgm-exporter
+
 kube-prometheus-stack:
   grafana:
     forceDeployDatasources: true

@@ -30,6 +30,10 @@
 - **`./apps`** - User-facing applications
 - **`./external`** (optional) - Externally managed services
 
+### Packaging model
+
+Most `./system` and `./platform` components use Helm as the component packaging boundary: charts own templates, values, dependency metadata, and chart tests. Kustomize remains the environment-specific patches and composition boundary. The main exception is `platform/hpc-ubiq`, which keeps legacy HPC/Slurm composition as Kustomize overlays until those workloads are split into stable charted components. `system/core-services` adds a thin ArgoCD Application orchestration layer over these component charts and vetted public charts; see [Core services architecture](core-services.md) and [Kustomize and Helm relationship](kustomize-helm.md).
+
 ### Support Components
 
 - **`./tools`** - Tools container with all utilities needed to manage the cluster and troubleshoot issues, including disk image building
@@ -233,3 +237,15 @@ Below is the pseudo code for the entire process. You don't have to read it right
                 Cloud CMD
                 Etc.
     ```
+
+
+## Design Tenets
+
+These principles guide all architectural decisions in Ubiquity:
+
+1. **Idempotency everywhere** — Running the same command twice produces the same result. Every phase can be safely retried.
+2. **Default secure** — Zero-trust networking, hardened nodes, admission policies, and vulnerability scanning are baked in, not bolted on.
+3. **Observable by default** — Every provisioning step emits structured state. `ubiquity status` and `ubiquity logs` work out of the box.
+4. **Tested in CI** — No change lands without validation at unit, integration, and conformance levels.
+5. **Single toolchain** — One CLI, one testing framework, one way to express infrastructure. The `ubiquity` binary is the sole entry point.
+6. **No generated artifacts in version control** — The repo holds source truth; everything else (HTML docs, binaries, lock files) is built on demand.

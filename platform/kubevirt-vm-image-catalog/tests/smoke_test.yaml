@@ -1,0 +1,8 @@
+suite: chart smoke coverage
+templates:
+  - templates/catalog.yaml
+tests:
+  - it: renders templates/catalog.yaml
+    asserts:
+      - hasDocuments:
+          count: 1

@@ -1,0 +1,61 @@
+# Ubiquity KubeVirt VM workload definitions.
+# This chart assumes KubeVirt and CDI are already installed in the cluster.
+# Multus is required only when vm.networkIsolation=multus.
+# GPU passthrough/vGPU requires KubeVirt permittedHostDevices and NVIDIA GPU Operator/device-plugin resources.
+vm:
+  enabled: true
+  name: ubuntu-gpu-dev
+  namespace: virtual-machines
+  os: ubuntu-24.04
+  running: false
+  # Optional KubeVirt ClusterInstancetype/ClusterPreference references.
+  # When instanceType is set, CPU/memory sizing comes from the referenced CR.
+  instanceType: ""
+  preference: ""
+  cpuCores: 4
+  memory: 16Gi
+  diskSize: 80Gi
+  # Optional existing PVC to use as the boot disk. When set, this chart skips root DataVolume rendering.
+  bootDisk: ""
+  # Optional existing PVCs attached as additional data disks.
+  dataDisks: []
+  # - name: datasets
+  #   pvcName: datasets-pvc
+  storageClassName: ""
+  sshAuthorizedKeys: []
+  osProfiles:
+    ubuntu-24.04:
+      displayName: Ubuntu Server 24.04 LTS
+      sourceURL: https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img
+      cloudInit: true
+    rocky-9:
+      displayName: Rocky Linux 9 GenericCloud
+      sourceURL: https://dl.rockylinux.org/pub/rocky/9/images/x86_64/Rocky-9-GenericCloud-Base.latest.x86_64.qcow2
+      cloudInit: true
+    windows-2022:
+      displayName: Windows Server 2022
+      sourceURL: https://example.invalid/replace-with-windows-2022-cloudbase-init-and-virtio-win-image.qcow2
+      cloudInit: true
+      notes: Operator must provide a licensed Windows image with Cloudbase-Init and virtio-win drivers.
+  networkIsolation: pod
+  network:
+    name: vm-isolated-net
+    bridge: br-vm-isolated
+    cidr: 10.43.0.0/24
+    gateway: 10.43.0.1
+    cniVersion: 0.3.1
+  gpu:
+    enabled: false
+    count: 1
+    # attachmentMode may be gpu or hostDevice. Use hostDevice for PCI VF/vGPU resources.
+    attachmentMode: gpu
+    resourceName: nvidia.com/GA100_A100_PCIE_40GB
+  external:
+    enabled: false
+    ports:
+      - 22
+  labels: {}
+  annotations: {}
+networkPolicy:
+  enabled: true
+  defaultDeny: true

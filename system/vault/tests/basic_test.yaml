@@ -1,0 +1,8 @@
+suite: test vault basic rendering
+templates:
+  - "*.yaml"
+tests:
+  - it: should render at least one resource
+    asserts:
+      - hasDocuments:
+          count: 1

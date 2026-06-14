@@ -1,0 +1,35 @@
+suite: test node-lifecycle-exporter deployment
+
+templates:
+  - deployment.yaml
+
+tests:
+  - it: does not render a NICo token literal or secret ref by default
+    documentSelector:
+      path: kind
+      value: Deployment
+    asserts:
+      - notContains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: UBIQUITY_NICO_TOKEN
+      - notMatchRegex:
+          path: spec.template.spec.containers[0].env[0].value
+          pattern: (?i)token|secret|password
+
+  - it: reads the NICo token from an existing secret when configured
+    set:
+      nico.existingSecretName: nico-api-token
+      nico.tokenEnvKey: api-token
+    documentSelector:
+      path: kind
+      value: Deployment
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: UBIQUITY_NICO_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: nico-api-token
+                key: api-token

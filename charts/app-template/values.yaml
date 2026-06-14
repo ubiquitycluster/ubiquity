@@ -1,0 +1,41 @@
+nameOverride: ""
+fullnameOverride: ""
+image:
+  repository: ""
+  tag: latest
+  pullPolicy: IfNotPresent
+replicas: 1
+service:
+  enabled: true
+  port: 80
+  targetPort: 8080
+ingress:
+  enabled: true
+  className: nginx
+  annotations:
+    hajimari.io/enable: "true"
+  hosts:
+    - host: ""
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []
+resources:
+  limits:
+    memory: 512Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+env: []
+envFrom: []
+persistence:
+  enabled: false
+  size: 10Gi
+  storageClass: longhorn
+probes:
+  liveness:
+    enabled: true
+    path: /
+  readiness:
+    enabled: true
+    path: /

@@ -1,0 +1,8 @@
+suite: test nvidia-gpu-operator source-backed wrapper
+templates:
+  - "*.yaml"
+tests:
+  - it: documents NVIDIA GPU Operator dependency in chart metadata
+    asserts:
+      - hasDocuments:
+          count: 0

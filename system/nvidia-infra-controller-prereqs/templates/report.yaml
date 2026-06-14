@@ -1,0 +1,46 @@
+{{- if and .Values.checks.failOnImplicitDefaultStorageClass .Values.storageClass.setDefault (not .Values.storageClass.explicitName) -}}
+{{- fail "storageClass.setDefault=true requires storageClass.explicitName; NICo prereqs will not take over the default StorageClass implicitly" -}}
+{{- end -}}
+{{- if .Values.checks.renderPrerequisiteReport }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "nicoPrereqs.fullname" . }}-report
+  labels:
+    {{- include "nicoPrereqs.labels" . | nindent 4 }}
+  annotations:
+    {{- include "nicoPrereqs.provenanceAnnotations" . | nindent 4 }}
+data:
+  README.md: |
+    # NVIDIA Infra Controller prerequisites
+
+    Source: NVIDIA/infra-controller
+    Component: nico-prereqs
+    Status: experimental-preview
+
+    This chart is render/report-only documentation-as-code for NICo platform
+    prerequisites. It records whether Ubiquity should reuse existing services or
+    deploy matching Ubiquity wrappers in a separate GitOps wave. It does not
+    install, upgrade, or configure dependencies, StorageClasses, or Kubernetes
+    Secrets, and it intentionally renders no Secret objects.
+
+    Required capabilities:
+    - MetalLB or another bare-metal LoadBalancer implementation for management VIPs.
+    - cert-manager for TLS certificates and webhook/service certificate automation.
+    - Vault or an equivalent external secret store for credentials and tokens.
+    - External Secrets Operator to materialize approved secret data into namespaces.
+    - PostgreSQL for NICo Core/REST persistent state.
+
+    Reuse vs deploy policy:
+{{- range $name, $item := .Values.prerequisites }}
+    - {{ $name }}: mode={{ $item.mode | default $.Values.mode | quote }}, namespace={{ $item.namespace | quote }}. {{ $item.notes }}
+{{- end }}
+
+    StorageClass policy:
+    - setDefault={{ .Values.storageClass.setDefault }}
+    - explicitName={{ .Values.storageClass.explicitName | quote }}
+    - {{ .Values.storageClass.notes }}
+
+    Ubiquity will not create or annotate a default StorageClass for NICo unless
+    storageClass.setDefault is true and storageClass.explicitName is populated.
+{{- end }}

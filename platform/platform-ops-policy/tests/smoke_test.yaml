@@ -1,0 +1,8 @@
+suite: chart smoke coverage
+templates:
+  - templates/policy.yaml
+tests:
+  - it: renders templates/policy.yaml
+    asserts:
+      - hasDocuments:
+          count: 6

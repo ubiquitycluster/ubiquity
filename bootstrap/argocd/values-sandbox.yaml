@@ -1,0 +1,15 @@
+---
+# Copyright The Ubiquity Authors.
+#
+# Licensed under the Apache License, Version 2.0.
+# See https://github.com/ubiquitycluster/ubiquity/blob/main/LICENSE
+#
+# Sandbox-specific overrides for the ArgoCD chart.
+# Single-node k3d sandbox cannot support multi-replica redis-ha (anti-affinity).
+argo-cd:
+  redis-ha:
+    # Single replica — sandbox has only one master node with the
+    # node-role.kubernetes.io/master label, and redis-ha uses pod anti-affinity.
+    replicas: 1
+    haproxy:
+      replicas: 1

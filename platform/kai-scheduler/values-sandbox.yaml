@@ -1,0 +1,10 @@
+# Sandbox values intentionally keep KAI Scheduler deployable on k3d without
+# NVIDIA devices. GPU-specific scheduling behavior is proven by readiness/E2E
+# checks on real GPU clusters, not by local CPU-only sandbox claims.
+global:
+  gpuSharing: false
+  clusterAutoscaling: false
+  leaderElection: false
+
+defaultQueue:
+  createDefaultQueue: true

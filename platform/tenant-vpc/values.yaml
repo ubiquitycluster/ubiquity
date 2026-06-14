@@ -1,0 +1,9 @@
+tenant:
+  name: tenant-a
+  cidr: 10.60.0.0/24
+  gateway: 10.60.0.1
+  bridge: br-tenant-a
+  quota:
+    cpu: "100"
+    memory: 512Gi
+    gpu: ""

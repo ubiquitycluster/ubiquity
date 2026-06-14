@@ -1,0 +1,47 @@
+suite: core services applications
+templates:
+  - templates/applications.yaml
+tests:
+  - it: renders default core service application set
+    asserts:
+      - hasDocuments:
+          count: 16
+  - it: points metrics-server at a public Helm chart
+    documentSelector:
+      path: metadata.name
+      value: metrics-server
+    asserts:
+      - equal:
+          path: spec.source.chart
+          value: metrics-server
+      - equal:
+          path: spec.destination.namespace
+          value: kube-system
+      - contains:
+          path: spec.syncPolicy.syncOptions
+          content: CreateNamespace=true
+  - it: points cilium at the local component chart
+    documentSelector:
+      path: metadata.name
+      value: cilium
+    asserts:
+      - equal:
+          path: spec.source.path
+          value: system/cilium
+      - equal:
+          path: spec.destination.namespace
+          value: kube-system
+  - it: renders optional backup app only with backup bucket
+    set:
+      applications.velero.enabled: true
+      applications.velero.backupBucket: ubiquity-backups
+    documentSelector:
+      path: metadata.name
+      value: velero
+    asserts:
+      - equal:
+          path: spec.source.helm.valuesObject.configuration.backupStorageLocation[0].bucket
+          value: ubiquity-backups
+      - equal:
+          path: spec.source.chart
+          value: velero

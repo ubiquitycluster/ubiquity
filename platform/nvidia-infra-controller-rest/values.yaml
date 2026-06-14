@@ -1,0 +1,57 @@
+image:
+  registry: ghcr.io/nvidia/infra-controller
+  tag: preview
+  pullPolicy: IfNotPresent
+
+nicoRest:
+  enabled: true
+  repository: nico-rest
+  replicas: 1
+  service:
+    type: ClusterIP
+    port: 8080
+
+siteAgent:
+  enabled: true
+  repository: site-agent
+  replicas: 1
+  service:
+    type: ClusterIP
+    port: 8090
+
+idp:
+  # external mode records OIDC discovery data for an IdP managed outside this chart.
+  # bundled mode renders an unsigned development IdP placeholder only; production secrets
+  # must be supplied by Vault/External Secrets or another GitOps-safe workflow.
+  mode: external
+  external:
+    issuerURL: ""
+    clientID: nico-rest
+    audience: nico-rest
+    jwksURL: ""
+  bundled:
+    enabled: false
+    repository: bundled-idp
+    service:
+      type: ClusterIP
+      port: 8080
+
+temporal:
+  endpoint: temporal-frontend.temporal.svc.cluster.local:7233
+  namespace: nico
+
+site:
+  uuid: "00000000-0000-0000-0000-000000000000"
+  name: default
+
+rest:
+  publicURL: ""
+  corsAllowedOrigins: []
+
+podAnnotations: {}
+podLabels: {}
+nodeSelector: {}
+tolerations: []
+affinity: {}
+resources: {}
+env: []

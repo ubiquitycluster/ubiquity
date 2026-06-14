@@ -1,0 +1,9 @@
+dependencies:
+- name: common
+  repository: https://library-charts.k8s-at-home.com
+  version: 4.3.0
+- name: cloudcmd
+  repository: https://my0n.github.io/helm-charts/
+  version: 0.0.3
+digest: sha256:98f5516eb5b8149af88b0b761f4fa27f8a61a5995b735e92dd0534f5f6e46d15
+generated: "2026-06-04T13:47:15.252253+01:00"

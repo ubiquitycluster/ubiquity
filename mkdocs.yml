@@ -85,6 +85,7 @@ nav:
       - Cloud:
         - Overview: admin-guide/deployment/cloud/index.md
         - Terraform Cloud: admin-guide/deployment/cloud/terraform_cloud.md
+    - NVIDIA Infra Controller Node Management: admin-guide/nvidia-infra-controller-node-management.md
     - Administration:
       - Tutorials:
         - Add/Remove Nodes: admin-guide/administration/tutorials/add-or-remove-nodes.md
@@ -118,6 +119,20 @@ nav:
       - OFED: admin-guide/runbooks/ofed.md
       - Matrix: admin-guide/runbooks/matrix.md
       - etcd Alerts: admin-guide/runbooks/etcd-alerts.md
+      - NVIDIA Infra Controller:
+        - Prerequisites: admin-guide/runbooks/nvidia-infra-controller/prerequisites.md
+        - Bootstrap: admin-guide/runbooks/nvidia-infra-controller/nico-bootstrap.md
+        - Machine Provisioning: admin-guide/runbooks/nvidia-infra-controller/nico-machine-provisioning.md
+        - Node Reinstall: admin-guide/runbooks/nvidia-infra-controller/nico-node-reinstall.md
+        - BMC Redfish: admin-guide/runbooks/nvidia-infra-controller/nico-bmc-redfish.md
+        - GPU Validation: admin-guide/runbooks/nvidia-infra-controller/nico-gpu-validation.md
+      - NICo Compatibility Paths:
+        - Prerequisites: admin-guide/runbooks/nico-prerequisites.md
+        - Bootstrap: admin-guide/runbooks/nico-bootstrap.md
+        - Machine Provisioning: admin-guide/runbooks/nico-machine-provisioning.md
+        - Node Reinstall: admin-guide/runbooks/nico-node-reinstall.md
+        - BMC Redfish: admin-guide/runbooks/nico-bmc-redfish.md
+        - GPU Validation: admin-guide/runbooks/nico-gpu-validation.md
       - AWX:
         - Backup: admin-guide/runbooks/awx/backup/README.md
         - Restore: admin-guide/runbooks/awx/restore/README.md
@@ -135,3 +150,11 @@ nav:
     - Screenshots: about/screenshots.md
   - Troubleshooting: troubleshooting.md
   - Changelog: changelog.md
+  - Reference:
+    - NVIDIA Infra Controller:
+      - Prerequisites: reference/nvidia-infra-controller/prerequisites.md
+      - Bootstrap to NICo: reference/nvidia-infra-controller/bootstrap-to-nico.md
+      - Node State Machine: reference/nvidia-infra-controller/node-state-machine.md
+      - OS Images: reference/nvidia-infra-controller/os-images.md
+      - Status Aggregation: reference/nvidia-infra-controller/status-aggregation.md
+      - KVM/PXE Validation Lab: reference/nvidia-infra-controller/kvm-pxe-validation-lab.md

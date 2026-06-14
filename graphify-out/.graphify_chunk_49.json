@@ -1,0 +1,41 @@
+{
+  "nodes": [
+    {
+      "id": "assets_shutdown_k9s_1_document",
+      "label": "Shutdown K9S 1",
+      "file_type": "image",
+      "source_file": "docs/admin-guide/administration/assets/shutdown-k9s-1.png",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "assets_shutdown_k9s_1_docs_admin_guide",
+      "label": "Docs Admin-Guide",
+      "file_type": "concept",
+      "source_file": "docs/admin-guide/administration/assets/shutdown-k9s-1.png",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "assets_shutdown_k9s_1_document",
+      "target": "assets_shutdown_k9s_1_docs_admin_guide",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.65,
+      "source_file": "docs/admin-guide/administration/assets/shutdown-k9s-1.png",
+      "source_location": null,
+      "weight": 1.0
+    }
+  ],
+  "hyperedges": [],
+  "input_tokens": 0,
+  "output_tokens": 0
+}

@@ -1,0 +1,8 @@
+suite: chart smoke coverage
+templates:
+  - templates/priorityclasses.yaml
+tests:
+  - it: renders templates/priorityclasses.yaml
+    asserts:
+      - hasDocuments:
+          count: 2

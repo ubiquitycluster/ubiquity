@@ -1,0 +1,8 @@
+suite: chart smoke coverage
+templates:
+  - charts/onyxia/templates/serviceaccount-api.yaml
+tests:
+  - it: renders charts/onyxia/templates/serviceaccount-api.yaml
+    asserts:
+      - hasDocuments:
+          count: 1

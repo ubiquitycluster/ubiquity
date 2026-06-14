@@ -1,0 +1,7 @@
+cluster:
+  name: tenant-a-dev
+  namespace: tenant-a
+  kubernetesVersion: v1.31.4
+  controlPlaneClass: kamaji
+  nodePoolClass: nico-managed-workers
+  workerReplicas: 3

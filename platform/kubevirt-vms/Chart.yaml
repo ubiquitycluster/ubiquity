@@ -1,0 +1,14 @@
+apiVersion: v2
+name: kubevirt-vms
+description: Ubiquity KubeVirt virtual machine workloads with OS profiles, GPU attachment, and network isolation
+type: application
+version: 0.1.0
+appVersion: "0.1.0"
+keywords:
+  - kubevirt
+  - virtual-machines
+  - nvidia-gpu
+  - multus
+annotations:
+  ubiquity.ai/source: "https://kubevirt.io, https://github.com/kubevirt/containerized-data-importer, https://github.com/k8snetworkplumbingwg/multus-cni"
+  ubiquity.ai/non-certification: "Requires live KubeVirt/CDI/Multus/NVIDIA GPU evidence before production readiness claims"

@@ -1,0 +1,7 @@
+apiVersion: v2
+name: kubevirt-vm-image-catalog
+description: Ubiquity KubeVirt VM image catalog provenance contract
+type: application
+version: 0.1.0
+appVersion: "0.1.0"
+keywords: [kubevirt, images, catalog, provenance]

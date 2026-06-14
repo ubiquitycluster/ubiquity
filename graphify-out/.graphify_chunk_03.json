@@ -1,0 +1,680 @@
+{
+  "nodes": [
+    {
+      "id": "bootstrap_root_chart",
+      "label": "bootstrap/root Helm chart",
+      "file_type": "document",
+      "source_file": "bootstrap/root/values.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "root_gitops_repo",
+      "label": "Ubiquity GitOps repository",
+      "file_type": "document",
+      "source_file": "bootstrap/root/values.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "root_stacks",
+      "label": "root GitOps stacks",
+      "file_type": "document",
+      "source_file": "bootstrap/root/values.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "nico_root_gitops_flag",
+      "label": "nico.enabled root GitOps flag",
+      "file_type": "document",
+      "source_file": "bootstrap/root/defaults.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "root_stack_applicationset_template",
+      "label": "root stack ApplicationSet template",
+      "file_type": "document",
+      "source_file": "bootstrap/root/templates/stack.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "root_bmo_metal3_exclusion",
+      "label": "BMO/Metal3 root exclusion",
+      "file_type": "document",
+      "source_file": "bootstrap/root/values.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "root_nico_wrapper_exclusions",
+      "label": "NICo wrapper root exclusions",
+      "file_type": "document",
+      "source_file": "bootstrap/root/templates/stack.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "root_applicationset_tests",
+      "label": "root ApplicationSet exclusion tests",
+      "file_type": "document",
+      "source_file": "bootstrap/root/tests/stack_test.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "app_template_chart",
+      "label": "app-template Helm chart",
+      "file_type": "document",
+      "source_file": "charts/app-template/Chart.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "app_template_values",
+      "label": "app-template values",
+      "file_type": "document",
+      "source_file": "charts/app-template/values.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "app_template_deployment",
+      "label": "app-template Deployment",
+      "file_type": "document",
+      "source_file": "charts/app-template/templates/deployment.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "app_template_service",
+      "label": "app-template Service",
+      "file_type": "document",
+      "source_file": "charts/app-template/templates/service.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "app_template_ingress",
+      "label": "app-template Ingress",
+      "file_type": "document",
+      "source_file": "charts/app-template/templates/ingress.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "app_template_pvc",
+      "label": "app-template PersistentVolumeClaim",
+      "file_type": "document",
+      "source_file": "charts/app-template/templates/pvc.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "app_template_persistence",
+      "label": "app-template persistence option",
+      "file_type": "document",
+      "source_file": "charts/app-template/values.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "cloud_k3s_standardization",
+      "label": "k3s cloud infrastructure standardization",
+      "file_type": "document",
+      "source_file": "cloud/K3S-STANDARDIZATION-COMPLETE.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "k3s_three_master_ha",
+      "label": "exactly 3 k3s control plane nodes",
+      "file_type": "document",
+      "source_file": "cloud/README-k3s.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "k3s_network_ports",
+      "label": "standard k3s network ports",
+      "file_type": "document",
+      "source_file": "cloud/README-k3s.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "k3s_provider_matrix",
+      "label": "standardized cloud providers",
+      "file_type": "document",
+      "source_file": "cloud/PROJECT-COMPLETION-SUMMARY.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "k3s_validation_framework",
+      "label": "k3s standards validation framework",
+      "file_type": "document",
+      "source_file": "cloud/K3S-STANDARDIZATION-COMPLETE.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "terraform_cluster_outputs",
+      "label": "standard Terraform cluster outputs",
+      "file_type": "document",
+      "source_file": "cloud/README-k3s.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "ansible_k3s_inventory_roles",
+      "label": "k3s Ansible inventory roles",
+      "file_type": "document",
+      "source_file": "cloud/README-k3s.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "aws_cloud_readme",
+      "label": "AWS cloud deployment quickstart",
+      "file_type": "document",
+      "source_file": "cloud/aws/README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "azure_cloud_readme",
+      "label": "Azure cloud deployment quickstart",
+      "file_type": "document",
+      "source_file": "cloud/azure/README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "azure_tfvars_bootstrap_playbook",
+      "label": "Azure tfvars bootstrap playbook",
+      "file_type": "document",
+      "source_file": "cloud/azure/tfvars.yml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "aws_tfvars_bootstrap_playbook",
+      "label": "AWS tfvars bootstrap playbook",
+      "file_type": "document",
+      "source_file": "cloud/aws/tfvars.yml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "terraform_data_yaml_template",
+      "label": "terraform_data.yaml template",
+      "file_type": "document",
+      "source_file": "cloud/common/cluster_config/terraform_data.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "common_ansible_inventory_template",
+      "label": "common Ansible inventory template",
+      "file_type": "document",
+      "source_file": "cloud/common/instance_config/ansible/inventory/prod.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "cloud_init_main_template",
+      "label": "cloud-init main template",
+      "file_type": "document",
+      "source_file": "cloud/common/instance_config/ansible/vars/main.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "gcloud_dns_auth_readme",
+      "label": "Google Cloud DNS authentication",
+      "file_type": "document",
+      "source_file": "cloud/dns/gcloud/README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "bootstrap_root_chart",
+      "target": "root_gitops_repo",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "bootstrap/root/values.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "bootstrap_root_chart",
+      "target": "root_stacks",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "bootstrap/root/values.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "root_stack_applicationset_template",
+      "target": "root_stacks",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "bootstrap/root/templates/stack.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "root_stack_applicationset_template",
+      "target": "root_gitops_repo",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "bootstrap/root/templates/stack.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "nico_root_gitops_flag",
+      "target": "root_nico_wrapper_exclusions",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "bootstrap/root/templates/stack.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "root_bmo_metal3_exclusion",
+      "target": "root_stack_applicationset_template",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "bootstrap/root/values.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "root_applicationset_tests",
+      "target": "root_bmo_metal3_exclusion",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "bootstrap/root/tests/stack_test.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "root_applicationset_tests",
+      "target": "root_nico_wrapper_exclusions",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "bootstrap/root/tests/stack_test.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_template_chart",
+      "target": "app_template_values",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "charts/app-template/Chart.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_template_deployment",
+      "target": "app_template_values",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "charts/app-template/templates/deployment.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_template_service",
+      "target": "app_template_deployment",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "charts/app-template/templates/service.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_template_ingress",
+      "target": "app_template_service",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "charts/app-template/templates/ingress.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_template_persistence",
+      "target": "app_template_pvc",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "charts/app-template/templates/pvc.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_template_persistence",
+      "target": "app_template_deployment",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "charts/app-template/templates/deployment.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "cloud_k3s_standardization",
+      "target": "k3s_provider_matrix",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "cloud/K3S-STANDARDIZATION-COMPLETE.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "cloud_k3s_standardization",
+      "target": "k3s_three_master_ha",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "cloud/README-k3s.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "cloud_k3s_standardization",
+      "target": "k3s_network_ports",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "cloud/README-k3s.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "cloud_k3s_standardization",
+      "target": "terraform_cluster_outputs",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "cloud/K3S-STANDARDIZATION-COMPLETE.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "k3s_validation_framework",
+      "target": "cloud_k3s_standardization",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "cloud/PROJECT-COMPLETION-SUMMARY.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "ansible_k3s_inventory_roles",
+      "target": "k3s_three_master_ha",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "cloud/README-k3s.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "aws_cloud_readme",
+      "target": "terraform_cluster_outputs",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "cloud/aws/README.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "azure_cloud_readme",
+      "target": "terraform_cluster_outputs",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "cloud/azure/README.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "azure_tfvars_bootstrap_playbook",
+      "target": "azure_cloud_readme",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "cloud/azure/tfvars.yml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "aws_tfvars_bootstrap_playbook",
+      "target": "azure_tfvars_bootstrap_playbook",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "cloud/aws/tfvars.yml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "terraform_data_yaml_template",
+      "target": "common_ansible_inventory_template",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "cloud/common/cluster_config/terraform_data.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "common_ansible_inventory_template",
+      "target": "ansible_k3s_inventory_roles",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "cloud/common/instance_config/ansible/inventory/prod.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "cloud_init_main_template",
+      "target": "common_ansible_inventory_template",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "cloud/common/instance_config/ansible/vars/main.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "cloud_init_main_template",
+      "target": "aws_cloud_readme",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "cloud/common/instance_config/ansible/vars/main.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "gcloud_dns_auth_readme",
+      "target": "k3s_provider_matrix",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "cloud/dns/gcloud/README.md",
+      "source_location": null,
+      "weight": 1.0
+    }
+  ],
+  "hyperedges": [
+    {
+      "id": "root_gitops_applicationset_generation",
+      "label": "Root Gitops Applicationset Generation",
+      "nodes": [
+        "bootstrap_root_chart",
+        "root_gitops_repo",
+        "root_stacks",
+        "root_stack_applicationset_template",
+        "root_bmo_metal3_exclusion",
+        "root_nico_wrapper_exclusions"
+      ],
+      "relation": "participate_in",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "bootstrap/root/templates/stack.yaml"
+    },
+    {
+      "id": "app_template_workload_bundle",
+      "label": "App Template Workload Bundle",
+      "nodes": [
+        "app_template_chart",
+        "app_template_values",
+        "app_template_deployment",
+        "app_template_service",
+        "app_template_ingress",
+        "app_template_pvc",
+        "app_template_persistence"
+      ],
+      "relation": "participate_in",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "charts/app-template/Chart.yaml"
+    },
+    {
+      "id": "k3s_multicloud_standardization_program",
+      "label": "K3S Multicloud Standardization Program",
+      "nodes": [
+        "cloud_k3s_standardization",
+        "k3s_three_master_ha",
+        "k3s_network_ports",
+        "k3s_provider_matrix",
+        "k3s_validation_framework",
+        "terraform_cluster_outputs",
+        "ansible_k3s_inventory_roles"
+      ],
+      "relation": "participate_in",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "cloud/README-k3s.md"
+    }
+  ],
+  "input_tokens": 8850,
+  "output_tokens": 5100
+}

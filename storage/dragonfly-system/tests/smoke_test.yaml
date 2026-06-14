@@ -1,0 +1,19 @@
+suite: dragonfly-system smoke coverage
+templates:
+  - charts/dragonfly/templates/manager/manager-configmap.yaml
+  - charts/dragonfly/templates/scheduler/scheduler-configmap.yaml
+tests:
+  - it: renders the Dragonfly manager configuration
+    template: charts/dragonfly/templates/manager/manager-configmap.yaml
+    asserts:
+      - hasDocuments:
+          count: 1
+      - isKind:
+          of: ConfigMap
+  - it: renders the Dragonfly scheduler configuration
+    template: charts/dragonfly/templates/scheduler/scheduler-configmap.yaml
+    asserts:
+      - hasDocuments:
+          count: 1
+      - isKind:
+          of: ConfigMap

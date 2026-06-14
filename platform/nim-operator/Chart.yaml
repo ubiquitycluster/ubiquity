@@ -1,0 +1,9 @@
+---
+apiVersion: v2
+name: nim-operator
+description: Ubiquity wrapper for NVIDIA NIM Operator
+version: 0.1.0
+dependencies:
+  - name: k8s-nim-operator
+    version: v2.0.0
+    repository: https://helm.ngc.nvidia.com/nvidia

@@ -1,0 +1,92 @@
+# Copyright The Ubiquity Authors.
+#
+# Licensed under the Apache License, Version 2.0. Previously licensed under the Functional Source License (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://github.com/ubiquitycluster/ubiquity/blob/main/LICENSE
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# This software was previously licensed under the Functional Source License but has now transitioned to an Apache 2.0 License
+# as of June 2025.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+suite: test kube-bench
+templates:
+  - templates/cronjob.yaml
+  - templates/configmap.yaml
+  - templates/rbac.yaml
+tests:
+  - it: should render all resources when enabled (default values)
+    asserts:
+      - hasDocuments:
+          count: 2
+        template: templates/cronjob.yaml
+      - hasDocuments:
+          count: 1
+        template: templates/configmap.yaml
+      - hasDocuments:
+          count: 3
+        template: templates/rbac.yaml
+
+  - it: should create CronJob with default schedule
+    asserts:
+      - documentIndex: 0
+        isKind:
+          of: CronJob
+        template: templates/cronjob.yaml
+      - documentIndex: 0
+        equal:
+          path: spec.schedule
+          value: "0 */6 * * *"
+        template: templates/cronjob.yaml
+      - documentIndex: 0
+        equal:
+          path: spec.concurrencyPolicy
+          value: Forbid
+        template: templates/cronjob.yaml
+      - documentIndex: 1
+        isKind:
+          of: PersistentVolumeClaim
+        template: templates/cronjob.yaml
+
+  - it: should create ConfigMap with benchmark config
+    asserts:
+      - isKind:
+          of: ConfigMap
+        template: templates/configmap.yaml
+      - isNotEmpty:
+          path: data.config\.yaml
+        template: templates/configmap.yaml
+
+  - it: should create ServiceAccount and RBAC resources
+    asserts:
+      - documentIndex: 0
+        isKind:
+          of: ServiceAccount
+        template: templates/rbac.yaml
+      - documentIndex: 1
+        isKind:
+          of: ClusterRole
+        template: templates/rbac.yaml
+      - documentIndex: 2
+        isKind:
+          of: ClusterRoleBinding
+        template: templates/rbac.yaml
+
+  - it: should not render any resources when disabled
+    set:
+      enabled: false
+    asserts:
+      - hasDocuments:
+          count: 0
+        template: templates/cronjob.yaml
+      - hasDocuments:
+          count: 0
+        template: templates/configmap.yaml
+      - hasDocuments:
+          count: 0
+        template: templates/rbac.yaml

@@ -1,0 +1,8 @@
+suite: chart smoke coverage
+templates:
+  - templates/operator-bundles.yaml
+tests:
+  - it: renders templates/operator-bundles.yaml
+    asserts:
+      - hasDocuments:
+          count: 1

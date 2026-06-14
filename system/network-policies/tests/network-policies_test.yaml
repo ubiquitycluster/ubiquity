@@ -1,0 +1,122 @@
+# Copyright The Ubiquity Authors.
+#
+# Licensed under the Apache License, Version 2.0. Previously licensed under the Functional Source License (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://github.com/ubiquitycluster/ubiquity/blob/main/LICENSE
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# This software was previously licensed under the Functional Source License but has now transitioned to an Apache 2.0 License
+# as of June 2025.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+suite: test network-policies
+templates:
+  - templates/default-deny-ingress.yaml
+  - templates/default-deny-egress.yaml
+  - templates/allow-dns.yaml
+  - templates/default-allow-ingress.yaml
+  - templates/default-allow-egress.yaml
+tests:
+  - it: should create default-deny-ingress NetworkPolicy
+    asserts:
+      - hasDocuments:
+          count: 1
+        template: templates/default-deny-ingress.yaml
+      - isKind:
+          of: NetworkPolicy
+        template: templates/default-deny-ingress.yaml
+      - equal:
+          path: metadata.name
+          value: default-deny-ingress
+        template: templates/default-deny-ingress.yaml
+
+  - it: should create default-deny-egress NetworkPolicy
+    asserts:
+      - hasDocuments:
+          count: 1
+        template: templates/default-deny-egress.yaml
+      - isKind:
+          of: NetworkPolicy
+        template: templates/default-deny-egress.yaml
+      - equal:
+          path: metadata.name
+          value: default-deny-egress
+        template: templates/default-deny-egress.yaml
+
+  - it: should create allow-dns NetworkPolicy
+    asserts:
+      - hasDocuments:
+          count: 1
+        template: templates/allow-dns.yaml
+      - isKind:
+          of: NetworkPolicy
+        template: templates/allow-dns.yaml
+      - equal:
+          path: metadata.name
+          value: allow-dns
+        template: templates/allow-dns.yaml
+      - equal:
+          path: spec.egress[0].ports[0].port
+          value: 53
+        template: templates/allow-dns.yaml
+
+  - it: should not create default-allow-ingress (disabled by default)
+    asserts:
+      - hasDocuments:
+          count: 0
+        template: templates/default-allow-ingress.yaml
+
+  - it: should not create default-allow-egress (disabled by default)
+    asserts:
+      - hasDocuments:
+          count: 0
+        template: templates/default-allow-egress.yaml
+
+  - it: should create all deny and dns policies when values are default
+    asserts:
+      - hasDocuments:
+          count: 1
+        template: templates/default-deny-ingress.yaml
+      - hasDocuments:
+          count: 1
+        template: templates/default-deny-egress.yaml
+      - hasDocuments:
+          count: 1
+        template: templates/allow-dns.yaml
+      - hasDocuments:
+          count: 0
+        template: templates/default-allow-ingress.yaml
+      - hasDocuments:
+          count: 0
+        template: templates/default-allow-egress.yaml
+
+  - it: should create default-allow variants when explicitly enabled
+    set:
+      defaultAllowIngress.enabled: true
+      defaultAllowEgress.enabled: true
+    asserts:
+      - hasDocuments:
+          count: 1
+        template: templates/default-allow-ingress.yaml
+      - hasDocuments:
+          count: 1
+        template: templates/default-allow-egress.yaml
+      - isKind:
+          of: NetworkPolicy
+        template: templates/default-allow-ingress.yaml
+      - equal:
+          path: metadata.name
+          value: default-allow-ingress
+        template: templates/default-allow-ingress.yaml
+      - isKind:
+          of: NetworkPolicy
+        template: templates/default-allow-egress.yaml
+      - equal:
+          path: metadata.name
+          value: default-allow-egress
+        template: templates/default-allow-egress.yaml

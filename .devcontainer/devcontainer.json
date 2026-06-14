@@ -1,0 +1,22 @@
+{
+  "name": "Ubiquity Development",
+  "image": "mcr.microsoft.com/devcontainers/go:1-1.24-bookworm",
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {},
+    "ghcr.io/devcontainers/features/kubectl:1": {},
+    "ghcr.io/devcontainers/features/helm:1": {}
+  },
+  "postCreateCommand": "sudo apt-get update && sudo apt-get install -y shellcheck yamllint age && pip install pre-commit ansible-lint && pre-commit install && go install github.com/goreleaser/goreleaser/v2@latest && go install github.com/getsops/sops/v3/cmd/sops@latest && go install golang.org/x/vuln/cmd/govulncheck@latest && make cli",
+  "extensions": [
+    "golang.go",
+    "redhat.vscode-yaml",
+    "ms-azuretools.vscode-docker",
+    "timonwong.shellcheck"
+  ],
+  "settings": {
+    "go.useLanguageServer": true,
+    "yaml.schemas": {
+      "https://raw.githubusercontent.com/khuedoan/homelab/main/.yamllint.yaml": ".yamllint.yaml"
+    }
+  }
+}

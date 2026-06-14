@@ -1,0 +1,11 @@
+---
+apiVersion: v2
+name: nvidia-infra-controller-prereqs
+description: Documentation-as-code wrapper for NVIDIA Infra Controller prerequisites
+version: 0.1.0
+appVersion: "preview"
+type: application
+annotations:
+  ubiquity.dev/source-repo: NVIDIA/infra-controller
+  ubiquity.dev/source-component: nico-prereqs
+  ubiquity.dev/source-status: experimental-preview

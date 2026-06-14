@@ -1,0 +1,41 @@
+{
+  "nodes": [
+    {
+      "id": "files_ubiq_logo_purple_document",
+      "label": "Ubiq Logo Purple",
+      "file_type": "image",
+      "source_file": "platform/onyxia/files/ubiq-logo-purple.svg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "files_ubiq_logo_purple_platform_onyxia",
+      "label": "Platform Onyxia",
+      "file_type": "concept",
+      "source_file": "platform/onyxia/files/ubiq-logo-purple.svg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "files_ubiq_logo_purple_document",
+      "target": "files_ubiq_logo_purple_platform_onyxia",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.65,
+      "source_file": "platform/onyxia/files/ubiq-logo-purple.svg",
+      "source_location": null,
+      "weight": 1.0
+    }
+  ],
+  "hyperedges": [],
+  "input_tokens": 0,
+  "output_tokens": 0
+}

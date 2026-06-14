@@ -1,0 +1,8 @@
+suite: chart smoke coverage
+templates:
+  - charts/openldap-stack-ha/templates/secret-ltb.yaml
+tests:
+  - it: renders charts/openldap-stack-ha/templates/secret-ltb.yaml
+    asserts:
+      - hasDocuments:
+          count: 1

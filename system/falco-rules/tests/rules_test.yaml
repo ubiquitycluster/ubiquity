@@ -1,0 +1,17 @@
+suite: falco runtime security rules
+templates:
+  - templates/rules.yaml
+tests:
+  - it: renders Falco rule and alerting path
+    asserts:
+      - isKind:
+          of: ConfigMap
+      - equal:
+          path: metadata.name
+          value: falco-rules
+      - matchRegex:
+          path: data.custom-rules\.yaml
+          pattern: Terminal shell in container
+      - matchRegex:
+          path: data.alerting-path
+          pattern: Falcosidekick.*Alertmanager

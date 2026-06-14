@@ -16,7 +16,9 @@
 # limitations under the License.
 
 # K3s Options
-k3s_encryption_secret: dHBhczJxN2FvOW52a2pzcWc3cWd1YXoyamttNGNrc2w=   # This is a secret and should be Vaulted! Generated using head -c 32 /dev/urandom | base64 - TODO: Automate key rotation via ansible. Look at: https://www.serverlab.ca/tutorials/containers/kubernetes/kubernetes-secrets-and-encrypting-at-rest/
+# Set this from Ansible Vault or inventory-specific secret material before running
+# the K3s role. Generate with: head -c 32 /dev/urandom | base64
+k3s_encryption_secret: "CHANGEME_SET_WITH_ANSIBLE_VAULT"
 k3s_version: v1.23.17+k3s1
 
 # Cluster Definitions

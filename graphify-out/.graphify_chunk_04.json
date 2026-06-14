@@ -1,0 +1,472 @@
+{
+  "nodes": [
+    {
+      "id": "cloud_gcp_readme",
+      "label": "GCP Ubiquity deployment guide",
+      "file_type": "document",
+      "source_file": "cloud/gcp/README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "cloud_openstack_readme",
+      "label": "OpenStack Ubiquity deployment guide",
+      "file_type": "document",
+      "source_file": "cloud/openstack/README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "cloud_ovh_readme",
+      "label": "OVH Ubiquity deployment guide",
+      "file_type": "document",
+      "source_file": "cloud/ovh/README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "cloud_utils_azure_vmsizes_requirements",
+      "label": "Azure VM sizes utility Python requirements",
+      "file_type": "code",
+      "source_file": "cloud/utils/azure/vmsizes/requirements.txt",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "disabled_apps_cloudcmd_chart",
+      "label": "cloudcmd Helm chart metadata",
+      "file_type": "code",
+      "source_file": "disabled/apps/cloudcmd/Chart.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "disabled_apps_cloudcmd_auth",
+      "label": "cloudcmd basic-auth Kubernetes Secret",
+      "file_type": "code",
+      "source_file": "disabled/apps/cloudcmd/auth.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "disabled_apps_cloudcmd_values",
+      "label": "cloudcmd Helm values for ingress, auth, image, and resources",
+      "file_type": "code",
+      "source_file": "disabled/apps/cloudcmd/values.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "disabled_apps_cloudshell_ingress",
+      "label": "cloudshell standalone Kubernetes Ingress",
+      "file_type": "code",
+      "source_file": "disabled/apps/cloudshell/ingress.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "disabled_apps_cloudshell_kustomization",
+      "label": "cloudshell Kustomize Helm chart integration",
+      "file_type": "code",
+      "source_file": "disabled/apps/cloudshell/kustomization.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "disabled_apps_cloudshell_tls",
+      "label": "cloudshell Ingress TLS patch",
+      "file_type": "code",
+      "source_file": "disabled/apps/cloudshell/tls.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "disabled_apps_cloudshell_values",
+      "label": "cloudshell Helm values for shelly, ingress, persistence, and Kubernetes access",
+      "file_type": "code",
+      "source_file": "disabled/apps/cloudshell/values.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "disabled_jupyterhub_chart",
+      "label": "JupyterHub Helm chart metadata",
+      "file_type": "code",
+      "source_file": "disabled/jupyterhub/Chart.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "disabled_jupyterhub_values",
+      "label": "JupyterHub Helm values for ingress, hub, and PostgreSQL",
+      "file_type": "code",
+      "source_file": "disabled/jupyterhub/values.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "disabled_matrix_chart",
+      "label": "Matrix Element Web and Dendrite Helm chart metadata",
+      "file_type": "code",
+      "source_file": "disabled/matrix/Chart.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "disabled_matrix_values",
+      "label": "Matrix Element Web and Dendrite values with NATS and PostgreSQL",
+      "file_type": "code",
+      "source_file": "disabled/matrix/values.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "disabled_platform_opensm_chart",
+      "label": "OpenSM network operator Helm chart metadata",
+      "file_type": "code",
+      "source_file": "disabled/platform/opensm/Chart.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "disabled_platform_opensm_values",
+      "label": "OpenSM network operator values for OFED, RDMA, Multus, and IPAM",
+      "file_type": "code",
+      "source_file": "disabled/platform/opensm/values.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "disabled_platform_tekton_pipelines_clusterrolebinding",
+      "label": "Tekton admin ClusterRoleBinding",
+      "file_type": "code",
+      "source_file": "disabled/platform/tekton-pipelines/clusterrolebinding.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "disabled_platform_tekton_pipelines_ingress",
+      "label": "Tekton Dashboard Ingress",
+      "file_type": "code",
+      "source_file": "disabled/platform/tekton-pipelines/ingress.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "disabled_platform_tekton_pipelines_kustomization",
+      "label": "Tekton Pipelines Kustomization with pipeline, triggers, dashboard, and RBAC resources",
+      "file_type": "code",
+      "source_file": "disabled/platform/tekton-pipelines/kustomization.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "disabled_platform_tekton_pipelines_serviceaccount",
+      "label": "Tekton admin ServiceAccount",
+      "file_type": "code",
+      "source_file": "disabled/platform/tekton-pipelines/serviceaccount.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "disabled_platform_vault_chart",
+      "label": "Vault operator Helm chart metadata",
+      "file_type": "code",
+      "source_file": "disabled/platform/vault/Chart.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "cloud_gcp_readme",
+      "target": "cloud_openstack_readme",
+      "relation": "semantically_similar_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "cloud/gcp/README.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "cloud_openstack_readme",
+      "target": "cloud_ovh_readme",
+      "relation": "semantically_similar_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "cloud/openstack/README.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "cloud_ovh_readme",
+      "target": "cloud_openstack_readme",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "cloud/ovh/README.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "disabled_apps_cloudcmd_values",
+      "target": "disabled_apps_cloudcmd_chart",
+      "relation": "implements",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "disabled/apps/cloudcmd/values.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "disabled_apps_cloudcmd_values",
+      "target": "disabled_apps_cloudcmd_auth",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "disabled/apps/cloudcmd/values.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "disabled_apps_cloudshell_kustomization",
+      "target": "disabled_apps_cloudshell_values",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "disabled/apps/cloudshell/kustomization.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "disabled_apps_cloudshell_kustomization",
+      "target": "disabled_apps_cloudshell_tls",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "disabled/apps/cloudshell/kustomization.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "disabled_apps_cloudshell_tls",
+      "target": "disabled_apps_cloudshell_ingress",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "disabled/apps/cloudshell/tls.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "disabled_apps_cloudshell_values",
+      "target": "disabled_apps_cloudshell_ingress",
+      "relation": "semantically_similar_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "disabled/apps/cloudshell/values.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "disabled_jupyterhub_values",
+      "target": "disabled_jupyterhub_chart",
+      "relation": "implements",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "disabled/jupyterhub/values.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "disabled_matrix_values",
+      "target": "disabled_matrix_chart",
+      "relation": "implements",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "disabled/matrix/values.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "disabled_matrix_values",
+      "target": "disabled_jupyterhub_values",
+      "relation": "shares_data_with",
+      "confidence": "INFERRED",
+      "confidence_score": 0.65,
+      "source_file": "disabled/matrix/values.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "disabled_platform_opensm_values",
+      "target": "disabled_platform_opensm_chart",
+      "relation": "implements",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "disabled/platform/opensm/values.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "disabled_platform_tekton_pipelines_kustomization",
+      "target": "disabled_platform_tekton_pipelines_ingress",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "disabled/platform/tekton-pipelines/kustomization.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "disabled_platform_tekton_pipelines_kustomization",
+      "target": "disabled_platform_tekton_pipelines_serviceaccount",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "disabled/platform/tekton-pipelines/kustomization.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "disabled_platform_tekton_pipelines_kustomization",
+      "target": "disabled_platform_tekton_pipelines_clusterrolebinding",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "disabled/platform/tekton-pipelines/kustomization.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "disabled_platform_tekton_pipelines_clusterrolebinding",
+      "target": "disabled_platform_tekton_pipelines_serviceaccount",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "disabled/platform/tekton-pipelines/clusterrolebinding.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "disabled_platform_vault_chart",
+      "target": "disabled_platform_tekton_pipelines_kustomization",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.55,
+      "source_file": "disabled/platform/vault/Chart.yaml",
+      "source_location": null,
+      "weight": 1.0
+    }
+  ],
+  "hyperedges": [
+    {
+      "id": "cloud_provider_terraform_guides",
+      "label": "Cloud Provider Terraform Deployment Guides",
+      "nodes": [
+        "cloud_gcp_readme",
+        "cloud_openstack_readme",
+        "cloud_ovh_readme"
+      ],
+      "relation": "form",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "cloud/gcp/README.md"
+    },
+    {
+      "id": "disabled_cloud_shell_applications",
+      "label": "Disabled Cloud Shell and File Manager Applications",
+      "nodes": [
+        "disabled_apps_cloudcmd_chart",
+        "disabled_apps_cloudcmd_values",
+        "disabled_apps_cloudshell_kustomization",
+        "disabled_apps_cloudshell_values"
+      ],
+      "relation": "participate_in",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "disabled/apps/cloudshell/kustomization.yaml"
+    },
+    {
+      "id": "disabled_platform_addons",
+      "label": "Disabled Platform Addons",
+      "nodes": [
+        "disabled_platform_opensm_chart",
+        "disabled_platform_tekton_pipelines_kustomization",
+        "disabled_platform_vault_chart"
+      ],
+      "relation": "participate_in",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "disabled/platform/tekton-pipelines/kustomization.yaml"
+    }
+  ],
+  "input_tokens": 0,
+  "output_tokens": 0
+}

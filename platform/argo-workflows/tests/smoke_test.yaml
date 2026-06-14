@@ -1,0 +1,8 @@
+suite: chart smoke coverage
+templates:
+  - charts/argo-workflows/templates/controller/workflow-controller-sa.yaml
+tests:
+  - it: renders charts/argo-workflows/templates/controller/workflow-controller-sa.yaml
+    asserts:
+      - hasDocuments:
+          count: 1

@@ -1,0 +1,27 @@
+name: kyverno-policy-tests
+policies:
+  - ../templates/restricted-pod-security.yaml
+  - ../templates/disallow-privileged-containers.yaml
+  - ../templates/require-labels.yaml
+  - ../templates/default-network-policy-denies.yaml
+resources:
+  - resources/valid-pod.yaml
+  - resources/privileged-pod.yaml
+  - resources/missing-label-pod.yaml
+results:
+  - policy: disallow-privileged-containers
+    rule: privileged-containers
+    resource: valid-pod
+    result: pass
+  - policy: disallow-privileged-containers
+    rule: privileged-containers
+    resource: privileged-pod
+    result: fail
+  - policy: require-labels
+    rule: require-app-label
+    resource: valid-pod
+    result: pass
+  - policy: require-labels
+    rule: require-app-label
+    resource: missing-label-pod
+    result: fail

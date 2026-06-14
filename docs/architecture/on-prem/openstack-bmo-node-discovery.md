@@ -1,5 +1,11 @@
 # Bare metal provisioning (PXE boot)
 
+> NVIDIA Infra Controller reset: this Metal3/BareMetalHost discovery path is now
+> fallback/migration-only documentation for existing sites. New Ubiquity day-2
+> bare-metal lifecycle automation should use NVIDIA Infra Controller after the
+> bootstrap boundary. Keep this page for bootstrap-time PXE context and for
+> migrations from the older baremetal-operator flow.
+
 ```mermaid
 flowchart TD
   subgraph controller[Initial controller]

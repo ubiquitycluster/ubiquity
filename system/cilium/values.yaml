@@ -1,0 +1,84 @@
+# Cilium + Hubble Configuration for Ubiquity
+#
+# This chart deploys Cilium's infrastructure resources (IP pools, L2 announcements)
+# and configures Hubble observability. Cilium itself is installed via Helm
+# upstream — this chart manages the cluster-scoped resources.
+#
+# To use Cilium instead of flannel + MetalLB:
+#   1. Configure k3s with --flannel-backend=none --disable-kube-proxy --disable-network-policy
+#      (update metal/group_vars/metal.yml: k3s_server_config)
+#   2. Install Cilium via the upstream Helm chart:
+#      helm repo add cilium https://helm.cilium.io
+#      helm install cilium cilium/cilium --namespace kube-system -f values.yaml
+#   3. Apply this chart to configure IP pools and Hubble
+
+# --- k3s Configuration ---
+# Cilium replaces k3s's built-in flannel CNI. Add these to k3s_server_config
+# in metal/group_vars/metal.yml:
+#
+# k3s_server_config:
+#   flannel-backend: none
+#   disable-kube-proxy: true
+#   disable-network-policy: true
+#   disable:
+#     - local-storage
+#     - servicelb
+#     - traefik
+#   secrets-encryption: true
+
+# --- Cilium Helm values (for upstream cilium/cilium chart) ---
+# These values work with k3s. Pass them via --values when installing Cilium:
+# helm install cilium cilium/cilium --namespace kube-system --values - <<EOF
+# operator:
+#   replicas: 1
+# kubeProxyReplacement: true
+# l2announcements:
+#   enabled: true
+# k8sServiceHost: 127.0.0.1
+# k8sServicePort: 6444
+# hubble:
+#   relay:
+#     enabled: true
+#   ui:
+#     enabled: true
+# EOF
+
+# IP Pool for LoadBalancer services
+loadBalancerIPPool:
+  enabled: true
+  # List of CIDR blocks for LoadBalancer IPs
+  cidrs:
+    - 10.0.3.220/32
+
+# L2 Announcement policy
+l2Announcement:
+  enabled: true
+  externalIPs: true
+  loadBalancerIPs: true
+
+# Hubble observability
+hubble:
+  enabled: true
+  relay:
+    enabled: true
+    replicas: 1
+  ui:
+    enabled: true
+    replicas: 1
+    ingress:
+      enabled: true
+      host: "hubble.ubiquitycluster.uk"
+      className: nginx
+
+# Cilium agent configuration
+cilium:
+  version: "1.16.1"
+  k8sServiceHost: "127.0.0.1"
+  k8sServicePort: 6444
+  kubeProxyReplacement: true
+  operator:
+    replicas: 1
+
+# ConfigMap with upstream install notes
+ciliumConfigMap:
+  enabled: true

@@ -1,0 +1,722 @@
+{
+  "nodes": [
+    {
+      "id": "disabled_vault_chart",
+      "label": "disabled Vault platform chart",
+      "file_type": "document",
+      "source_file": "disabled/platform/vault/values.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "bank_vaults_vault_cr",
+      "label": "Bank-Vaults Vault custom resource",
+      "file_type": "document",
+      "source_file": "disabled/platform/vault/templates/cr.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "vault_ingress_nip_io",
+      "label": "Vault nginx nip.io ingress",
+      "file_type": "document",
+      "source_file": "disabled/platform/vault/templates/cr.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "vault_file_pvc",
+      "label": "Vault file storage PVC",
+      "file_type": "document",
+      "source_file": "disabled/platform/vault/templates/cr.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "vault_kubernetes_auth",
+      "label": "Vault Kubernetes auth role",
+      "file_type": "document",
+      "source_file": "disabled/platform/vault/templates/cr.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "vault_secret_engines",
+      "label": "Vault KV and PKI secret engines",
+      "file_type": "document",
+      "source_file": "disabled/platform/vault/templates/cr.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "vault_startup_secrets",
+      "label": "Vault startup secrets examples",
+      "file_type": "document",
+      "source_file": "disabled/platform/vault/templates/cr.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "vault_rbac",
+      "label": "Vault service account and RBAC",
+      "file_type": "document",
+      "source_file": "disabled/platform/vault/templates/rbac.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "generate_secrets_config",
+      "label": "Vault generated secret config",
+      "file_type": "document",
+      "source_file": "disabled/platform/vault/files/generate-secrets/config.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "generate_secrets_source_configmap",
+      "label": "generate-secrets source ConfigMap",
+      "file_type": "document",
+      "source_file": "disabled/platform/vault/templates/generate-secrets-source.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "generate_secrets_cronjob",
+      "label": "Vault generate-secrets CronJob",
+      "file_type": "document",
+      "source_file": "disabled/platform/vault/templates/generate-secrets-job.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "cloudflared_chart",
+      "label": "disabled cloudflared system chart",
+      "file_type": "document",
+      "source_file": "disabled/system/cloudflared/Chart.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "cloudflared_tunnel",
+      "label": "ubiquity Cloudflare tunnel",
+      "file_type": "document",
+      "source_file": "disabled/system/cloudflared/values.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "cloudflared_ingress_route",
+      "label": "cloudflared wildcard ingress route",
+      "file_type": "document",
+      "source_file": "disabled/system/cloudflared/values.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "external_dns_chart",
+      "label": "disabled external-dns system chart",
+      "file_type": "document",
+      "source_file": "disabled/system/external-dns/Chart.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "external_dns_cloudflare",
+      "label": "external-dns Cloudflare provider",
+      "file_type": "document",
+      "source_file": "disabled/system/external-dns/values.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "disabled_monitoring_servicemonitors",
+      "label": "disabled chart ServiceMonitor settings",
+      "file_type": "document",
+      "source_file": "disabled/system/external-dns/values.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "kube_bench_job",
+      "label": "kube-bench CIS scan job",
+      "file_type": "document",
+      "source_file": "disabled/system/kube-bench/job.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "system_upgrade_controller_kustomization",
+      "label": "system-upgrade-controller kustomization",
+      "file_type": "document",
+      "source_file": "disabled/system/system-upgrade/kustomization.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "k3s_server_upgrade_plan",
+      "label": "k3s server upgrade Plan",
+      "file_type": "document",
+      "source_file": "disabled/system/system-upgrade/k3s/server.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "k3s_agent_upgrade_plan",
+      "label": "k3s agent upgrade Plan",
+      "file_type": "document",
+      "source_file": "disabled/system/system-upgrade/k3s/agent.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "k3s_upgrade_argocd_skip_dryrun",
+      "label": "k3s upgrade Argo CD SkipDryRun annotation",
+      "file_type": "document",
+      "source_file": "disabled/system/system-upgrade/k3s/kustomization.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "ubiquity_faq",
+      "label": "Ubiquity FAQ",
+      "file_type": "document",
+      "source_file": "docs/FAQ.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "deep_assessment_goal",
+      "label": "deep assessment improvement goal",
+      "file_type": "document",
+      "source_file": "docs/GOAL-DEEP-ASSESSMENT.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "next_level_goal",
+      "label": "community readiness goal",
+      "file_type": "document",
+      "source_file": "docs/GOAL-NEXT-LEVEL.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "nvidia_ai_platform_goal",
+      "label": "NVIDIA AI workload platform goal",
+      "file_type": "document",
+      "source_file": "docs/GOAL-NVIDIA-AI-PLATFORM.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "nvidia_ai_implementation_status",
+      "label": "NVIDIA AI implementation status",
+      "file_type": "document",
+      "source_file": "docs/GOAL-NVIDIA-AI-PLATFORM.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "production_quality_goal",
+      "label": "CLI production quality goal",
+      "file_type": "document",
+      "source_file": "docs/GOAL-PRODUCTION-QUALITY.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "pxe_sops_goal",
+      "label": "PXE installer and SOPS goal",
+      "file_type": "document",
+      "source_file": "docs/GOAL-PXE-SOPS.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "remaining_cli_gaps_goal",
+      "label": "remaining CLI transformation gaps",
+      "file_type": "document",
+      "source_file": "docs/GOAL-REMAINING.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "disabled_vault_chart",
+      "target": "bank_vaults_vault_cr",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "disabled/platform/vault/templates/cr.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "bank_vaults_vault_cr",
+      "target": "vault_ingress_nip_io",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "disabled/platform/vault/templates/cr.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "bank_vaults_vault_cr",
+      "target": "vault_file_pvc",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "disabled/platform/vault/templates/cr.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "bank_vaults_vault_cr",
+      "target": "vault_secret_engines",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "disabled/platform/vault/templates/cr.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "vault_kubernetes_auth",
+      "target": "vault_secret_engines",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "disabled/platform/vault/templates/cr.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "vault_rbac",
+      "target": "vault_kubernetes_auth",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "disabled/platform/vault/templates/rbac.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "bank_vaults_vault_cr",
+      "target": "vault_startup_secrets",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "disabled/platform/vault/templates/cr.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "generate_secrets_source_configmap",
+      "target": "generate_secrets_config",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "disabled/platform/vault/templates/generate-secrets-source.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "generate_secrets_cronjob",
+      "target": "generate_secrets_source_configmap",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "disabled/platform/vault/templates/generate-secrets-job.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "generate_secrets_cronjob",
+      "target": "bank_vaults_vault_cr",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "disabled/platform/vault/templates/generate-secrets-job.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "generate_secrets_config",
+      "target": "vault_secret_engines",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "disabled/platform/vault/files/generate-secrets/config.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "cloudflared_chart",
+      "target": "cloudflared_tunnel",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "disabled/system/cloudflared/values.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "cloudflared_tunnel",
+      "target": "cloudflared_ingress_route",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "disabled/system/cloudflared/values.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "cloudflared_tunnel",
+      "target": "disabled_monitoring_servicemonitors",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "disabled/system/cloudflared/values.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "external_dns_chart",
+      "target": "external_dns_cloudflare",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "disabled/system/external-dns/values.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "external_dns_cloudflare",
+      "target": "disabled_monitoring_servicemonitors",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "disabled/system/external-dns/values.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "external_dns_cloudflare",
+      "target": "cloudflared_ingress_route",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "disabled/system/external-dns/values.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "kube_bench_job",
+      "target": "production_quality_goal",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "disabled/system/kube-bench/job.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "system_upgrade_controller_kustomization",
+      "target": "k3s_server_upgrade_plan",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "disabled/system/system-upgrade/k3s/kustomization.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "system_upgrade_controller_kustomization",
+      "target": "k3s_agent_upgrade_plan",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "disabled/system/system-upgrade/k3s/kustomization.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "k3s_agent_upgrade_plan",
+      "target": "k3s_server_upgrade_plan",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "disabled/system/system-upgrade/k3s/agent.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "k3s_upgrade_argocd_skip_dryrun",
+      "target": "system_upgrade_controller_kustomization",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "disabled/system/system-upgrade/k3s/kustomization.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "ubiquity_faq",
+      "target": "remaining_cli_gaps_goal",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/FAQ.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "deep_assessment_goal",
+      "target": "remaining_cli_gaps_goal",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/GOAL-REMAINING.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "deep_assessment_goal",
+      "target": "next_level_goal",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/GOAL-NEXT-LEVEL.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "next_level_goal",
+      "target": "production_quality_goal",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/GOAL-PRODUCTION-QUALITY.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "pxe_sops_goal",
+      "target": "disabled_vault_chart",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/GOAL-PXE-SOPS.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "pxe_sops_goal",
+      "target": "remaining_cli_gaps_goal",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/GOAL-PXE-SOPS.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "nvidia_ai_platform_goal",
+      "target": "nvidia_ai_implementation_status",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/GOAL-NVIDIA-AI-PLATFORM.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "nvidia_ai_platform_goal",
+      "target": "next_level_goal",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/GOAL-NVIDIA-AI-PLATFORM.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "nvidia_ai_platform_goal",
+      "target": "production_quality_goal",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/GOAL-NVIDIA-AI-PLATFORM.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "remaining_cli_gaps_goal",
+      "target": "production_quality_goal",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/GOAL-REMAINING.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "deep_assessment_goal",
+      "target": "ubiquity_faq",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "docs/GOAL-DEEP-ASSESSMENT.md",
+      "source_location": null,
+      "weight": 1.0
+    }
+  ],
+  "hyperedges": [
+    {
+      "id": "disabled_vault_secrets_platform",
+      "label": "Disabled Vault Secrets Platform",
+      "nodes": [
+        "disabled_vault_chart",
+        "bank_vaults_vault_cr",
+        "vault_ingress_nip_io",
+        "vault_file_pvc",
+        "vault_kubernetes_auth",
+        "vault_secret_engines",
+        "vault_startup_secrets",
+        "vault_rbac",
+        "generate_secrets_config",
+        "generate_secrets_source_configmap",
+        "generate_secrets_cronjob"
+      ],
+      "relation": "participate_in",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "disabled/platform/vault/templates/cr.yaml"
+    },
+    {
+      "id": "disabled_cloudflare_edge_dns_bundle",
+      "label": "Disabled Cloudflare Edge Dns Bundle",
+      "nodes": [
+        "cloudflared_chart",
+        "cloudflared_tunnel",
+        "cloudflared_ingress_route",
+        "external_dns_chart",
+        "external_dns_cloudflare",
+        "disabled_monitoring_servicemonitors"
+      ],
+      "relation": "participate_in",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "disabled/system/cloudflared/values.yaml"
+    },
+    {
+      "id": "disabled_cluster_operations_bundle",
+      "label": "Disabled Cluster Operations Bundle",
+      "nodes": [
+        "kube_bench_job",
+        "system_upgrade_controller_kustomization",
+        "k3s_server_upgrade_plan",
+        "k3s_agent_upgrade_plan",
+        "k3s_upgrade_argocd_skip_dryrun"
+      ],
+      "relation": "participate_in",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "disabled/system/system-upgrade/kustomization.yaml"
+    }
+  ],
+  "input_tokens": 30700,
+  "output_tokens": 11800
+}

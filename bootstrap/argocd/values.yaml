@@ -5,7 +5,7 @@
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#     https://github.com/ubiquitycluster/ubiquity-open/blob/main/LICENSE
+#     https://github.com/ubiquitycluster/ubiquity/blob/main/LICENSE
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -21,7 +21,7 @@
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#     https://github.com/ubiquitycluster/ubiquity-open/blob/main/LICENSE
+#     https://github.com/ubiquitycluster/ubiquity/blob/main/LICENSE
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -54,7 +54,7 @@ argo-cd:
       serviceMonitor:
         enabled: true
     nodeSelector:
-      node-role.kubernetes.io/master: 'true'
+      node-role.kubernetes.io/control-plane: 'true'
     replicas: 1
     resources:
       limits:
@@ -79,7 +79,7 @@ argo-cd:
       enabled: true
     metrics: *id001
     nodeSelector:
-      node-role.kubernetes.io/master: 'true'
+      node-role.kubernetes.io/control-plane: 'true'
     resources:
       limits:
         cpu: 100m
@@ -94,7 +94,7 @@ argo-cd:
     metrics: *id001
     replicas: 1
     nodeSelector:
-      node-role.kubernetes.io/master: 'true'
+      node-role.kubernetes.io/control-plane: 'true'
     resources:
       limits:
         cpu: '3'
@@ -107,7 +107,7 @@ argo-cd:
     replicas: 1
     metrics: *id001
     nodeSelector:
-      node-role.kubernetes.io/master: 'true'
+      node-role.kubernetes.io/control-plane: 'true'
     resources:
       limits:
         cpu: 500m
@@ -133,7 +133,7 @@ argo-cd:
         return hs
       statusbadge.enabled: 'true'
     nodeSelector:
-      node-role.kubernetes.io/master: 'true'
+      node-role.kubernetes.io/control-plane: 'true'
     ingress:
       annotations:
         # See ../docs/reference/ingress.md for more information
@@ -206,4 +206,4 @@ argo-cd:
   notifications:
     enabled: true
     nodeSelector:
-      node-role.kubernetes.io/master: 'true'
+      node-role.kubernetes.io/control-plane: 'true'

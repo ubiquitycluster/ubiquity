@@ -1,0 +1,54 @@
+{{- if .Values.sampleNIMService.enabled }}
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ .Values.sampleNIMService.namespace }}
+---
+apiVersion: apps.nvidia.com/v1alpha1
+kind: NIMCache
+metadata:
+  name: {{ .Values.sampleNIMService.name }}
+  namespace: {{ .Values.sampleNIMService.namespace }}
+spec:
+  source:
+    ngc:
+      modelPuller: {{ .Values.sampleNIMService.modelPuller }}
+      pullSecret: {{ default .Values.ngc.pullSecretName .Values.ngc.existingPullSecret }}
+      authSecret: {{ default .Values.ngc.apiKeySecretName .Values.ngc.existingApiKeySecret }}
+      model:
+        engine: tensorrt_llm
+        tensorParallelism: {{ .Values.sampleNIMService.tensorParallelism | quote }}
+  storage:
+    pvc:
+      create: true
+      storageClass: {{ .Values.sampleNIMService.storage.storageClass | quote }}
+      size: {{ .Values.sampleNIMService.storage.size | quote }}
+      volumeAccessMode: {{ .Values.sampleNIMService.storage.volumeAccessMode }}
+---
+apiVersion: apps.nvidia.com/v1alpha1
+kind: NIMService
+metadata:
+  name: {{ .Values.sampleNIMService.name }}
+  namespace: {{ .Values.sampleNIMService.namespace }}
+spec:
+  image:
+    repository: {{ .Values.sampleNIMService.image.repository }}
+    tag: {{ .Values.sampleNIMService.image.tag | quote }}
+    pullPolicy: IfNotPresent
+    pullSecrets:
+      - {{ default .Values.ngc.pullSecretName .Values.ngc.existingPullSecret }}
+  authSecret: {{ default .Values.ngc.apiKeySecretName .Values.ngc.existingApiKeySecret }}
+  storage:
+    nimCache:
+      name: {{ .Values.sampleNIMService.name }}
+      profile: ""
+  replicas: {{ .Values.sampleNIMService.replicas }}
+  resources:
+    limits:
+      nvidia.com/gpu: {{ .Values.sampleNIMService.gpuLimit }}
+  expose:
+    service:
+      type: {{ .Values.sampleNIMService.service.type }}
+      port: {{ .Values.sampleNIMService.service.port }}
+{{- end }}

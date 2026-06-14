@@ -1,5 +1,11 @@
 # Remove a Host from a Cluster
 
+> NVIDIA Infra Controller reset: this removal flow is fallback/migration-only
+> guidance for sites that still manage nodes through Metal3. For new Ubiquity
+> day-2 bare-metal lifecycle automation, remove or deprovision machines through
+> NVIDIA Infra Controller Task workflows rather than direct BareMetalHost helper
+> procedures.
+
 At some point you will need to remove a host from a cluster. You may be
 removing failed hardware, downsizing a healthy cluster, or have some other
 reason.

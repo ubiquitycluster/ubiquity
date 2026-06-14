@@ -1,0 +1,8 @@
+suite: chart smoke coverage
+templates:
+  - charts/trow/templates/service.yaml
+tests:
+  - it: renders charts/trow/templates/service.yaml
+    asserts:
+      - hasDocuments:
+          count: 1

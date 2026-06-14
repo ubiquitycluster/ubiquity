@@ -1,0 +1,64 @@
+# Ubiquity Helm Chart Compatibility Matrix
+# ==========================================
+# Records which upstream component chart versions work with which K8s versions.
+# When adding a new k3s version to the test matrix, add an entry here.
+# When updating a chart dependency version, verify against all K8s versions.
+#
+# k3s_version: The k3s/K8s minor version
+# components: The helm chart and its working version + pin notes
+---
+k3s_versions:
+  v1.30.14:
+    k8s_minor: "30"
+    notes: "Oldest supported k3s minor release"
+    components:
+      argo-cd:
+        chart_version: "6.7.17"
+        app_version: "v2.10.8"
+        notes: "No version pin needed — chart is K8s 1.20+ compatible"
+      kyverno:
+        chart_version: "3.5.3"
+        app_version: "v1.15.3"
+        notes: >
+          Pinned to 3.5.x. 3.8.x requires selectableFields (CRD feature in K8s 1.29+).
+          K8s 1.30 has the ValidatingAdmissionPolicy feature gate (beta) needed for Kyverno's
+          reports controller, but not selectableFields in CRDs.
+      kyverno-policies:
+        chart_version: "0.1.0"
+        notes: "Requires Kyverno CRDs (kyverno.io/v1 ClusterPolicy). Pinned to deny-based validation syntax."
+
+  v1.31.14:
+    k8s_minor: "31"
+    notes: "k3d default as of v5.8.3"
+    components:
+      argo-cd:
+        chart_version: "6.7.17"
+        app_version: "v2.10.8"
+        notes: "No version pin needed"
+      kyverno:
+        chart_version: "3.5.3"
+        app_version: "v1.15.3"
+        notes: >
+          Pinned to 3.5.x (same constraint as v1.30 — no selectableFields in K8s 1.31 CRDs).
+      kyverno-policies:
+        chart_version: "0.1.0"
+        notes: "Same as v1.30"
+
+  v1.32.13:
+    k8s_minor: "32"
+    notes: "Latest stable k3s release — full feature set available"
+    components:
+      argo-cd:
+        chart_version: "6.7.17"
+        app_version: "v2.10.8"
+        notes: "No version pin needed"
+      kyverno:
+        chart_version: "3.8.1"
+        app_version: "v1.18.1"
+        notes: >
+          Full compatibility. K8s 1.32 supports selectableFields (stable since 1.29),
+          ValidatingAdmissionPolicy (stable since 1.30), and all other K8s features
+          used by modern Kyverno.
+      kyverno-policies:
+        chart_version: "0.1.0"
+        notes: "Uses validate.deny conditions syntax (Kyverno v1.12+ compatible)"

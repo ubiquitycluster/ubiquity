@@ -1,0 +1,112 @@
+{{- if .Values.vm.enabled }}
+{{- $profile := index .Values.vm.osProfiles .Values.vm.os }}
+{{- if not $profile }}{{ fail (printf "unknown vm.os %q" .Values.vm.os) }}{{- end }}
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  name: {{ .Values.vm.name }}
+  namespace: {{ .Values.vm.namespace }}
+  labels:
+    kubevirt.io/domain: {{ .Values.vm.name }}
+    {{- include "kubevirt-vms.labels" . | nindent 4 }}
+    {{- with .Values.vm.labels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  annotations:
+    ubiquity.ai/source: kubevirt-cdi-multus
+    ubiquity.ai/os-display-name: {{ $profile.displayName | quote }}
+    ubiquity.ai/gpu-note: "KubeVirt GPU access requires permittedHostDevices and NVIDIA GPU Operator/device-plugin resources on VM-capable nodes."
+    {{- with .Values.vm.annotations }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+spec:
+  runStrategy: {{ ternary "Always" "Manual" .Values.vm.running }}
+  {{- if .Values.vm.instanceType }}
+  instancetype:
+    name: {{ .Values.vm.instanceType }}
+    kind: VirtualMachineClusterInstancetype
+  {{- end }}
+  {{- if .Values.vm.preference }}
+  preference:
+    name: {{ .Values.vm.preference }}
+    kind: VirtualMachineClusterPreference
+  {{- end }}
+  template:
+    metadata:
+      labels:
+        kubevirt.io/domain: {{ .Values.vm.name }}
+        ubiquity.ai/vm-name: {{ .Values.vm.name }}
+    spec:
+      domain:
+        {{- if not .Values.vm.instanceType }}
+        cpu:
+          cores: {{ .Values.vm.cpuCores }}
+        resources:
+          requests:
+            memory: {{ .Values.vm.memory }}
+        {{- end }}
+        devices:
+          disks:
+            - name: {{ ternary "bootdisk" "rootdisk" (ne .Values.vm.bootDisk "") }}
+              disk:
+                bus: virtio
+            {{- range .Values.vm.dataDisks }}
+            - name: {{ .name }}
+              disk:
+                bus: virtio
+            {{- end }}
+            - name: cloudinitdisk
+              disk:
+                bus: virtio
+          {{- if .Values.vm.gpu.enabled }}
+          {{- if eq .Values.vm.gpu.attachmentMode "hostDevice" }}
+          hostDevices:
+          {{- range $i := until (int .Values.vm.gpu.count) }}
+            - name: hostdev{{ $i }}
+              deviceName: {{ $.Values.vm.gpu.resourceName }}
+          {{- end }}
+          {{- else }}
+          gpus:
+          {{- range $i := until (int .Values.vm.gpu.count) }}
+            - name: gpu{{ $i }}
+              deviceName: {{ $.Values.vm.gpu.resourceName }}
+          {{- end }}
+          {{- end }}
+          {{- end }}
+      networks:
+        - name: podnet
+          pod: {}
+        {{- if eq .Values.vm.networkIsolation "multus" }}
+        - name: isolated-net
+          multus:
+            networkName: {{ .Values.vm.network.name }}
+        {{- end }}
+      volumes:
+        {{- if .Values.vm.bootDisk }}
+        - name: bootdisk
+          persistentVolumeClaim:
+            claimName: {{ .Values.vm.bootDisk }}
+        {{- else }}
+        - name: rootdisk
+          dataVolume:
+            name: {{ .Values.vm.name }}-rootdisk
+        {{- end }}
+        {{- range .Values.vm.dataDisks }}
+        - name: {{ .name }}
+          persistentVolumeClaim:
+            claimName: {{ .pvcName }}
+        {{- end }}
+        - name: cloudinitdisk
+          cloudInitNoCloud:
+            userData: |-
+              #cloud-config
+              ssh_authorized_keys:
+              {{- if .Values.vm.sshAuthorizedKeys }}
+              {{- range .Values.vm.sshAuthorizedKeys }}
+                - {{ . | quote }}
+              {{- end }}
+              {{- else }}
+                - "replace-with-authorized-key"
+              {{- end }}
+              package_update: true
+{{- end }}

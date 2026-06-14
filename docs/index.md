@@ -5,7 +5,9 @@ Welcome to the Ubiquity documentation. Ubiquity is a cloud-native platform for h
 ## Getting Started
 
 - [Installation Guide](installation/sandbox.md) - Start with our sandbox environment
+- [Sandbox and ThinkCentre deployment guide](admin-guide/deployment/thinkcentre-core-services.md) - Deploy the core-services bundle locally or on the original small-node hardware profile
 - [Architecture Overview](architecture/overview.md) - Learn about Ubiquity's design
+- [NVIDIA AI Platform Operations](admin-guide/nvidia-ai-platform.md) - Deploy and validate NVIDIA-backed AI workload profiles
 - [User Guide](user-guide/onboarding.md) - Get started as a user
 
 ## Quick Links

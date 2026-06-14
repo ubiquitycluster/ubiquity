@@ -1,3 +1,4 @@
+{{- if .Values.legacyDcgmExporter.enabled }}
 # Copyright The Ubiquity Authors.
 #
 # Licensed under the Apache License, Version 2.0. Previously licensed under the Functional Source License (the "License");
@@ -88,3 +89,4 @@ spec:
   selector:
     app: dcgm-exporter
   type: ClusterIP
+{{- end }}

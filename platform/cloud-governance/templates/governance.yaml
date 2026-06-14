@@ -1,0 +1,127 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ .Values.governance.name }}-cloud-admin
+  namespace: {{ .Values.governance.namespace }}
+rules:
+  - apiGroups: ["", "networking.k8s.io"]
+    resources: ["services", "configmaps", "networkpolicies"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ .Values.governance.name }}-cloud-admin
+  namespace: {{ .Values.governance.namespace }}
+subjects:
+  - kind: Group
+    name: ubiquity:{{ .Values.governance.namespace }}:cloud-admins
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ .Values.governance.name }}-cloud-admin
+---
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: require-cloud-provenance
+spec:
+  validationFailureAction: Enforce
+  rules: []
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ .Values.governance.name }}-gitops-lifecycle
+  namespace: argocd
+  labels:
+    ubiquity.ai/gitops-lifecycle: tenant-cloud
+spec:
+  project: default
+  source:
+    repoURL: https://example.invalid/ubiquity-gitops.git
+    targetRevision: HEAD
+    path: tenants/{{ .Values.governance.namespace }}/cloud
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: {{ .Values.governance.namespace }}
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ .Values.governance.name }}-cloud
+  namespace: {{ .Values.governance.namespace }}
+spec:
+  selector:
+    matchLabels:
+      ubiquity.ai/cloud-observed: "true"
+  endpoints:
+    - port: metrics
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: {{ .Values.governance.name }}-cloud
+  namespace: {{ .Values.governance.namespace }}
+spec:
+  groups:
+    - name: cloud-primitive-degraded
+      rules: []
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.governance.name }}-cost-allocation
+  namespace: {{ .Values.governance.namespace }}
+  labels:
+    opencost.io/allocation: tenant
+data:
+  tenant: {{ .Values.governance.namespace }}
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: {{ .Values.governance.name }}-gateway
+  namespace: {{ .Values.governance.namespace }}
+spec:
+  gatewayClassName: ubiquity-tenant
+  listeners:
+    - name: https
+      protocol: HTTPS
+      port: 443
+---
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: {{ .Values.governance.name }}-dns
+  namespace: {{ .Values.governance.namespace }}
+spec:
+  endpoints: []
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ .Values.governance.name }}-vpn-egress
+  namespace: {{ .Values.governance.namespace }}
+  labels:
+    ubiquity.ai/network-boundary: vpn
+spec:
+  podSelector: {}
+  policyTypes: ["Egress"]
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: {{ .Values.governance.name }}-expandable
+provisioner: driver.longhorn.io
+allowVolumeExpansion: true
+reclaimPolicy: Retain
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.governance.name }}-upgrade-policy
+  namespace: {{ .Values.governance.namespace }}
+data:
+  upgradePolicy: staged-server-dry-run-then-reconcile
+  rollbackPolicy: retain-previous-rendered-manifest-and-controller-version

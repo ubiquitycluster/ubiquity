@@ -1,0 +1,6 @@
+dependencies:
+- name: cvmfs-csi
+  repository: oci://registry.cern.ch/kubernetes/charts
+  version: 2.3.2
+digest: sha256:9db862c06c6447c77866929e2d486c695ea1a19d1426963f72265499995e460a
+generated: "2026-06-04T13:33:58.852935+01:00"

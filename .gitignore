@@ -1,0 +1,12 @@
+site/
+/ubiquity
+/ubiquity-cli
+/ubiquity-installer
+dist/
+
+# Local kubeconfigs contain client credentials and must not be committed.
+metal/kubeconfig.yaml
+cmd/ubiquity/cmd/metal/kubeconfig.yaml
+*.kubeconfig
+kubeconfig
+kubeconfig.yaml

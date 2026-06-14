@@ -1,6 +1,7 @@
 # Configuration
 
-Open the [tools container](../../runbooks/tools-container.md), which includes all the tools needed:
+Open the [tools container](../../runbooks/tools-container.md), which includes the
+required deployment tools.
 
 === "Docker"
 
@@ -16,34 +17,42 @@ Open the [tools container](../../runbooks/tools-container.md), which includes al
 
 !!! note
 
-     It will take a while to build the tools container on the first time
+     It will take a while to build the tools container the first time.
 
-Run the following script to configure the environment:
+Run the configuration workflow:
 
 ```sh
 make configure
 ```
 
-!!! example
+!!! example "example input"
 
-    <!-- TODO update example input -->
+    ```text
+    Text editor (nvim): nvim
+    Enter seed repo (github.com/ubiquitycluster/ubiquity): github.com/example/platform-gitops
+    Enter your domain (ubiquity.example.com): example.com
+    Enter cluster name (ubiquity): prod-a
+    Enter external DNS provider (cloudflare): cloudflare
+    Enter lifecycle backend (nico): nico
     ```
-    Text editor (nvim):
-    Enter seed repo (github.com/cjcshadowsan/ubiquity): github.com/my-cluster/ubiquity
-    Enter your domain (ubiquitycluster.uk): example.com
-    ```
 
-It will prompt you to edit the inventory:
+The workflow prompts you to edit inventory and environment inputs. Review these
+values before any live apply:
 
-- IP address: the desired one, not the current one, since your servers have no operating system installed yet
-- Disk: based on `/dev/$DISK`, in my case it's `sda`, but yours can be `sdb`, `nvme0n1`...
-- Network interface: usually it's `eth0`, mine is `eno1`, could be `en<s for slot, number><f for function number starting from 0> - so ens4f0`
-- External address: an address. Can be the same as the internal IP address
-- External interface (optional): usually it's `eth0`, mine is `eno1`, could be `en<s for slot, number><f for function number starting from 0> - so ens4f0`
-- Wake on Lan: true or false, or otherwise whether to use IPMI or not
-- MAC address: the **lowercase, colon separated** MAC address of the above network interface
+- IP address: desired static address for each machine, not a temporary install
+  address
+- Disk: the target installation disk such as `sda`, `sdb`, or `nvme0n1`
+- Network interface: the production NIC name such as `eth0`, `eno1`, or `ens4f0`
+- External address: the address used by ingress, management, or load balancer
+  traffic
+- External interface: optional interface used for external traffic
+- Wake on LAN / BMC: whether power operations use WoL, IPMI, Redfish, or NICo
+- MAC address: lowercase, colon-separated MAC address for PXE and inventory
+  matching
+- Credential references: Vault, sealed-secret, or password-manager references;
+  do not place raw passwords or tokens in Git
 
-!!! example
+!!! example "inventory excerpt"
 
     ```yaml title="metal/inventories/prod.yml"
     --8<--
@@ -51,4 +60,21 @@ It will prompt you to edit the inventory:
     --8<--
     ```
 
-At the end it will show what has changed. After examining the diff, commit and push the changes.
+## Production-lite caveats
+
+Production-lite environments may share operator workstations, smaller control
+planes, or simplified external dependencies. Treat them as validation
+installations, not as proof that the production environment is ready. Record
+which production requirements are intentionally absent, such as HA load balancer,
+offsite backup, multi-operator credential custody, or hardware redundancy.
+
+## Proof boundary
+
+Dry-run/local proof confirms that configuration files render and that commands
+can execute without mutating infrastructure. Live production proof requires the
+actual environment to show Kubernetes readiness, NICo lifecycle evidence, DNS and
+certificate issuance, backup target reachability, and workload smoke tests.
+
+At the end of configuration, examine the diff, confirm that no raw credentials
+were written, then commit and push the reviewed changes through the normal change
+process.

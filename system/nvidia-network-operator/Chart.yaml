@@ -25,3 +25,4 @@ dependencies:
   - name: rke2-multus
     version: 4.0.203
     repository: https://rke2-charts.rancher.io
+    condition: rke2-multus.enabled

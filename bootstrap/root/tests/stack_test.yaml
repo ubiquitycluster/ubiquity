@@ -1,0 +1,79 @@
+suite: test root ApplicationSet exclusions
+templates:
+  - templates/stack.yaml
+tests:
+  - it: excludes BMO/Metal3 from the default system stack
+    documentSelector:
+      path: metadata.name
+      value: system
+    asserts:
+      - equal:
+          path: spec.generators[0].git.directories[0].path
+          value: system/*
+      - contains:
+          path: spec.generators[0].git.directories
+          content:
+            path: system/baremetal-operator-system
+            exclude: true
+  - it: excludes NICo root GitOps wrappers by default from the system stack
+    documentSelector:
+      path: metadata.name
+      value: system
+    asserts:
+      - contains:
+          path: spec.generators[0].git.directories
+          content:
+            path: system/nvidia-infra-controller-core
+            exclude: true
+      - contains:
+          path: spec.generators[0].git.directories
+          content:
+            path: system/nvidia-infra-controller-prereqs
+            exclude: true
+  - it: excludes NICo root GitOps wrappers by default from the platform stack
+    documentSelector:
+      path: metadata.name
+      value: platform
+    asserts:
+      - contains:
+          path: spec.generators[0].git.directories
+          content:
+            path: platform/nvidia-infra-controller-rest
+            exclude: true
+      - contains:
+          path: spec.generators[0].git.directories
+          content:
+            path: platform/node-lifecycle-exporter
+            exclude: true
+  - it: allows NICo root GitOps wrappers when explicitly enabled
+    set:
+      nico.enabled: true
+    documentSelector:
+      path: metadata.name
+      value: platform
+    asserts:
+      - notContains:
+          path: spec.generators[0].git.directories
+          content:
+            path: platform/nvidia-infra-controller-rest
+            exclude: true
+      - notContains:
+          path: spec.generators[0].git.directories
+          content:
+            path: platform/node-lifecycle-exporter
+            exclude: true
+  - it: supports custom stack excludes
+    set:
+      stacks:
+        - name: custom
+          excludes:
+            - custom/disabled-component
+    documentSelector:
+      path: metadata.name
+      value: custom
+    asserts:
+      - contains:
+          path: spec.generators[0].git.directories
+          content:
+            path: custom/disabled-component
+            exclude: true

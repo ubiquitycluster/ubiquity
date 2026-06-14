@@ -1,0 +1,14 @@
+namespaces:
+  inference:
+    name: ai-inference
+    gpuQuota: 8
+  batch:
+    name: ai-batch
+    gpuQuota: 16
+priorityClasses:
+  inference:
+    value: 100000
+    description: Production NVIDIA NIM inference workloads
+  batch:
+    value: 50000
+    description: GPU batch and training workloads

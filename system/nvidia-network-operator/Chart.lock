@@ -1,0 +1,9 @@
+dependencies:
+- name: network-operator
+  repository: https://helm.ngc.nvidia.com/nvidia
+  version: 24.1.0
+- name: rke2-multus
+  repository: https://rke2-charts.rancher.io
+  version: v4.0.203
+digest: sha256:5b103f3fa55c9a71596a47cde0ad21fa5f5e10d317d115ec803a69955469b272
+generated: "2026-06-05T19:54:58.502562+01:00"

@@ -1,0 +1,8 @@
+suite: test nvidia-infra-controller-rest services
+templates:
+  - templates/services.yaml
+tests:
+  - it: renders services
+    asserts:
+      - hasDocuments:
+          count: 2

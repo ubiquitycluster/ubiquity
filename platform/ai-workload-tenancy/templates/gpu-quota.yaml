@@ -1,0 +1,19 @@
+{{- range $key, $namespace := .Values.namespaces }}
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ $namespace.name }}
+  labels:
+    ubiquity.ai/workload-class: {{ $key }}
+---
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: gpu-quota
+  namespace: {{ $namespace.name }}
+spec:
+  hard:
+    requests.nvidia.com/gpu: {{ $namespace.gpuQuota | quote }}
+    limits.nvidia.com/gpu: {{ $namespace.gpuQuota | quote }}
+{{- end }}

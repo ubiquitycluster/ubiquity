@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "k8s-nim-operator": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "ngc": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "commitCredentials": { "type": "boolean" },
+        "apiKeySecretName": { "type": "string", "minLength": 1 },
+        "pullSecretName": { "type": "string", "minLength": 1 },
+        "existingApiKeySecret": { "type": "string" },
+        "existingPullSecret": { "type": "string" }
+      }
+    },
+    "sampleNIMService": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "namespace": { "type": "string", "minLength": 1 },
+        "name": { "type": "string", "minLength": 1 },
+        "image": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "repository": { "type": "string", "minLength": 1 },
+            "tag": { "type": "string", "minLength": 1 }
+          }
+        },
+        "modelPuller": { "type": "string", "minLength": 1 },
+        "tensorParallelism": { "type": "string", "minLength": 1 },
+        "gpuLimit": { "type": "integer", "minimum": 0 },
+        "replicas": { "type": "integer", "minimum": 0 },
+        "storage": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "storageClass": { "type": "string" },
+            "size": { "type": "string", "minLength": 1 },
+            "volumeAccessMode": { "type": "string", "minLength": 1 }
+          }
+        },
+        "service": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "type": { "type": "string", "enum": ["ClusterIP", "NodePort", "LoadBalancer"] },
+            "port": { "type": "integer", "minimum": 1, "maximum": 65535 }
+          }
+        }
+      }
+    },
+    "smokeTest": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "endpoint": { "type": "string", "minLength": 1 },
+        "successConfigMapName": { "type": "string", "minLength": 1 },
+        "successNamespace": { "type": "string" },
+        "serviceAccountName": { "type": "string", "minLength": 1 },
+        "curlImage": { "type": "string", "minLength": 1 },
+        "kubectlImage": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}

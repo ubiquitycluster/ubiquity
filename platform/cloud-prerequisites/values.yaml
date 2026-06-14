@@ -1,0 +1,53 @@
+prerequisites:
+  name: cloud-prereqs
+  namespace: ubiquity-system
+  serverSideDryRunRequired: true
+  reconciliationRequired: true
+  restoreDrillRequired: true
+  crds:
+    - datavolumes.cdi.kubevirt.io
+    - virtualmachines.kubevirt.io
+    - network-attachment-definitions.k8s.cni.cncf.io
+    - objectbucketclaims.objectbucket.io
+    - clusters.postgresql.cnpg.io
+    - redisfailovers.databases.spotahome.com
+    - kafkas.kafka.strimzi.io
+    - projects.goharbor.io
+    - mariadbs.k8s.mariadb.com
+    - perconaservermongodbs.psmdb.percona.com
+    - natsclusters.nats.io
+    - rabbitmqclusters.rabbitmq.com
+    - clickhouseinstallations.clickhouse.altinity.com
+    - opensearchclusters.opensearch.opster.io
+    - qdrantclusters.qdrant.io
+    - vaultconnections.secrets.hashicorp.com
+    - httpproxies.projectcontour.io
+    - tcproutes.gateway.networking.k8s.io
+    - clusters.cluster.x-k8s.io
+    - schedules.k8up.io
+    - restores.k8up.io
+    - volumesnapshotclasses.snapshot.storage.k8s.io
+  operators:
+    - KubeVirt CDI
+    - KubeVirt
+    - Multus
+    - ObjectBucket controller
+    - CloudNativePG
+    - Redis Operator
+    - Strimzi
+    - Harbor operator or compatible registry controller
+    - MariaDB Operator
+    - Percona MongoDB Operator
+    - NATS Operator
+    - RabbitMQ Cluster Operator
+    - Altinity ClickHouse Operator
+    - OpenSearch Operator
+    - Qdrant Operator
+    - OpenBao/Vault-compatible secrets operator
+    - Contour HTTPProxy controller
+    - Gateway API TCPRoute controller
+    - Cluster API
+    - Kamaji-compatible control-plane provider
+    - K8up
+    - snapshot-controller
+    - Longhorn CSI

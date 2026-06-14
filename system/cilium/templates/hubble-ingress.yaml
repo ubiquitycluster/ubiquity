@@ -1,0 +1,24 @@
+{{- if and .Values.hubble.enabled .Values.hubble.ui.enabled .Values.hubble.ui.ingress.enabled }}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ include "cilium.fullname" . }}-hubble-ui
+  labels:
+    {{- include "cilium.labels" . | nindent 4 }}
+  annotations:
+    kubernetes.io/ingress.class: {{ .Values.hubble.ui.ingress.className | default "nginx" }}
+spec:
+  ingressClassName: {{ .Values.hubble.ui.ingress.className | default "nginx" }}
+  rules:
+    - host: {{ required "hubble.ui.ingress.host is required when ingress is enabled" .Values.hubble.ui.ingress.host }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: hubble-ui
+                port:
+                  number: 80
+{{- end }}

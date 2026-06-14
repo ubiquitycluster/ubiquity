@@ -1,0 +1,9 @@
+apiVersion: v2
+name: app-template
+description: Shared application template for Ubiquity apps
+type: application
+version: 0.1.0
+keywords:
+  - ubiquity
+  - template
+home: https://github.com/ubiquitycluster/ubiquity

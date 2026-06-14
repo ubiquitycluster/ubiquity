@@ -1,0 +1,24 @@
+{{- range $name, $component := .Values.components }}
+{{- if and $component.enabled $component.service.enabled }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "nicoCore.fullname" $ }}-{{ $name }}
+  labels:
+    {{- include "nicoCore.labels" $ | nindent 4 }}
+    app.kubernetes.io/component: {{ $name }}
+  annotations:
+    {{- include "nicoCore.provenanceAnnotations" $ | nindent 4 }}
+spec:
+  type: {{ $component.service.type | default "ClusterIP" }}
+  selector:
+    app.kubernetes.io/instance: {{ $.Release.Name }}
+    app.kubernetes.io/component: {{ $name }}
+  ports:
+    - name: {{ $component.service.name | default "http" }}
+      port: {{ $component.service.port }}
+      targetPort: {{ $component.service.targetPort | default $component.service.port }}
+      protocol: TCP
+{{- end }}
+{{- end }}

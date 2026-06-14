@@ -1,0 +1,17 @@
+suite: loki smoke coverage
+templates:
+  - templates/loki-dashboard.yaml
+  - charts/loki-stack/templates/datasources.yaml
+tests:
+  - it: renders the local Loki dashboard
+    template: templates/loki-dashboard.yaml
+    asserts:
+      - hasDocuments:
+          count: 1
+      - isKind:
+          of: ConfigMap
+  - it: renders the Loki stack datasource config
+    template: charts/loki-stack/templates/datasources.yaml
+    asserts:
+      - hasDocuments:
+          count: 1

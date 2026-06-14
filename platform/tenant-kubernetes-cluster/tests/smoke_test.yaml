@@ -1,0 +1,8 @@
+suite: chart smoke coverage
+templates:
+  - templates/cluster.yaml
+tests:
+  - it: renders templates/cluster.yaml
+    asserts:
+      - hasDocuments:
+          count: 3

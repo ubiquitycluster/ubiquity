@@ -1,0 +1,8 @@
+suite: chart smoke coverage
+templates:
+  - charts/renovate/templates/configmap.yaml
+tests:
+  - it: renders charts/renovate/templates/configmap.yaml
+    asserts:
+      - hasDocuments:
+          count: 1

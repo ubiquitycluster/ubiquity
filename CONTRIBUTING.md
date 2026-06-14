@@ -1,5 +1,33 @@
 # How to Contribute
 
+## Development Setup
+
+### Prerequisites
+- Go 1.22+
+- Docker (for sandbox testing)
+- Helm
+- kubectl
+- pre-commit
+
+### Quick start
+​```bash
+git clone https://github.com/ubiquitycluster/ubiquity.git
+cd ubiquity
+make cli
+make installer
+pre-commit install
+./ubiquity-cli up --sandbox --skip-security
+​```
+
+### Project structure
+- `cmd/ubiquity/` — Go CLI (main entry point)
+- `pkg/` — Go packages (config, provision, network, cloud, tui)
+- `tools/` — Go PXE installer
+- `system/` — Helm charts for cluster components
+- `platform/` — Helm charts for platform services
+- `metal/` — Ansible roles for bare metal provisioning
+- `cloud/` — Terraform modules for cloud providers
+
 Ubiquity project components are [Apache-2.0 licensed](LICENSE) (previously FSL-1.0-Apache-2.0) and accept contributions via
 GitHub pull requests.
 

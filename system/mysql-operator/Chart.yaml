@@ -17,8 +17,8 @@
 
 apiVersion: v2
 name: mysql-operator
-version: 2.1.3
+version: 2.1.11
 dependencies:
   - name: mysql-operator
-    version: 2.1.3
+    version: 2.1.11
     repository: https://mysql.github.io/mysql-operator

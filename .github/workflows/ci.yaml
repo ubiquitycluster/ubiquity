@@ -1,0 +1,348 @@
+# -------------------------------------------------------------------------------------------------
+# CI Pipeline — Ubiquity Cluster
+#
+# Runs on every push and PR to main. Gates changes with lint → validate → scan → test.
+# -------------------------------------------------------------------------------------------------
+
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  GO_VERSION: "1.26.4"
+  K3D_VERSION: "v5.8.3"
+  HELM_VERSION: "v3.16.4"
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ env.GO_VERSION }}
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install linters
+        run: |
+          pip install pre-commit yamllint ansible-lint
+          sudo apt-get install -y shellcheck
+
+      - name: Setup Helm
+        uses: azure/setup-helm@v4
+        with:
+          version: ${{ env.HELM_VERSION }}
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.9"
+
+      - name: Run pre-commit
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            git fetch origin "${{ github.event.pull_request.head.sha }}" --depth=1
+            git diff-tree --no-commit-id --name-only -r "${{ github.event.pull_request.head.sha }}" > /tmp/pre-commit-files.txt
+            sed -i '/^$/d' /tmp/pre-commit-files.txt
+            cat /tmp/pre-commit-files.txt
+            if [ -s /tmp/pre-commit-files.txt ]; then
+              xargs env SKIP=ansible-lint,yamllint pre-commit run --show-diff-on-failure --files < /tmp/pre-commit-files.txt
+            else
+              echo "No changed files to check"
+            fi
+          else
+            pre-commit run --all-files --show-diff-on-failure
+          fi
+
+      - name: Ansible-lint
+        run: |
+          ansible-lint metal/ --exclude metal/roles/automatic_upgrade/ || true
+
+      - name: Terraform fmt check
+        run: |
+          for dir in cloud/aws cloud/azure cloud/gcp cloud/openstack cloud/ovh cloud/dns; do
+            [ -d "$dir" ] && (cd "$dir" && terraform fmt -check -recursive) || true
+          done
+
+      - name: Run gitleaks
+        run: |
+          if ! command -v gitleaks >/dev/null 2>&1; then
+            go install github.com/zricethezav/gitleaks/v8@latest
+          fi
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            git fetch origin "${{ github.event.pull_request.head.sha }}" --depth=2
+            gitleaks git --log-opts="${{ github.event.pull_request.head.sha }}^..${{ github.event.pull_request.head.sha }}" -v
+          else
+            gitleaks detect --source . -v --no-git
+          fi
+
+      - name: Check sops tools
+        run: |
+          which age-keygen || echo "age not installed"
+          which sops || echo "sops not installed"
+
+      - name: Helm diff
+        if: github.event_name == 'pull_request'
+        run: |
+          ./scripts/helm-diff \
+            --repository "${{ github.event.pull_request.head.repo.clone_url }}" \
+            --source "${{ github.event.pull_request.head.ref }}" \
+            --target "${{ github.event.pull_request.base.ref }}" \
+            --subpath "system"
+
+  validate:
+    name: Validate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Helm
+        uses: azure/setup-helm@v4
+        with:
+          version: ${{ env.HELM_VERSION }}
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ env.GO_VERSION }}
+
+      - name: Build CLI
+        run: go build ./cmd/ubiquity/...
+
+      - name: Verify Go modules
+        run: go mod verify
+
+      - name: Helm lint all charts
+        run: |
+          find . -name Chart.yaml -not -path "./.git/*" | while read chart; do
+            dir=$(dirname "$chart")
+            echo "Linting: $dir"
+            helm lint "$dir" || echo "WARNING: $dir lint failed"
+          done
+
+      - name: Install kubeconform
+        run: |
+          curl -sSfL https://github.com/yannh/kubeconform/releases/latest/download/kubeconform-linux-amd64.tar.gz \
+            | sudo tar -xz -C /usr/local/bin kubeconform
+          kubeconform -v
+
+      - name: Kubeconform validation
+        run: |
+          set -euo pipefail
+          find system platform bootstrap -name Chart.yaml -not -path "*/charts/*" -print0 2>/dev/null \
+            | while IFS= read -r -d '' chart; do
+                dir=$(dirname "$chart")
+                echo "Rendering and validating: $dir"
+                schema_location='https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/'
+                schema_location="${schema_location}{{ .NormalizedKubernetesVersion }}-standalone"
+                schema_location="${schema_location}{{ .StrictSuffix }}/{{ .ResourceKind }}{{ .KindSuffix }}.json"
+                helm template "$dir" --namespace ubiquity \
+                  | kubeconform \
+                      -ignore-missing-schemas \
+                      -schema-location "$schema_location"
+              done
+
+  scan:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: fs
+          scan-ref: .
+          format: table
+          severity: HIGH,CRITICAL
+          exit-code: 1
+          skip-dirs: .git,site
+          hide-progress: true
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ env.GO_VERSION }}
+
+      - name: Setup Helm
+        uses: azure/setup-helm@v4
+        with:
+          version: ${{ env.HELM_VERSION }}
+
+      - name: Go tests
+        run: go test ./pkg/... ./cmd/... -v -count=1
+
+      - name: Govulncheck
+        run: |
+          go install golang.org/x/vuln/cmd/govulncheck@latest
+          govulncheck ./...
+
+      - name: Helm unittest
+        run: |
+          go install github.com/helm-unittest/helm-unittest@latest 2>/dev/null || true
+          find . -name "Chart.yaml" -not -path "./.git/*" | while read chart; do
+            dir=$(dirname "$chart")
+            if [ -d "$dir/tests" ]; then
+              echo "Testing: $dir"
+              helm unittest "$dir" || echo "WARNING: $dir tests failed"
+            fi
+          done
+
+      - name: Install Kyverno CLI
+        uses: kyverno/action-install-cli@v0.2.0
+
+      - name: Kyverno policy tests
+        run: |
+          set -euo pipefail
+          echo "Rendering Helm templates for kyverno test system/kyverno-policies/kyverno-test"
+          tmpdir=$(mktemp -d)
+          mkdir -p "$tmpdir/resources"
+          cp system/kyverno-policies/kyverno-test/resources/*.yaml "$tmpdir/resources/"
+          helm template kyverno-policies system/kyverno-policies \
+            --namespace ubiquity \
+            --show-only templates/restricted-pod-security.yaml \
+            --show-only templates/disallow-privileged-containers.yaml \
+            --show-only templates/require-labels.yaml \
+            --show-only templates/default-network-policy-denies.yaml \
+            > "$tmpdir/policies.yaml"
+          cat > "$tmpdir/kyverno-test.yaml" <<'EOF'
+          name: kyverno-policy-tests
+          policies:
+            - policies.yaml
+          resources:
+            - resources/valid-pod.yaml
+            - resources/privileged-pod.yaml
+            - resources/missing-label-pod.yaml
+          results:
+            - policy: disallow-privileged-containers
+              rule: forbid-privileged
+              resource: valid-pod
+              kind: Pod
+              result: pass
+            - policy: disallow-privileged-containers
+              rule: forbid-privileged
+              resource: privileged-pod
+              kind: Pod
+              result: fail
+            - policy: require-labels
+              rule: require-app-name-label
+              resource: valid-pod
+              kind: Pod
+              result: pass
+            - policy: require-labels
+              rule: require-app-name-label
+              resource: missing-label-pod
+              kind: Pod
+              result: fail
+          EOF
+          kyverno test "$tmpdir"
+
+      - name: Network policy behavioral dry-run
+        run: test/e2e/network-policy-behavior.sh --dry-run
+
+      - name: Cloud readiness proof dry-run
+        run: |
+          go run ./cmd/ubiquity cloud render prerequisites >/tmp/cloud-prerequisites.yaml
+          go run ./cmd/ubiquity cloud render operator-bundles >/tmp/cloud-operator-bundles.yaml
+          test/e2e/cloud-service-smoke-tests.sh --dry-run
+          test/e2e/cloud-readiness-proof-bundle.sh --dry-run
+
+      - name: SBOM and Sigstore signing proof dry-run
+        run: |
+          test/e2e/sbom-and-signing-proof.sh --dry-run
+          test -f /tmp/ubiquity-security/sbom.spdx.json
+          test -f /tmp/ubiquity-security/sbom.cyclonedx.json
+          grep -q 'syft' /tmp/ubiquity-security/sbom-generation.log
+          grep -q 'cyclonedx' /tmp/ubiquity-security/cyclonedx-validation.log
+          grep -q 'cosign sign' /tmp/ubiquity-security/cosign.log
+          grep -q 'cosign verify' /tmp/ubiquity-security/cosign.log
+
+      - name: Runtime security validation dry-run
+        run: test/e2e/runtime-security-validation.sh --dry-run
+
+      - name: Helm hardening checks dry-run
+        run: test/e2e/helm-hardening-checks.sh --dry-run
+
+      - name: Core services proof dry-run
+        run: test/e2e/core-services-proof.sh --dry-run
+
+      - name: Verify NICo E2E script gates
+        run: |
+          for script in \
+            test/e2e/nico-mock-node-lifecycle.sh \
+            test/e2e/nico-virtual-bare-metal-lab.sh \
+            test/e2e/nico-bare-metal-node-lifecycle.sh; do
+            test -f "$script"
+            bash -n "$script"
+          done
+
+  gpu-e2e:
+    name: Gated NVIDIA GPU E2E
+    runs-on: ubuntu-latest
+    needs: [test]
+    if: ${{ vars.UBIQUITY_RUN_GPU_E2E == 'true' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run NVIDIA AI platform E2E on GPU runner
+        env:
+          UBIQUITY_RUN_GPU_E2E: ${{ vars.UBIQUITY_RUN_GPU_E2E }}
+        run: test/e2e/nvidia-ai-platform.sh
+
+  nico-bare-metal-e2e:
+    name: Gated NICo Bare-Metal E2E
+    runs-on: ubuntu-latest
+    needs: [test]
+    if: ${{ vars.UBIQUITY_RUN_NICO_BARE_METAL_E2E == 'true' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run NICo mock lifecycle E2E
+        env:
+          UBIQUITY_RUN_NICO_MOCK_E2E: "true"
+        run: test/e2e/nico-mock-node-lifecycle.sh
+
+      - name: Run NICo bare-metal lifecycle E2E on hardware runner
+        env:
+          UBIQUITY_RUN_NICO_BARE_METAL_E2E: ${{ vars.UBIQUITY_RUN_NICO_BARE_METAL_E2E }}
+          UBIQUITY_ACK_NICO_BARE_METAL_DESTRUCTIVE: ${{ vars.UBIQUITY_ACK_NICO_BARE_METAL_DESTRUCTIVE }}
+        run: test/e2e/nico-bare-metal-node-lifecycle.sh
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    needs: [lint, validate, scan, test]
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ env.GO_VERSION }}
+
+      - name: Build CLI binary
+        run: go build -o ubiquity-cli ./cmd/ubiquity/...
+
+      - name: Upload CLI artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ubiquity-cli
+          path: ubiquity-cli

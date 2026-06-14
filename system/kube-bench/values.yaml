@@ -1,0 +1,89 @@
+---
+# Copyright The Ubiquity Authors.
+#
+# Licensed under the Apache License, Version 2.0. Previously licensed under the Functional Source License (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://github.com/ubiquitycluster/ubiquity/blob/main/LICENSE
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# This software was previously licensed under the Functional Source License but has now transitioned to an Apache 2.0 License
+# as of June 2025.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Default values for kube-bench.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# -- Enable or disable the kube-bench CronJob
+enabled: true
+
+# -- The schedule for running kube-bench scans (every 6 hours)
+schedule: "0 */6 * * *"
+
+# -- The number of successful jobs to retain
+successfulJobsHistoryLimit: 3
+
+# -- The number of failed jobs to retain
+failedJobsHistoryLimit: 1
+
+# -- How many seconds to wait before starting the job
+startingDeadlineSeconds: 300
+
+# -- Timeout for the job
+activeDeadlineSeconds: 600
+
+image:
+  # -- The image registry
+  registry: docker.io
+  # -- The image repository
+  repository: aquasec/kube-bench
+  # -- The image tag
+  tag: latest
+  # -- The image pull policy
+  pullPolicy: IfNotPresent
+
+# -- The CIS benchmark version to run
+# For K3s, use "k3s-cis-1.24" or similar based on your Kubernetes version
+benchmark: "k3s-cis-1.24"
+
+# -- Additional command-line arguments for kube-bench
+extraArgs: []
+
+# -- Resource limits and requests for the kube-bench container
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
+
+# -- Node selector for the CronJob pod
+nodeSelector: {}
+
+# -- Tolerations for the CronJob pod
+tolerations: []
+
+# -- Annotations to add to the CronJob pod
+podAnnotations: {}
+
+# -- Labels to add to the CronJob pod
+podLabels: {}
+
+# -- Volume size for storing scan results
+resultsVolumeSize: 1Gi
+
+# -- Storage class for the results volume (empty for default)
+resultsStorageClass: ""
+
+# -- The name of the service account to use
+# If not set, a name is generated using the fullname template
+serviceAccountName: ""
+
+# -- Namespace to deploy into
+namespace: kube-bench

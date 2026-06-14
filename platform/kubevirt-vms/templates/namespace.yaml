@@ -1,0 +1,9 @@
+{{- if .Values.vm.enabled }}
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ .Values.vm.namespace }}
+  labels:
+    app.kubernetes.io/part-of: ubiquity-virtual-machines
+    ubiquity.ai/vm-tenant: {{ .Values.vm.namespace | quote }}
+{{- end }}

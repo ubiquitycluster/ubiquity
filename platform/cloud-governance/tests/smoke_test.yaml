@@ -1,0 +1,8 @@
+suite: chart smoke coverage
+templates:
+  - templates/governance.yaml
+tests:
+  - it: renders templates/governance.yaml
+    asserts:
+      - hasDocuments:
+          count: 12

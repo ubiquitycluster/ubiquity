@@ -1,0 +1,524 @@
+{
+  "nodes": [
+    {
+      "id": "workflow_opus_build",
+      "label": "Opus Build",
+      "file_type": "document",
+      "source_file": ".github/workflows/opus-build.yml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "pipeline_opus_image_family",
+      "label": "Opus Image Family",
+      "file_type": "document",
+      "source_file": ".github/workflows/opus-build.yml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "workflow_release",
+      "label": "Release",
+      "file_type": "document",
+      "source_file": ".github/workflows/release.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "workflow_vulncheck",
+      "label": "Vulncheck",
+      "file_type": "document",
+      "source_file": ".github/workflows/vulncheck.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "goal_k3d_upgrade_compatibility",
+      "label": "K3D Upgrade Compatibility",
+      "file_type": "document",
+      "source_file": ".hermes/GOAL-K3D-UPGRADE-COMPATIBILITY.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "plan_nico_node_lifecycle",
+      "label": "Nico Node Lifecycle",
+      "file_type": "document",
+      "source_file": ".hermes/plans/2026-06-05_092421-bare-metal-node-lifecycle-platform.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "service_nico",
+      "label": "Nico",
+      "file_type": "document",
+      "source_file": ".hermes/plans/2026-06-05_092421-bare-metal-node-lifecycle-platform.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "chart_cloudcmd",
+      "label": "Cloudcmd",
+      "file_type": "document",
+      "source_file": "apps/cloudcmd/Chart.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "service_cloudcmd",
+      "label": "Cloudcmd",
+      "file_type": "document",
+      "source_file": "apps/cloudcmd/values.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "secret_cloudcmd_auth",
+      "label": "Cloudcmd Auth",
+      "file_type": "document",
+      "source_file": "apps/cloudcmd/auth.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "chart_hajimari",
+      "label": "Hajimari",
+      "file_type": "document",
+      "source_file": "apps/hajimari/Chart.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "service_hajimari",
+      "label": "Hajimari",
+      "file_type": "document",
+      "source_file": "apps/hajimari/values.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "chart_ollama",
+      "label": "Ollama",
+      "file_type": "document",
+      "source_file": "apps/ollama/Chart.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "service_ollama",
+      "label": "Ollama",
+      "file_type": "document",
+      "source_file": "apps/ollama/values.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "chart_argocd",
+      "label": "Argocd",
+      "file_type": "document",
+      "source_file": "bootstrap/argocd/Chart.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "bootstrap_argocd_app_of_apps",
+      "label": "Argocd App Of Apps",
+      "file_type": "document",
+      "source_file": "bootstrap/README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "config_argocd_defaults",
+      "label": "Argocd Defaults",
+      "file_type": "document",
+      "source_file": "bootstrap/argocd/defaults.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "config_argocd_sandbox_overrides",
+      "label": "Argocd Sandbox Overrides",
+      "file_type": "document",
+      "source_file": "bootstrap/argocd/values-sandbox.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "config_argocd_seed_repo_creds",
+      "label": "Argocd Seed Repo Creds",
+      "file_type": "document",
+      "source_file": "bootstrap/argocd/values-seed.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "config_argocd_values",
+      "label": "Argocd Values",
+      "file_type": "document",
+      "source_file": "bootstrap/argocd/values.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "config_argocd_cm_kustomize_buildoptions",
+      "label": "Argocd Cm Kustomize Buildoptions",
+      "file_type": "document",
+      "source_file": "bootstrap/argocd/argocd-cm.kustomize-buildoptions.patch.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "config_argocd_repo_tls_cert",
+      "label": "Argocd Repo Tls Cert",
+      "file_type": "document",
+      "source_file": "bootstrap/argocd/argocd-repo-tls-cert.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "chart_root",
+      "label": "Root",
+      "file_type": "document",
+      "source_file": "bootstrap/root/Chart.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "workflow_opus_build",
+      "target": "pipeline_opus_image_family",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": ".github/workflows/opus-build.yml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "pipeline_opus_image_family",
+      "target": "workflow_opus_build",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": ".github/workflows/opus-build.yml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "workflow_opus_build",
+      "target": "workflow_release",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": ".github/workflows/opus-build.yml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "workflow_release",
+      "target": "workflow_vulncheck",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": ".github/workflows/release.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "goal_k3d_upgrade_compatibility",
+      "target": "chart_argocd",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": ".hermes/GOAL-K3D-UPGRADE-COMPATIBILITY.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "goal_k3d_upgrade_compatibility",
+      "target": "config_argocd_sandbox_overrides",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": ".hermes/GOAL-K3D-UPGRADE-COMPATIBILITY.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "plan_nico_node_lifecycle",
+      "target": "service_nico",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": ".hermes/plans/2026-06-05_092421-bare-metal-node-lifecycle-platform.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "service_nico",
+      "target": "bootstrap_argocd_app_of_apps",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": ".hermes/plans/2026-06-05_092421-bare-metal-node-lifecycle-platform.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "chart_cloudcmd",
+      "target": "service_cloudcmd",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "apps/cloudcmd/Chart.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "service_cloudcmd",
+      "target": "secret_cloudcmd_auth",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "apps/cloudcmd/values.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "service_cloudcmd",
+      "target": "service_hajimari",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "apps/cloudcmd/values.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "chart_hajimari",
+      "target": "service_hajimari",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "apps/hajimari/Chart.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "service_hajimari",
+      "target": "bootstrap_argocd_app_of_apps",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "apps/hajimari/README.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "chart_ollama",
+      "target": "service_ollama",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "apps/ollama/Chart.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "service_ollama",
+      "target": "plan_nico_node_lifecycle",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "apps/ollama/values.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "chart_argocd",
+      "target": "bootstrap_argocd_app_of_apps",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "bootstrap/argocd/Chart.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "config_argocd_defaults",
+      "target": "chart_argocd",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "bootstrap/argocd/defaults.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "config_argocd_sandbox_overrides",
+      "target": "config_argocd_defaults",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "bootstrap/argocd/values-sandbox.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "config_argocd_values",
+      "target": "chart_argocd",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "bootstrap/argocd/values.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "config_argocd_seed_repo_creds",
+      "target": "chart_argocd",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "bootstrap/argocd/values-seed.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "config_argocd_cm_kustomize_buildoptions",
+      "target": "chart_argocd",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "bootstrap/argocd/argocd-cm.kustomize-buildoptions.patch.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "config_argocd_repo_tls_cert",
+      "target": "config_argocd_values",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "bootstrap/argocd/argocd-repo-tls-cert.yaml",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "chart_root",
+      "target": "bootstrap_argocd_app_of_apps",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "bootstrap/root/Chart.yaml",
+      "source_location": null,
+      "weight": 1.0
+    }
+  ],
+  "hyperedges": [
+    {
+      "id": "hyperedge_argocd_bootstrap_configuration_set",
+      "label": "Argocd Bootstrap Configuration Set",
+      "nodes": [
+        "chart_argocd",
+        "bootstrap_argocd_app_of_apps",
+        "config_argocd_defaults",
+        "config_argocd_sandbox_overrides",
+        "config_argocd_seed_repo_creds",
+        "config_argocd_values",
+        "config_argocd_cm_kustomize_buildoptions",
+        "config_argocd_repo_tls_cert"
+      ],
+      "relation": "participate_in",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "bootstrap/argocd/Chart.yaml"
+    },
+    {
+      "id": "hyperedge_user_facing_apps",
+      "label": "User Facing Apps",
+      "nodes": [
+        "service_hajimari",
+        "service_cloudcmd",
+        "service_ollama"
+      ],
+      "relation": "participate_in",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "apps/hajimari/values.yaml"
+    }
+  ],
+  "input_tokens": 28240,
+  "output_tokens": 9150
+}

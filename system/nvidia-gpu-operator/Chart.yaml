@@ -1,0 +1,9 @@
+---
+apiVersion: v2
+name: nvidia-gpu-operator
+description: Ubiquity wrapper for NVIDIA GPU Operator
+version: 0.1.0
+dependencies:
+  - name: gpu-operator
+    version: v26.3.2
+    repository: https://helm.ngc.nvidia.com/nvidia

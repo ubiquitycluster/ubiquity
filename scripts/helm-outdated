@@ -1,0 +1,12 @@
+#!/bin/bash
+set -euo pipefail
+# Check Helm chart upstream versions
+# Usage: ./scripts/helm-outdated
+find . -name "Chart.yaml" -not -path "./.git/*" | while read f; do
+  dir=$(dirname "$f")
+  deps=$(grep -A2 "dependencies:" "$f" 2>/dev/null | grep -E "name:|version:|repository:" | paste - - - 2>/dev/null)
+  if [ -n "$deps" ]; then
+    echo "=== $dir ==="
+    echo "$deps"
+  fi
+done

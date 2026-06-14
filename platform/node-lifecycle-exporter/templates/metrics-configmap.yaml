@@ -1,0 +1,24 @@
+# Metrics exposed by the exporter:
+# ubiquity_nico_machine_state
+# ubiquity_nico_instance_state
+# ubiquity_nico_task_active
+# ubiquity_node_kubernetes_ready
+# ubiquity_node_gpu_ready
+# ubiquity_node_rdma_ready
+# ubiquity_node_lifecycle_ready
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "node-lifecycle-exporter.fullname" . }}-metrics-docs
+  labels:
+    app.kubernetes.io/name: {{ include "node-lifecycle-exporter.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+data:
+  metrics.txt: |
+    ubiquity_nico_machine_state
+    ubiquity_nico_instance_state
+    ubiquity_nico_task_active
+    ubiquity_node_kubernetes_ready
+    ubiquity_node_gpu_ready
+    ubiquity_node_rdma_ready
+    ubiquity_node_lifecycle_ready

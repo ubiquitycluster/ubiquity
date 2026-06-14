@@ -1,0 +1,7 @@
+apiVersion: v2
+name: cloud-operator-bundles
+description: Ubiquity cloud operator ownership, provenance, and air-gap install-plan contract
+type: application
+version: 0.1.0
+appVersion: "0.1.0"
+keywords: [operators, crds, provenance, airgap, install-plan]
