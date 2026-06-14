@@ -22,7 +22,7 @@ jobs:
     name: Lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Setup Go
         uses: actions/setup-go@v5
@@ -105,7 +105,7 @@ jobs:
     name: Validate
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Setup Helm
         uses: azure/setup-helm@v4
@@ -157,7 +157,7 @@ jobs:
     name: Security Scan
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
@@ -174,7 +174,7 @@ jobs:
     name: Test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Setup Go
         uses: actions/setup-go@v5
@@ -299,7 +299,7 @@ jobs:
     needs: [test]
     if: ${{ vars.UBIQUITY_RUN_GPU_E2E == 'true' }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Run NVIDIA AI platform E2E on GPU runner
         env:
@@ -312,7 +312,7 @@ jobs:
     needs: [test]
     if: ${{ vars.UBIQUITY_RUN_NICO_BARE_METAL_E2E == 'true' }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Run NICo mock lifecycle E2E
         env:
@@ -331,7 +331,7 @@ jobs:
     needs: [lint, validate, scan, test]
     if: github.ref == 'refs/heads/main'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Setup Go
         uses: actions/setup-go@v5
