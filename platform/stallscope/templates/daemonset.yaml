@@ -47,7 +47,9 @@ spec:
             - -ec
           args:
             - |
+              {{ if .Values.upstream.archiveURL }}
               python -m pip install --no-cache-dir --target /opt/stallscope {{ .Values.upstream.archiveURL | quote }}
+              {{ end }}
               exec python -m monitoring_tool.cli \
                 --interval-seconds {{ .Values.intervalSeconds }} \
                 --prometheus-textfile {{ .Values.prometheusTextfile | quote }}{{ if .Values.jsonLogs }} \
