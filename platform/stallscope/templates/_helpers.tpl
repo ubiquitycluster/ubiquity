@@ -22,5 +22,5 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 app.kubernetes.io/component: gpu-workload-telemetry
 app.kubernetes.io/part-of: ubiquity-ai-platform
 app.kubernetes.io/managed-by: {{ .Release.Service }}
-ubiquity.ai/source-repo: "https://github.com/nshinde/stallscope"
+ubiquity.ai/source-repo: {{ .Values.upstream.sourceRepo | quote }}
 {{- end -}}
