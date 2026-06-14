@@ -41,7 +41,7 @@ jobs:
           cosign sign-blob --yes --output-signature dist/checksums.txt.sig dist/checksums.txt
           cosign sign-blob --yes --output-signature dist/ubiquity.sbom.spdx.json.sig dist/ubiquity.sbom.spdx.json
       - name: Upload SBOM and signatures
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           files: |
             dist/*.sbom.spdx.json
