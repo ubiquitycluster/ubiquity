@@ -1,0 +1,47 @@
+suite: stallscope gpu workload telemetry daemonset
+
+templates:
+  - templates/daemonset.yaml
+
+tests:
+  - it: runs the upstream Stallscope collector on GPU nodes with host telemetry mounts
+    asserts:
+      - equal:
+          path: kind
+          value: DaemonSet
+      - equal:
+          path: spec.template.spec.nodeSelector["nvidia.com/gpu.present"]
+          value: "true"
+      - matchRegex:
+          path: spec.template.spec.containers[0].args[0]
+          pattern: --prometheus-textfile "/var/lib/node_exporter/textfile_collector/stallscope\.prom"
+      - matchRegex:
+          path: spec.template.spec.containers[0].args[0]
+          pattern: github.com/nshinde/stallscope/archive/84b17513b9230ce66c2838bb4e6fe95f196a044c\.zip
+      - contains:
+          path: spec.template.spec.containers[0].volumeMounts
+          content:
+            name: proc
+            mountPath: /host/proc
+            readOnly: true
+      - contains:
+          path: spec.template.spec.containers[0].volumeMounts
+          content:
+            name: sys
+            mountPath: /host/sys
+            readOnly: true
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: MONITORING_PROCFS_ROOT
+            value: /host/proc
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: MONITORING_SYSFS_ROOT
+            value: /host/sys
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: NVIDIA_VISIBLE_DEVICES
+            value: all

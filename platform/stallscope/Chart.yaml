@@ -1,0 +1,9 @@
+apiVersion: v2
+name: stallscope
+description: Stallscope GPU workload stall and fabric telemetry collector
+type: application
+version: 0.1.0
+appVersion: "0.1.0"
+annotations:
+  ubiquity/source-repo: https://github.com/nshinde/stallscope
+  ubiquity/telemetry-scope: gpu-workload-performance

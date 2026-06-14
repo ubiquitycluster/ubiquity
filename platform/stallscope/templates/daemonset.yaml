@@ -1,0 +1,102 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: {{ include "stallscope.fullname" . }}
+  labels:
+{{ include "stallscope.labels" . | indent 4 }}
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "stallscope.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "stallscope.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+        app.kubernetes.io/component: gpu-workload-telemetry
+      annotations:
+        checksum/source-repo: {{ .Values.upstream.sourceRepo | quote }}
+        prometheus.io/textfile-source: {{ .Values.prometheusTextfile | quote }}
+    spec:
+      {{- if .Values.serviceAccount.create }}
+      serviceAccountName: {{ include "stallscope.fullname" . }}
+      {{- end }}
+      hostPID: true
+      {{- if .Values.runtimeClassName }}
+      runtimeClassName: {{ .Values.runtimeClassName | quote }}
+      {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+{{ toYaml . | indent 8 }}
+      {{- end }}
+      {{- with .Values.podSecurityContext }}
+      securityContext:
+{{ toYaml . | indent 8 }}
+      {{- end }}
+      containers:
+        - name: stallscope
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command:
+            - /bin/sh
+            - -ec
+          args:
+            - |
+              {{ if .Values.upstream.archiveURL }}
+              python -m pip install --no-cache-dir --target /opt/stallscope {{ .Values.upstream.archiveURL | quote }}
+              {{ end }}
+              exec python -m monitoring_tool.cli \
+                --interval-seconds {{ .Values.intervalSeconds }} \
+                --prometheus-textfile {{ .Values.prometheusTextfile | quote }}{{ if .Values.jsonLogs }} \
+                --json{{ end }}{{ if .Values.ncclTest }} \
+                --nccl-test{{ end }}
+          env:
+            - name: PYTHONPATH
+              value: /opt/stallscope
+            - name: MONITORING_PROCFS_ROOT
+              value: /host/proc
+            - name: MONITORING_SYSFS_ROOT
+              value: /host/sys
+            - name: NVIDIA_VISIBLE_DEVICES
+              value: all
+            - name: NVIDIA_DRIVER_CAPABILITIES
+              value: compute,utility
+          securityContext:
+{{ toYaml .Values.securityContext | indent 12 }}
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+          volumeMounts:
+            - name: stallscope-python
+              mountPath: /opt/stallscope
+            - name: pip-cache
+              mountPath: /tmp
+            - name: proc
+              mountPath: /host/proc
+              readOnly: true
+            - name: sys
+              mountPath: /host/sys
+              readOnly: true
+            - name: node-exporter-textfile
+              mountPath: {{ dir .Values.prometheusTextfile | quote }}
+      volumes:
+        - name: stallscope-python
+          emptyDir: {}
+        - name: pip-cache
+          emptyDir: {}
+        - name: proc
+          hostPath:
+            path: {{ .Values.hostPaths.proc | quote }}
+            type: Directory
+        - name: sys
+          hostPath:
+            path: {{ .Values.hostPaths.sys | quote }}
+            type: Directory
+        - name: node-exporter-textfile
+          hostPath:
+            path: {{ .Values.hostPaths.nodeExporterTextfile | quote }}
+            type: DirectoryOrCreate

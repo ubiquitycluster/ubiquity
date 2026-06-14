@@ -1,0 +1,50 @@
+suite: stallscope prometheus rules
+
+templates:
+  - templates/prometheusrule.yaml
+
+tests:
+  - it: creates performance issue alerts from Stallscope textfile metrics
+    asserts:
+      - equal:
+          path: kind
+          value: PrometheusRule
+      - contains:
+          path: spec.groups[0].rules
+          content:
+            alert: StallscopeGPUWorkloadSlow
+            expr: monitoring_profile_label == 1
+            for: 5m
+            labels:
+              severity: warning
+            annotations:
+              summary: Stallscope detected a slow GPU workload
+              description: Stallscope classified the GPU workload as SLOW. Check bottleneck, RDMA, PFC, network, and GPU telemetry reasons on the affected node.
+      - contains:
+          path: spec.groups[0].rules
+          content:
+            alert: StallscopeGPUWorkloadFailRisk
+            expr: monitoring_profile_label == 2
+            for: 2m
+            labels:
+              severity: critical
+            annotations:
+              summary: Stallscope detected GPU workload fail risk
+              description: Stallscope classified the GPU workload as FAIL_RISK. Investigate GPU throttling, RDMA transport errors, PFC congestion, and host pressure immediately.
+      - contains:
+          path: spec.groups[0].rules
+          content:
+            alert: StallscopeTelemetryUnavailable
+            expr: (monitoring_active_alerts > 0) and on() absent(monitoring_gpu_utilization_avg)
+            for: 10m
+            labels:
+              severity: warning
+            annotations:
+              summary: Stallscope GPU telemetry is unavailable
+              description: Stallscope is running but cannot collect GPU metrics. Verify NVIDIA runtime, nvidia-smi, GPU Operator, and device visibility on the node.
+  - it: can disable PrometheusRule when monitoring CRDs are unavailable
+    set:
+      prometheusRule.enabled: false
+    asserts:
+      - hasDocuments:
+          count: 0

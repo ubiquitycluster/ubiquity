@@ -1,0 +1,57 @@
+image:
+  repository: python
+  tag: "3.11-slim"
+  pullPolicy: IfNotPresent
+
+upstream:
+  sourceRepo: https://github.com/nshinde/stallscope
+  commit: 84b17513b9230ce66c2838bb4e6fe95f196a044c
+  archiveURL: https://github.com/nshinde/stallscope/archive/84b17513b9230ce66c2838bb4e6fe95f196a044c.zip
+
+intervalSeconds: 30
+jsonLogs: true
+ncclTest: false
+
+runtimeClassName: ""
+
+nodeSelector:
+  nvidia.com/gpu.present: "true"
+
+tolerations:
+  - key: nvidia.com/gpu
+    operator: Exists
+    effect: NoSchedule
+
+hostPaths:
+  proc: /proc
+  sys: /sys
+  nodeExporterTextfile: /var/lib/node_exporter/textfile_collector
+
+prometheusTextfile: /var/lib/node_exporter/textfile_collector/stallscope.prom
+
+serviceAccount:
+  create: true
+
+podSecurityContext: {}
+
+securityContext:
+  privileged: false
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: true
+  runAsNonRoot: false
+  runAsUser: 0
+  capabilities:
+    drop:
+      - ALL
+
+resources:
+  requests:
+    cpu: 50m
+    memory: 128Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
+
+prometheusRule:
+  enabled: true
+  labels: {}
