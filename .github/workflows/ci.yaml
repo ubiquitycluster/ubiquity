@@ -72,7 +72,19 @@ jobs:
 
       - name: Ansible-lint
         run: |
-          ansible-lint metal/ --exclude metal/roles/automatic_upgrade/
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            git fetch origin "${{ github.event.pull_request.base.sha }}" --depth=1
+            git fetch origin "${{ github.event.pull_request.head.sha }}" --depth=1
+            git diff --name-only "${{ github.event.pull_request.base.sha }}" "${{ github.event.pull_request.head.sha }}" \
+              | grep '^metal/' > /tmp/ansible-lint-files.txt || true
+            if [ ! -s /tmp/ansible-lint-files.txt ]; then
+              echo "No metal/ changes to lint"
+              exit 0
+            fi
+            xargs ansible-lint --exclude metal/roles/automatic_upgrade/ < /tmp/ansible-lint-files.txt
+          else
+            ansible-lint metal/ --exclude metal/roles/automatic_upgrade/
+          fi
 
       - name: Terraform fmt check
         run: |
