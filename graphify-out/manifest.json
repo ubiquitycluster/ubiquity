@@ -480,12 +480,12 @@
     "semantic_hash": "c9ce55752d7837c41f4b036d5fff6218"
   },
   "cmd/ubiquity/cmd/ai_platform.go": {
-    "mtime": 1781559850.6819222,
+    "mtime": 1781560189.3368192,
     "ast_hash": "324b7ba4ee30837a5f2aeab9fed1b8e7",
     "semantic_hash": ""
   },
   "cmd/ubiquity/cmd/ai_platform_test.go": {
-    "mtime": 1781559783.2138975,
+    "mtime": 1781560189.337831,
     "ast_hash": "ba7f12faff0fefabd27da18101b10c34",
     "semantic_hash": ""
   },
@@ -565,7 +565,7 @@
     "semantic_hash": "6dd2007c256056ac54facd3869956cd0"
   },
   "cmd/ubiquity/cmd/init.go": {
-    "mtime": 1781559783.2141516,
+    "mtime": 1781560189.3395092,
     "ast_hash": "02bcf8f4a4dc5f29fb2cc2b7a633f86f",
     "semantic_hash": "02bcf8f4a4dc5f29fb2cc2b7a633f86f"
   },
@@ -620,7 +620,7 @@
     "semantic_hash": "4c18845f2b987fc8a337f5e47ef2989f"
   },
   "cmd/ubiquity/cmd/sandbox_deploy_test.go": {
-    "mtime": 1781559851.082898,
+    "mtime": 1781560189.3400915,
     "ast_hash": "47409686afd10693f44795b4675481b2",
     "semantic_hash": ""
   },
@@ -645,12 +645,12 @@
     "semantic_hash": "23c2e1333f19c4a50d33e7d6a53d1f17"
   },
   "cmd/ubiquity/cmd/up.go": {
-    "mtime": 1781559879.066289,
+    "mtime": 1781560189.3408723,
     "ast_hash": "35c0c96abb564cb402886017aedafece",
     "semantic_hash": ""
   },
   "cmd/ubiquity/cmd/up_test.go": {
-    "mtime": 1781559783.215197,
+    "mtime": 1781560189.341398,
     "ast_hash": "8281c1717aa9679fcc46e82e668588b7",
     "semantic_hash": ""
   },
@@ -805,7 +805,7 @@
     "semantic_hash": "d8c14282b87c42aed75a0da7b1b13f1d"
   },
   "pkg/aiplatform/chart_schema_test.go": {
-    "mtime": 1781559783.2334173,
+    "mtime": 1781560189.50896,
     "ast_hash": "00a5eab42e9f10601cc02a55b389133a",
     "semantic_hash": ""
   },
@@ -940,17 +940,17 @@
     "semantic_hash": "22e8f3c28e12f8ad135b08f661d22db8"
   },
   "pkg/aiplatform/production_validation_test.go": {
-    "mtime": 1781559783.2358387,
+    "mtime": 1781560189.5118759,
     "ast_hash": "9b51a2f5081146becbc7261618498cd1",
     "semantic_hash": "9b51a2f5081146becbc7261618498cd1"
   },
   "pkg/aiplatform/profile.go": {
-    "mtime": 1781559851.767314,
+    "mtime": 1781560189.5126283,
     "ast_hash": "48b67324828be3df8b831b21a540977b",
     "semantic_hash": ""
   },
   "pkg/aiplatform/profile_test.go": {
-    "mtime": 1781559783.2364266,
+    "mtime": 1781560189.5131075,
     "ast_hash": "9df93e14fe858754573465e2a05aebc2",
     "semantic_hash": "9df93e14fe858754573465e2a05aebc2"
   },
@@ -1120,7 +1120,7 @@
     "semantic_hash": "637c73ec95423ab9ba3650c3b2d39739"
   },
   "pkg/cloud/security_ci_test.go": {
-    "mtime": 1781559783.2372155,
+    "mtime": 1781560189.5148082,
     "ast_hash": "8873c7b01d181f1c3600710f34ff576a",
     "semantic_hash": ""
   },
@@ -1255,12 +1255,12 @@
     "semantic_hash": "96e7fcf55fc20f97ffb8e11f16a54192"
   },
   "pkg/nico/readiness.go": {
-    "mtime": 1781559783.2376602,
+    "mtime": 1781560189.515824,
     "ast_hash": "acac5d261c3d3af4ed7ca23643554f58",
     "semantic_hash": ""
   },
   "pkg/nico/readiness_test.go": {
-    "mtime": 1781559783.2379353,
+    "mtime": 1781560189.5162966,
     "ast_hash": "c37d235ebd072f8229a057af9f2563e9",
     "semantic_hash": ""
   },
@@ -1390,12 +1390,12 @@
     "semantic_hash": "1ad49b13b8bafb2ddaa97609991102c7"
   },
   "pkg/tui/status.go": {
-    "mtime": 1781559783.238292,
+    "mtime": 1781560189.5168607,
     "ast_hash": "f9193c333eda29e7054a6064af941746",
     "semantic_hash": "f9193c333eda29e7054a6064af941746"
   },
   "pkg/tui/status_test.go": {
-    "mtime": 1781559783.238608,
+    "mtime": 1781560189.5173826,
     "ast_hash": "fcaf989790672ff6e41e93ec5b7bd38a",
     "semantic_hash": "fcaf989790672ff6e41e93ec5b7bd38a"
   },
@@ -1455,7 +1455,7 @@
     "semantic_hash": "435e761c7485d0c97e2455601d320f89"
   },
   "platform/ai-workload-tenancy/values.schema.json": {
-    "mtime": 1781559783.2468178,
+    "mtime": 1781560189.5272772,
     "ast_hash": "d68a6a1423e4168a70b418aab69593ff",
     "semantic_hash": ""
   },
@@ -1495,7 +1495,7 @@
     "semantic_hash": "9f15e69971be3a4e402efcc5e7e2cc08"
   },
   "platform/gitea/files/config/main.go": {
-    "mtime": 1781559783.2505133,
+    "mtime": 1781560189.5301514,
     "ast_hash": "f190eefaf084fc529a2f8b9561e0cc5d",
     "semantic_hash": "f190eefaf084fc529a2f8b9561e0cc5d"
   },
@@ -1675,7 +1675,7 @@
     "semantic_hash": "9f15e69971be3a4e402efcc5e7e2cc08"
   },
   "renovate.json": {
-    "mtime": 1781559783.2518706,
+    "mtime": 1781560189.5350466,
     "ast_hash": "950ec017e931a3b44d5690714810b945",
     "semantic_hash": "950ec017e931a3b44d5690714810b945"
   },
@@ -1790,7 +1790,7 @@
     "semantic_hash": "966eea53f42f030a74c6b983b433ada1"
   },
   "system/vault/files/generate-secrets/main.go": {
-    "mtime": 1781559783.2648563,
+    "mtime": 1781560189.547951,
     "ast_hash": "1fa7c1cd7478c2f69149bf8f23a59011",
     "semantic_hash": "1fa7c1cd7478c2f69149bf8f23a59011"
   },
@@ -1900,12 +1900,12 @@
     "semantic_hash": "b0c07de9684d8c933467ca0fd02358c6"
   },
   "test/external_test.go": {
-    "mtime": 1781559783.2670808,
+    "mtime": 1781560189.5515354,
     "ast_hash": "110165e711e92bd375965eedde2e5564",
     "semantic_hash": "110165e711e92bd375965eedde2e5564"
   },
   "test/integration_test.go": {
-    "mtime": 1781559783.2673306,
+    "mtime": 1781560189.5532656,
     "ast_hash": "98d9c6b07d46832f7569f74618c89394",
     "semantic_hash": "98d9c6b07d46832f7569f74618c89394"
   },
@@ -1915,7 +1915,7 @@
     "semantic_hash": "27b4971b7ebff6954e31100f5e4b6b14"
   },
   "test/tools_test.go": {
-    "mtime": 1781559783.267577,
+    "mtime": 1781560189.553649,
     "ast_hash": "72f3950acddd56a5e0da69d1f7d25ced",
     "semantic_hash": "72f3950acddd56a5e0da69d1f7d25ced"
   },
@@ -2065,7 +2065,7 @@
     "semantic_hash": "e780871a707e40141f29e9a7dc1c9fde"
   },
   ".github/dependabot.yml": {
-    "mtime": 1781559783.2094095,
+    "mtime": 1781560189.3212965,
     "ast_hash": "57a5f2b9b469acd090888420ed20078a",
     "semantic_hash": "57a5f2b9b469acd090888420ed20078a"
   },
@@ -2075,37 +2075,37 @@
     "semantic_hash": "a7def8407f278e9b66e5a327d388b754"
   },
   ".github/workflows/ci.yaml": {
-    "mtime": 1781559783.2098274,
-    "ast_hash": "ae2b46d06f235e21b781cd6f87ea01d5",
+    "mtime": 1781561581.690868,
+    "ast_hash": "96ac9537664e752765fb29307f704bb9",
     "semantic_hash": ""
   },
   ".github/workflows/dependency-freshness.yml": {
-    "mtime": 1781459927.398585,
+    "mtime": 1781560189.3233097,
     "ast_hash": "0ef9575d78762e0cfe451568ba3849ba",
     "semantic_hash": "0ef9575d78762e0cfe451568ba3849ba"
   },
   ".github/workflows/deps-report.yaml": {
-    "mtime": 1781459927.3992577,
+    "mtime": 1781560189.3239152,
     "ast_hash": "675f2a32d3f78ffb772e41b4bf84149e",
     "semantic_hash": "675f2a32d3f78ffb772e41b4bf84149e"
   },
   ".github/workflows/docs.yml": {
-    "mtime": 1781459927.4000416,
+    "mtime": 1781560189.3267906,
     "ast_hash": "582c92f08918b08a6031d9155f766799",
     "semantic_hash": "582c92f08918b08a6031d9155f766799"
   },
   ".github/workflows/opus-build.yml": {
-    "mtime": 1781559783.2102976,
-    "ast_hash": "838b36d031295a3a55c079f3c61dfe1d",
+    "mtime": 1781560988.1581447,
+    "ast_hash": "59ab9878c4216b973490a389111eb962",
     "semantic_hash": ""
   },
   ".github/workflows/release.yaml": {
-    "mtime": 1781559783.2106204,
+    "mtime": 1781560189.328757,
     "ast_hash": "3176e39d2e794e4da27a62ce76acbdce",
     "semantic_hash": ""
   },
   ".github/workflows/vulncheck.yaml": {
-    "mtime": 1781559783.2109869,
+    "mtime": 1781560189.3296974,
     "ast_hash": "a92aa19e9e88a0aaa3133d5e1e2176d1",
     "semantic_hash": ""
   },
@@ -2125,8 +2125,8 @@
     "semantic_hash": "c2af223f6e5423195a18b8b26699beb4"
   },
   ".pre-commit-config.yaml": {
-    "mtime": 1781559783.1076813,
-    "ast_hash": "23d45f66d21b4469a2d7941fdd842b4d",
+    "mtime": 1781560943.251145,
+    "ast_hash": "ecdeca7f018b5101fc519722eb2028b1",
     "semantic_hash": ""
   },
   ".sops.yaml": {
@@ -2135,7 +2135,7 @@
     "semantic_hash": "317d0183ccac79201154aee32f30f99b"
   },
   "AGENTS.md": {
-    "mtime": 1781460215.6106796,
+    "mtime": 1781560189.3314528,
     "ast_hash": "cbd434b39e92e60585d1175859231c54",
     "semantic_hash": "cbd434b39e92e60585d1175859231c54"
   },
@@ -2145,9 +2145,9 @@
     "semantic_hash": "55545218214a1f7aa2ab854e23be7bde"
   },
   "CONTRIBUTING.md": {
-    "mtime": 1781559783.2114723,
-    "ast_hash": "3f7b36cdc7d9e5359cd77e9669eeeba7",
-    "semantic_hash": "3f7b36cdc7d9e5359cd77e9669eeeba7"
+    "mtime": 1781560988.1592984,
+    "ast_hash": "1252cbd09c23c569fb1fa02f64534931",
+    "semantic_hash": ""
   },
   "DEEP-ASSESSMENT.md": {
     "mtime": 1781095622.8102827,
@@ -2160,9 +2160,9 @@
     "semantic_hash": "2c0a116a08ce4103833f2f24a5b1d961"
   },
   "README.md": {
-    "mtime": 1781559783.2121696,
-    "ast_hash": "ee232f0450fa03ed9fb696b81da28575",
-    "semantic_hash": "ee232f0450fa03ed9fb696b81da28575"
+    "mtime": 1781560988.1603718,
+    "ast_hash": "c3b16357bd337a939fc0fad85b0a9929",
+    "semantic_hash": ""
   },
   "SECURITY.md": {
     "mtime": 1781095622.8105543,
@@ -2240,9 +2240,9 @@
     "semantic_hash": "8a2fe6b2bca0c8e20fc2d5dbb863905d"
   },
   "bootstrap/argocd/values-sandbox.yaml": {
-    "mtime": 1781559783.2124765,
-    "ast_hash": "c05fe832a927ca9d37a4714bcb236dc8",
-    "semantic_hash": "c05fe832a927ca9d37a4714bcb236dc8"
+    "mtime": 1781560988.1605856,
+    "ast_hash": "6a3162b79438acf3c122d05c310efae0",
+    "semantic_hash": ""
   },
   "bootstrap/argocd/values-seed.yaml": {
     "mtime": 1781095622.812392,
@@ -2265,7 +2265,7 @@
     "semantic_hash": "322ae6fbe2f07f9d53a1fbd61d5fd93a"
   },
   "bootstrap/root/templates/stack.yaml": {
-    "mtime": 1781559783.2127645,
+    "mtime": 1781560189.335664,
     "ast_hash": "28b7c755c598299390621859aff7fe29",
     "semantic_hash": "28b7c755c598299390621859aff7fe29"
   },
@@ -2280,7 +2280,7 @@
     "semantic_hash": "f5e6e2148824eccdfc9b17d38a7edf19"
   },
   "bootstrap/root/values.yaml": {
-    "mtime": 1781559783.2130218,
+    "mtime": 1781560189.3362389,
     "ast_hash": "ea81a63dbd26e6823c759bb482a5695a",
     "semantic_hash": "ea81a63dbd26e6823c759bb482a5695a"
   },
@@ -2805,12 +2805,12 @@
     "semantic_hash": "527646542270cb28ec33e7cf6063874a"
   },
   "docs/admin-guide/nvidia-ai-platform.md": {
-    "mtime": 1781559783.2155862,
+    "mtime": 1781560189.343548,
     "ast_hash": "d97df1e5960e9a46e6b3b650baf0254a",
     "semantic_hash": ""
   },
   "docs/admin-guide/nvidia-infra-controller-node-management.md": {
-    "mtime": 1781559783.2159169,
+    "mtime": 1781560189.3441355,
     "ast_hash": "3bcbd0fd7e765791a5096956f2b4bd64",
     "semantic_hash": "3bcbd0fd7e765791a5096956f2b4bd64"
   },
@@ -3365,7 +3365,7 @@
     "semantic_hash": "afdde7bf727d24c8cf36c7bce17e3748"
   },
   "docs/reference/cli.md": {
-    "mtime": 1781559783.1142817,
+    "mtime": 1781560189.3455029,
     "ast_hash": "63a7a17bee14d5f4266eca4528ef94fa",
     "semantic_hash": ""
   },
@@ -3390,7 +3390,7 @@
     "semantic_hash": "8bd4d5d754ce24818e50e2078979ec93"
   },
   "docs/reference/helm-charts.md": {
-    "mtime": 1781559783.2165725,
+    "mtime": 1781560189.3460433,
     "ast_hash": "e1e219cc57e062954095c17065e7cbc1",
     "semantic_hash": ""
   },
@@ -4055,7 +4055,7 @@
     "semantic_hash": "6b48de6147e0d01a351c594e316db17a"
   },
   "mkdocs.yml": {
-    "mtime": 1781559783.2317939,
+    "mtime": 1781560189.497813,
     "ast_hash": "e95f027d58ccfdcfae4230da65237516",
     "semantic_hash": "e95f027d58ccfdcfae4230da65237516"
   },
@@ -4095,7 +4095,7 @@
     "semantic_hash": "15b4cbeb0a9110ad5d09d4c23e0ed1a6"
   },
   "monitoring/monitoring-system/Chart.yaml": {
-    "mtime": 1781559783.2330475,
+    "mtime": 1781560189.4989824,
     "ast_hash": "2f0d594a0e33c97256c4739f9eda1380",
     "semantic_hash": "2f0d594a0e33c97256c4739f9eda1380"
   },
@@ -4135,7 +4135,7 @@
     "semantic_hash": "e3d20439eb2c5bcdb1221c0448d1477d"
   },
   "platform/ai-workload-tenancy/templates/gpu-quota.yaml": {
-    "mtime": 1781559783.2458801,
+    "mtime": 1781560189.5258412,
     "ast_hash": "76ddbce7eef695b85601e24cbe8b9121",
     "semantic_hash": ""
   },
@@ -4145,12 +4145,12 @@
     "semantic_hash": "eeae13acbe4d8006c20818f84703a418"
   },
   "platform/ai-workload-tenancy/tests/smoke_test.yaml": {
-    "mtime": 1781559783.2462292,
+    "mtime": 1781560189.5262802,
     "ast_hash": "4f378dce24bfbd06083cb6268a6d0045",
     "semantic_hash": "4f378dce24bfbd06083cb6268a6d0045"
   },
   "platform/ai-workload-tenancy/values.yaml": {
-    "mtime": 1781559783.2470899,
+    "mtime": 1781560189.528475,
     "ast_hash": "40ef613b467bb83b826e75d3acd13ab7",
     "semantic_hash": "40ef613b467bb83b826e75d3acd13ab7"
   },
@@ -4310,7 +4310,7 @@
     "semantic_hash": "efb91ec93c1d56c0d34d9a71b0070aba"
   },
   "platform/external-secrets/templates/clustersecretstore.yaml": {
-    "mtime": 1781559783.2473881,
+    "mtime": 1781560189.528952,
     "ast_hash": "2be96c1d4f5fcdc75435a0767adb3b92",
     "semantic_hash": ""
   },
@@ -4325,9 +4325,9 @@
     "semantic_hash": "05ec1db3b24f0fbdb9cc75816703a8de"
   },
   "platform/gitea/files/config/config.yaml": {
-    "mtime": 1781559783.2499087,
-    "ast_hash": "b0d6d915514626420bf310f8fc046147",
-    "semantic_hash": "b0d6d915514626420bf310f8fc046147"
+    "mtime": 1781560988.2273512,
+    "ast_hash": "df384aed719041d1bc98da2008b62d07",
+    "semantic_hash": ""
   },
   "platform/gitea/templates/config-job.yaml": {
     "mtime": 1781095622.925999,
@@ -4840,9 +4840,9 @@
     "semantic_hash": "b381d03074ac010a0d0baafbfb5538fc"
   },
   "platform/onyxia/values.yaml": {
-    "mtime": 1781559783.2513628,
-    "ast_hash": "b8b1586ea066accef200bb6a8b3f7b62",
-    "semantic_hash": "b8b1586ea066accef200bb6a8b3f7b62"
+    "mtime": 1781560988.2278697,
+    "ast_hash": "69918b7584d0150ea45bdff7b9220792",
+    "semantic_hash": ""
   },
   "platform/openldap/Chart.yaml": {
     "mtime": 1781095622.9360626,
@@ -5300,19 +5300,19 @@
     "semantic_hash": "9cd6d5fdc9157e9b064a1f97ff19c5fa"
   },
   "system/k8up-operator/kustomization.yaml": {
-    "mtime": 1781559783.2535105,
+    "mtime": 1781560189.536552,
     "ast_hash": "cbc2bdd066d76cf45a4cf5d80106f6ff",
     "semantic_hash": "cbc2bdd066d76cf45a4cf5d80106f6ff"
   },
   "system/k8up-operator/schedule.yaml": {
-    "mtime": 1781559783.2538106,
+    "mtime": 1781560189.5370023,
     "ast_hash": "f5f8499b7e0e24cd472482087b2dc3a9",
     "semantic_hash": "f5f8499b7e0e24cd472482087b2dc3a9"
   },
   "system/k8up-operator/tests/basic_test.yaml": {
-    "mtime": 1781095622.9432182,
-    "ast_hash": "8ecfac67397770ee7b563daccc5eb9c3",
-    "semantic_hash": "8ecfac67397770ee7b563daccc5eb9c3"
+    "mtime": 1781561240.7264776,
+    "ast_hash": "f9d1b88f9f5fad2027d96faad1242021",
+    "semantic_hash": ""
   },
   "system/k8up-operator/values.yaml": {
     "mtime": 1780566622.0,
@@ -5385,7 +5385,7 @@
     "semantic_hash": "322b09e24d8f80edb50708f878687641"
   },
   "system/kyverno-policies/kyverno-test/resources/valid-pod.yaml": {
-    "mtime": 1781459927.4256167,
+    "mtime": 1781560189.537625,
     "ast_hash": "310073ad61e2f9e241aaf97a012c235b",
     "semantic_hash": "310073ad61e2f9e241aaf97a012c235b"
   },
@@ -5445,12 +5445,12 @@
     "semantic_hash": "665a542bf8a95db280a8fae34b0b0ef5"
   },
   "system/longhorn-system/templates/servicemonitor.yaml": {
-    "mtime": 1781559783.2543054,
+    "mtime": 1781560189.538088,
     "ast_hash": "3ebbe2f8b05e8c86a2564121d5d96bde",
     "semantic_hash": "3ebbe2f8b05e8c86a2564121d5d96bde"
   },
   "system/longhorn-system/tests/basic_test.yaml": {
-    "mtime": 1781559783.2546062,
+    "mtime": 1781560189.5385418,
     "ast_hash": "b875ab4c0c9112e2fb84fa48030c9b8c",
     "semantic_hash": "b875ab4c0c9112e2fb84fa48030c9b8c"
   },
@@ -5475,7 +5475,7 @@
     "semantic_hash": "45e8bc33a93f6b8fec5e5607afa06781"
   },
   "system/monitoring-system/Chart.yaml": {
-    "mtime": 1781559783.2549217,
+    "mtime": 1781560189.5389924,
     "ast_hash": "6f75770083746e50fd6c5c090bb76fe2",
     "semantic_hash": "6f75770083746e50fd6c5c090bb76fe2"
   },
@@ -5495,7 +5495,7 @@
     "semantic_hash": "472e761d70903691d1f30b48c1221862"
   },
   "system/monitoring-system/tests/basic_test.yaml": {
-    "mtime": 1781559783.2551935,
+    "mtime": 1781560189.5394716,
     "ast_hash": "a89e6f5c8072156768e97e726033364a",
     "semantic_hash": ""
   },
@@ -5695,12 +5695,12 @@
     "semantic_hash": "cd26060a1817ac67572c57991d3af031"
   },
   "system/vault/templates/cr.yaml": {
-    "mtime": 1781559783.265175,
+    "mtime": 1781560189.5483437,
     "ast_hash": "9777ba868493e6f1d1efeb2108d84364",
     "semantic_hash": ""
   },
   "system/vault/templates/generate-secrets-job.yaml": {
-    "mtime": 1781559783.2655542,
+    "mtime": 1781560189.5489943,
     "ast_hash": "b8bacd6479626248dfc90d4e48d5a16c",
     "semantic_hash": ""
   },
@@ -5720,13 +5720,13 @@
     "semantic_hash": "71caadf847178a2b4c8a5cd3c5dc426f"
   },
   "system/vault/tests/basic_test.yaml": {
-    "mtime": 1781095622.9544904,
-    "ast_hash": "ec7f5f7ddb640cc00b6a12a3521d821b",
-    "semantic_hash": "ec7f5f7ddb640cc00b6a12a3521d821b"
+    "mtime": 1781561241.288364,
+    "ast_hash": "a3d79f3cac1f632c8e8d4193ddfe0fa6",
+    "semantic_hash": ""
   },
   "system/vault/values.yaml": {
-    "mtime": 1781559783.2659314,
-    "ast_hash": "032aa88120ae5487af87092e287f5a34",
+    "mtime": 1781561587.3155854,
+    "ast_hash": "7e317a9e126ca795ae6ee8204f77c35d",
     "semantic_hash": ""
   },
   "test/fixtures/nico-kvm-pxe/containerlab.yml": {
@@ -6085,342 +6085,342 @@
     "semantic_hash": "89dbe6ce73575ede74797759f0704bba"
   },
   "scripts/check-graphify-freshness.sh": {
-    "mtime": 1781559783.2526948,
+    "mtime": 1781560189.535554,
     "ast_hash": "34955d2a480fd9daa2726ef175f5d3a2",
     "semantic_hash": ""
   },
   "docs/developers/graphify-workflow.md": {
-    "mtime": 1781460270.9822934,
+    "mtime": 1781560189.3449183,
     "ast_hash": "a28de690935e6d15e4f27627d9826be7",
     "semantic_hash": "a28de690935e6d15e4f27627d9826be7"
   },
   "pkg/cloud/graphify_portability_test.go": {
-    "mtime": 1781559783.236891,
+    "mtime": 1781560189.5141823,
     "ast_hash": "56d5b6811c4742a3abbc3f1f64f62a36",
     "semantic_hash": ""
   },
   "scripts/normalize-graphify-artifacts.py": {
-    "mtime": 1781559783.2532158,
+    "mtime": 1781560189.535912,
     "ast_hash": "a35896013300dc7dd97dd47199189639",
     "semantic_hash": ""
   },
   "system/nvidia-nic-configuration-operator/values.schema.json": {
-    "mtime": 1781559783.2643197,
+    "mtime": 1781560189.5464153,
     "ast_hash": "85e3c0578e46e433fe3a4d0b19575b0c",
     "semantic_hash": "85e3c0578e46e433fe3a4d0b19575b0c"
   },
   "docs/admin-guide/runbooks/nvidia-infra-controller/nic-configuration-operator.md": {
-    "mtime": 1781559783.2162814,
+    "mtime": 1781560189.344479,
     "ast_hash": "57d1e3c26a3eab86287bf4c07ebdd286",
     "semantic_hash": "57d1e3c26a3eab86287bf4c07ebdd286"
   },
   "system/nvidia-nic-configuration-operator/Chart.yaml": {
-    "mtime": 1781559783.2559066,
+    "mtime": 1781560189.5403569,
     "ast_hash": "8a43ed7107d94aa9978496fab8e4ce2c",
     "semantic_hash": "8a43ed7107d94aa9978496fab8e4ce2c"
   },
   "system/nvidia-nic-configuration-operator/crds/configuration.net.nvidia.com_nicconfigurationtemplates.yaml": {
-    "mtime": 1781559783.2562506,
+    "mtime": 1781560189.5406487,
     "ast_hash": "189d78dee0325a98b6f5df4996cbd4fc",
     "semantic_hash": "189d78dee0325a98b6f5df4996cbd4fc"
   },
   "system/nvidia-nic-configuration-operator/crds/configuration.net.nvidia.com_nicdevices.yaml": {
-    "mtime": 1781559783.2565873,
+    "mtime": 1781560189.540983,
     "ast_hash": "3240650569de53a3dce5567510f1d7c6",
     "semantic_hash": "3240650569de53a3dce5567510f1d7c6"
   },
   "system/nvidia-nic-configuration-operator/crds/configuration.net.nvidia.com_nicfirmwaresources.yaml": {
-    "mtime": 1781559783.2569501,
+    "mtime": 1781560189.5413435,
     "ast_hash": "82ed73a718771b5e900f2357f7bb496a",
     "semantic_hash": "82ed73a718771b5e900f2357f7bb496a"
   },
   "system/nvidia-nic-configuration-operator/crds/configuration.net.nvidia.com_nicfirmwaretemplates.yaml": {
-    "mtime": 1781559783.2572863,
+    "mtime": 1781560189.541718,
     "ast_hash": "18818e1b167124226ecb2796c755fc20",
     "semantic_hash": "18818e1b167124226ecb2796c755fc20"
   },
   "system/nvidia-nic-configuration-operator/crds/configuration.net.nvidia.com_nicinterfacenametemplates.yaml": {
-    "mtime": 1781559783.2576485,
+    "mtime": 1781560189.5421345,
     "ast_hash": "95ff90e8dedcc7dd495286490589af66",
     "semantic_hash": "95ff90e8dedcc7dd495286490589af66"
   },
   "system/nvidia-nic-configuration-operator/templates/config-daemon.yaml": {
-    "mtime": 1781559783.260053,
+    "mtime": 1781560189.5428236,
     "ast_hash": "db4e57e7228f0d92fb3268af1d55a4f6",
     "semantic_hash": "db4e57e7228f0d92fb3268af1d55a4f6"
   },
   "system/nvidia-nic-configuration-operator/templates/nic-configuration-templates.yaml": {
-    "mtime": 1781559783.2602532,
+    "mtime": 1781560189.5430713,
     "ast_hash": "f5d3534b6ee8f7e0297fc2a8b8cc1c50",
     "semantic_hash": "f5d3534b6ee8f7e0297fc2a8b8cc1c50"
   },
   "system/nvidia-nic-configuration-operator/templates/nic-fw-storage-pvc.yaml": {
-    "mtime": 1781559783.2604265,
+    "mtime": 1781560189.5434012,
     "ast_hash": "08da10df498e7fd4d76d3a58bcb4d506",
     "semantic_hash": "08da10df498e7fd4d76d3a58bcb4d506"
   },
   "system/nvidia-nic-configuration-operator/templates/operator.yaml": {
-    "mtime": 1781559783.2606506,
+    "mtime": 1781560189.5436153,
     "ast_hash": "dc1d5238cdc0ce5f7f509a866b954080",
     "semantic_hash": "dc1d5238cdc0ce5f7f509a866b954080"
   },
   "system/nvidia-nic-configuration-operator/templates/role.yaml": {
-    "mtime": 1781559783.2612658,
-    "ast_hash": "997cc3b29c42afa500a71ee4131a874d",
-    "semantic_hash": "997cc3b29c42afa500a71ee4131a874d"
+    "mtime": 1781560988.2310882,
+    "ast_hash": "c07e4f3c56ab8a6d742f2519068e68bc",
+    "semantic_hash": ""
   },
   "system/nvidia-nic-configuration-operator/templates/role_binding.yaml": {
-    "mtime": 1781559783.261458,
+    "mtime": 1781560189.544157,
     "ast_hash": "abd1eef1109b5a8b03667ad4d4678dc0",
     "semantic_hash": "abd1eef1109b5a8b03667ad4d4678dc0"
   },
   "system/nvidia-nic-configuration-operator/templates/serviceaccount.yaml": {
-    "mtime": 1781559783.2616303,
+    "mtime": 1781560189.5443735,
     "ast_hash": "bbb5ce887ed5d1f6531bb01a009144d3",
     "semantic_hash": "bbb5ce887ed5d1f6531bb01a009144d3"
   },
   "system/nvidia-nic-configuration-operator/templates/supported-nic-firmware-configmap.yaml": {
-    "mtime": 1781559783.2618673,
+    "mtime": 1781560189.5445614,
     "ast_hash": "553fd5aa88dfb62cf87d0748e25b2806",
     "semantic_hash": "553fd5aa88dfb62cf87d0748e25b2806"
   },
   "system/nvidia-nic-configuration-operator/tests/basic_test.yaml": {
-    "mtime": 1781559783.2620444,
+    "mtime": 1781560189.5447881,
     "ast_hash": "99c6c5d7600ea66f2808e22883533fc4",
     "semantic_hash": "99c6c5d7600ea66f2808e22883533fc4"
   },
   "system/nvidia-nic-configuration-operator/tests/daemon_test.yaml": {
-    "mtime": 1781559783.2625113,
+    "mtime": 1781560189.5451298,
     "ast_hash": "42124fd5b025f22a1e033c2a536db69d",
     "semantic_hash": "42124fd5b025f22a1e033c2a536db69d"
   },
   "system/nvidia-nic-configuration-operator/tests/firmware_storage_test.yaml": {
-    "mtime": 1781559783.2631533,
+    "mtime": 1781560189.5453405,
     "ast_hash": "0227069b14754c86cf7f4f388f6cc738",
     "semantic_hash": "0227069b14754c86cf7f4f388f6cc738"
   },
   "system/nvidia-nic-configuration-operator/tests/nic-template-values.yaml": {
-    "mtime": 1781559783.2633812,
+    "mtime": 1781560189.5455387,
     "ast_hash": "aab1dd81aaee6025e1140265d01eb8ca",
     "semantic_hash": "aab1dd81aaee6025e1140265d01eb8ca"
   },
   "system/nvidia-nic-configuration-operator/tests/nic_templates_test.yaml": {
-    "mtime": 1781559783.2635822,
+    "mtime": 1781560189.5457296,
     "ast_hash": "879b043f2eac1d515385118ef0e8daba",
     "semantic_hash": "879b043f2eac1d515385118ef0e8daba"
   },
   "system/nvidia-nic-configuration-operator/tests/unsafe-gpudirect-values.yaml": {
-    "mtime": 1781559783.2637904,
+    "mtime": 1781560189.545921,
     "ast_hash": "2afe631ef184c7421226ef1923dd16ce",
     "semantic_hash": "2afe631ef184c7421226ef1923dd16ce"
   },
   "system/nvidia-nic-configuration-operator/values.yaml": {
-    "mtime": 1781559783.264545,
+    "mtime": 1781560189.5466242,
     "ast_hash": "359bdf3656f501e6eb50014b7ee92cd1",
     "semantic_hash": "359bdf3656f501e6eb50014b7ee92cd1"
   },
   "pkg/aiplatform/ncp_requirements.go": {
-    "mtime": 1781559783.23516,
+    "mtime": 1781560189.5103364,
     "ast_hash": "9de1b274d62d5f4b806e2522265f07f3",
     "semantic_hash": "9de1b274d62d5f4b806e2522265f07f3"
   },
   "pkg/aiplatform/ncp_requirements_test.go": {
-    "mtime": 1781559783.2353847,
+    "mtime": 1781560189.5113707,
     "ast_hash": "9d700b7f82118e4bfa2aa9fadc3391c1",
     "semantic_hash": "9d700b7f82118e4bfa2aa9fadc3391c1"
   },
   "system/nvidia-nic-configuration-operator/tests/unsafe-rdma-validation-values.yaml": {
-    "mtime": 1781559783.264103,
+    "mtime": 1781560189.5461435,
     "ast_hash": "b2cff5c9832701c1aafc66a04cbb8413",
     "semantic_hash": "b2cff5c9832701c1aafc66a04cbb8413"
   },
   "pkg/cloud/community_readiness_test.go": {
-    "mtime": 1781559783.2366142,
+    "mtime": 1781560189.513881,
     "ast_hash": "eff17571ccb98e42944f9660f9894d4b",
     "semantic_hash": "eff17571ccb98e42944f9660f9894d4b"
   },
   "cmd/ubiquity/cmd/ai_platform_frontend_test.go": {
-    "mtime": 1781559783.2136168,
+    "mtime": 1781560189.3372,
     "ast_hash": "0002985b0f7d6c8895cbe141b98d55b6",
     "semantic_hash": "0002985b0f7d6c8895cbe141b98d55b6"
   },
   "pkg/aiplatform/frontend.go": {
-    "mtime": 1781559783.233816,
+    "mtime": 1781560189.5094914,
     "ast_hash": "5d7552da503aa4cedb66c33909c54cfe",
     "semantic_hash": "5d7552da503aa4cedb66c33909c54cfe"
   },
   "pkg/aiplatform/frontend_test.go": {
-    "mtime": 1781559783.2348151,
+    "mtime": 1781560189.50991,
     "ast_hash": "c696cbb5ffa950d4d9d7e26c0c7d81a1",
     "semantic_hash": "c696cbb5ffa950d4d9d7e26c0c7d81a1"
   },
   "platform/ai-platform-console/values.schema.json": {
-    "mtime": 1781559783.2453272,
+    "mtime": 1781560189.5249915,
     "ast_hash": "39c3a95cb59dff91c1aef9630d82eeb7",
     "semantic_hash": "39c3a95cb59dff91c1aef9630d82eeb7"
   },
   "platform/ai-platform-console/Chart.yaml": {
-    "mtime": 1781559783.2422826,
+    "mtime": 1781560189.523049,
     "ast_hash": "5149815391d5344bea0b6924bbfe2e4e",
     "semantic_hash": "5149815391d5344bea0b6924bbfe2e4e"
   },
   "platform/ai-platform-console/templates/deployment.yaml": {
-    "mtime": 1781559783.2434342,
+    "mtime": 1781560189.523722,
     "ast_hash": "1600a3e0869153896fe73b09815e315a",
     "semantic_hash": "1600a3e0869153896fe73b09815e315a"
   },
   "platform/ai-platform-console/templates/ingress.yaml": {
-    "mtime": 1781559783.2439044,
+    "mtime": 1781560189.5240693,
     "ast_hash": "ef0c5c7578d67bccae2af8cfac4932d4",
     "semantic_hash": "ef0c5c7578d67bccae2af8cfac4932d4"
   },
   "platform/ai-platform-console/templates/service.yaml": {
-    "mtime": 1781559783.2442193,
+    "mtime": 1781560189.5244443,
     "ast_hash": "713ca9eb67fd4def4c7deffa21958eb9",
     "semantic_hash": "713ca9eb67fd4def4c7deffa21958eb9"
   },
   "platform/ai-platform-console/tests/smoke_test.yaml": {
-    "mtime": 1781559783.2449806,
+    "mtime": 1781560189.5247445,
     "ast_hash": "89e20d63f7f428b6648ded653e28406a",
     "semantic_hash": "89e20d63f7f428b6648ded653e28406a"
   },
   "platform/ai-platform-console/values.yaml": {
-    "mtime": 1781559783.2455218,
+    "mtime": 1781560189.5252926,
     "ast_hash": "455b965334432c36bb658b75605400e7",
     "semantic_hash": "455b965334432c36bb658b75605400e7"
   },
   "plans/001-make-helm-ci-fail-closed.md": {
-    "mtime": 1781559783.2389266,
+    "mtime": 1781560189.5177643,
     "ast_hash": "e40ce5e286b6eb996524712c0b66aa30",
     "semantic_hash": ""
   },
   "plans/002-keep-ai-sandbox-targets-in-sync.md": {
-    "mtime": 1781559783.2391686,
+    "mtime": 1781560189.5180562,
     "ast_hash": "5d30f79e65eb145d0eb116cda9ef41ea",
     "semantic_hash": ""
   },
   "plans/003-harden-ai-workload-tenancy-values.md": {
-    "mtime": 1781559783.2394176,
+    "mtime": 1781560189.5183465,
     "ast_hash": "6a7260c7fa682d7a84a803b342677f10",
     "semantic_hash": ""
   },
   "plans/004-fix-graphify-manifest-duplicates.md": {
-    "mtime": 1781559783.2396824,
+    "mtime": 1781560189.518664,
     "ast_hash": "403e378bf436467d4760ff89357bef28",
     "semantic_hash": ""
   },
   "plans/README.md": {
-    "mtime": 1781559783.2418208,
+    "mtime": 1781560189.5218046,
     "ast_hash": "c2ac241c03f09e9a6a0df3a5043b4836",
     "semantic_hash": ""
   },
   "platform/ai-workload-tenancy/tests/unsafe-tenant-name-values.yaml": {
-    "mtime": 1781559783.246554,
+    "mtime": 1781560189.5267394,
     "ast_hash": "b3aa2cf161f71f4f7018131d3152a066",
     "semantic_hash": ""
   },
   "pkg/cloud/vault_security_test.go": {
-    "mtime": 1781559783.2373936,
+    "mtime": 1781560189.5151029,
     "ast_hash": "516b799e6c165f49d44c0382db577e8b",
     "semantic_hash": ""
   },
   "plans/005-make-sandbox-helm-dependencies-non-mutating.md": {
-    "mtime": 1781559783.2398946,
+    "mtime": 1781560189.5189893,
     "ast_hash": "c5aeea0055cec97e55d1f9ab9b2a3585",
     "semantic_hash": ""
   },
   "plans/006-fix-nico-readiness-service-contract.md": {
-    "mtime": 1781559783.2401087,
+    "mtime": 1781560189.5191967,
     "ast_hash": "1d3ed3c9c2d31830d883365722ae89c9",
     "semantic_hash": ""
   },
   "plans/007-harden-vault-secret-generation-and-external-secrets-auth.md": {
-    "mtime": 1781559783.2404265,
+    "mtime": 1781560189.519423,
     "ast_hash": "eb3d43534fa6e4609472fe7884638078",
     "semantic_hash": ""
   },
   "plans/008-pin-ci-supply-chain-and-close-fail-open-gates.md": {
-    "mtime": 1781559783.240621,
+    "mtime": 1781560189.5196426,
     "ast_hash": "0c22d64b28a91e8f3337275a73c6d016",
     "semantic_hash": ""
   },
   "plans/009-align-ai-production-gitops-target-registry.md": {
-    "mtime": 1781559783.240832,
+    "mtime": 1781560189.5198698,
     "ast_hash": "9b63d4493def0c5236de8512b8d61141",
     "semantic_hash": ""
   },
   "plans/010-integrate-nvidia-nic-configuration-operator.md": {
-    "mtime": 1781559783.2410245,
+    "mtime": 1781560189.5204985,
     "ast_hash": "f0565e5092b440a7dbde152a2d3ade2d",
     "semantic_hash": ""
   },
   "plans/011-developer-workflow-community-readiness.md": {
-    "mtime": 1781559783.241207,
+    "mtime": 1781560189.5211685,
     "ast_hash": "190fb1c6ffc3cf9cdb38d5bb948cb0cd",
     "semantic_hash": ""
   },
   "plans/012-platform-operations-config-hardening.md": {
-    "mtime": 1781559783.2416332,
+    "mtime": 1781560189.5215645,
     "ast_hash": "b77fe641da33e4ee4b9a38e3151e27a1",
     "semantic_hash": ""
   },
   "plans/dirty-worktree-reconciliation.md": {
-    "mtime": 1781559783.2421033,
+    "mtime": 1781560189.5227823,
     "ast_hash": "c7b3037852014342a95c29e09e4acb12",
     "semantic_hash": ""
   },
   "cmd/ubiquity/cmd/stallscope_sandbox_test.go": {
-    "mtime": 1781559783.1120508,
+    "mtime": 1781560189.3403728,
     "ast_hash": "7946be1b7a7b868a36233d3c1b1e031f",
     "semantic_hash": ""
   },
   "pkg/aiplatform/stallscope_test.go": {
-    "mtime": 1781559783.1360502,
+    "mtime": 1781560189.5136137,
     "ast_hash": "b10cb1e225cf169113207cf57e296c01",
     "semantic_hash": ""
   },
   "platform/stallscope/values.schema.json": {
-    "mtime": 1781559783.1438792,
+    "mtime": 1781560189.5344353,
     "ast_hash": "cdb87d78d4d929dbf3e5b648645118da",
     "semantic_hash": ""
   },
   "platform/stallscope/Chart.yaml": {
-    "mtime": 1781559783.1407378,
+    "mtime": 1781560189.5315752,
     "ast_hash": "a501436cfb1ee2a993cde17d8ee4a55a",
     "semantic_hash": ""
   },
   "platform/stallscope/README.md": {
-    "mtime": 1781559783.1419454,
+    "mtime": 1781560189.5319123,
     "ast_hash": "846fecb7c82d61c73e4771ddf640b812",
     "semantic_hash": ""
   },
   "platform/stallscope/templates/daemonset.yaml": {
-    "mtime": 1781559783.1424367,
+    "mtime": 1781560189.5328052,
     "ast_hash": "97b273ca7f6d33beb5cbe7fe11ba5578",
     "semantic_hash": ""
   },
   "platform/stallscope/templates/prometheusrule.yaml": {
-    "mtime": 1781559783.1426919,
+    "mtime": 1781560189.5331964,
     "ast_hash": "0215da74bda83015d4dcdbef75ce54e3",
     "semantic_hash": ""
   },
   "platform/stallscope/templates/serviceaccount.yaml": {
-    "mtime": 1781559783.1429517,
+    "mtime": 1781560189.5335436,
     "ast_hash": "108013f085d39201f152fddaa393dd41",
     "semantic_hash": ""
   },
   "platform/stallscope/tests/daemonset_test.yaml": {
-    "mtime": 1781559783.1433458,
+    "mtime": 1781560189.5338807,
     "ast_hash": "6a9b2c77d1e98afe39c9a5dca94f05b2",
     "semantic_hash": ""
   },
   "platform/stallscope/tests/prometheusrule_test.yaml": {
-    "mtime": 1781559783.1436198,
+    "mtime": 1781560189.5342026,
     "ast_hash": "f9c9f75d0dc2300bb07e6df5b0b82523",
     "semantic_hash": ""
   },
   "platform/stallscope/values.yaml": {
-    "mtime": 1781559783.1442308,
+    "mtime": 1781560189.534639,
     "ast_hash": "5ab1705d078ba11e29da7512e7f78631",
     "semantic_hash": ""
   }

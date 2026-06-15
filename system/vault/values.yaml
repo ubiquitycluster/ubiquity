@@ -108,4 +108,3 @@ secretGenerator:
   tokenSecret:
     name: vault-secret-generator-token
     key: token
-

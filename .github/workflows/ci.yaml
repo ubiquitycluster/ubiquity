@@ -214,17 +214,34 @@ jobs:
       - name: Helm unittest
         run: |
           go install github.com/helm-unittest/helm-unittest/cmd/helm-unittest@${HELM_UNITTEST_VERSION}
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            git fetch origin "${{ github.event.pull_request.base.sha }}" --depth=1
+            git fetch origin "${{ github.event.pull_request.head.sha }}" --depth=1
+            git diff --name-only "${{ github.event.pull_request.base.sha }}" "${{ github.event.pull_request.head.sha }}" > /tmp/helm-unittest-files.txt
+            while read -r file; do
+              dir=$(dirname "$file")
+              while [ "$dir" != "." ] && [ "$dir" != "/" ]; do
+                if [ -f "$dir/Chart.yaml" ]; then
+                  printf '%s\n' "$dir"
+                  break
+                fi
+                dir=$(dirname "$dir")
+              done
+            done < /tmp/helm-unittest-files.txt | sort -u > /tmp/helm-unittest-chart-dirs.txt
+          else
+            find . -name "Chart.yaml" -not -path "./.git/*" -not -path "./disabled/*" \
+              -exec dirname {} \; | sort -u > /tmp/helm-unittest-chart-dirs.txt
+          fi
           failed=0
-          while read -r chart; do
-            dir=$(dirname "$chart")
-            if [ -d "$dir/tests" ]; then
+          while read -r dir; do
+            if [ -n "$dir" ] && [ -d "$dir/tests" ] && [[ "$dir" != disabled/* ]] && [[ "$dir" != ./disabled/* ]]; then
               echo "Testing: $dir"
               if ! helm-unittest "$dir"; then
                 echo "ERROR: $dir tests failed"
                 failed=1
               fi
             fi
-          done < <(find . -name "Chart.yaml" -not -path "./.git/*" -not -path "./disabled/*")
+          done < /tmp/helm-unittest-chart-dirs.txt
           exit "$failed"
 
       - name: Install Kyverno CLI
