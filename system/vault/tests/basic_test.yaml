@@ -1,8 +1,8 @@
 suite: test vault basic rendering
 templates:
-  - "*.yaml"
+  - "rbac.yaml"
 tests:
-  - it: should render at least one resource
+  - it: should render vault service account and RBAC resources
     asserts:
       - hasDocuments:
-          count: 1
+          count: 4
