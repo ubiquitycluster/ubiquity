@@ -83,7 +83,7 @@ onyxia:
             "iconId": "language",
             "url": "https://docs.sspcloud.fr"
           }
-        ]              
+        ]
       ONYXIA_API_URL: https://datalab.ubiquitycluster.uk/api
       VAULT_URL: https://vault.ubiquitycluster.uk
   api:

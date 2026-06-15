@@ -84,7 +84,7 @@ sandbox-boot:
 metal:
 	make -C metal
 
-cluster: 
+cluster:
 	make -C metal cluster
 
 bmo:
@@ -151,7 +151,7 @@ opus:
 		--workdir $(shell pwd) \
 		ghcr.io/ubiquitycluster/opus:latest-opus-all-helm3.10 /bin/bash
 
-nixos:  
+nixos:
 	#export PATH=/usr/bin:$PATH
 	#export DOCKER_HOST=unix:///run/user/1000/docker.sock
 	docker run \

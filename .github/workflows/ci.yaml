@@ -219,7 +219,7 @@ jobs:
             dir=$(dirname "$chart")
             if [ -d "$dir/tests" ]; then
               echo "Testing: $dir"
-              if ! helm unittest "$dir"; then
+              if ! helm-unittest "$dir"; then
                 echo "ERROR: $dir tests failed"
                 failed=1
               fi
