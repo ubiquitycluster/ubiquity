@@ -18,12 +18,14 @@ package cmd
 import (
 	"bytes"
 	"fmt"
+	"io"
 	"os"
 	"os/exec"
 	"path/filepath"
 	"strings"
 
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 	"github.com/ubiquitycluster/ubiquity/pkg/provision"
 )
 
@@ -55,6 +57,8 @@ type nicoGitOpsTarget struct {
 var upLifecycle = upLifecycleOptions{}
 
 var nicoGitOpsInstall = installNICOGitOpsTarget
+var terraformProvisioner = runTerraform
+var ansibleProvisioner = provisionAnsible
 
 var upCmd = &cobra.Command{
 	Use:   "up",
@@ -171,7 +175,7 @@ func provisionMetal(env string) error {
 		return nil
 	}
 	fmt.Print("provisioning infrastructure via Ansible...")
-	return nil
+	return ansibleProvisioner(env)
 }
 
 func applyLifecycleDefaults(env string) {
@@ -278,6 +282,10 @@ func provisionBootstrap(env string) error {
 		// from GitHub via ApplicationSets) and instead apply all charts directly
 		// from the local filesystem. This avoids the GitHub authentication issue
 		// where ArgoCD cannot clone the repo with the placeholder credentials.
+		if !bootstrapShouldApplySandboxCharts(env) {
+			fmt.Print("skipping direct sandbox chart apply (--skip-security smoke mode)...")
+			return nil
+		}
 		fmt.Print("applying charts directly (sandbox mode)...")
 		if err := applySandboxCharts(); err != nil {
 			return fmt.Errorf("applying sandbox charts failed: %w", err)
@@ -295,6 +303,10 @@ func provisionBootstrap(env string) error {
 	}
 
 	return nil
+}
+
+func bootstrapShouldApplySandboxCharts(env string) bool {
+	return env == "sandbox" && !skipSecurity
 }
 
 // applySandboxCharts applies all Helm charts and kustomize manifests from the
@@ -402,12 +414,14 @@ func collectSandboxDeployTargets() ([]sandboxDeployTarget, error) {
 		"kyverno-policies": "already installed in security phase",
 	}
 	namespaceOverrides := map[string]string{
-		"nvidia-gpu-operator":     "gpu-operator",
-		"nim-operator":            "nim-operator",
-		"kai-scheduler":           "kai-scheduler",
-		"ai-workload-tenancy":     "ai-workload-tenancy",
-		"stallscope":              "gpu-telemetry",
-		"nvidia-network-operator": "nvidia-network-operator",
+		"ai-platform-console":               "ai-platform",
+		"nvidia-gpu-operator":               "gpu-operator",
+		"nvidia-nic-configuration-operator": "network-operator",
+		"nim-operator":                      "nim-operator",
+		"kai-scheduler":                     "kai-scheduler",
+		"ai-workload-tenancy":               "ai-workloads",
+		"stallscope":                        "gpu-telemetry",
+		"nvidia-network-operator":           "nvidia-network-operator",
 	}
 
 	var targets []sandboxDeployTarget
@@ -505,12 +519,14 @@ func filterNvidiaAISandboxDeployTargets(targets []sandboxDeployTarget) []sandbox
 
 func isNvidiaAISandboxDeployTarget(target sandboxDeployTarget) bool {
 	included := map[string]bool{
-		"system/nvidia-gpu-operator":     true,
-		"system/nvidia-network-operator": true,
-		"platform/nim-operator":          true,
-		"platform/kai-scheduler":         true,
-		"platform/ai-workload-tenancy":   true,
-		"platform/stallscope":            true,
+		"platform/ai-platform-console":             true,
+		"platform/ai-workload-tenancy":             true,
+		"platform/kai-scheduler":                   true,
+		"platform/nim-operator":                    true,
+		"platform/stallscope":                      true,
+		"system/nvidia-gpu-operator":               true,
+		"system/nvidia-network-operator":           true,
+		"system/nvidia-nic-configuration-operator": true,
 	}
 	return included[target.ChartDir]
 }
@@ -520,17 +536,21 @@ func renderSandboxHelmTarget(target sandboxDeployTarget) error {
 	if err := ensureHelmReposForChart(chartDir); err != nil {
 		return fmt.Errorf("%s: add Helm repos: %w", target.ChartDir, err)
 	}
+	workChartDir, cleanup, err := prepareHelmChartWorkdir(chartDir)
+	if err != nil {
+		return fmt.Errorf("%s: prepare Helm workdir: %w", target.ChartDir, err)
+	}
+	defer cleanup()
 
-	if fileExists(filepath.Join(chartDir, "Chart.yaml")) {
-		depCmd := exec.Command("helm", "dependency", "build", chartDir)
+	if fileExists(filepath.Join(workChartDir, "Chart.yaml")) {
+		depCmd := exec.Command("helm", "dependency", "build", workChartDir)
 		depCmd.Dir = repoRoot
 		if out, err := depCmd.CombinedOutput(); err != nil {
 			return fmt.Errorf("%s: helm dependency build: %w\n%s", target.ChartDir, err, string(out))
 		}
-		defer cleanupSandboxDependencyArchives(chartDir)
 	}
 
-	args := helmTemplateArgs(target.Namespace, "release", chartDir)
+	args := helmTemplateArgs(target.Namespace, "release", workChartDir)
 	cmd := exec.Command("helm", args...)
 	cmd.Dir = repoRoot
 	if out, err := cmd.CombinedOutput(); err != nil {
@@ -622,6 +642,64 @@ func cleanupSandboxDependencyArchives(chartDir string) {
 	_ = os.Remove(filepath.Join(chartDir, "Chart.lock"))
 }
 
+func prepareHelmChartWorkdir(chartDir string) (string, func(), error) {
+	tmpRoot, err := os.MkdirTemp("", "ubiquity-helm-chart-*")
+	if err != nil {
+		return "", func() {}, err
+	}
+	cleanup := func() { _ = os.RemoveAll(tmpRoot) }
+	workChartDir := filepath.Join(tmpRoot, filepath.Base(chartDir))
+	if err := copyDir(chartDir, workChartDir); err != nil {
+		cleanup()
+		return "", func() {}, err
+	}
+	return workChartDir, cleanup, nil
+}
+
+func copyDir(src, dst string) error {
+	return filepath.WalkDir(src, func(path string, d os.DirEntry, err error) error {
+		if err != nil {
+			return err
+		}
+		rel, err := filepath.Rel(src, path)
+		if err != nil {
+			return err
+		}
+		if rel == "." {
+			return os.MkdirAll(dst, 0o755)
+		}
+		info, err := d.Info()
+		if err != nil {
+			return err
+		}
+		target := filepath.Join(dst, rel)
+		if info.Mode()&os.ModeSymlink != 0 {
+			linkTarget, err := os.Readlink(path)
+			if err != nil {
+				return err
+			}
+			return os.Symlink(linkTarget, target)
+		}
+		if d.IsDir() {
+			return os.MkdirAll(target, info.Mode().Perm())
+		}
+		in, err := os.Open(path)
+		if err != nil {
+			return err
+		}
+		defer in.Close()
+		out, err := os.OpenFile(target, os.O_CREATE|os.O_WRONLY|os.O_TRUNC, info.Mode().Perm())
+		if err != nil {
+			return err
+		}
+		if _, err := io.Copy(out, in); err != nil {
+			_ = out.Close()
+			return err
+		}
+		return out.Close()
+	})
+}
+
 func fileExists(path string) bool {
 	_, err := os.Stat(path)
 	return err == nil
@@ -692,8 +770,23 @@ func provisionExternal(env string) error {
 		return nil
 	}
 	fmt.Print("provisioning external resources via Terraform...")
+	dir, err := cloudDirForEnv(env)
+	if err != nil {
+		return err
+	}
+	return terraformProvisioner(dir)
+}
 
-	// Map environment to cloud directory
+func cloudDirForEnv(env string) (string, error) {
+	cloudEnv := strings.ToLower(strings.TrimSpace(env))
+	if cloudEnv == "prod" || cloudEnv == "production" || cloudEnv == "dev" {
+		for _, key := range []string{"cloud_provider", "cloudProvider", "provider"} {
+			if configured := strings.ToLower(strings.TrimSpace(viper.GetString(key))); configured != "" {
+				cloudEnv = configured
+				break
+			}
+		}
+	}
 	cloudDirs := map[string]string{
 		"aws":       "cloud/aws",
 		"azure":     "cloud/azure",
@@ -701,12 +794,11 @@ func provisionExternal(env string) error {
 		"openstack": "cloud/openstack",
 		"ovh":       "cloud/ovh",
 	}
-
-	dir, ok := cloudDirs[env]
+	dir, ok := cloudDirs[cloudEnv]
 	if !ok {
-		return fmt.Errorf("unknown cloud environment: %s", env)
+		return "", fmt.Errorf("unknown cloud environment/provider %q; set --env to one of aws, azure, gcp, openstack, ovh or configure cloud_provider", env)
 	}
-	return runTerraform(dir)
+	return dir, nil
 }
 
 // provisionWait waits for core applications to reach Ready.
@@ -978,12 +1070,20 @@ func runHelmTemplateAndApply(chartDir, namespace string) error {
 		}
 	}
 
-	// Download chart dependencies
-	depCmd := exec.Command("helm", "dependency", "update", chartDir)
-	depCmd.Dir = repoRoot
-	depCmd.Run()
+	workChartDir, cleanup, err := prepareHelmChartWorkdir(chartDir)
+	if err != nil {
+		return fmt.Errorf("prepare Helm workdir: %w", err)
+	}
+	defer cleanup()
 
-	args := helmTemplateArgs(namespace, "release", chartDir)
+	// Download chart dependencies in an isolated workdir so sandbox/live apply does not mutate source charts.
+	depCmd := exec.Command("helm", "dependency", "build", workChartDir)
+	depCmd.Dir = repoRoot
+	if out, err := depCmd.CombinedOutput(); err != nil {
+		return fmt.Errorf("helm dependency build: %w\n%s", err, string(out))
+	}
+
+	args := helmTemplateArgs(namespace, "release", workChartDir)
 	cmd := exec.Command("helm", args...)
 	cmd.Dir = repoRoot
 	rendered, err := cmd.Output()
@@ -1174,6 +1274,9 @@ func patchDependencyVersion(chartYaml, newVersion string) string {
 
 // runAnsiblePlaybook runs an ansible-playbook command in the repo root.
 func runAnsiblePlaybook(playbook, env string) error {
+	if _, err := exec.LookPath("ansible-playbook"); err != nil {
+		return fmt.Errorf("ansible-playbook not found in PATH: %w", err)
+	}
 	cmd := exec.Command("ansible-playbook",
 		"--inventory", fmt.Sprintf("metal/inventories/%s.yml", env),
 		"--key-file", "~/.ssh/id_ed25519",
@@ -1185,8 +1288,15 @@ func runAnsiblePlaybook(playbook, env string) error {
 	return cmd.Run()
 }
 
+func provisionAnsible(env string) error {
+	return runAnsiblePlaybook("metal/cluster.yml", env)
+}
+
 // runTerraform runs terraform init + apply in the specified cloud directory.
 func runTerraform(cloudDir string) error {
+	if _, err := exec.LookPath("terraform"); err != nil {
+		return fmt.Errorf("terraform not found in PATH: %w", err)
+	}
 	dir := filepath.Join(repoRoot, cloudDir)
 
 	initCmd := exec.Command("terraform", "init")

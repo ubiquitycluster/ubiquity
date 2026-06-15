@@ -5,6 +5,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"regexp"
 	"strings"
 	"testing"
 )
@@ -75,6 +76,33 @@ func TestGraphifyWorkflowUsesPortableOKFBundle(t *testing.T) {
 		if !strings.Contains(doc, required) {
 			t.Fatalf("Graphify workflow doc missing portable OKF guidance %q", required)
 		}
+	}
+}
+
+func TestGraphifyManifestHasUniquePathKeys(t *testing.T) {
+	content, err := os.ReadFile("../../graphify-out/manifest.json")
+	if err != nil {
+		t.Fatalf("read Graphify manifest: %v", err)
+	}
+
+	keyLine := regexp.MustCompile(`(?m)^  "([^"]+)":`)
+	counts := map[string]int{}
+	for _, match := range keyLine.FindAllSubmatch(content, -1) {
+		counts[string(match[1])]++
+	}
+
+	var duplicates []string
+	for key, count := range counts {
+		if count > 1 {
+			duplicates = append(duplicates, key)
+		}
+	}
+	if len(duplicates) > 0 {
+		limit := len(duplicates)
+		if limit > 5 {
+			limit = 5
+		}
+		t.Fatalf("graphify-out/manifest.json contains %d duplicate JSON object keys; examples: %s", len(duplicates), strings.Join(duplicates[:limit], ", "))
 	}
 }
 

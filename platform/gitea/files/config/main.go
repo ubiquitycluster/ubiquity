@@ -17,8 +17,6 @@ package main
 # See the License for the specific language governing permissions and
 # limitations under the License.
 */
-// TODO WIP clean this up
-
 import (
 	"log"
 	"os"
@@ -33,10 +31,11 @@ type Organization struct {
 }
 
 type Repository struct {
-	Name    string
-	Owner   string
-	Private bool
-	Migrate struct {
+	Name        string
+	Owner       string
+	Description string
+	Private     bool
+	Migrate     struct {
 		Source string
 		Mirror bool
 	}
@@ -101,9 +100,9 @@ func main() {
 			}
 		} else {
 			_, _, err = client.AdminCreateRepo(repo.Owner, gitea.CreateRepoOption{
-				Name: repo.Name,
-				// Description: "TODO",
-				Private: repo.Private,
+				Name:        repo.Name,
+				Description: repo.Description,
+				Private:     repo.Private,
 			})
 		}
 	}

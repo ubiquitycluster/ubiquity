@@ -4,6 +4,10 @@
   "labels": ["dependencies"],
   "rebaseWhen": "conflicted",
   "schedule": ["before 9am on Monday"],
+  "helm-values": {
+    "enabled": true,
+    "fileMatch": ["(^|/)values\\.ya?ml$"]
+  },
   "packageRules": [
     {
       "matchUpdateTypes": ["minor", "patch"],
@@ -12,13 +16,43 @@
       "automerge": true
     },
     {
-      "matchManagers": ["helm-values", "dockerfile", "gomod", "github-actions"],
-      "enabled": true
+      "matchManagers": ["helm-values"],
+      "enabled": true,
+      "groupName": "Helm values images",
+      "groupSlug": "helm-values-images"
+    },
+    {
+      "matchManagers": ["dockerfile"],
+      "enabled": true,
+      "groupName": "Docker images",
+      "groupSlug": "docker-images"
+    },
+    {
+      "matchManagers": ["gomod"],
+      "enabled": true,
+      "groupName": "Go modules",
+      "groupSlug": "go-deps"
+    },
+    {
+      "matchManagers": ["github-actions"],
+      "enabled": true,
+      "groupName": "GitHub Actions",
+      "groupSlug": "github-actions"
     },
     {
       "matchUpdateTypes": ["major"],
       "automerge": false,
       "labels": ["major-update"]
+    }
+  ],
+  "regexManagers": [
+    {
+      "description": "Track Helm chart dependencies declared in Chart.yaml",
+      "fileMatch": ["(^|/)Chart\\.ya?ml$"],
+      "matchStrings": [
+        "dependencies:\\n(?:\\s+-\\s+name:\\s+(?<depName>[^\\n]+)\\n\\s+version:\\s+[\"']?(?<currentValue>[^\"'\\n]+)[\"']?\\n\\s+repository:\\s+[\"']?(?<registryUrl>https?://[^\"'\\n]+)[\"']?\\n?)+"
+      ],
+      "datasourceTemplate": "helm"
     }
   ]
 }

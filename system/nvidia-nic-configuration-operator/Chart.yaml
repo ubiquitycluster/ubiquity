@@ -1,0 +1,9 @@
+apiVersion: v2
+name: nvidia-nic-configuration-operator
+description: Ubiquity wrapper for NVIDIA NIC Configuration Operator
+type: application
+version: 0.1.0
+appVersion: "latest"
+annotations:
+  ubiquity.dev/source-repository: https://github.com/Mellanox/nic-configuration-operator
+  ubiquity.dev/source-commit: 9a42b0e

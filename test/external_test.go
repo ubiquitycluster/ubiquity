@@ -18,6 +18,7 @@ package test
 # limitations under the License.
 */
 import (
+	"os/exec"
 	"testing"
 
 	"github.com/gruntwork-io/terratest/modules/terraform"
@@ -26,6 +27,12 @@ import (
 
 func TestTerraformExternal(t *testing.T) {
 	t.Parallel()
+	if testing.Short() {
+		t.Skip("skipping Terraform integration test in short mode")
+	}
+	if _, err := exec.LookPath("terraform"); err != nil {
+		t.Skipf("terraform not available: %v", err)
+	}
 
 	// Make a copy of the terraform module to a temporary directory. This allows running multiple tests in parallel
 	// against the same terraform module.

@@ -22,26 +22,57 @@ updates:
       - go
     open-pull-requests-limit: 5
 
-  - package-ecosystem: docker
-    directory: "/"
+  - package-ecosystem: gomod
+    directory: "/test"
     schedule:
       interval: weekly
+      day: monday
+      time: "09:00"
     labels:
       - dependencies
-      - docker
+      - go
+    open-pull-requests-limit: 5
+
+  - package-ecosystem: gomod
+    directory: "/terratest"
+    schedule:
+      interval: weekly
+      day: monday
+      time: "09:00"
+    labels:
+      - dependencies
+      - go
+    open-pull-requests-limit: 5
 
   - package-ecosystem: github-actions
     directory: "/"
     schedule:
       interval: weekly
+      day: monday
+      time: "09:00"
     labels:
       - dependencies
       - ci
+    open-pull-requests-limit: 5
+
+  - package-ecosystem: docker
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: monday
+      time: "09:00"
+    labels:
+      - dependencies
+      - docker
+    open-pull-requests-limit: 5
 
   - package-ecosystem: docker
     directory: "/opus/Dockerfiles"
     schedule:
       interval: weekly
+      day: monday
+      time: "09:00"
     labels:
       - dependencies
       - docker
+    open-pull-requests-limit: 5

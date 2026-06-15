@@ -1,4138 +1,649 @@
 {
   "nodes": [
     {
-      "id": "hpc_ubiq_readme_document",
-      "label": "Readme",
-      "file_type": "document",
-      "source_file": "platform/hpc-ubiq/README.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
+      "id": "semantic:k8up-schedule-test",
+      "label": "K8up Schedule schedule-test",
+      "type": "KubernetesResource",
+      "source_file": "system/k8up-operator/schedule.yaml"
     },
     {
-      "id": "hpc_ubiq_readme_longhorn",
-      "label": "Longhorn",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/README.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
+      "id": "semantic:backblaze-b2-ubiquity-backup",
+      "label": "Backblaze B2 ubiquity-backup S3 backend",
+      "type": "BackupBackend",
+      "source_file": "system/k8up-operator/schedule.yaml"
     },
     {
-      "id": "hpc_ubiq_readme_gpu",
-      "label": "Gpu",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/README.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
+      "id": "semantic:ubiq-backup-credentials",
+      "label": "ubiq-backup-credentials Secret references",
+      "type": "SecretReference",
+      "source_file": "system/k8up-operator/schedule.yaml"
     },
     {
-      "id": "hpc_ubiq_readme_nico",
-      "label": "Nico",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/README.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
+      "id": "semantic:kube-prometheus-stack-prometheus",
+      "label": "Prometheus endpoint in monitoring-system",
+      "type": "MonitoringEndpoint",
+      "source_file": "system/k8up-operator/schedule.yaml"
     },
     {
-      "id": "hpc_ubiq_readme_policy",
-      "label": "Policy",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/README.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
+      "id": "semantic:longhorn-servicemonitor",
+      "label": "Longhorn manager ServiceMonitor",
+      "type": "KubernetesResource",
+      "source_file": "system/longhorn-system/templates/servicemonitor.yaml"
     },
     {
-      "id": "hpc_ubiq_readme_storage",
-      "label": "Storage",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/README.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
+      "id": "semantic:longhorn-prometheusrule",
+      "label": "Longhorn PrometheusRule alert group",
+      "type": "KubernetesResource",
+      "source_file": "system/longhorn-system/templates/servicemonitor.yaml"
     },
     {
-      "id": "hpc_ubiq_readme_sock",
-      "label": "Sock",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/README.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
+      "id": "semantic:longhorn-manager-target-down-alert",
+      "label": "LonghornManagerTargetDown alert",
+      "type": "AlertRule",
+      "source_file": "system/longhorn-system/templates/servicemonitor.yaml"
     },
     {
-      "id": "hpc_ubiq_readme_locate",
-      "label": "Locate",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/README.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
+      "id": "semantic:longhorn-volume-faulted-alert",
+      "label": "LonghornVolumeFaulted alert",
+      "type": "AlertRule",
+      "source_file": "system/longhorn-system/templates/servicemonitor.yaml"
     },
     {
-      "id": "hpc_ubiq_readme_slurm_container",
-      "label": "Slurm Container",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/README.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
+      "id": "semantic:longhorn-monitoring-unit-test",
+      "label": "Longhorn monitoring helm-unittest suite",
+      "type": "TestSuite",
+      "source_file": "system/longhorn-system/tests/basic_test.yaml"
     },
     {
-      "id": "hpc_ubiq_readme_platform_hpc_ubiq",
-      "label": "Platform Hpc-Ubiq",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/README.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
+      "id": "semantic:monitoring-system-chart",
+      "label": "kube-prometheus-stack wrapper chart",
+      "type": "HelmChart",
+      "source_file": "system/monitoring-system/Chart.yaml"
     },
     {
-      "id": "hpc_ubiq_kustomization_document",
-      "label": "Kustomization",
-      "file_type": "document",
-      "source_file": "platform/hpc-ubiq/kustomization.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
+      "id": "semantic:kube-prometheus-stack-dependency",
+      "label": "kube-prometheus-stack Helm dependency 45.28.0",
+      "type": "HelmDependency",
+      "source_file": "system/monitoring-system/Chart.yaml"
     },
     {
-      "id": "hpc_ubiq_kustomization_kustomize",
-      "label": "Kustomize",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/kustomization.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
+      "id": "semantic:monitoring-system-wrapper-tests",
+      "label": "monitoring-system wrapper rendering tests",
+      "type": "TestSuite",
+      "source_file": "system/monitoring-system/tests/basic_test.yaml"
     },
     {
-      "id": "hpc_ubiq_kustomization_longhorn",
-      "label": "Longhorn",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/kustomization.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
+      "id": "semantic:grafana-ingress-wrapper",
+      "label": "prom-grafana-ingress wrapper resource",
+      "type": "KubernetesResource",
+      "source_file": "system/monitoring-system/tests/basic_test.yaml"
     },
     {
-      "id": "hpc_ubiq_kustomization_kustomization",
-      "label": "Kustomization",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/kustomization.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
+      "id": "semantic:legacy-dcgm-exporter-disabled",
+      "label": "Legacy DCGM exporter disabled by default",
+      "type": "ConfigurationDefault",
+      "source_file": "system/monitoring-system/tests/basic_test.yaml"
     },
     {
-      "id": "hpc_ubiq_kustomization_copyright_ubiquity_authors",
-      "label": "Copyright Ubiquity Authors",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/kustomization.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
+      "id": "semantic:vault-cr",
+      "label": "Bank-Vaults Vault custom resource",
+      "type": "KubernetesResource",
+      "source_file": "system/vault/templates/cr.yaml"
     },
     {
-      "id": "hpc_ubiq_kustomization_you_not_file_except",
-      "label": "You Not File Except",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/kustomization.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
+      "id": "semantic:vault-ingress",
+      "label": "Vault ingress vault.ubiquitycluster.uk",
+      "type": "IngressConfiguration",
+      "source_file": "system/vault/templates/cr.yaml"
     },
     {
-      "id": "hpc_ubiq_kustomization_you_obtain_a_copy",
-      "label": "You Obtain A Copy",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/kustomization.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
+      "id": "semantic:vault-file-storage",
+      "label": "Vault file storage mounted at /vault/file",
+      "type": "StorageConfiguration",
+      "source_file": "system/vault/templates/cr.yaml"
     },
     {
-      "id": "hpc_ubiq_kustomization_httpsgithubcomubiquityclusterubiquityblobmainlicense",
-      "label": "Httpsgithubcomubiquityclusterubiquityblobmainlicense",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/kustomization.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
+      "id": "semantic:vault-root-token-storage-disabled",
+      "label": "Vault storeRootToken false",
+      "type": "SecurityControl",
+      "source_file": "system/vault/templates/cr.yaml"
     },
     {
-      "id": "hpc_ubiq_kustomization_unless_required_by_applicable",
-      "label": "Unless Required By Applicable",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/kustomization.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
+      "id": "semantic:vault-kubernetes-auth-default-role",
+      "label": "Vault Kubernetes auth default role",
+      "type": "AuthConfiguration",
+      "source_file": "system/vault/templates/cr.yaml"
     },
     {
-      "id": "hpc_ubiq_kustomization_platform_hpc_ubiq",
-      "label": "Platform Hpc-Ubiq",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/kustomization.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
+      "id": "semantic:vault-kv-secret-engine",
+      "label": "Vault KV v2 secret engine at secret",
+      "type": "SecretEngine",
+      "source_file": "system/vault/templates/cr.yaml"
     },
     {
-      "id": "hpc_ubiq_rbac_document",
-      "label": "Rbac",
-      "file_type": "document",
-      "source_file": "platform/hpc-ubiq/rbac.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
+      "id": "semantic:vault-pki-secret-engine",
+      "label": "Vault PKI secret engine",
+      "type": "SecretEngine",
+      "source_file": "system/vault/templates/cr.yaml"
     },
     {
-      "id": "hpc_ubiq_rbac_clusterrole",
-      "label": "Clusterrole",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/rbac.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
+      "id": "semantic:vault-generate-secrets-cronjob",
+      "label": "generate-secrets CronJob",
+      "type": "KubernetesResource",
+      "source_file": "system/vault/templates/generate-secrets-job.yaml"
     },
     {
-      "id": "hpc_ubiq_rbac_pods_list_hpc_ubiq",
-      "label": "Pods List Hpc Ubiq",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/rbac.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
+      "id": "semantic:vault-secret-generator-image",
+      "label": "ghcr.io/ubiquitycluster/vault-secret-generator:v0.1.0",
+      "type": "ContainerImage",
+      "source_file": "system/vault/values.yaml"
     },
     {
-      "id": "hpc_ubiq_rbac_clusterrolebinding",
-      "label": "Clusterrolebinding",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/rbac.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
+      "id": "semantic:vault-secret-generator-token-secret",
+      "label": "vault-secret-generator-token token key",
+      "type": "SecretReference",
+      "source_file": "system/vault/values.yaml"
     },
     {
-      "id": "hpc_ubiq_rbac_platform_hpc_ubiq",
-      "label": "Platform Hpc-Ubiq",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/rbac.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
+      "id": "semantic:vault-operator-values",
+      "label": "Vault operator values",
+      "type": "HelmValues",
+      "source_file": "system/vault/values.yaml"
     },
     {
-      "id": "htcondor_readme_document",
-      "label": "Readme",
-      "file_type": "document",
-      "source_file": "platform/hpc-ubiq/htcondor/README.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
+      "id": "semantic:nvidia-nic-configuration-operator-runbook",
+      "label": "NVIDIA NIC Configuration Operator runbook",
+      "type": "Documentation",
+      "source_file": "docs/admin-guide/runbooks/nvidia-infra-controller/nic-configuration-operator.md"
     },
     {
-      "id": "htcondor_readme_ubiquity_htcondor_on",
-      "label": "Ubiquity   Htcondor On",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/README.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
+      "id": "semantic:nvidia-nic-configuration-operator-chart",
+      "label": "system/nvidia-nic-configuration-operator chart",
+      "type": "HelmChart",
+      "source_file": "docs/admin-guide/runbooks/nvidia-infra-controller/nic-configuration-operator.md"
     },
     {
-      "id": "htcondor_readme_setting_up",
-      "label": "Setting Up",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/README.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
+      "id": "semantic:nico-enabled-gitops-gate",
+      "label": "Root GitOps inclusion gated by nico.enabled=true",
+      "type": "GitOpsPolicy",
+      "source_file": "docs/admin-guide/runbooks/nvidia-infra-controller/nic-configuration-operator.md"
     },
     {
-      "id": "htcondor_readme_preparing_pool_password",
-      "label": "Preparing Pool Password",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/README.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
+      "id": "semantic:nic-firmware-storage-explicit-opt-in",
+      "label": "NIC firmware storage requires explicit opt-in and StorageClass",
+      "type": "SafetyDefault",
+      "source_file": "docs/admin-guide/runbooks/nvidia-infra-controller/nic-configuration-operator.md"
     },
     {
-      "id": "htcondor_readme_deploy_central_manager_schedd",
-      "label": "Deploy Central Manager Schedd",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/README.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
+      "id": "semantic:plan-001-helm-ci-fail-closed",
+      "label": "Plan 001 Make Helm CI fail closed",
+      "type": "ImprovementPlan",
+      "source_file": "plans/001-make-helm-ci-fail-closed.md"
     },
     {
-      "id": "htcondor_readme_kubectl_get_deployment_htcondor_central_manager",
-      "label": "Kubectl Get Deployment Htcondor Central Manager",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/README.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
+      "id": "semantic:plan-002-ai-sandbox-target-sync",
+      "label": "Plan 002 Keep NVIDIA AI sandbox targets in sync",
+      "type": "ImprovementPlan",
+      "source_file": "plans/002-keep-ai-sandbox-targets-in-sync.md"
     },
     {
-      "id": "htcondor_readme_kubectl_get_pods",
-      "label": "Kubectl Get Pods",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/README.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
+      "id": "semantic:plan-003-ai-workload-tenancy-hardening",
+      "label": "Plan 003 Harden AI workload tenancy values",
+      "type": "ImprovementPlan",
+      "source_file": "plans/003-harden-ai-workload-tenancy-values.md"
     },
     {
-      "id": "htcondor_readme_next_steps",
-      "label": "Next Steps",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/README.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
+      "id": "semantic:plan-004-graphify-manifest-duplicates",
+      "label": "Plan 004 Fix Graphify manifest duplicate keys",
+      "type": "ImprovementPlan",
+      "source_file": "plans/004-fix-graphify-manifest-duplicates.md"
     },
     {
-      "id": "htcondor_readme_kubectl_scale_replicas_2",
-      "label": "Kubectl Scale   Replicas 2",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/README.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
+      "id": "semantic:plan-005-sandbox-helm-non-mutating",
+      "label": "Plan 005 Make sandbox Helm dependency rendering non-mutating",
+      "type": "ImprovementPlan",
+      "source_file": "plans/005-make-sandbox-helm-dependencies-non-mutating.md"
     },
     {
-      "id": "htcondor_readme_platform_hpc_ubiq",
-      "label": "Platform Hpc-Ubiq",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/README.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
+      "id": "semantic:plan-006-nico-readiness-contract",
+      "label": "Plan 006 Fix NICo readiness service/workload contract",
+      "type": "ImprovementPlan",
+      "source_file": "plans/006-fix-nico-readiness-service-contract.md"
     },
     {
-      "id": "htcondor_htcondor_central_manager_deployment_document",
-      "label": "Htcondor Central Manager Deployment",
-      "file_type": "document",
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-central-manager-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
+      "id": "semantic:plan-007-vault-secret-generation-hardening",
+      "label": "Plan 007 Harden Vault secret generation and External Secrets auth",
+      "type": "ImprovementPlan",
+      "source_file": "plans/007-harden-vault-secret-generation-and-external-secrets-auth.md"
     },
     {
-      "id": "htcondor_htcondor_central_manager_deployment_deployment",
-      "label": "Deployment",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-central-manager-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
+      "id": "semantic:plan-008-ci-supply-chain-hardening",
+      "label": "Plan 008 Pin CI supply chain and close remaining fail-open gates",
+      "type": "ImprovementPlan",
+      "source_file": "plans/008-pin-ci-supply-chain-and-close-fail-open-gates.md"
     },
     {
-      "id": "htcondor_htcondor_central_manager_deployment_htcondor_central_manager",
-      "label": "Htcondor Central Manager",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-central-manager-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
+      "id": "semantic:plan-009-ai-production-gitops-registry",
+      "label": "Plan 009 Align AI production GitOps target registry with profile evidence",
+      "type": "ImprovementPlan",
+      "source_file": "plans/009-align-ai-production-gitops-target-registry.md"
     },
     {
-      "id": "htcondor_htcondor_central_manager_deployment_copyright_ubiquity_authors",
-      "label": "Copyright Ubiquity Authors",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-central-manager-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
+      "id": "semantic:improvement-plans-index",
+      "label": "Improvement plans index",
+      "type": "Documentation",
+      "source_file": "plans/README.md"
     },
     {
-      "id": "htcondor_htcondor_central_manager_deployment_you_not_file_except",
-      "label": "You Not File Except",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-central-manager-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
+      "id": "semantic:ai-platform-console-chart",
+      "label": "ai-platform-console Helm chart",
+      "type": "HelmChart",
+      "source_file": "platform/ai-platform-console/Chart.yaml"
     },
     {
-      "id": "htcondor_htcondor_central_manager_deployment_you_obtain_a_copy",
-      "label": "You Obtain A Copy",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-central-manager-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
+      "id": "semantic:ai-platform-console-deployment",
+      "label": "ai-platform-console Deployment",
+      "type": "KubernetesResource",
+      "source_file": "platform/ai-platform-console/templates/deployment.yaml"
     },
     {
-      "id": "htcondor_htcondor_central_manager_deployment_httpsgithubcomubiquityclusterubiquityblobmainlicense",
-      "label": "Httpsgithubcomubiquityclusterubiquityblobmainlicense",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-central-manager-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
+      "id": "semantic:ai-platform-console-service",
+      "label": "ai-platform-console Service",
+      "type": "KubernetesResource",
+      "source_file": "platform/ai-platform-console/templates/service.yaml"
     },
     {
-      "id": "htcondor_htcondor_central_manager_deployment_unless_required_by_applicable",
-      "label": "Unless Required By Applicable",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-central-manager-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
+      "id": "semantic:ai-platform-console-ingress",
+      "label": "ai-platform-console Ingress",
+      "type": "KubernetesResource",
+      "source_file": "platform/ai-platform-console/templates/ingress.yaml"
     },
     {
-      "id": "htcondor_htcondor_central_manager_deployment_distributed_under_license_is",
-      "label": "Distributed Under License Is",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-central-manager-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
+      "id": "semantic:ai-platform-console-smoke-tests",
+      "label": "ai-platform-console helm-unittest smoke tests",
+      "type": "TestSuite",
+      "source_file": "platform/ai-platform-console/tests/smoke_test.yaml"
     },
     {
-      "id": "htcondor_htcondor_central_manager_deployment_platform_hpc_ubiq",
-      "label": "Platform Hpc-Ubiq",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-central-manager-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
+      "id": "semantic:ai-platform-console-values-schema",
+      "label": "ai-platform-console values schema",
+      "type": "Schema",
+      "source_file": "platform/ai-platform-console/values.schema.json"
     },
     {
-      "id": "htcondor_htcondor_central_manager_service_document",
-      "label": "Htcondor Central Manager Service",
-      "file_type": "document",
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-central-manager-service.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "htcondor_htcondor_central_manager_service_htcondor_central_manager",
-      "label": "Htcondor Central Manager",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-central-manager-service.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "htcondor_htcondor_central_manager_service_copyright_ubiquity_authors",
-      "label": "Copyright Ubiquity Authors",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-central-manager-service.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "htcondor_htcondor_central_manager_service_you_not_file_except",
-      "label": "You Not File Except",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-central-manager-service.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "htcondor_htcondor_central_manager_service_you_obtain_a_copy",
-      "label": "You Obtain A Copy",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-central-manager-service.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "htcondor_htcondor_central_manager_service_httpsgithubcomubiquityclusterubiquityblobmainlicense",
-      "label": "Httpsgithubcomubiquityclusterubiquityblobmainlicense",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-central-manager-service.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "htcondor_htcondor_central_manager_service_unless_required_by_applicable",
-      "label": "Unless Required By Applicable",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-central-manager-service.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "htcondor_htcondor_central_manager_service_distributed_under_license_is",
-      "label": "Distributed Under License Is",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-central-manager-service.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "htcondor_htcondor_central_manager_service_without_warranties_or_conditions",
-      "label": "Without Warranties Or Conditions",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-central-manager-service.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "htcondor_htcondor_central_manager_service_platform_hpc_ubiq",
-      "label": "Platform Hpc-Ubiq",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-central-manager-service.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "htcondor_htcondor_schedd_deployment_document",
-      "label": "Htcondor Schedd Deployment",
-      "file_type": "document",
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-schedd-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "htcondor_htcondor_schedd_deployment_deployment",
-      "label": "Deployment",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-schedd-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "htcondor_htcondor_schedd_deployment_htcondor_schedd",
-      "label": "Htcondor Schedd",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-schedd-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "htcondor_htcondor_schedd_deployment_copyright_ubiquity_authors",
-      "label": "Copyright Ubiquity Authors",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-schedd-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "htcondor_htcondor_schedd_deployment_you_not_file_except",
-      "label": "You Not File Except",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-schedd-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "htcondor_htcondor_schedd_deployment_you_obtain_a_copy",
-      "label": "You Obtain A Copy",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-schedd-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "htcondor_htcondor_schedd_deployment_httpsgithubcomubiquityclusterubiquityblobmainlicense",
-      "label": "Httpsgithubcomubiquityclusterubiquityblobmainlicense",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-schedd-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "htcondor_htcondor_schedd_deployment_unless_required_by_applicable",
-      "label": "Unless Required By Applicable",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-schedd-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "htcondor_htcondor_schedd_deployment_distributed_under_license_is",
-      "label": "Distributed Under License Is",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-schedd-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "htcondor_htcondor_schedd_deployment_platform_hpc_ubiq",
-      "label": "Platform Hpc-Ubiq",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-schedd-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "htcondor_htcondor_worker_deployment_document",
-      "label": "Htcondor Worker Deployment",
-      "file_type": "document",
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-worker-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "htcondor_htcondor_worker_deployment_deployment",
-      "label": "Deployment",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-worker-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "htcondor_htcondor_worker_deployment_htcondor_worker",
-      "label": "Htcondor Worker",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-worker-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "htcondor_htcondor_worker_deployment_copyright_ubiquity_authors",
-      "label": "Copyright Ubiquity Authors",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-worker-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "htcondor_htcondor_worker_deployment_you_not_file_except",
-      "label": "You Not File Except",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-worker-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "htcondor_htcondor_worker_deployment_you_obtain_a_copy",
-      "label": "You Obtain A Copy",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-worker-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "htcondor_htcondor_worker_deployment_httpsgithubcomubiquityclusterubiquityblobmainlicense",
-      "label": "Httpsgithubcomubiquityclusterubiquityblobmainlicense",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-worker-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "htcondor_htcondor_worker_deployment_unless_required_by_applicable",
-      "label": "Unless Required By Applicable",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-worker-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "htcondor_htcondor_worker_deployment_distributed_under_license_is",
-      "label": "Distributed Under License Is",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-worker-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "htcondor_htcondor_worker_deployment_platform_hpc_ubiq",
-      "label": "Platform Hpc-Ubiq",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-worker-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "images_readme_document",
-      "label": "Readme",
-      "file_type": "document",
-      "source_file": "platform/hpc-ubiq/htcondor/images/README.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "images_readme_htcondor",
-      "label": "Htcondor",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/images/README.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "images_readme_images_in_directory",
-      "label": "Images In Directory",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/images/README.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "images_readme_platform_hpc_ubiq",
-      "label": "Platform Hpc-Ubiq",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/images/README.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_clusterrolebinding_document",
-      "label": "Htcondor Clusterrolebinding",
-      "file_type": "document",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-clusterrolebinding.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_clusterrolebinding_serviceaccount",
-      "label": "Serviceaccount",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-clusterrolebinding.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_clusterrolebinding_pods_creator",
-      "label": "Pods Creator",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-clusterrolebinding.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_clusterrolebinding_clusterrole",
-      "label": "Clusterrole",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-clusterrolebinding.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_clusterrolebinding_clusterrolebinding",
-      "label": "Clusterrolebinding",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-clusterrolebinding.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_clusterrolebinding_copyright_ubiquity_authors",
-      "label": "Copyright Ubiquity Authors",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-clusterrolebinding.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_clusterrolebinding_you_not_file_except",
-      "label": "You Not File Except",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-clusterrolebinding.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_clusterrolebinding_you_obtain_a_copy",
-      "label": "You Obtain A Copy",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-clusterrolebinding.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_clusterrolebinding_httpsgithubcomubiquityclusterubiquityblobmainlicense",
-      "label": "Httpsgithubcomubiquityclusterubiquityblobmainlicense",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-clusterrolebinding.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_clusterrolebinding_platform_hpc_ubiq",
-      "label": "Platform Hpc-Ubiq",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-clusterrolebinding.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_collector_deployment_document",
-      "label": "Htcondor Collector Deployment",
-      "file_type": "document",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-collector-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_collector_deployment_deployment",
-      "label": "Deployment",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-collector-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_collector_deployment_htcondor_collector",
-      "label": "Htcondor Collector",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-collector-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_collector_deployment_copyright_ubiquity_authors",
-      "label": "Copyright Ubiquity Authors",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-collector-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_collector_deployment_you_not_file_except",
-      "label": "You Not File Except",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-collector-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_collector_deployment_you_obtain_a_copy",
-      "label": "You Obtain A Copy",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-collector-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_collector_deployment_httpsgithubcomubiquityclusterubiquityblobmainlicense",
-      "label": "Httpsgithubcomubiquityclusterubiquityblobmainlicense",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-collector-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_collector_deployment_unless_required_by_applicable",
-      "label": "Unless Required By Applicable",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-collector-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_collector_deployment_distributed_under_license_is",
-      "label": "Distributed Under License Is",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-collector-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_collector_deployment_platform_hpc_ubiq",
-      "label": "Platform Hpc-Ubiq",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-collector-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_collector_service_document",
-      "label": "Htcondor Collector Service",
-      "file_type": "document",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-collector-service.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_collector_service_htcondor_collector",
-      "label": "Htcondor Collector",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-collector-service.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_collector_service_copyright_ubiquity_authors",
-      "label": "Copyright Ubiquity Authors",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-collector-service.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_collector_service_you_not_file_except",
-      "label": "You Not File Except",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-collector-service.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_collector_service_you_obtain_a_copy",
-      "label": "You Obtain A Copy",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-collector-service.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_collector_service_httpsgithubcomubiquityclusterubiquityblobmainlicense",
-      "label": "Httpsgithubcomubiquityclusterubiquityblobmainlicense",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-collector-service.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_collector_service_unless_required_by_applicable",
-      "label": "Unless Required By Applicable",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-collector-service.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_collector_service_distributed_under_license_is",
-      "label": "Distributed Under License Is",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-collector-service.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_collector_service_without_warranties_or_conditions",
-      "label": "Without Warranties Or Conditions",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-collector-service.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_collector_service_platform_hpc_ubiq",
-      "label": "Platform Hpc-Ubiq",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-collector-service.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_negotiator_deployment_document",
-      "label": "Htcondor Negotiator Deployment",
-      "file_type": "document",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-negotiator-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_negotiator_deployment_deployment",
-      "label": "Deployment",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-negotiator-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_negotiator_deployment_htcondor_negotiator",
-      "label": "Htcondor Negotiator",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-negotiator-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_negotiator_deployment_copyright_ubiquity_authors",
-      "label": "Copyright Ubiquity Authors",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-negotiator-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_negotiator_deployment_you_not_file_except",
-      "label": "You Not File Except",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-negotiator-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_negotiator_deployment_you_obtain_a_copy",
-      "label": "You Obtain A Copy",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-negotiator-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_negotiator_deployment_httpsgithubcomubiquityclusterubiquityblobmainlicense",
-      "label": "Httpsgithubcomubiquityclusterubiquityblobmainlicense",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-negotiator-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_negotiator_deployment_unless_required_by_applicable",
-      "label": "Unless Required By Applicable",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-negotiator-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_negotiator_deployment_distributed_under_license_is",
-      "label": "Distributed Under License Is",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-negotiator-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_negotiator_deployment_platform_hpc_ubiq",
-      "label": "Platform Hpc-Ubiq",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-negotiator-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_pool_deployment_rbac_document",
-      "label": "Htcondor Pool Deployment Rbac",
-      "file_type": "document",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-pool-deployment-rbac.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_pool_deployment_rbac_policy",
-      "label": "Policy",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-pool-deployment-rbac.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_pool_deployment_rbac_deployment",
-      "label": "Deployment",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-pool-deployment-rbac.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_pool_deployment_rbac_htcondor_pool",
-      "label": "Htcondor Pool",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-pool-deployment-rbac.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_pool_deployment_rbac_htcondor_worker_pod_template",
-      "label": "Htcondor Worker Pod Template",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-pool-deployment-rbac.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_pool_deployment_rbac_copyright_ubiquity_authors",
-      "label": "Copyright Ubiquity Authors",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-pool-deployment-rbac.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_pool_deployment_rbac_you_not_file_except",
-      "label": "You Not File Except",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-pool-deployment-rbac.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_pool_deployment_rbac_you_obtain_a_copy",
-      "label": "You Obtain A Copy",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-pool-deployment-rbac.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_pool_deployment_rbac_httpsgithubcomubiquityclusterubiquityblobmainlicense",
-      "label": "Httpsgithubcomubiquityclusterubiquityblobmainlicense",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-pool-deployment-rbac.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_pool_deployment_rbac_platform_hpc_ubiq",
-      "label": "Platform Hpc-Ubiq",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-pool-deployment-rbac.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_pool_deployment_document",
-      "label": "Htcondor Pool Deployment",
-      "file_type": "document",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-pool-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_pool_deployment_policy",
-      "label": "Policy",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-pool-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_pool_deployment_deployment",
-      "label": "Deployment",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-pool-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_pool_deployment_htcondor_pool",
-      "label": "Htcondor Pool",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-pool-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_pool_deployment_htcondor_worker_pod_template",
-      "label": "Htcondor Worker Pod Template",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-pool-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_pool_deployment_copyright_ubiquity_authors",
-      "label": "Copyright Ubiquity Authors",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-pool-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_pool_deployment_you_not_file_except",
-      "label": "You Not File Except",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-pool-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_pool_deployment_you_obtain_a_copy",
-      "label": "You Obtain A Copy",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-pool-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_pool_deployment_httpsgithubcomubiquityclusterubiquityblobmainlicense",
-      "label": "Httpsgithubcomubiquityclusterubiquityblobmainlicense",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-pool-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_pool_deployment_platform_hpc_ubiq",
-      "label": "Platform Hpc-Ubiq",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-pool-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_schedd_deployment_document",
-      "label": "Htcondor Schedd Deployment",
-      "file_type": "document",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-schedd-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_schedd_deployment_deployment",
-      "label": "Deployment",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-schedd-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_schedd_deployment_htcondor_schedd",
-      "label": "Htcondor Schedd",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-schedd-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_schedd_deployment_copyright_ubiquity_authors",
-      "label": "Copyright Ubiquity Authors",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-schedd-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_schedd_deployment_you_not_file_except",
-      "label": "You Not File Except",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-schedd-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_schedd_deployment_you_obtain_a_copy",
-      "label": "You Obtain A Copy",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-schedd-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_schedd_deployment_httpsgithubcomubiquityclusterubiquityblobmainlicense",
-      "label": "Httpsgithubcomubiquityclusterubiquityblobmainlicense",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-schedd-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_schedd_deployment_unless_required_by_applicable",
-      "label": "Unless Required By Applicable",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-schedd-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_schedd_deployment_distributed_under_license_is",
-      "label": "Distributed Under License Is",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-schedd-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_schedd_deployment_platform_hpc_ubiq",
-      "label": "Platform Hpc-Ubiq",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-schedd-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_worker_configmap_job_document",
-      "label": "Htcondor Worker Configmap Job",
-      "file_type": "document",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-worker-configmap-job.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_worker_configmap_job_argocd",
-      "label": "Argocd",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-worker-configmap-job.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_worker_configmap_job_gitea",
-      "label": "Gitea",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-worker-configmap-job.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_worker_configmap_job_policy",
-      "label": "Policy",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-worker-configmap-job.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_worker_configmap_job_cronjob",
-      "label": "Cronjob",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-worker-configmap-job.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_worker_configmap_job_htcondor_worker_pod_template_config",
-      "label": "Htcondor Worker Pod Template Config",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-worker-configmap-job.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_worker_configmap_job_gitea_admin_secret",
-      "label": "Gitea Admin Secret",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-worker-configmap-job.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_worker_configmap_job_gitea_config_source",
-      "label": "Gitea Config Source",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-worker-configmap-job.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_worker_configmap_job_copyright_ubiquity_authors",
-      "label": "Copyright Ubiquity Authors",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-worker-configmap-job.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_worker_configmap_job_platform_hpc_ubiq",
-      "label": "Platform Hpc-Ubiq",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-worker-configmap-job.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_worker_configmap_document",
-      "label": "Htcondor Worker Configmap",
-      "file_type": "document",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-worker-configmap.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_worker_configmap_policy",
-      "label": "Policy",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-worker-configmap.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_worker_configmap_configmap",
-      "label": "Configmap",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-worker-configmap.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_worker_configmap_htcondor_worker_pod_template",
-      "label": "Htcondor Worker Pod Template",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-worker-configmap.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_worker_configmap_copyright_ubiquity_authors",
-      "label": "Copyright Ubiquity Authors",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-worker-configmap.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_worker_configmap_you_not_file_except",
-      "label": "You Not File Except",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-worker-configmap.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_worker_configmap_you_obtain_a_copy",
-      "label": "You Obtain A Copy",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-worker-configmap.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_worker_configmap_httpsgithubcomubiquityclusterubiquityblobmainlicense",
-      "label": "Httpsgithubcomubiquityclusterubiquityblobmainlicense",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-worker-configmap.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_worker_configmap_unless_required_by_applicable",
-      "label": "Unless Required By Applicable",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-worker-configmap.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_worker_configmap_platform_hpc_ubiq",
-      "label": "Platform Hpc-Ubiq",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-worker-configmap.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_worker_deployment_document",
-      "label": "Htcondor Worker Deployment",
-      "file_type": "document",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-worker-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_worker_deployment_deployment",
-      "label": "Deployment",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-worker-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_worker_deployment_htcondor_worker",
-      "label": "Htcondor Worker",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-worker-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_worker_deployment_copyright_ubiquity_authors",
-      "label": "Copyright Ubiquity Authors",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-worker-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_worker_deployment_you_not_file_except",
-      "label": "You Not File Except",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-worker-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_worker_deployment_you_obtain_a_copy",
-      "label": "You Obtain A Copy",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-worker-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_worker_deployment_httpsgithubcomubiquityclusterubiquityblobmainlicense",
-      "label": "Httpsgithubcomubiquityclusterubiquityblobmainlicense",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-worker-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_worker_deployment_unless_required_by_applicable",
-      "label": "Unless Required By Applicable",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-worker-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_worker_deployment_distributed_under_license_is",
-      "label": "Distributed Under License Is",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-worker-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "v2_htcondor_worker_deployment_platform_hpc_ubiq",
-      "label": "Platform Hpc-Ubiq",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-worker-deployment.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "cvmfs_pvc_cvmfs_eessi_document",
-      "label": "Pvc Cvmfs Eessi",
-      "file_type": "document",
-      "source_file": "platform/hpc-ubiq/misc/cvmfs/pvc-cvmfs-eessi.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "cvmfs_pvc_cvmfs_eessi_aws",
-      "label": "Aws",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/misc/cvmfs/pvc-cvmfs-eessi.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "cvmfs_pvc_cvmfs_eessi_azure",
-      "label": "Azure",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/misc/cvmfs/pvc-cvmfs-eessi.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "cvmfs_pvc_cvmfs_eessi_storage",
-      "label": "Storage",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/misc/cvmfs/pvc-cvmfs-eessi.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "cvmfs_pvc_cvmfs_eessi_persistentvolume",
-      "label": "Persistentvolume",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/misc/cvmfs/pvc-cvmfs-eessi.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "cvmfs_pvc_cvmfs_eessi_cvmfs_eessi_io",
-      "label": "Cvmfs Eessi Io",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/misc/cvmfs/pvc-cvmfs-eessi.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "cvmfs_pvc_cvmfs_eessi_persistentvolumeclaim",
-      "label": "Persistentvolumeclaim",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/misc/cvmfs/pvc-cvmfs-eessi.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "cvmfs_pvc_cvmfs_eessi_storageclass",
-      "label": "Storageclass",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/misc/cvmfs/pvc-cvmfs-eessi.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "cvmfs_pvc_cvmfs_eessi_create_persistentvolume_persistentvolumeclaim_cvmfs",
-      "label": "Create Persistentvolume Persistentvolumeclaim Cvmfs",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/misc/cvmfs/pvc-cvmfs-eessi.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "cvmfs_pvc_cvmfs_eessi_platform_hpc_ubiq",
-      "label": "Platform Hpc-Ubiq",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/misc/cvmfs/pvc-cvmfs-eessi.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "cvmfs_pvc_cvmfs_document",
-      "label": "Pvc Cvmfs",
-      "file_type": "document",
-      "source_file": "platform/hpc-ubiq/misc/cvmfs/pvc-cvmfs.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "cvmfs_pvc_cvmfs_storage",
-      "label": "Storage",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/misc/cvmfs/pvc-cvmfs.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "cvmfs_pvc_cvmfs_storageclass",
-      "label": "Storageclass",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/misc/cvmfs/pvc-cvmfs.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "cvmfs_pvc_cvmfs_cvmfs",
-      "label": "Cvmfs",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/misc/cvmfs/pvc-cvmfs.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "cvmfs_pvc_cvmfs_persistentvolumeclaim",
-      "label": "Persistentvolumeclaim",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/misc/cvmfs/pvc-cvmfs.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "cvmfs_pvc_cvmfs_platform_hpc_ubiq",
-      "label": "Platform Hpc-Ubiq",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/misc/cvmfs/pvc-cvmfs.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "longhorn_pv_longhorn_document",
-      "label": "Pv Longhorn",
-      "file_type": "document",
-      "source_file": "platform/hpc-ubiq/misc/longhorn/pv-longhorn.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "longhorn_pv_longhorn_longhorn",
-      "label": "Longhorn",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/misc/longhorn/pv-longhorn.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "longhorn_pv_longhorn_policy",
-      "label": "Policy",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/misc/longhorn/pv-longhorn.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "longhorn_pv_longhorn_storage",
-      "label": "Storage",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/misc/longhorn/pv-longhorn.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "longhorn_pv_longhorn_persistentvolume",
-      "label": "Persistentvolume",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/misc/longhorn/pv-longhorn.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "longhorn_pv_longhorn_pv_lh_home",
-      "label": "Pv Lh Home",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/misc/longhorn/pv-longhorn.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "longhorn_pv_longhorn_copyright_ubiquity_authors",
-      "label": "Copyright Ubiquity Authors",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/misc/longhorn/pv-longhorn.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "longhorn_pv_longhorn_you_not_file_except",
-      "label": "You Not File Except",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/misc/longhorn/pv-longhorn.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "longhorn_pv_longhorn_you_obtain_a_copy",
-      "label": "You Obtain A Copy",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/misc/longhorn/pv-longhorn.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "longhorn_pv_longhorn_platform_hpc_ubiq",
-      "label": "Platform Hpc-Ubiq",
-      "file_type": "concept",
-      "source_file": "platform/hpc-ubiq/misc/longhorn/pv-longhorn.yaml",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
+      "id": "semantic:ai-production-profile-value",
+      "label": "ai-production profile value",
+      "type": "ConfigurationValue",
+      "source_file": "platform/ai-platform-console/values.schema.json"
     }
   ],
   "edges": [
     {
-      "source": "hpc_ubiq_readme_document",
-      "target": "hpc_ubiq_readme_longhorn",
-      "relation": "references",
-      "confidence": "INFERRED",
-      "confidence_score": 0.75,
-      "source_file": "platform/hpc-ubiq/README.md",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "hpc_ubiq_readme_document",
-      "target": "hpc_ubiq_readme_gpu",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.75,
-      "source_file": "platform/hpc-ubiq/README.md",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "hpc_ubiq_readme_document",
-      "target": "hpc_ubiq_readme_nico",
-      "relation": "references",
-      "confidence": "INFERRED",
-      "confidence_score": 0.75,
-      "source_file": "platform/hpc-ubiq/README.md",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "hpc_ubiq_readme_document",
-      "target": "hpc_ubiq_readme_policy",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.75,
-      "source_file": "platform/hpc-ubiq/README.md",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "hpc_ubiq_readme_document",
-      "target": "hpc_ubiq_readme_storage",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.75,
-      "source_file": "platform/hpc-ubiq/README.md",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "hpc_ubiq_readme_document",
-      "target": "hpc_ubiq_readme_sock",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/README.md",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "hpc_ubiq_readme_document",
-      "target": "hpc_ubiq_readme_locate",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/README.md",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "hpc_ubiq_readme_document",
-      "target": "hpc_ubiq_readme_slurm_container",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/README.md",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "hpc_ubiq_readme_document",
-      "target": "hpc_ubiq_readme_platform_hpc_ubiq",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/README.md",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "hpc_ubiq_kustomization_document",
-      "target": "hpc_ubiq_kustomization_kustomize",
-      "relation": "implements",
-      "confidence": "INFERRED",
-      "confidence_score": 0.75,
-      "source_file": "platform/hpc-ubiq/kustomization.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "hpc_ubiq_kustomization_document",
-      "target": "hpc_ubiq_kustomization_longhorn",
-      "relation": "references",
-      "confidence": "INFERRED",
-      "confidence_score": 0.75,
-      "source_file": "platform/hpc-ubiq/kustomization.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "hpc_ubiq_kustomization_document",
-      "target": "hpc_ubiq_kustomization_kustomization",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/kustomization.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "hpc_ubiq_kustomization_document",
-      "target": "hpc_ubiq_kustomization_copyright_ubiquity_authors",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/kustomization.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "hpc_ubiq_kustomization_document",
-      "target": "hpc_ubiq_kustomization_you_not_file_except",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/kustomization.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "hpc_ubiq_kustomization_document",
-      "target": "hpc_ubiq_kustomization_you_obtain_a_copy",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/kustomization.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "hpc_ubiq_kustomization_document",
-      "target": "hpc_ubiq_kustomization_httpsgithubcomubiquityclusterubiquityblobmainlicense",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/kustomization.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "hpc_ubiq_kustomization_document",
-      "target": "hpc_ubiq_kustomization_unless_required_by_applicable",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/kustomization.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "hpc_ubiq_kustomization_document",
-      "target": "hpc_ubiq_kustomization_platform_hpc_ubiq",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/kustomization.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "hpc_ubiq_rbac_document",
-      "target": "hpc_ubiq_rbac_clusterrole",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/rbac.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "hpc_ubiq_rbac_document",
-      "target": "hpc_ubiq_rbac_pods_list_hpc_ubiq",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/rbac.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "hpc_ubiq_rbac_document",
-      "target": "hpc_ubiq_rbac_clusterrolebinding",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/rbac.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "hpc_ubiq_rbac_document",
-      "target": "hpc_ubiq_rbac_platform_hpc_ubiq",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/rbac.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "htcondor_readme_document",
-      "target": "htcondor_readme_ubiquity_htcondor_on",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/README.md",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "htcondor_readme_document",
-      "target": "htcondor_readme_setting_up",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/README.md",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "htcondor_readme_document",
-      "target": "htcondor_readme_preparing_pool_password",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/README.md",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "htcondor_readme_document",
-      "target": "htcondor_readme_deploy_central_manager_schedd",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/README.md",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "htcondor_readme_document",
-      "target": "htcondor_readme_kubectl_get_deployment_htcondor_central_manager",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/README.md",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "htcondor_readme_document",
-      "target": "htcondor_readme_kubectl_get_pods",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/README.md",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "htcondor_readme_document",
-      "target": "htcondor_readme_next_steps",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/README.md",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "htcondor_readme_document",
-      "target": "htcondor_readme_kubectl_scale_replicas_2",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/README.md",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "htcondor_readme_document",
-      "target": "htcondor_readme_platform_hpc_ubiq",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/README.md",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "htcondor_htcondor_central_manager_deployment_document",
-      "target": "htcondor_htcondor_central_manager_deployment_deployment",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-central-manager-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "htcondor_htcondor_central_manager_deployment_document",
-      "target": "htcondor_htcondor_central_manager_deployment_htcondor_central_manager",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-central-manager-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "htcondor_htcondor_central_manager_deployment_document",
-      "target": "htcondor_htcondor_central_manager_deployment_copyright_ubiquity_authors",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-central-manager-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "htcondor_htcondor_central_manager_deployment_document",
-      "target": "htcondor_htcondor_central_manager_deployment_you_not_file_except",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-central-manager-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "htcondor_htcondor_central_manager_deployment_document",
-      "target": "htcondor_htcondor_central_manager_deployment_you_obtain_a_copy",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-central-manager-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "htcondor_htcondor_central_manager_deployment_document",
-      "target": "htcondor_htcondor_central_manager_deployment_httpsgithubcomubiquityclusterubiquityblobmainlicense",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-central-manager-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "htcondor_htcondor_central_manager_deployment_document",
-      "target": "htcondor_htcondor_central_manager_deployment_unless_required_by_applicable",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-central-manager-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "htcondor_htcondor_central_manager_deployment_document",
-      "target": "htcondor_htcondor_central_manager_deployment_distributed_under_license_is",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-central-manager-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "htcondor_htcondor_central_manager_deployment_document",
-      "target": "htcondor_htcondor_central_manager_deployment_platform_hpc_ubiq",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-central-manager-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "htcondor_htcondor_central_manager_service_document",
-      "target": "htcondor_htcondor_central_manager_service_htcondor_central_manager",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-central-manager-service.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "htcondor_htcondor_central_manager_service_document",
-      "target": "htcondor_htcondor_central_manager_service_copyright_ubiquity_authors",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-central-manager-service.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "htcondor_htcondor_central_manager_service_document",
-      "target": "htcondor_htcondor_central_manager_service_you_not_file_except",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-central-manager-service.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "htcondor_htcondor_central_manager_service_document",
-      "target": "htcondor_htcondor_central_manager_service_you_obtain_a_copy",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-central-manager-service.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "htcondor_htcondor_central_manager_service_document",
-      "target": "htcondor_htcondor_central_manager_service_httpsgithubcomubiquityclusterubiquityblobmainlicense",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-central-manager-service.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "htcondor_htcondor_central_manager_service_document",
-      "target": "htcondor_htcondor_central_manager_service_unless_required_by_applicable",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-central-manager-service.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "htcondor_htcondor_central_manager_service_document",
-      "target": "htcondor_htcondor_central_manager_service_distributed_under_license_is",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-central-manager-service.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "htcondor_htcondor_central_manager_service_document",
-      "target": "htcondor_htcondor_central_manager_service_without_warranties_or_conditions",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-central-manager-service.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "htcondor_htcondor_central_manager_service_document",
-      "target": "htcondor_htcondor_central_manager_service_platform_hpc_ubiq",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-central-manager-service.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "htcondor_htcondor_schedd_deployment_document",
-      "target": "htcondor_htcondor_schedd_deployment_deployment",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-schedd-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "htcondor_htcondor_schedd_deployment_document",
-      "target": "htcondor_htcondor_schedd_deployment_htcondor_schedd",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-schedd-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "htcondor_htcondor_schedd_deployment_document",
-      "target": "htcondor_htcondor_schedd_deployment_copyright_ubiquity_authors",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-schedd-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "htcondor_htcondor_schedd_deployment_document",
-      "target": "htcondor_htcondor_schedd_deployment_you_not_file_except",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-schedd-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "htcondor_htcondor_schedd_deployment_document",
-      "target": "htcondor_htcondor_schedd_deployment_you_obtain_a_copy",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-schedd-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "htcondor_htcondor_schedd_deployment_document",
-      "target": "htcondor_htcondor_schedd_deployment_httpsgithubcomubiquityclusterubiquityblobmainlicense",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-schedd-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "htcondor_htcondor_schedd_deployment_document",
-      "target": "htcondor_htcondor_schedd_deployment_unless_required_by_applicable",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-schedd-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "htcondor_htcondor_schedd_deployment_document",
-      "target": "htcondor_htcondor_schedd_deployment_distributed_under_license_is",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-schedd-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "htcondor_htcondor_schedd_deployment_document",
-      "target": "htcondor_htcondor_schedd_deployment_platform_hpc_ubiq",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-schedd-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "htcondor_htcondor_worker_deployment_document",
-      "target": "htcondor_htcondor_worker_deployment_deployment",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-worker-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "htcondor_htcondor_worker_deployment_document",
-      "target": "htcondor_htcondor_worker_deployment_htcondor_worker",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-worker-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "htcondor_htcondor_worker_deployment_document",
-      "target": "htcondor_htcondor_worker_deployment_copyright_ubiquity_authors",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-worker-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "htcondor_htcondor_worker_deployment_document",
-      "target": "htcondor_htcondor_worker_deployment_you_not_file_except",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-worker-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "htcondor_htcondor_worker_deployment_document",
-      "target": "htcondor_htcondor_worker_deployment_you_obtain_a_copy",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-worker-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "htcondor_htcondor_worker_deployment_document",
-      "target": "htcondor_htcondor_worker_deployment_httpsgithubcomubiquityclusterubiquityblobmainlicense",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-worker-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "htcondor_htcondor_worker_deployment_document",
-      "target": "htcondor_htcondor_worker_deployment_unless_required_by_applicable",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-worker-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "htcondor_htcondor_worker_deployment_document",
-      "target": "htcondor_htcondor_worker_deployment_distributed_under_license_is",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-worker-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "htcondor_htcondor_worker_deployment_document",
-      "target": "htcondor_htcondor_worker_deployment_platform_hpc_ubiq",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/htcondor-worker-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "images_readme_document",
-      "target": "images_readme_htcondor",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/images/README.md",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "images_readme_document",
-      "target": "images_readme_images_in_directory",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/images/README.md",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "images_readme_document",
-      "target": "images_readme_platform_hpc_ubiq",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/images/README.md",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_clusterrolebinding_document",
-      "target": "v2_htcondor_clusterrolebinding_serviceaccount",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-clusterrolebinding.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_clusterrolebinding_document",
-      "target": "v2_htcondor_clusterrolebinding_pods_creator",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-clusterrolebinding.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_clusterrolebinding_document",
-      "target": "v2_htcondor_clusterrolebinding_clusterrole",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-clusterrolebinding.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_clusterrolebinding_document",
-      "target": "v2_htcondor_clusterrolebinding_clusterrolebinding",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-clusterrolebinding.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_clusterrolebinding_document",
-      "target": "v2_htcondor_clusterrolebinding_copyright_ubiquity_authors",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-clusterrolebinding.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_clusterrolebinding_document",
-      "target": "v2_htcondor_clusterrolebinding_you_not_file_except",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-clusterrolebinding.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_clusterrolebinding_document",
-      "target": "v2_htcondor_clusterrolebinding_you_obtain_a_copy",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-clusterrolebinding.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_clusterrolebinding_document",
-      "target": "v2_htcondor_clusterrolebinding_httpsgithubcomubiquityclusterubiquityblobmainlicense",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-clusterrolebinding.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_clusterrolebinding_document",
-      "target": "v2_htcondor_clusterrolebinding_platform_hpc_ubiq",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-clusterrolebinding.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_collector_deployment_document",
-      "target": "v2_htcondor_collector_deployment_deployment",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-collector-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_collector_deployment_document",
-      "target": "v2_htcondor_collector_deployment_htcondor_collector",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-collector-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_collector_deployment_document",
-      "target": "v2_htcondor_collector_deployment_copyright_ubiquity_authors",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-collector-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_collector_deployment_document",
-      "target": "v2_htcondor_collector_deployment_you_not_file_except",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-collector-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_collector_deployment_document",
-      "target": "v2_htcondor_collector_deployment_you_obtain_a_copy",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-collector-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_collector_deployment_document",
-      "target": "v2_htcondor_collector_deployment_httpsgithubcomubiquityclusterubiquityblobmainlicense",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-collector-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_collector_deployment_document",
-      "target": "v2_htcondor_collector_deployment_unless_required_by_applicable",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-collector-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_collector_deployment_document",
-      "target": "v2_htcondor_collector_deployment_distributed_under_license_is",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-collector-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_collector_deployment_document",
-      "target": "v2_htcondor_collector_deployment_platform_hpc_ubiq",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-collector-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_collector_service_document",
-      "target": "v2_htcondor_collector_service_htcondor_collector",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-collector-service.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_collector_service_document",
-      "target": "v2_htcondor_collector_service_copyright_ubiquity_authors",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-collector-service.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_collector_service_document",
-      "target": "v2_htcondor_collector_service_you_not_file_except",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-collector-service.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_collector_service_document",
-      "target": "v2_htcondor_collector_service_you_obtain_a_copy",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-collector-service.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_collector_service_document",
-      "target": "v2_htcondor_collector_service_httpsgithubcomubiquityclusterubiquityblobmainlicense",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-collector-service.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_collector_service_document",
-      "target": "v2_htcondor_collector_service_unless_required_by_applicable",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-collector-service.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_collector_service_document",
-      "target": "v2_htcondor_collector_service_distributed_under_license_is",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-collector-service.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_collector_service_document",
-      "target": "v2_htcondor_collector_service_without_warranties_or_conditions",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-collector-service.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_collector_service_document",
-      "target": "v2_htcondor_collector_service_platform_hpc_ubiq",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-collector-service.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_negotiator_deployment_document",
-      "target": "v2_htcondor_negotiator_deployment_deployment",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-negotiator-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_negotiator_deployment_document",
-      "target": "v2_htcondor_negotiator_deployment_htcondor_negotiator",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-negotiator-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_negotiator_deployment_document",
-      "target": "v2_htcondor_negotiator_deployment_copyright_ubiquity_authors",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-negotiator-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_negotiator_deployment_document",
-      "target": "v2_htcondor_negotiator_deployment_you_not_file_except",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-negotiator-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_negotiator_deployment_document",
-      "target": "v2_htcondor_negotiator_deployment_you_obtain_a_copy",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-negotiator-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_negotiator_deployment_document",
-      "target": "v2_htcondor_negotiator_deployment_httpsgithubcomubiquityclusterubiquityblobmainlicense",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-negotiator-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_negotiator_deployment_document",
-      "target": "v2_htcondor_negotiator_deployment_unless_required_by_applicable",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-negotiator-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_negotiator_deployment_document",
-      "target": "v2_htcondor_negotiator_deployment_distributed_under_license_is",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-negotiator-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_negotiator_deployment_document",
-      "target": "v2_htcondor_negotiator_deployment_platform_hpc_ubiq",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-negotiator-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_pool_deployment_rbac_document",
-      "target": "v2_htcondor_pool_deployment_rbac_policy",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.75,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-pool-deployment-rbac.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_pool_deployment_rbac_document",
-      "target": "v2_htcondor_pool_deployment_rbac_deployment",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-pool-deployment-rbac.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_pool_deployment_rbac_document",
-      "target": "v2_htcondor_pool_deployment_rbac_htcondor_pool",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-pool-deployment-rbac.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_pool_deployment_rbac_document",
-      "target": "v2_htcondor_pool_deployment_rbac_htcondor_worker_pod_template",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-pool-deployment-rbac.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_pool_deployment_rbac_document",
-      "target": "v2_htcondor_pool_deployment_rbac_copyright_ubiquity_authors",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-pool-deployment-rbac.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_pool_deployment_rbac_document",
-      "target": "v2_htcondor_pool_deployment_rbac_you_not_file_except",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-pool-deployment-rbac.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_pool_deployment_rbac_document",
-      "target": "v2_htcondor_pool_deployment_rbac_you_obtain_a_copy",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-pool-deployment-rbac.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_pool_deployment_rbac_document",
-      "target": "v2_htcondor_pool_deployment_rbac_httpsgithubcomubiquityclusterubiquityblobmainlicense",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-pool-deployment-rbac.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_pool_deployment_rbac_document",
-      "target": "v2_htcondor_pool_deployment_rbac_platform_hpc_ubiq",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-pool-deployment-rbac.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_pool_deployment_document",
-      "target": "v2_htcondor_pool_deployment_policy",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.75,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-pool-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_pool_deployment_document",
-      "target": "v2_htcondor_pool_deployment_deployment",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-pool-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_pool_deployment_document",
-      "target": "v2_htcondor_pool_deployment_htcondor_pool",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-pool-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_pool_deployment_document",
-      "target": "v2_htcondor_pool_deployment_htcondor_worker_pod_template",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-pool-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_pool_deployment_document",
-      "target": "v2_htcondor_pool_deployment_copyright_ubiquity_authors",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-pool-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_pool_deployment_document",
-      "target": "v2_htcondor_pool_deployment_you_not_file_except",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-pool-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_pool_deployment_document",
-      "target": "v2_htcondor_pool_deployment_you_obtain_a_copy",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-pool-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_pool_deployment_document",
-      "target": "v2_htcondor_pool_deployment_httpsgithubcomubiquityclusterubiquityblobmainlicense",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-pool-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_pool_deployment_document",
-      "target": "v2_htcondor_pool_deployment_platform_hpc_ubiq",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-pool-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_schedd_deployment_document",
-      "target": "v2_htcondor_schedd_deployment_deployment",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-schedd-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_schedd_deployment_document",
-      "target": "v2_htcondor_schedd_deployment_htcondor_schedd",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-schedd-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_schedd_deployment_document",
-      "target": "v2_htcondor_schedd_deployment_copyright_ubiquity_authors",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-schedd-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_schedd_deployment_document",
-      "target": "v2_htcondor_schedd_deployment_you_not_file_except",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-schedd-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_schedd_deployment_document",
-      "target": "v2_htcondor_schedd_deployment_you_obtain_a_copy",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-schedd-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_schedd_deployment_document",
-      "target": "v2_htcondor_schedd_deployment_httpsgithubcomubiquityclusterubiquityblobmainlicense",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-schedd-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_schedd_deployment_document",
-      "target": "v2_htcondor_schedd_deployment_unless_required_by_applicable",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-schedd-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_schedd_deployment_document",
-      "target": "v2_htcondor_schedd_deployment_distributed_under_license_is",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-schedd-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_schedd_deployment_document",
-      "target": "v2_htcondor_schedd_deployment_platform_hpc_ubiq",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-schedd-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_worker_configmap_job_document",
-      "target": "v2_htcondor_worker_configmap_job_argocd",
-      "relation": "references",
-      "confidence": "INFERRED",
-      "confidence_score": 0.75,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-worker-configmap-job.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_worker_configmap_job_document",
-      "target": "v2_htcondor_worker_configmap_job_gitea",
-      "relation": "references",
-      "confidence": "INFERRED",
-      "confidence_score": 0.75,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-worker-configmap-job.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_worker_configmap_job_document",
-      "target": "v2_htcondor_worker_configmap_job_policy",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.75,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-worker-configmap-job.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_worker_configmap_job_document",
-      "target": "v2_htcondor_worker_configmap_job_cronjob",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-worker-configmap-job.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_worker_configmap_job_document",
-      "target": "v2_htcondor_worker_configmap_job_htcondor_worker_pod_template_config",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-worker-configmap-job.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_worker_configmap_job_document",
-      "target": "v2_htcondor_worker_configmap_job_gitea_admin_secret",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-worker-configmap-job.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_worker_configmap_job_document",
-      "target": "v2_htcondor_worker_configmap_job_gitea_config_source",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-worker-configmap-job.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_worker_configmap_job_document",
-      "target": "v2_htcondor_worker_configmap_job_copyright_ubiquity_authors",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-worker-configmap-job.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_worker_configmap_job_document",
-      "target": "v2_htcondor_worker_configmap_job_platform_hpc_ubiq",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-worker-configmap-job.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_worker_configmap_document",
-      "target": "v2_htcondor_worker_configmap_policy",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.75,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-worker-configmap.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_worker_configmap_document",
-      "target": "v2_htcondor_worker_configmap_configmap",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-worker-configmap.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_worker_configmap_document",
-      "target": "v2_htcondor_worker_configmap_htcondor_worker_pod_template",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-worker-configmap.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_worker_configmap_document",
-      "target": "v2_htcondor_worker_configmap_copyright_ubiquity_authors",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-worker-configmap.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_worker_configmap_document",
-      "target": "v2_htcondor_worker_configmap_you_not_file_except",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-worker-configmap.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_worker_configmap_document",
-      "target": "v2_htcondor_worker_configmap_you_obtain_a_copy",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-worker-configmap.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_worker_configmap_document",
-      "target": "v2_htcondor_worker_configmap_httpsgithubcomubiquityclusterubiquityblobmainlicense",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-worker-configmap.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_worker_configmap_document",
-      "target": "v2_htcondor_worker_configmap_unless_required_by_applicable",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-worker-configmap.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_worker_configmap_document",
-      "target": "v2_htcondor_worker_configmap_platform_hpc_ubiq",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-worker-configmap.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_worker_deployment_document",
-      "target": "v2_htcondor_worker_deployment_deployment",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-worker-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_worker_deployment_document",
-      "target": "v2_htcondor_worker_deployment_htcondor_worker",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-worker-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_worker_deployment_document",
-      "target": "v2_htcondor_worker_deployment_copyright_ubiquity_authors",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-worker-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_worker_deployment_document",
-      "target": "v2_htcondor_worker_deployment_you_not_file_except",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-worker-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_worker_deployment_document",
-      "target": "v2_htcondor_worker_deployment_you_obtain_a_copy",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-worker-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_worker_deployment_document",
-      "target": "v2_htcondor_worker_deployment_httpsgithubcomubiquityclusterubiquityblobmainlicense",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-worker-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_worker_deployment_document",
-      "target": "v2_htcondor_worker_deployment_unless_required_by_applicable",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-worker-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_worker_deployment_document",
-      "target": "v2_htcondor_worker_deployment_distributed_under_license_is",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-worker-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "v2_htcondor_worker_deployment_document",
-      "target": "v2_htcondor_worker_deployment_platform_hpc_ubiq",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/htcondor/v2/htcondor-worker-deployment.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "cvmfs_pvc_cvmfs_eessi_document",
-      "target": "cvmfs_pvc_cvmfs_eessi_aws",
-      "relation": "references",
-      "confidence": "INFERRED",
-      "confidence_score": 0.75,
-      "source_file": "platform/hpc-ubiq/misc/cvmfs/pvc-cvmfs-eessi.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "cvmfs_pvc_cvmfs_eessi_document",
-      "target": "cvmfs_pvc_cvmfs_eessi_azure",
-      "relation": "references",
-      "confidence": "INFERRED",
-      "confidence_score": 0.75,
-      "source_file": "platform/hpc-ubiq/misc/cvmfs/pvc-cvmfs-eessi.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "cvmfs_pvc_cvmfs_eessi_document",
-      "target": "cvmfs_pvc_cvmfs_eessi_storage",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.75,
-      "source_file": "platform/hpc-ubiq/misc/cvmfs/pvc-cvmfs-eessi.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "cvmfs_pvc_cvmfs_eessi_document",
-      "target": "cvmfs_pvc_cvmfs_eessi_persistentvolume",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/misc/cvmfs/pvc-cvmfs-eessi.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "cvmfs_pvc_cvmfs_eessi_document",
-      "target": "cvmfs_pvc_cvmfs_eessi_cvmfs_eessi_io",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/misc/cvmfs/pvc-cvmfs-eessi.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "cvmfs_pvc_cvmfs_eessi_document",
-      "target": "cvmfs_pvc_cvmfs_eessi_persistentvolumeclaim",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/misc/cvmfs/pvc-cvmfs-eessi.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "cvmfs_pvc_cvmfs_eessi_document",
-      "target": "cvmfs_pvc_cvmfs_eessi_storageclass",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/misc/cvmfs/pvc-cvmfs-eessi.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "cvmfs_pvc_cvmfs_eessi_document",
-      "target": "cvmfs_pvc_cvmfs_eessi_create_persistentvolume_persistentvolumeclaim_cvmfs",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/misc/cvmfs/pvc-cvmfs-eessi.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "cvmfs_pvc_cvmfs_eessi_document",
-      "target": "cvmfs_pvc_cvmfs_eessi_platform_hpc_ubiq",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/misc/cvmfs/pvc-cvmfs-eessi.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "cvmfs_pvc_cvmfs_document",
-      "target": "cvmfs_pvc_cvmfs_storage",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.75,
-      "source_file": "platform/hpc-ubiq/misc/cvmfs/pvc-cvmfs.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "cvmfs_pvc_cvmfs_document",
-      "target": "cvmfs_pvc_cvmfs_storageclass",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/misc/cvmfs/pvc-cvmfs.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "cvmfs_pvc_cvmfs_document",
-      "target": "cvmfs_pvc_cvmfs_cvmfs",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/misc/cvmfs/pvc-cvmfs.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "cvmfs_pvc_cvmfs_document",
-      "target": "cvmfs_pvc_cvmfs_persistentvolumeclaim",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/misc/cvmfs/pvc-cvmfs.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "cvmfs_pvc_cvmfs_document",
-      "target": "cvmfs_pvc_cvmfs_platform_hpc_ubiq",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/misc/cvmfs/pvc-cvmfs.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "longhorn_pv_longhorn_document",
-      "target": "longhorn_pv_longhorn_longhorn",
-      "relation": "references",
-      "confidence": "INFERRED",
-      "confidence_score": 0.75,
-      "source_file": "platform/hpc-ubiq/misc/longhorn/pv-longhorn.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "longhorn_pv_longhorn_document",
-      "target": "longhorn_pv_longhorn_policy",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.75,
-      "source_file": "platform/hpc-ubiq/misc/longhorn/pv-longhorn.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "longhorn_pv_longhorn_document",
-      "target": "longhorn_pv_longhorn_storage",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.75,
-      "source_file": "platform/hpc-ubiq/misc/longhorn/pv-longhorn.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "longhorn_pv_longhorn_document",
-      "target": "longhorn_pv_longhorn_persistentvolume",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/misc/longhorn/pv-longhorn.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "longhorn_pv_longhorn_document",
-      "target": "longhorn_pv_longhorn_pv_lh_home",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/misc/longhorn/pv-longhorn.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "longhorn_pv_longhorn_document",
-      "target": "longhorn_pv_longhorn_copyright_ubiquity_authors",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/misc/longhorn/pv-longhorn.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "longhorn_pv_longhorn_document",
-      "target": "longhorn_pv_longhorn_you_not_file_except",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/misc/longhorn/pv-longhorn.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "longhorn_pv_longhorn_document",
-      "target": "longhorn_pv_longhorn_you_obtain_a_copy",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/misc/longhorn/pv-longhorn.yaml",
-      "source_location": null,
-      "weight": 1.0
-    },
-    {
-      "source": "longhorn_pv_longhorn_document",
-      "target": "longhorn_pv_longhorn_platform_hpc_ubiq",
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.65,
-      "source_file": "platform/hpc-ubiq/misc/longhorn/pv-longhorn.yaml",
-      "source_location": null,
-      "weight": 1.0
+      "source": "semantic:k8up-schedule-test",
+      "target": "semantic:backblaze-b2-ubiquity-backup",
+      "relation": "CONFIGURES",
+      "confidence": 0.96,
+      "source_file": "system/k8up-operator/schedule.yaml"
+    },
+    {
+      "source": "semantic:k8up-schedule-test",
+      "target": "semantic:ubiq-backup-credentials",
+      "relation": "CONFIGURES",
+      "confidence": 0.96,
+      "source_file": "system/k8up-operator/schedule.yaml"
+    },
+    {
+      "source": "semantic:k8up-schedule-test",
+      "target": "semantic:kube-prometheus-stack-prometheus",
+      "relation": "CONFIGURES",
+      "confidence": 0.9,
+      "source_file": "system/k8up-operator/schedule.yaml"
+    },
+    {
+      "source": "semantic:longhorn-servicemonitor",
+      "target": "semantic:longhorn-manager-target-down-alert",
+      "relation": "CONFIGURES",
+      "confidence": 0.88,
+      "source_file": "system/longhorn-system/templates/servicemonitor.yaml"
+    },
+    {
+      "source": "semantic:longhorn-prometheusrule",
+      "target": "semantic:longhorn-manager-target-down-alert",
+      "relation": "CONFIGURES",
+      "confidence": 0.98,
+      "source_file": "system/longhorn-system/templates/servicemonitor.yaml"
+    },
+    {
+      "source": "semantic:longhorn-prometheusrule",
+      "target": "semantic:longhorn-volume-faulted-alert",
+      "relation": "CONFIGURES",
+      "confidence": 0.98,
+      "source_file": "system/longhorn-system/templates/servicemonitor.yaml"
+    },
+    {
+      "source": "semantic:longhorn-monitoring-unit-test",
+      "target": "semantic:longhorn-servicemonitor",
+      "relation": "VALIDATES",
+      "confidence": 0.99,
+      "source_file": "system/longhorn-system/tests/basic_test.yaml"
+    },
+    {
+      "source": "semantic:longhorn-monitoring-unit-test",
+      "target": "semantic:longhorn-prometheusrule",
+      "relation": "VALIDATES",
+      "confidence": 0.99,
+      "source_file": "system/longhorn-system/tests/basic_test.yaml"
+    },
+    {
+      "source": "semantic:monitoring-system-chart",
+      "target": "semantic:kube-prometheus-stack-dependency",
+      "relation": "CONFIGURES",
+      "confidence": 0.99,
+      "source_file": "system/monitoring-system/Chart.yaml"
+    },
+    {
+      "source": "semantic:monitoring-system-wrapper-tests",
+      "target": "semantic:grafana-ingress-wrapper",
+      "relation": "VALIDATES",
+      "confidence": 0.96,
+      "source_file": "system/monitoring-system/tests/basic_test.yaml"
+    },
+    {
+      "source": "semantic:monitoring-system-wrapper-tests",
+      "target": "semantic:legacy-dcgm-exporter-disabled",
+      "relation": "VALIDATES",
+      "confidence": 0.96,
+      "source_file": "system/monitoring-system/tests/basic_test.yaml"
+    },
+    {
+      "source": "semantic:vault-cr",
+      "target": "semantic:vault-ingress",
+      "relation": "CONFIGURES",
+      "confidence": 0.97,
+      "source_file": "system/vault/templates/cr.yaml"
+    },
+    {
+      "source": "semantic:vault-cr",
+      "target": "semantic:vault-file-storage",
+      "relation": "CONFIGURES",
+      "confidence": 0.96,
+      "source_file": "system/vault/templates/cr.yaml"
+    },
+    {
+      "source": "semantic:vault-cr",
+      "target": "semantic:vault-root-token-storage-disabled",
+      "relation": "HARDENS",
+      "confidence": 0.92,
+      "source_file": "system/vault/templates/cr.yaml"
+    },
+    {
+      "source": "semantic:vault-cr",
+      "target": "semantic:vault-kubernetes-auth-default-role",
+      "relation": "CONFIGURES",
+      "confidence": 0.96,
+      "source_file": "system/vault/templates/cr.yaml"
+    },
+    {
+      "source": "semantic:vault-cr",
+      "target": "semantic:vault-kv-secret-engine",
+      "relation": "CONFIGURES",
+      "confidence": 0.96,
+      "source_file": "system/vault/templates/cr.yaml"
+    },
+    {
+      "source": "semantic:vault-cr",
+      "target": "semantic:vault-pki-secret-engine",
+      "relation": "CONFIGURES",
+      "confidence": 0.95,
+      "source_file": "system/vault/templates/cr.yaml"
+    },
+    {
+      "source": "semantic:vault-generate-secrets-cronjob",
+      "target": "semantic:vault-secret-generator-image",
+      "relation": "DEPLOYS",
+      "confidence": 0.97,
+      "source_file": "system/vault/templates/generate-secrets-job.yaml"
+    },
+    {
+      "source": "semantic:vault-generate-secrets-cronjob",
+      "target": "semantic:vault-secret-generator-token-secret",
+      "relation": "CONFIGURES",
+      "confidence": 0.98,
+      "source_file": "system/vault/templates/generate-secrets-job.yaml"
+    },
+    {
+      "source": "semantic:vault-operator-values",
+      "target": "semantic:vault-secret-generator-image",
+      "relation": "CONFIGURES",
+      "confidence": 0.99,
+      "source_file": "system/vault/values.yaml"
+    },
+    {
+      "source": "semantic:vault-operator-values",
+      "target": "semantic:vault-secret-generator-token-secret",
+      "relation": "CONFIGURES",
+      "confidence": 0.99,
+      "source_file": "system/vault/values.yaml"
+    },
+    {
+      "source": "semantic:nvidia-nic-configuration-operator-runbook",
+      "target": "semantic:nvidia-nic-configuration-operator-chart",
+      "relation": "DOCUMENTS",
+      "confidence": 0.99,
+      "source_file": "docs/admin-guide/runbooks/nvidia-infra-controller/nic-configuration-operator.md"
+    },
+    {
+      "source": "semantic:nvidia-nic-configuration-operator-chart",
+      "target": "semantic:nico-enabled-gitops-gate",
+      "relation": "CONFIGURES",
+      "confidence": 0.91,
+      "source_file": "docs/admin-guide/runbooks/nvidia-infra-controller/nic-configuration-operator.md"
+    },
+    {
+      "source": "semantic:nvidia-nic-configuration-operator-chart",
+      "target": "semantic:nic-firmware-storage-explicit-opt-in",
+      "relation": "HARDENS",
+      "confidence": 0.96,
+      "source_file": "docs/admin-guide/runbooks/nvidia-infra-controller/nic-configuration-operator.md"
+    },
+    {
+      "source": "semantic:plan-001-helm-ci-fail-closed",
+      "target": "semantic:monitoring-system-wrapper-tests",
+      "relation": "VALIDATES",
+      "confidence": 0.84,
+      "source_file": "plans/001-make-helm-ci-fail-closed.md"
+    },
+    {
+      "source": "semantic:plan-002-ai-sandbox-target-sync",
+      "target": "semantic:ai-platform-console-chart",
+      "relation": "VALIDATES",
+      "confidence": 0.9,
+      "source_file": "plans/002-keep-ai-sandbox-targets-in-sync.md"
+    },
+    {
+      "source": "semantic:plan-003-ai-workload-tenancy-hardening",
+      "target": "semantic:ai-production-profile-value",
+      "relation": "HARDENS",
+      "confidence": 0.75,
+      "source_file": "plans/003-harden-ai-workload-tenancy-values.md"
+    },
+    {
+      "source": "semantic:plan-004-graphify-manifest-duplicates",
+      "target": "semantic:improvement-plans-index",
+      "relation": "DOCUMENTS",
+      "confidence": 0.72,
+      "source_file": "plans/004-fix-graphify-manifest-duplicates.md"
+    },
+    {
+      "source": "semantic:plan-005-sandbox-helm-non-mutating",
+      "target": "semantic:plan-002-ai-sandbox-target-sync",
+      "relation": "HARDENS",
+      "confidence": 0.72,
+      "source_file": "plans/005-make-sandbox-helm-dependencies-non-mutating.md"
+    },
+    {
+      "source": "semantic:plan-006-nico-readiness-contract",
+      "target": "semantic:nico-enabled-gitops-gate",
+      "relation": "VALIDATES",
+      "confidence": 0.78,
+      "source_file": "plans/006-fix-nico-readiness-service-contract.md"
+    },
+    {
+      "source": "semantic:plan-007-vault-secret-generation-hardening",
+      "target": "semantic:vault-generate-secrets-cronjob",
+      "relation": "HARDENS",
+      "confidence": 0.95,
+      "source_file": "plans/007-harden-vault-secret-generation-and-external-secrets-auth.md"
+    },
+    {
+      "source": "semantic:plan-007-vault-secret-generation-hardening",
+      "target": "semantic:vault-root-token-storage-disabled",
+      "relation": "HARDENS",
+      "confidence": 0.94,
+      "source_file": "plans/007-harden-vault-secret-generation-and-external-secrets-auth.md"
+    },
+    {
+      "source": "semantic:plan-008-ci-supply-chain-hardening",
+      "target": "semantic:plan-004-graphify-manifest-duplicates",
+      "relation": "VALIDATES",
+      "confidence": 0.78,
+      "source_file": "plans/008-pin-ci-supply-chain-and-close-fail-open-gates.md"
+    },
+    {
+      "source": "semantic:plan-009-ai-production-gitops-registry",
+      "target": "semantic:ai-platform-console-chart",
+      "relation": "DEPLOYS",
+      "confidence": 0.88,
+      "source_file": "plans/009-align-ai-production-gitops-target-registry.md"
+    },
+    {
+      "source": "semantic:improvement-plans-index",
+      "target": "semantic:plan-001-helm-ci-fail-closed",
+      "relation": "DOCUMENTS",
+      "confidence": 0.99,
+      "source_file": "plans/README.md"
+    },
+    {
+      "source": "semantic:improvement-plans-index",
+      "target": "semantic:plan-002-ai-sandbox-target-sync",
+      "relation": "DOCUMENTS",
+      "confidence": 0.99,
+      "source_file": "plans/README.md"
+    },
+    {
+      "source": "semantic:improvement-plans-index",
+      "target": "semantic:plan-003-ai-workload-tenancy-hardening",
+      "relation": "DOCUMENTS",
+      "confidence": 0.99,
+      "source_file": "plans/README.md"
+    },
+    {
+      "source": "semantic:improvement-plans-index",
+      "target": "semantic:plan-004-graphify-manifest-duplicates",
+      "relation": "DOCUMENTS",
+      "confidence": 0.99,
+      "source_file": "plans/README.md"
+    },
+    {
+      "source": "semantic:improvement-plans-index",
+      "target": "semantic:plan-005-sandbox-helm-non-mutating",
+      "relation": "DOCUMENTS",
+      "confidence": 0.99,
+      "source_file": "plans/README.md"
+    },
+    {
+      "source": "semantic:improvement-plans-index",
+      "target": "semantic:plan-006-nico-readiness-contract",
+      "relation": "DOCUMENTS",
+      "confidence": 0.99,
+      "source_file": "plans/README.md"
+    },
+    {
+      "source": "semantic:improvement-plans-index",
+      "target": "semantic:plan-007-vault-secret-generation-hardening",
+      "relation": "DOCUMENTS",
+      "confidence": 0.99,
+      "source_file": "plans/README.md"
+    },
+    {
+      "source": "semantic:improvement-plans-index",
+      "target": "semantic:plan-008-ci-supply-chain-hardening",
+      "relation": "DOCUMENTS",
+      "confidence": 0.99,
+      "source_file": "plans/README.md"
+    },
+    {
+      "source": "semantic:improvement-plans-index",
+      "target": "semantic:plan-009-ai-production-gitops-registry",
+      "relation": "DOCUMENTS",
+      "confidence": 0.99,
+      "source_file": "plans/README.md"
+    },
+    {
+      "source": "semantic:ai-platform-console-chart",
+      "target": "semantic:ai-platform-console-deployment",
+      "relation": "DEPLOYS",
+      "confidence": 0.99,
+      "source_file": "platform/ai-platform-console/templates/deployment.yaml"
+    },
+    {
+      "source": "semantic:ai-platform-console-chart",
+      "target": "semantic:ai-platform-console-service",
+      "relation": "DEPLOYS",
+      "confidence": 0.99,
+      "source_file": "platform/ai-platform-console/templates/service.yaml"
+    },
+    {
+      "source": "semantic:ai-platform-console-chart",
+      "target": "semantic:ai-platform-console-ingress",
+      "relation": "DEPLOYS",
+      "confidence": 0.88,
+      "source_file": "platform/ai-platform-console/templates/ingress.yaml"
+    },
+    {
+      "source": "semantic:ai-platform-console-deployment",
+      "target": "semantic:ai-production-profile-value",
+      "relation": "CONFIGURES",
+      "confidence": 0.93,
+      "source_file": "platform/ai-platform-console/templates/deployment.yaml"
+    },
+    {
+      "source": "semantic:ai-platform-console-ingress",
+      "target": "semantic:ai-platform-console-service",
+      "relation": "CONFIGURES",
+      "confidence": 0.97,
+      "source_file": "platform/ai-platform-console/templates/ingress.yaml"
+    },
+    {
+      "source": "semantic:ai-platform-console-smoke-tests",
+      "target": "semantic:ai-platform-console-deployment",
+      "relation": "VALIDATES",
+      "confidence": 0.99,
+      "source_file": "platform/ai-platform-console/tests/smoke_test.yaml"
+    },
+    {
+      "source": "semantic:ai-platform-console-smoke-tests",
+      "target": "semantic:ai-platform-console-service",
+      "relation": "VALIDATES",
+      "confidence": 0.99,
+      "source_file": "platform/ai-platform-console/tests/smoke_test.yaml"
+    },
+    {
+      "source": "semantic:ai-platform-console-smoke-tests",
+      "target": "semantic:ai-platform-console-ingress",
+      "relation": "VALIDATES",
+      "confidence": 0.99,
+      "source_file": "platform/ai-platform-console/tests/smoke_test.yaml"
+    },
+    {
+      "source": "semantic:ai-platform-console-values-schema",
+      "target": "semantic:ai-production-profile-value",
+      "relation": "VALIDATES",
+      "confidence": 0.98,
+      "source_file": "platform/ai-platform-console/values.schema.json"
     }
   ],
-  "hyperedges": [
-    {
-      "id": "chunk_22_longhorn_shared_concept",
-      "label": "Shared Longhorn Concept",
-      "nodes": [
-        "hpc_ubiq_readme_longhorn",
-        "hpc_ubiq_kustomization_longhorn",
-        "longhorn_pv_longhorn_longhorn"
-      ],
-      "relation": "participate_in",
-      "confidence": "INFERRED",
-      "confidence_score": 0.75,
-      "source_file": "platform/hpc-ubiq/README.md"
-    },
-    {
-      "id": "chunk_22_policy_shared_concept",
-      "label": "Shared Policy Concept",
-      "nodes": [
-        "hpc_ubiq_readme_policy",
-        "v2_htcondor_pool_deployment_rbac_policy",
-        "v2_htcondor_pool_deployment_policy",
-        "v2_htcondor_worker_configmap_job_policy",
-        "v2_htcondor_worker_configmap_policy",
-        "longhorn_pv_longhorn_policy"
-      ],
-      "relation": "participate_in",
-      "confidence": "INFERRED",
-      "confidence_score": 0.75,
-      "source_file": "platform/hpc-ubiq/README.md"
-    },
-    {
-      "id": "chunk_22_storage_shared_concept",
-      "label": "Shared Storage Concept",
-      "nodes": [
-        "hpc_ubiq_readme_storage",
-        "cvmfs_pvc_cvmfs_eessi_storage",
-        "cvmfs_pvc_cvmfs_storage",
-        "longhorn_pv_longhorn_storage"
-      ],
-      "relation": "participate_in",
-      "confidence": "INFERRED",
-      "confidence_score": 0.75,
-      "source_file": "platform/hpc-ubiq/README.md"
-    }
-  ],
-  "input_tokens": 0,
-  "output_tokens": 0
+  "hyperedges": [],
+  "input_tokens": 179908,
+  "output_tokens": 8427
 }

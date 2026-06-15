@@ -22,7 +22,7 @@
 # -------------------------------------------------------------------------------------------------
 # OS Info
 # -------------------------------------------------------------------------------------------------
-DISTRO_VER := $(shell egrep '^ID=' /etc/os-release | awk -F= '{print $2}' | tr -d '"' | tr -d 'ID=')
+DISTRO_VER := $(shell if [ -r /etc/os-release ]; then grep '^ID=' /etc/os-release | awk -F= '{print $$2}' | tr -d '"' | tr -d 'ID='; else echo unknown; fi)
 
 # -------------------------------------------------------------------------------------------------
 # Docker configuration
@@ -70,13 +70,13 @@ azure:
 azure-clean:
 	make -C cloud azureclean
 
-# configure: delegates to 'ubiquity configure' (Go CLI)
+# configure-sandbox: delegates to 'ubiquity configure' (Go CLI)
 configure-sandbox:
-	./scripts/configure-sandbox.py.bak
+	go run ./cmd/ubiquity configure --env sandbox
 
 # configure: delegates to 'ubiquity configure' (Go CLI)
 configure:
-	./scripts/configure.py.bak
+	go run ./cmd/ubiquity configure
 
 sandbox-boot:
 	make -C metal sandbox
@@ -212,85 +212,36 @@ install: cli
 # Build Targets
 # -------------------------------------------------------------------------------------------------
 
-build:
-	@VERSION=$(BUILDVER) COMMIT=$$(git rev-parse --short HEAD 2>/dev/null || echo "none") DATE=$$(date --rfc-3339=s 2>/dev/null || date -u +%Y-%m-%dT%H:%M:%SZ); \
+build: cli
+	@VERSION=$(BUILDVER); \
+	COMMIT=$$(git rev-parse HEAD 2>/dev/null || echo "none"); \
+	DATE=$$(date --rfc-3339=s 2>/dev/null || date -u +%Y-%m-%dT%H:%M:%SZ); \
 	export VERSION COMMIT DATE; \
-	if [ "$(FLAVOUR)" = "slurm" ]; then \
+	if ! command -v docker >/dev/null 2>&1; then \
+		echo "docker not found; built CLI only"; \
+		exit 0; \
+	fi; \
+	build_image() { \
+		name="$$1"; \
+		context="$(DIR)/$$name"; \
+		if [ ! -f "$$context/$(FILE)" ]; then \
+			echo "skipping $$name image: $$context/$(FILE) not found"; \
+			return 0; \
+		fi; \
 		docker build \
 			$(NO_CACHE) \
-			--label "org.opencontainers.image.created"="$$(date --rfc-3339=s)" \
-			--label "org.opencontainers.image.revision"="$$(git rev-parse HEAD)" \
-			--label "org.opencontainers.image.version"="${VERSION}" \
+			--label "org.opencontainers.image.created=$$DATE" \
+			--label "org.opencontainers.image.revision=$$COMMIT" \
+			--label "org.opencontainers.image.version=$$VERSION" \
 			--build-arg VERSION=$(BUILDVER) \
-			-t $(IMAGE):slurmprobe-$(BUILDVER) -f $(DIR)/slurmprobe/$(FILE) $(DIR)/slurmprobe; \
-		docker build \
-                        $(NO_CACHE) \
-                        --label "org.opencontainers.image.created"="$$(date --rfc-3339=s)" \
-                        --label "org.opencontainers.image.revision"="$$(git rev-parse HEAD)" \
-                        --label "org.opencontainers.image.version"="${VERSION}" \
-                        --build-arg VERSION=$(BUILDVER) \
-                        -t $(IMAGE):slurmmunge-$(BUILDVER) -f $(DIR)/slurmmunge/$(FILE) $(DIR)/slurmmunge; \
-		docker build \
-                        $(NO_CACHE) \
-                        --label "org.opencontainers.image.created"="$$(date --rfc-3339=s)" \
-                        --label "org.opencontainers.image.revision"="$$(git rev-parse HEAD)" \
-                        --label "org.opencontainers.image.version"="${VERSION}" \
-                        --build-arg VERSION=$(BUILDVER) \
-                        -t $(IMAGE):slurmconf-$(BUILDVER) -f $(DIR)/slurmconf/$(FILE) $(DIR)/slurmconf; \
-                docker build \
-                        $(NO_CACHE) \
-                        --label "org.opencontainers.image.created"="$$(date --rfc-3339=s)" \
-                        --label "org.opencontainers.image.revision"="$$(git rev-parse HEAD)" \
-                        --label "org.opencontainers.image.version"="${VERSION}" \
-                        --build-arg VERSION=$(BUILDVER) \
-                        -t $(IMAGE):slurmcontainer-$(BUILDVER) -f $(DIR)/slurmcontainer/$(FILE) $(DIR)/slurmcontainer; \
-	elif [ "$(FLAVOUR)" = "openpbs" ]; then \
-                docker build \
-                        $(NO_CACHE) \
-                        --label "org.opencontainers.image.created"="$$(date --rfc-3339=s)" \
-                        --label "org.opencontainers.image.revision"="$$(git rev-parse HEAD)" \
-                        --label "org.opencontainers.image.version"="${VERSION}" \
-                        --build-arg VERSION=$(BUILDVER) \
-                        -t $(IMAGE):openpbsconf-$(BUILDVER) -f $(DIR)/openpbsconf/$(FILE) $(DIR)/openpbsconf; \
-                docker build \
-			$(NO_CACHE) \
-			--label "org.opencontainers.image.created"="$$(date --rfc-3339=s)" \
-			--label "org.opencontainers.image.revision"="$$(git rev-parse HEAD)" \
-                        --label "org.opencontainers.image.version"="${VERSION}" \
-                        --build-arg VERSION=$(BUILDVER) \
-                        -t $(IMAGE):openpbsinit-$(BUILDVER) -f $(DIR)/openpbsinit/$(FILE) $(DIR)/openpbsinit; \
-		docker build \
-			$(NO_CACHE) \
-			--label "org.opencontainers.image.created"="$$(date --rfc-3339=s)" \
-			--label "org.opencontainers.image.revision"="$$(git rev-parse HEAD)" \
-			--label "org.opencontainers.image.version"="${VERSION}" \
-			--build-arg VERSION=$(BUILDVER) \
-			-t $(IMAGE):openpbs-$(BUILDVER) -f $(DIR)/openpbs/$(FILE) $(DIR)/openpbs; \
-	elif [ "$(FLAVOUR)" = "oar" ]; then \
-		docker build \
-			$(NO_CACHE) \
-			--label "org.opencontainers.image.created"="$$(date --rfc-3339=s)" \
-			--label "org.opencontainers.image.revision"="$$(git rev-parse HEAD)" \
-			--label "org.opencontainers.image.version"="${VERSION}" \
-			--build-arg VERSION=$(BUILDVER) \
-			-t $(IMAGE):oarconf-$(BUILDVER) -f $(DIR)/oarconf/$(FILE) $(DIR)/oarconf; \
-		docker build \
-			$(NO_CACHE) \
-			--label "org.opencontainers.image.created"="$$(date --rfc-3339=s)" \
-			--label "org.opencontainers.image.revision"="$$(git rev-parse HEAD)" \
-			--label "org.opencontainers.image.version"="${VERSION}" \
-			--build-arg VERSION=$(BUILDVER) \
-			-t $(IMAGE):oarinit-$(BUILDVER) -f $(DIR)/oarinit/$(FILE) $(DIR)/oarinit; \
-		docker build \
-			$(NO_CACHE) \
-			--label "org.opencontainers.image.created"="$$(date --rfc-3339=s)" \
-			--label "org.opencontainers.image.revision"="$$(git rev-parse HEAD)" \
-			--label "org.opencontainers.image.version"="${VERSION}" \
-			--build-arg VERSION=$(BUILDVER) \
-			-t $(IMAGE):oar-$(BUILDVER) -f $(DIR)/oar/$(FILE) $(DIR)/oar; \
-	else \
-		echo "not building anything"; \
-	fi
+			-t $(IMAGE):$$name-$(BUILDVER) -f "$$context/$(FILE)" "$$context"; \
+	}; \
+	case "$(FLAVOUR)" in \
+		slurm) for image in slurmprobe slurmmunge slurmconf slurmcontainer; do build_image "$$image"; done ;; \
+		openpbs) for image in openpbsconf openpbsinit openpbs; do build_image "$$image"; done ;; \
+		oar) for image in oarconf oarinit oar; do build_image "$$image"; done ;; \
+		*) echo "not building any legacy HPC images for FLAVOUR=$(FLAVOUR)" ;; \
+	esac
 
 rebuild: NO_CACHE=--no-cache
 rebuild: pull-base-image

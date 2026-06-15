@@ -94,6 +94,14 @@ def normalize_file(path: Path, root: Path) -> bool:
     # enough because the portability issue is path serialization, not JSON
     # structure. This keeps diffs reviewable even for large graph/cache files.
     normalized = normalize_string(raw, root)
+    if path.relative_to(root).as_posix() == "graphify-out/manifest.json":
+        # Graphify's incremental save path can emit the manifest as one JSON
+        # object with duplicate file-path keys when changed-file and full-corpus
+        # state are combined. Normal JSON parsers keep only the last value, so
+        # normalize to that explicit map contract here and let repository tests
+        # guard against duplicate keys returning.
+        normalized_obj = json.loads(normalized, object_pairs_hook=dict)
+        normalized = json.dumps(normalized_obj, indent=2, ensure_ascii=False) + "\n"
     if path.suffix == ".py" and path.is_relative_to(root / "graphify-out"):
         normalized = re.sub(
             r"ROOT = Path\('[^']*'\)",

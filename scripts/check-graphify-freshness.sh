@@ -56,6 +56,22 @@ else
   fail "scripts/normalize-graphify-artifacts.py is missing; cannot verify Graphify portability"
 fi
 
+if [[ -f graphify-out/manifest.json ]]; then
+  if ! python3 - <<'PY'
+from pathlib import Path
+import re
+text = Path('graphify-out/manifest.json').read_text(encoding='utf-8')
+keys = re.findall(r'^  "([^"]+)":', text, re.M)
+duplicates = len(keys) - len(set(keys))
+if duplicates:
+    print(f'graphify-out/manifest.json contains {duplicates} duplicate JSON object keys')
+    raise SystemExit(1)
+PY
+  then
+    fail "graphify-out/manifest.json has duplicate path keys; run python3 scripts/normalize-graphify-artifacts.py"
+  fi
+fi
+
 head_commit="$(git rev-parse HEAD)"
 graph_commit="$(git log -1 --format=%H -- graphify-out 2>/dev/null || true)"
 graph_dirty="$(git status --porcelain -- graphify-out 2>/dev/null || true)"

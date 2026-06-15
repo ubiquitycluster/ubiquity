@@ -1,19 +1,128 @@
-{{- range $key, $namespace := .Values.namespaces }}
+{{- $tenants := .Values.tenants | default .Values.namespaces }}
+{{- range $key, $tenant := $tenants }}
+{{- if not (regexMatch "^[a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?$" $tenant.name) }}
+{{- fail (printf "tenants.%s.name must be a Kubernetes DNS label (lowercase alphanumeric or '-', 1-63 chars, starting and ending with alphanumeric)" $key) }}
+{{- end }}
 ---
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: {{ $namespace.name }}
+  name: {{ $tenant.name | quote }}
   labels:
-    ubiquity.ai/workload-class: {{ $key }}
+    ubiquity.ai/tenant: {{ $key | quote }}
+    ubiquity.ai/workload-class: {{ $key | quote }}
+    pod-security.kubernetes.io/enforce: restricted
+    pod-security.kubernetes.io/audit: restricted
+    pod-security.kubernetes.io/warn: restricted
+    {{- range $labelKey, $labelValue := $tenant.labels }}
+    {{ $labelKey }}: {{ $labelValue | quote }}
+    {{- end }}
 ---
 apiVersion: v1
 kind: ResourceQuota
 metadata:
-  name: gpu-quota
-  namespace: {{ $namespace.name }}
+  name: ai-tenant-quota
+  namespace: {{ $tenant.name | quote }}
 spec:
   hard:
-    requests.nvidia.com/gpu: {{ $namespace.gpuQuota | quote }}
-    limits.nvidia.com/gpu: {{ $namespace.gpuQuota | quote }}
+    requests.{{ $.Values.quota.gpuResource | default "nvidia.com/gpu" }}: {{ $tenant.gpuQuota | default 0 | quote }}
+    limits.{{ $.Values.quota.gpuResource | default "nvidia.com/gpu" }}: {{ $tenant.gpuQuota | default 0 | quote }}
+    requests.{{ $.Values.quota.rdmaResource | default "nvidia.com/rdma" }}: {{ $tenant.rdmaQuota | default 0 | quote }}
+    limits.{{ $.Values.quota.rdmaResource | default "nvidia.com/rdma" }}: {{ $tenant.rdmaQuota | default 0 | quote }}
+    requests.cpu: {{ $tenant.cpuQuota | default "0" | quote }}
+    limits.cpu: {{ $tenant.cpuQuota | default "0" | quote }}
+    requests.memory: {{ $tenant.memoryQuota | default "0" | quote }}
+    limits.memory: {{ $tenant.memoryQuota | default "0" | quote }}
+    {{- range $profile := $.Values.quota.migProfiles }}
+    requests.nvidia.com/{{ $profile }}: {{ get ($tenant.migQuota | default dict) $profile | default 0 | quote }}
+    limits.nvidia.com/{{ $profile }}: {{ get ($tenant.migQuota | default dict) $profile | default 0 | quote }}
+    {{- end }}
+---
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: ai-tenant-defaults
+  namespace: {{ $tenant.name | quote }}
+spec:
+  limits:
+    - type: Container
+      defaultRequest:
+        cpu: {{ $tenant.defaultCpuRequest | default "1" | quote }}
+        memory: {{ $tenant.defaultMemoryRequest | default "1Gi" | quote }}
+      max:
+        cpu: {{ $tenant.maxCpuLimit | default $tenant.cpuQuota | default "1" | quote }}
+        memory: {{ $tenant.maxMemoryLimit | default $tenant.memoryQuota | default "1Gi" | quote }}
+{{- if $.Values.networkPolicy.enabled }}
+{{- if $.Values.networkPolicy.defaultDenyIngress }}
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny-ingress
+  namespace: {{ $tenant.name | quote }}
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+{{- end }}
+{{- if $.Values.networkPolicy.defaultDenyEgress }}
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny-egress
+  namespace: {{ $tenant.name | quote }}
+spec:
+  podSelector: {}
+  policyTypes:
+    - Egress
+{{- end }}
+{{- if $.Values.networkPolicy.allowSameTenant }}
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-same-tenant
+  namespace: {{ $tenant.name | quote }}
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              ubiquity.ai/tenant: {{ $key | quote }}
+  egress:
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              ubiquity.ai/tenant: {{ $key | quote }}
+{{- end }}
+{{- if $.Values.networkPolicy.allowDNS }}
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-dns-egress
+  namespace: {{ $tenant.name | quote }}
+spec:
+  podSelector: {}
+  policyTypes:
+    - Egress
+  egress:
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              {{- range $labelKey, $labelValue := $.Values.networkPolicy.dnsNamespaceSelector }}
+              {{ $labelKey }}: {{ $labelValue | quote }}
+              {{- end }}
+      ports:
+        - protocol: UDP
+          port: 53
+        - protocol: TCP
+          port: 53
+{{- end }}
+{{- end }}
 {{- end }}

@@ -1,0 +1,29 @@
+{
+  "runs": [
+    {
+      "date": "2026-06-15T01:52:10.422541+00:00",
+      "input_tokens": 647948,
+      "output_tokens": 21611,
+      "files": 78,
+      "backend": "local-codex-subagents"
+    },
+    {
+      "date": "2026-06-15T10:51:40.211682+00:00",
+      "input_tokens": 431894,
+      "output_tokens": 14162,
+      "files": 36,
+      "backend": "local-codex-subagents"
+    },
+    {
+      "date": "2026-06-15T11:47:55.268525+00:00",
+      "input_tokens": 669161,
+      "output_tokens": 23149,
+      "files": 75,
+      "mode": "codex_semantic_update",
+      "added_nodes": 143,
+      "added_edges": 148
+    }
+  ],
+  "total_input_tokens": 1749003,
+  "total_output_tokens": 58922
+}

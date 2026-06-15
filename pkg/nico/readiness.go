@@ -25,10 +25,12 @@ type ReadinessResult struct {
 	Failures []string
 }
 
-var requiredFoundationServices = []string{"nico-api", "nico-bmc-proxy", "nico-dhcp", "nico-dns", "nico-hardware-health", "nico-ntp", "nico-pxe", "nico-ssh-console-rs", "nico-rest-api", "nico-rest-site-agent"}
+var chartComponentNames = []string{"nico-api", "nico-bmc-proxy", "nico-dhcp", "nico-dns", "nico-hardware-health", "nico-ntp", "nico-pxe", "nico-ssh-console-rs", "nico-rest-api", "nico-rest-site-agent"}
+
+var requiredFoundationServices = []string{"nico-api", "nico-bmc-proxy", "nico-hardware-health", "nico-pxe", "nico-ssh-console-rs", "nico-rest-api", "nico-rest-site-agent"}
 
 func ChartComponentNames() []string {
-	return append([]string{}, requiredFoundationServices...)
+	return append([]string{}, chartComponentNames...)
 }
 
 func EvaluateReadiness(s ReadinessSnapshot, opts ReadinessOptions) ReadinessResult {

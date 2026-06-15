@@ -1,0 +1,32 @@
+suite: test nvidia nic configuration operator manager
+
+templates:
+  - templates/operator.yaml
+
+tests:
+  - it: renders the manager deployment without implicit firmware storage
+    asserts:
+      - isKind:
+          of: Deployment
+      - equal:
+          path: metadata.name
+          value: RELEASE-NAME-nic-configuration-operator
+      - equal:
+          path: spec.replicas
+          value: 1
+      - notContains:
+          path: spec.template.spec.volumes
+          content:
+            name: firmware-cache
+
+  - it: applies configured replicas and resource requests to the manager
+    set:
+      operator.replicas: 2
+      operator.resources.requests.cpu: 25m
+    asserts:
+      - equal:
+          path: spec.replicas
+          value: 2
+      - equal:
+          path: spec.template.spec.containers[0].resources.requests.cpu
+          value: 25m

@@ -1,0 +1,46 @@
+suite: test nvidia nic configuration templates
+
+templates:
+  - templates/nic-configuration-templates.yaml
+
+tests:
+  - it: does not render configuration templates by default
+    asserts:
+      - hasDocuments:
+          count: 0
+
+  - it: renders a safe explicit NicConfigurationTemplate
+    values:
+      - nic-template-values.yaml
+    asserts:
+      - isKind:
+          of: NicConfigurationTemplate
+      - equal:
+          path: metadata.namespace
+          value: NAMESPACE
+      - equal:
+          path: spec.nicSelector.nicType
+          value: "101d"
+      - equal:
+          path: spec.template.linkType
+          value: Ethernet
+      - equal:
+          path: spec.template.numVfs
+          value: 0
+      - equal:
+          path: metadata.annotations["ubiquity.ai/rdma-minimum-ready-nodes"]
+          value: "2"
+
+  - it: rejects GPU Direct optimization without PCI performance optimization
+    values:
+      - unsafe-gpudirect-values.yaml
+    asserts:
+      - failedTemplate:
+          errorMessage: nicConfigurationTemplates[0] gpuDirectOptimized requires pciPerformanceOptimized.enabled=true
+
+  - it: rejects RoCE optimization without multi-node RDMA validation
+    values:
+      - unsafe-rdma-validation-values.yaml
+    asserts:
+      - failedTemplate:
+          errorMessage: nicConfigurationTemplates[0] roceOptimized requires validation.rdma.minimumReadyNodes >= 2

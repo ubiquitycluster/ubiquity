@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "operator": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "replicas": { "type": "integer", "minimum": 1 },
+        "image": {
+          "type": "object",
+          "additionalProperties": true,
+          "properties": {
+            "repository": { "type": "string", "minLength": 1 },
+            "name": { "type": "string", "minLength": 1 },
+            "tag": { "type": "string", "minLength": 1 }
+          }
+        }
+      }
+    },
+    "configDaemon": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "image": {
+          "type": "object",
+          "additionalProperties": true,
+          "properties": {
+            "repository": { "type": "string", "minLength": 1 },
+            "name": { "type": "string", "minLength": 1 },
+            "tag": { "type": "string", "minLength": 1 }
+          }
+        },
+        "nodeSelector": { "type": "object", "additionalProperties": { "type": "string" } }
+      }
+    },
+    "logLevel": { "type": "string", "enum": ["debug", "info", "warn", "error"] },
+    "imagePullSecrets": { "type": "array", "items": { "type": "object" } },
+    "nicFirmwareStorage": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "create": { "type": "boolean" },
+        "pvcName": { "type": "string" },
+        "storageClassName": { "type": "string" },
+        "availableStorageSize": { "type": "string", "minLength": 1 }
+      }
+    },
+    "nicConfigurationTemplates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": ["name", "nicSelector", "template"],
+        "properties": {
+          "name": { "type": "string", "minLength": 1 },
+          "namespace": { "type": "string", "minLength": 1 },
+          "nodeSelector": { "type": "object", "additionalProperties": { "type": "string" } },
+          "nicSelector": {
+            "type": "object",
+            "additionalProperties": true,
+            "required": ["nicType"],
+            "properties": {
+              "nicType": { "type": "string", "minLength": 1 },
+              "pciAddresses": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+              "serialNumbers": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+              "partNumbers": { "type": "array", "items": { "type": "string", "minLength": 1 } }
+            }
+          },
+          "resetToDefault": { "type": "boolean" },
+          "validation": {
+            "type": "object",
+            "additionalProperties": true,
+            "properties": {
+              "rdma": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "minimumReadyNodes": { "type": "integer", "minimum": 2 }
+                }
+              }
+            }
+          },
+          "template": {
+            "type": "object",
+            "additionalProperties": true,
+            "required": ["numVfs", "linkType"],
+            "properties": {
+              "numVfs": { "type": "integer", "minimum": 0 },
+              "linkType": { "type": "string", "enum": ["Ethernet", "Infiniband"] }
+            }
+          }
+        }
+      }
+    }
+  }
+}

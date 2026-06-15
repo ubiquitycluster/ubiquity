@@ -37,12 +37,14 @@ scripts/generate-helm-chart-reference.sh --check
 | `system/nvidia-infra-controller-core` | `nvidia-infra-controller-core` | `0.1.0` | `preview` | yes | yes |
 | `system/nvidia-infra-controller-prereqs` | `nvidia-infra-controller-prereqs` | `0.1.0` | `preview` | yes | yes |
 | `system/nvidia-network-operator` | `network-operator` | `24.1.0` | `n/a` | yes | yes |
+| `system/nvidia-nic-configuration-operator` | `nvidia-nic-configuration-operator` | `0.1.0` | `latest` | yes | yes |
 | `system/vault` | `vault` | `1.15.6` | `n/a` | yes | yes |
 
 ## Platform charts
 
 | Path | Chart | Version | App version | Values | Tests |
 |------|-------|---------|-------------|--------|-------|
+| `platform/ai-platform-console` | `ai-platform-console` | `0.1.0` | `0.1.0` | yes | yes |
 | `platform/ai-workload-tenancy` | `ai-workload-tenancy` | `0.1.0` | `n/a` | yes | yes |
 | `platform/argo-events` | `argo-events` | `2.0.6` | `v1.7.3` | yes | yes |
 | `platform/argo-workflows` | `argo-workflows` | `0.20.6` | `n/a` | yes | yes |

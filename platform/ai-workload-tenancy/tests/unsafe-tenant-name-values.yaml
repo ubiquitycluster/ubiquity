@@ -1,0 +1,5 @@
+tenants:
+  unsafe:
+    name: "evil\n  annotations:\n    injected: yes"
+    gpuQuota: 1
+    rdmaQuota: 1

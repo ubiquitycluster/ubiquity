@@ -9,6 +9,9 @@ permissions:
   contents: write
   id-token: write
 
+env:
+  GORELEASER_VERSION: "v2.9.0"
+
 jobs:
   goreleaser:
     runs-on: ubuntu-latest
@@ -22,12 +25,12 @@ jobs:
       - uses: goreleaser/goreleaser-action@v6
         with:
           distribution: goreleaser
-          version: latest
+          version: ${{ env.GORELEASER_VERSION }}
           args: release --clean
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Generate release SBOM
-        uses: anchore/sbom-action@v0
+        uses: anchore/sbom-action@v0.24.0
         with:
           path: dist
           format: spdx-json

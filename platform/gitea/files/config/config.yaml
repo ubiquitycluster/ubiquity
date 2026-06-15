@@ -15,12 +15,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# TODO create user and access token
-# users:
-#   - name: renovate
-#     fullName: Renovate
-#     email: bot@renovateapp.com
-#     tokenSecretRef: renovate-secret # ???
 organizations:
   - name: ops
     description: Operations
@@ -31,20 +25,20 @@ organizations:
 repositories:
   - name: ubiquity
     owner: ops
+    description: Ubiquity platform source mirror for in-cluster GitOps recovery
     private: false
     migrate:
       source: https://github.com/ubiquitycluster/ubiquity
       mirror: false
-    # TODO create webhook (use a global one?)
-    # webhooks:
-    #   - http://gitea-webhook.tekton-pipelines:3000
   - name: blog
     owner: ubiquity
+    description: Ubiquity documentation and announcement source mirror
     migrate:
       source: https://github.com/ubiquitycluster/blog
       mirror: true
   - name: backstage
     owner: ubiquity
+    description: Ubiquity developer portal source mirror
     migrate:
       source: https://github.com/ubiquitycluster/backstage
       mirror: true

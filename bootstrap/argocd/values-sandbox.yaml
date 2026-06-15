@@ -8,6 +8,14 @@
 # Single-node k3d sandbox cannot support multi-replica redis-ha (anti-affinity).
 argo-cd:
   redis-ha:
+    exporter:
+      # The upstream chart version pinned for this repository references
+      # public.ecr.aws/bitnami/redis-exporter:1.58.0, which is no longer
+      # pullable in a fresh k3d sandbox. Disable the optional exporter so
+      # `ubiquity up --sandbox` remains a runnable local proof path.
+      enabled: false
+    metrics:
+      enabled: false
     # Single replica — sandbox has only one master node with the
     # node-role.kubernetes.io/master label, and redis-ha uses pod anti-affinity.
     replicas: 1

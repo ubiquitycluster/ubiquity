@@ -1,8 +1,27 @@
-suite: test longhorn-system basic rendering
+suite: longhorn monitoring resources
+release:
+  name: longhorn
+  namespace: longhorn-system
 templates:
-  - "*.yaml"
+  - templates/servicemonitor.yaml
 tests:
-  - it: should render at least one resource
+  - it: renders ServiceMonitor and alert rules for storage readiness
     asserts:
       - hasDocuments:
-          count: 1
+          count: 2
+      - documentIndex: 0
+        equal:
+          path: kind
+          value: ServiceMonitor
+      - documentIndex: 1
+        equal:
+          path: kind
+          value: PrometheusRule
+      - documentIndex: 1
+        equal:
+          path: spec.groups[0].rules[0].alert
+          value: LonghornManagerTargetDown
+      - documentIndex: 1
+        equal:
+          path: spec.groups[0].rules[1].alert
+          value: LonghornVolumeFaulted

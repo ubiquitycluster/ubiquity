@@ -3,6 +3,7 @@ package cmd
 import (
 	"context"
 	"fmt"
+	"strings"
 	"testing"
 )
 
@@ -59,6 +60,28 @@ func TestAIPlatformOutputIncludesStorageAlternatives(t *testing.T) {
 	assertContains(t, output, "not a generic PVC replacement")
 }
 
+func TestAIPlatformOutputIncludesNCPRequirementMap(t *testing.T) {
+	cmd := findCommand(rootCmd, "ai-platform")
+	if cmd == nil {
+		t.Fatal("expected ai-platform command to be registered")
+	}
+	cmd.PersistentFlags().Set("profile", "ai-production")
+	defer cmd.PersistentFlags().Set("profile", "gpu-basic")
+
+	output := captureOutput(func() {
+		if err := cmd.RunE(cmd, []string{}); err != nil {
+			t.Fatalf("ai-platform command failed: %v", err)
+		}
+	})
+
+	assertContains(t, output, "NCP reference-platform requirement map:")
+	assertContains(t, output, "iaas-bare-metal-vm-lifecycle")
+	assertContains(t, output, "caas-gpu-kubernetes-substrate")
+	assertContains(t, output, "tenant-workload-isolation")
+	assertContains(t, output, "platform/ai-workload-tenancy")
+	assertContains(t, output, "readiness:")
+}
+
 func TestAIPlatformProfileOutputDemotesOllama(t *testing.T) {
 	cmd := findCommand(rootCmd, "ai-platform")
 	if cmd == nil {
@@ -76,6 +99,8 @@ func TestAIPlatformProfileOutputDemotesOllama(t *testing.T) {
 	assertContains(t, output, "Profile: ai-production")
 	assertContains(t, output, "NVIDIA/gpu-operator")
 	assertContains(t, output, "NVIDIA/k8s-nim-operator")
+	assertContains(t, output, "Mellanox/nic-configuration-operator")
+	assertContains(t, output, "nvidia-nic-configuration-operator")
 	assertContains(t, output, "Ollama: optional diagnostics only")
 }
 
@@ -93,10 +118,22 @@ func TestAIPlatformRenderAndApplySubcommandsAreActionable(t *testing.T) {
 	})
 	assertContains(t, output, "kind: ConfigMap")
 	assertContains(t, output, "kind: Application")
+	assertContains(t, output, "name: ai-platform-gitops-exclusions")
+	assertContains(t, output, "path: system/kubevirt")
+	assertContains(t, output, "path: system/containerized-data-importer")
+	assertContains(t, output, "path: platform/tenant-kubernetes-cluster")
+	assertContains(t, output, "path: platform/tenant-vpc")
+	assertContains(t, output, "targetRevision: main")
+	if strings.Contains(output, "targetRevision: HEAD") {
+		t.Fatal("ai-platform render should not use mutable HEAD targetRevision")
+	}
 	assertContains(t, output, "name: ai-platform-nvidia-gpu-operator")
 	assertContains(t, output, "path: system/nvidia-gpu-operator")
 	assertContains(t, output, "name: ai-platform-nvidia-network-operator")
 	assertContains(t, output, "path: system/nvidia-network-operator")
+	assertContains(t, output, "name: ai-platform-nvidia-nic-configuration-operator")
+	assertContains(t, output, "path: system/nvidia-nic-configuration-operator")
+	assertContains(t, output, "namespace: network-operator")
 	assertContains(t, output, "name: ai-platform-nim-operator")
 	assertContains(t, output, "path: platform/nim-operator")
 	assertContains(t, output, "name: ai-platform-kai-scheduler")

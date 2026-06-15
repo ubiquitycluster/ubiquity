@@ -1,10 +1,31 @@
-namespaces:
+tenants:
   inference:
     name: ai-inference
+    labels: {}
     gpuQuota: 8
+    rdmaQuota: 8
+    cpuQuota: "128"
+    memoryQuota: 512Gi
+    defaultCpuRequest: "1"
+    defaultMemoryRequest: 2Gi
+    maxCpuLimit: "64"
+    maxMemoryLimit: 256Gi
   batch:
     name: ai-batch
+    labels: {}
     gpuQuota: 16
+    rdmaQuota: 16
+    cpuQuota: "256"
+    memoryQuota: 1Ti
+    defaultCpuRequest: "2"
+    defaultMemoryRequest: 4Gi
+    maxCpuLimit: "128"
+    maxMemoryLimit: 512Gi
+
+# Backward-compatible alias used by older values files. New deployments should
+# use tenants so the chart models NCP-style tenant isolation explicitly.
+namespaces: {}
+
 priorityClasses:
   inference:
     value: 100000
@@ -12,3 +33,17 @@ priorityClasses:
   batch:
     value: 50000
     description: GPU batch and training workloads
+
+networkPolicy:
+  enabled: true
+  defaultDenyIngress: true
+  defaultDenyEgress: true
+  allowSameTenant: true
+  allowDNS: true
+  dnsNamespaceSelector:
+    kubernetes.io/metadata.name: kube-system
+
+quota:
+  gpuResource: nvidia.com/gpu
+  rdmaResource: nvidia.com/rdma
+  migProfiles: []

@@ -129,7 +129,7 @@ spec:
       preFlightChecks: true
       # The storeRootToken flag enables storing of root token in chosen storage
       # This is true by default
-      storeRootToken: true
+      storeRootToken: false
     kubernetes:
       secretNamespace: '{{.Release.Namespace}}'
 

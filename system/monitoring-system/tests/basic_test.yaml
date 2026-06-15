@@ -1,8 +1,23 @@
-suite: test monitoring-system basic rendering
+suite: test monitoring-system wrapper rendering
+
 templates:
-  - "*.yaml"
+  - templates/ingress.yaml
+  - templates/secret.yaml
+  - templates/tls-secret.yaml
+  - templates/dgcm-exporter.yaml
+
 tests:
-  - it: should render at least one resource
+  - it: renders the Grafana ingress wrapper resource
+    template: templates/ingress.yaml
+    asserts:
+      - isKind:
+          of: Ingress
+      - equal:
+          path: metadata.name
+          value: prom-grafana-ingress
+
+  - it: keeps the legacy DCGM exporter disabled by default
+    template: templates/dgcm-exporter.yaml
     asserts:
       - hasDocuments:
-          count: 1
+          count: 0

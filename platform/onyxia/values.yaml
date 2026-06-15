@@ -127,8 +127,6 @@ onyxia:
         authenticationMode: admin
         expose:
           domain: datalab.ubiquitycluster.uk
-          #        monitoring:
-          #          URLPattern: "todo"
         cloudshell:
           catalogId: inseefrlab-helm-charts-datascience
           packageName: cloudshell
@@ -142,27 +140,6 @@ onyxia:
           ipprotection: false
           networkPolicy: false
         initScript: https://inseefrlab.github.io/onyxia/onyxia-init.sh
-        #      data:
-      #        S3:
-      #          type: minio
-      #          URL: "todo"
-      #          region: us-east-1
-      #          bucketPrefix: ""
-      #          groupBucketPrefix: "group-"
-      #          bucketClaim: preferred_username
-      #          defaultDurationSeconds: 86400
-          # keycloakParams:
-          #   URL: .../auth
-          #   realm: ...
-          #   clientId:
-          #          monitoring:
-          #            URLPattern: "todo"
-          #      auth:
-          #        type: openidconnect
-          #      location:
-          #        lat: 48.8164
-          #        long: 2.3174
-          #        name: "Montrouge (France)"
     catalogs:
     - id: ubiquity-helm-charts-datascience
       name: Ubiquity datascience

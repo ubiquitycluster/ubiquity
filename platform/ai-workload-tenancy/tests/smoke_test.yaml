@@ -1,8 +1,66 @@
-suite: chart smoke coverage
+suite: ai workload tenancy NCP isolation coverage
 templates:
+  - templates/gpu-quota.yaml
   - templates/priorityclasses.yaml
 tests:
-  - it: renders templates/priorityclasses.yaml
+  - it: renders isolated tenant namespaces with restricted pod security labels
+    template: templates/gpu-quota.yaml
+    documentSelector:
+      path: kind
+      value: Namespace
+      matchMany: true
+    asserts:
+      - equal:
+          path: metadata.labels["pod-security.kubernetes.io/enforce"]
+          value: restricted
+      - exists:
+          path: metadata.labels["ubiquity.ai/tenant"]
+  - it: renders GPU RDMA CPU and memory resource quotas for every tenant
+    template: templates/gpu-quota.yaml
+    documentSelector:
+      path: kind
+      value: ResourceQuota
+      matchMany: true
+    asserts:
+      - exists:
+          path: spec.hard["requests.nvidia.com/gpu"]
+      - exists:
+          path: spec.hard["limits.nvidia.com/gpu"]
+      - exists:
+          path: spec.hard["requests.nvidia.com/rdma"]
+      - exists:
+          path: spec.hard["limits.nvidia.com/rdma"]
+      - exists:
+          path: spec.hard["requests.cpu"]
+      - exists:
+          path: spec.hard["limits.memory"]
+  - it: renders default deny tenant network policies
+    template: templates/gpu-quota.yaml
+    documentSelector:
+      path: metadata.name
+      value: default-deny-ingress
+      matchMany: true
+    asserts:
+      - equal:
+          path: kind
+          value: NetworkPolicy
+      - contains:
+          path: spec.policyTypes
+          content: Ingress
+  - it: renders tenant-local allow policy for explicit same-tenant communication
+    template: templates/gpu-quota.yaml
+    documentSelector:
+      path: metadata.name
+      value: allow-same-tenant
+      matchMany: true
+    asserts:
+      - equal:
+          path: kind
+          value: NetworkPolicy
+      - exists:
+          path: spec.ingress[0].from[0].namespaceSelector.matchLabels["ubiquity.ai/tenant"]
+  - it: renders inference and batch priority classes
+    template: templates/priorityclasses.yaml
     asserts:
       - hasDocuments:
           count: 2

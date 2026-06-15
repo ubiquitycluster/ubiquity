@@ -52,6 +52,7 @@ Ubiquity should not reimplement NVIDIA operator internals. It should generate/va
 | GPU substrate | NVIDIA/gpu-operator | `system/nvidia-gpu-operator` wrapper chart. Primary path for driver, container runtime, device plugin, GPU feature discovery, MIG Manager, validator, and DCGM exporter. | Replaces missing or bespoke GPU enablement. |
 | DCGM telemetry | NVIDIA/dcgm-exporter | Managed through NVIDIA GPU Operator by default. Legacy hand-authored DCGM manifests are gated behind `legacyDcgmExporter.enabled=false`. | Replaces stale hand-authored DCGM DaemonSets. |
 | RDMA/networking | NVIDIA/network-operator (formerly Mellanox/network-operator) / NVIDIA Network Operator distribution | `system/nvidia-network-operator` wrapper chart. Production values model `nvidia.com/rdma` resources, NetworkAttachmentDefinitions, and NIC policy. Sandbox values deploy control plane/CRDs only. | Replaces static RDMA/secondary-network glue where RDMA profiles are enabled. |
+| NIC configuration | Mellanox/nic-configuration-operator | `system/nvidia-nic-configuration-operator` wrapper chart. Applies validated `NicConfigurationTemplate` resources for ConnectX NICs, RoCE, SR-IOV, and GPUDirect-safe settings after the NICo CRDs exist. RoCE templates fail closed unless they declare an explicit node selector and `validation.rdma.minimumReadyNodes >= 2` for multi-node RDMA proof. | Replaces manual NIC template/firmware configuration in RDMA production profiles. |
 | Production serving | NVIDIA/k8s-nim-operator | `platform/nim-operator` wrapper chart. Adds NIM CRDs and operator. Sample NIM services require NGC secret references. | Replaces Ollama as production inference default. |
 | AI workload scheduler | NVIDIA/KAI-Scheduler | `platform/kai-scheduler` wrapper chart using OCI chart `oci://ghcr.io/kai-scheduler/kai-scheduler` at `v0.10.2`. | Replaces local priority/quota-only scheduling for production GPU workloads once profile readiness is proven. |
 | AI runtime recipes | NVIDIA/aicr | Profile metadata records AICR as the preferred recipe source for validated GPU AI runtime manifests. | Evaluation/adoption path for recipe-backed runtime manifests. |
@@ -97,8 +98,10 @@ It currently covers:
 
 - `system/nvidia-gpu-operator`
 - `system/nvidia-network-operator`
+- `system/nvidia-nic-configuration-operator`
 - `platform/nim-operator`
 - `platform/kai-scheduler`
+- `platform/ai-platform-console`
 - `platform/ai-workload-tenancy`
 
 It proves:
@@ -129,7 +132,7 @@ It does not prove:
 5. Run `helm dependency build`.
 6. Run `helm template --include-crds --namespace <namespace> release <chart>`.
 7. If a chart has `values-sandbox.yaml`, include it with `--values <chart>/values-sandbox.yaml`.
-8. Remove generated Helm dependency archives and lock files.
+8. Render from an isolated temporary chart workdir so generated Helm dependency archives and lock files never mutate the source checkout.
 
 Live sandbox apply with `ubiquity up --sandbox` uses k3d when needed and applies the sandbox-safe charts to a local cluster. If no cluster is reachable, sandbox chart apply skips cleanly instead of hanging.
 
@@ -164,6 +167,7 @@ Use this flow for a real GPU environment. Do not skip readiness checks.
 4. Reconcile the substrate:
    - `system/nvidia-gpu-operator`
    - `system/nvidia-network-operator` for RDMA profiles
+   - `system/nvidia-nic-configuration-operator` for validated NIC templates, firmware-storage boundaries, RoCE/SR-IOV tuning, GPUDirect-safe NIC settings, and fail-closed multi-node RDMA validation metadata
 
 5. Reconcile platform services:
    - `platform/nim-operator`
@@ -232,6 +236,56 @@ kubectl -n nim-operator create secret docker-registry ngc-pull \
 ```
 
 Do not paste real secret values into repository files, plans, issue text, or generated docs.
+
+## NCP reference-platform requirement map
+
+`ubiquity ai-platform --profile ai-production` prints a deterministic NCP reference-platform requirement map. The map is Ubiquity's acceptance contract for the NVIDIA Cloud Accelerator layered model:
+
+| Requirement | Layer | Ubiquity evidence | Readiness boundary |
+| --- | --- | --- | --- |
+| `iaas-bare-metal-vm-lifecycle` | IaaS | `pkg/nodeinventory`, `pkg/nodestatus`, `pkg/virtualization`, `system/nvidia-nic-configuration-operator` | Node and VM status must join live inventory, Kubernetes resource evidence, firmware/image state, and fail closed when evidence is missing. |
+| `caas-gpu-kubernetes-substrate` | CaaS | `system/nvidia-gpu-operator`, `pkg/aiplatform/readiness.go`, `ubiquity health --ai` | GPU Operator operands, allocatable GPU or MIG resources, validator, and GPU Operator managed DCGM exporter must all be proven. |
+| `caas-rdma-networking` | CaaS | `system/nvidia-network-operator`, `system/nvidia-nic-configuration-operator`, `test/e2e/nvidia-rdma-smoke.sh` | RDMA readiness requires `nvidia.com/rdma`, NetworkAttachmentDefinitions, NIC configuration guardrails, and smoke-test evidence. |
+| `paas-serving-scheduling` | AI PaaS | `platform/nim-operator`, `platform/kai-scheduler`, NIM/KAI smoke scripts | Serving and scheduling claims require live NIM service, KAI queue, and smoke-test ConfigMap evidence. |
+| `tenant-workload-isolation` | Workload isolation | `platform/ai-workload-tenancy`, `platform/tenant-kubernetes-cluster`, `platform/tenant-vpc` | Tenant namespaces must render restricted pod security labels, quotas, limits, and default-deny NetworkPolicies before workloads are scheduled. |
+| `observability-validation` | Operations | `ubiquity info --ai`, `ubiquity health --ai`, `test/e2e/nvidia-ai-platform-final-demo.sh` | Final demo evidence is written only after provision, reconcile, schedule, serve, observe, and validate all pass. |
+| `unified-frontend-service` | Operations | `pkg/aiplatform/frontend.go`, `cmd/ubiquity/cmd/ai_platform.go`, `platform/ai-platform-console` | The frontend must serve HTML and JSON views from Ubiquity-owned profile and requirement data without weakening fail-closed runtime readiness boundaries. |
+
+This map is not a certification claim. It is a machine-testable implementation boundary that links each NCP-layered capability to Ubiquity-owned manifests, code, docs, and smoke evidence.
+
+## Unified frontend service
+
+`ubiquity ai-platform --profile ai-production serve` starts the project-native AI Platform console. The service provides a single frontend and API for the NCP-style tenant-compute and operator views without importing another product's model or implementation.
+
+Local preview:
+
+```sh
+ubiquity ai-platform --profile ai-production serve --listen 127.0.0.1:8080
+```
+
+Endpoints:
+
+| Endpoint | Purpose |
+| --- | --- |
+| `/` | Single-page console showing IaaS, CaaS, AI PaaS, workload isolation, and operations layers. |
+| `/api/platform` | JSON profile snapshot, supported profiles, NCP requirement map, and readiness/approval policies. |
+| `/api/requirements` | JSON requirement map for automation and tests. |
+| `/api/profiles` | JSON list of supported profiles. |
+| `/healthz` | Kubernetes liveness/readiness probe endpoint. |
+
+GitOps deployment is packaged in `platform/ai-platform-console`. The chart runs the same CLI server, exposes a ClusterIP Service, supports optional Ingress, and applies restricted container security defaults. Rendered console availability is an operator UI/API capability only; GPU, RDMA, model-serving, scheduling, tenant-isolation, and final-demo readiness still require their live evidence checks.
+
+## Tenant workload isolation
+
+`platform/ai-workload-tenancy` now models tenant isolation explicitly instead of only creating generic GPU quotas. For every tenant in `values.yaml`, the chart renders:
+
+- a Namespace labelled with `ubiquity.ai/tenant` and restricted Pod Security admission labels;
+- a ResourceQuota for `nvidia.com/gpu`, `nvidia.com/rdma`, CPU, memory, and optional MIG profile resources;
+- a LimitRange with default CPU/memory requests and maximum CPU/memory limits;
+- default-deny ingress and egress NetworkPolicies;
+- an explicit same-tenant allow policy and DNS egress policy.
+
+This is the minimum platform-owned workload-isolation baseline before tenant workloads are handed to KAI Scheduler or NIM Operator. Per-tenant Kubernetes control planes, VPCs, and node-level sanitization remain represented by the tenant cluster/VPC and node lifecycle paths; do not treat namespace isolation alone as sufficient for high-assurance bare-metal tenant turnover.
 
 ## KAI Scheduler usage
 
