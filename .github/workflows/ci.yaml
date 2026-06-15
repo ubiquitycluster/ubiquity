@@ -18,7 +18,7 @@ env:
   HELM_VERSION: "v3.16.4"
   GITLEAKS_VERSION: "v8.28.0"
   GOVULNCHECK_VERSION: "v1.1.4"
-  HELM_UNITTEST_VERSION: "v0.9.0"
+  HELM_UNITTEST_VERSION: "v1.0.1"
   KUBECONFORM_VERSION: "v0.6.7"
 
 jobs:
@@ -58,7 +58,7 @@ jobs:
           if [ "${{ github.event_name }}" = "pull_request" ]; then
             git fetch origin "${{ github.event.pull_request.base.sha }}" --depth=1
             git fetch origin "${{ github.event.pull_request.head.sha }}" --depth=1
-            git diff --name-only "${{ github.event.pull_request.base.sha }}...${{ github.event.pull_request.head.sha }}" > /tmp/pre-commit-files.txt
+            git diff --name-only "${{ github.event.pull_request.base.sha }}" "${{ github.event.pull_request.head.sha }}" > /tmp/pre-commit-files.txt
             sed -i '/^$/d' /tmp/pre-commit-files.txt
             cat /tmp/pre-commit-files.txt
             if [ -s /tmp/pre-commit-files.txt ]; then
@@ -145,7 +145,7 @@ jobs:
               echo "ERROR: $dir lint failed"
               failed=1
             fi
-          done < <(find . -name Chart.yaml -not -path "./.git/*")
+          done < <(find . -name Chart.yaml -not -path "./.git/*" -not -path "./disabled/*")
           exit "$failed"
 
       - name: Install kubeconform
@@ -157,7 +157,7 @@ jobs:
       - name: Kubeconform validation
         run: |
           set -euo pipefail
-          find system platform bootstrap -name Chart.yaml -not -path "*/charts/*" -print0 2>/dev/null \
+          find system platform bootstrap -name Chart.yaml -not -path "*/charts/*" -not -path "disabled/*" -print0 2>/dev/null \
             | while IFS= read -r -d '' chart; do
                 dir=$(dirname "$chart")
                 echo "Rendering and validating: $dir"
@@ -213,7 +213,7 @@ jobs:
 
       - name: Helm unittest
         run: |
-          go install github.com/helm-unittest/helm-unittest@${HELM_UNITTEST_VERSION}
+          go install github.com/helm-unittest/helm-unittest/cmd/helm-unittest@${HELM_UNITTEST_VERSION}
           failed=0
           while read -r chart; do
             dir=$(dirname "$chart")
@@ -224,7 +224,7 @@ jobs:
                 failed=1
               fi
             fi
-          done < <(find . -name "Chart.yaml" -not -path "./.git/*")
+          done < <(find . -name "Chart.yaml" -not -path "./.git/*" -not -path "./disabled/*")
           exit "$failed"
 
       - name: Install Kyverno CLI
