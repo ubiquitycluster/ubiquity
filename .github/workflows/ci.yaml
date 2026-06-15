@@ -112,7 +112,7 @@ jobs:
       - name: Run gitleaks
         run: |
           if ! command -v gitleaks >/dev/null 2>&1; then
-            go install github.com/gitleaks/gitleaks/v8@${GITLEAKS_VERSION}
+            go install github.com/zricethezav/gitleaks/v8@${GITLEAKS_VERSION}
           fi
           if [ "${{ github.event_name }}" = "pull_request" ]; then
             git fetch origin "${{ github.event.pull_request.head.sha }}" --depth=2
