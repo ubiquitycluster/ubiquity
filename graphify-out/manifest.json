@@ -2075,8 +2075,8 @@
     "semantic_hash": "a7def8407f278e9b66e5a327d388b754"
   },
   ".github/workflows/ci.yaml": {
-    "mtime": 1781561927.8270276,
-    "ast_hash": "e6d6c647054122f9c7155d027c7c3f80",
+    "mtime": 1781562094.4752064,
+    "ast_hash": "e0517c4dd2cf673abfde78dda6d464c8",
     "semantic_hash": ""
   },
   ".github/workflows/dependency-freshness.yml": {
