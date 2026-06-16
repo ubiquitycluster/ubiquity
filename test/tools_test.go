@@ -2,6 +2,7 @@ package test
 
 import (
 	"fmt"
+	"os"
 	"path/filepath"
 	"testing"
 
@@ -9,6 +10,10 @@ import (
 )
 
 func TestToolsContainer(t *testing.T) {
+	if testing.Short() || os.Getenv("UBIQUITY_RUN_TOOLS_CONTAINER_TEST") != "true" {
+		t.Skip("skipping tools container test; set UBIQUITY_RUN_TOOLS_CONTAINER_TEST=true to run")
+	}
+
 	image := "nixos/nix"
 	projectRoot, _ := filepath.Abs("../")
 

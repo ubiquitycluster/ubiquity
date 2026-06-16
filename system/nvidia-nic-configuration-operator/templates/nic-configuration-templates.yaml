@@ -1,0 +1,61 @@
+{{- range $index, $template := .Values.nicConfigurationTemplates }}
+{{- if not $template.name }}
+{{- fail (printf "nicConfigurationTemplates[%d].name is required" $index) }}
+{{- end }}
+{{- if not $template.nicSelector.nicType }}
+{{- fail (printf "nicConfigurationTemplates[%d].nicSelector.nicType is required" $index) }}
+{{- end }}
+{{- if not (hasKey $template.template "numVfs") }}
+{{- fail (printf "nicConfigurationTemplates[%d].template.numVfs is required" $index) }}
+{{- end }}
+{{- if not $template.template.linkType }}
+{{- fail (printf "nicConfigurationTemplates[%d].template.linkType is required" $index) }}
+{{- end }}
+{{- if and (dig "spectrumXOptimized" "enabled" false $template.template) (dig "roceOptimized" "enabled" false $template.template) }}
+{{- fail (printf "nicConfigurationTemplates[%d] cannot enable both spectrumXOptimized and roceOptimized; Spectrum-X includes RoCE settings upstream" $index) }}
+{{- end }}
+{{- if and (dig "roceOptimized" "enabled" false $template.template) (not $template.nodeSelector) }}
+{{- fail (printf "nicConfigurationTemplates[%d] roceOptimized requires an explicit nodeSelector so multi-node RDMA validation has a bounded target set" $index) }}
+{{- end }}
+{{- $minimumRdmaNodes := int (dig "validation" "rdma" "minimumReadyNodes" 0 $template) }}
+{{- if and (dig "roceOptimized" "enabled" false $template.template) (lt $minimumRdmaNodes 2) }}
+{{- fail (printf "nicConfigurationTemplates[%d] roceOptimized requires validation.rdma.minimumReadyNodes >= 2" $index) }}
+{{- end }}
+{{- if and (dig "gpuDirectOptimized" "enabled" false $template.template) (not (dig "pciPerformanceOptimized" "enabled" false $template.template)) }}
+{{- fail (printf "nicConfigurationTemplates[%d] gpuDirectOptimized requires pciPerformanceOptimized.enabled=true" $index) }}
+{{- end }}
+---
+apiVersion: configuration.net.nvidia.com/v1alpha1
+kind: NicConfigurationTemplate
+metadata:
+  name: {{ $template.name | quote }}
+  namespace: {{ default $.Release.Namespace $template.namespace | quote }}
+  labels:
+    app.kubernetes.io/component: nic-configuration-template
+    app.kubernetes.io/part-of: nic-configuration-operator
+    {{- include "nic-configuration-operator.labels" $ | nindent 4 }}
+  {{- if gt $minimumRdmaNodes 0 }}
+  annotations:
+    ubiquity.ai/rdma-minimum-ready-nodes: {{ $minimumRdmaNodes | quote }}
+  {{- end }}
+spec:
+  nodeSelector:
+    {{- toYaml (default dict $template.nodeSelector) | nindent 4 }}
+  nicSelector:
+    nicType: {{ $template.nicSelector.nicType | quote }}
+    {{- with $template.nicSelector.pciAddresses }}
+    pciAddresses:
+      {{- toYaml . | nindent 6 }}
+    {{- end }}
+    {{- with $template.nicSelector.serialNumbers }}
+    serialNumbers:
+      {{- toYaml . | nindent 6 }}
+    {{- end }}
+    {{- with $template.nicSelector.partNumbers }}
+    partNumbers:
+      {{- toYaml . | nindent 6 }}
+    {{- end }}
+  resetToDefault: {{ default false $template.resetToDefault }}
+  template:
+    {{- toYaml $template.template | nindent 4 }}
+{{- end }}

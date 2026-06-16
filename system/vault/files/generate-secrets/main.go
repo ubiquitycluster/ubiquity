@@ -17,8 +17,6 @@ package main
 # See the License for the specific language governing permissions and
 # limitations under the License.
 */
-// TODO WIP clean up
-
 import (
 	"fmt"
 	"log"
@@ -69,7 +67,11 @@ func main() {
 			}
 
 			for _, randomKey := range randomPassword.Data {
-				res, err := password.Generate(32, 3, 3, false, true)
+				length := randomKey.Length
+				if length == 0 {
+					length = 32
+				}
+				res, err := password.Generate(length, 3, 3, false, randomKey.Special)
 				if err != nil {
 					log.Fatal(err)
 				}
@@ -85,7 +87,7 @@ func main() {
 				log.Println("Secret written successfully.")
 			}
 		} else {
-			log.Println("Key abc in secret already existed.")
+			log.Printf("Secret %s already exists; leaving existing values unchanged.", randomPassword.Path)
 		}
 	}
 }

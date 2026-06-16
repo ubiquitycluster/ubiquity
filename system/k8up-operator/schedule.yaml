@@ -37,11 +37,10 @@ spec:
     schedule: '0 8 * * *'
     failedJobsHistoryLimit: 2
     successfulJobsHistoryLimit: 2
-    # TODO
-    #promURL: https://prometheus:8443
+    promURL: http://kube-prometheus-stack-prometheus.monitoring-system:9090
   check:
     schedule: '0 1 * * 1'
-    #promURL: https://prometheus:8443
+    promURL: http://kube-prometheus-stack-prometheus.monitoring-system:9090
   prune:
     schedule: '0 1 * * 0'
     retention:

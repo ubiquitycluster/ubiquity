@@ -19,8 +19,9 @@ gitops:
   repo: https://github.com/ubiquitycluster/ubiquity.git
   revision: main
 nico:
-  # NICo wrappers are installed by the explicit `ubiquity up` lifecycle path.
-  # Keep root GitOps from deploying them in every environment unless opted in.
+  # NICo and NVIDIA NIC Configuration Operator wrappers are installed by the
+  # explicit `ubiquity up` lifecycle path. Keep root GitOps from deploying them
+  # in every environment unless opted in.
   enabled: false
 stacks:
   - name: bootstrap

@@ -47,6 +47,9 @@ func TestNvidiaAIPlatformDocsIncludeProvenanceAndOperations(t *testing.T) {
 		"NVIDIA/gpu-operator",
 		"NVIDIA/k8s-nim-operator",
 		"NVIDIA/network-operator",
+		"Mellanox/nic-configuration-operator",
+		"system/nvidia-nic-configuration-operator",
+		"NicConfigurationTemplate",
 		"nvidia.com/rdma",
 		"nvidia.com/mig-",
 		"NetworkAttachmentDefinition",
@@ -79,6 +82,12 @@ func TestNvidiaAIPlatformDocsIncludeProvenanceAndOperations(t *testing.T) {
 		"test/e2e/nvidia-ai-platform-final-demo.sh",
 		"UBIQUITY_RUN_NVIDIA_AI_FINAL_DEMO=true",
 		"provision, reconcile, schedule, serve, observe, and validate",
+		"NCP reference-platform requirement map",
+		"tenant-workload-isolation",
+		"restricted Pod Security",
+		"default-deny NetworkPolicies",
+		"LimitRange",
+		"ResourceQuota",
 	} {
 		if !strings.Contains(doc, required) {
 			t.Fatalf("NVIDIA AI platform docs must include %q", required)

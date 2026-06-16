@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"fmt"
+	"net/http"
 	"os/exec"
 	"strings"
 
@@ -14,11 +15,16 @@ import (
 var aiPlatformProfile string
 var aiPlatformApplyDryRun bool
 var aiPlatformApplyServerSide bool
+var aiPlatformServeListen string
 
 var runAIPlatformKubectl = func(ctx context.Context, args []string, stdin []byte) ([]byte, error) {
 	cmd := exec.CommandContext(ctx, "kubectl", args...)
 	cmd.Stdin = bytes.NewReader(stdin)
 	return cmd.CombinedOutput()
+}
+
+var runAIPlatformHTTPServer = func(addr string, handler http.Handler) error {
+	return http.ListenAndServe(addr, handler)
 }
 
 var aiPlatformCmd = &cobra.Command{
@@ -80,6 +86,13 @@ This command does not claim NVIDIA approval or certification.`,
 			}
 			fmt.Printf("    rationale: %s\n", alternative.Rationale)
 		}
+		fmt.Println("NCP reference-platform requirement map:")
+		for _, requirement := range aiplatform.NCPRequirements() {
+			fmt.Printf("  - %s (%s)\n", requirement.ID, requirement.Layer)
+			fmt.Printf("    capability: %s\n", requirement.Capability)
+			fmt.Printf("    evidence: %s\n", strings.Join(requirement.UbiquityEvidence, ", "))
+			fmt.Printf("    readiness: %s\n", requirement.ReadinessSignal)
+		}
 		fmt.Println("Readiness policy: fail closed until GPU, runtime, telemetry, and serving evidence is proven.")
 		fmt.Println("Approval policy: no NVIDIA approval/certification claim without explicit evidence.")
 		return nil
@@ -98,9 +111,11 @@ func init() {
 	aiPlatformCmd.PersistentFlags().StringVar(&aiPlatformProfile, "profile", "gpu-basic", fmt.Sprintf("AI platform profile (%s)", strings.Join(aiplatform.Names(), ", ")))
 	renderCmd := &cobra.Command{Use: "render", Short: "Render profile manifests", Args: cobra.NoArgs, RunE: runAIPlatformRender}
 	applyCmd := &cobra.Command{Use: "apply", Short: "Apply rendered profile manifests", Args: cobra.NoArgs, RunE: runAIPlatformApply}
+	serveCmd := &cobra.Command{Use: "serve", Short: "Serve the unified AI platform frontend", Args: cobra.NoArgs, RunE: runAIPlatformServe}
 	applyCmd.Flags().BoolVar(&aiPlatformApplyDryRun, "dry-run", true, "use kubectl server-side dry-run instead of mutating the cluster")
 	applyCmd.Flags().BoolVar(&aiPlatformApplyServerSide, "server-side", true, "use kubectl server-side apply for GitOps resources")
-	aiPlatformCmd.AddCommand(renderCmd, applyCmd)
+	serveCmd.Flags().StringVar(&aiPlatformServeListen, "listen", ":8080", "listen address for the unified AI platform frontend")
+	aiPlatformCmd.AddCommand(renderCmd, applyCmd, serveCmd)
 	rootCmd.AddCommand(aiPlatformCmd)
 }
 
@@ -130,6 +145,15 @@ func runAIPlatformApply(cmd *cobra.Command, args []string) error {
 		fmt.Print(string(out))
 	}
 	return err
+}
+
+func runAIPlatformServe(cmd *cobra.Command, args []string) error {
+	handler, err := aiplatform.NewFrontendHandler(aiPlatformProfile)
+	if err != nil {
+		return err
+	}
+	fmt.Fprintln(cmd.OutOrStdout(), aiplatform.FrontendListenDescription(aiPlatformServeListen, aiPlatformProfile))
+	return runAIPlatformHTTPServer(aiPlatformServeListen, handler)
 }
 
 func renderAIPlatformManifest(profile aiplatform.Profile) string {
@@ -167,6 +191,7 @@ func renderAIPlatformManifest(profile aiplatform.Profile) string {
 		}
 		b.WriteString(fmt.Sprintf("      replacesLocal: %t\n      productionDefault: %t\n", component.ReplacesLocal, component.ProductionDefault))
 	}
+	b.WriteString(renderAIPlatformGitOpsExclusions(profile))
 	b.WriteString(renderAIPlatformGitOpsApplications(profile))
 	return b.String()
 }
@@ -175,6 +200,32 @@ type aiPlatformGitOpsTarget struct {
 	Name      string
 	Path      string
 	Namespace string
+}
+
+type aiPlatformGitOpsExclusion struct {
+	Path   string
+	Reason string
+}
+
+const aiPlatformGitOpsTargetRevision = "main"
+
+func renderAIPlatformGitOpsExclusions(profile aiplatform.Profile) string {
+	exclusions := aiPlatformGitOpsExclusions(profile)
+	if len(exclusions) == 0 {
+		return ""
+	}
+	var b strings.Builder
+	b.WriteString("---\napiVersion: v1\nkind: ConfigMap\nmetadata:\n  name: ai-platform-gitops-exclusions\n  namespace: ubiquity-system\n  labels:\n    app.kubernetes.io/part-of: ubiquity-ai-platform\n    ubiquity.ai/profile: \"")
+	b.WriteString(profile.Name)
+	b.WriteString("\"\ndata:\n  exclusions: |\n")
+	for _, exclusion := range exclusions {
+		b.WriteString("    - path: ")
+		b.WriteString(exclusion.Path)
+		b.WriteString("\n      reason: ")
+		b.WriteString(exclusion.Reason)
+		b.WriteString("\n")
+	}
+	return b.String()
 }
 
 func renderAIPlatformGitOpsApplications(profile aiplatform.Profile) string {
@@ -188,7 +239,9 @@ func renderAIPlatformGitOpsApplications(profile aiplatform.Profile) string {
 		b.WriteString(target.Name)
 		b.WriteString("\n  namespace: argocd\n  labels:\n    app.kubernetes.io/part-of: ubiquity-ai-platform\n    ubiquity.ai/profile: \"")
 		b.WriteString(profile.Name)
-		b.WriteString("\"\nspec:\n  project: default\n  source:\n    repoURL: https://github.com/ubiquitycluster/ubiquity\n    targetRevision: HEAD\n    path: ")
+		b.WriteString("\"\nspec:\n  project: default\n  source:\n    repoURL: https://github.com/ubiquitycluster/ubiquity\n    targetRevision: ")
+		b.WriteString(aiPlatformGitOpsTargetRevision)
+		b.WriteString("\n    path: ")
 		b.WriteString(target.Path)
 		b.WriteString("\n  destination:\n    server: https://kubernetes.default.svc\n    namespace: ")
 		b.WriteString(target.Namespace)
@@ -207,11 +260,27 @@ func aiPlatformGitOpsTargets(profile aiplatform.Profile) []aiPlatformGitOpsTarge
 	}
 	add("gpu-operator", "nvidia-gpu-operator", "system/nvidia-gpu-operator", "gpu-operator")
 	add("nvidia-network-operator", "nvidia-network-operator", "system/nvidia-network-operator", "nvidia-network-operator")
+	add("nvidia-nic-configuration-operator", "nvidia-nic-configuration-operator", "system/nvidia-nic-configuration-operator", "network-operator")
 	add("nim-operator", "nim-operator", "platform/nim-operator", "nim-operator")
 	add("kai-scheduler", "kai-scheduler", "platform/kai-scheduler", "kai-scheduler")
 	add("stallscope", "stallscope", "platform/stallscope", "gpu-telemetry")
+	if profile.HasCapability(aiplatform.CapabilityUnifiedFrontend) {
+		targets = append(targets, aiPlatformGitOpsTarget{Name: "ai-platform-console", Path: "platform/ai-platform-console", Namespace: "ai-platform"})
+	}
 	if profile.HasCapability(aiplatform.CapabilityServing) || profile.HasCapability(aiplatform.CapabilityScheduler) {
 		targets = append(targets, aiPlatformGitOpsTarget{Name: "ai-workload-tenancy", Path: "platform/ai-workload-tenancy", Namespace: "ai-workloads"})
 	}
 	return targets
+}
+
+func aiPlatformGitOpsExclusions(profile aiplatform.Profile) []aiPlatformGitOpsExclusion {
+	if profile.Name != "ai-production" {
+		return nil
+	}
+	return []aiPlatformGitOpsExclusion{
+		{Path: "system/kubevirt", Reason: "KubeVirt virtualization is profile/evidence metadata until a first-party wrapper chart is added"},
+		{Path: "system/containerized-data-importer", Reason: "CDI is profile/evidence metadata until a first-party wrapper chart is added"},
+		{Path: "platform/tenant-kubernetes-cluster", Reason: "tenant cluster evidence is rendered by future tenant platform wrappers, not this GitOps target set"},
+		{Path: "platform/tenant-vpc", Reason: "tenant VPC evidence is rendered by future tenant platform wrappers, not this GitOps target set"},
+	}
 }

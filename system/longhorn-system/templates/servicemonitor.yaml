@@ -15,7 +15,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# TODO alert rules following https://longhorn.io/docs/1.1.0/monitoring/prometheus_and_grafana_setup/
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
@@ -32,3 +31,31 @@ spec:
       - {{ .Release.Namespace }}
   endpoints:
     - port: manager
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: {{ .Release.Name }}-longhorn
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+spec:
+  groups:
+    - name: longhorn.storage.rules
+      rules:
+        - alert: LonghornManagerTargetDown
+          expr: up{job=~".*longhorn.*"} == 0
+          for: 10m
+          labels:
+            severity: warning
+          annotations:
+            summary: Longhorn manager metrics target is down
+            description: Prometheus cannot scrape a Longhorn manager metrics endpoint for at least 10 minutes.
+        - alert: LonghornVolumeFaulted
+          expr: longhorn_volume_state == 3
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            summary: Longhorn volume is faulted
+            description: A Longhorn volume reported the faulted state and requires operator investigation before storage readiness can be claimed.

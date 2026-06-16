@@ -1,6 +1,9 @@
 package cloud
 
 import (
+	"encoding/json"
+	"os"
+	"path/filepath"
 	"strings"
 	"testing"
 )
@@ -41,6 +44,39 @@ func TestScheduledDependencyFreshnessReportWorkflow(t *testing.T) {
 	}
 }
 
+func TestDependencyAutomationConfigsCoverSupportedEcosystems(t *testing.T) {
+	dependabot := mustRead(t, "../../.github/dependabot.yml")
+	renovate := mustRead(t, "../../renovate.json")
+	if _, err := os.Stat("../../renovate.json5"); !os.IsNotExist(err) {
+		t.Fatalf("renovate.json5 should be removed after JSON migration, stat err=%v", err)
+	}
+	var renovateJSON map[string]any
+	if err := json.Unmarshal([]byte(renovate), &renovateJSON); err != nil {
+		t.Fatalf("renovate.json is not valid JSON: %v", err)
+	}
+
+	for path, content := range map[string]string{
+		"dependabot": dependabot,
+		"renovate":   renovate,
+	} {
+		for _, required := range []string{"gomod", "github-actions", "docker", "dependencies"} {
+			if !strings.Contains(content, required) {
+				t.Fatalf("%s config missing %q", path, required)
+			}
+		}
+	}
+	for _, required := range []string{"directory: \"/\"", "directory: \"/tools\"", "directory: \"/test\"", "directory: \"/terratest\"", "open-pull-requests-limit"} {
+		if !strings.Contains(dependabot, required) {
+			t.Fatalf("dependabot config missing %q", required)
+		}
+	}
+	for _, required := range []string{"regexManagers", "Chart\\\\.ya?ml", "datasourceTemplate", "helm", "registryUrl", "Go modules", "GitHub Actions"} {
+		if !strings.Contains(renovate, required) {
+			t.Fatalf("renovate config missing %q", required)
+		}
+	}
+}
+
 func TestHelmHardeningChecksCoverUnitTestsAndDependencyFreshness(t *testing.T) {
 	workflow := mustRead(t, "../../.github/workflows/ci.yaml")
 	script := mustRead(t, "../../test/e2e/helm-hardening-checks.sh")
@@ -71,5 +107,31 @@ func TestRuntimeSecurityValidationIncludesFalcoAlertingAndDashboard(t *testing.T
 		if !strings.Contains(combined, required) {
 			t.Fatalf("runtime security validation missing %q", required)
 		}
+	}
+}
+
+func TestCISupplyChainAndLintGatesArePinnedAndFailClosed(t *testing.T) {
+	ci := mustRead(t, "../../.github/workflows/ci.yaml")
+	release := mustRead(t, "../../.github/workflows/release.yaml")
+	opus := mustRead(t, "../../.github/workflows/opus-build.yml")
+	vulncheck := mustRead(t, "../../.github/workflows/vulncheck.yaml")
+	combined := ci + "\n" + release + "\n" + opus + "\n" + vulncheck
+
+	for _, forbidden := range []string{"ansible-lint metal/ --exclude metal/roles/automatic_upgrade/ || true", "terraform fmt -check -recursive) || true", "@master", "@latest", "releases/latest", "version: latest", "git diff-tree --no-commit-id"} {
+		if strings.Contains(combined, forbidden) {
+			t.Fatalf("CI/release workflow retains mutable or fail-open pattern %q", forbidden)
+		}
+	}
+	for _, required := range []string{"github.event.pull_request.base.sha", "git diff --name-only", "GITLEAKS_VERSION", "GOVULNCHECK_VERSION", "HELM_UNITTEST_VERSION", "KUBECONFORM_VERSION", "aquasecurity/trivy-action@v0.36.0", "anchore/sbom-action@v0.24.0", "GORELEASER_VERSION", "scripts/check-graphify-freshness.sh --strict"} {
+		if !strings.Contains(combined, required) {
+			t.Fatalf("CI/release workflow missing pinned/fail-closed pattern %q", required)
+		}
+	}
+}
+
+func TestGraphifyFreshnessCheckIsWiredIntoGithubCI(t *testing.T) {
+	workflow := mustRead(t, filepath.Clean("../../.github/workflows/ci.yaml"))
+	if !strings.Contains(workflow, "scripts/check-graphify-freshness.sh --strict") {
+		t.Fatal("CI must run Graphify strict freshness checks")
 	}
 }

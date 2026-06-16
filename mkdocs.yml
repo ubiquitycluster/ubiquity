@@ -85,6 +85,7 @@ nav:
       - Cloud:
         - Overview: admin-guide/deployment/cloud/index.md
         - Terraform Cloud: admin-guide/deployment/cloud/terraform_cloud.md
+    - NVIDIA AI Platform: admin-guide/nvidia-ai-platform.md
     - NVIDIA Infra Controller Node Management: admin-guide/nvidia-infra-controller-node-management.md
     - Administration:
       - Tutorials:
@@ -126,6 +127,7 @@ nav:
         - Node Reinstall: admin-guide/runbooks/nvidia-infra-controller/nico-node-reinstall.md
         - BMC Redfish: admin-guide/runbooks/nvidia-infra-controller/nico-bmc-redfish.md
         - GPU Validation: admin-guide/runbooks/nvidia-infra-controller/nico-gpu-validation.md
+        - NIC Configuration Operator: admin-guide/runbooks/nvidia-infra-controller/nic-configuration-operator.md
       - NICo Compatibility Paths:
         - Prerequisites: admin-guide/runbooks/nico-prerequisites.md
         - Bootstrap: admin-guide/runbooks/nico-bootstrap.md

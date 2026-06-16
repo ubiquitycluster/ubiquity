@@ -2,5 +2,50 @@
   "$schema": "https://json-schema.org/draft-07/schema#",
   "type": "object",
   "additionalProperties": true,
-  "description": "Permissive schema for wrapper/upstream chart values. Chart-specific hardening can narrow local first-party fields over time while preserving upstream passthrough compatibility."
+  "properties": {
+    "tenants": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["name", "gpuQuota"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 63,
+            "pattern": "^[a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?$"
+          },
+          "labels": {"type": "object", "additionalProperties": {"type": "string"}},
+          "gpuQuota": {"type": "integer", "minimum": 0},
+          "rdmaQuota": {"type": "integer", "minimum": 0},
+          "cpuQuota": {"type": ["string", "integer"]},
+          "memoryQuota": {"type": "string"},
+          "defaultCpuRequest": {"type": ["string", "integer"]},
+          "defaultMemoryRequest": {"type": "string"},
+          "maxCpuLimit": {"type": ["string", "integer"]},
+          "maxMemoryLimit": {"type": "string"},
+          "migQuota": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0}}
+        }
+      }
+    },
+    "networkPolicy": {
+      "type": "object",
+      "properties": {
+        "enabled": {"type": "boolean"},
+        "defaultDenyIngress": {"type": "boolean"},
+        "defaultDenyEgress": {"type": "boolean"},
+        "allowSameTenant": {"type": "boolean"},
+        "allowDNS": {"type": "boolean"},
+        "dnsNamespaceSelector": {"type": "object", "additionalProperties": {"type": "string"}}
+      }
+    },
+    "quota": {
+      "type": "object",
+      "properties": {
+        "gpuResource": {"type": "string", "minLength": 1},
+        "rdmaResource": {"type": "string", "minLength": 1},
+        "migProfiles": {"type": "array", "items": {"type": "string", "minLength": 1}}
+      }
+    }
+  }
 }

@@ -1,0 +1,64 @@
+suite: ai platform console unified frontend
+release:
+  name: ai-platform-console
+  namespace: ai-platform
+templates:
+  - templates/deployment.yaml
+  - templates/service.yaml
+  - templates/ingress.yaml
+tests:
+  - it: renders a hardened deployment that serves the unified frontend
+    template: templates/deployment.yaml
+    asserts:
+      - equal:
+          path: kind
+          value: Deployment
+      - equal:
+          path: spec.template.metadata.labels["ubiquity.ai/profile"]
+          value: ai-production
+      - contains:
+          path: spec.template.spec.containers[0].args
+          content: ai-platform
+      - contains:
+          path: spec.template.spec.containers[0].args
+          content: serve
+      - contains:
+          path: spec.template.spec.containers[0].args
+          content: "0.0.0.0:8080"
+      - equal:
+          path: spec.template.spec.containers[0].readinessProbe.httpGet.path
+          value: /healthz
+      - equal:
+          path: spec.template.spec.containers[0].securityContext.allowPrivilegeEscalation
+          value: false
+      - contains:
+          path: spec.template.spec.containers[0].securityContext.capabilities.drop
+          content: ALL
+  - it: exposes the frontend service on an HTTP port
+    template: templates/service.yaml
+    asserts:
+      - equal:
+          path: kind
+          value: Service
+      - equal:
+          path: spec.ports[0].port
+          value: 80
+      - equal:
+          path: spec.ports[0].targetPort
+          value: http
+  - it: renders ingress only when enabled
+    template: templates/ingress.yaml
+    set:
+      ingress.enabled: true
+      ingress.host: ai-platform.test.example
+      ingress.className: nginx
+    asserts:
+      - equal:
+          path: kind
+          value: Ingress
+      - equal:
+          path: spec.ingressClassName
+          value: nginx
+      - equal:
+          path: spec.rules[0].host
+          value: ai-platform.test.example

@@ -37,6 +37,8 @@ spec:
             exclude: true
           - path: system/nvidia-infra-controller-prereqs
             exclude: true
+          - path: system/nvidia-nic-configuration-operator
+            exclude: true
           {{- end }}
           {{- if and (not $nicoRootGitOpsEnabled) (eq $stack.name "platform") }}
           - path: platform/nvidia-infra-controller-rest
@@ -55,7 +57,7 @@ spec:
       destination:
         name: in-cluster
         namespace: '{{ default `{{ path.basename }}` $stack.namespace }}'
-      project: default # TODO
+      project: '{{ default `default` $stack.project }}'
       source:
         repoURL: {{ $.Values.gitops.repo }}
         path: '{{ `{{path}}` }}'

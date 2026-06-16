@@ -28,10 +28,28 @@ func TestEvaluateReadinessReportsMissingFoundations(t *testing.T) {
 		t.Fatalf("ready = true, want false")
 	}
 	joined := strings.Join(res.Failures, "\n")
-	for _, want := range []string{"workload nico-api not ready", "REST API not ready", "site-agent not ready", "service nico-api not ready", "service nico-dns not ready", "service nico-ntp not ready", "service nico-pxe not ready", "service nico-bmc-proxy not ready", "service nico-hardware-health not ready", "service nico-rest-api not ready", "service nico-rest-site-agent not ready", "site not visible", "machine not visible"} {
+	for _, want := range []string{"workload nico-api not ready", "REST API not ready", "site-agent not ready", "service nico-api not ready", "service nico-pxe not ready", "service nico-bmc-proxy not ready", "service nico-hardware-health not ready", "service nico-rest-api not ready", "service nico-rest-site-agent not ready", "site not visible", "machine not visible"} {
 		if !strings.Contains(joined, want) {
 			t.Fatalf("failures missing %q: %#v", want, res.Failures)
 		}
+	}
+	for _, notWant := range []string{"service nico-dhcp not ready", "service nico-dns not ready", "service nico-ntp not ready"} {
+		if strings.Contains(joined, notWant) {
+			t.Fatalf("non-service-backed component produced service failure %q: %#v", notWant, res.Failures)
+		}
+	}
+}
+
+func TestEvaluateReadinessDoesNotRequireDefaultDisabledComponentServices(t *testing.T) {
+	s := ReadinessSnapshot{
+		Workloads:      []WorkloadStatus{{Name: "nico-dhcp", Ready: true}, {Name: "nico-dns", Ready: true}, {Name: "nico-ntp", Ready: true}},
+		RESTAPIReady:   true,
+		SiteAgentReady: true,
+		Services:       allNICoServicesReady(),
+	}
+	res := EvaluateReadiness(s, ReadinessOptions{RealHardware: false})
+	if !res.Ready {
+		t.Fatalf("readiness should not require default-disabled DHCP/DNS/NTP Services: %#v", res.Failures)
 	}
 }
 

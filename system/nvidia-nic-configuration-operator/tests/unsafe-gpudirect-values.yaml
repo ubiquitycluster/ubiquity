@@ -1,0 +1,9 @@
+nicConfigurationTemplates:
+  - name: unsafe-gpudirect
+    nicSelector:
+      nicType: "101d"
+    template:
+      numVfs: 0
+      linkType: Ethernet
+      gpuDirectOptimized:
+        enabled: true

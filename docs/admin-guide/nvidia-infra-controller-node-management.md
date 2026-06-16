@@ -23,6 +23,7 @@ Ubiquity wraps the upstream NVIDIA/infra-controller project with GitOps charts:
 
 - `system/nvidia-infra-controller-prereqs`: documentation-as-code report for prerequisite ownership.
 - `system/nvidia-infra-controller-core`: NICo Core controller services.
+- `system/nvidia-nic-configuration-operator`: NVIDIA NIC Configuration Operator CRDs, manager, daemon, RBAC, and optional `NicConfigurationTemplate` objects for NIC-level firmware/configuration workflows.
 - `platform/nvidia-infra-controller-rest`: NICo REST and site-agent services.
 
 Default examples use namespace `nico-system`. Some deployments may use `nvidia-infra-controller`. Confirm the namespace in your GitOps values before running commands.
@@ -38,7 +39,8 @@ Before managing nodes with NICo, verify:
 5. External Secrets Operator projects only approved runtime secrets into NICo namespaces.
 6. PostgreSQL is reachable and has a documented backup/restore owner.
 7. Management, BMC, PXE/provisioning, and node networks are documented.
-8. Operators understand that this integration is experimental/preview.
+8. NVIDIA Network Operator and Maintenance Operator are installed before enabling NIC-level configuration via `system/nvidia-nic-configuration-operator`.
+9. Operators understand that this integration is experimental/preview.
 
 ## Readiness checks
 
@@ -157,3 +159,4 @@ kubectl uncordon "${NICO_MACHINE}" || true
 - `docs/admin-guide/runbooks/nvidia-infra-controller/nico-node-reinstall.md`
 - `docs/admin-guide/runbooks/nvidia-infra-controller/nico-bmc-redfish.md`
 - `docs/admin-guide/runbooks/nvidia-infra-controller/nico-gpu-validation.md`
+- `docs/admin-guide/runbooks/nvidia-infra-controller/nic-configuration-operator.md`

@@ -1,8 +1,8 @@
-suite: test k8up-operator basic rendering
+suite: test k8up-operator wrapper rendering
 templates:
   - "*.yaml"
 tests:
-  - it: should render at least one resource
+  - it: should remain an empty Helm wrapper because kustomize owns K8up resources
     asserts:
       - hasDocuments:
-          count: 1
+          count: 0

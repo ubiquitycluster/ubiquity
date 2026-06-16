@@ -1,0 +1,13 @@
+nicConfigurationTemplates:
+  - name: unsafe-roce-template
+    nodeSelector:
+      feature.node.kubernetes.io/network-sriov.capable: "true"
+    nicSelector:
+      nicType: "101d"
+    template:
+      numVfs: 0
+      linkType: Ethernet
+      pciPerformanceOptimized:
+        enabled: true
+      roceOptimized:
+        enabled: true

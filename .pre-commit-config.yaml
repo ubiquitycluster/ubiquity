@@ -12,7 +12,7 @@ repos:
       - id: end-of-file-fixer
       - id: check-yaml
         args: [--allow-multiple-documents]
-        exclude: ^(apps|bootstrap|charts|disabled|monitoring|platform|storage|system)/.*/templates/.*\.(yaml|yml|tpl)$
+        exclude: ^((apps|bootstrap|charts|disabled|monitoring|platform|storage|system)/.*/templates/.*\.(yaml|yml|tpl)|mkdocs\.yml)$
       - id: check-added-large-files
       - id: check-merge-conflict
       - id: detect-private-key

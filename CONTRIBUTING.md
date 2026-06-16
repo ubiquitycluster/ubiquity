@@ -10,14 +10,14 @@
 - pre-commit
 
 ### Quick start
-​```bash
+```bash
 git clone https://github.com/ubiquitycluster/ubiquity.git
 cd ubiquity
 make cli
 make installer
 pre-commit install
 ./ubiquity-cli up --sandbox --skip-security
-​```
+```
 
 ### Project structure
 - `cmd/ubiquity/` — Go CLI (main entry point)

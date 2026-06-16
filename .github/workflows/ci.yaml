@@ -16,6 +16,10 @@ env:
   GO_VERSION: "1.26.4"
   K3D_VERSION: "v5.8.3"
   HELM_VERSION: "v3.16.4"
+  GITLEAKS_VERSION: "v8.28.0"
+  GOVULNCHECK_VERSION: "v1.1.4"
+  HELM_UNITTEST_VERSION: "v1.0.1"
+  KUBECONFORM_VERSION: "v0.6.7"
 
 jobs:
   lint:
@@ -36,7 +40,7 @@ jobs:
 
       - name: Install linters
         run: |
-          pip install pre-commit yamllint ansible-lint
+          pip install pre-commit==4.4.0 yamllint==1.37.1 ansible-lint==25.12.0
           sudo apt-get install -y shellcheck
 
       - name: Setup Helm
@@ -52,8 +56,9 @@ jobs:
       - name: Run pre-commit
         run: |
           if [ "${{ github.event_name }}" = "pull_request" ]; then
+            git fetch origin "${{ github.event.pull_request.base.sha }}" --depth=1
             git fetch origin "${{ github.event.pull_request.head.sha }}" --depth=1
-            git diff-tree --no-commit-id --name-only -r "${{ github.event.pull_request.head.sha }}" > /tmp/pre-commit-files.txt
+            git diff --name-only "${{ github.event.pull_request.base.sha }}" "${{ github.event.pull_request.head.sha }}" > /tmp/pre-commit-files.txt
             sed -i '/^$/d' /tmp/pre-commit-files.txt
             cat /tmp/pre-commit-files.txt
             if [ -s /tmp/pre-commit-files.txt ]; then
@@ -67,18 +72,47 @@ jobs:
 
       - name: Ansible-lint
         run: |
-          ansible-lint metal/ --exclude metal/roles/automatic_upgrade/ || true
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            git fetch origin "${{ github.event.pull_request.base.sha }}" --depth=1
+            git fetch origin "${{ github.event.pull_request.head.sha }}" --depth=1
+            git diff --name-only "${{ github.event.pull_request.base.sha }}" "${{ github.event.pull_request.head.sha }}" \
+              | grep '^metal/' > /tmp/ansible-lint-files.txt || true
+            if [ ! -s /tmp/ansible-lint-files.txt ]; then
+              echo "No metal/ changes to lint"
+              exit 0
+            fi
+            xargs ansible-lint --exclude metal/roles/automatic_upgrade/ < /tmp/ansible-lint-files.txt
+          else
+            ansible-lint metal/ --exclude metal/roles/automatic_upgrade/
+          fi
 
       - name: Terraform fmt check
         run: |
-          for dir in cloud/aws cloud/azure cloud/gcp cloud/openstack cloud/ovh cloud/dns; do
-            [ -d "$dir" ] && (cd "$dir" && terraform fmt -check -recursive) || true
-          done
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            git fetch origin "${{ github.event.pull_request.base.sha }}" --depth=1
+            git fetch origin "${{ github.event.pull_request.head.sha }}" --depth=1
+            git diff --name-only "${{ github.event.pull_request.base.sha }}" "${{ github.event.pull_request.head.sha }}" \
+              | grep '^cloud/.*/.*\.tf$' > /tmp/terraform-fmt-files.txt || true
+            if [ ! -s /tmp/terraform-fmt-files.txt ]; then
+              echo "No Terraform changes to check"
+              exit 0
+            fi
+            cut -d/ -f1-2 /tmp/terraform-fmt-files.txt | sort -u > /tmp/terraform-fmt-dirs.txt
+          else
+            printf '%s\n' cloud/aws cloud/azure cloud/gcp cloud/openstack cloud/ovh cloud/dns > /tmp/terraform-fmt-dirs.txt
+          fi
+          failed=0
+          while read -r dir; do
+            if [ -d "$dir" ] && ! (cd "$dir" && terraform fmt -check -recursive); then
+              failed=1
+            fi
+          done < /tmp/terraform-fmt-dirs.txt
+          exit "$failed"
 
       - name: Run gitleaks
         run: |
           if ! command -v gitleaks >/dev/null 2>&1; then
-            go install github.com/zricethezav/gitleaks/v8@latest
+            go install github.com/zricethezav/gitleaks/v8@${GITLEAKS_VERSION}
           fi
           if [ "${{ github.event_name }}" = "pull_request" ]; then
             git fetch origin "${{ github.event.pull_request.head.sha }}" --depth=2
@@ -123,24 +157,32 @@ jobs:
       - name: Verify Go modules
         run: go mod verify
 
+      - name: Check Graphify artifact freshness
+        run: scripts/check-graphify-freshness.sh --strict
+
       - name: Helm lint all charts
         run: |
-          find . -name Chart.yaml -not -path "./.git/*" | while read chart; do
+          failed=0
+          while read -r chart; do
             dir=$(dirname "$chart")
             echo "Linting: $dir"
-            helm lint "$dir" || echo "WARNING: $dir lint failed"
-          done
+            if ! helm lint "$dir"; then
+              echo "ERROR: $dir lint failed"
+              failed=1
+            fi
+          done < <(find . -name Chart.yaml -not -path "./.git/*" -not -path "./disabled/*")
+          exit "$failed"
 
       - name: Install kubeconform
         run: |
-          curl -sSfL https://github.com/yannh/kubeconform/releases/latest/download/kubeconform-linux-amd64.tar.gz \
+          curl -sSfL "https://github.com/yannh/kubeconform/releases/download/${KUBECONFORM_VERSION}/kubeconform-linux-amd64.tar.gz" \
             | sudo tar -xz -C /usr/local/bin kubeconform
           kubeconform -v
 
       - name: Kubeconform validation
         run: |
           set -euo pipefail
-          find system platform bootstrap -name Chart.yaml -not -path "*/charts/*" -print0 2>/dev/null \
+          find system platform bootstrap -name Chart.yaml -not -path "*/charts/*" -not -path "disabled/*" -print0 2>/dev/null \
             | while IFS= read -r -d '' chart; do
                 dir=$(dirname "$chart")
                 echo "Rendering and validating: $dir"
@@ -160,7 +202,7 @@ jobs:
       - uses: actions/checkout@v6
 
       - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@master
+        uses: aquasecurity/trivy-action@v0.36.0
         with:
           scan-type: fs
           scan-ref: .
@@ -191,19 +233,41 @@ jobs:
 
       - name: Govulncheck
         run: |
-          go install golang.org/x/vuln/cmd/govulncheck@latest
+          go install golang.org/x/vuln/cmd/govulncheck@${GOVULNCHECK_VERSION}
           govulncheck ./...
 
       - name: Helm unittest
         run: |
-          go install github.com/helm-unittest/helm-unittest@latest 2>/dev/null || true
-          find . -name "Chart.yaml" -not -path "./.git/*" | while read chart; do
-            dir=$(dirname "$chart")
-            if [ -d "$dir/tests" ]; then
+          go install github.com/helm-unittest/helm-unittest/cmd/helm-unittest@${HELM_UNITTEST_VERSION}
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            git fetch origin "${{ github.event.pull_request.base.sha }}" --depth=1
+            git fetch origin "${{ github.event.pull_request.head.sha }}" --depth=1
+            git diff --name-only "${{ github.event.pull_request.base.sha }}" "${{ github.event.pull_request.head.sha }}" > /tmp/helm-unittest-files.txt
+            while read -r file; do
+              dir=$(dirname "$file")
+              while [ "$dir" != "." ] && [ "$dir" != "/" ]; do
+                if [ -f "$dir/Chart.yaml" ]; then
+                  printf '%s\n' "$dir"
+                  break
+                fi
+                dir=$(dirname "$dir")
+              done
+            done < /tmp/helm-unittest-files.txt | sort -u > /tmp/helm-unittest-chart-dirs.txt
+          else
+            find . -name "Chart.yaml" -not -path "./.git/*" -not -path "./disabled/*" \
+              -exec dirname {} \; | sort -u > /tmp/helm-unittest-chart-dirs.txt
+          fi
+          failed=0
+          while read -r dir; do
+            if [ -n "$dir" ] && [ -d "$dir/tests" ] && [[ "$dir" != disabled/* ]] && [[ "$dir" != ./disabled/* ]]; then
               echo "Testing: $dir"
-              helm unittest "$dir" || echo "WARNING: $dir tests failed"
+              if ! helm-unittest "$dir"; then
+                echo "ERROR: $dir tests failed"
+                failed=1
+              fi
             fi
-          done
+          done < /tmp/helm-unittest-chart-dirs.txt
+          exit "$failed"
 
       - name: Install Kyverno CLI
         uses: kyverno/action-install-cli@v0.2.0

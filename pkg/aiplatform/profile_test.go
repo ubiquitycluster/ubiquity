@@ -45,6 +45,16 @@ func TestProductionProfileRequiresServingNetworkAndValidation(t *testing.T) {
 	if components["nim-operator"].SourceRepo != "https://github.com/NVIDIA/k8s-nim-operator" {
 		t.Fatalf("ai-production must use NVIDIA/k8s-nim-operator for production serving")
 	}
+	nicConfig := components["nvidia-nic-configuration-operator"]
+	if nicConfig.SourceRepo != "https://github.com/Mellanox/nic-configuration-operator" {
+		t.Fatalf("ai-production must include NIC Configuration Operator for NIC templates, got %q", nicConfig.SourceRepo)
+	}
+	if nicConfig.Namespace != "network-operator" {
+		t.Fatalf("NIC Configuration Operator should deploy with NVIDIA networking components, got namespace %q", nicConfig.Namespace)
+	}
+	if !nicConfig.ProductionDefault || !nicConfig.ReplacesLocal {
+		t.Fatal("NIC Configuration Operator should be a production default replacing weaker local/manual NIC configuration")
+	}
 	if components["ollama"].ProductionDefault {
 		t.Fatal("Ollama must not be the production AI serving default")
 	}

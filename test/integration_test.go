@@ -3,6 +3,7 @@ package test
 import (
 	"crypto/tls"
 	"fmt"
+	"os"
 	"testing"
 	"time"
 
@@ -12,6 +13,9 @@ import (
 
 func TestArgoCDCheck(t *testing.T) {
 	t.Parallel()
+	if testing.Short() || os.Getenv("UBIQUITY_RUN_CLUSTER_INTEGRATION_TESTS") != "true" {
+		t.Skip("skipping Argo CD live-cluster test; set UBIQUITY_RUN_CLUSTER_INTEGRATION_TESTS=true to run")
+	}
 
 	// Setup the kubectl config and context. Here we choose to use the defaults, which is:
 	// - $KUBECONFIG for the kubectl config file

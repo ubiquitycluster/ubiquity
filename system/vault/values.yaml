@@ -56,7 +56,7 @@ vault:
   #     value: custom_worker
 
   # # If needed, define nodeSelector for vault operator
-  nodeSelector: 
+  nodeSelector:
     node-role.kubernetes.io/master: "true"
 
   podSecurityContext: {}
@@ -98,3 +98,13 @@ vault:
       metricRelabelings: []
       relabelings: []
 
+secretGenerator:
+  schedule: "*/5 * * * *"
+  image:
+    repository: ghcr.io/ubiquitycluster/vault-secret-generator
+    tag: v0.1.0
+    pullPolicy: IfNotPresent
+  vaultAddr: http://vault:8200
+  tokenSecret:
+    name: vault-secret-generator-token
+    key: token

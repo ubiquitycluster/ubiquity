@@ -5,10 +5,12 @@ import (
 	"io"
 	"os"
 	"os/exec"
+	"path/filepath"
 	"reflect"
 	"strings"
 	"testing"
 
+	"github.com/ubiquitycluster/ubiquity/pkg/aiplatform"
 	"github.com/ubiquitycluster/ubiquity/pkg/provision"
 )
 
@@ -137,14 +139,43 @@ func TestReadK3sImage(t *testing.T) {
 
 func TestProvisionMetalProd(t *testing.T) {
 	old := upLifecycle
-	defer func() { upLifecycle = old }()
+	oldAnsible := ansibleProvisioner
+	defer func() {
+		upLifecycle = old
+		ansibleProvisioner = oldAnsible
+	}()
 	upLifecycle = upLifecycleOptions{}
+	var gotEnv string
+	ansibleProvisioner = func(env string) error {
+		gotEnv = env
+		return nil
+	}
 	err := provisionMetal("prod")
 	if err != nil {
 		t.Fatalf("provisionMetal prod failed: %v", err)
 	}
+	if gotEnv != "prod" {
+		t.Fatalf("ansible provisioner env = %q, want prod", gotEnv)
+	}
 	if upLifecycle.MetalBootstrapBackend != "ansible" || upLifecycle.NodeLifecycleBackend != "nico" {
 		t.Fatalf("prod defaults = %s/%s, want ansible/nico", upLifecycle.MetalBootstrapBackend, upLifecycle.NodeLifecycleBackend)
+	}
+}
+
+func TestProvisionExternalCloudProvidersUseTerraformWrapper(t *testing.T) {
+	oldTerraform := terraformProvisioner
+	defer func() { terraformProvisioner = oldTerraform }()
+
+	var gotDir string
+	terraformProvisioner = func(cloudDir string) error {
+		gotDir = cloudDir
+		return nil
+	}
+	if err := provisionExternal("aws"); err != nil {
+		t.Fatalf("provisionExternal aws failed: %v", err)
+	}
+	if gotDir != "cloud/aws" {
+		t.Fatalf("terraform dir = %q, want cloud/aws", gotDir)
 	}
 }
 
@@ -218,6 +249,85 @@ func TestApplySandboxCharts(t *testing.T) {
 	}
 	if len(targets) == 0 {
 		t.Fatal("expected sandbox deploy targets")
+	}
+}
+
+func TestPrepareHelmChartWorkdirDoesNotMutateSourceChart(t *testing.T) {
+	chartDir := filepath.Join(t.TempDir(), "example-chart")
+	chartsDir := filepath.Join(chartDir, "charts")
+	if err := os.MkdirAll(chartsDir, 0o755); err != nil {
+		t.Fatalf("mkdir charts: %v", err)
+	}
+	for path, content := range map[string]string{
+		filepath.Join(chartDir, "Chart.yaml"):          "apiVersion: v2\nname: example\nversion: 0.1.0\n",
+		filepath.Join(chartDir, "Chart.lock"):          "dependencies: []\n",
+		filepath.Join(chartsDir, "dependency.tgz"):     "placeholder",
+		filepath.Join(chartDir, "values-sandbox.yaml"): "sandbox: true\n",
+	} {
+		if err := os.WriteFile(path, []byte(content), 0o644); err != nil {
+			t.Fatalf("write %s: %v", path, err)
+		}
+	}
+
+	workChartDir, cleanup, err := prepareHelmChartWorkdir(chartDir)
+	if err != nil {
+		t.Fatalf("prepareHelmChartWorkdir failed: %v", err)
+	}
+	if workChartDir == chartDir {
+		t.Fatal("work chart dir must not be the source chart dir")
+	}
+	cleanup()
+
+	for _, path := range []string{
+		filepath.Join(chartDir, "Chart.lock"),
+		filepath.Join(chartsDir, "dependency.tgz"),
+		filepath.Join(chartDir, "values-sandbox.yaml"),
+	} {
+		if _, err := os.Stat(path); err != nil {
+			t.Fatalf("source chart artifact %s was mutated or removed: %v", path, err)
+		}
+	}
+}
+
+func TestNvidiaAISandboxTargetsIncludeFirstPartyAIPlatformCharts(t *testing.T) {
+	targets, err := collectSandboxDeployTargets()
+	if err != nil {
+		t.Fatalf("collectSandboxDeployTargets failed: %v", err)
+	}
+
+	filtered := filterNvidiaAISandboxDeployTargets(targets)
+	got := map[string]sandboxDeployTarget{}
+	for _, target := range filtered {
+		got[target.ChartDir] = target
+	}
+
+	profile, err := aiplatform.GetProfile("ai-production")
+	if err != nil {
+		t.Fatalf("GetProfile(ai-production): %v", err)
+	}
+	for _, gitOpsTarget := range aiPlatformGitOpsTargets(profile) {
+		target, ok := got[gitOpsTarget.Path]
+		if !ok {
+			t.Fatalf("NVIDIA AI sandbox render validation missing GitOps target %s", gitOpsTarget.Path)
+		}
+		if target.Namespace != gitOpsTarget.Namespace {
+			t.Fatalf("sandbox target %s namespace = %q, want GitOps namespace %q", gitOpsTarget.Path, target.Namespace, gitOpsTarget.Namespace)
+		}
+	}
+}
+
+func TestProvisionBootstrapSandboxSkipSecuritySmokeModeAvoidsDirectChartApply(t *testing.T) {
+	oldSkip := skipSecurity
+	defer func() { skipSecurity = oldSkip }()
+
+	skipSecurity = false
+	if !bootstrapShouldApplySandboxCharts("sandbox") {
+		t.Fatal("sandbox bootstrap should apply direct charts by default")
+	}
+
+	skipSecurity = true
+	if bootstrapShouldApplySandboxCharts("sandbox") {
+		t.Fatal("sandbox --skip-security smoke mode should not directly apply every chart")
 	}
 }
 

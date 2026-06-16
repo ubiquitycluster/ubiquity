@@ -33,7 +33,7 @@ func TestRenderStatusNil(t *testing.T) {
 }
 
 func TestPrintStatusNoPanic(t *testing.T) {
-	PrintStatus(nil) // should not panic
+	PrintStatus(nil)                        // should not panic
 	PrintStatus(provision.NewState("test")) // should not panic
 }
 

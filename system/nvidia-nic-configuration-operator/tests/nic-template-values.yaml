@@ -1,0 +1,19 @@
+nicConfigurationTemplates:
+  - name: connectx6dx-roce
+    nodeSelector:
+      feature.node.kubernetes.io/network-sriov.capable: "true"
+    nicSelector:
+      nicType: "101d"
+    validation:
+      rdma:
+        minimumReadyNodes: 2
+    template:
+      numVfs: 0
+      linkType: Ethernet
+      pciPerformanceOptimized:
+        enabled: true
+      roceOptimized:
+        enabled: true
+      gpuDirectOptimized:
+        enabled: true
+        env: Baremetal

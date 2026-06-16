@@ -5,7 +5,7 @@ Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 
-    https://github.com/ubiquitycluster/ubiquity/blob/main/LICENSE
+	https://github.com/ubiquitycluster/ubiquity/blob/main/LICENSE
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -29,7 +29,7 @@ var initCmd = &cobra.Command{
 	Short: "Bootstrap Ubiquity configuration",
 	Long:  `Initialize Ubiquity configuration in ~/.ubiquity/. Creates skeleton config with default values.`,
 	RunE: func(cmd *cobra.Command, args []string) error {
-		env, _ := cmd.Flags().GetString("env")
+		env := Env()
 
 		home, _ := os.UserHomeDir()
 		ubiquityDir := filepath.Join(home, ".ubiquity")
@@ -47,16 +47,16 @@ var initCmd = &cobra.Command{
 env: ` + env + `
 
 # Cluster domain for ingress and DNS
-# domain: ubiquitycluster.uk
+domain: ubiquitycluster.uk
 
 # Default timezone for cluster nodes
-# timezone: Europe/London
+timezone: Europe/London
 
 # Text editor for configuration review
 # editor: vi
 
 # Ingress provider: nginx, traefik, haproxy, contour
-# ingress_provider: nginx
+ingress_provider: nginx
 
 # Operating system for nodes: Rocky, Ubuntu, Fedora
 # os: Rocky

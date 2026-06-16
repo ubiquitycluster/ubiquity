@@ -55,9 +55,9 @@ Yes, it runs on tiny hardware!
 ### Raspberry Pi (Experimental)
 You can run Ubiquity on Raspberry Pi 4/5 clusters (64-bit OS required).
 Build the CLI for arm64:
-​```
+```
 GOARCH=arm64 make cli
-​```
+```
 
 ### Features
 
@@ -307,5 +307,5 @@ Here is a list of the contributors/supporters who have helped to improve this pr
 - ![](https://github.com/tomgreen66.png?size=24) [@tomgreen66](https://github.com/tomgreen66)
 - ![](https://github.com/scottrhodges.png?size=24) [@scottrhodges](https://github.com/scottrhodges)
 - ![](https://github.com/vsoch.png?size=24) [Vanessa Sochat](https://github.com/vsoch)
-  
+
 If you feel you're missing from this list, feel free to add yourself in a PR.

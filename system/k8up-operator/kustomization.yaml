@@ -15,7 +15,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# TODO switch back to Helm when they include CRDs
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 

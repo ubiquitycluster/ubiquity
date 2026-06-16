@@ -18,6 +18,7 @@ const (
 	CapabilityScheduler              Capability = "scheduler"
 	CapabilityBareMetalOrchestration Capability = "bare-metal-orchestration"
 	CapabilityVirtualization         Capability = "virtualization"
+	CapabilityUnifiedFrontend        Capability = "unified-frontend"
 )
 
 // Component records the upstream source of a platform component and whether it
@@ -132,6 +133,18 @@ var nvidiaNetworkOperator = Component{
 	Notes:             "Profile-driven RDMA, secondary-network, and NIC policy layer for GPU networking.",
 }
 
+var nvidiaNICConfigurationOperator = Component{
+	Name:              "nvidia-nic-configuration-operator",
+	SourceRepo:        "https://github.com/Mellanox/nic-configuration-operator",
+	ChartName:         "nvidia-nic-configuration-operator",
+	ChartRepository:   "file://system/nvidia-nic-configuration-operator",
+	Version:           "9a42b0e",
+	Namespace:         "network-operator",
+	ReplacesLocal:     true,
+	ProductionDefault: true,
+	Notes:             "Production NIC configuration guardrail for NVIDIA ConnectX NIC templates, firmware storage boundaries, RoCE tuning, SR-IOV, and GPUDirect-safe NIC settings.",
+}
+
 var kaiScheduler = Component{
 	Name:              "kai-scheduler",
 	SourceRepo:        "https://github.com/NVIDIA/KAI-Scheduler",
@@ -239,7 +252,7 @@ var profiles = map[string]Profile{
 		Name:         "gpu-rdma",
 		Description:  "GPU Operator plus NVIDIA Network Operator/RDMA validation and Stallscope fabric stall telemetry.",
 		Capabilities: []Capability{CapabilityGPU, CapabilityRDMA, CapabilityServing, CapabilityTelemetry, CapabilityValidation},
-		Components:   []Component{gpuOperator, dcgmExporter, stallscope, nvidiaNetworkOperator, nimOperator, aicr, ollama},
+		Components:   []Component{gpuOperator, dcgmExporter, stallscope, nvidiaNetworkOperator, nvidiaNICConfigurationOperator, nimOperator, aicr, ollama},
 	},
 	"gpu-mig": {
 		Name:         "gpu-mig",
@@ -250,7 +263,7 @@ var profiles = map[string]Profile{
 	"ai-production": {
 		Name:         "ai-production",
 		Description:  "Full NVIDIA-backed AI workload platform profile with GPU, RDMA, serving, observability, workload stall telemetry, storage/data-plane evaluation, KubeVirt virtualization, security, and E2E validation.",
-		Capabilities: []Capability{CapabilityGPU, CapabilityRDMA, CapabilityServing, CapabilityTelemetry, CapabilityValidation, CapabilityStorage, CapabilityScheduler, CapabilityBareMetalOrchestration, CapabilityVirtualization},
-		Components:   []Component{gpuOperator, dcgmExporter, stallscope, nvidiaNetworkOperator, nimOperator, kaiScheduler, kubevirt, cdi, multusCNI, aicr, aiStore, ollama},
+		Capabilities: []Capability{CapabilityGPU, CapabilityRDMA, CapabilityServing, CapabilityTelemetry, CapabilityValidation, CapabilityStorage, CapabilityScheduler, CapabilityBareMetalOrchestration, CapabilityVirtualization, CapabilityUnifiedFrontend},
+		Components:   []Component{gpuOperator, dcgmExporter, stallscope, nvidiaNetworkOperator, nvidiaNICConfigurationOperator, nimOperator, kaiScheduler, kubevirt, cdi, multusCNI, aicr, aiStore, ollama},
 	},
 }

@@ -1,0 +1,37 @@
+suite: test nvidia nic configuration operator firmware storage
+
+templates:
+  - templates/nic-fw-storage-pvc.yaml
+
+tests:
+  - it: does not render firmware storage by default
+    asserts:
+      - hasDocuments:
+          count: 0
+
+  - it: fails rather than binding firmware storage to an implicit default StorageClass
+    set:
+      nicFirmwareStorage.create: true
+      nicFirmwareStorage.pvcName: nic-fw-storage-pvc
+      nicFirmwareStorage.storageClassName: ""
+    asserts:
+      - failedTemplate:
+          errorMessage: nicFirmwareStorage.create=true requires nicFirmwareStorage.storageClassName; Ubiquity will not bind NIC firmware storage to an implicit default StorageClass
+
+  - it: renders explicit firmware storage when approved
+    set:
+      nicFirmwareStorage.create: true
+      nicFirmwareStorage.pvcName: nic-fw-storage-pvc
+      nicFirmwareStorage.storageClassName: nico-firmware-rwx
+    asserts:
+      - isKind:
+          of: PersistentVolumeClaim
+      - equal:
+          path: metadata.name
+          value: nic-fw-storage-pvc
+      - equal:
+          path: spec.storageClassName
+          value: nico-firmware-rwx
+      - contains:
+          path: spec.accessModes
+          content: ReadWriteMany

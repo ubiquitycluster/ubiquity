@@ -7,9 +7,30 @@ import (
 	"os"
 	"strings"
 
+	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
 	"github.com/ubiquitycluster/ubiquity/pkg/provision"
 )
+
+type statusModel struct {
+	state *provision.State
+}
+
+func (m statusModel) Init() tea.Cmd {
+	return nil
+}
+
+func (m statusModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
+	switch msg.(type) {
+	case tea.KeyMsg:
+		return m, tea.Quit
+	}
+	return m, nil
+}
+
+func (m statusModel) View() string {
+	return RenderStatus(m.state)
+}
 
 var (
 	// Colors
@@ -125,5 +146,8 @@ func PrintStatus(state *provision.State) {
 		return
 	}
 
-	fmt.Print(RenderStatus(state))
+	program := tea.NewProgram(statusModel{state: state}, tea.WithOutput(os.Stdout))
+	if _, err := program.Run(); err != nil {
+		fmt.Print(RenderStatus(state))
+	}
 }
