@@ -51,7 +51,7 @@ Everything is automated. After you edit the configuration files, you just need t
 
 **Option 1: Build the `./cloud` layer:**
 - Bootstrap OS and drivers via Terraform on chosen cloud provider
-- Set up network policies to open a secure channel between cloud provider and bootstrap/on-premises environment  
+- Set up network policies to open a secure channel between cloud provider and bootstrap/on-premises environment
 - Build a Kubernetes cluster (based on k3s)
 
 **Option 2: Build the `./metal` layer:**

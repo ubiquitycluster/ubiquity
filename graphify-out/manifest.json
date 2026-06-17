@@ -500,9 +500,9 @@
     "semantic_hash": "d04be40ca54f65e59e6d000066399dd3"
   },
   "cmd/ubiquity/cmd/cloud.go": {
-    "mtime": 1781095622.0,
-    "ast_hash": "b51b4e5aeff55136e4edc2804be1be5b",
-    "semantic_hash": "b51b4e5aeff55136e4edc2804be1be5b"
+    "mtime": 1781658374.1954064,
+    "ast_hash": "f4c11e15c8aaf8db995588d1430503c5",
+    "semantic_hash": ""
   },
   "cmd/ubiquity/cmd/cloud_test.go": {
     "mtime": 1781095622.0,
@@ -2215,8 +2215,8 @@
     "semantic_hash": "993fa7be77d40e5649c39557c78a59e3"
   },
   "bootstrap/README.md": {
-    "mtime": 1781657457.9919815,
-    "ast_hash": "13c400910e5c6c7d10273fcbc7a1cb1e",
+    "mtime": 1781658518.418024,
+    "ast_hash": "103047d10d57250d6ebab4f380da4089",
     "semantic_hash": ""
   },
   "bootstrap/argocd/Chart.yaml": {
@@ -3105,8 +3105,8 @@
     "semantic_hash": "bedcbfafbab3058e64f4c276745af375"
   },
   "docs/architecture/overview.md": {
-    "mtime": 1781657414.89159,
-    "ast_hash": "b26435f13739137fd76a7ccfc8623e49",
+    "mtime": 1781658518.4192507,
+    "ast_hash": "f0cfb6e795180f9c07afde8b379a869d",
     "semantic_hash": ""
   },
   "docs/changelog.md": {
@@ -6310,8 +6310,8 @@
     "semantic_hash": ""
   },
   "plans/README.md": {
-    "mtime": 1781657589.0518637,
-    "ast_hash": "2b0be9119826c4e4be5d04818f748d30",
+    "mtime": 1781658593.965344,
+    "ast_hash": "bd70d10d8bdcec3b945a2f023faad62c",
     "semantic_hash": ""
   },
   "platform/ai-workload-tenancy/tests/unsafe-tenant-name-values.yaml": {
@@ -6425,13 +6425,13 @@
     "semantic_hash": ""
   },
   "pkg/cloud/multicluster_netbird_test.go": {
-    "mtime": 1781657482.2694087,
-    "ast_hash": "bef61a9b52737c43fc55e6d6f6c51bf1",
+    "mtime": 1781658641.8174822,
+    "ast_hash": "37d3d09defb91bde6ae63e0f37f8c1b5",
     "semantic_hash": ""
   },
   "docs/architecture/multi-cluster-netbird.md": {
-    "mtime": 1781657383.3990865,
-    "ast_hash": "97859da5f13183fcb10cf2d94ac57fc8",
+    "mtime": 1781658412.6461809,
+    "ast_hash": "0b1fc8ffa54a400cded3359d5ec5ea91",
     "semantic_hash": ""
   },
   "docs/reference/multi-cluster-netbird/application-set.yaml": {
@@ -6452,6 +6452,26 @@
   "plans/013-netbird-multicluster-overlay.md": {
     "mtime": 1781657589.2872243,
     "ast_hash": "c37f194ca209331e34ae4b1c552f8816",
+    "semantic_hash": ""
+  },
+  "cmd/ubiquity/cmd/cloud_netbird_test.go": {
+    "mtime": 1781658227.2776608,
+    "ast_hash": "cc67007ff24d80f813d1e92adb484d3e",
+    "semantic_hash": ""
+  },
+  "pkg/cloud/netbird_multicluster.go": {
+    "mtime": 1781658641.43056,
+    "ast_hash": "c5e03d5c807aa9728ffd5d99e4881803",
+    "semantic_hash": ""
+  },
+  "pkg/cloud/netbird_multicluster_test.go": {
+    "mtime": 1781658641.0322762,
+    "ast_hash": "e465817664db68986f5735b2da45631f",
+    "semantic_hash": ""
+  },
+  "plans/014-netbird-multicluster-functionality.md": {
+    "mtime": 1781658602.1828866,
+    "ast_hash": "de3ff2049b46fa06f99b8937d857ac93",
     "semantic_hash": ""
   }
 }

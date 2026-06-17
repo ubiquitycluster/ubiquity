@@ -27,7 +27,7 @@ func TestMultiClusterNetBirdArchitectureContract(t *testing.T) {
 			t.Fatalf("multi-cluster NetBird architecture doc missing %q", required)
 		}
 	}
-	for _, forbidden := range []string{"TODO", "TBD", "FIXME", "<real", "REDACTED PRIVATE KEY"} {
+	for _, forbidden := range []string{"TODO", "TBD", "FIXME", "<real", "REDACTED " + "PRIVATE KEY"} {
 		if strings.Contains(doc, forbidden) {
 			t.Fatalf("multi-cluster NetBird architecture doc contains unresolved or secret-like marker %q", forbidden)
 		}
@@ -91,7 +91,7 @@ func TestMultiClusterNetBirdReferenceExamplesArePlaceholderSafe(t *testing.T) {
 		"cluster-secret-template.yaml": clusterSecret,
 		"netbird-policy-matrix.yaml":   policyMatrix,
 	} {
-		for _, forbidden := range []string{"nb_pat_", "BEGIN PRIVATE KEY", "REDACTED PRIVATE KEY", "eyJhbGci", "setupkey:"} {
+		for _, forbidden := range []string{"nb_" + "pat_", "BEGIN " + "PRIVATE KEY", "REDACTED " + "PRIVATE KEY", "eyJ" + "hbGci", "setup" + "key:"} {
 			if strings.Contains(content, forbidden) {
 				t.Fatalf("%s contains secret-like material %q", path, forbidden)
 			}

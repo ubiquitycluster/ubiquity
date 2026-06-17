@@ -110,6 +110,22 @@ Recommended labels:
 
 ApplicationSets must target the narrowest useful label set. For example, deploy NICo only when `ubiquity.io/rdma=true` or a NIC-specific label is present; deploy inference only when `ubiquity.io/inference=true`; deploy customer workloads only with tenant/customer selectors.
 
+Ubiquity can render the initial overlay bundle directly from the CLI:
+
+```sh
+ubiquity cloud render netbird-overlay \
+  --management-cluster ubiquity-management \
+  --regional-cluster spanish-fork-gpu-01 \
+  --fleet-region us-west \
+  --fleet-site spanish-fork \
+  --fleet-storage vast \
+  --fleet-gpu-class h100 \
+  --netbird-server https://NETBIRD_OVERLAY_IP_OR_DNS:6443 \
+  --gitops-revision pinned-by-gitops
+```
+
+Use `ubiquity cloud apply netbird-overlay` for server-side dry-run validation before switching to a mutating apply flow. The rendered bundle includes only placeholder credential fields; real ArgoCD cluster bearer tokens, CA data, NetBird setup keys, and PATs must come from SOPS, External Secrets, Sealed Secrets, or an equivalent external secret workflow.
+
 ## GitOps rollout pattern
 
 Use a repo shape that separates platform apps from regional overlays:
@@ -138,7 +154,7 @@ apps/
     vast-csi/
 ```
 
-ArgoCD ApplicationSet can use cluster selectors plus Git generators to build one Application per matching cluster and app directory. See `docs/reference/multi-cluster-netbird/application-set.yaml` for a placeholder-safe example.
+ArgoCD ApplicationSet can use cluster selectors plus Git generators to build one Application per matching cluster and app directory. See `docs/reference/multi-cluster-netbird/application-set.yaml` for a placeholder-safe example and `ubiquity cloud render netbird-overlay` for the executable bundle renderer.
 
 Cluster registration uses standard ArgoCD cluster secrets with a NetBird-reachable `server` URL. See `docs/reference/multi-cluster-netbird/cluster-secret-template.yaml`. The template intentionally uses placeholders and must not be applied until a deployment process injects real, external secret material.
 
