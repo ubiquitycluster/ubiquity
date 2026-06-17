@@ -64,6 +64,10 @@ markdown_extensions:
 nav:
   - Home: index.md
   - Getting Started: getting-started.md
+  - Architecture:
+    - Overview: architecture/overview.md
+    - Networking: architecture/networking.md
+    - Multi-cluster NetBird Overlay: architecture/multi-cluster-netbird.md
   - Admin Guide:
     - Overview: admin-guide/index.md
     - Deployment:

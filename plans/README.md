@@ -19,6 +19,7 @@ Last reconciled: 2026-06-15
 | [010](010-integrate-nvidia-nic-configuration-operator.md) | Integrate NVIDIA NIC Configuration Operator | P1 | nico/networking/platform-integration | L | HIGH | DONE | none |
 | [011](011-developer-workflow-community-readiness.md) | Developer workflow and community readiness | P2 | developer-experience/tests/community-readiness | M | MED | DONE | none |
 | [012](012-platform-operations-config-hardening.md) | Platform operations configuration hardening | P2 | platform-ops/config-hardening/observability | M | MED | DONE | none |
+| [013](013-netbird-multicluster-overlay.md) | Add NetBird multi-cluster overlay architecture | P1 | architecture/docs/tests/gitops | M | MED | DONE | none |
 
 ## Status meanings
 
