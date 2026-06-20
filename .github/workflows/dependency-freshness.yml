@@ -26,7 +26,7 @@ jobs:
         run: test/e2e/dependency-freshness-report.sh --dry-run
 
       - name: Upload dependency freshness report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: dependency-freshness-report
           path: /tmp/ubiquity-security/dependency-freshness-report.md
