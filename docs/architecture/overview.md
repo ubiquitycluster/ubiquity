@@ -34,6 +34,10 @@
 
 Most `./system` and `./platform` components use Helm as the component packaging boundary: charts own templates, values, dependency metadata, and chart tests. Kustomize remains the environment-specific patches and composition boundary. The main exception is `platform/hpc-ubiq`, which keeps legacy HPC/Slurm composition as Kustomize overlays until those workloads are split into stable charted components. `system/core-services` adds a thin ArgoCD Application orchestration layer over these component charts and vetted public charts; see [Core services architecture](core-services.md) and [Kustomize and Helm relationship](kustomize-helm.md).
 
+### Geographic fleet model
+
+Ubiquity's geographic model is a fleet of independent clusters rather than a single stretched cluster. A management cluster runs ArgoCD and private fleet services, while each regional workload cluster owns its Kubernetes API, CNI, storage, ingress, GPU/RDMA stack, and NICo policy. NetBird can provide the private control/data overlay for GitOps, admin access, and observability, while public inference traffic is routed by Geo DNS or a global load balancer to the nearest healthy regional endpoint. See [Multi-cluster NetBird overlay](multi-cluster-netbird.md).
+
 ### Support Components
 
 - **`./tools`** - Tools container with all utilities needed to manage the cluster and troubleshoot issues, including disk image building
@@ -47,7 +51,7 @@ Everything is automated. After you edit the configuration files, you just need t
 
 **Option 1: Build the `./cloud` layer:**
 - Bootstrap OS and drivers via Terraform on chosen cloud provider
-- Set up network policies to open a secure channel between cloud provider and bootstrap/on-premises environment  
+- Set up network policies to open a secure channel between cloud provider and bootstrap/on-premises environment
 - Build a Kubernetes cluster (based on k3s)
 
 **Option 2: Build the `./metal` layer:**

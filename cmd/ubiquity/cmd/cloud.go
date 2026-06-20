@@ -20,6 +20,7 @@ type cloudOptions struct {
 	Cluster            cloud.TenantClusterRequest
 	Service            cloud.ManagedServiceRequest
 	Backup             cloud.BackupPolicyRequest
+	NetBird            cloud.NetBirdMultiClusterOverlayRequest
 	ReadinessFile      string
 	ReadinessResources []string
 }
@@ -67,6 +68,19 @@ var cloudOpts = cloudOptions{
 		PresetCPU:            "16",
 		PresetMemory:         "128Gi",
 		PresetGPU:            "1",
+	},
+	NetBird: cloud.NetBirdMultiClusterOverlayRequest{
+		ManagementCluster: "ubiquity-management",
+		RegionalCluster:   "spanish-fork-gpu-01",
+		Namespace:         "argocd",
+		Region:            "us-west",
+		Site:              "spanish-fork",
+		TrustTier:         "production",
+		StorageProvider:   "vast",
+		GPUClass:          "h100",
+		NetBirdServer:     "https://NETBIRD_OVERLAY_IP_OR_DNS:6443",
+		RepoURL:           "https://github.com/ubiquitycluster/ubiquity.git",
+		TargetRevision:    "pinned-by-gitops",
 	},
 }
 
@@ -116,6 +130,16 @@ func init() {
 	cloudCmd.PersistentFlags().StringVar(&cloudOpts.Backup.PresetCPU, "preset-cpu", cloudOpts.Backup.PresetCPU, "resource preset CPU")
 	cloudCmd.PersistentFlags().StringVar(&cloudOpts.Backup.PresetMemory, "preset-memory", cloudOpts.Backup.PresetMemory, "resource preset memory")
 	cloudCmd.PersistentFlags().StringVar(&cloudOpts.Backup.PresetGPU, "preset-gpu", cloudOpts.Backup.PresetGPU, "resource preset GPU count")
+	cloudCmd.PersistentFlags().StringVar(&cloudOpts.NetBird.ManagementCluster, "management-cluster", cloudOpts.NetBird.ManagementCluster, "management cluster name for NetBird multi-cluster overlay")
+	cloudCmd.PersistentFlags().StringVar(&cloudOpts.NetBird.RegionalCluster, "regional-cluster", cloudOpts.NetBird.RegionalCluster, "regional workload cluster name for NetBird multi-cluster overlay")
+	cloudCmd.PersistentFlags().StringVar(&cloudOpts.NetBird.Namespace, "argocd-namespace", cloudOpts.NetBird.Namespace, "ArgoCD namespace for NetBird multi-cluster resources")
+	cloudCmd.PersistentFlags().StringVar(&cloudOpts.NetBird.Region, "fleet-region", cloudOpts.NetBird.Region, "regional Ubiquity cluster geography label")
+	cloudCmd.PersistentFlags().StringVar(&cloudOpts.NetBird.Site, "fleet-site", cloudOpts.NetBird.Site, "regional Ubiquity cluster site label")
+	cloudCmd.PersistentFlags().StringVar(&cloudOpts.NetBird.StorageProvider, "fleet-storage", cloudOpts.NetBird.StorageProvider, "regional Ubiquity cluster storage provider label")
+	cloudCmd.PersistentFlags().StringVar(&cloudOpts.NetBird.GPUClass, "fleet-gpu-class", cloudOpts.NetBird.GPUClass, "regional Ubiquity cluster GPU class label")
+	cloudCmd.PersistentFlags().StringVar(&cloudOpts.NetBird.NetBirdServer, "netbird-server", cloudOpts.NetBird.NetBirdServer, "NetBird-reachable regional Kubernetes API URL or placeholder")
+	cloudCmd.PersistentFlags().StringVar(&cloudOpts.NetBird.RepoURL, "gitops-repo", cloudOpts.NetBird.RepoURL, "GitOps repository URL for NetBird ApplicationSets")
+	cloudCmd.PersistentFlags().StringVar(&cloudOpts.NetBird.TargetRevision, "gitops-revision", cloudOpts.NetBird.TargetRevision, "GitOps target revision for NetBird ApplicationSets")
 	cloudCmd.PersistentFlags().StringVar(&cloudOpts.ReadinessFile, "readiness-file", cloudOpts.ReadinessFile, "JSON cloud readiness evidence file")
 	cloudCmd.PersistentFlags().StringSliceVar(&cloudOpts.ReadinessResources, "readiness-resource", nil, "resource API to collect readiness conditions from; repeat for multiple resources")
 
@@ -384,6 +408,8 @@ func renderCloudResource(resource string) (string, error) {
 		return cloud.RenderCloudOperatorBundles(cloud.CloudOperatorBundlesRequest{Name: "cloud-operators", Namespace: "ubiquity-system"})
 	case "governance", "policy-bundle", "cloud-governance":
 		return cloud.RenderCloudGovernance(cloud.CloudGovernanceRequest{Name: "tenant-a-governance", Namespace: "tenant-a"})
+	case "netbird-overlay", "netbird-multicluster", "multi-cluster-overlay", "multicluster-overlay":
+		return cloud.RenderNetBirdMultiClusterOverlay(cloudOpts.NetBird)
 	default:
 		return "", fmt.Errorf("unsupported cloud resource %q", resource)
 	}

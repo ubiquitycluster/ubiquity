@@ -59,6 +59,20 @@ The bundle captures a prerequisite contract, operator provenance, server-side dr
 
 Required live markers include service-specific tests for CNPG/Postgres, Redis, Kafka, Harbor registry, MariaDB, MongoDB, NATS, RabbitMQ, ClickHouse, OpenSearch, Qdrant, OpenBao/Vault-compatible secrets, HTTP cache, TCP balancer, and object bucket claims. Restore readiness requires `restore-drill-controller-succeeded`, `restore-drill-readable`, and `cloud-restore-drill-smoke-passed`. Tenant cluster readiness requires `tenant-cluster-kubeconfig-present`, `tenant-cluster-api-reachable`, and `tenant-cluster-nodes-ready` in addition to Cluster API conditions.
 
+## Multi-cluster NetBird and traffic promotion evidence
+
+When a regional Ubiquity cluster is connected through NetBird, NetBird peer status and private API reachability are only control-plane evidence. They are not proof that the regional AI service can receive public traffic. Before adding a region to Geo DNS or a global load balancer, collect live evidence from that exact cluster:
+
+- ArgoCD sync and health for the regional ApplicationSet target.
+- Kubernetes nodes Ready.
+- GPU or MIG allocatable capacity where inference requires GPUs.
+- `NetworkAttachmentDefinition` resources, positive `nvidia.com/rdma` capacity, and `rdma-network-smoke-test-passed` when RDMA is required.
+- NVIDIA NIC Configuration Operator reconciliation evidence for NIC-sensitive profiles.
+- A model-list call and representative inference smoke prompt against the regional endpoint.
+- Storage/model-cache readiness evidence for the model artifacts used by that region.
+
+Public inference traffic must not hairpin through NetBird. NetBird remains the private control/data overlay for GitOps, admin access, and observability; user traffic should enter a regional endpoint selected by Geo DNS or a global load balancer. See [Multi-cluster NetBird overlay](../architecture/multi-cluster-netbird.md).
+
 
 ## Live proof and approval boundary
 
