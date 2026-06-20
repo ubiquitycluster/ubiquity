@@ -90,3 +90,44 @@ func TestRenderNetBirdMultiClusterOverlayRejectsPublicHairpinRouting(t *testing.
 		t.Fatalf("expected stretched Kubernetes validation error, got %v", err)
 	}
 }
+
+func TestRenderNetBirdMultiClusterOverlayRejectsMultilineScalarInjection(t *testing.T) {
+	valid := NetBirdMultiClusterOverlayRequest{
+		ManagementCluster: "ubiquity-management",
+		RegionalCluster:   "spanish-fork-gpu-01",
+		Region:            "us-west",
+		Site:              "spanish-fork",
+	}
+	for _, tc := range []struct {
+		name   string
+		mutate func(*NetBirdMultiClusterOverlayRequest)
+	}{
+		{
+			name: "netbird server",
+			mutate: func(req *NetBirdMultiClusterOverlayRequest) {
+				req.NetBirdServer = "https://NETBIRD_OVERLAY_IP_OR_DNS:6443\n  insecure: true"
+			},
+		},
+		{
+			name: "gitops repo",
+			mutate: func(req *NetBirdMultiClusterOverlayRequest) {
+				req.RepoURL = "https://github.com/ubiquitycluster/ubiquity.git\n              path: /tmp/evil"
+			},
+		},
+		{
+			name: "gitops revision",
+			mutate: func(req *NetBirdMultiClusterOverlayRequest) {
+				req.TargetRevision = "main\n        syncPolicy: {}"
+			},
+		},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			req := valid
+			tc.mutate(&req)
+			_, err := RenderNetBirdMultiClusterOverlay(req)
+			if err == nil || !strings.Contains(err.Error(), "single-line") {
+				t.Fatalf("expected single-line validation error, got %v", err)
+			}
+		})
+	}
+}

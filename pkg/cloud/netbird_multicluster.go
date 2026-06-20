@@ -260,6 +260,15 @@ func validateNetBirdMultiClusterOverlay(req NetBirdMultiClusterOverlayRequest) e
 	if strings.Contains(strings.ToLower(req.TargetRevision), "latest") {
 		return fmt.Errorf("target revision must not use latest")
 	}
+	for field, value := range map[string]string{
+		"NetBird server":  req.NetBirdServer,
+		"GitOps repo":     req.RepoURL,
+		"target revision": req.TargetRevision,
+	} {
+		if strings.ContainsAny(value, "\r\n") {
+			return fmt.Errorf("%s must be single-line", field)
+		}
+	}
 	for _, secretMarker := range []string{"nb_" + "pat_", "setup" + "key:", "BEGIN " + "PRIVATE KEY", "eyJ" + "hbGci"} {
 		if strings.Contains(req.NetBirdServer+req.RepoURL+req.TargetRevision, secretMarker) {
 			return fmt.Errorf("NetBird overlay request contains secret-like material")
