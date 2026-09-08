@@ -45,6 +45,12 @@ A rendered `NetworkAttachmentDefinition`, Service, Ingress, HTTPProxy, or TCPRou
 
 `cloudflared` is an optional ingress tunnel pattern. It can expose cluster ingress through an outbound tunnel, but it does not replace Kubernetes readiness checks. A healthy tunnel is not proof that tenant services, NIM endpoints, object buckets, databases, or restore drills are ready.
 
+## Geographic multi-cluster overlay
+
+For geographically distributed AI platforms, Ubiquity uses NetBird as a private control/data overlay between independent Ubiquity clusters. NetBird is used for private GitOps control, administrator access, observability, and explicitly allowed private service paths. It is not a mechanism to stretch one Kubernetes cluster, CNI, RDMA fabric, NCCL collective, or storage system across regions.
+
+Public inference traffic should enter each regional cluster through that region's local ingress/Gateway path and be selected by Geo DNS or a global load balancer. Public inference traffic must not hairpin through NetBird or through the management cluster. The full operating model, ApplicationSet label taxonomy, NetBird policy matrix, and per-region readiness gates are documented in [Multi-cluster NetBird overlay](multi-cluster-netbird.md).
+
 ## Validation commands
 
 ```sh

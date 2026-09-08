@@ -1,0 +1,42 @@
+---
+# Placeholder-safe policy matrix for NetBird resources/groups used by the
+# multi-cluster Ubiquity architecture. This file is documentation input, not a
+# direct NetBird API object.
+policyMatrix:
+  - name: argocd-controller-to-regional-kube-apis
+    sourceGroup: argocd-controller
+    destinationGroup: regional-kube-apis
+    ports:
+      - tcp/6443
+      - tcp/16443
+    purpose: GitOps reconciliation against NetBird-reachable regional Kubernetes APIs.
+    boundary: No tenant workload or storage access.
+  - name: platform-admins-to-argocd-ui
+    sourceGroup: platform-admins
+    destinationGroup: argocd-ui
+    ports:
+      - tcp/443
+    purpose: Private ArgoCD UI and API access for authorized platform administrators.
+    boundary: ArgoCD remains unavailable through public ingress unless separately approved.
+  - name: sre-admins-to-observability-private
+    sourceGroup: sre-admins
+    destinationGroup: observability-private
+    ports:
+      - tcp/3000
+      - tcp/9090
+      - tcp/9093
+    purpose: Private Grafana, Prometheus, and Alertmanager access.
+    boundary: Does not imply application namespace access.
+  - name: ci-runners-to-argocd-api
+    sourceGroup: ci-runners
+    destinationGroup: argocd-api
+    ports:
+      - tcp/443
+    purpose: Controlled sync/deploy automation.
+    boundary: CI cannot reach regional cluster APIs directly unless explicitly granted.
+  - name: regional-clusters-default-deny
+    sourceGroup: regional-clusters
+    destinationGroup: regional-clusters
+    ports: []
+    purpose: No broad regional east-west access by default.
+    boundary: Add workload-specific private service policies only after review.

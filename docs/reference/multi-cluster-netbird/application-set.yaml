@@ -1,0 +1,87 @@
+---
+# Placeholder-safe ApplicationSet examples for geographic Ubiquity fleets.
+# Replace repoURL/revision/path values through your deployment repository.
+apiVersion: v1
+kind: List
+items:
+  - apiVersion: argoproj.io/v1alpha1
+    kind: ApplicationSet
+    metadata:
+      name: ubiquity-regional-ai-platform
+      namespace: argocd
+    spec:
+      generators:
+        - matrix:
+            generators:
+              - clusters:
+                  selector:
+                    matchLabels:
+                      ubiquity.io/inference: "true"
+                      ubiquity.io/gpu: "true"
+              - git:
+                  repoURL: https://github.com/ubiquitycluster/ubiquity.git
+                  revision: main
+                  directories:
+                    - path: system/network-policies
+                    - path: system/nvidia-gpu-operator
+                    - path: system/nvidia-network-operator
+                    - path: system/nvidia-nic-configuration-operator
+                    - path: platform/nim-operator
+                    - path: platform/ai-workload-tenancy
+      template:
+        metadata:
+          name: '{{name}}-{{path.basename}}'
+          labels:
+            ubiquity.io/region: '{{metadata.labels.ubiquity\.io/region}}'
+            ubiquity.io/site: '{{metadata.labels.ubiquity\.io/site}}'
+            ubiquity.io/rdma: '{{metadata.labels.ubiquity\.io/rdma}}'
+            ubiquity.io/inference: '{{metadata.labels.ubiquity\.io/inference}}'
+        spec:
+          project: regional-ai-platform
+          source:
+            repoURL: https://github.com/ubiquitycluster/ubiquity.git
+            targetRevision: main
+            path: '{{path}}'
+          destination:
+            server: '{{server}}'
+            namespace: '{{path.basename}}'
+          syncPolicy:
+            automated:
+              prune: true
+              selfHeal: true
+            syncOptions:
+              - CreateNamespace=true
+              - ApplyOutOfSyncOnly=true
+  - apiVersion: argoproj.io/v1alpha1
+    kind: ApplicationSet
+    metadata:
+      name: ubiquity-rdma-readiness-smoke
+      namespace: argocd
+    spec:
+      generators:
+        - clusters:
+            selector:
+              matchLabels:
+                ubiquity.io/rdma: "true"
+                ubiquity.io/gpu: "true"
+      template:
+        metadata:
+          name: '{{name}}-rdma-smoke'
+          labels:
+            ubiquity.io/region: '{{metadata.labels.ubiquity\.io/region}}'
+            ubiquity.io/rdma: '{{metadata.labels.ubiquity\.io/rdma}}'
+        spec:
+          project: regional-ai-platform
+          source:
+            repoURL: https://github.com/ubiquitycluster/ubiquity.git
+            targetRevision: main
+            path: test/e2e/manifests/nvidia-rdma-smoke
+          destination:
+            server: '{{server}}'
+            namespace: ubiquity-readiness
+          syncPolicy:
+            automated:
+              prune: true
+              selfHeal: true
+            syncOptions:
+              - CreateNamespace=true

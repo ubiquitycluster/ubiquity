@@ -27,6 +27,12 @@ For every tenant, the associating `AppProject` provides a host of options for RB
 
 This helm chart takes these concepts of applications, projects, and tenants, and provides an easy, robust, and declarative way to define clusters that follow a similar gitops app of apps approach.
 
+## Multi-cluster NetBird fleet pattern
+
+For geographic Ubiquity fleets, keep each workload region as an independent Ubiquity cluster and register it into the management cluster's ArgoCD using a NetBird-reachable Kubernetes API endpoint. The management cluster can run ArgoCD plus the NetBird Kubernetes operator; the ArgoCD application-controller reaches remote APIs through the NetBird private overlay, while each regional cluster owns its own CNI, storage, ingress, GPU/RDMA stack, and NICo policy.
+
+ApplicationSets should target explicit cluster labels such as `ubiquity.io/region`, `ubiquity.io/site`, `ubiquity.io/gpu`, `ubiquity.io/rdma`, and `ubiquity.io/inference`. Public inference traffic should be routed by Geo DNS or a global load balancer to a regional endpoint after that exact region has live readiness evidence. Do not use NetBird to stretch one Kubernetes cluster across regions, and do not use NetBird as the public inference edge. See `docs/architecture/multi-cluster-netbird.md` and the placeholder-safe manifests under `docs/reference/multi-cluster-netbird/`.
+
 ## Example
 
 The following example maps a `values.yaml` file to it's respective architecture to demonstrate the available configurations:
